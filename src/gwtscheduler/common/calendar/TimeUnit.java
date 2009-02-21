@@ -1,4 +1,4 @@
-package gwtscheduler.common.event;
+package gwtscheduler.common.calendar;
 
 /**
  * Defines date units

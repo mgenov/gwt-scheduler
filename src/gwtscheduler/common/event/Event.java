@@ -1,5 +1,7 @@
 package gwtscheduler.common.event;
 
+import gwtscheduler.common.calendar.IDate;
+
 /**
  * Super class for events.
  * 

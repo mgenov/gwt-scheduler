@@ -1,8 +1,8 @@
 package gwtscheduler.common.event.simple;
 
+import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.EventType;
-import gwtscheduler.common.event.IDate;
 
 /**
  * Defines a simple event, ie, an event that does not last more than a day.

@@ -1,6 +1,6 @@
 package gwtscheduler.client.interfaces;
 
-import gwtscheduler.common.event.IDate;
+import gwtscheduler.common.calendar.IDate;
 
 /**
  * Defines event controller operations.

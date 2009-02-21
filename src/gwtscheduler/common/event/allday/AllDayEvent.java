@@ -1,8 +1,8 @@
 package gwtscheduler.common.event.allday;
 
+import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.EventType;
-import gwtscheduler.common.event.IDate;
 
 /**
  * Defines an all-day event.

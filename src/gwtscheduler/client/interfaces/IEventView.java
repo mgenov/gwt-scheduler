@@ -1,7 +1,7 @@
 package gwtscheduler.client.interfaces;
 
+import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.event.Event;
-import gwtscheduler.common.event.IDate;
 
 import java.util.Collection;
 
