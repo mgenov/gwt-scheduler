@@ -1,4 +1,4 @@
-package gwtscheduler.common;
+package gwtscheduler.junit.common;
 
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.model.DateTime;
