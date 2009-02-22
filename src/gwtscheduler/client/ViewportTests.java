@@ -14,6 +14,6 @@ public class ViewportTests implements EntryPoint {
      * This is the entry point method.
      */
     public void onModuleLoad() {
-        RootPanel.get().add(new ViewportPanel());
+        RootPanel.get("calendar-main").add(new ViewportPanel());
     }
 }
