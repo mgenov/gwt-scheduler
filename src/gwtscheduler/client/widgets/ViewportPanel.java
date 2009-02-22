@@ -1,5 +1,11 @@
 package gwtscheduler.client.widgets;
 
+import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
+import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Command;
@@ -7,7 +13,8 @@ import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Defines a viewport to calendar events.
@@ -19,9 +26,11 @@ import com.google.gwt.user.client.ui.FlowPanel;
 public class ViewportPanel extends Composite implements ResizeHandler {
 
     /** main container */
-    private FlowPanel container;
+    private ScrollPanel container;
     /** the minimum size for the target */
     private final int minWidth, minHeight;
+    /** widget collection for resize events */
+    private List<IViewportResizeHandler> resizeHandlers;
 
     /**
      * Default constructor.
@@ -30,7 +39,7 @@ public class ViewportPanel extends Composite implements ResizeHandler {
         minWidth = -1;
         minHeight = -1;
 
-        container = new FlowPanel();
+        container = new ScrollPanel();
         DecoratorPanel decorator = new DecoratorPanel();
         decorator.setWidget(container);
         initWidget(decorator);
@@ -70,11 +79,39 @@ public class ViewportPanel extends Composite implements ResizeHandler {
         if (maxHeight > 0) {
             container.setHeight(maxHeight + "px");
         }
+
+        if (resizeHandlers != null) {
+            ViewportResizeEvent event = new ViewportResizeEvent(maxWidth, maxHeight);
+            for (IViewportResizeHandler ira : resizeHandlers) {
+                ira.onViewportResize(event);
+            }
+        }
+    }
+
+    /**
+     * Adds a widget to this viewport.
+     * 
+     * @param w the widget
+     */
+    public void add(Widget w) {
+        container.add(w);
+    }
+
+    /**
+     * Adds a widget to this viewport.
+     * 
+     * @param w the widget
+     * @param handler the resize handler
+     */
+    public void add(Widget w, IViewportResizeHandler handler) {
+        container.add(w);
+        if (resizeHandlers == null) {
+            resizeHandlers = new ArrayList<IViewportResizeHandler>();
+        }
+        resizeHandlers.add(handler);
     }
 
     public void onResize(ResizeEvent event) {
-        // int w = JSNIUtil.getCurrentWindowWidth();
-        // int h = JSNIUtil.getCurrentWindowHeight();
         doResize(event.getWidth(), event.getHeight());
     }
 
