@@ -1,9 +1,11 @@
 package gwtscheduler.client.widgets;
 
+import gwtscheduler.client.utils.JSNIUtils;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -25,6 +27,9 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class ViewportPanel extends Composite implements ResizeHandler {
 
+    /** indicates if a resize occurred when this widget was not visible */
+    private boolean resizeQueued = false;
+
     /** main container */
     private ScrollPanel container;
     /** the minimum size for the target */
@@ -39,7 +44,10 @@ public class ViewportPanel extends Composite implements ResizeHandler {
         minWidth = -1;
         minHeight = -1;
 
+        // we never show hscroll
         container = new ScrollPanel();
+        container.getElement().getStyle().setProperty("overflowX", "hidden");
+
         DecoratorPanel decorator = new DecoratorPanel();
         decorator.setWidget(container);
         initWidget(decorator);
@@ -66,10 +74,16 @@ public class ViewportPanel extends Composite implements ResizeHandler {
      * @param h the available height
      */
     void doResize(int w, int h) {
+        // if a resize occurred, we'll queue the process
+        if (!isVisible()) {
+            resizeQueued = true;
+            return;
+        }
+
         // we'll have to use a little offset/margin because of borders
         // TODO use css resources to link the border width and this 'margin'
-        int maxWidth = w - container.getAbsoluteLeft() - 10;
-        int maxHeight = h - container.getAbsoluteTop() - 10;
+        int maxWidth = w - container.getAbsoluteLeft() - 30;
+        int maxHeight = h - container.getAbsoluteTop() - 30;
         maxWidth = Math.max(maxWidth, minWidth);
         maxHeight = Math.max(maxHeight, minHeight);
 
@@ -80,12 +94,45 @@ public class ViewportPanel extends Composite implements ResizeHandler {
             container.setHeight(maxHeight + "px");
         }
 
+        fireResizeEvent(maxWidth, maxHeight);
+        int offset = maybeGetScrollbarOffset();
+        if (offset > 0) {
+            fireResizeEvent(maxWidth - offset, maxHeight);
+        }
+    }
+
+    /**
+     * Fires the resize events.
+     * 
+     * @param w the width
+     * @param h the height
+     */
+    private void fireResizeEvent(int w, int h) {
         if (resizeHandlers != null) {
-            ViewportResizeEvent event = new ViewportResizeEvent(maxWidth, maxHeight);
+            ViewportResizeEvent event = new ViewportResizeEvent(w, h);
             for (IViewportResizeHandler ira : resizeHandlers) {
                 ira.onViewportResize(event);
             }
         }
+    }
+
+    /**
+     * Returns the scrollbar width, if the scrollbar is visible. Returns <code>0</code> if no scrollbar is visible.
+     * Applies only to vertical scrollbar.
+     * 
+     * @return the scrollbar width, or 0
+     */
+    private int maybeGetScrollbarOffset() {
+        // if there's a widget taller than the container, a vertical scroll bar will appear
+        // this will cause the available width to reduce
+        int height = container.getOffsetHeight();
+        for (Iterator<Widget> it = container.iterator(); it.hasNext();) {
+            Widget w = it.next();
+            if (w.getOffsetHeight() >= height) {
+                return JSNIUtils.getScrollBarWidth();
+            }
+        }
+        return 0;
     }
 
     /**
@@ -113,6 +160,15 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 
     public void onResize(ResizeEvent event) {
         doResize(event.getWidth(), event.getHeight());
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible && resizeQueued) {
+            doResize(Window.getClientWidth(), Window.getClientHeight());
+            resizeQueued = false;
+        }
     }
 
     @Override
