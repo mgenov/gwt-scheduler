@@ -1,37 +1,35 @@
-package gwtscheduler.client.widgets.view.day;
+package gwtscheduler.client.widgets.view.week;
 
 import gwtscheduler.client.utils.DebugUtils;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
 import gwtscheduler.client.widgets.view.WrapperWidget;
 
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 
 /**
- * Enter class description here.
+ * Utility class that fills the whole viewport
  * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
  */
-public class DayView extends WrapperWidget implements IViewportResizeHandler {
+public class WeekView extends WrapperWidget implements IViewportResizeHandler {
 
-    /** Main container */
-    private VerticalPanel container;
+    /** main container */
+    private FlowPanel container;
 
     /**
      * Default constructor.
      */
-    public DayView() {
-        container = new VerticalPanel();
+    public WeekView() {
+        container = new FlowPanel();
         wrapWidget(container);
-        container.add(new Label("xxx"));
-        // this helps visual debug
         DebugUtils.addBgColor(container.getElement());
     }
 
     public void onViewportResize(ViewportResizeEvent event) {
         container.setSize(event.width + "px", "96em");// 24h*4 lines
     }
+
 }

@@ -18,7 +18,18 @@ public class DebugUtils {
      * 
      * @param el the element
      */
-    public static void addBorder(Element el) {
+    public static void addBgColor(Element el) {
+        if (GWT.isClient()) {
+            DOM.setStyleAttribute(el, "backgroundColor", "silver");
+        }
+    }
+    
+    /**
+     * Adds a border to the element.
+     * 
+     * @param el the element
+     */
+    public static void addDebugBorder1(Element el) {
         if (GWT.isClient()) {
             DOM.setStyleAttribute(el, "border", "1px solid red");
         }

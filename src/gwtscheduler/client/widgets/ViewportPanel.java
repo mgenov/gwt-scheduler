@@ -14,7 +14,6 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -47,11 +46,7 @@ public class ViewportPanel extends Composite implements ResizeHandler {
         // we never show hscroll
         container = new ScrollPanel();
         container.getElement().getStyle().setProperty("overflowX", "hidden");
-
-        DecoratorPanel decorator = new DecoratorPanel();
-        decorator.setWidget(container);
-        initWidget(decorator);
-
+        initWidget(container);
         Window.addResizeHandler(this);
     }
 
@@ -82,8 +77,11 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 
         // we'll have to use a little offset/margin because of borders
         // TODO use css resources to link the border width and this 'margin'
-        int maxWidth = w - container.getAbsoluteLeft() - 30;
-        int maxHeight = h - container.getAbsoluteTop() - 30;
+        
+        // 30 is a magical number..
+        int magick = 30;
+        int maxWidth = w - container.getAbsoluteLeft() - magick;
+        int maxHeight = h - container.getAbsoluteTop() - magick;
         maxWidth = Math.max(maxWidth, minWidth);
         maxHeight = Math.max(maxHeight, minHeight);
 
@@ -94,10 +92,11 @@ public class ViewportPanel extends Composite implements ResizeHandler {
             container.setHeight(maxHeight + "px");
         }
 
-        fireResizeEvent(maxWidth, maxHeight);
         int offset = maybeGetScrollbarOffset();
         if (offset > 0) {
             fireResizeEvent(maxWidth - offset, maxHeight);
+        } else {
+            fireResizeEvent(maxWidth, maxHeight);
         }
     }
 
@@ -128,7 +127,7 @@ public class ViewportPanel extends Composite implements ResizeHandler {
         int height = container.getOffsetHeight();
         for (Iterator<Widget> it = container.iterator(); it.hasNext();) {
             Widget w = it.next();
-            if (w.getOffsetHeight() >= height) {
+            if (w.getOffsetHeight() >= height + 30) {
                 return JSNIUtils.getScrollBarWidth();
             }
         }
