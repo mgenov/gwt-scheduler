@@ -1,5 +1,6 @@
 package gwtscheduler.client;
 
+import gwtscheduler.client.resources.css.Resources;
 import gwtscheduler.client.widgets.ViewportPanel;
 import gwtscheduler.client.widgets.view.day.DayView;
 import gwtscheduler.client.widgets.view.month.MonthView;
@@ -18,6 +19,8 @@ public class ViewportTests implements EntryPoint {
      * This is the entry point method.
      */
     public void onModuleLoad() {
+        Resources.CommonCss().smallBorder();
+
         // days
         DayView dv = new DayView();
         ViewportPanel dView = new ViewportPanel();
@@ -38,6 +41,7 @@ public class ViewportTests implements EntryPoint {
         main.add(wView, "Week");
         main.add(mView, "Month");
         main.selectTab(0);
+
         RootPanel.get("calendar-main").add(main);
     }
 }

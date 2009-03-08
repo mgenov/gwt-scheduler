@@ -77,7 +77,7 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 
         // we'll have to use a little offset/margin because of borders
         // TODO use css resources to link the border width and this 'margin'
-        
+
         // 30 is a magical number..
         int magick = 30;
         int maxWidth = w - container.getAbsoluteLeft() - magick;
@@ -107,6 +107,10 @@ public class ViewportPanel extends Composite implements ResizeHandler {
      * @param h the height
      */
     private void fireResizeEvent(int w, int h) {
+        // don't work with negative values
+        if (w <= 0 || h <= 0)
+            return;
+
         if (resizeHandlers != null) {
             ViewportResizeEvent event = new ViewportResizeEvent(w, h);
             for (IViewportResizeHandler ira : resizeHandlers) {

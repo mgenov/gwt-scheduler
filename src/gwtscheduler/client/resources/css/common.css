@@ -1,0 +1,12 @@
+/**
+ * Common css file. Holds css styles that are applied
+ * throughout all the app.
+ * @see: http://code.google.com/docreader/#p=google-web-toolkit-incubator&s=google-web-toolkit-incubator&t=CssResource
+ */
+
+@def smallBorder 1px;
+@def black #000;
+
+.bordered {
+  border: small solid black;
+}
