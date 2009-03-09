@@ -5,7 +5,9 @@
 <!-- GWT Module for common source code-->
 <module>
    	<inherits name="com.google.gwt.user.User" />
-   	<inherits name='com.google.gwt.user.theme.standard.Standard'/>
+   	<!--
+   	<inherits name='com.google.gwt.user.theme.standard.Standard'/> 
+   	 -->
    	<inherits name="com.google.gwt.libideas.ImmutableResources" />
 	<inherits name="com.google.gwt.libideas.StyleInjector" />
 

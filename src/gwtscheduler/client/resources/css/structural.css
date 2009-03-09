@@ -5,9 +5,9 @@
  */
 
 @def smallPx 1px;
+@def smallPadding 4px; /*should be expression 1+3*/
 @def mediumPx 3px;
 @def smooth #DDD;
-
 
 .column {
   float: left;
@@ -19,7 +19,7 @@
  */
 .evenCell, .oddCell {
   border-left: mediumPx double smooth;
-  padding-right: 2px;
+  padding-right: smallPadding;
 }
 
 .evenCell {
@@ -30,3 +30,6 @@
   border-top: smallPx dotted smooth;
 }
 
+.horizontal-fill-grid tbody tr td{
+  padding: 0px;
+}

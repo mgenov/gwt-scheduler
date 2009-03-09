@@ -17,6 +17,11 @@ public interface CommonCss extends CssResource {
      * @return the border
      */
     int smallPx();
+    
+    /**
+     * @return
+     */
+    int smallPadding();
 
     /**
      * Defines a medium left css border size.

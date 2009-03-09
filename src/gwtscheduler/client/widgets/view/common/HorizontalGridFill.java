@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -23,7 +26,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class HorizontalGridFill extends Composite implements IViewportResizeHandler {
 
     private Widget parent;
-    private FlowPanel impl;
+    private HTMLTable impl;
     private List<Panel> columnWidgets;
 
     private int columns;
@@ -35,8 +38,11 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
      * @param cols
      */
     public HorizontalGridFill(Widget parent, int rows, int cols) {
-        impl = new FlowPanel();
-//        impl.setSize("100%", "100%");
+        impl = new Grid(1, cols);
+        impl.setBorderWidth(0);
+        impl.setStyleName("horizontal-fill-grid");
+        DOM.setStyleAttribute(impl.getElement(), "borderCollapse", "collapse");
+        
         initWidget(impl);
 
         this.parent = parent;
@@ -49,6 +55,7 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
             FlowPanel flowPanel = new FlowPanel();
             flowPanel.setStyleName("column");// TODO move to css resource
             columnWidgets.add(flowPanel);
+            impl.setWidget(0, i, flowPanel);
         }
 
     }
@@ -69,7 +76,6 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
         for (int c = 0; c < columns; c++) {
             Panel col = columnWidgets.get(c);
             col.setSize(availW + "px", h + "px");
-            impl.add(col);
 
             for (int r = 0; r < rows; r++) {
                 int id = (c * r) + r;
@@ -85,13 +91,12 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
         int w = parentEl.getOffsetWidth();
         int h = parentEl.getOffsetHeight();
         impl.setPixelSize(w, h);
-        
+
         int[] availableSize = getAvailableCellSize();
         for (Panel column : columnWidgets) {
-//            column.setWidth(availableSize[0] + "px");
             column.setSize(availableSize[0] + "px", h + "px");
             for (Iterator<Widget> it = column.iterator(); it.hasNext();) {
-                it.next().setPixelSize(getAvailableCellSize()[0], getAvailableCellSize()[1]);
+                it.next().setPixelSize(availableSize[0], availableSize[1]);
             }
         }
     }

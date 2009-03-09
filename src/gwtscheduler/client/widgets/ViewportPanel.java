@@ -1,11 +1,9 @@
 package gwtscheduler.client.widgets;
 
-import gwtscheduler.client.utils.JSNIUtils;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -33,11 +31,10 @@ public class ViewportPanel extends Composite implements ResizeHandler {
     private ScrollPanel container;
     /** the minimum size for the target */
     private final int minWidth, minHeight;
+    /** cached values */
+    private int lastWidth, lastHeight;
     /** widget collection for resize events */
     private List<IViewportResizeHandler> resizeHandlers;
-
-    /** cached scrollbar size */
-    private int cachedOffset = -1;
 
     /**
      * Default constructor.
@@ -78,32 +75,33 @@ public class ViewportPanel extends Composite implements ResizeHandler {
             return;
         }
 
+        // check if we are not resizing for the same dimensions
+        if (lastWidth == w || lastHeight == h) {
+            return;
+        }
+
         // we'll have to use a little offset/margin because of borders
         // TODO use css resources to link the border width and this 'margin'
 
-        // 30 is a magical number..
-        int magick = 30;
-        int maxWidth = w - container.getAbsoluteLeft() - magick;
-        int maxHeight = h - container.getAbsoluteTop() - magick;
+        // 19 is a magical number, should be scrollbar width
+        int magick = 19;
+        int maxWidth = w - getWidget().getAbsoluteLeft() - magick;
+        int maxHeight = h - getWidget().getAbsoluteTop() - magick;
         maxWidth = Math.max(maxWidth, minWidth);
         maxHeight = Math.max(maxHeight, minHeight);
 
         if (maxWidth > 0) {
-            container.setWidth(maxWidth + "px");
+            setWidth(maxWidth + "px");
         }
         if (maxHeight > 0) {
-            container.setHeight(maxHeight + "px");
+            setHeight(maxHeight + "px");
         }
-
-        // int offset = maybeGetScrollbarOffset();
-        if (cachedOffset < 0) {
-            cachedOffset = maybeGetScrollbarOffset();
-        }
-        if (cachedOffset > 0) {
-            fireResizeEvent(maxWidth - cachedOffset, maxHeight);
-        } else {
+        if (maxWidth > 0 || maxHeight > 0) {
             fireResizeEvent(maxWidth, maxHeight);
         }
+
+        lastWidth = w;
+        lastHeight = h;
     }
 
     /**
@@ -118,33 +116,12 @@ public class ViewportPanel extends Composite implements ResizeHandler {
             return;
         }
 
-        cachedOffset = maybeGetScrollbarOffset();
         if (resizeHandlers != null) {
             ViewportResizeEvent event = new ViewportResizeEvent(w, h);
             for (IViewportResizeHandler ira : resizeHandlers) {
                 ira.onViewportResize(event);
             }
         }
-        cachedOffset = -1;
-    }
-
-    /**
-     * Returns the scrollbar width, if the scrollbar is visible. Returns <code>0</code> if no scrollbar is visible.
-     * Applies only to vertical scrollbar.
-     * 
-     * @return the scrollbar width, or 0
-     */
-    private int maybeGetScrollbarOffset() {
-        // if there's a widget taller than the container, a vertical scroll bar will appear
-        // this will cause the available width to reduce
-        int height = container.getOffsetHeight();
-        for (Iterator<Widget> it = container.iterator(); it.hasNext();) {
-            Widget w = it.next();
-            if (w.getOffsetHeight() >= height + 30) {
-                return JSNIUtils.getScrollBarWidth();
-            }
-        }
-        return 0;
     }
 
     /**
@@ -170,16 +147,29 @@ public class ViewportPanel extends Composite implements ResizeHandler {
         resizeHandlers.add(handler);
     }
 
-    public void onResize(ResizeEvent event) {
-        doResize(event.getWidth(), event.getHeight());
+    public void onResize(final ResizeEvent event) {
+        DeferredCommand.addCommand(new Command() {
+            public void execute() {
+                // doResize(Window.getClientWidth(), Window.getClientHeight());
+                doResize(event.getWidth(), event.getHeight());
+                resizeQueued = false;
+            }
+        });
+        // doResize(event.getWidth(), event.getHeight());
     }
 
     @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible && resizeQueued) {
-            doResize(Window.getClientWidth(), Window.getClientHeight());
-            resizeQueued = false;
+            DeferredCommand.addCommand(new Command() {
+                public void execute() {
+                    doResize(Window.getClientWidth(), Window.getClientHeight());
+                    resizeQueued = false;
+                }
+            });
+            // doResize(Window.getClientWidth(), Window.getClientHeight());
+            // resizeQueued = false;
         }
     }
 

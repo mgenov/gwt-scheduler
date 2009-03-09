@@ -23,7 +23,7 @@ public class DebugUtils {
             DOM.setStyleAttribute(el, "backgroundColor", "silver");
         }
     }
-    
+
     /**
      * Adds a border to the element.
      * 
@@ -33,5 +33,16 @@ public class DebugUtils {
         if (GWT.isClient()) {
             DOM.setStyleAttribute(el, "border", "1px solid red");
         }
+    }
+
+    /**
+     * Sets the inner text and aligns to the right
+     * 
+     * @param txt the text to set
+     * @param element the element to set
+     */
+    public static void textRight(String txt, Element element) {
+        element.setInnerText(txt);
+        DOM.setStyleAttribute(element, "textAlign", "right");
     }
 }
