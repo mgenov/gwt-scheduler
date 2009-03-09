@@ -1,11 +1,10 @@
 package gwtscheduler.client.widgets.view.day;
 
-import gwtscheduler.client.utils.DebugUtils;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
-import gwtscheduler.client.widgets.view.WrapperWidget;
+import gwtscheduler.client.widgets.view.WrappedWidget;
+import gwtscheduler.client.widgets.view.common.HorizontalGridFill;
 
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -15,10 +14,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @version $Revision: $
  * @since 1.0
  */
-public class DayView extends WrapperWidget implements IViewportResizeHandler {
+public class DayView extends WrappedWidget implements IViewportResizeHandler {
 
     /** Main container */
     private VerticalPanel container;
+    /** Hours grid */
+    private HorizontalGridFill grid;
 
     /**
      * Default constructor.
@@ -26,12 +27,13 @@ public class DayView extends WrapperWidget implements IViewportResizeHandler {
     public DayView() {
         container = new VerticalPanel();
         wrapWidget(container);
-        container.add(new Label("xxx"));
-        // this helps visual debug
-        DebugUtils.addBgColor(container.getElement());
+
+        grid = new HorizontalGridFill(this, 48, 1);
+        container.add(grid);
     }
 
     public void onViewportResize(ViewportResizeEvent event) {
-        container.setSize(event.width + "px", "96em");// 24h*4 lines
+        container.setSize("100%", "96em");// 24h*4 lines
+        grid.onViewportResize(event);
     }
 }

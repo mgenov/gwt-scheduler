@@ -5,9 +5,11 @@
 <!-- GWT Module for common source code-->
 <module>
    	<inherits name="com.google.gwt.user.User" />
-   	<inherits name="com.google.gwt.user.theme.standard.Standard" />
+   	<inherits name='com.google.gwt.user.theme.standard.Standard'/>
    	<inherits name="com.google.gwt.libideas.ImmutableResources" />
 	<inherits name="com.google.gwt.libideas.StyleInjector" />
+
    	<!-- aggregates all common source code (shared between client/server) -->
    	<source path="common" />
+   	<stylesheet src="css/main.css" />
 </module>

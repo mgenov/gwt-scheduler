@@ -1,0 +1,32 @@
+/**
+ * Common css file. Holds css styles that are applied
+ * throughout all the app.
+ * @see: http://code.google.com/docreader/#p=google-web-toolkit-incubator&s=google-web-toolkit-incubator&t=CssResource
+ */
+
+@def smallPx 1px;
+@def mediumPx 3px;
+@def smooth #DDD;
+
+
+.column {
+  float: left;
+  display: inline;
+}
+
+/**
+ * Day and week cells.
+ */
+.evenCell, .oddCell {
+  border-left: mediumPx double smooth;
+  padding-right: 2px;
+}
+
+.evenCell {
+  border-top: smallPx solid smooth;
+}
+
+.oddCell {
+  border-top: smallPx dotted smooth;
+}
+

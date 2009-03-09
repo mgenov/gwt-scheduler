@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public abstract class WrapperWidget extends Composite {
+public abstract class WrappedWidget extends Composite {
 
     /** Wrapper widget */
     private SimplePanel wrapper;
@@ -20,7 +20,7 @@ public abstract class WrapperWidget extends Composite {
     /**
      * Default constructor. Should call {@link #wrapWidget(Widget)} here to initalize the widget.
      */
-    public WrapperWidget() {
+    public WrappedWidget() {
         wrapper = new SimplePanel();
         super.initWidget(wrapper);
     }

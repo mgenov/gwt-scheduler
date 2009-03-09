@@ -36,6 +36,9 @@ public class ViewportPanel extends Composite implements ResizeHandler {
     /** widget collection for resize events */
     private List<IViewportResizeHandler> resizeHandlers;
 
+    /** cached scrollbar size */
+    private int cachedOffset = -1;
+
     /**
      * Default constructor.
      */
@@ -92,9 +95,12 @@ public class ViewportPanel extends Composite implements ResizeHandler {
             container.setHeight(maxHeight + "px");
         }
 
-        int offset = maybeGetScrollbarOffset();
-        if (offset > 0) {
-            fireResizeEvent(maxWidth - offset, maxHeight);
+        // int offset = maybeGetScrollbarOffset();
+        if (cachedOffset < 0) {
+            cachedOffset = maybeGetScrollbarOffset();
+        }
+        if (cachedOffset > 0) {
+            fireResizeEvent(maxWidth - cachedOffset, maxHeight);
         } else {
             fireResizeEvent(maxWidth, maxHeight);
         }
@@ -108,15 +114,18 @@ public class ViewportPanel extends Composite implements ResizeHandler {
      */
     private void fireResizeEvent(int w, int h) {
         // don't work with negative values
-        if (w <= 0 || h <= 0)
+        if (w <= 0 || h <= 0) {
             return;
+        }
 
+        cachedOffset = maybeGetScrollbarOffset();
         if (resizeHandlers != null) {
             ViewportResizeEvent event = new ViewportResizeEvent(w, h);
             for (IViewportResizeHandler ira : resizeHandlers) {
                 ira.onViewportResize(event);
             }
         }
+        cachedOffset = -1;
     }
 
     /**

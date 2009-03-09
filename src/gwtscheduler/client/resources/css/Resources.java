@@ -11,7 +11,7 @@ import com.google.gwt.core.client.GWT;
  */
 public final class Resources {
 
-    /** holds the common css resource */
+    /** Holds the common css resource */
     private static CommonCssResources commonCss;
 
     /**
