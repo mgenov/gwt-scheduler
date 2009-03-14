@@ -16,38 +16,38 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.0
  */
 class DayWeekCell extends Widget {
+	/** static ref to css */
+	protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
+	/** Cell identifiers */
+	protected int row, col;
 
-    /** Cell identifiers */
-    private int row, col;
+	/**
+	 * Creates a new label.
+	 * 
+	 * @param id the cell id
+	 * @param label the label
+	 */
+	public DayWeekCell(int row, int col, String label) {
+		this.row = row;
+		this.col = col;
+		
+		Element div = DOM.createDiv();
+		setElement(div);
+		setStyleName(this.row % 2 == 0 ? CSS.evenCell() : CSS.oddCell());
 
-    /**
-     * Creates a new label.
-     * 
-     * @param id the cell id
-     * @param label the label
-     */
-    public DayWeekCell(int row, int col, String label) {
-        this.row = row;
-        this.col = col;
-        Element div = DOM.createDiv();
-        setElement(div);
+		DebugUtils.textRight(label + this.row + "," + this.col, getElement());
+	}
 
-        DayWeekCssResource css = Resources.dayWeekCss();
-        setStyleName(this.row % 2 == 0 ? css.evenCell() : css.oddCell());
-
-        DebugUtils.textRight("" + this.row + "," + this.col, getElement());
-    }
-
-    /**
-     * Overrides the default pixel size to take in account borders.
-     * 
-     * @see com.google.gwt.user.client.ui.UIObject#setPixelSize(int, int)
-     */
-    @Override
-    public void setPixelSize(int w, int h) {
-        DayWeekCssResource css = Resources.dayWeekCss();
-        // width - border - padding
-        // height - border
-        super.setPixelSize(w - css.mediumBorderPx() - css.smallPaddingPx(), h - css.smallBorderPx());
-    }
+	/**
+	 * Sets the pixel size, but takes in account borders and padding.
+	 * 
+	 * @param w the width
+	 * @param h the height
+	 */
+	public void setCompensatedPixelSize(int w, int h) {
+		if (w < 0) w = 0;
+		if (h < 0) h = 0;
+		// width - border - padding; height - border
+		setPixelSize(w - CSS.mediumBorderPx() - CSS.smallPaddingPx(), h - CSS.smallBorderPx());
+	}
 }

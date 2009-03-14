@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.resources.Resources;
+import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
 
@@ -17,7 +18,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Enter class description here.
+ * Horizontal Grid class.
  * 
  * @author Miguel Ping
  * @version $Revision: $
@@ -25,140 +26,134 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class HorizontalGridFill extends Composite implements IViewportResizeHandler {
 
-    private Widget parent;
-    private HTMLTable impl;
-    private List<Panel> columnWidgets;
+	private static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
-    private int columns;
-    private int rows;
+	// private Widget parent;
+	private HTMLTable impl;
+	private List<Panel> columnWidgets;
 
-    /**
-     * @param parent
-     * @param rows
-     * @param cols
-     */
-    public HorizontalGridFill(Widget parent, int rows, int cols) {
-        impl = new Grid(1, cols + 1);
-        impl.setBorderWidth(0);
-        impl.setStyleName(Resources.dayWeekCss().horizontalFillGrid());
+	private int columns;
+	private int rows;
 
-        initWidget(impl);
+	/**
+	 * Creates a new grid with the supplied dimensions. An additional column
+	 * will be added to supply a title.
+	 * 
+	 * @param rows the number of rows
+	 * @param cols the number of columns
+	 */
+	public HorizontalGridFill(int rows, int cols) {
+		impl = new Grid(1, cols + 1);
+		impl.setBorderWidth(0);
+		impl.setStyleName(CSS.horizontalFillGrid());
 
-        this.parent = parent;
-        this.columns = cols;
-        this.rows = rows;
+		initWidget(impl);
 
-        this.columnWidgets = new ArrayList<Panel>();
+		this.columns = cols;
+		this.rows = rows;
 
-        // here we add one column for each day
-        // one more col for cell labels
-        for (int i = 0; i < cols + 1; i++) {
-            FlowPanel flowPanel = new FlowPanel();
-            if (i == 0) {
-                flowPanel.setStyleName(Resources.dayWeekCss().titleColumn());
-            } else {
-                flowPanel.setStyleName(Resources.dayWeekCss().column());
-            }
-            columnWidgets.add(flowPanel);
-            impl.setWidget(0, i, flowPanel);
-        }
+		this.columnWidgets = new ArrayList<Panel>();
 
-    }
+		// here we add one column for each day
+		// one more col for cell labels
+		for (int i = 0; i < cols + 1; i++) {
+			FlowPanel flowPanel = new FlowPanel();
+			String className = null;
+			className = (i == 0) ? CSS.titleColumn() : CSS.column();
+			flowPanel.setStyleName(className);
+			columnWidgets.add(flowPanel);
+			impl.setWidget(0, i, flowPanel);
+		}
 
-    @Override
-    protected void onAttach() {
-        super.onAttach();
+	}
 
-        Element parentEl = parent.getElement();
-        int width = parentEl.getOffsetWidth();
-        int height = parentEl.getOffsetHeight();
-        // impl.setPixelSize(width, height);
+	@Override
+	protected void onAttach() {
+		super.onAttach();
 
-        int remainingColWidth = (width - getTitleColumnWidth()) / columns;
-        // int remainingColWidth = width / columns;
-        int[] availableCellSize = getAvailableCellSize(width, height);
-        if (remainingColWidth <= 0) {
-            remainingColWidth = 0;
-        }
+		// grid construction: first columns, then cells
+		Panel titlePanel = columnWidgets.get(0); // first col is title
+		for (int r = 0; r < rows; r++) {
+			TitleCell title = new TitleCell(r, 0, r + "");
+			titlePanel.add(title);
+		}
 
-        // grid construction: first columns, then cell
-        // we skip title column
+		// regular cells have different size
+		for (int c = 1; c < columns + 1; c++) {
+			Panel col = columnWidgets.get(c);
 
-        Panel titlePanel = columnWidgets.get(0); // first col is title
-        for (int r = 0; r < rows; r++) {
-            FlowPanel title = new FlowPanel();
-            title.setStyleName(Resources.dayWeekCss().titleCell());
-            titlePanel.add(title);
-            // TODO set height
-        }
+			for (int r = 0; r < rows; r++) {
+				int id = ((c - 1) * r) + r;
+				DayWeekCell cell = new DayWeekCell(r, (c - 1), "cell: " + id);
+				col.add(cell);
+			}
+		}
+	}
 
-        for (int c = 1; c < columns + 1; c++) {
-            Panel col = columnWidgets.get(c); // first col is title
-            col.setSize(remainingColWidth + "px", height + "px");
+	/**
+	 * Gets the title column width for the title column.
+	 * 
+	 * @return the title column width
+	 */
+	private final int getTitleColumnWidth() {
+		return CSS.titleColumnWidthPx();
+	}
 
-            for (int r = 0; r < rows; r++) {
-                int id = ((c - 1) * r) + r;
-                DayWeekCell cell = new DayWeekCell(r, (c - 1), "cell: " + id);
-                cell.setPixelSize(availableCellSize[0], availableCellSize[1]);
-                col.add(cell);
-            }
-        }
-    }
+	/**
+	 * Gets the title column width for the title column, including borders and
+	 * padding.
+	 * 
+	 * @return the title column offset width
+	 */
+	private int getTitleColumnOffsetWidth() {
+		return getTitleColumnWidth() + CSS.smallPaddingPx();
+	}
 
-    /**
-     * @return
-     */
-    private final int getTitleColumnWidth() {
-        return Resources.dayWeekCss().titleColumnWidthPx();
-    }
+	public void onViewportResize(ViewportResizeEvent event) {
+		Element parentEl = getParent().getElement();
+		int width = parentEl.getOffsetWidth();
+		int height = parentEl.getOffsetHeight();
 
-    public void onViewportResize(ViewportResizeEvent event) {
-        Element parentEl = parent.getElement();
-        // int w = event.width, h = event.height;
-        int w = parentEl.getOffsetWidth();
-        int h = parentEl.getOffsetHeight();
-        // TODO correct this hack
-        if (w <= 0 || h <= 0) {
-            return;
-        }
-        impl.setPixelSize(w, h);
+		// TODO correct this hack
+		if (width <= 0 || height <= 0) {
+			return;
+		}
+		impl.setPixelSize(width, height);
+		int[] availableSize = getCellSize(width, height);
+		int remainingColWidth = (width - getTitleColumnOffsetWidth()) / columns;
 
-        int[] availableSize = getAvailableCellSize(w, h);
-        // for (Panel column : columnWidgets) {
-        // for (int i = 1; i < columnWidgets.size(); i++) {
-        for (int i = 0; i < columnWidgets.size(); i++) {
-            Panel column = columnWidgets.get(i);
+		for (int i = 0; i < columnWidgets.size(); i++) {
+			Panel column = columnWidgets.get(i);
+			if (i == 0) {
+				column.setPixelSize(getTitleColumnOffsetWidth(), height);
+			}
+			else {
+				column.setPixelSize(remainingColWidth, height);
+			}
 
-            column.setSize(availableSize[0] + "px", h + "px");
-            for (Iterator<Widget> it = column.iterator(); it.hasNext();) {
-                Widget cell = it.next();
-                if (i == 0) {
-                    cell.setPixelSize(getTitleColumnWidth(), availableSize[1]);
-                } else {
-                    cell.setPixelSize(availableSize[0], availableSize[1]);
-                }
-            }
-        }
-    }
+			// column.setSize(getTitleColumnWidth() + "px", h + "px");
+			for (Iterator<Widget> it = column.iterator(); it.hasNext();) {
+				DayWeekCell cell = (DayWeekCell) it.next();
+				if (i == 0) {
+					cell.setCompensatedPixelSize(getTitleColumnWidth(), availableSize[1]);
+				}
+				else {
+					cell.setCompensatedPixelSize(availableSize[0], availableSize[1]);
+				}
+			}
+		}
+	}
 
-    private int[] getAvailableCellSize(int parentWidth, int parentHeight) {
-        int availW = (parentWidth - getTitleColumnWidth()) / columns;
-        int availH = parentHeight / rows;
-        return new int[] { availW, availH };
-    }
-
-    /**
-     * Gets the available cell size.
-     * 
-     * @return the available width and height
-     */
-    private int[] getAvailableCellSize() {
-        Element parentEl = parent.getElement();
-        int w = parentEl.getOffsetWidth();
-        int h = parentEl.getOffsetHeight();
-
-        int availW = (w - getTitleColumnWidth()) / columns;
-        int availH = h / rows;
-        return new int[] { availW, availH };
-    }
+	/**
+	 * Gets the default cell size for a non-title cell.
+	 * 
+	 * @param parentWidth the parent width
+	 * @param parentHeight the parent height
+	 * @return the cell size, without counting with borders or padding
+	 */
+	private int[] getCellSize(int parentWidth, int parentHeight) {
+		int availW = (parentWidth - getTitleColumnOffsetWidth()) / columns;
+		int availH = parentHeight / rows;
+		return new int[] { availW, availH };
+	}
 }

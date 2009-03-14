@@ -28,7 +28,7 @@ public class WeekView extends WrappedWidget implements IViewportResizeHandler {
         container = new VerticalPanel();
         wrapWidget(container);
 
-        grid = new HorizontalGridFill(this, 48, 7);
+        grid = new HorizontalGridFill(48, 7);
         container.add(grid);
     }
 

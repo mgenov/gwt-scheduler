@@ -28,7 +28,7 @@ public class DayView extends WrappedWidget implements IViewportResizeHandler {
         container = new VerticalPanel();
         wrapWidget(container);
 
-        grid = new HorizontalGridFill(this, 48, 1);
+        grid = new HorizontalGridFill(48, 1);
         container.add(grid);
     }
 

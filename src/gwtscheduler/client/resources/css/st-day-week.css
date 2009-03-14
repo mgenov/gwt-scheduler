@@ -20,7 +20,6 @@
  * Day and week classes.
  */
 .titleColumn {
-  /*width: titleColumnWidthPx;*/
   background-color: lightBlued;
 }
  
@@ -29,31 +28,37 @@
   display: inline;
 }
 
-.titleCell{
-  /*width: titleColumnWidthPx;*/
+/** title */
+.titleColumn  {
+  text-align: right;
+}
+.evenTitleCell, .oddTitleCell {
   background-color: lightBlued;
-  
-  border-left: mediumBorderPx double smooth;
-  border-top: smallBorderPx solid smooth;
   padding-right: smallPaddingPx;
 }
+.evenTitleCell {
+  border-top: smallBorderPx solid smooth;
+}
+.oddTitleCell {
+  border-top: smallBorderPx solid lightBlued;
+}
 
+/** regular cells */
 .evenCell, .oddCell {
   border-left: mediumBorderPx double smooth;
   padding-right: smallPaddingPx;
 }
-
 .evenCell {
   border-top: smallBorderPx solid smooth;
 }
-
 .oddCell {
   border-top: smallBorderPx dotted smooth;
 }
 
+/** grid fill stuff */
 .horizontalFillGrid {
   border-collapse: collapse;
 }
-.horizontalFillGrid tbody tr td{
+.horizontalFillGrid tbody tr td {
   padding: 0px;
 }
