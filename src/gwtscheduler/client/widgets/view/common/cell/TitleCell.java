@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view.common;
+package gwtscheduler.client.widgets.view.common.cell;
 
 /**
  * Serves as a row title.
@@ -7,7 +7,7 @@ package gwtscheduler.client.widgets.view.common;
  * @version $Revision: $
  * @since 1.0
  */
-class TitleCell extends DayWeekCell {
+public class TitleCell extends DayWeekCell {
 
 	/**
 	 * Creates a new label.

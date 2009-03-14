@@ -2,6 +2,7 @@ package gwtscheduler.client;
 
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.ViewportPanel;
+import gwtscheduler.client.widgets.view.month.CompositeMonthView;
 import gwtscheduler.client.widgets.view.month.MonthView;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -28,6 +29,7 @@ public class MonthTests implements EntryPoint {
 
 		TabPanel main = new DecoratedTabPanel();
 		main.add(mView, "Month");
+		main.add(new CompositeMonthView(), "CMonth");
 		main.selectTab(0);
 
 		RootPanel.get("calendar-main").add(main);

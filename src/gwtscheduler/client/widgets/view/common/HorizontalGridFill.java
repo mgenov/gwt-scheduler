@@ -4,6 +4,8 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
+import gwtscheduler.client.widgets.view.common.cell.DayWeekCell;
+import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 
 import java.util.ArrayList;
 import java.util.Iterator;
