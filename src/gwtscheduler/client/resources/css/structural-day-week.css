@@ -1,22 +1,22 @@
 /**
- * Common css file. Holds css styles that are applied
- * throughout all the app.
+ * Day and Week css file. Holds css styles that are applied
+ * throughout all the app's day and week views.
  * @see: http://code.google.com/docreader/#p=google-web-toolkit-incubator&s=google-web-toolkit-incubator&t=CssResource
  */
 
-@def smallPx 1px;
-@def smallPadding 4px; /*should be expression 1+3*/
-@def mediumPx 3px;
+@def smallBorderPx 1px;
+@def smallPaddingPx 4px; /*should be expression 1+3*/
+@def mediumBorderPx 3px;
 @def smooth #DDD;
 
+/**
+ * Day and week classes.
+ */
 .column {
   float: left;
   display: inline;
 }
 
-/**
- * Day and week cells.
- */
 .evenCell, .oddCell {
   border-left: mediumPx double smooth;
   padding-right: smallPadding;

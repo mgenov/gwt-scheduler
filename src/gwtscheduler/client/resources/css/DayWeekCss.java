@@ -9,26 +9,26 @@ import com.google.gwt.libideas.resources.client.CssResource;
  * @version $Revision: $
  * @since 1.0
  */
-public interface CommonCss extends CssResource {
+public interface DayWeekCss extends CssResource {
 
     /**
      * Defines a small css border size.
      * 
      * @return the border
      */
-    int smallPx();
-    
+    int smallBorderPx();
+
     /**
      * @return
      */
-    int smallPadding();
+    int smallPaddingPx();
 
     /**
      * Defines a medium left css border size.
      * 
      * @return the border
      */
-    int mediumPx();
+    int mediumBorderPx();
 
     /**
      * Even cell class.

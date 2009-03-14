@@ -1,4 +1,6 @@
-
+/**
+ * Tab Panel/TabBar classes
+ */
 .gwt-TabBar {
 }
 .gwt-TabBar .gwt-TabBarFirst {
@@ -31,7 +33,7 @@
   border-style: solid;
   border-width: 3px 2px 2px;
   overflow: hidden;
-  padding: 6px;
+  padding: 0px;
 }
 
 .gwt-DecoratedTabBar {

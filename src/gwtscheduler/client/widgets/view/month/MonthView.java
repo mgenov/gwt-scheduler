@@ -4,9 +4,14 @@ import gwtscheduler.client.widgets.resize.DefaultViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
 import gwtscheduler.client.widgets.view.WrappedWidget;
+import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Label;
 
 /**
  * View class for months.
@@ -22,17 +27,44 @@ public class MonthView extends WrappedWidget implements IViewportResizeHandler {
 
     /** resize handler */
     private DefaultViewportResizeHandler handler;
+    /***/
+    private List<MonthRow> monthRows;
 
+    /**
+     * 
+     */
     public MonthView() {
         container = new FlowPanel();
         handler = new DefaultViewportResizeHandler(this);
         wrapWidget(container);
 
-        container.add(new Label("month"));
+        monthRows = new ArrayList<MonthRow>();
+
+        for (int i = 0; i < 6; i++) {
+            MonthRow row = new MonthRow(7);
+            monthRows.add(row);
+            container.add(row);
+        }
+    }
+
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        float height = ((float) 100 / monthRows.size());
+        for (int i = 0; i < monthRows.size(); i++) {
+
+            float top = ((float) 100 / monthRows.size()) * i;
+            Element rowElement = monthRows.get(i).getElement();
+            DOM.setStyleAttribute(rowElement, "top", top + "%");
+            DOM.setStyleAttribute(rowElement, "height", height + "%");
+        }
     }
 
     public void onViewportResize(ViewportResizeEvent event) {
         // we delegate to default handler
         handler.onViewportResize(event);
+        for (MonthRow row : monthRows) {
+            row.onViewportResize(event);
+        }
     }
 }

@@ -8,10 +8,18 @@
    	<!--
    	<inherits name='com.google.gwt.user.theme.standard.Standard'/> 
    	 -->
+   	 
+   	<inherits name='com.google.gwt.user.theme.standard.StandardResources'/>
    	<inherits name="com.google.gwt.libideas.ImmutableResources" />
 	<inherits name="com.google.gwt.libideas.StyleInjector" />
+	<inherits name="com.google.gwt.gen2.table.Table" />
+	
+	<!-- this comes in handy for debugging css -->
+	<set-property name="CssResource.style" value="pretty" />
+	<set-property name="ResourceBundle.enableInlining" value="false" />
 
    	<!-- aggregates all common source code (shared between client/server) -->
    	<source path="common" />
-   	<stylesheet src="css/main.css" />
+   	<stylesheet src="/css/main.css" />
+   	
 </module>

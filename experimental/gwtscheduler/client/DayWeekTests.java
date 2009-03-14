@@ -20,7 +20,7 @@ public class DayWeekTests implements EntryPoint {
      * This is the entry point method.
      */
     public void onModuleLoad() {
-        StyleInjector.injectStylesheet(Resources.CommonCss().getText());
+        StyleInjector.injectStylesheet(Resources.DayWeekCss().getText());
         
         DayView dv = new DayView();
         ViewportPanel dView = new ViewportPanel();

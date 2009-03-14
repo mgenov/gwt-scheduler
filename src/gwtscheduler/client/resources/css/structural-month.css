@@ -1,0 +1,34 @@
+/**
+ * Months css file. Holds css styles that are applied
+ * throughout all the app's months.
+ * @see: http://code.google.com/docreader/#p=google-web-toolkit-incubator&s=google-web-toolkit-incubator&t=CssResource
+ */
+
+@def fontSize 11px;
+@def lineHeight 14px;
+@def monthCellPadTopPx 1px;
+@def monthCellBorderTopPx 1px;
+
+/**
+ * Month classes
+ */
+
+.monthRow {
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  
+  font-size: fontSize;
+  line-height: lineHeight;
+}
+
+.monthRowTable {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.monthCell {
+  padding: monthCellPadTopPx 1px 0 2px;
+  border-top: monthCellBorderTopPx solid silver;
+  border-left: 1px solid silver;
+}
