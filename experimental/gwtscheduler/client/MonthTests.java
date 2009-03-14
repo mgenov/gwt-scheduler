@@ -15,22 +15,21 @@ import com.google.gwt.user.client.ui.TabPanel;
  */
 public class MonthTests implements EntryPoint {
 
-    /**
-     * This is the entry point method.
-     */
-    public void onModuleLoad() {
-        StyleInjector.injectStylesheet(Resources.monthCss().getText());
-        
-        // months
-        MonthView mv = new MonthView();
-        ViewportPanel mView = new ViewportPanel();
-        mView.add(mv, mv);
+	/**
+	 * This is the entry point method.
+	 */
+	public void onModuleLoad() {
+		StyleInjector.injectStylesheet(Resources.monthCss().getText());
 
-        TabPanel main = new DecoratedTabPanel();
-        main.add(mView, "Month");
-        main.selectTab(0);
+		// months
+		MonthView mv = new MonthView();
+		ViewportPanel mView = new ViewportPanel();
+		mView.add(mv, mv);
 
+		TabPanel main = new DecoratedTabPanel();
+		main.add(mView, "Month");
+		main.selectTab(0);
 
-        RootPanel.get("calendar-main").add(main);
-    }
+		RootPanel.get("calendar-main").add(main);
+	}
 }

@@ -22,48 +22,48 @@ import com.google.gwt.user.client.ui.FlowPanel;
  */
 public class MonthView extends WrappedWidget implements IViewportResizeHandler {
 
-    /** Main container */
-    private FlowPanel container;
-    /** resize handler */
-    private DefaultViewportResizeHandler handler;
-    /** collection of month rows */
-    private List<MonthRow> monthRows;
+	/** Main container */
+	private FlowPanel container;
+	/** resize handler */
+	private DefaultViewportResizeHandler handler;
+	/** collection of month rows */
+	private List<MonthRow> monthRows;
 
-    /**
-     * 
-     */
-    public MonthView() {
-        container = new FlowPanel();
-        handler = new DefaultViewportResizeHandler(this);
-        wrapWidget(container);
+	/**
+	 * Default constructor.
+	 */
+	public MonthView() {
+		container = new FlowPanel();
+		handler = new DefaultViewportResizeHandler(this);
+		wrapWidget(container);
 
-        monthRows = new ArrayList<MonthRow>();
+		monthRows = new ArrayList<MonthRow>();
 
-        for (int i = 0; i < 6; i++) {
-            MonthRow row = new MonthRow(7);
-            monthRows.add(row);
-            container.add(row);
-        }
-    }
+		for (int i = 0; i < 6; i++) {
+			MonthRow row = new MonthRow(6);
+			monthRows.add(row);
+			container.add(row);
+		}
+	}
 
-    @Override
-    protected void onAttach() {
-        super.onAttach();
-        float height = ((float) 100 / monthRows.size());
-        for (int i = 0; i < monthRows.size(); i++) {
+	@Override
+	protected void onAttach() {
+		super.onAttach();
+		float height = ((float) 100 / monthRows.size());
+		for (int i = 0; i < monthRows.size(); i++) {
 
-            float top = ((float) 100 / monthRows.size()) * i;
-            Element rowElement = monthRows.get(i).getElement();
-            DOM.setStyleAttribute(rowElement, "top", top + "%");
-            DOM.setStyleAttribute(rowElement, "height", height + "%");
-        }
-    }
+			float top = ((float) 100 / monthRows.size()) * i;
+			Element rowElement = monthRows.get(i).getElement();
+			DOM.setStyleAttribute(rowElement, "top", top + "%");
+			DOM.setStyleAttribute(rowElement, "height", height + "%");
+		}
+	}
 
-    public void onViewportResize(ViewportResizeEvent event) {
-        // we delegate to default handler
-        handler.onViewportResize(event);
-        for (MonthRow row : monthRows) {
-            row.onViewportResize(event);
-        }
-    }
+	public void onViewportResize(ViewportResizeEvent event) {
+		// we delegate to default handler
+		handler.onViewportResize(event);
+		for (MonthRow row : monthRows) {
+			row.onViewportResize(event);
+		}
+	}
 }

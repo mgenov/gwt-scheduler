@@ -5,9 +5,10 @@
  */
 
 @def fontSize 11px;
-@def lineHeight 14px;
+@def lineHeight 20px;
 @def monthCellPadTopPx 1px;
-@def monthCellBorderTopPx 1px;
+@def monthCellBorderLeftPx 1px;
+@def monthCellTitleBorderTopPx 1px;
 
 /**
  * colours 
@@ -38,11 +39,11 @@
 
 .monthCell {
   padding: monthCellPadTopPx 1px 0 2px;
-  border-top: monthCellBorderTopPx solid blued;
-  border-left: 1px solid blued;
+  border-left: monthCellBorderLeftPx solid blued;
 }
 
 .monthCellTitle, .monthCellTitleNoMonth {
+  border-top: monthCellTitleBorderTopPx solid blued;
   text-align: right;
   padding-right: 2px;
   overflow: hidden;

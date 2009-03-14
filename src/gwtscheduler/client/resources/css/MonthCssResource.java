@@ -2,7 +2,6 @@ package gwtscheduler.client.resources.css;
 
 import com.google.gwt.libideas.resources.client.CssResource;
 
-
 /**
  * Common Css Resources. This will hold structural css values.
  * 
@@ -12,67 +11,72 @@ import com.google.gwt.libideas.resources.client.CssResource;
  */
 public interface MonthCssResource extends CssResource {
 
-    /**
-     * Defines font size.
-     * 
-     * @return the font size in px
-     */
-    int fontSize();
+	/**
+	 * Defines font size.
+	 * 
+	 * @return the font size in px
+	 */
+	int fontSize();
 
-    /**
-     * Defines line height.
-     * 
-     * @return the line height in px
-     */
-    int lineHeight();
+	/**
+	 * Defines line height.
+	 * 
+	 * @return the line height in px
+	 */
+	int lineHeight();
 
-    /**
-     * Defines padding top.
-     * 
-     * @return the padding top in px
-     */
-    int monthCellPadTopPx();
+	/**
+	 * Defines padding top.
+	 * 
+	 * @return the padding top in px
+	 */
+	int monthCellPadTopPx();
 
-    /**
-     * Defines border top.
-     * 
-     * @return the border topin px
-     */
-    int monthCellBorderTopPx();
+	/**
+	 * @return the border left
+	 */
+	int monthCellBorderLeftPx();
 
-    /**
-     * Month row class.
-     * 
-     * @return the month row class name
-     */
-    String monthRow();
+	/**
+	 * Border top width for month cell title.
+	 * 
+	 * @return the border top
+	 */
+	int monthCellTitleBorderTopPx();
 
-    /**
-     * Class name for month table.
-     * 
-     * @return the class name for month row tables
-     */
-    String monthRowTable();
+	/**
+	 * Month row class.
+	 * 
+	 * @return the month row class name
+	 */
+	String monthRow();
 
-    /**
-     * Month cell class.
-     * 
-     * @return the month cell class name
-     */
-    String monthCell();
+	/**
+	 * Class name for month table.
+	 * 
+	 * @return the class name for month row tables
+	 */
+	String monthRowTable();
 
-    /**
-     * Class for month cell titles.
-     * 
-     * @return the class name
-     */
-    String monthCellTitle();
+	/**
+	 * Month cell class.
+	 * 
+	 * @return the month cell class name
+	 */
+	String monthCell();
 
-    /**
-     * Class for month cell titles that are not current month.
-     * 
-     * @return the class name
-     */
-    String monthCellTitleNoMonth();
+	/**
+	 * Class for month cell titles.
+	 * 
+	 * @return the class name
+	 */
+	String monthCellTitle();
+
+	/**
+	 * Class for month cell titles that are not current month.
+	 * 
+	 * @return the class name
+	 */
+	String monthCellTitleNoMonth();
 
 }

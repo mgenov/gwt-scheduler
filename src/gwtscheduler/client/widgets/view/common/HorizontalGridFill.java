@@ -25,14 +25,17 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.0
  */
 public class HorizontalGridFill extends Composite implements IViewportResizeHandler {
-
+	/** static ref to css */
 	private static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
-	// private Widget parent;
+	/** class impl */
 	private HTMLTable impl;
+	/** columns */
 	private List<Panel> columnWidgets;
 
+	/** grid col count, excluding title column */
 	private int columns;
+	/** grid row count */
 	private int rows;
 
 	/**
@@ -131,7 +134,6 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
 				column.setPixelSize(remainingColWidth, height);
 			}
 
-			// column.setSize(getTitleColumnWidth() + "px", h + "px");
 			for (Iterator<Widget> it = column.iterator(); it.hasNext();) {
 				DayWeekCell cell = (DayWeekCell) it.next();
 				if (i == 0) {

@@ -16,27 +16,26 @@ import com.google.gwt.user.client.ui.TabPanel;
  */
 public class DayWeekTests implements EntryPoint {
 
-    /**
-     * This is the entry point method.
-     */
-    public void onModuleLoad() {
-        StyleInjector.injectStylesheet(Resources.dayWeekCss().getText());
-        
-        DayView dv = new DayView();
-        ViewportPanel dView = new ViewportPanel();
-        dView.add(dv, dv);
+	/**
+	 * This is the entry point method.
+	 */
+	public void onModuleLoad() {
+		StyleInjector.injectStylesheet(Resources.dayWeekCss().getText());
 
-        // week
-        WeekView wv = new WeekView();
-        ViewportPanel wView = new ViewportPanel();
-        wView.add(wv, wv);
+		DayView dv = new DayView();
+		ViewportPanel dView = new ViewportPanel();
+		dView.add(dv, dv);
 
+		// week
+		WeekView wv = new WeekView();
+		ViewportPanel wView = new ViewportPanel();
+		wView.add(wv, wv);
 
-        TabPanel main = new DecoratedTabPanel();
-        main.add(dView, "Day");
-//        main.add(wView, "Week");
-        main.selectTab(0);
+		TabPanel main = new DecoratedTabPanel();
+		main.add(dView, "Day");
+		main.add(wView, "Week");
+		main.selectTab(0);
 
-        RootPanel.get("calendar-main").add(main);
-    }
+		RootPanel.get("calendar-main").add(main);
+	}
 }

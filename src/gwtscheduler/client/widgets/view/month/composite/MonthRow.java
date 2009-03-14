@@ -29,7 +29,7 @@ public class MonthRow extends Composite implements IViewportResizeHandler {
      * @param cols the number of columns
      */
     public MonthRow(int cols) {
-        this.columns = cols;
+        columns = cols;
         impl = new FlowPanel();
 
         grid = new MonthRowTable(columns);

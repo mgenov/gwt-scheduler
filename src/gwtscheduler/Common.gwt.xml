@@ -8,7 +8,7 @@
    	<!--
    	<inherits name='com.google.gwt.user.theme.standard.Standard'/> 
    	 -->
-   	 
+	   	 
    	<inherits name='com.google.gwt.user.theme.standard.StandardResources'/>
    	<inherits name="com.google.gwt.libideas.ImmutableResources" />
 	<inherits name="com.google.gwt.libideas.StyleInjector" />
@@ -21,6 +21,8 @@
 
    	<!-- aggregates all common source code (shared between client/server) -->
    	<source path="common" />
+   	<!-- stupid css hack -->
+   	<stylesheet src="css/main.css" />
    	<stylesheet src="/css/main.css" />
    	
 </module>
