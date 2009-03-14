@@ -20,7 +20,7 @@
  * Day and week classes.
  */
 .titleColumn {
-  width: titleColumnWidthPx;
+  /*width: titleColumnWidthPx;*/
   background-color: lightBlued;
 }
  
@@ -30,7 +30,7 @@
 }
 
 .titleCell{
-  width: titleColumnWidthPx;
+  /*width: titleColumnWidthPx;*/
   background-color: lightBlued;
   
   border-left: mediumBorderPx double smooth;

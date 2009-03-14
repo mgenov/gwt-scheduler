@@ -72,11 +72,14 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
         Element parentEl = parent.getElement();
         int width = parentEl.getOffsetWidth();
         int height = parentEl.getOffsetHeight();
-        impl.setPixelSize(width, height);
+        // impl.setPixelSize(width, height);
 
         int remainingColWidth = (width - getTitleColumnWidth()) / columns;
         // int remainingColWidth = width / columns;
         int[] availableCellSize = getAvailableCellSize(width, height);
+        if (remainingColWidth <= 0) {
+            remainingColWidth = 0;
+        }
 
         // grid construction: first columns, then cell
         // we skip title column
@@ -89,7 +92,7 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
             // TODO set height
         }
 
-        for (int c = 1; c < columns; c++) {
+        for (int c = 1; c < columns + 1; c++) {
             Panel col = columnWidgets.get(c); // first col is title
             col.setSize(remainingColWidth + "px", height + "px");
 
@@ -111,24 +114,36 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
 
     public void onViewportResize(ViewportResizeEvent event) {
         Element parentEl = parent.getElement();
+        // int w = event.width, h = event.height;
         int w = parentEl.getOffsetWidth();
         int h = parentEl.getOffsetHeight();
+        // TODO correct this hack
+        if (w <= 0 || h <= 0) {
+            return;
+        }
         impl.setPixelSize(w, h);
 
-        int[] availableSize = getAvailableCellSize();
+        int[] availableSize = getAvailableCellSize(w, h);
         // for (Panel column : columnWidgets) {
-        for (int i = 1; i < columnWidgets.size(); i++) {
+        // for (int i = 1; i < columnWidgets.size(); i++) {
+        for (int i = 0; i < columnWidgets.size(); i++) {
             Panel column = columnWidgets.get(i);
+
             column.setSize(availableSize[0] + "px", h + "px");
             for (Iterator<Widget> it = column.iterator(); it.hasNext();) {
-                it.next().setPixelSize(availableSize[0], availableSize[1]);
+                Widget cell = it.next();
+                if (i == 0) {
+                    cell.setPixelSize(getTitleColumnWidth(), availableSize[1]);
+                } else {
+                    cell.setPixelSize(availableSize[0], availableSize[1]);
+                }
             }
         }
     }
 
-    private int[] getAvailableCellSize(int w, int h) {
-        int availW = (w - getTitleColumnWidth()) / columns;
-        int availH = h / rows;
+    private int[] getAvailableCellSize(int parentWidth, int parentHeight) {
+        int availW = (parentWidth - getTitleColumnWidth()) / columns;
+        int availH = parentHeight / rows;
         return new int[] { availW, availH };
     }
 
