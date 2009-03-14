@@ -24,10 +24,9 @@ public class MonthView extends WrappedWidget implements IViewportResizeHandler {
 
     /** Main container */
     private FlowPanel container;
-
     /** resize handler */
     private DefaultViewportResizeHandler handler;
-    /***/
+    /** collection of month rows */
     private List<MonthRow> monthRows;
 
     /**

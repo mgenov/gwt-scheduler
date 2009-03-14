@@ -9,7 +9,7 @@ import com.google.gwt.libideas.resources.client.CssResource;
  * @version $Revision: $
  * @since 1.0
  */
-public interface DayWeekCss extends CssResource {
+public interface DayWeekCssResource extends CssResource {
 
     /**
      * Defines a small css border size.
@@ -31,6 +31,13 @@ public interface DayWeekCss extends CssResource {
     int mediumBorderPx();
 
     /**
+     * Defines width of first column (title column)
+     * 
+     * @return the width
+     */
+    int titleColumnWidthPx();
+
+    /**
      * Even cell class.
      * 
      * @return the css class name
@@ -43,4 +50,32 @@ public interface DayWeekCss extends CssResource {
      * @return the css class name
      */
     String oddCell();
+
+    /**
+     * Column class.
+     * 
+     * @return the class name for columns
+     */
+    String column();
+
+    /**
+     * Title column class.
+     * 
+     * @return the title column name
+     */
+    String titleColumn();
+
+    /**
+     * Css class for horizontal grid.
+     * 
+     * @return css class name
+     */
+    String horizontalFillGrid();
+
+    /**
+     * Class name for title cell.
+     * 
+     * @return the class name
+     */
+    String titleCell();
 }

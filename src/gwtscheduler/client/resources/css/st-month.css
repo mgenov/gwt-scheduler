@@ -9,11 +9,12 @@
 @def monthCellPadTopPx 1px;
 @def monthCellBorderTopPx 1px;
 
-/*colors*/
-@def blue #C3D9FF;
-@def currentMonth #E8EEF7;
-@def noMonth #EEEEEE;
-
+/**
+ * colours 
+ */
+@def blued #C3D9FF;
+@def lightBlued #E8EEF7;
+@def lightGreyed #EEEEEE;
 @def greyed #777777;
 @def dark #444444;
 
@@ -37,8 +38,8 @@
 
 .monthCell {
   padding: monthCellPadTopPx 1px 0 2px;
-  border-top: monthCellBorderTopPx solid blue;
-  border-left: 1px solid blue;
+  border-top: monthCellBorderTopPx solid blued;
+  border-left: 1px solid blued;
 }
 
 .monthCellTitle, .monthCellTitleNoMonth {
@@ -48,11 +49,11 @@
 }
 
 .monthCellTitle {
-  background-color: currentMonth;
-  color: dark;
+  background-color: lightBlued;
+  color: darked;
 }
 
 .monthCellTitleNoMonth {
-  background-color: noMonth;
+  background-color: lightGreyed;
   color: greyed;
 }

@@ -9,7 +9,7 @@ import com.google.gwt.libideas.resources.client.ImmutableResourceBundle;
  * @version $Revision: $
  * @since 1.0
  */
-public interface CommonCssResources extends ImmutableResourceBundle {
+public interface CommonCssResourceBundle extends ImmutableResourceBundle {
 
     /**
      * This is the main stylesheet.
@@ -17,9 +17,9 @@ public interface CommonCssResources extends ImmutableResourceBundle {
      * @return the main stylesheet object
      */
     @Resource("gwtscheduler/client/resources/css/st-day-week.css")
-    public DayWeekCss dayWeekCss();
+    public DayWeekCssResource dayWeekCss();
 
     @Resource("gwtscheduler/client/resources/css/st-month.css")
-    public MonthCss monthCss();
+    public MonthCssResource monthCss();
 
 }

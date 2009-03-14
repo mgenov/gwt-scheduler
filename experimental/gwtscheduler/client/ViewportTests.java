@@ -1,6 +1,6 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.resources.css.Resources;
+import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.ViewportPanel;
 import gwtscheduler.client.widgets.view.day.DayView;
 import gwtscheduler.client.widgets.view.month.MonthView;

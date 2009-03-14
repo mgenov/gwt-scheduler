@@ -42,7 +42,7 @@ public class ViewportPanel extends Composite implements ResizeHandler {
     public ViewportPanel() {
         minWidth = -1;
         minHeight = -1;
-
+        
         // we never show hscroll
         container = new ScrollPanel();
         container.getElement().getStyle().setProperty("overflowX", "hidden");

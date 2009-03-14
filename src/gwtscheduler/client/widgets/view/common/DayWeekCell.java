@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.resources.css.DayWeekCss;
-import gwtscheduler.client.resources.css.Resources;
+import gwtscheduler.client.resources.Resources;
+import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DebugUtils;
 
 import com.google.gwt.dom.client.Element;
@@ -32,8 +32,8 @@ class DayWeekCell extends Widget {
         Element div = DOM.createDiv();
         setElement(div);
 
-        DayWeekCss commonCss = Resources.DayWeekCss();
-        setStyleName(this.row % 2 == 0 ? commonCss.evenCell() : commonCss.oddCell());
+        DayWeekCssResource css = Resources.dayWeekCss();
+        setStyleName(this.row % 2 == 0 ? css.evenCell() : css.oddCell());
 
         DebugUtils.textRight("" + this.row + "," + this.col, getElement());
     }
@@ -45,7 +45,7 @@ class DayWeekCell extends Widget {
      */
     @Override
     public void setPixelSize(int w, int h) {
-        DayWeekCss css = Resources.DayWeekCss();
+        DayWeekCssResource css = Resources.dayWeekCss();
         // width - border - padding
         // height - border
         super.setPixelSize(w - css.mediumBorderPx() - css.smallPaddingPx(), h - css.smallBorderPx());

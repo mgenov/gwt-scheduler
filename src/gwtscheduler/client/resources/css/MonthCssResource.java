@@ -2,6 +2,7 @@ package gwtscheduler.client.resources.css;
 
 import com.google.gwt.libideas.resources.client.CssResource;
 
+
 /**
  * Common Css Resources. This will hold structural css values.
  * 
@@ -9,7 +10,7 @@ import com.google.gwt.libideas.resources.client.CssResource;
  * @version $Revision: $
  * @since 1.0
  */
-public interface MonthCss extends CssResource {
+public interface MonthCssResource extends CssResource {
 
     /**
      * Defines font size.

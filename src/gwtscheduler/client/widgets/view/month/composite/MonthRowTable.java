@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
-import gwtscheduler.client.resources.css.Resources;
+import gwtscheduler.client.resources.Resources;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.DOM;
@@ -23,13 +23,13 @@ public class MonthRowTable extends Composite {
         grid.setCellSpacing(0);
 
         initWidget(grid);
-        setStyleName(Resources.MonthCss().monthRowTable());
+        setStyleName(Resources.monthCss().monthRowTable());
     }
 
     @Override
     protected void onAttach() {
         super.onAttach();
-        int rowHeight = Resources.MonthCss().lineHeight();
+        int rowHeight = Resources.monthCss().lineHeight();
         int rows = availableHeight / rowHeight;
 
         for (int i = 0; i < rows; i++) {
@@ -46,7 +46,7 @@ public class MonthRowTable extends Composite {
      * @param availableHeight
      */
     public void redrawRows(int height) {
-        int rowHeight = Resources.MonthCss().lineHeight();
+        int rowHeight = Resources.monthCss().lineHeight();
         int rows = height / rowHeight;
 
         if (rows > grid.getRowCount()) {
@@ -80,9 +80,9 @@ public class MonthRowTable extends Composite {
         cell.setInnerText("cell: " + row + ", " + col);
 
         // TODO add a way to decorate cells
-        String className = Resources.MonthCss().monthCell();
+        String className = Resources.monthCss().monthCell();
         if (row == 0) {
-            className = className + " " + Resources.MonthCss().monthCellTitle();
+            className = className + " " + Resources.monthCss().monthCellTitle();
         }
         cell.setClassName(className);
         return cell;

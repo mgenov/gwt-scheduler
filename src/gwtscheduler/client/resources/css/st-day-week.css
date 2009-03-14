@@ -5,16 +5,37 @@
  */
 
 @def smallBorderPx 1px;
-@def smallPaddingPx 4px; /*should be expression 1+3*/
+@def smallPaddingPx 4px; /*should be expression smallBorderPx+mediumBorderPx*/
 @def mediumBorderPx 3px;
+@def titleColumnWidthPx 40px;
+
+/**
+ * colours 
+ */
 @def smooth #DDD;
+@def lightBlued #E8EEF7;
+
 
 /**
  * Day and week classes.
  */
-.column {
+.titleColumn {
+  width: titleColumnWidthPx;
+  background-color: lightBlued;
+}
+ 
+.column, .titleColumn {
   float: left;
   display: inline;
+}
+
+.titleCell{
+  width: titleColumnWidthPx;
+  background-color: lightBlued;
+  
+  border-left: mediumBorderPx double smooth;
+  border-top: smallBorderPx solid smooth;
+  padding-right: smallPaddingPx;
 }
 
 .evenCell, .oddCell {
@@ -30,6 +51,9 @@
   border-top: smallBorderPx dotted smooth;
 }
 
-.horizontal-fill-grid tbody tr td{
+.horizontalFillGrid {
+  border-collapse: collapse;
+}
+.horizontalFillGrid tbody tr td{
   padding: 0px;
 }

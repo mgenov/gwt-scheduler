@@ -1,6 +1,6 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.resources.css.Resources;
+import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.ViewportPanel;
 import gwtscheduler.client.widgets.view.month.MonthView;
 
@@ -19,7 +19,7 @@ public class MonthTests implements EntryPoint {
      * This is the entry point method.
      */
     public void onModuleLoad() {
-        StyleInjector.injectStylesheet(Resources.MonthCss().getText());
+        StyleInjector.injectStylesheet(Resources.monthCss().getText());
         
         // months
         MonthView mv = new MonthView();

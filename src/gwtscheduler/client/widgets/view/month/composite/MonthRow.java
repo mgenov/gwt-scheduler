@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
-import gwtscheduler.client.resources.css.Resources;
+import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
 
@@ -36,7 +36,7 @@ public class MonthRow extends Composite implements IViewportResizeHandler {
         impl.add(grid);
         initWidget(impl);
         
-        setStyleName(Resources.MonthCss().monthRow());
+        setStyleName(Resources.monthCss().monthRow());
     }
 
     public void onViewportResize(ViewportResizeEvent event) {

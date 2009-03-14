@@ -1,6 +1,6 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.resources.css.Resources;
+import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.ViewportPanel;
 import gwtscheduler.client.widgets.view.day.DayView;
 import gwtscheduler.client.widgets.view.week.WeekView;
@@ -20,7 +20,7 @@ public class DayWeekTests implements EntryPoint {
      * This is the entry point method.
      */
     public void onModuleLoad() {
-        StyleInjector.injectStylesheet(Resources.DayWeekCss().getText());
+        StyleInjector.injectStylesheet(Resources.dayWeekCss().getText());
         
         DayView dv = new DayView();
         ViewportPanel dView = new ViewportPanel();
@@ -34,8 +34,8 @@ public class DayWeekTests implements EntryPoint {
 
         TabPanel main = new DecoratedTabPanel();
         main.add(dView, "Day");
-        main.add(wView, "Week");
-        main.selectTab(1);
+//        main.add(wView, "Week");
+        main.selectTab(0);
 
         RootPanel.get("calendar-main").add(main);
     }
