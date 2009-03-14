@@ -18,16 +18,16 @@
 }
 
 .evenCell, .oddCell {
-  border-left: mediumPx double smooth;
-  padding-right: smallPadding;
+  border-left: mediumBorderPx double smooth;
+  padding-right: smallPaddingPx;
 }
 
 .evenCell {
-  border-top: smallPx solid smooth;
+  border-top: smallBorderPx solid smooth;
 }
 
 .oddCell {
-  border-top: smallPx dotted smooth;
+  border-top: smallBorderPx dotted smooth;
 }
 
 .horizontal-fill-grid tbody tr td{

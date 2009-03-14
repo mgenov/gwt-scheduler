@@ -1,4 +1,18 @@
 /**
+ * Body css. We'll reset the defs.
+ */
+body {
+  color: black;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  background: #fff;
+  direction: ltr;
+  font-family: Arial Unicode MS, Arial, sans-serif;
+  font-size: small;
+}
+
+/**
  * Tab Panel/TabBar classes
  */
 .gwt-TabBar {
