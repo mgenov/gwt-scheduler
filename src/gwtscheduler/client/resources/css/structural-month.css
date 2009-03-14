@@ -9,6 +9,14 @@
 @def monthCellPadTopPx 1px;
 @def monthCellBorderTopPx 1px;
 
+/*colors*/
+@def blue #C3D9FF;
+@def currentMonth #E8EEF7;
+@def noMonth #EEEEEE;
+
+@def greyed #777777;
+@def dark #444444;
+
 /**
  * Month classes
  */
@@ -29,6 +37,22 @@
 
 .monthCell {
   padding: monthCellPadTopPx 1px 0 2px;
-  border-top: monthCellBorderTopPx solid silver;
-  border-left: 1px solid silver;
+  border-top: monthCellBorderTopPx solid blue;
+  border-left: 1px solid blue;
+}
+
+.monthCellTitle, .monthCellTitleNoMonth {
+  text-align: right;
+  padding-right: 2px;
+  overflow: hidden;
+}
+
+.monthCellTitle {
+  background-color: currentMonth;
+  color: dark;
+}
+
+.monthCellTitleNoMonth {
+  background-color: noMonth;
+  color: greyed;
 }

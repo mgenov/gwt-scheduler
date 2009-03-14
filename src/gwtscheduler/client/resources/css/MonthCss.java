@@ -60,4 +60,18 @@ public interface MonthCss extends CssResource {
      */
     String monthCell();
 
+    /**
+     * Class for month cell titles.
+     * 
+     * @return the class name
+     */
+    String monthCellTitle();
+
+    /**
+     * Class for month cell titles that are not current month.
+     * 
+     * @return the class name
+     */
+    String monthCellTitleNoMonth();
+
 }

@@ -77,8 +77,14 @@ public class MonthRowTable extends Composite {
      */
     private Element createCellElement(int row, int col) {
         Element cell = DOM.createDiv();
-        cell.setClassName(Resources.MonthCss().monthCell());
         cell.setInnerText("cell: " + row + ", " + col);
+
+        // TODO add a way to decorate cells
+        String className = Resources.MonthCss().monthCell();
+        if (row == 0) {
+            className = className + " " + Resources.MonthCss().monthCellTitle();
+        }
+        cell.setClassName(className);
         return cell;
     }
 
