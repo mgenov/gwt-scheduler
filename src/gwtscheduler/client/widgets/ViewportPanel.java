@@ -1,12 +1,12 @@
 package gwtscheduler.client.widgets;
 
+import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Command;
@@ -25,15 +25,12 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class ViewportPanel extends Composite implements ResizeHandler {
 
-	/** indicates if a resize occurred when this widget was not visible */
-	private boolean resizeQueued = false;
-
 	/** main container */
 	private ScrollPanel container;
 	/** the minimum size for the target */
 	private final int minWidth, minHeight;
-	/** cached values */
-	private int lastWidth, lastHeight;
+	/** cached vals to prevent firing multiple resizes for same window size */
+	private int lastWindowWidth, lastWindowHeight;
 	/** widget collection for resize events */
 	private List<IViewportResizeHandler> resizeHandlers;
 
@@ -41,63 +38,58 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	 * Default constructor.
 	 */
 	public ViewportPanel() {
-		minWidth = -1;
-		minHeight = -1;
-
-		// we never show hscroll
-		container = new ScrollPanel();
-		container.getElement().getStyle().setProperty("overflowX", "hidden");
-		initWidget(container);
-		Window.addResizeHandler(this);
+		this(-1, -1);
 	}
 
 	/**
 	 * Another constructor.
 	 * 
+	 * @param parent
 	 * @param minWidth the minimum width
 	 * @param minHeight the minimum height
 	 */
 	public ViewportPanel(int minWidth, int minHeight) {
-		this();
-		minWidth = -1;
-		minHeight = -1;
+		this.minWidth = minWidth;
+		this.minHeight = minHeight;
+
+		// we never show hscroll
+		container = new ScrollPanel();
+		container.getElement().getStyle().setProperty("overflowX", "hidden");
+		initWidget(container);
+
+		Window.addResizeHandler(this);
 	}
 
 	/**
 	 * Resizes the main target in order to occupy all available space.
 	 * 
-	 * @param w the available width
-	 * @param h the available height
+	 * @param viewporWidth the available viewport width
+	 * @param viewportHeight the available viewport height
 	 */
-	void doResize(int w, int h) {
-		// if a resize occurred, we'll queue the process
-		if (!isVisible() || !isAttached()) {
-			resizeQueued = true;
+	void doResize(int viewporWidth, int viewportHeight) {
+		// if (!isAttached()) {
+		// resizeQueued = true;
+		// return;
+		// }
+		if (lastWindowWidth == viewporWidth && lastWindowHeight == viewportHeight) {
 			return;
 		}
-
-		// check if we are not resizing for the same dimensions
-		if (lastWidth == w && lastHeight == h) {
-			return;
-		}
+		lastWindowWidth = viewporWidth;
+		lastWindowHeight = viewportHeight;
 
 		// 19 is a magical number, should be scrollbar width
 		// TODO this code assumes the parent goes to the right of the screen
 		int magick = 19;
-		int maxWidth = w - getWidget().getAbsoluteLeft() - magick;
-		int maxHeight = h - getWidget().getAbsoluteTop() - magick;
+		int maxWidth = viewporWidth - getWidget().getAbsoluteLeft() - 19;
+		int maxHeight = viewportHeight - getWidget().getAbsoluteTop();
 
-		GWT.log("dims: " + maxWidth + ", " + maxHeight, null);
-		GWT.log("leftTop: " + getWidget().getAbsoluteLeft() + ", " + getWidget().getAbsoluteTop(), null);
-		GWT.log("off: " + getWidget().getOffsetWidth() + ", " + getWidget().getOffsetHeight(), null);
-		
-		GWT.log("pleftTop: " + getParent().getAbsoluteLeft() + ", " + getParent().getAbsoluteTop(), null);
-		GWT.log("poff: " + getParent().getOffsetWidth() + ", " + getParent().getOffsetHeight(), null);
-		GWT.log("------", null);
-
-		maxWidth = Math.max(maxWidth, minWidth);
+		maxWidth = Math.max(maxWidth, minWidth) - magick;
 		maxHeight = Math.max(maxHeight, minHeight);
 
+		// // check if we are not resizing for the same dimensions
+		// if (maxWidth == lastWidth && maxHeight == lastHeight) {
+		// return;
+		// }
 		if (maxWidth > 0) {
 			setWidth(maxWidth + "px");
 		}
@@ -108,8 +100,9 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 			fireResizeEvent(maxWidth, maxHeight);
 		}
 
-		lastWidth = w;
-		lastHeight = h;
+		// lastWidth = maxWidth;
+		// lastHeight = maxHeight;
+		// resizeQueued = false;
 	}
 
 	/**
@@ -156,10 +149,17 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	}
 
 	public void onResize(final ResizeEvent event) {
+		doDeferredResize();
+	}
+
+	/**
+	 * Handles resize through a deferred command.
+	 */
+	protected void doDeferredResize() {
+		final int[] availableSize = DOMUtils.getViewportDimensions();
 		DeferredCommand.addCommand(new Command() {
 			public void execute() {
-				doResize(event.getWidth(), event.getHeight());
-				resizeQueued = false;
+				doResize(availableSize[0], availableSize[1]);
 			}
 		});
 	}
@@ -167,24 +167,13 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	@Override
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
-		if (visible && resizeQueued) {
-			DeferredCommand.addCommand(new Command() {
-				public void execute() {
-					doResize(Window.getClientWidth(), Window.getClientHeight());
-					resizeQueued = false;
-				}
-			});
-		}
+		doDeferredResize();
 	}
 
 	@Override
 	protected void onAttach() {
 		super.onAttach();
-		DeferredCommand.addCommand(new Command() {
-			public void execute() {
-				doResize(Window.getClientWidth(), Window.getClientHeight());
-			}
-		});
+		doDeferredResize();
 	}
 
 }

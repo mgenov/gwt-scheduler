@@ -88,7 +88,7 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
 			Panel col = columnWidgets.get(c);
 
 			for (int r = 0; r < rows; r++) {
-				int id = ((c - 1) * r) + r;
+				int id = ((c - 1) * r) + c;
 				DayWeekCell cell = new DayWeekCell(r, (c - 1), "cell: " + id);
 				col.add(cell);
 			}

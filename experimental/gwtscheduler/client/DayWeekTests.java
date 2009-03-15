@@ -4,7 +4,6 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.ViewportPanel;
 import gwtscheduler.client.widgets.view.day.CompositeDayView;
 import gwtscheduler.client.widgets.view.day.DayView;
-import gwtscheduler.client.widgets.view.week.WeekView;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.libideas.client.StyleInjector;
@@ -12,7 +11,6 @@ import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -27,22 +25,22 @@ public class DayWeekTests implements EntryPoint {
 
 		
 
-		DayView dvx = new DayView();
-		ViewportPanel dViewx = new ViewportPanel();
-		dViewx.add(dvx, dvx);
+//		DayView dvx = new DayView();
+//		ViewportPanel dViewx = new ViewportPanel();
+//		dViewx.add(dvx, dvx);
 		HTMLPanel fp = new HTMLPanel("<span>blah blah blah <p> other blah </span>");
-
-		VerticalPanel vp = new VerticalPanel();
-		vp.add(fp);
-		vp.add(dViewx);
+//
+//		VerticalPanel vp = new VerticalPanel();
+//		vp.add(fp);
+//		vp.add(dViewx);
 		
 		DayView dv = new DayView();
 		ViewportPanel dView = new ViewportPanel();
 		dView.add(dv, dv);
 
-		WeekView wv = new WeekView();
-		ViewportPanel mView = new ViewportPanel();
-		mView.add(wv, wv);
+//		WeekView wv = new WeekView();
+//		ViewportPanel mView = new ViewportPanel();
+//		mView.add(wv, wv);
 
 		TabPanel main = new DecoratedTabPanel();
 
@@ -53,6 +51,7 @@ public class DayWeekTests implements EntryPoint {
 //		main.add(mView, "Week");
 		
 //		main.add(vp, "Composite");
+		main.add(fp, "Composite");
 		main.selectTab(0);
 
 		RootPanel.get("calendar-main").add(main);

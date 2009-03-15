@@ -1,8 +1,5 @@
 package gwtscheduler.client.utils;
 
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
-
 /**
  * All native code goes here.
  * 
@@ -12,31 +9,14 @@ import com.google.gwt.user.client.Element;
  */
 public class DOMUtils {
 
-    /**
-     * Gets the element client width.
-     * 
-     * @param el the element
-     * @return the client width
-     */
-    public static int getClientWidth(Element el) {
-        return DOM.getElementPropertyInt(el, "clientWidth");
-    }
-
-    /**
-     * Gets the element client height.
-     * 
-     * @param el the element
-     * @return the client height
-     */
-    public static int getClientHeight(Element el) {
-        return DOM.getElementPropertyInt(el, "clientHeight");
-    }
-
-    /**
-     * @param el
-     * @return
-     */
-    public static Element getOffsetParent(Element el) {
-        return JSNIUtils.getOffsetParent(el);
-    }
+	/**
+	 * Gets the viewport width and height.
+	 * 
+	 * @return the viewport dimensions
+	 * @see http://andylangton.co.uk/articles/javascript/get-viewport-size-javascript/
+	 * @see http://snipplr.com/view/5896/get-browser-viewport-width-and-height/
+	 */
+	public static int[] getViewportDimensions() {
+		return new int[] { JSNIUtils.getViewportWidth(), JSNIUtils.getViewportHeight() };
+	}
 }

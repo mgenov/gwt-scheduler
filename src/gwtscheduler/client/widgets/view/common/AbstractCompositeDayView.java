@@ -29,7 +29,7 @@ public abstract class AbstractCompositeDayView extends Composite {
 
 		impl.add(topView);
 		impl.add(viewportPanel);
-		impl.setSize("100%", "100%");
+		// impl.setSize("100%", "100%");
 
 		initWidget(impl);
 	}
