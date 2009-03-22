@@ -2,6 +2,7 @@ package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
+import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
 import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
 import gwtscheduler.client.widgets.view.common.cell.DayWeekCell;
@@ -12,10 +13,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTMLTable;
+import com.google.gwt.user.client.ui.LazyPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,7 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class HorizontalGridFill extends Composite implements IViewportResizeHandler {
+public class HorizontalGridFill extends LazyPanel implements IViewportResizeHandler {
 	/** static ref to css */
 	private static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
@@ -48,20 +49,21 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
 	 * @param cols the number of columns
 	 */
 	public HorizontalGridFill(int rows, int cols) {
-		impl = new Grid(1, cols + 1);
-		impl.setBorderWidth(0);
-		impl.setStyleName(CSS.horizontalFillGrid());
-
-		initWidget(impl);
-
 		this.columns = cols;
 		this.rows = rows;
+	}
+
+	@Override
+	protected Widget createWidget() {
+		impl = new Grid(1, this.columns + 1);
+		impl.setBorderWidth(0);
+		impl.setStyleName(CSS.horizontalFillGrid());
 
 		this.columnWidgets = new ArrayList<Panel>();
 
 		// here we add one column for each day
 		// one more col for cell labels
-		for (int i = 0; i < cols + 1; i++) {
+		for (int i = 0; i < this.columns + 1; i++) {
 			FlowPanel flowPanel = new FlowPanel();
 			String className = null;
 			className = (i == 0) ? CSS.titleColumn() : CSS.column();
@@ -70,20 +72,14 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
 			impl.setWidget(0, i, flowPanel);
 		}
 
-	}
-
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-
-		// grid construction: first columns, then cells
+		// create titel cells
 		Panel titlePanel = columnWidgets.get(0); // first col is title
 		for (int r = 0; r < rows; r++) {
 			TitleCell title = new TitleCell(r, 0, r + "");
 			titlePanel.add(title);
 		}
 
-		// regular cells have different size
+		// regular cells are different from title cells
 		for (int c = 1; c < columns + 1; c++) {
 			Panel col = columnWidgets.get(c);
 
@@ -93,6 +89,14 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
 				col.add(cell);
 			}
 		}
+		return impl;
+
+	}
+
+	@Override
+	protected void onAttach() {
+		ensureWidget();
+		super.onAttach();
 	}
 
 	/**
@@ -115,17 +119,28 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
 	}
 
 	public void onViewportResize(ViewportResizeEvent event) {
-		Element parentEl = getParent().getElement();
-		int width = parentEl.getOffsetWidth();
-		int height = parentEl.getOffsetHeight();
+		if (isAttached()) {
+			doResize(event);
+		}
+	}
 
-		// TODO correct this hack
+	/**
+	 * Handles resize.
+	 * 
+	 * @param event the resize event
+	 */
+	protected void doResize(ViewportResizeEvent event) {
+		Element parentEl = getParent().getElement();
+		int height = parentEl.getOffsetHeight();
+		int width = event.width;
+
 		if (width <= 0 || height <= 0) {
 			return;
 		}
-		impl.setPixelSize(width, height);
-		int[] availableSize = getCellSize(width, height);
-		int remainingColWidth = (width - getTitleColumnOffsetWidth()) / columns;
+
+		impl.setPixelSize(width - Constants.SCROLLBAR_WIDTH, height);
+		int[] availableSize = getCellSize(width- Constants.SCROLLBAR_WIDTH, height);
+		int remainingColWidth = ((width - getTitleColumnOffsetWidth()) / columns) - Constants.SCROLLBAR_WIDTH;
 
 		for (int i = 0; i < columnWidgets.size(); i++) {
 			Panel column = columnWidgets.get(i);
@@ -136,6 +151,7 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
 				column.setPixelSize(remainingColWidth, height);
 			}
 
+			// resize cells
 			for (Iterator<Widget> it = column.iterator(); it.hasNext();) {
 				DayWeekCell cell = (DayWeekCell) it.next();
 				if (i == 0) {
@@ -156,7 +172,8 @@ public class HorizontalGridFill extends Composite implements IViewportResizeHand
 	 * @return the cell size, without counting with borders or padding
 	 */
 	private int[] getCellSize(int parentWidth, int parentHeight) {
-		int availW = (parentWidth - getTitleColumnOffsetWidth()) / columns;
+		// TODO fix the scrollbar width detection
+		int availW = ((parentWidth - getTitleColumnOffsetWidth()) / columns);
 		int availH = parentHeight / rows;
 		return new int[] { availW, availH };
 	}

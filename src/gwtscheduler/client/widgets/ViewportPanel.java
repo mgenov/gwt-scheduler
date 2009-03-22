@@ -77,13 +77,11 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 		lastWindowWidth = viewporWidth;
 		lastWindowHeight = viewportHeight;
 
-		// 19 is a magical number, should be scrollbar width
 		// TODO this code assumes the parent goes to the right of the screen
-		int magick = 19;
-		int maxWidth = viewporWidth - getWidget().getAbsoluteLeft() - 19;
+		int maxWidth = viewporWidth - getWidget().getAbsoluteLeft();
 		int maxHeight = viewportHeight - getWidget().getAbsoluteTop();
 
-		maxWidth = Math.max(maxWidth, minWidth) - magick;
+		maxWidth = Math.max(maxWidth, minWidth);// - Constants.SCROLLBAR_WIDTH;
 		maxHeight = Math.max(maxHeight, minHeight);
 
 		// // check if we are not resizing for the same dimensions

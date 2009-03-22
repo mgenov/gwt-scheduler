@@ -6,6 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-incubator-march-02-2009.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/GWT-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/GW T1.6"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
