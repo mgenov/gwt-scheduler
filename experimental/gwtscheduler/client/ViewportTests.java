@@ -2,8 +2,11 @@ package gwtscheduler.client;
 
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.ViewportPanel;
+import gwtscheduler.client.widgets.view.day.CompositeDayView;
 import gwtscheduler.client.widgets.view.day.DayView;
+import gwtscheduler.client.widgets.view.month.CompositeMonthView;
 import gwtscheduler.client.widgets.view.month.MonthView;
+import gwtscheduler.client.widgets.view.week.CompositeWeekView;
 import gwtscheduler.client.widgets.view.week.WeekView;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -21,7 +24,7 @@ public class ViewportTests implements EntryPoint {
      */
     public void onModuleLoad() {
         Resources.injectAllStylesheets();
-        
+
         // days
         DayView dv = new DayView();
         ViewportPanel dView = new ViewportPanel();
@@ -38,9 +41,9 @@ public class ViewportTests implements EntryPoint {
         mView.add(mv, mv);
 
         TabPanel main = new DecoratedTabPanel();
-        main.add(dView, "Day");
-        main.add(wView, "Week");
-        main.add(mView, "Month");
+        main.add(new CompositeDayView(), "Day");
+        main.add(new CompositeWeekView(), "Week");
+        main.add(new CompositeMonthView(), "Month");
         main.selectTab(0);
 
         RootPanel.get("calendar-main").add(main);

@@ -12,42 +12,42 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class AbstractCompositeDayView extends Composite {
 
-	/** widget impl */
-	protected VerticalPanel impl;
+    /** widget impl */
+    protected VerticalPanel impl;
 
-	/**
-	 * Default constructor.
-	 */
-	public AbstractCompositeDayView() {
-		impl = new VerticalPanel();
+    /**
+     * Default constructor.
+     */
+    public AbstractCompositeDayView() {
+        impl = new VerticalPanel();
 
-		AbstractDayView dayView = createDayView();
-		ViewportPanel viewportPanel = new ViewportPanel();
-		viewportPanel.add(dayView, dayView);
+        AbstractDayView dayView = createDayView();
+        ViewportPanel vmain = new ViewportPanel();
+        vmain.add(dayView, dayView);
 
-		Widget topView = createTopView(dayView.getColumns());
+        Widget topView = createTopView(dayView.getColumns());
 
-		impl.add(topView);
-		impl.add(viewportPanel);
-		// impl.setSize("100%", "100%");
+        impl.add(topView);
+        impl.add(vmain);
+        // impl.setSize("100%", "100%");
 
-		initWidget(impl);
-	}
+        initWidget(impl);
+    }
 
-	/**
-	 * Creates the top view widget.
-	 * 
-	 * @param columns the number of columns
-	 * @return the top view widget
-	 */
-	protected Widget createTopView(int columns) {
-		return new HTMLPanel("<span>blah blah blah <p> other blah </span>");
-	}
+    /**
+     * Creates the top view widget.
+     * 
+     * @param columns the number of columns
+     * @return the top view widget
+     */
+    protected Widget createTopView(int columns) {
+        return new HTMLPanel("<span>blah blah blah <p> other blah </span>");
+    }
 
-	/**
-	 * Creates the day view widget.
-	 * 
-	 * @return the day view widget
-	 */
-	protected abstract AbstractDayView createDayView();
+    /**
+     * Creates the day view widget.
+     * 
+     * @return the day view widget
+     */
+    protected abstract AbstractDayView createDayView();
 }
