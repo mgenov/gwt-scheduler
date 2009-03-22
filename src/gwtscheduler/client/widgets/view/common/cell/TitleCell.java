@@ -25,7 +25,7 @@ public class TitleCell extends DayWeekCell {
 		if (w < 0) w = 0;
 		if (h < 0) h = 0;
 		// width - padding; height - border
-		setPixelSize(w - CSS.smallPaddingPx(), h - CSS.smallBorderPx());
+		setPixelSize(w /*- CSS.smallPaddingPx()*/, h - CSS.smallBorderPx());
 	}
 
 }
