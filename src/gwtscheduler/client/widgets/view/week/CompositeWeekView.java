@@ -1,18 +1,18 @@
 package gwtscheduler.client.widgets.view.week;
 
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
-
-import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
-import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
+import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.ResizeEvent;
 import gwtscheduler.client.widgets.view.common.AbstractCompositeDayView;
 import gwtscheduler.client.widgets.view.common.AbstractDayView;
 import gwtscheduler.client.widgets.view.common.HorizontalGridFill;
 
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
+
 /**
  *
  */
-public class CompositeWeekView extends AbstractCompositeDayView implements IViewportResizeHandler {
+public class CompositeWeekView extends AbstractCompositeDayView implements IResizeHandler {
 
     private VerticalPanel container;
     private HorizontalGridFill grid;
@@ -35,8 +35,8 @@ public class CompositeWeekView extends AbstractCompositeDayView implements IView
         // return super.createTopView(columns);
     }
 
-    public void onViewportResize(ViewportResizeEvent event) {
+    public void onResize(ResizeEvent event) {
         container.setSize("100%", "1em");
-        grid.onViewportResize(event);
+        grid.onResize(event);
     }
 }

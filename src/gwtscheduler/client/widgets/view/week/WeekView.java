@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.week;
 
-import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
+import gwtscheduler.client.interfaces.events.IResizeHandler;
 import gwtscheduler.client.widgets.view.common.AbstractDayView;
 
 /**
@@ -10,7 +10,7 @@ import gwtscheduler.client.widgets.view.common.AbstractDayView;
  * @version $Revision: $
  * @since 1.0
  */
-public class WeekView extends AbstractDayView implements IViewportResizeHandler {
+public class WeekView extends AbstractDayView implements IResizeHandler {
 
 	/**
 	 * Default constructor.

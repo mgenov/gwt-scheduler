@@ -1,4 +1,5 @@
-package gwtscheduler.client.widgets.resize;
+package gwtscheduler.client.interfaces.events;
+
 
 /**
  * Interface for resize-aware widgets.

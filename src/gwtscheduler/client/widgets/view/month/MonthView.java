@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.widgets.resize.DefaultViewportResizeHandler;
-import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
-import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
+import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.ResizeEvent;
+import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
 import gwtscheduler.client.widgets.view.WrappedWidget;
 import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 
@@ -20,12 +20,12 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-public class MonthView extends WrappedWidget implements IViewportResizeHandler {
+public class MonthView extends WrappedWidget implements IResizeHandler {
 
 	/** Main container */
 	private FlowPanel container;
 	/** resize handler */
-	private DefaultViewportResizeHandler handler;
+	private DefaultResizeHandler handler;
 	/** collection of month rows */
 	private List<MonthRow> monthRows;
 
@@ -34,7 +34,7 @@ public class MonthView extends WrappedWidget implements IViewportResizeHandler {
 	 */
 	public MonthView() {
 		container = new FlowPanel();
-		handler = new DefaultViewportResizeHandler(this);
+		handler = new DefaultResizeHandler(this);
 		wrapWidget(container);
 
 		monthRows = new ArrayList<MonthRow>();
@@ -59,11 +59,11 @@ public class MonthView extends WrappedWidget implements IViewportResizeHandler {
 		}
 	}
 
-	public void onViewportResize(ViewportResizeEvent event) {
+	public void onResize(ResizeEvent event) {
 		// we delegate to default handler
-		handler.onViewportResize(event);
+		handler.onResize(event);
 		for (MonthRow row : monthRows) {
-			row.onViewportResize(event);
+			row.onResize(event);
 		}
 	}
 }

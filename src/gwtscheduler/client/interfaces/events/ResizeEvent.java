@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.resize;
+package gwtscheduler.client.interfaces.events;
 
 /**
  * Resize event for resize aware widgets.
@@ -7,7 +7,7 @@ package gwtscheduler.client.widgets.resize;
  * @version $Revision: $
  * @since 1.0
  */
-public class ViewportResizeEvent {
+public class ResizeEvent {
 
     public final int width;
     public final int height;
@@ -18,7 +18,7 @@ public class ViewportResizeEvent {
      * @param availableWidth the available width
      * @param availableHeight available height
      */
-    public ViewportResizeEvent(int availableWidth, int availableHeight) {
+    public ResizeEvent(int availableWidth, int availableHeight) {
         this.width = availableWidth;
         this.height = availableHeight;
     }

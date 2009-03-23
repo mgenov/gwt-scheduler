@@ -1,5 +1,8 @@
 package gwtscheduler.client.widgets.resize;
 
+import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.ResizeEvent;
+
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -9,7 +12,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class DefaultViewportResizeHandler implements IViewportResizeHandler {
+public class DefaultResizeHandler implements IResizeHandler {
 
     /** Wrapper */
     private final Widget target;
@@ -19,7 +22,7 @@ public class DefaultViewportResizeHandler implements IViewportResizeHandler {
      * 
      * @param widget the widget thath should handle resizes
      */
-    public DefaultViewportResizeHandler(Widget widget) {
+    public DefaultResizeHandler(Widget widget) {
         target = widget;
     }
 
@@ -28,7 +31,7 @@ public class DefaultViewportResizeHandler implements IViewportResizeHandler {
      * 
      * @param event the resize event
      */
-    public void onViewportResize(ViewportResizeEvent event) {
+    public void onResize(ResizeEvent event) {
         target.setSize(event.width + "px", event.height + "px");
     }
 }

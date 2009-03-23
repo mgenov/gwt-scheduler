@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
+import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.ResizeEvent;
 import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.widgets.resize.IViewportResizeHandler;
-import gwtscheduler.client.widgets.resize.ViewportResizeEvent;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -14,37 +14,37 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-public class MonthRow extends Composite implements IViewportResizeHandler {
+public class MonthRow extends Composite implements IResizeHandler {
 
-    /** impl */
-    private FlowPanel impl;
-    /** will hold grid data */
-    private MonthRowTable grid;
-    /** number of cols */
-    private final int columns;
+	/** impl */
+	private FlowPanel impl;
+	/** will hold grid data */
+	private MonthRowTable grid;
+	/** number of cols */
+	private final int columns;
 
-    /**
-     * Default constructor.
-     * 
-     * @param cols the number of columns
-     */
-    public MonthRow(int cols) {
-        columns = cols;
-        impl = new FlowPanel();
+	/**
+	 * Default constructor.
+	 * 
+	 * @param cols the number of columns
+	 */
+	public MonthRow(int cols) {
+		columns = cols;
+		impl = new FlowPanel();
 
-        grid = new MonthRowTable(columns);
-        impl.add(grid);
-        initWidget(impl);
-        
-        setStyleName(Resources.monthCss().monthRow());
-    }
+		grid = new MonthRowTable(columns);
+		impl.add(grid);
+		initWidget(impl);
 
-    public void onViewportResize(ViewportResizeEvent event) {
-        if (!isVisible()) {
-            return;
-        }
-        int availableHeight = getElement().getOffsetHeight();
-        grid.redrawRows(availableHeight);
-    }
+		setStyleName(Resources.monthCss().monthRow());
+	}
+
+	public void onResize(ResizeEvent event) {
+		if (!isVisible()) {
+			return;
+		}
+		int availableHeight = getElement().getOffsetHeight();
+		grid.redrawRows(availableHeight);
+	}
 
 }

@@ -30,7 +30,7 @@ public class DayWeekCell extends Widget {
 	public DayWeekCell(int row, int col, String label) {
 		this.row = row;
 		this.col = col;
-		
+
 		Element div = DOM.createDiv();
 		setElement(div);
 		setStyleName(this.row % 2 == 0 ? CSS.evenCell() : CSS.oddCell());
