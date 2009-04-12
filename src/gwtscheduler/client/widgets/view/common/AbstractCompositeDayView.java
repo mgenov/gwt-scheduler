@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Composite view class for days.
+ * Composite view class for days. Has an upper label and a grid.
  */
 public abstract class AbstractCompositeDayView extends Composite {
 
