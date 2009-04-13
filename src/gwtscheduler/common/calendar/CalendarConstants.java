@@ -9,8 +9,8 @@ package gwtscheduler.common.calendar;
  */
 public interface CalendarConstants {
 
-    public static final int MILLISECOND = 0;
-    public static final int SECOND = 1;
-    public static final int MINUTE = 2;
-    public static final int HOUR = 3;
+	public static final int MILLISECOND = 0;
+	public static final int SECOND = 1;
+	public static final int MINUTE = 2;
+	public static final int HOUR = 3;
 }

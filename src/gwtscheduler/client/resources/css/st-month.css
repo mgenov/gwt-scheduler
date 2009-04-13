@@ -11,18 +11,9 @@
 @def monthCellTitleBorderTopPx 1px;
 
 /**
- * colours 
- */
-@def blued #C3D9FF;
-@def lightBlued #E8EEF7;
-@def lightGreyed #EEEEEE;
-@def greyed #777777;
-@def dark #444444;
-
-/**
  * Month classes
  */
-
+ 
 .monthRow {
   left: 0;
   overflow: hidden;
@@ -35,6 +26,7 @@
 .monthRowTable {
   width: 100%;
   table-layout: fixed;
+  background: defaultBg;
 }
 
 .monthCell {

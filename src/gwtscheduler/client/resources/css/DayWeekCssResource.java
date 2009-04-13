@@ -9,7 +9,7 @@ import com.google.gwt.libideas.resources.client.CssResource;
  * @version $Revision: $
  * @since 1.0
  */
-public interface DayWeekCssResource extends CssResource {
+public interface DayWeekCssResource extends CommonCssResource, CssResource {
 
 	/**
 	 * Defines a small css border size.

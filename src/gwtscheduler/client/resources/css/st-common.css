@@ -1,0 +1,34 @@
+/**
+ * Colours css file.
+ * @see: http://code.google.com/docreader/#p=google-web-toolkit-incubator&s=google-web-toolkit-incubator&t=CssResource
+ */
+
+/**
+ * colours 
+ */
+@def smooth #DDD;
+
+@def lightGreyed #EEEEEE;
+@def greyed #777777;
+@def dark #444444;
+
+@def lightBlued #E8EEF7;
+@def blued #C3D9FF;
+
+@def defaultBg white;
+
+/**
+ * Sizes
+ */
+ 
+@def genericContainerPaddingPx 5px; 
+
+
+/**
+ * General classes.
+ */
+.genericContainer {
+  background: lightBlued;
+  padding: genericContainerPaddingPx;
+}
+

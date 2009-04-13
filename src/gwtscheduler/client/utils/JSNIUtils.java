@@ -1,6 +1,5 @@
 package gwtscheduler.client.utils;
 
-
 /**
  * All native code goes here.
  * 
@@ -36,5 +35,5 @@ public class JSNIUtils {
 			e = $doc.documentElement || $doc.body;
 		}
 		return e[ a+'Height' ];
-	   }-*/;
+	}-*/;
 }

@@ -9,12 +9,6 @@
 @def mediumBorderPx 3px;
 @def titleColumnWidthPx 40px;
 
-/**
- * colours 
- */
-@def smooth #DDD;
-@def lightBlued #E8EEF7;
-
 
 /**
  * Day and week classes.
@@ -26,6 +20,7 @@
 .column, .titleColumn {
   float: left;
   display: inline;
+  background: defaultBg;
 }
 
 /** title */

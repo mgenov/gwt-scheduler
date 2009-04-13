@@ -12,26 +12,29 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class DefaultResizeHandler implements IResizeHandler {
+public class DefaultResizeHandler extends AbstractResizeHandler<Widget> implements IResizeHandler {
 
-    /** Wrapper */
-    private final Widget target;
+	/**
+	 * Creates a new resize handler for the supplied widget.
+	 * 
+	 * @param widget the widget thath should handle resizes
+	 */
+	public DefaultResizeHandler(Widget widget) {
+		super(widget);
+	}
 
-    /**
-     * Creates a new resize handler for the supplied widget.
-     * 
-     * @param widget the widget thath should handle resizes
-     */
-    public DefaultResizeHandler(Widget widget) {
-        target = widget;
-    }
+	/**
+	 * Called when a viewport resize event ocurred.
+	 * 
+	 * @param event the resize event
+	 */
+	public void onResize(ResizeEvent event) {
+		getTarget().setSize(event.width + "px", event.height + "px");
+	}
 
-    /**
-     * Called when a viewport resize event ocurred.
-     * 
-     * @param event the resize event
-     */
-    public void onResize(ResizeEvent event) {
-        target.setSize(event.width + "px", event.height + "px");
-    }
+	@Override
+	protected void onDelayedResize(ResizeEvent event) {
+		getTarget().setSize(event.width + "px", event.height + "px");
+	}
+
 }

@@ -9,17 +9,17 @@ package gwtscheduler.client.interfaces.events;
  */
 public class ResizeEvent {
 
-    public final int width;
-    public final int height;
+	public final int width;
+	public final int height;
 
-    /**
-     * Main constructor.
-     * 
-     * @param availableWidth the available width
-     * @param availableHeight available height
-     */
-    public ResizeEvent(int availableWidth, int availableHeight) {
-        this.width = availableWidth;
-        this.height = availableHeight;
-    }
+	/**
+	 * Main constructor.
+	 * 
+	 * @param availableWidth the available width
+	 * @param availableHeight available height
+	 */
+	public ResizeEvent(int availableWidth, int availableHeight) {
+		this.width = availableWidth;
+		this.height = availableHeight;
+	}
 }

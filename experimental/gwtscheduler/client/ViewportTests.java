@@ -1,16 +1,12 @@
 package gwtscheduler.client;
 
 import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.widgets.ViewportPanel;
+import gwtscheduler.client.widgets.nav.DateViewsTabPanel;
 import gwtscheduler.client.widgets.view.day.CompositeDayView;
-import gwtscheduler.client.widgets.view.day.DayView;
 import gwtscheduler.client.widgets.view.month.CompositeMonthView;
-import gwtscheduler.client.widgets.view.month.MonthView;
 import gwtscheduler.client.widgets.view.week.CompositeWeekView;
-import gwtscheduler.client.widgets.view.week.WeekView;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 
@@ -19,33 +15,18 @@ import com.google.gwt.user.client.ui.TabPanel;
  */
 public class ViewportTests implements EntryPoint {
 
-    /**
-     * This is the entry point method.
-     */
-    public void onModuleLoad() {
-        Resources.injectAllStylesheets();
+	/**
+	 * This is the entry point method.
+	 */
+	public void onModuleLoad() {
+		Resources.injectAllStylesheets();
 
-        // days
-        DayView dv = new DayView();
-        ViewportPanel dView = new ViewportPanel();
-        dView.add(dv, dv);
+		TabPanel main = new DateViewsTabPanel();
+		main.add(new CompositeDayView(), "Day");
+		main.add(new CompositeWeekView(), "Week");
+		main.add(new CompositeMonthView(), "Month");
+		main.selectTab(0);
 
-        // week
-        WeekView wv = new WeekView();
-        ViewportPanel wView = new ViewportPanel();
-        wView.add(wv, wv);
-
-        // months
-        MonthView mv = new MonthView();
-        ViewportPanel mView = new ViewportPanel();
-        mView.add(mv, mv);
-
-        TabPanel main = new DecoratedTabPanel();
-        main.add(new CompositeDayView(), "Day");
-        main.add(new CompositeWeekView(), "Week");
-        main.add(new CompositeMonthView(), "Month");
-        main.selectTab(0);
-
-        RootPanel.get("calendar-main").add(main);
-    }
+		RootPanel.get("calendar-main").add(main);
+	}
 }

@@ -3,7 +3,7 @@ package gwtscheduler.client.widgets.view.month;
 import gwtscheduler.client.interfaces.events.IResizeHandler;
 import gwtscheduler.client.interfaces.events.ResizeEvent;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
-import gwtscheduler.client.widgets.view.WrappedWidget;
+import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 
 import java.util.ArrayList;

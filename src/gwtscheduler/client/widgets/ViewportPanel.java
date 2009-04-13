@@ -66,10 +66,9 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	 * @param viewportHeight the available viewport height
 	 */
 	void doResize(int viewporWidth, int viewportHeight) {
-		// if (lastWindowWidth == viewporWidth && lastWindowHeight ==
-		// viewportHeight) {
-		// return;
-		// }
+		if (lastWindowWidth == viewporWidth && lastWindowHeight == viewportHeight) {
+			return;
+		}
 		lastWindowWidth = viewporWidth;
 		lastWindowHeight = viewportHeight;
 

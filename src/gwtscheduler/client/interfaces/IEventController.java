@@ -11,18 +11,18 @@ import gwtscheduler.common.calendar.IDate;
  */
 public interface IEventController {
 
-    /**
-     * Goes to the next series of events.
-     */
-    void navigateNext();
+	/**
+	 * Goes to the next series of events.
+	 */
+	void navigateNext();
 
-    /**
-     * Goes to the previous series of events.
-     */
-    void navigatePrevious();
+	/**
+	 * Goes to the previous series of events.
+	 */
+	void navigatePrevious();
 
-    /**
-     * Goes to a specified start date.
-     */
-    void navigateTo(IDate date);
+	/**
+	 * Goes to a specified start date.
+	 */
+	void navigateTo(IDate date);
 }

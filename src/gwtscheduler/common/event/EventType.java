@@ -9,12 +9,12 @@ package gwtscheduler.common.event;
  */
 public enum EventType {
 
-    /**
-     * Defines an event that lasts all day.
-     */
-    ALLDAY,
-    /**
-     * Defines an event that has does not span more than a day.
-     */
-    SIMPLE;
+	/**
+	 * Defines an event that lasts all day.
+	 */
+	ALLDAY,
+	/**
+	 * Defines an event that has does not span more than a day.
+	 */
+	SIMPLE;
 }

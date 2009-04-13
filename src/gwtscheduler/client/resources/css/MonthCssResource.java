@@ -9,7 +9,7 @@ import com.google.gwt.libideas.resources.client.CssResource;
  * @version $Revision: $
  * @since 1.0
  */
-public interface MonthCssResource extends CssResource {
+public interface MonthCssResource extends CommonCssResource, CssResource {
 
 	/**
 	 * Defines font size.

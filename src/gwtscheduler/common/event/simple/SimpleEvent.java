@@ -13,17 +13,17 @@ import gwtscheduler.common.event.EventType;
  */
 public class SimpleEvent extends Event {
 
-    /**
-     * @param start
-     * @param end
-     * @param type
-     */
-    public SimpleEvent(IDate start, IDate end, EventType type) {
-        super(start, end, type);
-    }
+	/**
+	 * @param start
+	 * @param end
+	 * @param type
+	 */
+	public SimpleEvent(IDate start, IDate end, EventType type) {
+		super(start, end, type);
+	}
 
-    @Override
-    protected IDate filter(IDate date) {
-        return date;
-    }
+	@Override
+	protected IDate filter(IDate date) {
+		return date;
+	}
 }

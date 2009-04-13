@@ -1,18 +1,13 @@
-package gwtscheduler.client.widgets.view.common;
+package gwtscheduler.client.widgets.view.common.grid;
 
-import gwtscheduler.client.interfaces.events.IResizeHandler;
-import gwtscheduler.client.interfaces.events.ResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.view.common.cell.DayWeekCell;
 import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTMLTable;
@@ -27,7 +22,8 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class HorizontalGridFill extends LazyPanel implements IResizeHandler {
+public class HorizontalGridFill extends LazyPanel {
+
 	/** static ref to css */
 	private static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
@@ -35,7 +31,6 @@ public class HorizontalGridFill extends LazyPanel implements IResizeHandler {
 	private HTMLTable impl;
 	/** columns */
 	private List<Panel> columnWidgets;
-
 	/** grid col count, excluding title column */
 	private int columns;
 	/** grid row count */
@@ -72,10 +67,11 @@ public class HorizontalGridFill extends LazyPanel implements IResizeHandler {
 			impl.setWidget(0, i, flowPanel);
 		}
 
-		// create titel cells
+		// create title cells
 		Panel titlePanel = columnWidgets.get(0); // first col is title
 		for (int r = 0; r < rows; r++) {
 			TitleCell title = new TitleCell(r, 0, r + "");
+			title.setWidth(CSS.titleColumnWidthPx() + "px");
 			titlePanel.add(title);
 		}
 
@@ -100,79 +96,29 @@ public class HorizontalGridFill extends LazyPanel implements IResizeHandler {
 	}
 
 	/**
-	 * Gets the title column width for the title column.
+	 * Gets the column widgets list.
 	 * 
-	 * @return the title column width
+	 * @return the column widgets list
 	 */
-	private final int getTitleColumnWidth() {
-		return CSS.titleColumnWidthPx();
+	public List<Panel> getColumnWidgets() {
+		return columnWidgets;
 	}
 
 	/**
-	 * Gets the title column width for the title column, including borders and
-	 * padding.
+	 * Gets the column count for this grid fill.
 	 * 
-	 * @return the title column offset width
+	 * @return the column count
 	 */
-	private int getTitleColumnOffsetWidth() {
-		return getTitleColumnWidth();// + CSS.smallPaddingPx();
-	}
-
-	public void onResize(ResizeEvent event) {
-		if (isAttached()) {
-			doResize(event);
-		}
+	int getColumnCount() {
+		return columns;
 	}
 
 	/**
-	 * Handles resize.
+	 * Gets the row count.
 	 * 
-	 * @param event the resize event
+	 * @return the row count
 	 */
-	protected void doResize(ResizeEvent event) {
-		Element parentEl = getParent().getElement();
-		int height = parentEl.getOffsetHeight();
-		int width = event.width;
-
-		if (width <= 0 || height <= 0) {
-			return;
-		}
-
-		impl.setPixelSize(width - Constants.SCROLLBAR_WIDTH, height);
-		int[] availableSize = getCellSize(width - Constants.SCROLLBAR_WIDTH, height);
-		int remainingColWidth = ((width - getTitleColumnOffsetWidth()) / columns) - Constants.SCROLLBAR_WIDTH;
-		for (int i = 0; i < columnWidgets.size(); i++) {
-			Panel column = columnWidgets.get(i);
-			if (i == 0) {
-				column.setPixelSize(getTitleColumnOffsetWidth(), height);
-			}
-			else {
-				column.setPixelSize(remainingColWidth, height);
-			}
-
-			// resize cells
-			for (Iterator<Widget> it = column.iterator(); it.hasNext();) {
-				DayWeekCell cell = (DayWeekCell) it.next();
-				if (i == 0) {
-					cell.setCompensatedPixelSize(getTitleColumnWidth(), availableSize[1]);
-				}
-				else {
-					cell.setCompensatedPixelSize(availableSize[0], availableSize[1]);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Gets the default cell size for a non-title cell.
-	 * 
-	 * @param parentWidth the parent width
-	 * @param parentHeight the parent height
-	 * @return the cell size, without counting with borders or padding
-	 */
-	private int[] getCellSize(int parentWidth, int parentHeight) {
-		int availW = ((parentWidth - getTitleColumnOffsetWidth()) / columns);
-		int availH = parentHeight / rows;
-		return new int[] { availW, availH };
+	int getRowCount() {
+		return rows;
 	}
 }
