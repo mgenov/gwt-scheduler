@@ -6,6 +6,7 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Main navigation panel.
@@ -25,6 +26,8 @@ public class DateViewsTabPanel extends DecoratedTabPanel implements BeforeSelect
 
 	public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
 		// this fires the resize
+		Widget w = getWidget(event.getItem());
+		w.setVisible(true); // triggers resize event
 		// handler
 	}
 

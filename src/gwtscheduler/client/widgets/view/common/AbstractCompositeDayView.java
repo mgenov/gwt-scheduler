@@ -13,6 +13,8 @@ public abstract class AbstractCompositeDayView extends Composite {
 
 	/** widget impl */
 	protected VerticalPanel impl;
+	/** viewport widget */
+	private ViewportPanel vmain;
 
 	/**
 	 * Default constructor.
@@ -22,7 +24,7 @@ public abstract class AbstractCompositeDayView extends Composite {
 
 		AbstractDayView dayView = createDayView();
 
-		ViewportPanel vmain = new ViewportPanel();
+		vmain = new ViewportPanel();
 		vmain.add(dayView, dayView.getResizeHandler());
 
 		Widget topView = createTopView(dayView.getColumns());
@@ -31,6 +33,15 @@ public abstract class AbstractCompositeDayView extends Composite {
 		impl.add(vmain);
 
 		initWidget(impl);
+	}
+
+	/**
+	 * Gets the viewport panel.
+	 * 
+	 * @return the viewport panel
+	 */
+	protected ViewportPanel getViewportPanel() {
+		return vmain;
 	}
 
 	/**

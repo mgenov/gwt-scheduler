@@ -14,5 +14,5 @@ public interface IResizeHandler {
 	 * 
 	 * @param event the resize event
 	 */
-	void onResize(ResizeEvent event);
+	void onResize(WidgetResizeEvent event);
 }

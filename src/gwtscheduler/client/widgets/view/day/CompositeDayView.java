@@ -29,14 +29,20 @@ public class CompositeDayView extends AbstractCompositeDayView {
 		FlexTable table = new FlexTable();
 		table.addStyleName(CSS.genericContainer());
 		table.setWidth("100%");
-		
+
 		table.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
 		table.getCellFormatter().setWidth(0, 2, Constants.SCROLLBAR_WIDTH + "px");
-		
+
 		table.setWidget(0, 1, new Label("Today"));
 		table.getFlexCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_CENTER);
-		
+
 		return table;
 	}
 
+	@Override
+	public void setVisible(boolean visible) {
+		// triggers resize
+		super.setVisible(visible);
+		getViewportPanel().setVisible(visible);
+	}
 }

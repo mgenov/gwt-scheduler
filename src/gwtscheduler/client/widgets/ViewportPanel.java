@@ -28,8 +28,8 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	private ScrollPanel container;
 	/** the minimum size for the target */
 	private final int minWidth, minHeight;
-	/** cached vals to prevent firing multiple resizes for same window size */
-	private int lastWindowWidth, lastWindowHeight;
+	// /** cached vals to prevent firing multiple resizes for same window size */
+	// private int lastWindowWidth, lastWindowHeight;
 	/** widget collection for resize events */
 	private List<IResizeHandler> resizeHandlers;
 
@@ -66,18 +66,19 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	 * @param viewportHeight the available viewport height
 	 */
 	void doResize(int viewporWidth, int viewportHeight) {
-		if (lastWindowWidth == viewporWidth && lastWindowHeight == viewportHeight) {
-			return;
-		}
-		lastWindowWidth = viewporWidth;
-		lastWindowHeight = viewportHeight;
+		// if (lastWindowWidth == viewporWidth && lastWindowHeight ==
+		// viewportHeight) {
+		// return;
+		// }
+		// lastWindowWidth = viewporWidth;
+		// lastWindowHeight = viewportHeight;
 
 		// TODO this code assumes the parent goes to the right of the screen
 		int maxWidth = viewporWidth - getWidget().getAbsoluteLeft();
 		int maxHeight = viewportHeight - getWidget().getAbsoluteTop();
 
 		maxWidth = Math.max(maxWidth, minWidth) - Constants.SCROLLBAR_WIDTH;
-		maxHeight = Math.max(maxHeight, minHeight) - 10;
+		maxHeight = Math.max(maxHeight, minHeight) - 10; // 10px for margin
 
 		if (maxWidth > 0) {
 			setWidth(maxWidth + "px");

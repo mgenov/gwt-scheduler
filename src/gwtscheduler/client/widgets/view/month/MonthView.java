@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.events.IResizeHandler;
-import gwtscheduler.client.interfaces.events.ResizeEvent;
+import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.month.composite.MonthRow;
@@ -59,7 +59,7 @@ public class MonthView extends WrappedWidget implements IResizeHandler {
 		}
 	}
 
-	public void onResize(ResizeEvent event) {
+	public void onResize(WidgetResizeEvent event) {
 		// we delegate to default handler
 		handler.onResize(event);
 		for (MonthRow row : monthRows) {

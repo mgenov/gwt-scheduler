@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common.grid;
 
 import gwtscheduler.client.interfaces.events.IResizeHandler;
-import gwtscheduler.client.interfaces.events.ResizeEvent;
+import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
@@ -37,7 +37,7 @@ public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<Horiz
 	}
 
 	@Override
-	protected void onDelayedResize(ResizeEvent event) {
+	protected void onDelayedResize(WidgetResizeEvent event) {
 		onResize(event);
 	}
 
@@ -46,10 +46,11 @@ public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<Horiz
 	 * 
 	 * @param event the resize event
 	 */
-	public void onResize(ResizeEvent event) {
+	@Override
+	public void onResize(WidgetResizeEvent event) {
 		super.onResize(event);
-		HorizontalGridFill grid = getTarget();
 
+		HorizontalGridFill grid = getTarget();
 		Element parentEl = grid.getParent().getElement();
 		int height = parentEl.getOffsetHeight();
 		int width = event.width;

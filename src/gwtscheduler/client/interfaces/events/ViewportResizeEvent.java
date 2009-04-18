@@ -7,7 +7,7 @@ package gwtscheduler.client.interfaces.events;
  * @version $Revision: $
  * @since 1.0
  */
-public class ViewportResizeEvent extends ResizeEvent {
+public class ViewportResizeEvent extends WidgetResizeEvent {
 
 	/**
 	 * Main constructor.

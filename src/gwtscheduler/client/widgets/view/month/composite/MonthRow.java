@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
 import gwtscheduler.client.interfaces.events.IResizeHandler;
-import gwtscheduler.client.interfaces.events.ResizeEvent;
+import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -39,7 +39,7 @@ public class MonthRow extends Composite implements IResizeHandler {
 		setStyleName(Resources.monthCss().monthRow());
 	}
 
-	public void onResize(ResizeEvent event) {
+	public void onResize(WidgetResizeEvent event) {
 		if (!isVisible()) {
 			return;
 		}

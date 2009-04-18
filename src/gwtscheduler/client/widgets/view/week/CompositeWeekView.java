@@ -32,10 +32,18 @@ public class CompositeWeekView extends AbstractCompositeDayView {
 
 		for (int i = 0; i < columns; i++) {
 			g.setWidget(0, 1, new Label("Day" + i));
-			g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i,
-					HasHorizontalAlignment.ALIGN_CENTER);
+			g.getFlexCellFormatter()
+					.setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
 		}
 
 		return g;
 	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		// triggers resize
+		super.setVisible(visible);
+		getViewportPanel().setVisible(visible);
+	}
+
 }
