@@ -18,7 +18,7 @@ public class CompositeMonthView extends Composite {
 	public CompositeMonthView() {
 		MonthView mv = new MonthView();
 		final ViewportPanel impl = new ViewportPanel();
-		DOM.setStyleAttribute(impl.getElement(), "overfloyY", "hidden");
+		DOM.setStyleAttribute(impl.getElement(), "overflowY", "hidden");
 		impl.add(mv, mv);
 		initWidget(impl);
 

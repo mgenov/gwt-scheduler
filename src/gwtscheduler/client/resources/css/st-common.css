@@ -13,7 +13,8 @@
 @def dark #444444;
 
 @def lightBlued #E8EEF7;
-@def blued #C3D9FF;
+/*@def blued #C3D9FF;*/
+@def blued #E8EEF7;
 
 @def defaultBg white;
 
