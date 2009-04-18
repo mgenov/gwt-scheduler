@@ -3,4 +3,5 @@ build
 .settings
 .classpath
 .project
+.externalToolBuilders
 war/gwtscheduler*
