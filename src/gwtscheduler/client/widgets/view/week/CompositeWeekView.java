@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- *
+ * Week view with top week labels.
  */
 public class CompositeWeekView extends AbstractCompositeDayView {
 
@@ -27,23 +27,18 @@ public class CompositeWeekView extends AbstractCompositeDayView {
 	@Override
 	protected Widget createTopView(int columns) {
 		FlexTable g = new FlexTable();
+		g.addStyleName(CSS.genericContainer());
+		g.setWidth("100%");
 		g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
 		g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH + "px");
 
 		for (int i = 0; i < columns; i++) {
-			g.setWidget(0, 1, new Label("Day" + i));
+			g.setWidget(0, 1 + i, new Label("Day" + i));
 			g.getFlexCellFormatter()
 					.setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
 		}
 
 		return g;
-	}
-
-	@Override
-	public void setVisible(boolean visible) {
-		// triggers resize
-		super.setVisible(visible);
-		getViewportPanel().setVisible(visible);
 	}
 
 }

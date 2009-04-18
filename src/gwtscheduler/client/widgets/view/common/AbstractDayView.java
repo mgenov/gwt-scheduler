@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.interfaces.events.IHasResizeHandler;
-import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFill;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHandler;
 
@@ -17,7 +17,7 @@ public abstract class AbstractDayView extends WrappedWidget implements IHasResiz
 	/** Hours grid */
 	protected HorizontalGridFill grid;
 	/** Resize handler */
-	private IResizeHandler rh;
+	private IWidgetResizeHandler rh;
 
 	/**
 	 * Default constructor.
@@ -38,7 +38,7 @@ public abstract class AbstractDayView extends WrappedWidget implements IHasResiz
 	 * 
 	 * @return the resize handler.
 	 */
-	public IResizeHandler getResizeHandler() {
+	public IWidgetResizeHandler getResizeHandler() {
 		return rh;
 	}
 

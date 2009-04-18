@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view.month;
 
+import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 import gwtscheduler.client.widgets.ViewportPanel;
 
 import com.google.gwt.user.client.DOM;
@@ -15,17 +17,17 @@ public class CompositeMonthView extends Composite {
 	 */
 	public CompositeMonthView() {
 		MonthView mv = new MonthView();
-		ViewportPanel impl = new ViewportPanel();
+		final ViewportPanel impl = new ViewportPanel();
 		DOM.setStyleAttribute(impl.getElement(), "overfloyY", "hidden");
 		impl.add(mv, mv);
 		initWidget(impl);
-	}
 
-	@Override
-	public void setVisible(boolean visible) {
-		// triggers resize
-		super.setVisible(visible);
-		getWidget().setVisible(visible);
+		// we'll delegate the resize to the viewport panel
+		addHandler(new IWidgetResizeHandler() {
+			public void onResize(WidgetResizeEvent event) {
+				impl.doDeferredResize();
+			}
+		}, WidgetResizeEvent.getType());
 	}
 
 }

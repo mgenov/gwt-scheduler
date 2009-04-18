@@ -1,5 +1,7 @@
 package gwtscheduler.client.interfaces.events;
 
+import com.google.gwt.event.shared.EventHandler;
+
 /**
  * Interface for resize-aware widgets.
  * 
@@ -7,12 +9,12 @@ package gwtscheduler.client.interfaces.events;
  * @version $Revision: $
  * @since 1.0
  */
-public interface IViewportResizeHandler {
+public interface IWidgetResizeHandler extends EventHandler {
 
 	/**
-	 * Fired when the viewport was resized.
+	 * Fired when the parent widget was resized.
 	 * 
 	 * @param event the resize event
 	 */
-	void onViewportResize(ViewportResizeEvent event);
+	void onResize(WidgetResizeEvent event);
 }

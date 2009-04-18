@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.common.grid;
 
-import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.0
  */
 public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<HorizontalGridFill>
-		implements IResizeHandler {
+		implements IWidgetResizeHandler {
 
 	/** static ref to css */
 	private static final DayWeekCssResource CSS = Resources.dayWeekCss();

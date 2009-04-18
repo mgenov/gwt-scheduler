@@ -14,5 +14,5 @@ public interface IHasResizeHandler {
 	 * 
 	 * @return the resize handler
 	 */
-	IResizeHandler getResizeHandler();
+	IWidgetResizeHandler getResizeHandler();
 }

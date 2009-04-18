@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.resize;
 
-import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 
 import com.google.gwt.user.client.ui.Widget;
@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class DefaultResizeHandler extends AbstractResizeHandler<Widget> implements IResizeHandler {
+public class DefaultResizeHandler extends AbstractResizeHandler<Widget> implements IWidgetResizeHandler {
 
 	/**
 	 * Creates a new resize handler for the supplied widget.

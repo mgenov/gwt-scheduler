@@ -1,15 +1,14 @@
 package gwtscheduler.client.widgets;
 
-import gwtscheduler.client.interfaces.events.IResizeHandler;
-import gwtscheduler.client.interfaces.events.ViewportResizeEvent;
+import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -28,10 +27,6 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	private ScrollPanel container;
 	/** the minimum size for the target */
 	private final int minWidth, minHeight;
-	// /** cached vals to prevent firing multiple resizes for same window size */
-	// private int lastWindowWidth, lastWindowHeight;
-	/** widget collection for resize events */
-	private List<IResizeHandler> resizeHandlers;
 
 	/**
 	 * Default constructor.
@@ -66,14 +61,6 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	 * @param viewportHeight the available viewport height
 	 */
 	void doResize(int viewporWidth, int viewportHeight) {
-		// if (lastWindowWidth == viewporWidth && lastWindowHeight ==
-		// viewportHeight) {
-		// return;
-		// }
-		// lastWindowWidth = viewporWidth;
-		// lastWindowHeight = viewportHeight;
-
-		// TODO this code assumes the parent goes to the right of the screen
 		int maxWidth = viewporWidth - getWidget().getAbsoluteLeft();
 		int maxHeight = viewportHeight - getWidget().getAbsoluteTop();
 
@@ -103,12 +90,8 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 			return;
 		}
 
-		if (resizeHandlers != null) {
-			ViewportResizeEvent event = new ViewportResizeEvent(w, h);
-			for (IResizeHandler ira : resizeHandlers) {
-				ira.onResize(event);
-			}
-		}
+		WidgetResizeEvent event = new WidgetResizeEvent(w, h);
+		fireEvent(event);
 	}
 
 	/**
@@ -126,12 +109,9 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	 * @param w the widget
 	 * @param handler the resize handler
 	 */
-	public void add(Widget w, IResizeHandler handler) {
+	public void add(Widget w, IWidgetResizeHandler handler) {
 		container.add(w);
-		if (resizeHandlers == null) {
-			resizeHandlers = new ArrayList<IResizeHandler>();
-		}
-		resizeHandlers.add(handler);
+		addHandler(handler, WidgetResizeEvent.getType());
 	}
 
 	public void onResize(final ResizeEvent event) {
@@ -141,9 +121,13 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 	/**
 	 * Handles resize through a deferred command.
 	 */
-	protected void doDeferredResize() {
-		final int[] availableSize = DOMUtils.getViewportDimensions();
-		doResize(availableSize[0], availableSize[1]);
+	public void doDeferredResize() {
+		DeferredCommand.addCommand(new Command() {
+			public void execute() {
+				final int[] availableSize = DOMUtils.getViewportDimensions();
+				doResize(availableSize[0], availableSize[1]);
+			}
+		});
 	}
 
 	@Override

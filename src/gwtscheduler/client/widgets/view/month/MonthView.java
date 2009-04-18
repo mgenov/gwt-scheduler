@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-public class MonthView extends WrappedWidget implements IResizeHandler {
+public class MonthView extends WrappedWidget implements IWidgetResizeHandler {
 
 	/** Main container */
 	private FlowPanel container;

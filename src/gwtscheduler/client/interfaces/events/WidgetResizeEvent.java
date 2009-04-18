@@ -1,5 +1,7 @@
 package gwtscheduler.client.interfaces.events;
 
+import com.google.gwt.event.shared.GwtEvent;
+
 /**
  * Resize event for resize aware widgets.
  * 
@@ -7,10 +9,37 @@ package gwtscheduler.client.interfaces.events;
  * @version $Revision: $
  * @since 1.0
  */
-public class WidgetResizeEvent {
+public class WidgetResizeEvent extends GwtEvent<IWidgetResizeHandler> {
 
+	/** resize width */
 	public final int width;
+	/** resize height */
 	public final int height;
+
+	/**
+	 * Event type for blur events. Represents the meta-data associated with this
+	 * event.
+	 */
+	private static final Type<IWidgetResizeHandler> TYPE = new Type<IWidgetResizeHandler>();
+
+	/**
+	 * Gets the event type associated with blur events.
+	 * 
+	 * @return the handler type
+	 */
+	public static Type<IWidgetResizeHandler> getType() {
+		return TYPE;
+	}
+
+	@Override
+	protected void dispatch(IWidgetResizeHandler handler) {
+		handler.onResize(this);
+	}
+
+	@Override
+	public Type<IWidgetResizeHandler> getAssociatedType() {
+		return TYPE;
+	}
 
 	/**
 	 * Main constructor.
@@ -21,6 +50,16 @@ public class WidgetResizeEvent {
 	public WidgetResizeEvent(int availableWidth, int availableHeight) {
 		this.width = availableWidth;
 		this.height = availableHeight;
+	}
+
+	/**
+	 * Creates a new event.
+	 * 
+	 * @param dimension an array with the width and height
+	 */
+	public WidgetResizeEvent(int[] dimension) {
+		this.width = dimension[0];
+		this.height = dimension[1];
 	}
 
 	@Override

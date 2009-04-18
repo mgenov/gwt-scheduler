@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
+import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 import gwtscheduler.client.widgets.ViewportPanel;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -33,15 +35,12 @@ public abstract class AbstractCompositeDayView extends Composite {
 		impl.add(vmain);
 
 		initWidget(impl);
-	}
-
-	/**
-	 * Gets the viewport panel.
-	 * 
-	 * @return the viewport panel
-	 */
-	protected ViewportPanel getViewportPanel() {
-		return vmain;
+		// we'll delegate the resize to the viewport panel
+		addHandler(new IWidgetResizeHandler() {
+			public void onResize(WidgetResizeEvent event) {
+				vmain.doDeferredResize();
+			}
+		}, WidgetResizeEvent.getType());
 	}
 
 	/**

@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
-import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 
@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-public class MonthRow extends Composite implements IResizeHandler {
+public class MonthRow extends Composite implements IWidgetResizeHandler {
 
 	/** impl */
 	private FlowPanel impl;

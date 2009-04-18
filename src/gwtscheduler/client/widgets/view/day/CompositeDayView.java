@@ -39,10 +39,4 @@ public class CompositeDayView extends AbstractCompositeDayView {
 		return table;
 	}
 
-	@Override
-	public void setVisible(boolean visible) {
-		// triggers resize
-		super.setVisible(visible);
-		getViewportPanel().setVisible(visible);
-	}
 }

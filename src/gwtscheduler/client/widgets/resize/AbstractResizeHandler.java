@@ -1,12 +1,12 @@
 package gwtscheduler.client.widgets.resize;
 
-import gwtscheduler.client.interfaces.events.IResizeHandler;
+import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
 
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
-public abstract class AbstractResizeHandler<T extends Widget> implements IResizeHandler {
+public abstract class AbstractResizeHandler<T extends Widget> implements IWidgetResizeHandler {
 
 	/** Wrapper */
 	private final T target;
