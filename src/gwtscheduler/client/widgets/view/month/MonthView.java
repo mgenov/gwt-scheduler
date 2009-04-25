@@ -28,6 +28,8 @@ public class MonthView extends WrappedWidget implements IWidgetResizeHandler {
 	private DefaultResizeHandler handler;
 	/** collection of month rows */
 	private List<MonthRow> monthRows;
+	/** list of hidden rows */
+	private List<MonthRow> hiddenRows;
 
 	/**
 	 * Default constructor.
@@ -38,9 +40,10 @@ public class MonthView extends WrappedWidget implements IWidgetResizeHandler {
 		wrapWidget(container);
 
 		monthRows = new ArrayList<MonthRow>();
+		hiddenRows = new ArrayList<MonthRow>();
 
 		for (int i = 0; i < 6; i++) {
-			MonthRow row = new MonthRow(6);
+			MonthRow row = new MonthRow(7);
 			monthRows.add(row);
 			container.add(row);
 		}
@@ -49,6 +52,13 @@ public class MonthView extends WrappedWidget implements IWidgetResizeHandler {
 	@Override
 	protected void onAttach() {
 		super.onAttach();
+		setRowHeights();
+	}
+
+	/**
+	 * Sets the row height for the month rows.
+	 */
+	protected void setRowHeights() {
 		float height = ((float) 100 / monthRows.size());
 		for (int i = 0; i < monthRows.size(); i++) {
 
@@ -65,5 +75,33 @@ public class MonthView extends WrappedWidget implements IWidgetResizeHandler {
 		for (MonthRow row : monthRows) {
 			row.onResize(event);
 		}
+	}
+
+	/**
+	 * Hides the last row.
+	 */
+	void hideRow() {
+		MonthRow mr = monthRows.remove(monthRows.size() - 1);
+		mr.setVisible(false);
+		setRowHeights();
+		hiddenRows.add(mr);
+		for(MonthRow row : monthRows) {
+			row.resizeRows();
+		}
+	}
+
+	/**
+	 * Unhides a number of rows.
+	 * 
+	 * @param amount the number of rows to unhide
+	 */
+	void unhideRows(int amount) {
+		final int limit = Math.max(0, hiddenRows.size() - amount);
+		for (int i = hiddenRows.size() - 1; i >= limit; i--) {
+			MonthRow mr = hiddenRows.remove(i);
+			mr.setVisible(true);
+			monthRows.add(mr);
+		}
+		setRowHeights();
 	}
 }

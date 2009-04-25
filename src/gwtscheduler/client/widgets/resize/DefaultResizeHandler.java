@@ -31,7 +31,8 @@ public class DefaultResizeHandler extends AbstractResizeHandler<Widget> implemen
 	@Override
 	public void onResize(WidgetResizeEvent event) {
 		super.onResize(event);
-		getTarget().setSize(event.width + "px", event.height + "px");
+//		getTarget().setSize(event.width + "px", event.height + "px");
+		getTarget().setSize(event.width + "px", "100%");
 	}
 
 	@Override

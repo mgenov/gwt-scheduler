@@ -43,6 +43,13 @@ public class MonthRow extends Composite implements IWidgetResizeHandler {
 		if (!isVisible()) {
 			return;
 		}
+		resizeRows();
+	}
+
+	/**
+	 * Resizes the rows.
+	 */
+	public void resizeRows() {
 		int availableHeight = getElement().getOffsetHeight();
 		grid.redrawRows(availableHeight);
 	}
