@@ -9,7 +9,6 @@ import com.google.gwt.user.client.ui.Widget;
  * Delegates events to childs.
  * 
  * @author malp
- * 
  */
 public class DelegatingRoundedPanel extends RoundedPanel {
 

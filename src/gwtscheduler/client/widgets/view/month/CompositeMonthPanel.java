@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.interfaces.uievents.IWidgetResizeHandler;
-import gwtscheduler.client.interfaces.uievents.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.ViewportPanel;
@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Defines the composite month view.
  */
 public class CompositeMonthPanel extends Composite {
-	
+
 	/** static ref to css */
 	protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 

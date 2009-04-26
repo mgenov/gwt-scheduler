@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.nav;
 
-import gwtscheduler.client.interfaces.uievents.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;
@@ -17,7 +17,6 @@ import com.google.gwt.user.client.ui.Widget;
  * Main navigation panel.
  * 
  * @author malp
- * 
  */
 public class DateViewsTabPanel extends DecoratedTabPanel implements BeforeSelectionHandler<Integer> {
 
@@ -39,7 +38,7 @@ public class DateViewsTabPanel extends DecoratedTabPanel implements BeforeSelect
 		// w.setVisible(true); // triggers resize event
 	}
 
-	 @Override
+	@Override
 	public void add(Widget w, Widget tabWidget) {
 		super.add(createWrapper(w), tabWidget);
 	}

@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.interfaces.uievents.IWidgetResizeHandler;
-import gwtscheduler.client.interfaces.uievents.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.month.composite.MonthRow;

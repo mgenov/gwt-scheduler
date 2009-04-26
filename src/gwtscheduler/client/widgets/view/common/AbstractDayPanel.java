@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.uievents.IHasResizeHandler;
-import gwtscheduler.client.interfaces.uievents.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.resize.IHasResizeHandler;
+import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFill;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHandler;
 

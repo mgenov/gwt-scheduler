@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.resize;
 
-import gwtscheduler.client.interfaces.uievents.IWidgetResizeHandler;
-import gwtscheduler.client.interfaces.uievents.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 
 import com.google.gwt.user.client.ui.Widget;
 
@@ -12,7 +12,8 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class DefaultResizeHandler extends AbstractResizeHandler<Widget> implements IWidgetResizeHandler {
+public class DefaultResizeHandler extends AbstractResizeHandler<Widget> implements
+		IWidgetResizeHandler {
 
 	/**
 	 * Creates a new resize handler for the supplied widget.
@@ -31,7 +32,7 @@ public class DefaultResizeHandler extends AbstractResizeHandler<Widget> implemen
 	@Override
 	public void onResize(WidgetResizeEvent event) {
 		super.onResize(event);
-//		getTarget().setSize(event.width + "px", event.height + "px");
+		// getTarget().setSize(event.width + "px", event.height + "px");
 		getTarget().setSize(event.width + "px", "100%");
 	}
 

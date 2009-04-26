@@ -1,6 +1,7 @@
 package gwtscheduler.client.interfaces;
 
 import gwtscheduler.common.calendar.IDate;
+import gwtscheduler.common.calendar.ITimePeriod;
 
 /**
  * Defines event controller operations.
@@ -13,13 +14,17 @@ public interface IEventNavigationListener {
 
 	/**
 	 * Goes to the next series of events.
+	 * 
+	 * @return the visible time period
 	 */
-	void onNavigateNext();
+	ITimePeriod onNavigateNext();
 
 	/**
 	 * Goes to the previous series of events.
+	 * 
+	 * @return the visible time period
 	 */
-	void onNavigatePrevious();
+	ITimePeriod onNavigatePrevious();
 
 	/**
 	 * Goes to a specified start date.

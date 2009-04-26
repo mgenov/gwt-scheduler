@@ -1,4 +1,4 @@
-package gwtscheduler.client.interfaces.uievents;
+package gwtscheduler.client.interfaces.uievents.resize;
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -23,7 +23,7 @@ public class WidgetResizeEvent extends GwtEvent<IWidgetResizeHandler> {
 	private static final Type<IWidgetResizeHandler> TYPE = new Type<IWidgetResizeHandler>();
 
 	/**
-	 * Gets the event type associated with blur events.
+	 * Gets the event type associated with resize events.
 	 * 
 	 * @return the handler type
 	 */

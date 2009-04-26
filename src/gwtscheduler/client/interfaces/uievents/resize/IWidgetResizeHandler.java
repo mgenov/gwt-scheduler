@@ -1,4 +1,4 @@
-package gwtscheduler.client.interfaces.uievents;
+package gwtscheduler.client.interfaces.uievents.resize;
 
 import com.google.gwt.event.shared.EventHandler;
 
