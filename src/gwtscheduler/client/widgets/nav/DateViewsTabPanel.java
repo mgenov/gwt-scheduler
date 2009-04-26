@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.nav;
 
-import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;

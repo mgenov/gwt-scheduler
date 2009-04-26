@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets;
 
-import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
-import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.WidgetResizeEvent;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
 

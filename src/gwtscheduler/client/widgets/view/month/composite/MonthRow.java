@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
-import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
-import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 
 import com.google.gwt.user.client.ui.Composite;

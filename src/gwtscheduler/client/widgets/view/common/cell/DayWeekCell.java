@@ -45,10 +45,12 @@ public class DayWeekCell extends Widget {
 	 * @param h the height
 	 */
 	public void setCompensatedPixelSize(int w, int h) {
-		if (w < 0)
+		if (w < 0) {
 			w = 0;
-		if (h < 0)
+		}
+		if (h < 0) {
 			h = 0;
+		}
 		// width - border - padding; height - border
 		setPixelSize(w - CSS.mediumBorderPx() - CSS.smallPaddingPx(), h - CSS.smallBorderPx());
 	}

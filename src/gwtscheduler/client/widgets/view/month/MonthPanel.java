@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
-import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.WidgetResizeEvent;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.month.composite.MonthRow;
@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-public class MonthView extends WrappedWidget implements IWidgetResizeHandler {
+class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
 
 	/** Main container */
 	private FlowPanel container;
@@ -34,7 +34,7 @@ public class MonthView extends WrappedWidget implements IWidgetResizeHandler {
 	/**
 	 * Default constructor.
 	 */
-	public MonthView() {
+	public MonthPanel() {
 		container = new FlowPanel();
 		handler = new DefaultResizeHandler(this);
 		wrapWidget(container);
@@ -85,7 +85,7 @@ public class MonthView extends WrappedWidget implements IWidgetResizeHandler {
 		mr.setVisible(false);
 		setRowHeights();
 		hiddenRows.add(mr);
-		for(MonthRow row : monthRows) {
+		for (MonthRow row : monthRows) {
 			row.resizeRows();
 		}
 	}

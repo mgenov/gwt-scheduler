@@ -9,20 +9,22 @@ import gwtscheduler.common.calendar.IDate;
  * @version $Revision: $
  * @since 1.0
  */
-public interface IEventController {
+public interface IEventNavigationListener {
 
 	/**
 	 * Goes to the next series of events.
 	 */
-	void navigateNext();
+	void onNavigateNext();
 
 	/**
 	 * Goes to the previous series of events.
 	 */
-	void navigatePrevious();
+	void onNavigatePrevious();
 
 	/**
 	 * Goes to a specified start date.
+	 * 
+	 * @param date the start date
 	 */
-	void navigateTo(IDate date);
+	void onNavigateTo(IDate date);
 }

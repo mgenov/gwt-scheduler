@@ -46,6 +46,8 @@ public interface IEventView {
 
 	/**
 	 * Goes to a specified start date.
+	 * 
+	 * @param date the date
 	 */
 	void navigateTo(IDate date);
 

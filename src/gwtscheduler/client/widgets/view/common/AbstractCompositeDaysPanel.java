@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
-import gwtscheduler.client.interfaces.events.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class AbstractCompositeDayView extends Composite {
+public abstract class AbstractCompositeDaysPanel extends Composite {
 	
 	/** static ref to css */
 	protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -29,10 +29,10 @@ public abstract class AbstractCompositeDayView extends Composite {
 	/**
 	 * Default constructor.
 	 */
-	public AbstractCompositeDayView() {
+	public AbstractCompositeDaysPanel() {
 		impl = new VerticalPanel();
 
-		AbstractDayView dayView = createDayView();
+		AbstractDayPanel dayView = createDayView();
 
 		vmain = new ViewportPanel();
 		vmain.add(dayView, dayView.getResizeHandler());
@@ -77,5 +77,5 @@ public abstract class AbstractCompositeDayView extends Composite {
 	 * 
 	 * @return the day view widget
 	 */
-	protected abstract AbstractDayView createDayView();
+	protected abstract AbstractDayPanel createDayView();
 }

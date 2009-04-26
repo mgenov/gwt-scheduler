@@ -1,26 +1,26 @@
-package gwtscheduler.client.widgets.view.day;
+package gwtscheduler.client.widgets.view.week;
 
-import gwtscheduler.client.widgets.view.common.AbstractDayView;
+import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
 
 /**
- * View class for days.
+ * View class for weeks.
  * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
  */
-public class DayView extends AbstractDayView {
+class WeekPanel extends AbstractDayPanel {
 
 	/**
 	 * Default constructor.
 	 */
-	public DayView() {
+	public WeekPanel() {
 		super();
 	}
 
 	@Override
 	protected int getColumns() {
-		return 1;
+		return 7;
 	}
 
 	@Override

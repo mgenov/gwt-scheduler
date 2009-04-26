@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.events.IHasResizeHandler;
-import gwtscheduler.client.interfaces.events.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.IHasResizeHandler;
+import gwtscheduler.client.interfaces.uievents.IWidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFill;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHandler;
 
@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * Abstract class for day and week views.
  */
-public abstract class AbstractDayView extends WrappedWidget implements IHasResizeHandler {
+public abstract class AbstractDayPanel extends WrappedWidget implements IHasResizeHandler {
 
 	/** Main container */
 	protected VerticalPanel container;
@@ -22,7 +22,7 @@ public abstract class AbstractDayView extends WrappedWidget implements IHasResiz
 	/**
 	 * Default constructor.
 	 */
-	public AbstractDayView() {
+	public AbstractDayPanel() {
 		container = new VerticalPanel();
 		container.setSize("100%", (getRows() * 2) + "em");
 		wrapWidget(container);

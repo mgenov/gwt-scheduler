@@ -2,6 +2,7 @@ package gwtscheduler.client.widgets.view.month.composite;
 
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
+import gwtscheduler.client.utils.DebugUtils;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.DOM;
@@ -87,7 +88,8 @@ public class MonthRowTable extends Composite {
 	 */
 	private Element createCellElement(int row, int col) {
 		Element cell = DOM.createDiv();
-		cell.setInnerText("cell: " + row + ", " + col);
+
+		DebugUtils.textRight("cell: " + row + ", " + col, cell);
 
 		// TODO add a way to decorate cells
 		String className = CSS.monthCell();
