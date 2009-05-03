@@ -11,10 +11,10 @@ import com.google.gwt.event.shared.EventHandler;
  */
 public interface INavigationHandler extends EventHandler {
 
-	void onNavigateBack();
+  void onNavigateBack();
 
-	void onNavigateForward();
+  void onNavigateForward();
 
-	void onNavigateCurrent(IDate date);
+  void onNavigateCurrent(IDate date);
 
 }

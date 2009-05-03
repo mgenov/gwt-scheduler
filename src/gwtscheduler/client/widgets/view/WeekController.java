@@ -13,24 +13,24 @@ import gwtscheduler.common.calendar.ITimePeriod;
 @Week
 public class WeekController extends AbstractViewController<CompositeWeekPanel> {
 
-	@Override
-	protected CompositeWeekPanel createView() {
-		return new CompositeWeekPanel();
-	}
+  @Override
+  protected CompositeWeekPanel createView() {
+    return new CompositeWeekPanel();
+  }
 
-	public String getTabLabel() {
-		return "Week";
-	}
+  public String getTabLabel() {
+    return "Week";
+  }
 
-	public ITimePeriod onNavigateNext() {
-		return null;
-	}
+  public ITimePeriod onNavigateNext() {
+    return null;
+  }
 
-	public ITimePeriod onNavigatePrevious() {
-		return null;
-	}
+  public ITimePeriod onNavigatePrevious() {
+    return null;
+  }
 
-	public void onNavigateTo(IDate date) {
-	}
+  public void onNavigateTo(IDate date) {
+  }
 
 }

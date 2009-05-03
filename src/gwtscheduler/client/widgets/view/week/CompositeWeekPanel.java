@@ -8,9 +8,9 @@ import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
  */
 public class CompositeWeekPanel extends AbstractCompositeDaysPanel {
 
-	@Override
-	protected AbstractDayPanel createDayView() {
-		return new WeekPanel();
-	}
+  @Override
+  protected AbstractDayPanel createDayView() {
+    return new WeekPanel();
+  }
 
 }

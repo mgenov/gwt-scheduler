@@ -11,10 +11,10 @@ import com.google.gwt.event.shared.EventHandler;
  */
 public interface IWidgetResizeHandler extends EventHandler {
 
-	/**
-	 * Fired when the parent widget was resized.
-	 * 
-	 * @param event the resize event
-	 */
-	void onResize(WidgetResizeEvent event);
+  /**
+   * Fired when the parent widget was resized.
+   * 
+   * @param event the resize event
+   */
+  void onResize(WidgetResizeEvent event);
 }

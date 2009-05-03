@@ -9,10 +9,10 @@ package gwtscheduler.client.interfaces.uievents.resize;
  */
 public interface IHasResizeHandler {
 
-	/**
-	 * Gets the resize handler for this instance.
-	 * 
-	 * @return the resize handler
-	 */
-	IWidgetResizeHandler getResizeHandler();
+  /**
+   * Gets the resize handler for this instance.
+   * 
+   * @return the resize handler
+   */
+  IWidgetResizeHandler getResizeHandler();
 }

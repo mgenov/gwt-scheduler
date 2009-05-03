@@ -21,59 +21,59 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class ViewportTests implements EntryPoint {
 
-	/**
-	 * This is the entry point method.
-	 */
-	public void onModuleLoad() {
-		Resources.injectAllStylesheets();
+  /**
+   * This is the entry point method.
+   */
+  public void onModuleLoad() {
+    Resources.injectAllStylesheets();
 
-		IUIInjector uiResources = GWT.create(IUIInjector.class);
-		IUIRegistry registry = uiResources.getUIRegistry();
+    IUIInjector uiResources = GWT.create(IUIInjector.class);
+    IUIRegistry registry = uiResources.getUIRegistry();
 
-		// let's test a registration
-		registry.addController(new DummyMonthController());
+    // let's test a registration
+    registry.addController(new DummyMonthController());
 
-		TabPanel main = new DateViewsTabPanel();
-		// hopefully the registr will be pre-filled with default controllers
-		// for day, week and month
-		for (ICalendarController controller : registry.getControllers()) {
-			main.add(controller.getViewWidget(), controller.getTabLabel());
-		}
+    TabPanel main = new DateViewsTabPanel();
+    // hopefully the registr will be pre-filled with default controllers
+    // for day, week and month
+    for (ICalendarController controller : registry.getControllers()) {
+      main.add(controller.getViewWidget(), controller.getTabLabel());
+    }
 
-		main.selectTab(0);
-		RootPanel.get("calendar-main").add(main);
-	}
+    main.selectTab(0);
+    RootPanel.get("calendar-main").add(main);
+  }
 
-	/**
-	 * Dummy class.
-	 * 
-	 * @author malp
-	 */
-	private static class DummyMonthController implements ICalendarController,
-			IEventNavigationListener {
+  /**
+   * Dummy class.
+   * 
+   * @author malp
+   */
+  private static class DummyMonthController implements ICalendarController,
+      IEventNavigationListener {
 
-		public ITimePeriod onNavigateNext() {
-			return null;
-		}
+    public ITimePeriod onNavigateNext() {
+      return null;
+    }
 
-		public ITimePeriod onNavigatePrevious() {
-			return null;
-		}
+    public ITimePeriod onNavigatePrevious() {
+      return null;
+    }
 
-		public void onNavigateTo(IDate date) {
-		}
+    public void onNavigateTo(IDate date) {
+    }
 
-		public IEventNavigationListener getNavigationListener() {
-			return this;
-		}
+    public IEventNavigationListener getNavigationListener() {
+      return this;
+    }
 
-		public String getTabLabel() {
-			return "month";
-		}
+    public String getTabLabel() {
+      return "month";
+    }
 
-		public Widget getViewWidget() {
-			return new CompositeMonthPanel();
-		}
+    public Widget getViewWidget() {
+      return new CompositeMonthPanel();
+    }
 
-	}
+  }
 }

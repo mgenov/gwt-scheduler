@@ -12,33 +12,33 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DelegatingRoundedPanel extends RoundedPanel {
 
-	public DelegatingRoundedPanel() {
-		super();
-	}
+  public DelegatingRoundedPanel() {
+    super();
+  }
 
-	public DelegatingRoundedPanel(int corners, int cornerHeight) {
-		super(corners, cornerHeight);
-	}
+  public DelegatingRoundedPanel(int corners, int cornerHeight) {
+    super(corners, cornerHeight);
+  }
 
-	public DelegatingRoundedPanel(int corners) {
-		super(corners);
-	}
+  public DelegatingRoundedPanel(int corners) {
+    super(corners);
+  }
 
-	public DelegatingRoundedPanel(Widget w, int corners, int cornerHeight) {
-		super(w, corners, cornerHeight);
-	}
+  public DelegatingRoundedPanel(Widget w, int corners, int cornerHeight) {
+    super(w, corners, cornerHeight);
+  }
 
-	public DelegatingRoundedPanel(Widget w, int corners) {
-		super(w, corners);
-	}
+  public DelegatingRoundedPanel(Widget w, int corners) {
+    super(w, corners);
+  }
 
-	public DelegatingRoundedPanel(Widget w) {
-		super(w);
-	}
+  public DelegatingRoundedPanel(Widget w) {
+    super(w);
+  }
 
-	@Override
-	public void fireEvent(GwtEvent<?> event) {
-		getWidget().fireEvent(event);
-	}
+  @Override
+  public void fireEvent(GwtEvent<?> event) {
+    getWidget().fireEvent(event);
+  }
 
 }

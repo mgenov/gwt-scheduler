@@ -11,21 +11,21 @@ import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
  */
 class WeekPanel extends AbstractDayPanel {
 
-	/**
-	 * Default constructor.
-	 */
-	public WeekPanel() {
-		super();
-	}
+  /**
+   * Default constructor.
+   */
+  public WeekPanel() {
+    super();
+  }
 
-	@Override
-	protected int getColumns() {
-		return 7;
-	}
+  @Override
+  protected int getColumns() {
+    return 7;
+  }
 
-	@Override
-	protected int getRows() {
-		return 48; // 24*2
-	}
+  @Override
+  protected int getRows() {
+    return 48; // 24*2
+  }
 
 }

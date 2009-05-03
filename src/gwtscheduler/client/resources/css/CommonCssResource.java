@@ -11,17 +11,17 @@ import com.google.gwt.libideas.resources.client.CssResource;
  */
 public interface CommonCssResource extends CssResource {
 
-	/**
-	 * Generic container .
-	 * 
-	 * @return the css class for a generic container
-	 */
-	String genericContainer();
+  /**
+   * Generic container .
+   * 
+   * @return the css class for a generic container
+   */
+  String genericContainer();
 
-	/**
-	 * Generic container padding.
-	 * 
-	 * @return
-	 */
-	int genericContainerPaddingPx();
+  /**
+   * Generic container padding.
+   * 
+   * @return
+   */
+  int genericContainerPaddingPx();
 }

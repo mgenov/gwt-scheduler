@@ -22,86 +22,86 @@ import com.google.gwt.user.client.ui.FlowPanel;
  */
 class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
 
-	/** Main container */
-	private FlowPanel container;
-	/** resize handler */
-	private DefaultResizeHandler handler;
-	/** collection of month rows */
-	private List<MonthRow> monthRows;
-	/** list of hidden rows */
-	private List<MonthRow> hiddenRows;
+  /** Main container */
+  private FlowPanel container;
+  /** resize handler */
+  private DefaultResizeHandler handler;
+  /** collection of month rows */
+  private List<MonthRow> monthRows;
+  /** list of hidden rows */
+  private List<MonthRow> hiddenRows;
 
-	/**
-	 * Default constructor.
-	 */
-	public MonthPanel() {
-		container = new FlowPanel();
-		handler = new DefaultResizeHandler(this);
-		wrapWidget(container);
+  /**
+   * Default constructor.
+   */
+  public MonthPanel() {
+    container = new FlowPanel();
+    handler = new DefaultResizeHandler(this);
+    wrapWidget(container);
 
-		monthRows = new ArrayList<MonthRow>();
-		hiddenRows = new ArrayList<MonthRow>();
+    monthRows = new ArrayList<MonthRow>();
+    hiddenRows = new ArrayList<MonthRow>();
 
-		for (int i = 0; i < 6; i++) {
-			MonthRow row = new MonthRow(7);
-			monthRows.add(row);
-			container.add(row);
-		}
-	}
+    for (int i = 0; i < 6; i++) {
+      MonthRow row = new MonthRow(7);
+      monthRows.add(row);
+      container.add(row);
+    }
+  }
 
-	@Override
-	protected void onAttach() {
-		super.onAttach();
-		setRowHeights();
-	}
+  @Override
+  protected void onAttach() {
+    super.onAttach();
+    setRowHeights();
+  }
 
-	/**
-	 * Sets the row height for the month rows.
-	 */
-	protected void setRowHeights() {
-		float height = ((float) 100 / monthRows.size());
-		for (int i = 0; i < monthRows.size(); i++) {
+  /**
+   * Sets the row height for the month rows.
+   */
+  protected void setRowHeights() {
+    float height = ((float) 100 / monthRows.size());
+    for (int i = 0; i < monthRows.size(); i++) {
 
-			float top = ((float) 100 / monthRows.size()) * i;
-			Element rowElement = monthRows.get(i).getElement();
-			DOM.setStyleAttribute(rowElement, "top", top + "%");
-			DOM.setStyleAttribute(rowElement, "height", height + "%");
-		}
-	}
+      float top = ((float) 100 / monthRows.size()) * i;
+      Element rowElement = monthRows.get(i).getElement();
+      DOM.setStyleAttribute(rowElement, "top", top + "%");
+      DOM.setStyleAttribute(rowElement, "height", height + "%");
+    }
+  }
 
-	public void onResize(WidgetResizeEvent event) {
-		// we delegate to default handler
-		handler.onResize(event);
-		for (MonthRow row : monthRows) {
-			row.onResize(event);
-		}
-	}
+  public void onResize(WidgetResizeEvent event) {
+    // we delegate to default handler
+    handler.onResize(event);
+    for (MonthRow row : monthRows) {
+      row.onResize(event);
+    }
+  }
 
-	/**
-	 * Hides the last row.
-	 */
-	void hideRow() {
-		MonthRow mr = monthRows.remove(monthRows.size() - 1);
-		mr.setVisible(false);
-		setRowHeights();
-		hiddenRows.add(mr);
-		for (MonthRow row : monthRows) {
-			row.resizeRows();
-		}
-	}
+  /**
+   * Hides the last row.
+   */
+  void hideRow() {
+    MonthRow mr = monthRows.remove(monthRows.size() - 1);
+    mr.setVisible(false);
+    setRowHeights();
+    hiddenRows.add(mr);
+    for (MonthRow row : monthRows) {
+      row.resizeRows();
+    }
+  }
 
-	/**
-	 * Unhides a number of rows.
-	 * 
-	 * @param amount the number of rows to unhide
-	 */
-	void unhideRows(int amount) {
-		final int limit = Math.max(0, hiddenRows.size() - amount);
-		for (int i = hiddenRows.size() - 1; i >= limit; i--) {
-			MonthRow mr = hiddenRows.remove(i);
-			mr.setVisible(true);
-			monthRows.add(mr);
-		}
-		setRowHeights();
-	}
+  /**
+   * Unhides a number of rows.
+   * 
+   * @param amount the number of rows to unhide
+   */
+  void unhideRows(int amount) {
+    final int limit = Math.max(0, hiddenRows.size() - amount);
+    for (int i = hiddenRows.size() - 1; i >= limit; i--) {
+      MonthRow mr = hiddenRows.remove(i);
+      mr.setVisible(true);
+      monthRows.add(mr);
+    }
+    setRowHeights();
+  }
 }

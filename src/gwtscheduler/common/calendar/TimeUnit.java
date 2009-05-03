@@ -5,5 +5,5 @@ package gwtscheduler.common.calendar;
  */
 public enum TimeUnit {
 
-	HOUR, DAY, MONTH, YEAR;
+  HOUR, DAY, MONTH, YEAR;
 }

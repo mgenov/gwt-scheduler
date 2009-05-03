@@ -13,18 +13,18 @@ import gwtscheduler.common.event.EventType;
  */
 public class AllDayEvent extends Event {
 
-	/**
-	 * @param start
-	 * @param end
-	 * @param type
-	 */
-	public AllDayEvent(IDate start, IDate end, EventType type) {
-		super(start, end, type);
-	}
+  /**
+   * @param start
+   * @param end
+   * @param type
+   */
+  public AllDayEvent(IDate start, IDate end, EventType type) {
+    super(start, end, type);
+  }
 
-	@Override
-	protected IDate filter(IDate date) {
-		return date;
-	}
+  @Override
+  protected IDate filter(IDate date) {
+    return date;
+  }
 
 }

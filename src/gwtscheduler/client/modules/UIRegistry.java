@@ -18,24 +18,24 @@ import com.google.inject.Inject;
  */
 public class UIRegistry implements IUIRegistry {
 
-	/** holds the views data */
-	private ArrayList<ICalendarController> views;
+  /** holds the views data */
+  private ArrayList<ICalendarController> views;
 
-	@Inject
-	public UIRegistry(@Day ICalendarController day, @Week ICalendarController week,
-			@Month ICalendarController month) {
-		views = new ArrayList<ICalendarController>();
-		views.add(day);
-		views.add(week);
-		views.add(month);
-	}
+  @Inject
+  public UIRegistry(@Day ICalendarController day,
+      @Week ICalendarController week, @Month ICalendarController month) {
+    views = new ArrayList<ICalendarController>();
+    views.add(day);
+    views.add(week);
+    views.add(month);
+  }
 
-	public void addController(ICalendarController view) {
-		views.add(view);
-	}
+  public void addController(ICalendarController view) {
+    views.add(view);
+  }
 
-	public List<ICalendarController> getControllers() {
-		return views;
-	}
+  public List<ICalendarController> getControllers() {
+    return views;
+  }
 
 }

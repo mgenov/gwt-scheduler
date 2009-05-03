@@ -12,25 +12,25 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public interface ICalendarController {
 
-	/**
-	 * Gets the widget for the view.
-	 * 
-	 * @return the widget
-	 */
-	Widget getViewWidget();
+  /**
+   * Gets the widget for the view.
+   * 
+   * @return the widget
+   */
+  Widget getViewWidget();
 
-	/**
-	 * Gets the label for the view.
-	 * 
-	 * @return the label
-	 */
-	String getTabLabel();
+  /**
+   * Gets the label for the view.
+   * 
+   * @return the label
+   */
+  String getTabLabel();
 
-	/**
-	 * Gets the navigation events listener.
-	 * 
-	 * @return the listener
-	 */
-	IEventNavigationListener getNavigationListener();
+  /**
+   * Gets the navigation events listener.
+   * 
+   * @return the listener
+   */
+  IEventNavigationListener getNavigationListener();
 
 }

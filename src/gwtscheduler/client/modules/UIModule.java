@@ -18,19 +18,22 @@ import com.google.gwt.inject.client.AbstractGinModule;
  */
 public class UIModule extends AbstractGinModule {
 
-	protected void configure() {
-		// examples
+  protected void configure() {
+    // examples
 
-		// public DefaultCardGrid(@BackOfCard Provider<Image> backOfCard,
-		// @Rows int rows, @Columns int columns) {
+    // public DefaultCardGrid(@BackOfCard Provider<Image> backOfCard,
+    // @Rows int rows, @Columns int columns) {
 
-		// bindConstant().annotatedWith(Rows.class).to(2);
-		// bindConstant().annotatedWith(Columns.class).to(5);
-		// bind(Integer.class).annotatedWith(NumberOfCards.class).toProvider(NumberOfCardsProvider.class);
-		
-		bind(IUIRegistry.class).to(UIRegistry.class);
-		bind(ICalendarController.class).annotatedWith(Day.class).to(DayController.class);
-		bind(ICalendarController.class).annotatedWith(Week.class).to(WeekController.class);
-		bind(ICalendarController.class).annotatedWith(Month.class).to(MonthController.class);
-	}
+    // bindConstant().annotatedWith(Rows.class).to(2);
+    // bindConstant().annotatedWith(Columns.class).to(5);
+    // bind(Integer.class).annotatedWith(NumberOfCards.class).toProvider(NumberOfCardsProvider.class);
+
+    bind(IUIRegistry.class).to(UIRegistry.class);
+    bind(ICalendarController.class).annotatedWith(Day.class).to(
+        DayController.class);
+    bind(ICalendarController.class).annotatedWith(Week.class).to(
+        WeekController.class);
+    bind(ICalendarController.class).annotatedWith(Month.class).to(
+        MonthController.class);
+  }
 }

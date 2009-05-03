@@ -14,41 +14,41 @@ import java.util.Collection;
  */
 public interface IEventView {
 
-	/**
-	 * Clears all events in this view.
-	 */
-	void clearEvents();
+  /**
+   * Clears all events in this view.
+   */
+  void clearEvents();
 
-	/**
-	 * Adds a collection of events.
-	 * 
-	 * @param events the collection of events to add
-	 */
-	void addEvents(Collection<Event> events);
+  /**
+   * Adds a collection of events.
+   * 
+   * @param events the collection of events to add
+   */
+  void addEvents(Collection<Event> events);
 
-	/**
-	 * Removes an event from this view.
-	 * 
-	 * @param event the event to remove
-	 * @return <code>true</code> if the event was removed
-	 */
-	boolean removeEvent(Event event);
+  /**
+   * Removes an event from this view.
+   * 
+   * @param event the event to remove
+   * @return <code>true</code> if the event was removed
+   */
+  boolean removeEvent(Event event);
 
-	/**
-	 * Goes to the next series of events.
-	 */
-	void navigateNext();
+  /**
+   * Goes to the next series of events.
+   */
+  void navigateNext();
 
-	/**
-	 * Goes to the previous series of events.
-	 */
-	void navigatePrevious();
+  /**
+   * Goes to the previous series of events.
+   */
+  void navigatePrevious();
 
-	/**
-	 * Goes to a specified start date.
-	 * 
-	 * @param date the date
-	 */
-	void navigateTo(IDate date);
+  /**
+   * Goes to a specified start date.
+   * 
+   * @param date the date
+   */
+  void navigateTo(IDate date);
 
 }

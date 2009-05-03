@@ -9,18 +9,18 @@ import java.util.List;
  */
 public interface IUIRegistry {
 
-	/**
-	 * Gets the views.
-	 * 
-	 * @return the views
-	 */
-	List<ICalendarController> getControllers();
+  /**
+   * Gets the views.
+   * 
+   * @return the views
+   */
+  List<ICalendarController> getControllers();
 
-	/**
-	 * Adds a new controller.
-	 * 
-	 * @param provider the controller
-	 */
-	void addController(ICalendarController controller);
+  /**
+   * Adds a new controller.
+   * 
+   * @param provider the controller
+   */
+  void addController(ICalendarController controller);
 
 }

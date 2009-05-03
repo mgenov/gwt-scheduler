@@ -13,30 +13,30 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class WrappedWidget extends Composite {
 
-	/** Wrapper widget */
-	private SimplePanel wrapper;
+  /** Wrapper widget */
+  private SimplePanel wrapper;
 
-	/**
-	 * Default constructor. Should call {@link #wrapWidget(Widget)} here to
-	 * initalize the widget.
-	 */
-	public WrappedWidget() {
-		wrapper = new SimplePanel();
-		super.initWidget(wrapper);
-	}
+  /**
+   * Default constructor. Should call {@link #wrapWidget(Widget)} here to
+   * initalize the widget.
+   */
+  public WrappedWidget() {
+    wrapper = new SimplePanel();
+    super.initWidget(wrapper);
+  }
 
-	@Override
-	protected void initWidget(Widget widget) {
-		throw new IllegalArgumentException("Please call wrapWidget(Widget) instead");
-	}
+  @Override
+  protected void initWidget(Widget widget) {
+    throw new IllegalArgumentException("Please call wrapWidget(Widget) instead");
+  }
 
-	/**
-	 * Wraps the widget.
-	 * 
-	 * @param widget the widget to wrap
-	 */
-	protected void wrapWidget(Widget widget) {
-		wrapper.add(widget);
-		widget.setSize("100%", "100%");
-	}
+  /**
+   * Wraps the widget.
+   * 
+   * @param widget the widget to wrap
+   */
+  protected void wrapWidget(Widget widget) {
+    wrapper.add(widget);
+    widget.setSize("100%", "100%");
+  }
 }

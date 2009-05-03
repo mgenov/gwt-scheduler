@@ -6,26 +6,27 @@ import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
 
 @Month
-public class MonthController extends AbstractViewController<CompositeMonthPanel> {
+public class MonthController extends
+    AbstractViewController<CompositeMonthPanel> {
 
-	@Override
-	protected CompositeMonthPanel createView() {
-		return new CompositeMonthPanel();
-	}
+  @Override
+  protected CompositeMonthPanel createView() {
+    return new CompositeMonthPanel();
+  }
 
-	public String getTabLabel() {
-		return "Month";
-	}
+  public String getTabLabel() {
+    return "Month";
+  }
 
-	public ITimePeriod onNavigateNext() {
-		return null;
-	}
+  public ITimePeriod onNavigateNext() {
+    return null;
+  }
 
-	public ITimePeriod onNavigatePrevious() {
-		return null;
-	}
+  public ITimePeriod onNavigatePrevious() {
+    return null;
+  }
 
-	public void onNavigateTo(IDate date) {
-	}
+  public void onNavigateTo(IDate date) {
+  }
 
 }

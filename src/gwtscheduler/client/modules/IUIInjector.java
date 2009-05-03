@@ -8,9 +8,9 @@ import com.google.gwt.inject.client.Ginjector;
 @GinModules(UIModule.class)
 public interface IUIInjector extends Ginjector {
 
-	/**
-	 * @return
-	 */
-	IUIRegistry getUIRegistry();
+  /**
+   * @return
+   */
+  IUIRegistry getUIRegistry();
 
 }

@@ -10,36 +10,36 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @author malp
  */
-public abstract class AbstractViewController<T extends Widget> implements ICalendarController,
-		IEventNavigationListener {
+public abstract class AbstractViewController<T extends Widget> implements
+    ICalendarController, IEventNavigationListener {
 
-	private T view;
+  private T view;
 
-	/**
-	 * Default constructor.
-	 */
-	protected AbstractViewController() {
-		view = createView();
-	}
+  /**
+   * Default constructor.
+   */
+  protected AbstractViewController() {
+    view = createView();
+  }
 
-	/**
-	 * @return
-	 */
-	protected T getView() {
-		return view;
-	}
+  /**
+   * @return
+   */
+  protected T getView() {
+    return view;
+  }
 
-	/**
-	 * This method is responsibel for creating the view.
-	 */
-	protected abstract T createView();
+  /**
+   * This method is responsibel for creating the view.
+   */
+  protected abstract T createView();
 
-	public IEventNavigationListener getNavigationListener() {
-		return this;
-	}
+  public IEventNavigationListener getNavigationListener() {
+    return this;
+  }
 
-	public Widget getViewWidget() {
-		return view;
-	}
+  public Widget getViewWidget() {
+    return view;
+  }
 
 }

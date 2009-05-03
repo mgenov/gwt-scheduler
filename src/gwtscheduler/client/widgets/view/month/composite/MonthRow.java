@@ -16,42 +16,42 @@ import com.google.gwt.user.client.ui.FlowPanel;
  */
 public class MonthRow extends Composite implements IWidgetResizeHandler {
 
-	/** impl */
-	private FlowPanel impl;
-	/** will hold grid data */
-	private MonthRowTable grid;
-	/** number of cols */
-	private final int columns;
+  /** impl */
+  private FlowPanel impl;
+  /** will hold grid data */
+  private MonthRowTable grid;
+  /** number of cols */
+  private final int columns;
 
-	/**
-	 * Default constructor.
-	 * 
-	 * @param cols the number of columns
-	 */
-	public MonthRow(int cols) {
-		columns = cols;
-		impl = new FlowPanel();
+  /**
+   * Default constructor.
+   * 
+   * @param cols the number of columns
+   */
+  public MonthRow(int cols) {
+    columns = cols;
+    impl = new FlowPanel();
 
-		grid = new MonthRowTable(columns);
-		impl.add(grid);
-		initWidget(impl);
+    grid = new MonthRowTable(columns);
+    impl.add(grid);
+    initWidget(impl);
 
-		setStyleName(Resources.monthCss().monthRow());
-	}
+    setStyleName(Resources.monthCss().monthRow());
+  }
 
-	public void onResize(WidgetResizeEvent event) {
-		if (!isVisible()) {
-			return;
-		}
-		resizeRows();
-	}
+  public void onResize(WidgetResizeEvent event) {
+    if (!isVisible()) {
+      return;
+    }
+    resizeRows();
+  }
 
-	/**
-	 * Resizes the rows.
-	 */
-	public void resizeRows() {
-		int availableHeight = getElement().getOffsetHeight();
-		grid.redrawRows(availableHeight);
-	}
+  /**
+   * Resizes the rows.
+   */
+  public void resizeRows() {
+    int availableHeight = getElement().getOffsetHeight();
+    grid.redrawRows(availableHeight);
+  }
 
 }

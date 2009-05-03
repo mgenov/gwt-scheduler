@@ -11,21 +11,21 @@ import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
  */
 class DayPanel extends AbstractDayPanel {
 
-	/**
-	 * Default constructor.
-	 */
-	public DayPanel() {
-		super();
-	}
+  /**
+   * Default constructor.
+   */
+  public DayPanel() {
+    super();
+  }
 
-	@Override
-	protected int getColumns() {
-		return 1;
-	}
+  @Override
+  protected int getColumns() {
+    return 1;
+  }
 
-	@Override
-	protected int getRows() {
-		return 48; // 24*2
-	}
+  @Override
+  protected int getRows() {
+    return 48; // 24*2
+  }
 
 }

@@ -12,24 +12,24 @@ import gwtscheduler.common.calendar.ITimePeriod;
  */
 public interface IEventNavigationListener {
 
-	/**
-	 * Goes to the next series of events.
-	 * 
-	 * @return the visible time period
-	 */
-	ITimePeriod onNavigateNext();
+  /**
+   * Goes to the next series of events.
+   * 
+   * @return the visible time period
+   */
+  ITimePeriod onNavigateNext();
 
-	/**
-	 * Goes to the previous series of events.
-	 * 
-	 * @return the visible time period
-	 */
-	ITimePeriod onNavigatePrevious();
+  /**
+   * Goes to the previous series of events.
+   * 
+   * @return the visible time period
+   */
+  ITimePeriod onNavigatePrevious();
 
-	/**
-	 * Goes to a specified start date.
-	 * 
-	 * @param date the start date
-	 */
-	void onNavigateTo(IDate date);
+  /**
+   * Goes to a specified start date.
+   * 
+   * @param date the start date
+   */
+  void onNavigateTo(IDate date);
 }
