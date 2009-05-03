@@ -5,7 +5,7 @@ package gwtscheduler.client.utils;
  */
 public interface Constants {
 
-  /** the scrollbar widht */
+  /** the scrollbar widht - magic number */
   public static final int SCROLLBAR_WIDTH = 19;
 
 }

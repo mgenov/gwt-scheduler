@@ -1,5 +1,6 @@
 package gwtscheduler.client.modules.views;
 
+import gwtscheduler.client.interfaces.IDateFactory;
 import gwtscheduler.client.interfaces.IEventNavigationListener;
 
 import com.google.gwt.user.client.ui.Widget;
@@ -10,7 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @author malp
  */
-public interface ICalendarController {
+public interface IViewController {
 
   /**
    * Gets the widget for the view.
@@ -32,5 +33,12 @@ public interface ICalendarController {
    * @return the listener
    */
   IEventNavigationListener getNavigationListener();
+
+  /**
+   * Gets the date factory.
+   * 
+   * @return the date factory
+   */
+  IDateFactory getDateFactory();
 
 }

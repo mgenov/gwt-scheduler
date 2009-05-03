@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view;
 
 import gwtscheduler.client.modules.annotation.Day;
+import gwtscheduler.client.utils.GenericDateFactory.Interval;
 import gwtscheduler.client.widgets.view.day.CompositeDayPanel;
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
@@ -15,6 +16,11 @@ public class DayController extends AbstractViewController<CompositeDayPanel> {
 
   public String getTabLabel() {
     return "Day";
+  }
+
+  @Override
+  protected Interval getInterval() {
+    return Interval.DAY;
   }
 
   public ITimePeriod onNavigateNext() {

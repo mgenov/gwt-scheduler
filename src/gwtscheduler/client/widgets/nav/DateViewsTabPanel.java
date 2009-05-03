@@ -1,15 +1,20 @@
 package gwtscheduler.client.widgets.nav;
 
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
+import gwtscheduler.client.modules.views.IViewController;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.resize.DelegatingRoundedPanel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -18,35 +23,55 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @author malp
  */
-public class DateViewsTabPanel extends DecoratedTabPanel implements
+public class DateViewsTabPanel extends Composite implements
     BeforeSelectionHandler<Integer> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
+  /** widget delegate */
+  private DecoratedTabPanel impl;
+  /** controllers map */
+  private Map<Integer, IViewController> controllers;
 
   /**
    * Default constructor.
    */
   public DateViewsTabPanel() {
-    super();
-    addBeforeSelectionHandler(this);
+    impl = new DecoratedTabPanel();
+    initWidget(impl);
+    impl.addBeforeSelectionHandler(this);
+
+    controllers = new HashMap<Integer, IViewController>();
   }
 
   public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
-    // this fires the resize
-    Widget w = getWidget(event.getItem());
+    // lifecycle is: fire navigation events, fire resize
+    // IViewController controller = controllers.get(event.getItem());
+
+    // fire resize
+    Widget w = impl.getWidget(event.getItem());
     w.fireEvent(new WidgetResizeEvent(DOMUtils.getViewportDimensions()));
-    // w.setVisible(true); // triggers resize event
   }
 
-  @Override
-  public void add(Widget w, Widget tabWidget) {
-    super.add(createWrapper(w), tabWidget);
+  /**
+   * Adds a new view to this tab panel.
+   * 
+   * @param controller the controller
+   */
+  public void add(IViewController controller) {
+    Widget view = controller.getViewWidget();
+    impl.add(createWrapper(view), controller.getTabLabel());
+    Integer index = impl.getWidgetIndex(view);
+    controllers.put(index, controller);
   }
 
-  @Override
-  public void add(Widget w, String tabText) {
-    super.add(createWrapper(w), tabText);
+  /**
+   * Selects a tab.
+   * 
+   * @param i the tab index
+   */
+  public void selectTab(int i) {
+    impl.selectTab(i);
   }
 
   /**
@@ -60,16 +85,6 @@ public class DateViewsTabPanel extends DecoratedTabPanel implements
     rp.setCornerColor("#E8EEF7");
     rp.add(child);
     return rp;
-  }
-
-  @Override
-  public void add(Widget w, String tabText, boolean asHTML) {
-    super.add(createWrapper(w), tabText, asHTML);
-  }
-
-  @Override
-  public void add(Widget w) {
-    super.add(createWrapper(w));
   }
 
 }

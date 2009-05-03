@@ -3,7 +3,7 @@ package gwtscheduler.client.modules.views;
 import java.util.List;
 
 /**
- * Defines a calendar views registry.
+ * Defines a calendar controllers registry.
  * 
  * @author malp
  */
@@ -14,13 +14,13 @@ public interface IUIRegistry {
    * 
    * @return the views
    */
-  List<ICalendarController> getControllers();
+  List<IViewController> getControllers();
 
   /**
    * Adds a new controller.
    * 
    * @param provider the controller
    */
-  void addController(ICalendarController controller);
+  void addController(IViewController controller);
 
 }

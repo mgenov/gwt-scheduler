@@ -3,8 +3,8 @@ package gwtscheduler.client.modules;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
-import gwtscheduler.client.modules.views.ICalendarController;
 import gwtscheduler.client.modules.views.IUIRegistry;
+import gwtscheduler.client.modules.views.IViewController;
 import gwtscheduler.client.widgets.view.DayController;
 import gwtscheduler.client.widgets.view.MonthController;
 import gwtscheduler.client.widgets.view.WeekController;
@@ -29,11 +29,16 @@ public class UIModule extends AbstractGinModule {
     // bind(Integer.class).annotatedWith(NumberOfCards.class).toProvider(NumberOfCardsProvider.class);
 
     bind(IUIRegistry.class).to(UIRegistry.class);
-    bind(ICalendarController.class).annotatedWith(Day.class).to(
-        DayController.class);
-    bind(ICalendarController.class).annotatedWith(Week.class).to(
-        WeekController.class);
-    bind(ICalendarController.class).annotatedWith(Month.class).to(
-        MonthController.class);
+    
+    //controllers
+    bind(IViewController.class)
+          .annotatedWith(Day.class)
+          .to(DayController.class);
+    bind(IViewController.class)
+          .annotatedWith(Week.class)
+          .to(WeekController.class);
+    bind(IViewController.class)
+          .annotatedWith(Month.class)
+          .to(MonthController.class);
   }
 }

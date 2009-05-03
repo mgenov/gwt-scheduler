@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view;
 
 import gwtscheduler.client.modules.annotation.Month;
+import gwtscheduler.client.utils.GenericDateFactory.Interval;
 import gwtscheduler.client.widgets.view.month.CompositeMonthPanel;
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
@@ -16,6 +17,11 @@ public class MonthController extends
 
   public String getTabLabel() {
     return "Month";
+  }
+
+  @Override
+  protected Interval getInterval() {
+    return Interval.MONTH;
   }
 
   public ITimePeriod onNavigateNext() {
