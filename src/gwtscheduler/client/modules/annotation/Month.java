@@ -11,7 +11,6 @@ import com.google.inject.BindingAnnotation;
  * @author malp
  */
 @Retention(RetentionPolicy.RUNTIME)
-// @Target( { ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE })
 @BindingAnnotation
 public @interface Month {
 

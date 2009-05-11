@@ -32,7 +32,7 @@
   padding-right: smallPaddingPx;
 }
 .evenTitleCell {
-  border-top: smallBorderPx solid smooth;
+  border-top: smallBorderPx solid lightBlued;
 }
 .oddTitleCell {
   border-top: smallBorderPx solid lightBlued;

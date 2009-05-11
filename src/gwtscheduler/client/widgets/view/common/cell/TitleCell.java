@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common.cell;
 
 /**
- * Serves as a row title.
+ * Used as a row title cell. Typically will display hours.
  * 
  * @author Miguel Ping
  * @version $Revision: $

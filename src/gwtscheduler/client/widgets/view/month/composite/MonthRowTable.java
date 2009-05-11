@@ -89,9 +89,9 @@ public class MonthRowTable extends Composite {
   private Element createCellElement(int row, int col) {
     Element cell = DOM.createDiv();
 
+    // TODO: apply decoration here
     DebugUtils.textRight("cell: " + row + ", " + col, cell);
 
-    // TODO add a way to decorate cells
     String className = CSS.monthCell();
     if (row == 0) {
       className = className + " " + CSS.monthCellTitle();

@@ -10,10 +10,8 @@ import com.google.inject.BindingAnnotation;
  * 
  * @author malp
  */
-// any target
-// @Target( { ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE })
-@Retention(RetentionPolicy.RUNTIME)
 @BindingAnnotation
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Day {
 
 }

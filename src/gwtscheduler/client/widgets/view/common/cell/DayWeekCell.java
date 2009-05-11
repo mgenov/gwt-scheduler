@@ -7,13 +7,14 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Serves as a row label.
+ * Widget for days Used in Day and Week views.
  * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
  */
 public class DayWeekCell extends Widget {
+
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
