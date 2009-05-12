@@ -29,8 +29,10 @@ public class HorizontalGridFill extends LazyPanel {
 
   /** class impl */
   private HTMLTable impl;
+  /** title column */
+  private Panel titleColumn;
   /** columns */
-  private List<Panel> columnWidgets;
+  private List<Panel> mainColumns;
   /** grid col count, excluding title column */
   private int columns;
   /** grid row count */
@@ -54,36 +56,38 @@ public class HorizontalGridFill extends LazyPanel {
     impl.setBorderWidth(0);
     impl.setStyleName(CSS.horizontalFillGrid());
 
-    columnWidgets = new ArrayList<Panel>();
+    mainColumns = new ArrayList<Panel>();
 
     // here we add one column for each day
     // one more col for cell labels
     for (int i = 0; i < this.columns + 1; i++) {
       FlowPanel flowPanel = new FlowPanel();
-      String className = null;
-      className = (i == 0) ? CSS.titleColumn() : CSS.column();
+      String className = (i == 0) ? CSS.titleColumn() : CSS.column();
       flowPanel.setStyleName(className);
-      columnWidgets.add(flowPanel);
+      if (i == 0) {
+        titleColumn = flowPanel;
+      } else {
+        mainColumns.add(flowPanel);
+      }
       impl.setWidget(0, i, flowPanel);
     }
 
     // create title cells
-    Panel titlePanel = columnWidgets.get(0); // first col is title
     for (int r = 0; r < rows; r++) {
       // TODO: apply decoration here
       TitleCell title = new TitleCell(r, 0, r + "");
       title.setWidth(CSS.titleColumnWidthPx() + "px");
-      titlePanel.add(title);
+      titleColumn.add(title);
     }
 
     // regular cells are different from title cells
-    for (int c = 1; c < columns + 1; c++) {
-      Panel col = columnWidgets.get(c);
+    for (int c = 0; c < columns; c++) {
+      Panel col = mainColumns.get(c);
 
       for (int r = 0; r < rows; r++) {
-        int id = ((c - 1) * r) + c;
+        int id = (c * r) + c;
         // TODO: apply decoration here
-        DayWeekCell cell = new DayWeekCell(r, (c - 1), "cell: " + id);
+        DayWeekCell cell = new DayWeekCell(r, c, "cell: " + id);
         col.add(cell);
       }
     }
@@ -98,12 +102,21 @@ public class HorizontalGridFill extends LazyPanel {
   }
 
   /**
-   * Gets the column widgets list.
+   * Gets the title panel column widget.
    * 
-   * @return the column widgets list
+   * @return the title widget
    */
-  public List<Panel> getColumnWidgets() {
-    return columnWidgets;
+  public Panel getTitleColumn() {
+    return mainColumns.get(0);
+  }
+
+  /**
+   * Gets the main columns widgets.
+   * 
+   * @return the main columns
+   */
+  public List<Panel> getMainColumns() {
+    return mainColumns;
   }
 
   /**

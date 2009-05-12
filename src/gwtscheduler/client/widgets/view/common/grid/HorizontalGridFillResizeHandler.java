@@ -62,28 +62,34 @@ public class HorizontalGridFillResizeHandler extends
     grid.setPixelSize(width - Constants.SCROLLBAR_WIDTH, height);
     int[] availableSize = getCellSize(width - Constants.SCROLLBAR_WIDTH, height);
 
-    // we only need to set cell widths, not col widths
-
+    // here's the src to update column widths also
     // int remainW = width - getTitleColumnOffsetWidth();
     // int remainingColWidth = (remainW / grid.getColumnCount()) -
     // Constants.SCROLLBAR_WIDTH;
 
-    for (int i = 0; i < grid.getColumnWidgets().size(); i++) {
-      Panel column = grid.getColumnWidgets().get(i);
-      // if (i == 0) {
-      // column.setPixelSize(getTitleColumnOffsetWidth(), height);
-      // } else {
-      // column.setPixelSize(remainingColWidth, height);
-      // }
+    // for (int i = 0; i < grid.getColumnWidgets().size(); i++) {
+    // Panel column = grid.getColumnWidgets().get(i);
+    // if (i == 0) {
+    // column.setPixelSize(getTitleColumnOffsetWidth(), height);
+    // } else {
+    // column.setPixelSize(remainingColWidth, height);
+    // }
+
+    // update title column
+    Panel titleColumn = grid.getTitleColumn();
+    for (Iterator<Widget> it = titleColumn.iterator(); it.hasNext();) {
+      DayWeekCell cell = (DayWeekCell) it.next();
+      cell.setCompensatedPixelSize(getTitleColumnWidth(), availableSize[1]);
+    }
+
+    // update the rest of columns
+    for (int i = 0; i < grid.getMainColumns().size(); i++) {
+      Panel column = grid.getMainColumns().get(i);
 
       // resize cells
       for (Iterator<Widget> it = column.iterator(); it.hasNext();) {
         DayWeekCell cell = (DayWeekCell) it.next();
-        if (i == 0) {
-          cell.setCompensatedPixelSize(getTitleColumnWidth(), availableSize[1]);
-        } else {
-          cell.setCompensatedPixelSize(availableSize[0], availableSize[1]);
-        }
+        cell.setCompensatedPixelSize(availableSize[0], availableSize[1]);
       }
     }
   }
