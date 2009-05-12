@@ -1,10 +1,10 @@
 package gwtscheduler.client.widgets.view.common.cell;
 
+import gwtscheduler.client.interfaces.ICell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.Element;
 
 /**
  * Widget for days Used in Day and Week views.
@@ -13,13 +13,10 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class DayWeekCell extends Widget {
+public class DayWeekCell extends BaseCell implements ICell<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
-
-  /** Cell identifiers */
-  public final int row, col;
 
   /**
    * Creates a new label.
@@ -29,12 +26,7 @@ public class DayWeekCell extends Widget {
    * @param label the label
    */
   public DayWeekCell(int row, int col, String label) {
-    this.row = row;
-    this.col = col;
-    setElement(DOM.createDiv());
-
-    // getElement().setPropertyInt("row", row);
-    // getElement().setPropertyInt("col", col);
+    super(row, col);
 
     setStyleName(row % 2 == 0 ? CSS.evenCell() : CSS.oddCell());
     getElement().setInnerText(label);

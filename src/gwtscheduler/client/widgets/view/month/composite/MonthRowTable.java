@@ -3,10 +3,9 @@ package gwtscheduler.client.widgets.view.month.composite;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
 import gwtscheduler.client.utils.DebugUtils;
+import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 
 /**
@@ -59,7 +58,7 @@ public class MonthRowTable extends Composite {
     int rowHeight = CSS.lineHeight() + CSS.monthCellPadTopPx();
     int rows = height / rowHeight;
 
-    // +1 is for rounding,because the rows will never be a perfect fit...
+    // +1 is for "rounding", because the rows will never be a perfect fit.
     if (rows + 1 > grid.getRowCount()) {
       ensureRows(rows + 1);
     }
@@ -75,7 +74,7 @@ public class MonthRowTable extends Composite {
     for (int r = grid.getRowCount(); r < rows; r++) {
       for (int c = 0; c < columns; c++) {
         for (int i = 0; i < rows; i++) {
-          grid.setElement(r, c, createCellElement(r, c));
+          grid.setElement(r, c, createCellElement(r, c).getElement());
         }
       }
     }
@@ -86,17 +85,17 @@ public class MonthRowTable extends Composite {
    * 
    * @return the cell element
    */
-  private Element createCellElement(int row, int col) {
-    Element cell = DOM.createDiv();
+  private BaseCell createCellElement(int row, int col) {
+    BaseCell cell = new BaseCell(row,col);
 
     // TODO: apply decoration here
-    DebugUtils.textRight("cell: " + row + ", " + col, cell);
+    DebugUtils.textRight("cell: " + row + ", " + col, cell.getElement());
 
     String className = CSS.monthCell();
     if (row == 0) {
       className = className + " " + CSS.monthCellTitle();
     }
-    cell.setClassName(className);
+    cell.addStyleName(className);
     return cell;
   }
 
