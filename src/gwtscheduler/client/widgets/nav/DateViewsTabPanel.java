@@ -5,7 +5,6 @@ import gwtscheduler.client.modules.views.IViewController;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;
-import gwtscheduler.client.widgets.resize.DelegatingRoundedPanel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +13,7 @@ import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -81,7 +81,14 @@ public class DateViewsTabPanel extends Composite implements
    * @return the child wrapped in a rounded panel
    */
   protected Widget createWrapper(Widget child) {
-    DelegatingRoundedPanel rp = new DelegatingRoundedPanel(RoundedPanel.ALL, 4);
+    // will delegate events to child panel
+    RoundedPanel rp = new RoundedPanel(RoundedPanel.ALL, 4) {
+      @Override
+      public void fireEvent(GwtEvent<?> event) {
+        getWidget().fireEvent(event);
+      }
+    };
+    // TODO get this from the css resources?
     rp.setCornerColor("#E8EEF7");
     rp.add(child);
     return rp;

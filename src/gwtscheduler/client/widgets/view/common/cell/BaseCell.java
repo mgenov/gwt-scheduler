@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common.cell;
 
+
 import gwtscheduler.client.interfaces.ICell;
 
 import com.google.gwt.user.client.DOM;
@@ -37,8 +38,8 @@ public class BaseCell extends Widget implements ICell<Element> {
     return row;
   }
 
-  @Override
-  public Element getElement() {
-    return super.getElement();
+  public final Element getCellElement() {
+    return getElement();
   }
+  
 }

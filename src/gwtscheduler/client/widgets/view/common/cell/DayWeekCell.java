@@ -1,10 +1,7 @@
 package gwtscheduler.client.widgets.view.common.cell;
 
-import gwtscheduler.client.interfaces.ICell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-
-import com.google.gwt.user.client.Element;
 
 /**
  * Widget for days Used in Day and Week views.
@@ -13,7 +10,7 @@ import com.google.gwt.user.client.Element;
  * @version $Revision: $
  * @since 1.0
  */
-public class DayWeekCell extends BaseCell implements ICell<Element> {
+public class DayWeekCell extends BaseCell {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();

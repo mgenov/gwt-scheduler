@@ -26,10 +26,8 @@ public interface ICell<T extends Element> {
   int column();
 
   /**
-   * Gets the underlying element.
-   * 
-   * @return the element
+   * @return
    */
-  T getElement();
+  Element getCellElement();
 
 }

@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.month;
 
+import gwtscheduler.client.interfaces.ICell;
 import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
@@ -7,6 +8,7 @@ import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.user.client.DOM;
@@ -88,6 +90,20 @@ class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
     for (MonthRow row : monthRows) {
       row.resizeRows();
     }
+  }
+
+  /**
+   * Gets an iterator for all the decorable elements.
+   * 
+   * @return the iterator
+   */
+  public Iterator<ICell<Element>> getDecorablesIterator() {
+    List<ICell<Element>> mergedList = new ArrayList<ICell<Element>>();
+    for (MonthRow mr : monthRows) {
+      List<ICell<Element>> rl = mr.getTitleElements();
+      mergedList.addAll(rl);
+    }
+    return mergedList.iterator();
   }
 
   /**

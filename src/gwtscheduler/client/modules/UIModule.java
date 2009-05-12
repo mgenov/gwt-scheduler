@@ -40,5 +40,7 @@ public class UIModule extends AbstractGinModule {
     bind(IViewController.class)
           .annotatedWith(Month.class)
           .to(MonthController.class);
+    
+    //decorators
   }
 }

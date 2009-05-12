@@ -1,17 +1,22 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
+import gwtscheduler.client.interfaces.ICell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
 import gwtscheduler.client.utils.DebugUtils;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
-import com.google.gwt.gen2.table.override.client.FlexTable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
 
 /**
  * Defines a month row.
  */
-public class MonthRowTable extends Composite {
+class MonthRowTable extends Composite {
 
   /** static ref to month css */
   protected static final MonthCssResource CSS = Resources.monthCss();
@@ -22,6 +27,8 @@ public class MonthRowTable extends Composite {
   private int availableHeight = 0;
   /** table for month cells */
   private FlexTable grid;
+  /** list for title elements */
+  private List<ICell<Element>> titleElements;
 
   /**
    * Creates a new month row.
@@ -34,8 +41,19 @@ public class MonthRowTable extends Composite {
     grid.setCellPadding(0);
     grid.setCellSpacing(0);
 
+    titleElements = new ArrayList<ICell<Element>>();
+
     initWidget(grid);
     setStyleName(CSS.monthRowTable());
+  }
+
+  /**
+   * Gets the title elements.
+   * 
+   * @return a list of the title elements
+   */
+  public List<ICell<Element>> getTitleElements() {
+    return titleElements;
   }
 
   @Override
@@ -74,7 +92,7 @@ public class MonthRowTable extends Composite {
     for (int r = grid.getRowCount(); r < rows; r++) {
       for (int c = 0; c < columns; c++) {
         for (int i = 0; i < rows; i++) {
-          grid.setElement(r, c, createCellElement(r, c).getElement());
+          grid.setWidget(r, c, createCellElement(r, c));
         }
       }
     }
@@ -86,17 +104,17 @@ public class MonthRowTable extends Composite {
    * @return the cell element
    */
   private BaseCell createCellElement(int row, int col) {
-    BaseCell cell = new BaseCell(row,col);
+    BaseCell cell = new BaseCell(row, col);
 
     // TODO: apply decoration here
     DebugUtils.textRight("cell: " + row + ", " + col, cell.getElement());
 
     String className = CSS.monthCell();
-    if (row == 0) {
-      className = className + " " + CSS.monthCellTitle();
-    }
     cell.addStyleName(className);
+    if (row == 0) {
+      cell.addStyleName(CSS.monthCellTitle());
+      titleElements.add(cell);
+    }
     return cell;
   }
-
 }

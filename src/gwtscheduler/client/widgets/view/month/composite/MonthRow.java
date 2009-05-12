@@ -1,9 +1,13 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
+import gwtscheduler.client.interfaces.ICell;
 import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 
+import java.util.List;
+
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 
@@ -52,6 +56,15 @@ public class MonthRow extends Composite implements IWidgetResizeHandler {
   public void resizeRows() {
     int availableHeight = getElement().getOffsetHeight();
     grid.redrawRows(availableHeight);
+  }
+
+  /**
+   * Gets an iterator for the decorable elements.
+   * 
+   * @return the iterator for the decorable elements
+   */
+  public List<ICell<Element>> getTitleElements() {
+    return grid.getTitleElements();
   }
 
 }

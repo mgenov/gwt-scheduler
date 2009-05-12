@@ -1,12 +1,21 @@
 package gwtscheduler.client.widgets.view;
 
+import com.google.inject.Singleton;
+
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.utils.GenericDateFactory.Interval;
 import gwtscheduler.client.widgets.view.month.CompositeMonthPanel;
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
 
+/**
+ * Controller class for months.
+ * 
+ * @author malp
+ * 
+ */
 @Month
+@Singleton
 public class MonthController extends
     AbstractViewController<CompositeMonthPanel> {
 

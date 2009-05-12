@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common.grid;
 
+import gwtscheduler.client.interfaces.ICell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.view.common.cell.DayWeekCell;
@@ -8,6 +9,7 @@ import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTMLTable;
@@ -31,6 +33,8 @@ public class HorizontalGridFill extends LazyPanel {
   private HTMLTable impl;
   /** title column */
   private Panel titleColumn;
+  /** title elements */
+  private List<ICell<Element>> titleElements;
   /** columns */
   private List<Panel> mainColumns;
   /** grid col count, excluding title column */
@@ -48,6 +52,7 @@ public class HorizontalGridFill extends LazyPanel {
   public HorizontalGridFill(int rows, int cols) {
     this.rows = rows;
     this.columns = cols;
+    titleElements = new ArrayList<ICell<Element>>();
   }
 
   @Override
@@ -78,6 +83,7 @@ public class HorizontalGridFill extends LazyPanel {
       TitleCell title = new TitleCell(r, 0, r + "");
       title.setWidth(CSS.titleColumnWidthPx() + "px");
       titleColumn.add(title);
+      titleElements.add(title);
     }
 
     // regular cells are different from title cells
@@ -102,12 +108,21 @@ public class HorizontalGridFill extends LazyPanel {
   }
 
   /**
+   * Gets a list of title elements.
+   * 
+   * @return the list of title elements
+   */
+  public List<ICell<Element>> getTitleElements() {
+    return titleElements;
+  }
+
+  /**
    * Gets the title panel column widget.
    * 
    * @return the title widget
    */
   public Panel getTitleColumn() {
-    return mainColumns.get(0);
+    return titleColumn;
   }
 
   /**

@@ -1,14 +1,18 @@
 package gwtscheduler.client.widgets.view.common;
 
+import gwtscheduler.client.interfaces.ICell;
 import gwtscheduler.client.interfaces.uievents.resize.IHasResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFill;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHandler;
 
+import java.util.Iterator;
+
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Abstract class for day and week views.
+ * Abstract class for day and week views. Holds the main grid cells.
  */
 public abstract class AbstractDayPanel extends WrappedWidget implements
     IHasResizeHandler {
@@ -32,6 +36,15 @@ public abstract class AbstractDayPanel extends WrappedWidget implements
     rh = new HorizontalGridFillResizeHandler(grid);
 
     container.add(grid);
+  }
+
+  /**
+   * Gets the decorable elements.
+   * 
+   * @return the decorable elements
+   */
+  public Iterator<ICell<Element>> getDecorablesIterator() {
+    return grid.getTitleElements().iterator();
   }
 
   /**

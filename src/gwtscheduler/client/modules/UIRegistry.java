@@ -21,6 +21,13 @@ public class UIRegistry implements IUIRegistry {
   /** holds the views data */
   private ArrayList<IViewController> views;
 
+  /**
+   * Default constructor.
+   * 
+   * @param day the day controller
+   * @param week the week controller
+   * @param month the month controller
+   */
   @Inject
   public UIRegistry(@Day IViewController day, @Week IViewController week,
       @Month IViewController month) {
