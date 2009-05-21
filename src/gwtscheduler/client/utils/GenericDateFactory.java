@@ -2,6 +2,8 @@ package gwtscheduler.client.utils;
 
 import gwtscheduler.client.interfaces.IDateFactory;
 import gwtscheduler.common.calendar.IDate;
+import gwtscheduler.common.calendar.ITimePeriod;
+import gwtscheduler.common.model.TimePeriod;
 
 /**
  * Generic factory.
@@ -11,47 +13,56 @@ import gwtscheduler.common.calendar.IDate;
  * @since 1.0
  */
 public class GenericDateFactory implements IDateFactory {
-  /** interval type */
-  public enum Interval {
-    DAY, WEEK, MONTH;
-  }
 
   /** the interval type */
-  private final Interval interval;
+  private Interval interval;
 
-  /**
-   * Creates a new generic factory.
-   * 
-   * @param inter the interval type
-   */
-  public GenericDateFactory(Interval inter) {
-    this.interval = inter;
+  private IDate start, end;
+
+  public IDate current() {
+    return start;
   }
 
-  public IDate next(IDate current) {
+  public void init(Interval interval, IDate start) {
+    this.interval = interval;
+    this.start = start;
+    this.end = next();
+  }
+
+  public IDate next() {
     switch (interval) {
       case DAY:
-        return current.addDays(1);
+        start = start.addDays(1);
+        end = start.addDays(1);
       case WEEK:
-        return current.addDays(7);
+        start = start.addDays(1);
+        end = start.addDays(1);
       case MONTH:
-        return current.addMonths(1);
+        start = start.addMonths(1);
+        end = start.addMonths(1);
       default:
-        return null;
+        return start;
     }
   }
 
-  public IDate previous(IDate current) {
+  public IDate previous() {
     switch (interval) {
       case DAY:
-        return current.addDays(-1);
+        start = start.addDays(-1);
+        end = start.addDays(-1);
       case WEEK:
-        return current.addDays(-7);
+        start = start.addDays(-1);
+        end = start.addDays(-1);
       case MONTH:
-        return current.addMonths(-1);
+        start = start.addMonths(-1);
+        end = start.addMonths(-1);
       default:
-        return null;
+        return start;
     }
+  }
+
+  public ITimePeriod period() {
+    return new TimePeriod(start, end);
   }
 
 }

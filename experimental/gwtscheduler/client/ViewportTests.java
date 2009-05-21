@@ -1,13 +1,10 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.interfaces.IDateFactory;
 import gwtscheduler.client.interfaces.IEventNavigationListener;
 import gwtscheduler.client.modules.IUIInjector;
 import gwtscheduler.client.modules.views.IUIRegistry;
 import gwtscheduler.client.modules.views.IViewController;
 import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.utils.GenericDateFactory;
-import gwtscheduler.client.utils.GenericDateFactory.Interval;
 import gwtscheduler.client.widgets.nav.DateViewsTabPanel;
 import gwtscheduler.client.widgets.view.month.CompositeMonthPanel;
 import gwtscheduler.common.calendar.IDate;
@@ -35,7 +32,7 @@ public class ViewportTests implements EntryPoint {
 
     DateViewsTabPanel main = new DateViewsTabPanel();
     // the registry will be pre-filled with default controllers
-    // for day, week and month
+    // for day, week and month, plus our own dummy controller
     for (IViewController controller : registry.getControllers()) {
       main.add(controller);
     }
@@ -65,10 +62,6 @@ public class ViewportTests implements EntryPoint {
 
     public IEventNavigationListener getNavigationListener() {
       return this;
-    }
-
-    public IDateFactory getDateFactory() {
-      return new GenericDateFactory(Interval.MONTH);
     }
 
     public String getTabLabel() {

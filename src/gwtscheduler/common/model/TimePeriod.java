@@ -1,19 +1,20 @@
 package gwtscheduler.common.model;
 
+import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
 
 public class TimePeriod implements ITimePeriod {
 
-  protected long milis = 0;
-
-  public TimePeriod() {
-  }
+  protected IDate start, end;
+  protected long milis;
 
   /**
-   * @param milis
+   * Default constructor.
    */
-  public TimePeriod(long milis) {
-    this.milis = milis;
+  public TimePeriod(IDate start, IDate end) {
+    this.start = start;
+    this.end = end;
+    this.milis = end.millis() - start.millis();
   }
 
   public int hours() {

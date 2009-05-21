@@ -75,10 +75,12 @@ public class DateTime implements IDate, Comparable<IDate> {
     return this;
   }
 
+  public long millis() {
+    return delegate.getTime();
+  }
+
   public ITimePeriod diff(IDate otherDate) {
-    long diff = Math.abs(delegate.getTime()
-        - ((DateTime) otherDate).delegate.getTime());
-    return new TimePeriod(diff);
+    return new TimePeriod(this, otherDate);
   }
 
   public int compareTo(IDate o) {

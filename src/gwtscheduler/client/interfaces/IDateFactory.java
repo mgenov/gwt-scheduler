@@ -1,6 +1,7 @@
 package gwtscheduler.client.interfaces;
 
 import gwtscheduler.common.calendar.IDate;
+import gwtscheduler.common.calendar.ITimePeriod;
 
 /**
  * Defines event controller operations.
@@ -11,20 +12,44 @@ import gwtscheduler.common.calendar.IDate;
  */
 public interface IDateFactory {
 
+  /** interval type */
+  public enum Interval {
+    DAY, WEEK, MONTH;
+  }
+
+  /**
+   * Initializes the date factory.
+   * 
+   * @param start the start date
+   */
+  void init(Interval interval, IDate start);
+
+  /**
+   * Gets the current date.
+   * 
+   * @return the current date
+   */
+  IDate current();
+
   /**
    * Gets the next date period.
    * 
-   * @param current the current date
    * @return the next period
    */
-  IDate next(IDate current);
+  IDate next();
 
   /**
    * Gets the previous period.
    * 
-   * @param current the curent date
    * @return the previous period
    */
-  IDate previous(IDate current);
+  IDate previous();
+
+  /**
+   * Creates a new time period.
+   * 
+   * @return the time period
+   */
+  ITimePeriod period();
 
 }

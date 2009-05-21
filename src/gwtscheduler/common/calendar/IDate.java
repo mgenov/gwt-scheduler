@@ -108,4 +108,11 @@ public interface IDate extends Comparable<IDate>, Serializable,
    */
   Object delegate();
 
+  /**
+   * Gets the milliseconds within this date.
+   * 
+   * @return the millis
+   */
+  long millis();
+
 }

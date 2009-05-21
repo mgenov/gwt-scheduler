@@ -1,6 +1,5 @@
 package gwtscheduler.client.modules.views;
 
-import gwtscheduler.client.interfaces.IDateFactory;
 import gwtscheduler.client.interfaces.IEventNavigationListener;
 
 import com.google.gwt.user.client.ui.Widget;
@@ -33,12 +32,5 @@ public interface IViewController {
    * @return the listener
    */
   IEventNavigationListener getNavigationListener();
-
-  /**
-   * Gets the date factory.
-   * 
-   * @return the date factory
-   */
-  IDateFactory getDateFactory();
 
 }
