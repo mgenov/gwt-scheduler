@@ -15,7 +15,6 @@ import com.google.gwt.inject.client.AbstractGinModule;
 
 /**
  * Defines the ui Ioc User Interface Module.
- * 
  * @author malp
  */
 public class UIModule extends AbstractGinModule {
@@ -32,18 +31,14 @@ public class UIModule extends AbstractGinModule {
 
     bind(IUIRegistry.class).to(UIRegistry.class);
     bind(IDateFactory.class).to(GenericDateFactory.class);
-    
-    //controllers
-    bind(IViewController.class)
-          .annotatedWith(Day.class)
-          .to(DayController.class);
-    bind(IViewController.class)
-          .annotatedWith(Week.class)
-          .to(WeekController.class);
-    bind(IViewController.class)
-          .annotatedWith(Month.class)
-          .to(MonthController.class);
-    
-    //decorators
+
+    // controllers
+    bind(IViewController.class).annotatedWith(Day.class).to(DayController.class);
+    bind(IViewController.class).annotatedWith(Week.class).to(
+        WeekController.class);
+    bind(IViewController.class).annotatedWith(Month.class).to(
+        MonthController.class);
+
+    // decorators
   }
 }

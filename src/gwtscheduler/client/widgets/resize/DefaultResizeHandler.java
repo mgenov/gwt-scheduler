@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Handlers resize events for the wrapper widget.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -17,7 +16,6 @@ public class DefaultResizeHandler extends AbstractResizeHandler<Widget>
 
   /**
    * Creates a new resize handler for the supplied widget.
-   * 
    * @param widget the widget thath should handle resizes
    */
   public DefaultResizeHandler(Widget widget) {
@@ -26,7 +24,6 @@ public class DefaultResizeHandler extends AbstractResizeHandler<Widget>
 
   /**
    * Called when a viewport resize event ocurred.
-   * 
    * @param event the resize event
    */
   @Override

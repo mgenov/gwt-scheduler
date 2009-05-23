@@ -11,9 +11,7 @@ import com.google.inject.Singleton;
 
 /**
  * Controller class for months.
- * 
  * @author malp
- * 
  */
 @Month
 @Singleton

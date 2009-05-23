@@ -2,7 +2,6 @@ package gwtscheduler.common.calendar;
 
 /**
  * Defines calendar constants.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0

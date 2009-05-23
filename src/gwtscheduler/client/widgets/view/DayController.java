@@ -12,7 +12,6 @@ import com.google.inject.Singleton;
 
 /**
  * Controller for days view.
- * 
  * @author malp
  */
 @Day

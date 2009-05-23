@@ -2,7 +2,6 @@ package gwtscheduler.common.event;
 
 /**
  * Defines possible types for events.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0

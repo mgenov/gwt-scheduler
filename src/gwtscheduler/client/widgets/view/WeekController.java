@@ -12,7 +12,6 @@ import com.google.inject.Singleton;
 
 /**
  * Week controller for week views.
- * 
  * @author malp
  */
 @Week

@@ -5,7 +5,6 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
 
 /**
  * Widget for days Used in Day and Week views.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -17,7 +16,6 @@ public class DayWeekCell extends BaseCell {
 
   /**
    * Creates a new label.
-   * 
    * @param row the row index
    * @param col the column index
    * @param label the label
@@ -31,7 +29,6 @@ public class DayWeekCell extends BaseCell {
 
   /**
    * Sets the pixel size, but takes in account borders and padding.
-   * 
    * @param w the width
    * @param h the height
    */

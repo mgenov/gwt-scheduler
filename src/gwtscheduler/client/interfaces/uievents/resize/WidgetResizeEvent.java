@@ -4,7 +4,6 @@ import com.google.gwt.event.shared.GwtEvent;
 
 /**
  * Resize event for resize aware widgets.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -24,7 +23,6 @@ public class WidgetResizeEvent extends GwtEvent<IWidgetResizeHandler> {
 
   /**
    * Gets the event type associated with resize events.
-   * 
    * @return the handler type
    */
   public static Type<IWidgetResizeHandler> getType() {
@@ -43,7 +41,6 @@ public class WidgetResizeEvent extends GwtEvent<IWidgetResizeHandler> {
 
   /**
    * Main constructor.
-   * 
    * @param availableWidth the available width
    * @param availableHeight available height
    */
@@ -54,7 +51,6 @@ public class WidgetResizeEvent extends GwtEvent<IWidgetResizeHandler> {
 
   /**
    * Creates a new event.
-   * 
    * @param dimension an array with the width and height
    */
   public WidgetResizeEvent(int[] dimension) {

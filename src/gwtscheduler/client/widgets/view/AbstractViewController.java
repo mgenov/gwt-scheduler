@@ -9,7 +9,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Abstract class for view controllers.
- * 
  * @author malp
  */
 public abstract class AbstractViewController<T extends Widget> implements
@@ -36,7 +35,6 @@ public abstract class AbstractViewController<T extends Widget> implements
 
   /**
    * Gets the date factory.
-   * 
    * @return the date factory
    */
   protected IDateFactory getFactory() {

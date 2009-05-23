@@ -12,21 +12,18 @@ public interface IUIInjector extends Ginjector {
 
   /**
    * Gets the UI Registry.
-   * 
    * @return the UI Registry
    */
   IUIRegistry getUIRegistry();
 
   /**
    * Gets the date factory.
-   * 
    * @return the date factory
    */
   IDateFactory getDateFactory();
 
   /**
    * Proxy class for acessing injector.
-   * 
    * @author Miguel Ping
    * @version $Revision: $
    * @since 1.0
@@ -37,7 +34,6 @@ public interface IUIInjector extends Ginjector {
 
     /**
      * Caches and gets the IUIInjector instance.
-     * 
      * @return the injector instance
      */
     public static synchronized IUIInjector getInjector() {

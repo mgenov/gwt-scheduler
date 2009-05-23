@@ -6,7 +6,6 @@ import com.google.gwt.event.shared.EventHandler;
 
 /**
  * Navigation events.
- * 
  * @author malp
  */
 public interface INavigationHandler extends EventHandler {

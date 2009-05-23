@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
+import gwtscheduler.client.interfaces.ICell;
 import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
@@ -7,7 +8,10 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.ViewportPanel;
 
+import java.util.Iterator;
+
 import com.google.gwt.gen2.table.override.client.FlexTable;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
@@ -21,8 +25,14 @@ public abstract class AbstractCompositeDaysPanel extends Composite {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
+
   /** widget impl */
   protected VerticalPanel impl;
+  /** day view */
+  AbstractDayPanel mainView;
+  /** top view */
+  Widget topView;
+
   /** viewport widget */
   private ViewportPanel vmain;
 
@@ -32,12 +42,11 @@ public abstract class AbstractCompositeDaysPanel extends Composite {
   public AbstractCompositeDaysPanel() {
     impl = new VerticalPanel();
 
-    AbstractDayPanel dayView = createDayView();
-
+    mainView = createDayView();
     vmain = new ViewportPanel();
-    vmain.add(dayView, dayView.getResizeHandler());
+    vmain.add(mainView, mainView.getResizeHandler());
 
-    Widget topView = createTopView(dayView.getColumns());
+    topView = createTopView(mainView.getColumns());
 
     impl.add(topView);
     impl.add(vmain);
@@ -53,7 +62,6 @@ public abstract class AbstractCompositeDaysPanel extends Composite {
 
   /**
    * Creates the top view widget.
-   * 
    * @param columns the number of columns
    * @return the top view widget
    */
@@ -74,8 +82,15 @@ public abstract class AbstractCompositeDaysPanel extends Composite {
   }
 
   /**
+   * Gets the decorables iterator.
+   * @return the decorables iterator
+   */
+  public Iterator<ICell<Element>> getDecorablesIterator() {
+    return mainView.getDecorablesIterator();
+  }
+
+  /**
    * Creates the day view widget.
-   * 
    * @return the day view widget
    */
   protected abstract AbstractDayPanel createDayView();

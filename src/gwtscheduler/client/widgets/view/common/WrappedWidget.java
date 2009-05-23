@@ -6,7 +6,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Utility Widget that serves to add an additional div to the impl Widget.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -32,7 +31,6 @@ public abstract class WrappedWidget extends Composite {
 
   /**
    * Wraps the widget.
-   * 
    * @param widget the widget to wrap
    */
   protected void wrapWidget(Widget widget) {

@@ -10,7 +10,6 @@ import com.google.gwt.libideas.client.StyleInjector;
 /**
  * "Shortcut" class for general resources. Will lazy {@link GWT#create(Class)}
  * the resources as needed on first call.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -39,7 +38,6 @@ public final class Resources {
 
   /**
    * Gets the day week css resource.
-   * 
    * @return the day week css resource
    */
   public static final DayWeekCssResource dayWeekCss() {
@@ -49,7 +47,6 @@ public final class Resources {
 
   /**
    * Gets the month css resource.
-   * 
    * @return the month css resource
    */
   public static final MonthCssResource monthCss() {

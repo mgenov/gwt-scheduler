@@ -9,7 +9,7 @@ import java.util.Date;
  * Simple date class.
  */
 @SuppressWarnings("deprecation")
-public class DateTime implements IDate, Comparable<IDate> {
+public class DateTime implements IDate {
 
   /** Internal date field. */
   private Date delegate;
@@ -19,6 +19,14 @@ public class DateTime implements IDate, Comparable<IDate> {
    */
   public DateTime() {
     delegate = new Date();
+  }
+
+  /**
+   * Creates a new date.
+   * @param copy the date to use
+   */
+  public DateTime(Date copy) {
+    delegate = copy;
   }
 
   public IDate copy() {
@@ -31,7 +39,7 @@ public class DateTime implements IDate, Comparable<IDate> {
     return delegate;
   }
 
-  public int days() {
+  public int day() {
     return delegate.getDate();
   }
 
@@ -52,7 +60,7 @@ public class DateTime implements IDate, Comparable<IDate> {
   }
 
   public int year() {
-    return delegate.getDate();
+    return delegate.getYear() + 1900;
   }
 
   public IDate addHours(int amount) {
@@ -80,7 +88,7 @@ public class DateTime implements IDate, Comparable<IDate> {
   }
 
   public ITimePeriod diff(IDate otherDate) {
-    return new TimePeriod(this, otherDate);
+    return new TimePeriod(otherDate, this);
   }
 
   public int compareTo(IDate o) {
@@ -119,7 +127,6 @@ public class DateTime implements IDate, Comparable<IDate> {
 
   /**
    * Truncates this date instance.
-   * 
    * @param field the field to truncate
    * @return this instance
    */
@@ -146,6 +153,11 @@ public class DateTime implements IDate, Comparable<IDate> {
     time = time - (time % displacement);
     delegate.setTime(time);
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return delegate.toString();
   }
 
 }

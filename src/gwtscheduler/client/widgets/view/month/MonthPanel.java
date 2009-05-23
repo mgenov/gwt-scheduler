@@ -17,7 +17,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 
 /**
  * View class for months.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -94,10 +93,9 @@ class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
 
   /**
    * Gets an iterator for all the decorable elements.
-   * 
    * @return the iterator
    */
-  public Iterator<ICell<Element>> getDecorablesIterator() {
+  Iterator<ICell<Element>> getDecorablesIterator() {
     List<ICell<Element>> mergedList = new ArrayList<ICell<Element>>();
     for (MonthRow mr : monthRows) {
       List<ICell<Element>> rl = mr.getTitleElements();
@@ -108,7 +106,6 @@ class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
 
   /**
    * Unhides a number of rows.
-   * 
    * @param amount the number of rows to unhide
    */
   void unhideRows(int amount) {

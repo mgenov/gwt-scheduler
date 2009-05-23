@@ -4,7 +4,6 @@ import gwtscheduler.common.calendar.IDate;
 
 /**
  * Super class for events.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -17,7 +16,6 @@ public abstract class Event {
 
   /**
    * Creates a new scheduled event.
-   * 
    * @param start
    * @param end
    * @param type
@@ -30,7 +28,6 @@ public abstract class Event {
 
   /**
    * Filters dates, removing the unecessary parts.
-   * 
    * @param date the date to filter
    */
   protected abstract IDate filter(IDate date);

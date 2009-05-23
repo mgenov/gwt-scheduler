@@ -40,16 +40,14 @@ public abstract class AbstractDayPanel extends WrappedWidget implements
 
   /**
    * Gets the decorable elements.
-   * 
    * @return the decorable elements
    */
-  public Iterator<ICell<Element>> getDecorablesIterator() {
+  Iterator<ICell<Element>> getDecorablesIterator() {
     return grid.getTitleElements().iterator();
   }
 
   /**
    * Gets the resize handler for this widget.
-   * 
    * @return the resize handler.
    */
   public IWidgetResizeHandler getResizeHandler() {
@@ -58,15 +56,13 @@ public abstract class AbstractDayPanel extends WrappedWidget implements
 
   /**
    * Gets the number of rows.
-   * 
-   * @return
+   * @return the number of rows of this panel
    */
   protected abstract int getRows();
 
   /**
-   * Gets the number of columns
-   * 
-   * @return
+   * Gets the number of columns.
+   * @return the number of columns of this panel
    */
   protected abstract int getColumns();
 }

@@ -1,6 +1,5 @@
 package gwtscheduler.client.widgets.view.common.cell;
 
-
 import gwtscheduler.client.interfaces.ICell;
 
 import com.google.gwt.user.client.DOM;
@@ -9,9 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Base class for grid cells.
- * 
  * @author malp
- * 
  */
 public class BaseCell extends Widget implements ICell<Element> {
 
@@ -20,7 +17,6 @@ public class BaseCell extends Widget implements ICell<Element> {
 
   /**
    * Default constructor.
-   * 
    * @param row the row index
    * @param col the column index
    */
@@ -41,5 +37,5 @@ public class BaseCell extends Widget implements ICell<Element> {
   public final Element getCellElement() {
     return getElement();
   }
-  
+
 }

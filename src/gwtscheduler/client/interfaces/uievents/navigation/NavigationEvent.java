@@ -6,7 +6,6 @@ import com.google.gwt.event.shared.GwtEvent;
 
 /**
  * Navigation events.
- * 
  * @author malp
  */
 public class NavigationEvent extends GwtEvent<INavigationHandler> {
@@ -19,7 +18,6 @@ public class NavigationEvent extends GwtEvent<INavigationHandler> {
 
   /**
    * Defines different operation types.
-   * 
    * @author malp
    */
   public static enum Operation {
@@ -28,7 +26,6 @@ public class NavigationEvent extends GwtEvent<INavigationHandler> {
 
   /**
    * Only available constructor.
-   * 
    * @param date the event's date
    * @param operation the operation
    */
@@ -45,7 +42,6 @@ public class NavigationEvent extends GwtEvent<INavigationHandler> {
 
   /**
    * Gets the event type associated with navigation events.
-   * 
    * @return the handler type
    */
   public static Type<INavigationHandler> getType() {

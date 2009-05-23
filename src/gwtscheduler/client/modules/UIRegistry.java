@@ -3,8 +3,9 @@ package gwtscheduler.client.modules;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
-import gwtscheduler.client.modules.views.IViewController;
 import gwtscheduler.client.modules.views.IUIRegistry;
+import gwtscheduler.client.modules.views.IViewController;
+import gwtscheduler.common.calendar.IDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,6 @@ import com.google.inject.Inject;
 
 /**
  * Holds all calendar controllers. Is responsible for assembling the views.
- * 
  * @author malp
  */
 public class UIRegistry implements IUIRegistry {
@@ -23,7 +23,6 @@ public class UIRegistry implements IUIRegistry {
 
   /**
    * Default constructor.
-   * 
    * @param day the day controller
    * @param week the week controller
    * @param month the month controller
@@ -43,6 +42,25 @@ public class UIRegistry implements IUIRegistry {
 
   public List<IViewController> getControllers() {
     return views;
+  }
+
+  public void fireBackNavigation() {
+    for (IViewController controller : getControllers()) {
+      controller.getNavigationListener().onNavigatePrevious();
+    }
+  }
+
+  public void fireForwardNavigation() {
+    for (IViewController controller : getControllers()) {
+      controller.getNavigationListener().onNavigateNext();
+    }
+
+  }
+
+  public void fireDateNavigation(IDate date) {
+    for (IViewController controller : getControllers()) {
+      controller.getNavigationListener().onNavigateTo(date);
+    }
   }
 
 }

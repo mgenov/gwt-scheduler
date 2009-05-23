@@ -6,7 +6,6 @@ import gwtscheduler.common.event.EventType;
 
 /**
  * Defines an all-day event.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0

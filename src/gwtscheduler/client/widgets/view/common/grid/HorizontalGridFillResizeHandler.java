@@ -16,7 +16,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Handlers resize events for the wrapper widget.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -29,7 +28,6 @@ public class HorizontalGridFillResizeHandler extends
 
   /**
    * Creates a new resize handler for the supplied widget.
-   * 
    * @param widget the widget thath should handle resizes
    */
   public HorizontalGridFillResizeHandler(HorizontalGridFill widget) {
@@ -43,7 +41,6 @@ public class HorizontalGridFillResizeHandler extends
 
   /**
    * Called when a viewport resize event ocurred.
-   * 
    * @param event the resize event
    */
   @Override
@@ -96,7 +93,6 @@ public class HorizontalGridFillResizeHandler extends
 
   /**
    * Gets the title column width for the title column.
-   * 
    * @return the title column width
    */
   final int getTitleColumnWidth() {
@@ -106,7 +102,6 @@ public class HorizontalGridFillResizeHandler extends
   /**
    * Gets the title column width for the title column, including borders and
    * padding.
-   * 
    * @return the title column offset width
    */
   int getTitleColumnOffsetWidth() {
@@ -115,7 +110,6 @@ public class HorizontalGridFillResizeHandler extends
 
   /**
    * Gets the default cell size for a non-title cell.
-   * 
    * @param parentWidth the parent width
    * @param parentHeight the parent height
    * @return the cell size, without counting with borders or padding

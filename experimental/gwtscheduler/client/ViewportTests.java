@@ -1,23 +1,25 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.interfaces.IEventNavigationListener;
 import gwtscheduler.client.modules.IUIInjector;
 import gwtscheduler.client.modules.views.IUIRegistry;
 import gwtscheduler.client.modules.views.IViewController;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.nav.DateViewsTabPanel;
-import gwtscheduler.client.widgets.view.month.CompositeMonthPanel;
-import gwtscheduler.common.calendar.IDate;
-import gwtscheduler.common.calendar.ITimePeriod;
+import gwtscheduler.common.model.DateTime;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class ViewportTests implements EntryPoint {
+public class ViewportTests implements EntryPoint, ClickHandler {
+
+  Button back, forward, today;
 
   /**
    * This is the entry point method.
@@ -28,7 +30,7 @@ public class ViewportTests implements EntryPoint {
     // let's test a registration
     IUIInjector uiResources = IUIInjector.GIN.getInjector();
     IUIRegistry registry = uiResources.getUIRegistry();
-    registry.addController(new DummyMonthController());
+    // registry.addController(new DummyMonthController());
 
     DateViewsTabPanel main = new DateViewsTabPanel();
     // the registry will be pre-filled with default controllers
@@ -36,40 +38,32 @@ public class ViewportTests implements EntryPoint {
     for (IViewController controller : registry.getControllers()) {
       main.add(controller);
     }
-
     main.selectTab(0);
+
+    back = new Button("<<", this);
+    forward = new Button(">>", this);
+    today = new Button("today", this);
+    HorizontalPanel nav = new HorizontalPanel();
+    nav.add(back);
+    nav.add(today);
+    nav.add(forward);
+
     RootPanel.get("calendar-main").add(main);
+    RootPanel.get("calendar-top").add(nav);
+    
+    registry.fireDateNavigation(new DateTime());
   }
 
-  /**
-   * Dummy class.
-   * 
-   * @author malp
-   */
-  private static class DummyMonthController implements IViewController,
-      IEventNavigationListener {
+  public void onClick(ClickEvent event) {
+    IUIInjector uiResources = IUIInjector.GIN.getInjector();
+    IUIRegistry registry = uiResources.getUIRegistry();
 
-    public ITimePeriod onNavigateNext() {
-      return null;
-    }
-
-    public ITimePeriod onNavigatePrevious() {
-      return null;
-    }
-
-    public void onNavigateTo(IDate date) {
-    }
-
-    public IEventNavigationListener getNavigationListener() {
-      return this;
-    }
-
-    public String getTabLabel() {
-      return "month";
-    }
-
-    public Widget getViewWidget() {
-      return new CompositeMonthPanel();
+    if (event.getSource() == back) {
+      registry.fireBackNavigation();
+    } else if (event.getSource() == forward) {
+      registry.fireForwardNavigation();
+    } else if (event.getSource() == today) {
+      registry.fireDateNavigation(new DateTime());
     }
 
   }

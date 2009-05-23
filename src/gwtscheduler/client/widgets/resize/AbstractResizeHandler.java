@@ -14,7 +14,6 @@ public abstract class AbstractResizeHandler<T extends Widget> implements
 
   /**
    * Creates a new resize handler for the supplied widget.
-   * 
    * @param widget the widget thath should handle resizes
    */
   public AbstractResizeHandler(T widget) {
@@ -23,7 +22,6 @@ public abstract class AbstractResizeHandler<T extends Widget> implements
 
   /**
    * Gets the resize handler's target.
-   * 
    * @return the target
    */
   protected T getTarget() {
@@ -32,7 +30,6 @@ public abstract class AbstractResizeHandler<T extends Widget> implements
 
   /**
    * Indicates if the target widget has any size.
-   * 
    * @return <code>true</code> if it has size
    */
   protected boolean hasSize() {
@@ -46,7 +43,6 @@ public abstract class AbstractResizeHandler<T extends Widget> implements
 
   /**
    * Fired when a delayed resize was issued.
-   * 
    * @param event the resize event
    */
   protected abstract void onDelayedResize(WidgetResizeEvent event);

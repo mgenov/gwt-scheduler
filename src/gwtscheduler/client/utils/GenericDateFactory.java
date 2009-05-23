@@ -7,7 +7,6 @@ import gwtscheduler.common.model.TimePeriod;
 
 /**
  * Generic factory.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -16,7 +15,7 @@ public class GenericDateFactory implements IDateFactory {
 
   /** the interval type */
   private Interval interval;
-
+  /** interval start and end */
   private IDate start, end;
 
   public IDate current() {

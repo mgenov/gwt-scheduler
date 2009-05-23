@@ -19,7 +19,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Horizontal Grid class.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -45,7 +44,6 @@ public class HorizontalGridFill extends LazyPanel {
   /**
    * Creates a new grid with the supplied dimensions. An additional column will
    * be added to supply a title.
-   * 
    * @param rows the number of rows
    * @param cols the number of columns
    */
@@ -109,7 +107,6 @@ public class HorizontalGridFill extends LazyPanel {
 
   /**
    * Gets a list of title elements.
-   * 
    * @return the list of title elements
    */
   public List<ICell<Element>> getTitleElements() {
@@ -118,7 +115,6 @@ public class HorizontalGridFill extends LazyPanel {
 
   /**
    * Gets the title panel column widget.
-   * 
    * @return the title widget
    */
   public Panel getTitleColumn() {
@@ -127,7 +123,6 @@ public class HorizontalGridFill extends LazyPanel {
 
   /**
    * Gets the main columns widgets.
-   * 
    * @return the main columns
    */
   public List<Panel> getMainColumns() {
@@ -136,7 +131,6 @@ public class HorizontalGridFill extends LazyPanel {
 
   /**
    * Gets the column count for this grid fill.
-   * 
    * @return the column count
    */
   int getColumnCount() {
@@ -145,7 +139,6 @@ public class HorizontalGridFill extends LazyPanel {
 
   /**
    * Gets the row count.
-   * 
    * @return the row count
    */
   int getRowCount() {

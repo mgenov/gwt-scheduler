@@ -2,7 +2,6 @@ package gwtscheduler.client.widgets.view.common.cell;
 
 /**
  * Used as a row title cell. Typically will display hours.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -11,7 +10,6 @@ public class TitleCell extends DayWeekCell {
 
   /**
    * Creates a new label.
-   * 
    * @param id the cell id
    * @param label the label
    */

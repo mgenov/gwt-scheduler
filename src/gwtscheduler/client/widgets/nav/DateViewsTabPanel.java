@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Main navigation panel.
- * 
  * @author malp
  */
 public class DateViewsTabPanel extends Composite implements
@@ -55,7 +54,6 @@ public class DateViewsTabPanel extends Composite implements
 
   /**
    * Adds a new view to this tab panel.
-   * 
    * @param controller the controller
    */
   public void add(IViewController controller) {
@@ -67,7 +65,6 @@ public class DateViewsTabPanel extends Composite implements
 
   /**
    * Selects a tab.
-   * 
    * @param i the tab index
    */
   public void selectTab(int i) {
@@ -76,7 +73,6 @@ public class DateViewsTabPanel extends Composite implements
 
   /**
    * Creates a rounded panel wrapper for the widget.
-   * 
    * @param child the widget to wrap
    * @return the child wrapped in a rounded panel
    */

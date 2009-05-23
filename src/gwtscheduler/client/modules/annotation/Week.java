@@ -7,7 +7,6 @@ import com.google.inject.BindingAnnotation;
 
 /**
  * Marker interface for weeks related implementations.
- * 
  * @author malp
  */
 @Retention(RetentionPolicy.RUNTIME)

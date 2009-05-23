@@ -16,7 +16,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Defines a viewport to calendar events.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -37,7 +36,6 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 
   /**
    * Another constructor.
-   * 
    * @param parent
    * @param minWidth the minimum width
    * @param minHeight the minimum height
@@ -56,7 +54,6 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 
   /**
    * Resizes the main target in order to occupy all available space.
-   * 
    * @param viewporWidth the available viewport width
    * @param viewportHeight the available viewport height
    */
@@ -80,7 +77,6 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 
   /**
    * Fires the resize events.
-   * 
    * @param w the width
    * @param h the height
    */
@@ -96,7 +92,6 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 
   /**
    * Adds a widget to this viewport.
-   * 
    * @param w the widget
    */
   public void add(Widget w) {
@@ -105,7 +100,6 @@ public class ViewportPanel extends Composite implements ResizeHandler {
 
   /**
    * Adds a widget to this viewport.
-   * 
    * @param w the widget
    * @param handler the resize handler
    */

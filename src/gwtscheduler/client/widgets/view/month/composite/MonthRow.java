@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 
 /**
  * Represents a month row.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -29,7 +28,6 @@ public class MonthRow extends Composite implements IWidgetResizeHandler {
 
   /**
    * Default constructor.
-   * 
    * @param cols the number of columns
    */
   public MonthRow(int cols) {
@@ -60,7 +58,6 @@ public class MonthRow extends Composite implements IWidgetResizeHandler {
 
   /**
    * Gets an iterator for the decorable elements.
-   * 
    * @return the iterator for the decorable elements
    */
   public List<ICell<Element>> getTitleElements() {

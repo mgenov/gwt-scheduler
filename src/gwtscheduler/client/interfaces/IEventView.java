@@ -7,7 +7,6 @@ import java.util.Collection;
 
 /**
  * Defines a view for events. Possible views are: week, month, etc.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -21,14 +20,12 @@ public interface IEventView {
 
   /**
    * Adds a collection of events.
-   * 
    * @param events the collection of events to add
    */
   void addEvents(Collection<Event> events);
 
   /**
    * Removes an event from this view.
-   * 
    * @param event the event to remove
    * @return <code>true</code> if the event was removed
    */
@@ -46,7 +43,6 @@ public interface IEventView {
 
   /**
    * Goes to a specified start date.
-   * 
    * @param date the date
    */
   void navigateTo(IDate date);

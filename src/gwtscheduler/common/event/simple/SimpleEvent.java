@@ -6,7 +6,6 @@ import gwtscheduler.common.event.EventType;
 
 /**
  * Defines a simple event, ie, an event that does not last more than a day.
- * 
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0

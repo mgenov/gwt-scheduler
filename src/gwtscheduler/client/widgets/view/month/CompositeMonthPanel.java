@@ -1,13 +1,17 @@
 package gwtscheduler.client.widgets.view.month;
 
+import gwtscheduler.client.interfaces.ICell;
 import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.ViewportPanel;
 
+import java.util.Iterator;
+
 import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
@@ -54,7 +58,6 @@ public class CompositeMonthPanel extends Composite {
 
   /**
    * Creates the top view.
-   * 
    * @return the top view widget
    */
   private Widget createTopView() {
@@ -69,6 +72,14 @@ public class CompositeMonthPanel extends Composite {
           HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;
+  }
+
+  /**
+   * Gets the decorables iterator.
+   * @return the iterator
+   */ 
+  public Iterator<ICell<Element>> getDecorablesIterator() {
+    return monthView.getDecorablesIterator();
   }
 
 }

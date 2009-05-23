@@ -32,7 +32,6 @@ class MonthRowTable extends Composite {
 
   /**
    * Creates a new month row.
-   * 
    * @param cols the number of columns in this row
    */
   public MonthRowTable(int cols) {
@@ -49,7 +48,6 @@ class MonthRowTable extends Composite {
 
   /**
    * Gets the title elements.
-   * 
    * @return a list of the title elements
    */
   public List<ICell<Element>> getTitleElements() {
@@ -69,7 +67,6 @@ class MonthRowTable extends Composite {
 
   /**
    * Redraws the table according to the number of rows.
-   * 
    * @param height the available height
    */
   public void redrawRows(int height) {
@@ -84,7 +81,6 @@ class MonthRowTable extends Composite {
 
   /**
    * Ensures that this table has the amount of rows necessary.
-   * 
    * @param rows the number of rows
    */
   private void ensureRows(int rows) {
@@ -100,7 +96,6 @@ class MonthRowTable extends Composite {
 
   /**
    * Creates a cell element.
-   * 
    * @return the cell element
    */
   private BaseCell createCellElement(int row, int col) {
