@@ -2,6 +2,7 @@ package gwtscheduler.client.interfaces;
 
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
+import gwtscheduler.common.calendar.Interval;
 
 /**
  * Defines event controller operations.
@@ -11,10 +12,6 @@ import gwtscheduler.common.calendar.ITimePeriod;
  */
 public interface IDateFactory {
 
-  /** interval type */
-  public enum Interval {
-    DAY, WEEK, MONTH;
-  }
 
   /**
    * Initializes the date factory.

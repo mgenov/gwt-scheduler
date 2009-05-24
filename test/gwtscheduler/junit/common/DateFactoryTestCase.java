@@ -1,9 +1,9 @@
 package gwtscheduler.junit.common;
 
 import gwtscheduler.client.interfaces.IDateFactory;
-import gwtscheduler.client.interfaces.IDateFactory.Interval;
 import gwtscheduler.client.utils.GenericDateFactory;
 import gwtscheduler.common.calendar.IDate;
+import gwtscheduler.common.calendar.Interval;
 import gwtscheduler.common.model.DateTime;
 import junit.framework.Assert;
 

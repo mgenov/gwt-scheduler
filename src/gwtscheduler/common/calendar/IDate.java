@@ -46,6 +46,14 @@ public interface IDate extends Comparable<IDate>, Serializable,
   IDate addHours(int i);
 
   /**
+   * Adds or subtracts a specified amount to this date.
+   * @param interval the interval
+   * @param i the amount
+   * @return the modified instance
+   */
+  IDate add(Interval interval, int amount);
+
+  /**
    * Returns the difference between this date and another date.
    * @param otherDate the other date to compare
    * @return the difference

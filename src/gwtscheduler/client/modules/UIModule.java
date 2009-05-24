@@ -12,6 +12,7 @@ import gwtscheduler.client.widgets.view.MonthController;
 import gwtscheduler.client.widgets.view.WeekController;
 
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.Singleton;
 
 /**
  * Defines the ui Ioc User Interface Module.
@@ -29,15 +30,14 @@ public class UIModule extends AbstractGinModule {
     // bindConstant().annotatedWith(Columns.class).to(5);
     // bind(Integer.class).annotatedWith(NumberOfCards.class).toProvider(NumberOfCardsProvider.class);
 
-    bind(IUIRegistry.class).to(UIRegistry.class);
+    //general
+    bind(IUIRegistry.class).to(UIRegistry.class).in(Singleton.class);;
     bind(IDateFactory.class).to(GenericDateFactory.class);
 
     // controllers
     bind(IViewController.class).annotatedWith(Day.class).to(DayController.class);
-    bind(IViewController.class).annotatedWith(Week.class).to(
-        WeekController.class);
-    bind(IViewController.class).annotatedWith(Month.class).to(
-        MonthController.class);
+    bind(IViewController.class).annotatedWith(Week.class).to(WeekController.class);
+    bind(IViewController.class).annotatedWith(Month.class).to(MonthController.class);
 
     // decorators
   }

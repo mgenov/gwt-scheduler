@@ -1,10 +1,10 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.IDateFactory;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.widgets.view.month.CompositeMonthPanel;
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
+import gwtscheduler.common.calendar.Interval;
 
 import com.google.gwt.core.client.GWT;
 import com.google.inject.Singleton;
@@ -42,7 +42,7 @@ public class MonthController extends
   }
 
   public void onNavigateTo(IDate date) {
-    getFactory().init(IDateFactory.Interval.MONTH, date);
+    getFactory().init(Interval.MONTH, date);
   }
 
 }

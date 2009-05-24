@@ -1,11 +1,11 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.IDateFactory;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.widgets.view.common.AbstractCompositeDaysPanel;
 import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
+import gwtscheduler.common.calendar.Interval;
 
 import com.google.gwt.core.client.GWT;
 import com.google.inject.Singleton;
@@ -60,7 +60,7 @@ public class DayController extends
   }
 
   public void onNavigateTo(IDate date) {
-    getFactory().init(IDateFactory.Interval.DAY, date);
+    getFactory().init(Interval.DAY, date);
   }
 
 }

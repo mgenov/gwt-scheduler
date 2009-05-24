@@ -2,6 +2,7 @@ package gwtscheduler.common.model;
 
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
+import gwtscheduler.common.calendar.Interval;
 
 import java.util.Date;
 
@@ -80,6 +81,21 @@ public class DateTime implements IDate {
 
   public IDate addYears(int amount) {
     delegate.setYear(delegate.getYear() + amount);
+    return this;
+  }
+
+  public IDate add(Interval interval, int amount) {
+    switch (interval) {
+      case DAY:
+        addDays(amount);
+        break;
+      case WEEK:
+        addDays(amount * 7);
+        break;
+      case MONTH:
+        addMonths(amount);
+        break;
+    }
     return this;
   }
 
