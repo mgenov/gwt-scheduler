@@ -1,6 +1,5 @@
 package gwtscheduler.client.modules;
 
-import gwtscheduler.client.interfaces.IDateFactory;
 import gwtscheduler.client.modules.views.IUIRegistry;
 
 import com.google.gwt.core.client.GWT;
@@ -15,12 +14,6 @@ public interface IUIInjector extends Ginjector {
    * @return the UI Registry
    */
   IUIRegistry getUIRegistry();
-
-  /**
-   * Gets the date factory.
-   * @return the date factory
-   */
-  IDateFactory getDateFactory();
 
   /**
    * Proxy class for acessing injector.

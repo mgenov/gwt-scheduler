@@ -1,11 +1,11 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.IDateFactory;
+import gwtscheduler.client.interfaces.IDateGenerator;
 import gwtscheduler.client.interfaces.IEventNavigationListener;
-import gwtscheduler.client.modules.IUIInjector;
 import gwtscheduler.client.modules.views.IViewController;
 
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 /**
  * Abstract class for view controllers.
@@ -18,13 +18,13 @@ public abstract class AbstractViewController<T extends Widget> implements
   private T view;
 
   /** date factory class */
-  private IDateFactory factory;
+  @Inject
+  private IDateGenerator factory;
 
   /**
    * Default constructor.
    */
   protected AbstractViewController() {
-    factory = IUIInjector.GIN.getInjector().getDateFactory();
     view = createView();
   }
 
@@ -37,7 +37,7 @@ public abstract class AbstractViewController<T extends Widget> implements
    * Gets the date factory.
    * @return the date factory
    */
-  protected IDateFactory getFactory() {
+  protected IDateGenerator getFactory() {
     return factory;
   }
 

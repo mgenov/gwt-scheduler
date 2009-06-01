@@ -77,7 +77,6 @@ public class HorizontalGridFill extends LazyPanel {
 
     // create title cells
     for (int r = 0; r < rows; r++) {
-      // TODO: apply decoration here
       TitleCell title = new TitleCell(r, 0, r + "");
       title.setWidth(CSS.titleColumnWidthPx() + "px");
       titleColumn.add(title);
@@ -90,7 +89,6 @@ public class HorizontalGridFill extends LazyPanel {
 
       for (int r = 0; r < rows; r++) {
         int id = (c * r) + c;
-        // TODO: apply decoration here
         DayWeekCell cell = new DayWeekCell(r, c, "cell: " + id);
         col.add(cell);
       }

@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -20,6 +21,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class ViewportTests implements EntryPoint, ClickHandler {
 
   Button back, forward, today;
+  Label time;
 
   /**
    * This is the entry point method.
@@ -38,7 +40,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     for (IViewController controller : registry.getControllers()) {
       main.add(controller);
     }
-    main.selectTab(0);
 
     back = new Button("<<", this);
     forward = new Button(">>", this);
@@ -48,8 +49,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     nav.add(today);
     nav.add(forward);
 
-    RootPanel.get("calendar-main").add(main);
-    RootPanel.get("calendar-top").add(nav);
+    RootPanel.get().add(nav);
+    RootPanel.get().add(main);
+    main.selectTab(0);
     
     registry.fireDateNavigation(new DateTime());
   }

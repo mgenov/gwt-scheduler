@@ -1,6 +1,6 @@
 package gwtscheduler.client.utils;
 
-import gwtscheduler.client.interfaces.IDateFactory;
+import gwtscheduler.client.interfaces.IDateGenerator;
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
 import gwtscheduler.common.calendar.Interval;
@@ -12,7 +12,7 @@ import gwtscheduler.common.model.TimePeriod;
  * @version $Revision: $
  * @since 1.0
  */
-public class GenericDateFactory implements IDateFactory {
+public class GenericDateGenerator implements IDateGenerator {
 
   /** the interval type */
   private Interval interval;
@@ -28,14 +28,14 @@ public class GenericDateFactory implements IDateFactory {
     this.start = start.copy(); //we should maintain a copy of the date
   }
 
-  public IDate next() {
+  public IDateGenerator next() {
     start.add(interval, 1);
-    return start;
+    return this;
   }
 
-  public IDate previous() {
+  public IDateGenerator previous() {
     start.add(interval, -1);
-    return start;
+    return this;
   }
 
   public ITimePeriod period() {

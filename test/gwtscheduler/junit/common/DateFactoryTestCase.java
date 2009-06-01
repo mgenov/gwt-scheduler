@@ -1,7 +1,7 @@
 package gwtscheduler.junit.common;
 
-import gwtscheduler.client.interfaces.IDateFactory;
-import gwtscheduler.client.utils.GenericDateFactory;
+import gwtscheduler.client.interfaces.IDateGenerator;
+import gwtscheduler.client.utils.GenericDateGenerator;
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.Interval;
 import gwtscheduler.common.model.DateTime;
@@ -16,9 +16,9 @@ import org.junit.Test;
  */
 public class DateFactoryTestCase {
 
-  IDateFactory dayf = new GenericDateFactory();
-  IDateFactory weekf = new GenericDateFactory();
-  IDateFactory monthf = new GenericDateFactory();
+  IDateGenerator dayf = new GenericDateGenerator();
+  IDateGenerator weekf = new GenericDateGenerator();
+  IDateGenerator monthf = new GenericDateGenerator();
 
   DateTime now;
 
@@ -33,7 +33,7 @@ public class DateFactoryTestCase {
 
   @Test
   public void testDayAdvance() {
-    IDate d = dayf.next();
+    IDate d = dayf.next().current();
     Assert.assertEquals(now.addDays(1).day(), d.day());
   }
 }

@@ -47,7 +47,6 @@ public class CompositeMonthPanel extends Composite {
     impl.add(topView);
     impl.add(vp);
     initWidget(impl);
-
     // we'll delegate the resize to the viewport panel
     addHandler(new IWidgetResizeHandler() {
       public void onResize(WidgetResizeEvent event) {
@@ -77,7 +76,7 @@ public class CompositeMonthPanel extends Composite {
   /**
    * Gets the decorables iterator.
    * @return the iterator
-   */ 
+   */
   public Iterator<ICell<Element>> getDecorablesIterator() {
     return monthView.getDecorablesIterator();
   }

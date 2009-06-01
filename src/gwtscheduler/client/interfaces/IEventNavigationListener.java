@@ -26,6 +26,7 @@ public interface IEventNavigationListener {
   /**
    * Goes to a specified start date.
    * @param date the start date
+   * @return the visible time period
    */
-  void onNavigateTo(IDate date);
+  ITimePeriod onNavigateTo(IDate date);
 }

@@ -25,4 +25,16 @@ public interface ITimePeriod {
    * @return the number of months
    */
   int months();
+
+  /**
+   * Gets a copy of the start time.
+   * @return the start time
+   */
+  IDate start();
+
+  /**
+   * Gets a copy of the end time.
+   * @return the end time
+   */
+  IDate end();
 }

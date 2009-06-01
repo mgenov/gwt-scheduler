@@ -38,7 +38,17 @@ public class TimePeriod implements ITimePeriod {
     return (int) (milis / (1000 * 3600 * 24 * 31));
   }
 
+  @Override
   public String toString() {
     return "from: " + start.toString() + " to: " + end.toString();
   }
+
+  public IDate start() {
+    return start.copy();
+  }
+
+  public IDate end() {
+    return end.copy();
+  }
+
 }

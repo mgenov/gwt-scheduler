@@ -1,20 +1,17 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.widgets.view.common.AbstractCompositeDaysPanel;
 import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
 import gwtscheduler.common.calendar.Interval;
 
-import com.google.gwt.core.client.GWT;
 import com.google.inject.Singleton;
 
 /**
  * Week controller for week views.
  * @author malp
  */
-@Week
 @Singleton
 public class WeekController extends
     AbstractViewController<AbstractCompositeDaysPanel> {
@@ -45,21 +42,19 @@ public class WeekController extends
   }
 
   public ITimePeriod onNavigateNext() {
-    getFactory().next();
-    ITimePeriod period = getFactory().period();
-    GWT.log("Period: " + period, null);
-    return period;
+    return getFactory().next().period();
   }
 
   public ITimePeriod onNavigatePrevious() {
-    getFactory().previous();
-    ITimePeriod period = getFactory().period();
-    GWT.log("Period: " + period, null);
-    return period;
+    return getFactory().previous().period();
   }
 
-  public void onNavigateTo(IDate date) {
-    getFactory().init(Interval.WEEK, date);
+  public ITimePeriod onNavigateTo(IDate date) {
+    if (!date.equals(getFactory().current())) {
+      getFactory().init(Interval.WEEK, date);
+    }
+    return getFactory().period();
+
   }
 
 }

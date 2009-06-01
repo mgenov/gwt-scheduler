@@ -101,7 +101,6 @@ class MonthRowTable extends Composite {
   private BaseCell createCellElement(int row, int col) {
     BaseCell cell = new BaseCell(row, col);
 
-    // TODO: apply decoration here
     DebugUtils.textRight("cell: " + row + ", " + col, cell.getElement());
 
     String className = CSS.monthCell();

@@ -1,23 +1,22 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.widgets.view.common.AbstractCompositeDaysPanel;
 import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
 import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.calendar.ITimePeriod;
 import gwtscheduler.common.calendar.Interval;
 
-import com.google.gwt.core.client.GWT;
 import com.google.inject.Singleton;
 
 /**
  * Controller for days view.
  * @author malp
  */
-@Day
 @Singleton
 public class DayController extends
     AbstractViewController<AbstractCompositeDaysPanel> {
+
+  //  IDecorator<Element> titlesDecorator = new DateTimeLabelDecorator();
 
   @Override
   protected AbstractCompositeDaysPanel createView() {
@@ -46,21 +45,26 @@ public class DayController extends
   }
 
   public ITimePeriod onNavigateNext() {
-    getFactory().next();
-    ITimePeriod period = getFactory().period();
-    GWT.log("Period: " + period, null);
-    return period;
+    ITimePeriod tp = getFactory().next().period();
+    //    IDate start = tp.start();
+    //    Iterator<ICell<Element>> it = getViewWidget().getDecorablesIterator();
+    //    while (it.hasNext()) {
+    //      ICell<Element> cell = it.next();
+    //      titlesDecorator.decorate(start, cell,cell.getCellElement());
+    //      start.addDays(1);
+    //    }
+    return tp;
   }
 
   public ITimePeriod onNavigatePrevious() {
-    getFactory().previous();
-    ITimePeriod period = getFactory().period();
-    GWT.log("Period: " + period, null);
-    return period;
+    return getFactory().previous().period();
   }
 
-  public void onNavigateTo(IDate date) {
-    getFactory().init(Interval.DAY, date);
+  public ITimePeriod onNavigateTo(IDate date) {
+    if (!date.equals(getFactory().current())) {
+      getFactory().init(Interval.DAY, date);
+    }
+    return getFactory().period();
   }
 
 }

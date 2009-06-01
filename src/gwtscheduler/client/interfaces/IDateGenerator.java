@@ -10,7 +10,7 @@ import gwtscheduler.common.calendar.Interval;
  * @version $Revision: $
  * @since 1.0
  */
-public interface IDateFactory {
+public interface IDateGenerator {
 
 
   /**
@@ -30,13 +30,13 @@ public interface IDateFactory {
    * Gets the next date period.
    * @return the next period
    */
-  IDate next();
+  IDateGenerator next();
 
   /**
    * Gets the previous period.
    * @return the previous period
    */
-  IDate previous();
+  IDateGenerator previous();
 
   /**
    * Creates a new time period.

@@ -6,16 +6,19 @@ import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.views.IUIRegistry;
 import gwtscheduler.client.modules.views.IViewController;
 import gwtscheduler.common.calendar.IDate;
+import gwtscheduler.common.calendar.ITimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * Holds all calendar controllers. Is responsible for assembling the views.
  * @author malp
  */
+@Singleton
 public class UIRegistry implements IUIRegistry {
 
   /** holds the views data */
@@ -36,6 +39,9 @@ public class UIRegistry implements IUIRegistry {
     views.add(month);
   }
 
+  //TODO: navigation could be optimized, if the controller
+  //is aware of its own visibility. No need to advance within non-visible controller views
+
   public void addController(IViewController view) {
     views.add(view);
   }
@@ -46,20 +52,23 @@ public class UIRegistry implements IUIRegistry {
 
   public void fireBackNavigation() {
     for (IViewController controller : getControllers()) {
-      controller.getNavigationListener().onNavigatePrevious();
+      //TODO: update events
+      ITimePeriod period = controller.getNavigationListener().onNavigatePrevious();
     }
   }
 
   public void fireForwardNavigation() {
     for (IViewController controller : getControllers()) {
-      controller.getNavigationListener().onNavigateNext();
+      //TODO: update events
+      ITimePeriod period = controller.getNavigationListener().onNavigateNext();
     }
 
   }
 
   public void fireDateNavigation(IDate date) {
     for (IViewController controller : getControllers()) {
-      controller.getNavigationListener().onNavigateTo(date);
+      //TODO: update events
+      ITimePeriod period = controller.getNavigationListener().onNavigateTo(date);
     }
   }
 
