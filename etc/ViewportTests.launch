@@ -18,4 +18,5 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gwt.eclipse.core.moduleClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="gwt-scheduler2"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea"/>
 </launchConfiguration>

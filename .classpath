@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="experimental"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-incubator-march-02-2009.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.cobogw.gwt-1.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gin.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-snapshot.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/aopalliance.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/goda-time.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/GWT-1.6"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>
