@@ -1,8 +1,8 @@
 package gwtscheduler.client.modules.views;
 
-import gwtscheduler.common.calendar.IDate;
-
 import java.util.List;
+
+import org.goda.time.ReadableDateTime;
 
 /**
  * Defines a calendar controllers registry.
@@ -36,6 +36,6 @@ public interface IUIRegistry {
    * Fires the navigation event that goes to a specific date.
    * @param date the date
    */
-  void fireDateNavigation(IDate date);
+  void fireDateNavigation(ReadableDateTime date);
 
 }

@@ -96,6 +96,7 @@ class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
    * @return the iterator
    */
   Iterator<ICell<Element>> getDecorablesIterator() {
+    //TODO create a combined iterator
     List<ICell<Element>> mergedList = new ArrayList<ICell<Element>>();
     for (MonthRow mr : monthRows) {
       List<ICell<Element>> rl = mr.getTitleElements();
@@ -116,5 +117,19 @@ class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
       monthRows.add(mr);
     }
     setRowHeights();
+  }
+
+  /**
+   * Gets the main cell elements.
+   * @return the main cell elements
+   */
+  List<ICell<Element>> getMainElements() {
+    //TODO: the iterator stuff could be reworked, we don't need the temporary list
+    List<ICell<Element>> mergedList = new ArrayList<ICell<Element>>();
+    for (MonthRow mr : monthRows) {
+      List<ICell<Element>> rl = mr.getTitleElements();
+      mergedList.addAll(rl);
+    }
+    return mergedList;
   }
 }

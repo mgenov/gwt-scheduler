@@ -1,8 +1,10 @@
 package gwtscheduler.client.interfaces;
 
-import gwtscheduler.common.calendar.IDate;
-import gwtscheduler.common.calendar.ITimePeriod;
-import gwtscheduler.common.calendar.Interval;
+import gwtscheduler.common.calendar.IntervalType;
+
+import org.goda.time.DateTime;
+import org.goda.time.Interval;
+import org.goda.time.ReadableDateTime;
 
 /**
  * Defines event controller operations.
@@ -18,13 +20,13 @@ public interface IDateGenerator {
    * @param interval the interval type
    * @param start the start date
    */
-  void init(Interval interval, IDate start);
+  void init(IntervalType interval, ReadableDateTime start);
 
   /**
    * Gets the current date.
    * @return the current date
    */
-  IDate current();
+  DateTime current();
 
   /**
    * Gets the next date period.
@@ -42,6 +44,6 @@ public interface IDateGenerator {
    * Creates a new time period.
    * @return the time period
    */
-  ITimePeriod period();
+  Interval interval();
 
 }

@@ -36,6 +36,9 @@ public class HorizontalGridFill extends LazyPanel {
   private List<ICell<Element>> titleElements;
   /** columns */
   private List<Panel> mainColumns;
+  /** elements for quick access */
+  //TODO: we don't really need the extra list, we could create a combined iterator
+  private List<ICell<Element>> mainElements;
   /** grid col count, excluding title column */
   private int columns;
   /** grid row count */
@@ -60,6 +63,7 @@ public class HorizontalGridFill extends LazyPanel {
     impl.setStyleName(CSS.horizontalFillGrid());
 
     mainColumns = new ArrayList<Panel>();
+    mainElements = new ArrayList<ICell<Element>>();
 
     // here we add one column for each day
     // one more col for cell labels
@@ -77,10 +81,13 @@ public class HorizontalGridFill extends LazyPanel {
 
     // create title cells
     for (int r = 0; r < rows; r++) {
-      TitleCell title = new TitleCell(r, 0, r + "");
+      TitleCell title = new TitleCell(r, 0, "");
       title.setWidth(CSS.titleColumnWidthPx() + "px");
       titleColumn.add(title);
-      titleElements.add(title);
+      //we only want to decorate every hour, not every half hour
+      if (r % 2 == 0) {
+        titleElements.add(title);
+      }
     }
 
     // regular cells are different from title cells
@@ -91,6 +98,7 @@ public class HorizontalGridFill extends LazyPanel {
         int id = (c * r) + c;
         DayWeekCell cell = new DayWeekCell(r, c, "cell: " + id);
         col.add(cell);
+        mainElements.add(cell);
       }
     }
     return impl;
@@ -109,6 +117,14 @@ public class HorizontalGridFill extends LazyPanel {
    */
   public List<ICell<Element>> getTitleElements() {
     return titleElements;
+  }
+
+  /**
+   * Gets a list of the main elements.
+   * @return the main elements
+   */
+  public List<ICell<Element>> getMainElements() {
+    return mainElements;
   }
 
   /**
@@ -142,4 +158,5 @@ public class HorizontalGridFill extends LazyPanel {
   int getRowCount() {
     return rows;
   }
+
 }

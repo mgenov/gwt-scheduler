@@ -1,8 +1,9 @@
 package gwtscheduler.common.event.simple;
 
-import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.EventType;
+
+import org.goda.time.DateTime;
 
 /**
  * Defines a simple event, ie, an event that does not last more than a day.
@@ -17,12 +18,12 @@ public class SimpleEvent extends Event {
    * @param end
    * @param type
    */
-  public SimpleEvent(IDate start, IDate end, EventType type) {
+  public SimpleEvent(DateTime start, DateTime end, EventType type) {
     super(start, end, type);
   }
 
   @Override
-  protected IDate filter(IDate date) {
+  protected DateTime filter(DateTime date) {
     return date;
   }
 }

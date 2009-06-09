@@ -1,7 +1,8 @@
 package gwtscheduler.client.interfaces;
 
-import gwtscheduler.common.calendar.IDate;
-import gwtscheduler.common.calendar.ITimePeriod;
+import org.goda.time.Interval;
+import org.goda.time.ReadableDateTime;
+
 
 /**
  * Defines event controller operations.
@@ -15,18 +16,18 @@ public interface IEventNavigationListener {
    * Goes to the next series of events.
    * @return the visible time period
    */
-  ITimePeriod onNavigateNext();
+  Interval onNavigateNext();
 
   /**
    * Goes to the previous series of events.
    * @return the visible time period
    */
-  ITimePeriod onNavigatePrevious();
+  Interval onNavigatePrevious();
 
   /**
    * Goes to a specified start date.
    * @param date the start date
    * @return the visible time period
    */
-  ITimePeriod onNavigateTo(IDate date);
+  Interval onNavigateTo(ReadableDateTime date);
 }

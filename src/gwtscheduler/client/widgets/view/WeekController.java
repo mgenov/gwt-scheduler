@@ -2,9 +2,10 @@ package gwtscheduler.client.widgets.view;
 
 import gwtscheduler.client.widgets.view.common.AbstractCompositeDaysPanel;
 import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
-import gwtscheduler.common.calendar.IDate;
-import gwtscheduler.common.calendar.ITimePeriod;
-import gwtscheduler.common.calendar.Interval;
+import gwtscheduler.common.calendar.IntervalType;
+
+import org.goda.time.Interval;
+import org.goda.time.ReadableDateTime;
 
 import com.google.inject.Singleton;
 
@@ -41,19 +42,19 @@ public class WeekController extends
     return "Week";
   }
 
-  public ITimePeriod onNavigateNext() {
-    return getFactory().next().period();
+  public Interval onNavigateNext() {
+    return getFactory().next().interval();
   }
 
-  public ITimePeriod onNavigatePrevious() {
-    return getFactory().previous().period();
+  public Interval onNavigatePrevious() {
+    return getFactory().previous().interval();
   }
 
-  public ITimePeriod onNavigateTo(IDate date) {
+  public Interval onNavigateTo(ReadableDateTime date) {
     if (!date.equals(getFactory().current())) {
-      getFactory().init(Interval.WEEK, date);
+      getFactory().init(IntervalType.WEEK, date);
     }
-    return getFactory().period();
+    return getFactory().interval();
 
   }
 

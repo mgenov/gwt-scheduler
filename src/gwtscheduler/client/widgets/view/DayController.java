@@ -1,11 +1,15 @@
 package gwtscheduler.client.widgets.view;
 
+import gwtscheduler.client.interfaces.IDecorator;
+import gwtscheduler.client.widgets.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.view.common.AbstractCompositeDaysPanel;
 import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
-import gwtscheduler.common.calendar.IDate;
-import gwtscheduler.common.calendar.ITimePeriod;
-import gwtscheduler.common.calendar.Interval;
+import gwtscheduler.common.calendar.IntervalType;
 
+import org.goda.time.Interval;
+import org.goda.time.ReadableDateTime;
+
+import com.google.gwt.user.client.Element;
 import com.google.inject.Singleton;
 
 /**
@@ -16,7 +20,8 @@ import com.google.inject.Singleton;
 public class DayController extends
     AbstractViewController<AbstractCompositeDaysPanel> {
 
-  //  IDecorator<Element> titlesDecorator = new DateTimeLabelDecorator();
+  /** elements decorator */
+  IDecorator<Element> decorator = new DateTimeLabelDecorator();
 
   @Override
   protected AbstractCompositeDaysPanel createView() {
@@ -44,27 +49,25 @@ public class DayController extends
     return "Day";
   }
 
-  public ITimePeriod onNavigateNext() {
-    ITimePeriod tp = getFactory().next().period();
-    //    IDate start = tp.start();
-    //    Iterator<ICell<Element>> it = getViewWidget().getDecorablesIterator();
-    //    while (it.hasNext()) {
-    //      ICell<Element> cell = it.next();
-    //      titlesDecorator.decorate(start, cell,cell.getCellElement());
-    //      start.addDays(1);
-    //    }
+  public Interval onNavigateNext() {
+    Interval tp = getFactory().next().interval();
+    decorator.decorate(tp, getViewWidget());
     return tp;
   }
 
-  public ITimePeriod onNavigatePrevious() {
-    return getFactory().previous().period();
+  public Interval onNavigatePrevious() {
+    Interval period = getFactory().previous().interval();
+    decorator.decorate(period, getViewWidget());
+    return period;
   }
 
-  public ITimePeriod onNavigateTo(IDate date) {
+  public Interval onNavigateTo(ReadableDateTime date) {
     if (!date.equals(getFactory().current())) {
-      getFactory().init(Interval.DAY, date);
+      getFactory().init(IntervalType.DAY, date);
     }
-    return getFactory().period();
+    Interval period = getFactory().interval();
+    decorator.decorate(period, getViewWidget());
+    return period;
   }
 
 }

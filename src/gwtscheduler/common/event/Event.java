@@ -1,6 +1,6 @@
 package gwtscheduler.common.event;
 
-import gwtscheduler.common.calendar.IDate;
+import org.goda.time.DateTime;
 
 /**
  * Super class for events.
@@ -10,8 +10,8 @@ import gwtscheduler.common.calendar.IDate;
  */
 public abstract class Event {
 
-  protected IDate start;
-  protected IDate end;
+  protected DateTime start;
+  protected DateTime end;
   protected EventType type;
 
   /**
@@ -20,7 +20,7 @@ public abstract class Event {
    * @param end
    * @param type
    */
-  public Event(IDate start, IDate end, EventType type) {
+  public Event(DateTime start, DateTime end, EventType type) {
     this.start = filter(start);
     this.end = filter(end);
     this.type = type;
@@ -30,6 +30,6 @@ public abstract class Event {
    * Filters dates, removing the unecessary parts.
    * @param date the date to filter
    */
-  protected abstract IDate filter(IDate date);
+  protected abstract DateTime filter(DateTime date);
 
 }

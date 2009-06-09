@@ -5,7 +5,20 @@
 <!-- GWT Module for common source code-->
 <module>
    	<inherits name="com.google.gwt.user.User" />
+   	<inherits name="com.google.gwt.i18n.I18N"/>
+
+	<!-- Joda-Time emulation via gwittir -->
+	<!--   	
+	<inherits name='org.goda.Time' />
+   	<inherits name='com.totsp.gwittir.Gwittir' />
+    <inherits name='com.totsp.gwittir.LoggingDisabled' />
+    -->
+	<!-- Joda-Time emulation via goda/time -->
+	<inherits name='org.goda.Goda' />
+
+	<!-- Useful for rond corners -->    
    	<inherits name='org.cobogw.gwt.user.User' />
+   	
    	<!--
    	<inherits name='com.google.gwt.user.theme.standard.Standard'/> 
    	 -->

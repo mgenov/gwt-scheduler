@@ -5,11 +5,12 @@ import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.views.IUIRegistry;
 import gwtscheduler.client.modules.views.IViewController;
-import gwtscheduler.common.calendar.IDate;
-import gwtscheduler.common.calendar.ITimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.goda.time.Interval;
+import org.goda.time.ReadableDateTime;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -53,22 +54,22 @@ public class UIRegistry implements IUIRegistry {
   public void fireBackNavigation() {
     for (IViewController controller : getControllers()) {
       //TODO: update events
-      ITimePeriod period = controller.getNavigationListener().onNavigatePrevious();
+      Interval period = controller.getNavigationListener().onNavigatePrevious();
     }
   }
 
   public void fireForwardNavigation() {
     for (IViewController controller : getControllers()) {
       //TODO: update events
-      ITimePeriod period = controller.getNavigationListener().onNavigateNext();
+      Interval period = controller.getNavigationListener().onNavigateNext();
     }
 
   }
 
-  public void fireDateNavigation(IDate date) {
+  public void fireDateNavigation(ReadableDateTime date) {
     for (IViewController controller : getControllers()) {
       //TODO: update events
-      ITimePeriod period = controller.getNavigationListener().onNavigateTo(date);
+      Interval period = controller.getNavigationListener().onNavigateTo(date);
     }
   }
 

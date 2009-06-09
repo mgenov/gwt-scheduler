@@ -42,8 +42,16 @@ public abstract class AbstractDayPanel extends WrappedWidget implements
    * Gets the decorable elements.
    * @return the decorable elements
    */
-  Iterator<ICell<Element>> getDecorablesIterator() {
+  Iterator<ICell<Element>> getTitleDecorablesIterator() {
     return grid.getTitleElements().iterator();
+  }
+
+  /**
+   * Gets the iterator for the main decorables.
+   * @return the iterator
+   */
+  Iterator<ICell<Element>> getMainDecorablesIterator() {
+    return grid.getMainElements().iterator();
   }
 
   /**

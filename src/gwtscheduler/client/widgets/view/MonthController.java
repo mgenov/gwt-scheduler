@@ -1,9 +1,10 @@
 package gwtscheduler.client.widgets.view;
 
 import gwtscheduler.client.widgets.view.month.CompositeMonthPanel;
-import gwtscheduler.common.calendar.IDate;
-import gwtscheduler.common.calendar.ITimePeriod;
-import gwtscheduler.common.calendar.Interval;
+import gwtscheduler.common.calendar.IntervalType;
+
+import org.goda.time.Interval;
+import org.goda.time.ReadableDateTime;
 
 import com.google.inject.Singleton;
 
@@ -24,19 +25,22 @@ public class MonthController extends
     return "Month";
   }
 
-  public ITimePeriod onNavigateNext() {
-    return getFactory().next().period();
+  public Interval onNavigateNext() {
+    Interval next = getFactory().next().interval();
+    return next;
   }
 
-  public ITimePeriod onNavigatePrevious() {
-    return getFactory().previous().period();
+  public Interval onNavigatePrevious() {
+    Interval prev = getFactory().previous().interval();
+    return prev;
   }
 
-  public ITimePeriod onNavigateTo(IDate date) {
+  public Interval onNavigateTo(ReadableDateTime date) {
     if (!date.equals(getFactory().current())) {
-      getFactory().init(Interval.MONTH, date);
+      getFactory().init(IntervalType.MONTH, date);
     }
-    return getFactory().period();
+    Interval initial = getFactory().interval();
+    return initial;
   }
 
 }

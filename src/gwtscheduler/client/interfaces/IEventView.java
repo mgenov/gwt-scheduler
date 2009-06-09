@@ -1,9 +1,10 @@
 package gwtscheduler.client.interfaces;
 
-import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.event.Event;
 
 import java.util.Collection;
+
+import org.goda.time.DateTime;
 
 /**
  * Defines a view for events. Possible views are: week, month, etc.
@@ -45,6 +46,6 @@ public interface IEventView {
    * Goes to a specified start date.
    * @param date the date
    */
-  void navigateTo(IDate date);
+  void navigateTo(DateTime date);
 
 }

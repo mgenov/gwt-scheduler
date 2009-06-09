@@ -1,8 +1,9 @@
 package gwtscheduler.common.event.allday;
 
-import gwtscheduler.common.calendar.IDate;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.EventType;
+
+import org.goda.time.DateTime;
 
 /**
  * Defines an all-day event.
@@ -17,12 +18,12 @@ public class AllDayEvent extends Event {
    * @param end
    * @param type
    */
-  public AllDayEvent(IDate start, IDate end, EventType type) {
+  public AllDayEvent(DateTime start, DateTime end, EventType type) {
     super(start, end, type);
   }
 
   @Override
-  protected IDate filter(IDate date) {
+  protected DateTime filter(DateTime date) {
     return date;
   }
 

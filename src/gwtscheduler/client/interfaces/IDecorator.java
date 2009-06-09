@@ -1,6 +1,8 @@
 package gwtscheduler.client.interfaces;
 
-import gwtscheduler.common.calendar.IDate;
+import gwtscheduler.client.interfaces.decorable.IHasMultipleDecorables;
+
+import org.goda.time.Interval;
 
 import com.google.gwt.user.client.Element;
 
@@ -12,10 +14,9 @@ import com.google.gwt.user.client.Element;
 public interface IDecorator<T extends Element> {
 
   /**
-   * Decorates an element.
-   * @param date the time period
-   * @param cell the cell
-   * @param element the decorable element
+   * Fired when the decorator should decorate elements.
+   * @param interval the interval
+   * @param decorable the decorable
    */
-  void decorate(IDate date, ICell<T> cell, T element);
+  void decorate(Interval interval, IHasMultipleDecorables<Element> decorable);
 }

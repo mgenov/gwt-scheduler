@@ -1,27 +1,31 @@
 package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.interfaces.ICell;
+import gwtscheduler.client.interfaces.decorable.IHasMultipleDecorables;
 import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.ViewportPanel;
+import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class AbstractCompositeDaysPanel extends Composite {
+public abstract class AbstractCompositeDaysPanel extends Composite implements
+    IHasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -29,9 +33,11 @@ public abstract class AbstractCompositeDaysPanel extends Composite {
   /** widget impl */
   protected VerticalPanel impl;
   /** day view */
-  AbstractDayPanel mainView;
+  protected AbstractDayPanel mainView;
   /** top view */
-  Widget topView;
+  protected Widget topView;
+  /** top view cells */
+  protected List<ICell<Element>> topLabels;
 
   /** viewport widget */
   private ViewportPanel vmain;
@@ -73,20 +79,29 @@ public abstract class AbstractCompositeDaysPanel extends Composite {
     g.getCellFormatter().setWidth(0, columns + 2,
         Constants.SCROLLBAR_WIDTH + "px");
 
+    topLabels = new ArrayList<ICell<Element>>(columns);
     for (int i = 0; i < columns; i++) {
-      g.setWidget(0, 1 + i, new Label("Day" + i));
+      ICell<Element> topCell = new BaseCell(0, i);
+      topCell.getCellElement().setInnerHTML(0 + ", " + i);//debug
+
+      topLabels.add(topCell);
+      g.setElement(0, 1 + i, topCell.getCellElement());
       g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i,
           HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;
   }
 
-  /**
-   * Gets the decorables iterator.
-   * @return the decorables iterator
-   */
-  public Iterator<ICell<Element>> getDecorablesIterator() {
-    return mainView.getDecorablesIterator();
+  public Iterator<ICell<Element>> getHorizontalDecorableElementsIterator() {
+    return topLabels.iterator();
+  }
+
+  public Iterator<ICell<Element>> getVerticalDecorableElementsIterator() {
+    return mainView.getTitleDecorablesIterator();
+  }
+
+  public Iterator<ICell<Element>> getMultipleDecorableElementsIterator() {
+    return mainView.getMainDecorablesIterator();
   }
 
   /**

@@ -5,12 +5,15 @@ import gwtscheduler.client.modules.views.IUIRegistry;
 import gwtscheduler.client.modules.views.IViewController;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.nav.DateViewsTabPanel;
-import gwtscheduler.common.model.DateTime;
+
+import org.goda.time.DateTime;
+import org.goda.time.MutableDateTime;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -50,10 +53,15 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     nav.add(forward);
 
     RootPanel.get().add(nav);
+    RootPanel.get().add(new HTML("<BR/>"));
     RootPanel.get().add(main);
     main.selectTab(0);
     
-    registry.fireDateNavigation(new DateTime());
+    MutableDateTime start = new MutableDateTime();
+    start.setHourOfDay(0);
+    start.setMinuteOfHour(0);
+    start.setMinuteOfHour(0);
+    registry.fireDateNavigation(start);
   }
 
   public void onClick(ClickEvent event) {
