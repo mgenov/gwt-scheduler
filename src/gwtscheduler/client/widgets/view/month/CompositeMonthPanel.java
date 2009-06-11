@@ -2,8 +2,8 @@ package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.ViewportPanel;

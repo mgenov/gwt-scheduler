@@ -16,8 +16,7 @@ public class WidgetResizeEvent extends GwtEvent<WidgetResizeHandler> {
   public final int height;
 
   /**
-   * Event type for blur events. Represents the meta-data associated with this
-   * event.
+   * Event type for blur events. Represents the meta-data associated with this event.
    */
   private static final Type<WidgetResizeHandler> TYPE = new Type<WidgetResizeHandler>();
 

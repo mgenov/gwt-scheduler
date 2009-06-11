@@ -14,7 +14,6 @@ import org.goda.time.ReadableDateTime;
  */
 public interface DateGenerator {
 
-
   /**
    * Initializes the date factory.
    * @param interval the interval type

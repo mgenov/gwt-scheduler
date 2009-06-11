@@ -3,7 +3,6 @@ package gwtscheduler.client.interfaces;
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
-
 /**
  * Defines event controller operations.
  * @author Miguel Ping

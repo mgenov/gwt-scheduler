@@ -45,8 +45,7 @@ public class HorizontalGridFill extends LazyPanel {
   private int rows;
 
   /**
-   * Creates a new grid with the supplied dimensions. An additional column will
-   * be added to supply a title.
+   * Creates a new grid with the supplied dimensions. An additional column will be added to supply a title.
    * @param rows the number of rows
    * @param cols the number of columns
    */

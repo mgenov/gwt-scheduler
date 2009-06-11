@@ -13,8 +13,7 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class MonthController extends
-    AbstractViewController<CompositeMonthPanel> {
+public class MonthController extends AbstractViewController<CompositeMonthPanel> {
 
   @Override
   protected CompositeMonthPanel createView() {

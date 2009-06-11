@@ -16,8 +16,7 @@ public abstract class WrappedWidget extends Composite {
   private SimplePanel wrapper;
 
   /**
-   * Default constructor. Should call {@link #wrapWidget(Widget)} here to
-   * initalize the widget.
+   * Default constructor. Should call {@link #wrapWidget(Widget)} here to initalize the widget.
    */
   public WrappedWidget() {
     wrapper = new SimplePanel();

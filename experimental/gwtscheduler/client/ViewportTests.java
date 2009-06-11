@@ -2,7 +2,6 @@ package gwtscheduler.client;
 
 import gwtscheduler.client.interfaces.ViewController;
 import gwtscheduler.client.modules.AppInjector;
-import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.nav.DateViewsTabPanel;
@@ -14,7 +13,6 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -53,22 +51,15 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     nav.add(today);
     nav.add(forward);
 
-    RootPanel.get().add(nav);
-    RootPanel.get().add(new HTML("<BR/>"));
-    RootPanel.get().add(main);
+    RootPanel.get("nav").add(nav);
+    RootPanel.get("main").add(main);
     main.selectTab(0);
 
     registry.fireDateNavigation(getCurrentDate());
   }
 
   protected ReadableDateTime getCurrentDate() {
-    AppConfiguration cfg = AppInjector.GIN.getInjector().getConfiguration();
-
     MutableDateTime start = new MutableDateTime();
-    int firstDay = cfg.getStartDayOfWeek();
-    while (start.getDayOfWeek() != firstDay) {
-      start.addDays(-1);
-    }
     start.setHourOfDay(0);
     start.setMinuteOfHour(0);
     start.setMinuteOfHour(0);

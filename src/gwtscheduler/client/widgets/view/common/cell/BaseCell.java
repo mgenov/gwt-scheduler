@@ -14,7 +14,7 @@ public class BaseCell extends Widget implements Cell<Element> {
 
   /** Cell identifiers */
   public final int row, col;
-  
+
   /**
    * Default constructor.
    * @param row the row index
@@ -25,7 +25,6 @@ public class BaseCell extends Widget implements Cell<Element> {
     this.row = row;
     this.col = col;
   }
-
 
   public int column() {
     return col;

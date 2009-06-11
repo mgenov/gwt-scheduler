@@ -7,13 +7,13 @@
    	<inherits name="com.google.gwt.user.User" />
    	<inherits name="com.google.gwt.i18n.I18N"/>
 
-	<!-- Joda-Time emulation via gwittir -->
-	<!--   	
+	<!-- Joda-Time emulation via gwittir
 	<inherits name='org.goda.Time' />
    	<inherits name='com.totsp.gwittir.Gwittir' />
     <inherits name='com.totsp.gwittir.LoggingDisabled' />
     -->
-	<!-- Joda-Time emulation via goda/time -->
+	<!-- Joda-Time emulation via goda/time 
+	-->
 	<inherits name='org.goda.Goda' />
 
 	<!-- Useful for rond corners -->    
@@ -37,7 +37,6 @@
    	<!-- aggregates all common source code (shared between client/server) -->
    	<source path="common" />
    	<!-- stupid css hack -->
-   	<stylesheet src="css/main.css" />
    	<stylesheet src="/css/main.css" />
    	
 </module>

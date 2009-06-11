@@ -1,6 +1,5 @@
 package gwtscheduler.client.interfaces.decoration;
 
-
 import org.goda.time.Interval;
 
 import com.google.gwt.user.client.Element;
@@ -10,7 +9,7 @@ import com.google.gwt.user.client.Element;
  * @author malp
  * @param <T> the decorable
  */
-public interface Decorator<T extends Element> {
+public interface MultipleElementsDecorator<T extends Element> {
 
   /**
    * Fired when the decorator should decorate elements.

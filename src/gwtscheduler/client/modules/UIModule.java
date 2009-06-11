@@ -2,12 +2,12 @@ package gwtscheduler.client.modules;
 
 import gwtscheduler.client.interfaces.DateGenerator;
 import gwtscheduler.client.interfaces.ViewController;
-import gwtscheduler.client.interfaces.decoration.Decorator;
+import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
-import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.modules.views.DefaultUIRegistry;
+import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.utils.GenericDateGenerator;
 import gwtscheduler.client.widgets.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.view.DayController;
@@ -22,7 +22,7 @@ import com.google.inject.Singleton;
  * @author malp
  */
 public class UIModule extends AbstractGinModule {
-  
+
   protected void configure() {
     //general
     bind(UIManager.class).to(DefaultUIRegistry.class).in(Singleton.class);;
@@ -33,7 +33,7 @@ public class UIModule extends AbstractGinModule {
     bind(ViewController.class).annotatedWith(Week.class).to(WeekController.class);
     bind(ViewController.class).annotatedWith(Month.class).to(MonthController.class);
 
-    bind(Decorator.class).to(DateTimeLabelDecorator.class);
+    bind(MultipleElementsDecorator.class).to(DateTimeLabelDecorator.class);
 
     // decorators
   }

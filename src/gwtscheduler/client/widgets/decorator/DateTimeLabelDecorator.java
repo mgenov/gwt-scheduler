@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.decorator;
 
 import gwtscheduler.client.interfaces.Cell;
-import gwtscheduler.client.interfaces.decoration.Decorator;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
+import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
 
 import java.util.List;
 
@@ -16,7 +16,8 @@ import com.google.gwt.user.client.Element;
  * Decorator for Days and Weeks.
  * @author malp
  */
-public class DateTimeLabelDecorator implements Decorator<Element> {
+public class DateTimeLabelDecorator implements MultipleElementsDecorator<Element> {
+  boolean hasRunVertical = false;
 
   public void decorate(Interval interval, HasMultipleDecorables<Element> d) {
     int days = interval.toPeriod().toStandardDays().getDays();
@@ -24,6 +25,7 @@ public class DateTimeLabelDecorator implements Decorator<Element> {
     Period day = new Period(0, 0, 0, 1, 0, 0, 0, 0);
     decorateHorizontal(interval.getStart(), p, d.getDaysDecorableElements());
     decorateVertical(interval.getStart(), day, d.getWithinDayDecorableElements());
+
   }
 
   /**
@@ -33,8 +35,7 @@ public class DateTimeLabelDecorator implements Decorator<Element> {
    * @param elems the decorable elements
    */
   protected void decorateVertical(DateTime start, Period p, List<Cell<Element>> elems) {
-    //TODO cache this, no need to write same labels every time
-    if (elems == null) {
+    if (hasRunVertical || elems == null) {
       return;
     }
     int hours = p.toStandardHours().getHours();
@@ -50,6 +51,7 @@ public class DateTimeLabelDecorator implements Decorator<Element> {
         start = start.plusHours(1);
       }
     }
+    hasRunVertical = true;
   }
 
   /**

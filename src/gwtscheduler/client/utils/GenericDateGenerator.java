@@ -42,7 +42,7 @@ public class GenericDateGenerator implements DateGenerator {
 
   public DateGenerator previous() {
     if (IntervalType.DAY.equals(interval)) {
-      start= start.plusDays(-1);
+      start = start.plusDays(-1);
     } else if (IntervalType.WEEK.equals(interval)) {
       start = start.plusDays(-7);
     } else if (IntervalType.MONTH.equals(interval)) {

@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.decoration.Decorator;
+import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
 import gwtscheduler.client.widgets.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.view.common.AbstractCompositeDaysPanel;
 import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
@@ -20,7 +20,7 @@ import com.google.inject.Singleton;
 public class DayController extends AbstractViewController<AbstractCompositeDaysPanel> {
   /** elements decorator */
   //TODO bind with ui module
-  Decorator<Element> decorator = new DateTimeLabelDecorator();
+  MultipleElementsDecorator<Element> decorator = new DateTimeLabelDecorator();
 
   @Override
   protected AbstractCompositeDaysPanel createView() {
