@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.common.grid;
 
-import gwtscheduler.client.interfaces.ICell;
+import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.view.common.cell.DayWeekCell;
@@ -33,12 +33,12 @@ public class HorizontalGridFill extends LazyPanel {
   /** title column */
   private Panel titleColumn;
   /** title elements */
-  private List<ICell<Element>> titleElements;
+  private List<Cell<Element>> titleElements;
   /** columns */
   private List<Panel> mainColumns;
   /** elements for quick access */
   //TODO: we don't really need the extra list, we could create a combined iterator
-  private List<ICell<Element>> mainElements;
+  private List<Cell<Element>> mainElements;
   /** grid col count, excluding title column */
   private int columns;
   /** grid row count */
@@ -53,7 +53,7 @@ public class HorizontalGridFill extends LazyPanel {
   public HorizontalGridFill(int rows, int cols) {
     this.rows = rows;
     this.columns = cols;
-    titleElements = new ArrayList<ICell<Element>>();
+    titleElements = new ArrayList<Cell<Element>>();
   }
 
   @Override
@@ -63,7 +63,7 @@ public class HorizontalGridFill extends LazyPanel {
     impl.setStyleName(CSS.horizontalFillGrid());
 
     mainColumns = new ArrayList<Panel>();
-    mainElements = new ArrayList<ICell<Element>>();
+    mainElements = new ArrayList<Cell<Element>>();
 
     // here we add one column for each day
     // one more col for cell labels
@@ -84,10 +84,7 @@ public class HorizontalGridFill extends LazyPanel {
       TitleCell title = new TitleCell(r, 0, "");
       title.setWidth(CSS.titleColumnWidthPx() + "px");
       titleColumn.add(title);
-      //we only want to decorate every hour, not every half hour
-      if (r % 2 == 0) {
-        titleElements.add(title);
-      }
+      titleElements.add(title);
     }
 
     // regular cells are different from title cells
@@ -115,7 +112,7 @@ public class HorizontalGridFill extends LazyPanel {
    * Gets a list of title elements.
    * @return the list of title elements
    */
-  public List<ICell<Element>> getTitleElements() {
+  public List<Cell<Element>> getTitleElements() {
     return titleElements;
   }
 
@@ -123,7 +120,7 @@ public class HorizontalGridFill extends LazyPanel {
    * Gets a list of the main elements.
    * @return the main elements
    */
-  public List<ICell<Element>> getMainElements() {
+  public List<Cell<Element>> getMainElements() {
     return mainElements;
   }
 

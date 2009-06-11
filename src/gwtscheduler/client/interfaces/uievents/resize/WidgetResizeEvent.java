@@ -8,7 +8,7 @@ import com.google.gwt.event.shared.GwtEvent;
  * @version $Revision: $
  * @since 1.0
  */
-public class WidgetResizeEvent extends GwtEvent<IWidgetResizeHandler> {
+public class WidgetResizeEvent extends GwtEvent<WidgetResizeHandler> {
 
   /** resize width */
   public final int width;
@@ -19,23 +19,23 @@ public class WidgetResizeEvent extends GwtEvent<IWidgetResizeHandler> {
    * Event type for blur events. Represents the meta-data associated with this
    * event.
    */
-  private static final Type<IWidgetResizeHandler> TYPE = new Type<IWidgetResizeHandler>();
+  private static final Type<WidgetResizeHandler> TYPE = new Type<WidgetResizeHandler>();
 
   /**
    * Gets the event type associated with resize events.
    * @return the handler type
    */
-  public static Type<IWidgetResizeHandler> getType() {
+  public static Type<WidgetResizeHandler> getType() {
     return TYPE;
   }
 
   @Override
-  protected void dispatch(IWidgetResizeHandler handler) {
+  protected void dispatch(WidgetResizeHandler handler) {
     handler.onResize(this);
   }
 
   @Override
-  public Type<IWidgetResizeHandler> getAssociatedType() {
+  public Type<WidgetResizeHandler> getAssociatedType() {
     return TYPE;
   }
 

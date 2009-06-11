@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view;
 
+import gwtscheduler.client.interfaces.decoration.Decorator;
+import gwtscheduler.client.widgets.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.view.common.AbstractCompositeDaysPanel;
 import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
 import gwtscheduler.common.calendar.IntervalType;
@@ -7,6 +9,7 @@ import gwtscheduler.common.calendar.IntervalType;
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
+import com.google.gwt.user.client.Element;
 import com.google.inject.Singleton;
 
 /**
@@ -16,6 +19,9 @@ import com.google.inject.Singleton;
 @Singleton
 public class WeekController extends
     AbstractViewController<AbstractCompositeDaysPanel> {
+  /** elements decorator */
+  //TODO bind with ui module
+  Decorator<Element> decorator = new DateTimeLabelDecorator();
 
   protected AbstractCompositeDaysPanel createView() {
     return new AbstractCompositeDaysPanel() {
@@ -43,19 +49,25 @@ public class WeekController extends
   }
 
   public Interval onNavigateNext() {
-    return getFactory().next().interval();
+    Interval tp = getFactory().next().interval();
+    decorator.decorate(tp, getViewWidget());
+    return tp;
   }
 
   public Interval onNavigatePrevious() {
-    return getFactory().previous().interval();
+    Interval period = getFactory().previous().interval();
+    decorator.decorate(period, getViewWidget());
+    return period;
   }
 
   public Interval onNavigateTo(ReadableDateTime date) {
+    //TODO calculate first day of week
     if (!date.equals(getFactory().current())) {
       getFactory().init(IntervalType.WEEK, date);
     }
-    return getFactory().interval();
-
+    Interval period = getFactory().interval();
+    decorator.decorate(period, getViewWidget());
+    return period;
   }
 
 }

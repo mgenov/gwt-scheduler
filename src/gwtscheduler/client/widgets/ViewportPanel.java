@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets;
 
-import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
@@ -103,7 +103,7 @@ public class ViewportPanel extends Composite implements ResizeHandler {
    * @param w the widget
    * @param handler the resize handler
    */
-  public void add(Widget w, IWidgetResizeHandler handler) {
+  public void add(Widget w, WidgetResizeHandler handler) {
     container.add(w);
     addHandler(handler, WidgetResizeEvent.getType());
   }

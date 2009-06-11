@@ -1,6 +1,5 @@
-package gwtscheduler.client.interfaces;
+package gwtscheduler.client.interfaces.decoration;
 
-import gwtscheduler.client.interfaces.decorable.IHasMultipleDecorables;
 
 import org.goda.time.Interval;
 
@@ -11,12 +10,12 @@ import com.google.gwt.user.client.Element;
  * @author malp
  * @param <T> the decorable
  */
-public interface IDecorator<T extends Element> {
+public interface Decorator<T extends Element> {
 
   /**
    * Fired when the decorator should decorate elements.
-   * @param interval the interval
+   * @param interval the time interval
    * @param decorable the decorable
    */
-  void decorate(Interval interval, IHasMultipleDecorables<Element> decorable);
+  void decorate(Interval interval, HasMultipleDecorables<Element> decorable);
 }

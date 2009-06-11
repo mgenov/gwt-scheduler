@@ -1,5 +1,7 @@
 package gwtscheduler.client.modules.views;
 
+import gwtscheduler.client.interfaces.ViewController;
+
 import java.util.List;
 
 import org.goda.time.ReadableDateTime;
@@ -8,19 +10,19 @@ import org.goda.time.ReadableDateTime;
  * Defines a calendar controllers registry.
  * @author malp
  */
-public interface IUIRegistry {
+public interface UIManager {
 
   /**
    * Gets the views.
    * @return the views
    */
-  List<IViewController> getControllers();
+  List<ViewController> getControllers();
 
   /**
    * Adds a new controller.
    * @param provider the controller
    */
-  void addController(IViewController controller);
+  void addController(ViewController controller);
 
   /**
    * Fires the back navigation event.

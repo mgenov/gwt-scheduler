@@ -1,6 +1,6 @@
 package gwtscheduler.junit.common;
 
-import gwtscheduler.client.interfaces.IDateGenerator;
+import gwtscheduler.client.interfaces.DateGenerator;
 import gwtscheduler.client.utils.GenericDateGenerator;
 
 import org.goda.time.DateTime;
@@ -13,9 +13,9 @@ import org.junit.Test;
  */
 public class DateFactoryTestCase {
 
-  IDateGenerator dayf = new GenericDateGenerator();
-  IDateGenerator weekf = new GenericDateGenerator();
-  IDateGenerator monthf = new GenericDateGenerator();
+  DateGenerator dayf = new GenericDateGenerator();
+  DateGenerator weekf = new GenericDateGenerator();
+  DateGenerator monthf = new GenericDateGenerator();
 
   DateTime now;
 

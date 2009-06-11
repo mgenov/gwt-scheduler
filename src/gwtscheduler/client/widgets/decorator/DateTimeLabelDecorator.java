@@ -1,78 +1,80 @@
 package gwtscheduler.client.widgets.decorator;
 
-import gwtscheduler.client.interfaces.ICell;
-import gwtscheduler.client.interfaces.IDecorator;
-import gwtscheduler.client.interfaces.decorable.IHasMultipleDecorables;
+import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.decoration.Decorator;
+import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.goda.time.DateTime;
 import org.goda.time.Interval;
-import org.goda.time.MutableDateTime;
+import org.goda.time.Period;
 
 import com.google.gwt.user.client.Element;
 
 /**
- * Decorator for Days and weeks.
+ * Decorator for Days and Weeks.
  * @author malp
  */
-public class DateTimeLabelDecorator implements IDecorator<Element> {
+public class DateTimeLabelDecorator implements Decorator<Element> {
 
-  public void decorate(Interval intv, IHasMultipleDecorables<Element> d) {
-    decorateHorizontal(intv, d.getHorizontalDecorableElementsIterator());
-    decorateVertical(intv, d.getVerticalDecorableElementsIterator());
-    decorateOther(intv, d.getMultipleDecorableElementsIterator());
-  }
-
-  /**
-   * Handles all elements decoration.
-   * @param interval
-   * @param it the iterator
-   */
-  protected void decorateOther(Interval interval, Iterator<ICell<Element>> it) {
-    if (it == null) {
-      return;
-    }
+  public void decorate(Interval interval, HasMultipleDecorables<Element> d) {
+    int days = interval.toPeriod().toStandardDays().getDays();
+    Period p = new Period(0, 0, 0, days, 0, 0, 0, 0);
+    Period day = new Period(0, 0, 0, 1, 0, 0, 0, 0);
+    decorateHorizontal(interval.getStart(), p, d.getDaysDecorableElements());
+    decorateVertical(interval.getStart(), day, d.getWithinDayDecorableElements());
   }
 
   /**
    * Handles vertical labels decoration.
-   * @param interval
-   * @param it the iterator
+   * @param start the start time
+   * @param p the time period that the elems correspond
+   * @param elems the decorable elements
    */
-  protected void decorateVertical(Interval intv, Iterator<ICell<Element>> it) {
-    if (it == null) {
+  protected void decorateVertical(DateTime start, Period p, List<Cell<Element>> elems) {
+    //TODO cache this, no need to write same labels every time
+    if (elems == null) {
       return;
     }
-    int c = 0;
-    MutableDateTime start = intv.getStart().toMutableDateTime();
-    while (it.hasNext()) {
-      ICell<Element> cell = it.next();
-      start.setHourOfDay(c);
-      cell.getCellElement().setInnerText(
-          start.hourOfDay().getAsShortText() + ":00");
-      c++;
-    }
+    int hours = p.toStandardHours().getHours();
+    int increment = elems.size() / hours;
 
+    assert hours > 0 : "Number of hours should not be <= 0";
+    assert increment != 0 : "Increment should not be zero.";
+
+    for (Cell<Element> cell : elems) {
+      if (cell.row() % increment == 0) {
+        String hour = start.hourOfDay().getAsShortText();
+        cell.getCellElement().setInnerText(hour + ":00");
+        start = start.plusHours(1);
+      }
+    }
   }
 
   /**
    * Handles horizontal decoration.
-   * @param intv
-   * @param it the iterator
+   * @param start the start time
+   * @param p the time period that the elems correspond
+   * @param elems the decorable elements
    */
-  protected void decorateHorizontal(Interval intv, Iterator<ICell<Element>> it) {
-    if (it == null) {
+  protected void decorateHorizontal(DateTime start, Period p, List<Cell<Element>> elems) {
+    if (elems == null) {
       return;
     }
-    int c = 0;
-    DateTime start = intv.getStart();
-    while (it.hasNext()) {
-      ICell<Element> cell = it.next();
-      cell.getCellElement().setInnerText(start.dayOfWeek().getAsShortText());
-      start = start.plusDays(1);
-      c++;
+    int days = p.toStandardDays().getDays();
+    int increment = elems.size() / days;
+
+    assert days > 0 : "Number of days should not be <= 0";
+    assert increment > 0 : "Increment should not be zero.";
+
+    for (Cell<Element> cell : elems) {
+      String wd = start.dayOfWeek().getAsShortText();
+      String month = start.monthOfYear().getAsShortText();
+      String day = start.dayOfMonth().getAsShortText();
+
+      cell.getCellElement().setInnerText(wd + ", " + month + " " + day);
+      start = start.plusDays(increment);
     }
   }
-
 }

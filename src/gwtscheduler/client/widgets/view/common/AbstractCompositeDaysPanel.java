@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.ICell;
-import gwtscheduler.client.interfaces.decorable.IHasMultipleDecorables;
-import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
@@ -11,7 +11,7 @@ import gwtscheduler.client.widgets.ViewportPanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
@@ -24,8 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class AbstractCompositeDaysPanel extends Composite implements
-    IHasMultipleDecorables<Element> {
+public abstract class AbstractCompositeDaysPanel extends Composite implements HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -37,7 +36,7 @@ public abstract class AbstractCompositeDaysPanel extends Composite implements
   /** top view */
   protected Widget topView;
   /** top view cells */
-  protected List<ICell<Element>> topLabels;
+  protected List<Cell<Element>> topLabels;
 
   /** viewport widget */
   private ViewportPanel vmain;
@@ -59,7 +58,7 @@ public abstract class AbstractCompositeDaysPanel extends Composite implements
 
     initWidget(impl);
     // we'll delegate the resize to the viewport panel
-    addHandler(new IWidgetResizeHandler() {
+    addHandler(new WidgetResizeHandler() {
       public void onResize(WidgetResizeEvent event) {
         vmain.doDeferredResize();
       }
@@ -76,32 +75,30 @@ public abstract class AbstractCompositeDaysPanel extends Composite implements
     g.addStyleName(CSS.genericContainer());
     g.setWidth("100%");
     g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
-    g.getCellFormatter().setWidth(0, columns + 2,
-        Constants.SCROLLBAR_WIDTH + "px");
+    g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH + "px");
 
-    topLabels = new ArrayList<ICell<Element>>(columns);
+    topLabels = new ArrayList<Cell<Element>>(columns);
     for (int i = 0; i < columns; i++) {
-      ICell<Element> topCell = new BaseCell(0, i);
+      Cell<Element> topCell = new BaseCell(0, i);
       topCell.getCellElement().setInnerHTML(0 + ", " + i);//debug
 
       topLabels.add(topCell);
       g.setElement(0, 1 + i, topCell.getCellElement());
-      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i,
-          HasHorizontalAlignment.ALIGN_CENTER);
+      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;
   }
 
-  public Iterator<ICell<Element>> getHorizontalDecorableElementsIterator() {
-    return topLabels.iterator();
+  public List<Cell<Element>> getDaysDecorableElements() {
+    return Collections.unmodifiableList(topLabels);
   }
 
-  public Iterator<ICell<Element>> getVerticalDecorableElementsIterator() {
-    return mainView.getTitleDecorablesIterator();
+  public List<Cell<Element>> getWithinDayDecorableElements() {
+    return Collections.unmodifiableList(mainView.getTitleDecorables());
   }
 
-  public Iterator<ICell<Element>> getMultipleDecorableElementsIterator() {
-    return mainView.getMainDecorablesIterator();
+  public List<Cell<Element>> getMultipleDecorableElements() {
+    return Collections.unmodifiableList(mainView.getMainDecorables());
   }
 
   /**

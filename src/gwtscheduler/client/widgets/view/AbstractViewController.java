@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.IDateGenerator;
-import gwtscheduler.client.interfaces.IEventNavigationListener;
-import gwtscheduler.client.modules.views.IViewController;
+import gwtscheduler.client.interfaces.DateGenerator;
+import gwtscheduler.client.interfaces.EventNavigationListener;
+import gwtscheduler.client.interfaces.ViewController;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -12,14 +12,14 @@ import com.google.inject.Inject;
  * @author malp
  */
 public abstract class AbstractViewController<T extends Widget> implements
-    IViewController, IEventNavigationListener {
+    ViewController, EventNavigationListener {
 
   /** view widget for the controller */
   private T view;
 
   /** date factory class */
   @Inject
-  private IDateGenerator factory;
+  private DateGenerator factory;
 
   /**
    * Default constructor.
@@ -37,11 +37,11 @@ public abstract class AbstractViewController<T extends Widget> implements
    * Gets the date factory.
    * @return the date factory
    */
-  protected IDateGenerator getFactory() {
+  protected DateGenerator getFactory() {
     return factory;
   }
 
-  public IEventNavigationListener getNavigationListener() {
+  public EventNavigationListener getNavigationListener() {
     return this;
   }
 

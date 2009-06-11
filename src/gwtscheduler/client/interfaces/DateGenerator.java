@@ -12,7 +12,7 @@ import org.goda.time.ReadableDateTime;
  * @version $Revision: $
  * @since 1.0
  */
-public interface IDateGenerator {
+public interface DateGenerator {
 
 
   /**
@@ -32,13 +32,13 @@ public interface IDateGenerator {
    * Gets the next date period.
    * @return the next period
    */
-  IDateGenerator next();
+  DateGenerator next();
 
   /**
    * Gets the previous period.
    * @return the previous period
    */
-  IDateGenerator previous();
+  DateGenerator previous();
 
   /**
    * Creates a new time period.

@@ -1,19 +1,26 @@
 package gwtscheduler.client.modules;
 
-import gwtscheduler.client.modules.views.IUIRegistry;
+import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.modules.views.UIManager;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 
-@GinModules(UIModule.class)
-public interface IUIInjector extends Ginjector {
+@GinModules( {UIModule.class, AppModule.class})
+public interface AppInjector extends Ginjector {
 
   /**
    * Gets the UI Registry.
    * @return the UI Registry
    */
-  IUIRegistry getUIRegistry();
+  UIManager getUIRegistry();
+
+  /**
+   * Gets the application configuration.
+   * @return the app config
+   */
+  AppConfiguration getConfiguration();
 
   /**
    * Proxy class for acessing injector.
@@ -23,15 +30,15 @@ public interface IUIInjector extends Ginjector {
    */
   public static class GIN {
     /** ref for injector, lazy init */
-    private static IUIInjector injector;
+    private static AppInjector injector;
 
     /**
      * Caches and gets the IUIInjector instance.
      * @return the injector instance
      */
-    public static synchronized IUIInjector getInjector() {
+    public static synchronized AppInjector getInjector() {
       if (injector == null) {
-        injector = GWT.create(IUIInjector.class);
+        injector = GWT.create(AppInjector.class);
       }
       return injector;
     }

@@ -10,7 +10,7 @@ import org.goda.time.ReadableDateTime;
  * @version $Revision: $
  * @since 1.0
  */
-public interface IEventNavigationListener {
+public interface EventNavigationListener {
 
   /**
    * Goes to the next series of events.

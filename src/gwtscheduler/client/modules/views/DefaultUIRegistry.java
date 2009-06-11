@@ -1,15 +1,13 @@
-package gwtscheduler.client.modules;
+package gwtscheduler.client.modules.views;
 
+import gwtscheduler.client.interfaces.ViewController;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
-import gwtscheduler.client.modules.views.IUIRegistry;
-import gwtscheduler.client.modules.views.IViewController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
 import com.google.inject.Inject;
@@ -20,10 +18,10 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class UIRegistry implements IUIRegistry {
+public class DefaultUIRegistry implements UIManager {
 
   /** holds the views data */
-  private ArrayList<IViewController> views;
+  private ArrayList<ViewController> views;
 
   /**
    * Default constructor.
@@ -32,9 +30,8 @@ public class UIRegistry implements IUIRegistry {
    * @param month the month controller
    */
   @Inject
-  public UIRegistry(@Day IViewController day, @Week IViewController week,
-      @Month IViewController month) {
-    views = new ArrayList<IViewController>();
+  public DefaultUIRegistry(@Day ViewController day, @Week ViewController week, @Month ViewController month) {
+    views = new ArrayList<ViewController>();
     views.add(day);
     views.add(week);
     views.add(month);
@@ -43,33 +40,31 @@ public class UIRegistry implements IUIRegistry {
   //TODO: navigation could be optimized, if the controller
   //is aware of its own visibility. No need to advance within non-visible controller views
 
-  public void addController(IViewController view) {
+  public void addController(ViewController view) {
     views.add(view);
   }
 
-  public List<IViewController> getControllers() {
+  public List<ViewController> getControllers() {
     return views;
   }
 
   public void fireBackNavigation() {
-    for (IViewController controller : getControllers()) {
-      //TODO: update events
-      Interval period = controller.getNavigationListener().onNavigatePrevious();
+    for (ViewController controller : getControllers()) {
+      controller.getNavigationListener().onNavigatePrevious();
     }
   }
 
   public void fireForwardNavigation() {
-    for (IViewController controller : getControllers()) {
-      //TODO: update events
-      Interval period = controller.getNavigationListener().onNavigateNext();
+    for (ViewController controller : getControllers()) {
+      controller.getNavigationListener().onNavigateNext();
     }
 
   }
 
   public void fireDateNavigation(ReadableDateTime date) {
-    for (IViewController controller : getControllers()) {
-      //TODO: update events
-      Interval period = controller.getNavigationListener().onNavigateTo(date);
+    //TODO maybe round the date to the nearest sunday
+    for (ViewController controller : getControllers()) {
+      controller.getNavigationListener().onNavigateTo(date);
     }
   }
 

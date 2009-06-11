@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
-import gwtscheduler.client.interfaces.ICell;
+import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
 import gwtscheduler.client.utils.DebugUtils;
@@ -28,7 +28,7 @@ class MonthRowTable extends Composite {
   /** table for month cells */
   private FlexTable grid;
   /** list for title elements */
-  private List<ICell<Element>> titleElements;
+  private List<Cell<Element>> titleElements;
 
   /**
    * Creates a new month row.
@@ -40,7 +40,7 @@ class MonthRowTable extends Composite {
     grid.setCellPadding(0);
     grid.setCellSpacing(0);
 
-    titleElements = new ArrayList<ICell<Element>>();
+    titleElements = new ArrayList<Cell<Element>>();
 
     initWidget(grid);
     setStyleName(CSS.monthRowTable());
@@ -50,7 +50,7 @@ class MonthRowTable extends Composite {
    * Gets the title elements.
    * @return a list of the title elements
    */
-  public List<ICell<Element>> getTitleElements() {
+  public List<Cell<Element>> getTitleElements() {
     return titleElements;
   }
 

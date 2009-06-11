@@ -1,13 +1,14 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.modules.IUIInjector;
-import gwtscheduler.client.modules.views.IUIRegistry;
-import gwtscheduler.client.modules.views.IViewController;
+import gwtscheduler.client.interfaces.ViewController;
+import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.nav.DateViewsTabPanel;
 
-import org.goda.time.DateTime;
 import org.goda.time.MutableDateTime;
+import org.goda.time.ReadableDateTime;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -33,14 +34,14 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     Resources.injectAllStylesheets();
 
     // let's test a registration
-    IUIInjector uiResources = IUIInjector.GIN.getInjector();
-    IUIRegistry registry = uiResources.getUIRegistry();
+    AppInjector uiResources = AppInjector.GIN.getInjector();
+    UIManager registry = uiResources.getUIRegistry();
     // registry.addController(new DummyMonthController());
 
     DateViewsTabPanel main = new DateViewsTabPanel();
     // the registry will be pre-filled with default controllers
     // for day, week and month, plus our own dummy controller
-    for (IViewController controller : registry.getControllers()) {
+    for (ViewController controller : registry.getControllers()) {
       main.add(controller);
     }
 
@@ -56,24 +57,35 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     RootPanel.get().add(new HTML("<BR/>"));
     RootPanel.get().add(main);
     main.selectTab(0);
-    
+
+    registry.fireDateNavigation(getCurrentDate());
+  }
+
+  protected ReadableDateTime getCurrentDate() {
+    AppConfiguration cfg = AppInjector.GIN.getInjector().getConfiguration();
+
     MutableDateTime start = new MutableDateTime();
+    int firstDay = cfg.getStartDayOfWeek();
+    while (start.getDayOfWeek() != firstDay) {
+      start.addDays(-1);
+    }
     start.setHourOfDay(0);
     start.setMinuteOfHour(0);
     start.setMinuteOfHour(0);
-    registry.fireDateNavigation(start);
+    start.setMillisOfSecond(0);
+    return start;
   }
 
   public void onClick(ClickEvent event) {
-    IUIInjector uiResources = IUIInjector.GIN.getInjector();
-    IUIRegistry registry = uiResources.getUIRegistry();
+    AppInjector uiResources = AppInjector.GIN.getInjector();
+    UIManager registry = uiResources.getUIRegistry();
 
     if (event.getSource() == back) {
       registry.fireBackNavigation();
     } else if (event.getSource() == forward) {
       registry.fireForwardNavigation();
     } else if (event.getSource() == today) {
-      registry.fireDateNavigation(new DateTime());
+      registry.fireDateNavigation(getCurrentDate());
     }
 
   }

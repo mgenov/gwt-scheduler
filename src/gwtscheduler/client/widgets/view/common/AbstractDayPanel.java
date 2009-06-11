@@ -1,12 +1,12 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.ICell;
-import gwtscheduler.client.interfaces.uievents.resize.IHasResizeHandler;
-import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.uievents.resize.HasResizeHandler;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFill;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHandler;
 
-import java.util.Iterator;
+import java.util.List;
 
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -14,15 +14,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * Abstract class for day and week views. Holds the main grid cells.
  */
-public abstract class AbstractDayPanel extends WrappedWidget implements
-    IHasResizeHandler {
+public abstract class AbstractDayPanel extends WrappedWidget implements HasResizeHandler {
 
   /** Main container */
   protected VerticalPanel container;
   /** Hours grid */
   protected HorizontalGridFill grid;
   /** Resize handler */
-  private IWidgetResizeHandler rh;
+  private WidgetResizeHandler rh;
 
   /**
    * Default constructor.
@@ -42,23 +41,23 @@ public abstract class AbstractDayPanel extends WrappedWidget implements
    * Gets the decorable elements.
    * @return the decorable elements
    */
-  Iterator<ICell<Element>> getTitleDecorablesIterator() {
-    return grid.getTitleElements().iterator();
+  List<Cell<Element>> getTitleDecorables() {
+    return grid.getTitleElements();
   }
 
   /**
-   * Gets the iterator for the main decorables.
-   * @return the iterator
+   * Gets the main decorables.
+   * @return the decorableelements
    */
-  Iterator<ICell<Element>> getMainDecorablesIterator() {
-    return grid.getMainElements().iterator();
+  List<Cell<Element>> getMainDecorables() {
+    return grid.getMainElements();
   }
 
   /**
    * Gets the resize handler for this widget.
    * @return the resize handler.
    */
-  public IWidgetResizeHandler getResizeHandler() {
+  public WidgetResizeHandler getResizeHandler() {
     return rh;
   }
 

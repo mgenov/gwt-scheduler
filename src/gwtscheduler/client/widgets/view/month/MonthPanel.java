@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.interfaces.ICell;
-import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
@@ -21,7 +21,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
+class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
 
   /** Main container */
   private FlowPanel container;
@@ -95,11 +95,11 @@ class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
    * Gets an iterator for all the decorable elements.
    * @return the iterator
    */
-  Iterator<ICell<Element>> getDecorablesIterator() {
+  Iterator<Cell<Element>> getDecorablesIterator() {
     //TODO create a combined iterator
-    List<ICell<Element>> mergedList = new ArrayList<ICell<Element>>();
+    List<Cell<Element>> mergedList = new ArrayList<Cell<Element>>();
     for (MonthRow mr : monthRows) {
-      List<ICell<Element>> rl = mr.getTitleElements();
+      List<Cell<Element>> rl = mr.getTitleElements();
       mergedList.addAll(rl);
     }
     return mergedList.iterator();
@@ -123,11 +123,11 @@ class MonthPanel extends WrappedWidget implements IWidgetResizeHandler {
    * Gets the main cell elements.
    * @return the main cell elements
    */
-  List<ICell<Element>> getMainElements() {
+  List<Cell<Element>> getMainElements() {
     //TODO: the iterator stuff could be reworked, we don't need the temporary list
-    List<ICell<Element>> mergedList = new ArrayList<ICell<Element>>();
+    List<Cell<Element>> mergedList = new ArrayList<Cell<Element>>();
     for (MonthRow mr : monthRows) {
-      List<ICell<Element>> rl = mr.getTitleElements();
+      List<Cell<Element>> rl = mr.getTitleElements();
       mergedList.addAll(rl);
     }
     return mergedList;

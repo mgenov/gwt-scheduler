@@ -1,15 +1,13 @@
-package gwtscheduler.client.modules.views;
-
-import gwtscheduler.client.interfaces.IEventNavigationListener;
+package gwtscheduler.client.interfaces;
 
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Defines a calendar controller. Responsible for mediating the view and the
- * listener. For most cases, the implementing class will be the listener itself.
+ * Defines a calendar controller. Responsible for mediating the view and the listener. For most cases, the implementing class will be the
+ * listener itself.
  * @author malp
  */
-public interface IViewController {
+public interface ViewController {
 
   /**
    * Gets the widget for the view.
@@ -27,6 +25,6 @@ public interface IViewController {
    * Gets the navigation events listener.
    * @return the listener
    */
-  IEventNavigationListener getNavigationListener();
+  EventNavigationListener getNavigationListener();
 
 }

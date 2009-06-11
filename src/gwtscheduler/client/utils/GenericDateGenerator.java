@@ -1,6 +1,6 @@
 package gwtscheduler.client.utils;
 
-import gwtscheduler.client.interfaces.IDateGenerator;
+import gwtscheduler.client.interfaces.DateGenerator;
 import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.DateTime;
@@ -13,7 +13,7 @@ import org.goda.time.ReadableDateTime;
  * @version $Revision: $
  * @since 1.0
  */
-public class GenericDateGenerator implements IDateGenerator {
+public class GenericDateGenerator implements DateGenerator {
 
   /** the interval type */
   private IntervalType interval;
@@ -29,20 +29,32 @@ public class GenericDateGenerator implements IDateGenerator {
     this.start = new DateTime(start.getMillis()); //we should maintain a copy of the date
   }
 
-  public IDateGenerator next() {
-    start = start.plusDays(1);
+  public DateGenerator next() {
+    if (IntervalType.DAY.equals(interval)) {
+      start = start.plusDays(1);
+    } else if (IntervalType.WEEK.equals(interval)) {
+      start = start.plusDays(7);
+    } else if (IntervalType.MONTH.equals(interval)) {
+      start = start.plusMonths(1);
+    }
     return this;
   }
 
-  public IDateGenerator previous() {
-    start = start.plusDays(-1);
+  public DateGenerator previous() {
+    if (IntervalType.DAY.equals(interval)) {
+      start= start.plusDays(-1);
+    } else if (IntervalType.WEEK.equals(interval)) {
+      start = start.plusDays(-7);
+    } else if (IntervalType.MONTH.equals(interval)) {
+      start = start.plusMonths(-1);
+    }
     return this;
   }
 
   public Interval interval() {
     DateTime end = null;
     if (IntervalType.DAY.equals(interval)) {
-      end = start.plusHours(1);
+      end = start.plusDays(1);
     } else if (IntervalType.WEEK.equals(interval)) {
       end = start.plusDays(7);
     } else if (IntervalType.MONTH.equals(interval)) {

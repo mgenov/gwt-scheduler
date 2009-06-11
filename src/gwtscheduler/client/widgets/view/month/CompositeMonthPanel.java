@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.interfaces.ICell;
-import gwtscheduler.client.interfaces.decorable.IHasMultipleDecorables;
-import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
@@ -10,6 +10,7 @@ import gwtscheduler.client.widgets.ViewportPanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,10 +24,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Defines the composite month view.
- *
  */
-public class CompositeMonthPanel extends Composite implements
-    IHasMultipleDecorables<Element> {
+public class CompositeMonthPanel extends Composite implements HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -36,7 +35,7 @@ public class CompositeMonthPanel extends Composite implements
   /** month view instance */
   protected MonthPanel monthView;
   /** top view cells */
-  protected List<ICell<Element>> topLabels;
+  protected List<Cell<Element>> topLabels;
 
   /**
    * Default constructor.
@@ -55,7 +54,7 @@ public class CompositeMonthPanel extends Composite implements
     impl.add(vp);
     initWidget(impl);
     // we'll delegate the resize to the viewport panel
-    addHandler(new IWidgetResizeHandler() {
+    addHandler(new WidgetResizeHandler() {
       public void onResize(WidgetResizeEvent event) {
         vp.doDeferredResize();
       }
@@ -71,30 +70,28 @@ public class CompositeMonthPanel extends Composite implements
     g.addStyleName(CSS.genericContainer());
     g.setWidth("100%");
 
-    topLabels = new ArrayList<ICell<Element>>(7);
+    topLabels = new ArrayList<Cell<Element>>(7);
     for (int i = 0; i < 7; i++) {
-      ICell<Element> cell = new BaseCell(0, i);
+      Cell<Element> cell = new BaseCell(0, i);
       cell.getCellElement().setInnerHTML(0 + ", " + i);//debug
       topLabels.add(cell);
 
       g.setElement(0, i, cell.getCellElement());
       g.getCellFormatter().setWidth(0, 0, ((float) 100 / 7) + "%");
-      g.getFlexCellFormatter().setHorizontalAlignment(0, i,
-          HasHorizontalAlignment.ALIGN_CENTER);
+      g.getFlexCellFormatter().setHorizontalAlignment(0, i, HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;
   }
 
-  public Iterator<ICell<Element>> getHorizontalDecorableElementsIterator() {
-    return topLabels.iterator();
+  public List<Cell<Element>> getDaysDecorableElements() {
+    return Collections.unmodifiableList(topLabels);
   }
 
-  public Iterator<ICell<Element>> getMultipleDecorableElementsIterator() {
-    return monthView.getMainElements().iterator();
+  public List<Cell<Element>> getMultipleDecorableElements() {
+    return Collections.unmodifiableList(monthView.getMainElements());
   }
 
-  public Iterator<ICell<Element>> getVerticalDecorableElementsIterator() {
-    //months have no vertical labels
+  public List<Cell<Element>> getWithinDayDecorableElements() {
     return null;
   }
 
@@ -102,7 +99,7 @@ public class CompositeMonthPanel extends Composite implements
    * Gets the decorables iterator.
    * @return the iterator
    */
-  public Iterator<ICell<Element>> getDecorablesIterator() {
+  public Iterator<Cell<Element>> getDecorablesIterator() {
     return monthView.getDecorablesIterator();
   }
 

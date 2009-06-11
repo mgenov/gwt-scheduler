@@ -8,7 +8,7 @@ import com.google.gwt.event.shared.EventHandler;
  * @version $Revision: $
  * @since 1.0
  */
-public interface IWidgetResizeHandler extends EventHandler {
+public interface WidgetResizeHandler extends EventHandler {
 
   /**
    * Fired when the parent widget was resized.

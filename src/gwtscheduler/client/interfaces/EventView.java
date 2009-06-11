@@ -12,7 +12,7 @@ import org.goda.time.DateTime;
  * @version $Revision: $
  * @since 1.0
  */
-public interface IEventView {
+public interface EventView {
 
   /**
    * Clears all events in this view.

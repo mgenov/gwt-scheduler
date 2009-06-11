@@ -7,7 +7,7 @@ import com.google.gwt.user.client.Element;
  * @author malp
  * @param <T> the underlying type
  */
-public interface ICell<T extends Element> {
+public interface Cell<T extends Element> {
 
   /**
    * Gets the cell row.

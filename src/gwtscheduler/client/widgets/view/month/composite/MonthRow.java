@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.month.composite;
 
-import gwtscheduler.client.interfaces.ICell;
-import gwtscheduler.client.interfaces.uievents.resize.IWidgetResizeHandler;
+import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 
@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-public class MonthRow extends Composite implements IWidgetResizeHandler {
+public class MonthRow extends Composite implements WidgetResizeHandler {
 
   /** impl */
   private FlowPanel impl;
@@ -60,7 +60,7 @@ public class MonthRow extends Composite implements IWidgetResizeHandler {
    * Gets an iterator for the decorable elements.
    * @return the iterator for the decorable elements
    */
-  public List<ICell<Element>> getTitleElements() {
+  public List<Cell<Element>> getTitleElements() {
     return grid.getTitleElements();
   }
 
