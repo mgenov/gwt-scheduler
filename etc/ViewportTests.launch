@@ -7,7 +7,7 @@
 </listAttribute>
 <stringAttribute key="com.google.gwt.eclipse.core.URL" value="ViewportTests.html"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/gwt-scheduler2"/>
+<listEntry value="/gwt-scheduler"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
@@ -17,6 +17,6 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gwt.eclipse.core.moduleClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="gwt-scheduler2"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="gwt-scheduler"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea"/>
 </launchConfiguration>
