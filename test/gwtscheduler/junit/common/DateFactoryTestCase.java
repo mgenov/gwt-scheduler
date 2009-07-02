@@ -2,8 +2,11 @@ package gwtscheduler.junit.common;
 
 import gwtscheduler.client.interfaces.DateGenerator;
 import gwtscheduler.client.utils.GenericDateGenerator;
+import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.DateTime;
+import org.goda.time.DateTimeConstants;
+import org.goda.time.MutableDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,15 +25,17 @@ public class DateFactoryTestCase {
   @Before
   public void initialize() {
     now = new DateTime();
-
-    //    dayf.init(Interval.DAY, now);
-    //    weekf.init(Interval.WEEK, now);
-    //    monthf.init(Interval.MONTH, now);
+    dayf.init(IntervalType.DAY, now);
+    weekf.init(IntervalType.WEEK, now);
+    monthf.init(IntervalType.MONTH, now);
   }
 
   @Test
-  public void testDayAdvance() {
-    //    DateTime d = dayf.next().current();
-    //    Assert.assertEquals(now.addDays(1).day(), d.day());
+  public void testMonthIntervals() {
+    MutableDateTime mdt = now.toMutableDateTime();
+    mdt.setDayOfMonth(10);
+    mdt.setYear(2009);
+    mdt.setMonthOfYear(DateTimeConstants.JULY);
+
   }
 }

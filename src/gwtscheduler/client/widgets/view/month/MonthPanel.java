@@ -44,6 +44,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
     hiddenRows = new ArrayList<MonthRow>();
 
     for (int i = 0; i < 6; i++) {
+      //TODO use config
       MonthRow row = new MonthRow(7);
       monthRows.add(row);
       container.add(row);
@@ -79,19 +80,6 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
   }
 
   /**
-   * Hides the last row.
-   */
-  void hideRow() {
-    MonthRow mr = monthRows.remove(monthRows.size() - 1);
-    mr.setVisible(false);
-    setRowHeights();
-    hiddenRows.add(mr);
-    for (MonthRow row : monthRows) {
-      row.resizeRows();
-    }
-  }
-
-  /**
    * Gets an iterator for all the decorable elements.
    * @return the iterator
    */
@@ -117,6 +105,57 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
       monthRows.add(mr);
     }
     setRowHeights();
+  }
+
+  /**
+   * Hides a given amount of rows
+   * @param rowNum the number of rows to hide
+   */
+  void hideRows(int rowNum) {
+    assert rowNum > 0 : "rowNum cannot be negative";
+    for (int i = 0; i < rowNum; i++) {
+      MonthRow mr = monthRows.remove(monthRows.size() - 1);
+      mr.setVisible(false);
+      hiddenRows.add(mr);
+    }
+    resizeAllRows();
+  }
+
+  /**
+   * Shows only the given amount of rows, hiding the rest.
+   * @param rowNum the number of rows to show
+   */
+  void showRows(int rowNum) {
+    while (monthRows.size() < rowNum) {
+      //TODO use config
+      MonthRow row = new MonthRow(7);
+      monthRows.add(row);
+      container.add(row);
+    }
+    int diff = monthRows.size() - rowNum;
+    if (diff > 0) {
+      hideRows(diff);
+    } else {
+      resizeAllRows();
+    }
+  }
+
+  /**
+   * Resizes all visible rows.
+   */
+  protected void resizeAllRows() {
+    setRowHeights();
+    for (MonthRow row : monthRows) {
+      row.resizeRows();
+    }
+  }
+
+  /**
+   * Gets the number of visible rows.
+   * @return the number of visible rows
+   */
+  int getVisibleRowsSize() {
+    return monthRows.size();
   }
 
   /**

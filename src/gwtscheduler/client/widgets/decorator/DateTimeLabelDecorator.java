@@ -17,6 +17,8 @@ import com.google.gwt.user.client.Element;
  * @author malp
  */
 public class DateTimeLabelDecorator implements MultipleElementsDecorator<Element> {
+
+  /** used to decide if vertical redraw is needed */
   boolean hasRunVertical = false;
 
   public void decorate(Interval interval, HasMultipleDecorables<Element> d) {

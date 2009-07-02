@@ -13,24 +13,24 @@ public class JSNIUtils {
    * @return the viewport width
    */
   public static native int getViewportWidth() /*-{
-       var e = $wnd , a = 'inner';
-       if ( !( 'innerWidth' in $wnd ) ) {
-       	a = 'client';
-       	e = $doc.documentElement || $doc.body;
-       }
-       return e[ a+'Width' ];
-     }-*/;
+         var e = $wnd , a = 'inner';
+         if ( !( 'innerWidth' in $wnd ) ) {
+         	a = 'client';
+         	e = $doc.documentElement || $doc.body;
+         }
+         return e[ a+'Width' ];
+       }-*/;
 
   /**
    * Gets the viewport height.
    * @return the viewport height
    */
   public static native int getViewportHeight() /*-{
-       var e = $wnd , a = 'inner';
-       if ( !( 'innerWidth' in $wnd ) ) {
-       	a = 'client';
-       	e = $doc.documentElement || $doc.body;
-       }
-       return e[ a+'Height' ];
-     }-*/;
+         var e = $wnd , a = 'inner';
+         if ( !( 'innerWidth' in $wnd ) ) {
+         	a = 'client';
+         	e = $doc.documentElement || $doc.body;
+         }
+         return e[ a+'Height' ];
+       }-*/;
 }

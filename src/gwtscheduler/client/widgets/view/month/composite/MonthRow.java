@@ -49,7 +49,7 @@ public class MonthRow extends Composite implements WidgetResizeHandler {
   }
 
   /**
-   * Resizes the rows.
+   * Resizes the rows within this month row.
    */
   public void resizeRows() {
     int availableHeight = getElement().getOffsetHeight();

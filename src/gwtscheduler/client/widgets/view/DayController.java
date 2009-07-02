@@ -1,7 +1,5 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
-import gwtscheduler.client.widgets.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.view.common.AbstractCompositeDaysPanel;
 import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
 import gwtscheduler.common.calendar.IntervalType;
@@ -9,7 +7,6 @@ import gwtscheduler.common.calendar.IntervalType;
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
-import com.google.gwt.user.client.Element;
 import com.google.inject.Singleton;
 
 /**
@@ -18,9 +15,6 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class DayController extends AbstractViewController<AbstractCompositeDaysPanel> {
-  /** elements decorator */
-  //TODO bind with ui module
-  MultipleElementsDecorator<Element> decorator = new DateTimeLabelDecorator();
 
   @Override
   protected AbstractCompositeDaysPanel createView() {
@@ -50,13 +44,13 @@ public class DayController extends AbstractViewController<AbstractCompositeDaysP
 
   public Interval onNavigateNext() {
     Interval tp = getFactory().next().interval();
-    decorator.decorate(tp, getViewWidget());
+    getDecorator().decorate(tp, getViewWidget());
     return tp;
   }
 
   public Interval onNavigatePrevious() {
     Interval period = getFactory().previous().interval();
-    decorator.decorate(period, getViewWidget());
+    getDecorator().decorate(period, getViewWidget());
     return period;
   }
 
@@ -65,7 +59,7 @@ public class DayController extends AbstractViewController<AbstractCompositeDaysP
       getFactory().init(IntervalType.DAY, date);
     }
     Interval period = getFactory().interval();
-    decorator.decorate(period, getViewWidget());
+    getDecorator().decorate(period, getViewWidget());
     return period;
   }
 

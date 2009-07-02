@@ -103,4 +103,12 @@ public class CompositeMonthPanel extends Composite implements HasMultipleDecorab
     return monthView.getDecorablesIterator();
   }
 
+  /**
+   * Shows a given number of rows, hiding the others.
+   * @param rowNum the number of rows
+   */
+  public void showRows(int rowNum) {
+    monthView.showRows(rowNum);
+  }
+
 }

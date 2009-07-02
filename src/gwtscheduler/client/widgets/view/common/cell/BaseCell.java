@@ -38,4 +38,7 @@ public class BaseCell extends Widget implements Cell<Element> {
     return getElement();
   }
 
+  public int index(int rowsize) {
+    return row * rowsize + col;
+  }
 }

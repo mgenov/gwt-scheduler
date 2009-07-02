@@ -28,13 +28,12 @@ public class UIModule extends AbstractGinModule {
     bind(UIManager.class).to(DefaultUIRegistry.class).in(Singleton.class);;
     bind(DateGenerator.class).to(GenericDateGenerator.class);
 
+    // decorators
+    bind(MultipleElementsDecorator.class).to(DateTimeLabelDecorator.class);
+
     // controllers
     bind(ViewController.class).annotatedWith(Day.class).to(DayController.class);
     bind(ViewController.class).annotatedWith(Week.class).to(WeekController.class);
     bind(ViewController.class).annotatedWith(Month.class).to(MonthController.class);
-
-    bind(MultipleElementsDecorator.class).to(DateTimeLabelDecorator.class);
-
-    // decorators
   }
 }
