@@ -6,4 +6,6 @@
 <module>
 	<inherits name='gwtscheduler.Common' />
 	<source path="client"/>
+	<!-- stupid css hack -->
+   	<stylesheet src="/css/main.css" />
 </module>

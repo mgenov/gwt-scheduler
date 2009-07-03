@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.decorator;
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
 import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
+import gwtscheduler.client.modules.AppInjector;
 
 import java.util.List;
 
@@ -18,11 +19,21 @@ import com.google.gwt.user.client.Element;
  * @author malp
  */
 public class MonthLabelDecorator implements MultipleElementsDecorator<Element> {
+
   /** used to decide if horizontal redraw is needed */
   boolean hasRunHorizontal = false;
+  /** week days */
+  private final int WeekDays;
+
+  /**
+   * Default constructor.
+   */
+  public MonthLabelDecorator() {
+    WeekDays = AppInjector.GIN.getInjector().getConfiguration().daysInWeek();
+  }
 
   public void decorate(Interval interval, HasMultipleDecorables<Element> decorable) {
-    Period p = new Period(0, 0, 0, 7, 0, 0, 0, 0);//TODO instead of using hard coded value, use conf
+    Period p = new Period(0, 0, 0, WeekDays, 0, 0, 0, 0);
     decorateHorizontal(interval.getStart(), p, decorable.getDaysDecorableElements());
     decorateDays(interval, decorable.getMultipleDecorableElements());
   }
@@ -67,9 +78,14 @@ public class MonthLabelDecorator implements MultipleElementsDecorator<Element> {
 
     DateTime start = interval.getStart();
     for (Cell<Element> cell : elems) {
-      //TODO instead of using hard coded value, use conf
-      if (cell.index(7) % increment == 0) {
-        cell.getCellElement().setInnerText(start.getDayOfMonth() + "");
+
+      if (cell.index(WeekDays) % increment == 0) {
+        String label = "";
+        if (start.getDayOfMonth() == 1) {
+          label = start.monthOfYear().getAsShortText() + ", ";
+        }
+        label = label + start.getDayOfMonth();
+        cell.getCellElement().setInnerText(label);
         start = start.plusDays(1);
       }
     }

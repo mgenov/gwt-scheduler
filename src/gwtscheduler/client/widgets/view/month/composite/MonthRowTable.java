@@ -3,7 +3,6 @@ package gwtscheduler.client.widgets.view.month.composite;
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
-import gwtscheduler.client.utils.DebugUtils;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
@@ -100,9 +99,7 @@ class MonthRowTable extends Composite {
    */
   private BaseCell createCellElement(int row, int col) {
     BaseCell cell = new BaseCell(row, col);
-
-    DebugUtils.textRight("cell: " + row + ", " + col, cell.getElement());
-
+    //    DebugUtils.textRight("cell: " + row + ", " + col, cell.getElement());
     String className = CSS.monthCell();
     cell.addStyleName(className);
     if (row == 0) {

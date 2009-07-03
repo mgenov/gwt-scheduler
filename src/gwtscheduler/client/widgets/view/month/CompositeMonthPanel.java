@@ -11,7 +11,6 @@ import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
@@ -93,14 +92,6 @@ public class CompositeMonthPanel extends Composite implements HasMultipleDecorab
 
   public List<Cell<Element>> getWithinDayDecorableElements() {
     return null;
-  }
-
-  /**
-   * Gets the decorables iterator.
-   * @return the iterator
-   */
-  public Iterator<Cell<Element>> getDecorablesIterator() {
-    return monthView.getDecorablesIterator();
   }
 
   /**

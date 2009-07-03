@@ -8,3 +8,6 @@ temp
 .settings
 war/gwtscheduler*
 war/WEB-INF/classes
+tomcat
+.gwt-tmp
+

@@ -38,7 +38,7 @@ public class DefaultUIRegistry implements UIManager {
   }
 
   //TODO: navigation could be optimized, if the controller
-  //is aware of its own visibility. No need to advance within non-visible controller views
+  //is aware of its own visibility. can defer the advance for non-visible controller views
 
   public void addController(ViewController view) {
     views.add(view);
@@ -62,7 +62,6 @@ public class DefaultUIRegistry implements UIManager {
   }
 
   public void fireDateNavigation(ReadableDateTime date) {
-    //TODO maybe round the date to the nearest sunday
     for (ViewController controller : getControllers()) {
       controller.getNavigationListener().onNavigateTo(date);
     }

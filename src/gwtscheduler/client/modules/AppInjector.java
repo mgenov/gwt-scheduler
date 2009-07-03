@@ -1,5 +1,6 @@
 package gwtscheduler.client.modules;
 
+import gwtscheduler.client.interfaces.DateGenerator;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.modules.views.UIManager;
 
@@ -15,6 +16,12 @@ public interface AppInjector extends Ginjector {
    * @return the UI Registry
    */
   UIManager getUIRegistry();
+
+  /**
+   * Gets the date generator.
+   * @return the date generator
+   */
+  DateGenerator getDateGenerator();
 
   /**
    * Gets the application configuration.

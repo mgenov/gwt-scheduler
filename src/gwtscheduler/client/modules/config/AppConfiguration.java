@@ -16,7 +16,7 @@ public interface AppConfiguration {
   int startDayOfWeek();
 
   /**
-   * Gets the number of days in a week.
+   * Gets the number of days in a week. Typically it will be <code>7</code>.
    * @return the number of days in a week
    */
   int daysInWeek();

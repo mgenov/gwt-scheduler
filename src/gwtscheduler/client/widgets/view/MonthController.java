@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view;
 
 import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
+import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.decorator.MonthLabelDecorator;
 import gwtscheduler.client.widgets.view.month.CompositeMonthPanel;
 import gwtscheduler.common.calendar.IntervalType;
@@ -10,6 +11,7 @@ import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
 import com.google.gwt.user.client.Element;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -21,6 +23,19 @@ public class MonthController extends AbstractViewController<CompositeMonthPanel>
 
   /** decorator for labels */
   MultipleElementsDecorator<Element> decorator = new MonthLabelDecorator();
+
+  /** defines the number of days in a week */
+  final int WeekSize;
+
+  /**
+   * Default constructor.
+   * @param cfg the application configuration
+   */
+  @Inject
+  private MonthController(AppConfiguration cfg) {
+    //    WeekSize = AppInjector.GIN.getInjector().getConfiguration().daysInWeek();
+    WeekSize = cfg.daysInWeek();
+  }
 
   @Override
   protected CompositeMonthPanel createView() {
@@ -61,7 +76,7 @@ public class MonthController extends AbstractViewController<CompositeMonthPanel>
    */
   protected void adjustVisibleRows(Interval intv) {
     //must show the necessary rows only
-    int weeks = (Days.daysIn(intv).getDays() + 1) / 7; //TODO instead of using hard coded value, use conf
+    int weeks = (Days.daysIn(intv).getDays() + 1) / WeekSize;
     getViewWidget().showRows(weeks);
   }
 

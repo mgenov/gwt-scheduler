@@ -1,6 +1,7 @@
 package gwtscheduler.client.utils;
 
 import gwtscheduler.client.interfaces.DateGenerator;
+import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.common.calendar.IntervalType;
 
@@ -29,6 +30,12 @@ public class GenericDateGenerator implements DateGenerator {
   @Inject
   private AppConfiguration config;
 
+  /**
+   * Default constructor.
+   */
+  public GenericDateGenerator() {
+  }
+
   public DateTime current() {
     return start;
   }
@@ -45,6 +52,10 @@ public class GenericDateGenerator implements DateGenerator {
     } else {
       throw new IllegalArgumentException("Unknown interval type: " + interval.toString());
     }
+  }
+
+  public void goTo(DateTime start) {
+    generator.goTo(start);
   }
 
   public DateGenerator next() {
@@ -72,6 +83,12 @@ public class GenericDateGenerator implements DateGenerator {
     void next();
 
     /**
+     * Moves to the specified date.
+     * @param start the date
+     */
+    void goTo(DateTime start);
+
+    /**
      * Goes backward.
      */
     void previous();
@@ -94,6 +111,10 @@ public class GenericDateGenerator implements DateGenerator {
       return new Interval(start, end);
     }
 
+    public void goTo(DateTime where) {
+      start = where;
+    }
+
     public void next() {
       start = start.plusDays(1);
     }
@@ -108,22 +129,36 @@ public class GenericDateGenerator implements DateGenerator {
    * @author malp
    */
   private class WeekDateGenerator implements FixedDateGenerator {
+    /** defines the number of days in a week */
+    final int WeekSize;
+
+    /**
+     * Default constructor.
+     */
+    private WeekDateGenerator() {
+      WeekSize = AppInjector.GIN.getInjector().getConfiguration().daysInWeek();
+    }
+
+    public void goTo(DateTime where) {
+      start = where;
+    }
+
     public Interval interval() {
       DateTime end = null;
       //adjust to day of week start
       while (start.getDayOfWeek() != config.startDayOfWeek()) {
         start = start.plusDays(-1);
       }
-      end = start.plusDays(7);//TODO instead of using hard coded value, use conf
+      end = start.plusDays(WeekSize);
       return new Interval(start, end);
     }
 
     public void next() {
-      start = start.plusDays(7);
+      start = start.plusDays(WeekSize);
     }
 
     public void previous() {
-      start = start.plusDays(-7);
+      start = start.plusDays(-WeekSize);
     }
 
   }
@@ -133,6 +168,10 @@ public class GenericDateGenerator implements DateGenerator {
    * @author malp
    */
   private class MonthDateGenerator implements FixedDateGenerator {
+
+    public void goTo(DateTime where) {
+      start = where;
+    }
 
     public Interval interval() {
       DateTime end = null;

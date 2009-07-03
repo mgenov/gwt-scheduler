@@ -3,8 +3,6 @@
  "http://google-web-toolkit.googlecode.com/svn/tags/1.6.0/distro-source/core/src/gwt-module.dtd">
 
 <module>
-  <inherits name='com.google.gwt.user.User'/>
   <inherits name='gwtscheduler.Calendar'/>
-
   <entry-point class='gwtscheduler.client.ViewportTests'/>
 </module>

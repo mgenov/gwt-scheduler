@@ -28,6 +28,12 @@ public interface DateGenerator {
   DateTime current();
 
   /**
+   * Moves to the specified instant.
+   * @param start the start date
+   */
+  void goTo(DateTime start);
+
+  /**
    * Gets the next date period.
    * @return the next period
    */

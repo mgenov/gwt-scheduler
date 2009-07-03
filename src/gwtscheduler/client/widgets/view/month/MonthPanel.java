@@ -3,12 +3,13 @@ package gwtscheduler.client.widgets.view.month;
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
+import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.user.client.DOM;
@@ -31,11 +32,16 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
   private List<MonthRow> monthRows;
   /** list of hidden rows */
   private List<MonthRow> hiddenRows;
+  /** application config retrieved value */
+  private final int WeekSize;
 
   /**
    * Default constructor.
    */
   public MonthPanel() {
+    AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
+    WeekSize = config.daysInWeek();
+
     container = new FlowPanel();
     handler = new DefaultResizeHandler(this);
     wrapWidget(container);
@@ -43,9 +49,9 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
     monthRows = new ArrayList<MonthRow>();
     hiddenRows = new ArrayList<MonthRow>();
 
+    //6 is an estimate for the necessary rows
     for (int i = 0; i < 6; i++) {
-      //TODO use config
-      MonthRow row = new MonthRow(7);
+      MonthRow row = new MonthRow(WeekSize);
       monthRows.add(row);
       container.add(row);
     }
@@ -77,20 +83,6 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
     for (MonthRow row : monthRows) {
       row.onResize(event);
     }
-  }
-
-  /**
-   * Gets an iterator for all the decorable elements.
-   * @return the iterator
-   */
-  Iterator<Cell<Element>> getDecorablesIterator() {
-    //TODO create a combined iterator
-    List<Cell<Element>> mergedList = new ArrayList<Cell<Element>>();
-    for (MonthRow mr : monthRows) {
-      List<Cell<Element>> rl = mr.getTitleElements();
-      mergedList.addAll(rl);
-    }
-    return mergedList.iterator();
   }
 
   /**
@@ -127,8 +119,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
    */
   void showRows(int rowNum) {
     while (monthRows.size() < rowNum) {
-      //TODO use config
-      MonthRow row = new MonthRow(7);
+      MonthRow row = new MonthRow(WeekSize);
       monthRows.add(row);
       container.add(row);
     }
@@ -163,7 +154,6 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
    * @return the main cell elements
    */
   List<Cell<Element>> getMainElements() {
-    //TODO: the iterator stuff could be reworked, we don't need the temporary list
     List<Cell<Element>> mergedList = new ArrayList<Cell<Element>>();
     for (MonthRow mr : monthRows) {
       List<Cell<Element>> rl = mr.getTitleElements();

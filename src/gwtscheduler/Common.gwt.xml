@@ -36,7 +36,5 @@
 
    	<!-- aggregates all common source code (shared between client/server) -->
    	<source path="common" />
-   	<!-- stupid css hack -->
-   	<stylesheet src="/css/main.css" />
    	
 </module>
