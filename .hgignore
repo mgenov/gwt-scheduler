@@ -10,4 +10,5 @@ war/gwtscheduler*
 war/WEB-INF/classes
 tomcat
 .gwt-tmp
-
+report*.xml
+reports

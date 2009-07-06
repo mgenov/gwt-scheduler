@@ -1,4 +1,4 @@
-package gwtscheduler.common;
+package gwtscheduler.client.test;
 
 import static org.goda.time.DateTimeConstants.AUGUST;
 import static org.goda.time.DateTimeConstants.FEBRUARY;
@@ -23,7 +23,7 @@ import com.google.gwt.junit.client.GWTTestCase;
  * Test case for date factory.
  * @author malp
  */
-public class DateFactoryTestCase extends GWTTestCase {
+public class DateFactoryTests extends GWTTestCase {
 
   DateGenerator dayf;
   DateGenerator weekf;
@@ -34,7 +34,7 @@ public class DateFactoryTestCase extends GWTTestCase {
 
   @Override
   public String getModuleName() {
-    return "gwtscheduler.Calendar";
+    return "gwtscheduler.Tests";
   }
 
   @Before

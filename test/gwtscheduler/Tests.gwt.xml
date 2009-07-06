@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.6.0//EN" 
+ "http://google-web-toolkit.googlecode.com/svn/tags/1.6.0/distro-source/core/src/gwt-module.dtd">
+
+<!-- GWT Module for calendar source code-->
+<module>
+	<inherits name='gwtscheduler.Calendar' />
+	<source path="client"/>
+</module>

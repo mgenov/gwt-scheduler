@@ -33,7 +33,6 @@ public class MonthController extends AbstractViewController<CompositeMonthPanel>
    */
   @Inject
   private MonthController(AppConfiguration cfg) {
-    //    WeekSize = AppInjector.GIN.getInjector().getConfiguration().daysInWeek();
     WeekSize = cfg.daysInWeek();
   }
 

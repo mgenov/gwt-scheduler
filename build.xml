@@ -1,64 +1,118 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="ViewportTests" default="build" basedir=".">
+<project name="GwtScheduler" default="build" basedir=".">
 
-  <path id="project.class.path">
-    <pathelement location="war/WEB-INF/classes"/>
-    <pathelement location="C:/Java/gwt-windows-1.6.0/gwt-user.jar"/>
-    <pathelement location="C:/Java/gwt-windows-1.6.0/gwt-dev-windows.jar"/>
-    <!-- Add any additional non-server libs (such as JUnit) -->
-    <fileset dir="war/WEB-INF/lib">
-      <include name="**/*.jar"/>
-    </fileset>
-  </path>
+	<!-- main project props -->
+	<property environment="env" />
+	<property name="src.dir" value="src" />
+	<property name="test.dir" value="test" />
+	<property name="experimental.dir" value="experimental" />
 
-  <target name="libs" description="Copy libs to WEB-INF/lib">
-    <mkdir dir="war/WEB-INF/lib" />
-    <copy todir="war/WEB-INF/lib" file="C:/Java/gwt-windows-1.6.0/gwt-servlet.jar" />
-    <!-- Add any additional server libs that need to be copied -->
-  </target>
+	<property name="lib.dir" value="lib" />
+	<property name="war.dir" value="war" />
+	<property name="reports.dir" value="reports" />
 
-  <target name="javac" depends="libs" description="Compile java source">
-    <mkdir dir="war/WEB-INF/classes"/>
-    <javac srcdir="src" includes="**" encoding="utf-8"
-        destdir="war/WEB-INF/classes"
-        source="1.5" target="1.5" nowarn="true"
-        debug="true" debuglevel="lines,vars,source">
-      <classpath refid="project.class.path"/>
-    </javac>
-  </target>
+	<!-- main props -->
+	<echo message="       OS: ${env.OS}" />
+	<echo message="JAVA HOME: ${env.JAVA_HOME}" />
+	<echo message=" GWT HOME: ${env.GWT_HOME}" />
 
-  <!-- can add additional arguments like -logLevel INFO or -style PRETTY -->
-  <target name="gwtc" depends="javac" description="GWT compile to JavaScript">
-    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
-      <classpath>
-        <pathelement location="src"/>
-        <path refid="project.class.path"/>
-      </classpath>
-      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
-      <jvmarg value="-Xmx256M"/>
-      <arg value="gwtscheduler.ViewportTests"/>
-    </java>
-  </target>
+	<!-- checks if GWT_HOME is defined -->
+	<target name="validate-gwt-home" unless="env.GWT_HOME">
+		<fail message="Please define the GWT_HOME environment property" />
+	</target>
 
-  <target name="hosted" depends="javac" description="Run hosted mode">
-    <java failonerror="true" fork="true" classname="com.google.gwt.dev.HostedMode">
-      <classpath>
-        <pathelement location="src"/>
-        <path refid="project.class.path"/>
-      </classpath>
-      <jvmarg value="-Xmx256M"/>
-      <arg value="-startupUrl"/>
-      <arg value="ViewportTests.html"/>
-      <arg value="gwtscheduler.ViewportTests"/>
-      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
-    </java>
-  </target>
+	<!-- main class path -->
+	<path id="project.class.path">
+		<pathelement location="${src.dir}" />
+		<pathelement location="${experimental.dir}" />
+		<pathelement location="${war.dir}/WEB-INF/classes" />
+		<pathelement location="${env.GWT_HOME}/gwt-user.jar" />
+		<pathelement location="${env.GWT_HOME}/gwt-dev-windows.jar" />
+		<!-- Add any additional non-server libs (such as JUnit) -->
+		<fileset dir="${war.dir}/WEB-INF/lib" includes="**/*.jar" />
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
 
-  <target name="build" depends="gwtc" description="Build this project" />
+	<!-- test class path -->
+	<path id="project.test.class.path">
+		<path refid="project.class.path" />
+		<pathelement location="${test.dir}" />
+	</path>
 
-  <target name="clean" description="Cleans this project">
-    <delete dir="war/WEB-INF/classes" failonerror="false" />
-    <delete dir="war/viewporttests" failonerror="false" />
-  </target>
+	<!-- copy required libs -->
+	<target name="copy-libs" depends="validate-gwt-home" description="Copy libs to WEB-INF/lib">
+		<mkdir dir="${war.dir}/WEB-INF/lib" />
+		<copy todir="${war.dir}/WEB-INF/lib" file="${env.GWT_HOME}/gwt-servlet.jar" />
+		<!-- Add any additional server libs that need to be copied -->
+	</target>
 
+	<!-- compiles all srcs -->
+	<target name="compile" depends="copy-libs" description="Compile java source">
+		<mkdir dir="${war.dir}/WEB-INF/classes" />
+		<javac includes="**" encoding="utf-8" destdir="${war.dir}/WEB-INF/classes" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
+			<classpath refid="project.class.path" />
+			<src path="${src.dir}" />
+			<src path="${experimental.dir}" />
+			<src path="${test.dir}" />
+		</javac>
+	</target>
+
+	<!-- can add additional arguments like -logLevel INFO or -style PRETTY -->
+	<target name="gwtc" depends="compile" description="GWT compile to JavaScript">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath refid="project.class.path" />
+			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+			<jvmarg value="-Xmx512M" />
+			<arg value="gwtscheduler.ViewportTests" />
+		</java>
+	</target>
+
+	<!-- runs hosted mode browser -->
+	<target name="viewportTests" depends="compile" description="Run hosted mode">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.HostedMode">
+			<classpath refid="project.class.path" />
+			<jvmarg value="-Xmx512M" />
+			<arg value="-startupUrl" />
+			<arg value="ViewportTests.html" />
+			<arg value="gwtscheduler.ViewportTests" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+		</java>
+	</target>
+
+	<!-- runs all junit tests -->
+	<target name="test-all" depends="compile" description="Runs all junit test">
+		<junit printsummary="yes" haltonfailure="false">
+			<jvmarg value="-Xmx512M" />
+			<classpath refid="project.test.class.path" />
+			<batchtest fork="yes" todir="${reports.dir}">
+				<fileset dir="${test.dir}" includes="**/*Benchmark.java,**/*Tests.java" />
+			</batchtest>
+		</junit>
+
+		<!-- generates reports -->
+		<junitreport todir="${reports.dir}">
+			<fileset dir="${reports.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${reports.dir}" />
+		</junitreport>
+
+		<!-- launches benchmark viewer (windows only) -->
+		<!-- 
+		<exec executable="cmd">
+			<arg value="/c" />
+			<arg value="benchmarkViewer" />
+		</exec>
+		-->
+	</target>
+
+	<!-- builds the project -->
+	<target name="build" depends="gwtc" description="Build this project" />
+
+	<!-- cleans the project -->
+	<target name="clean" description="Cleans this project">
+		<delete dir="war/WEB-INF/classes" failonerror="false" />
+		<delete dir="war/viewporttests" failonerror="false" />
+		<delete dir="." includes="report-*.xml" />
+	</target>
 </project>
