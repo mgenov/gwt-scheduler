@@ -28,10 +28,10 @@ public abstract class AbstractDayPanel extends WrappedWidget implements HasResiz
    */
   public AbstractDayPanel() {
     container = new VerticalPanel();
-    container.setSize("100%", (getRows() * 2) + "em");
     wrapWidget(container);
 
     grid = new HorizontalGridFill(getRows(), getColumns());
+    grid.setSize("100%", getRows() * 2 + "em"); //TODO move this to configuration
     rh = new HorizontalGridFillResizeHandler(grid);
 
     container.add(grid);

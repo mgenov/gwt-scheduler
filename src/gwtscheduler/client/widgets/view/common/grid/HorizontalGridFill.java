@@ -91,7 +91,7 @@ public class HorizontalGridFill extends LazyPanel {
       Panel col = mainColumns.get(c);
 
       for (int r = 0; r < rows; r++) {
-        //        int id = (c * r) + c;
+        // int id = (c * r) + c;
         DayWeekCell cell = new DayWeekCell(r, c, "");
         col.add(cell);
         mainElements.add(cell);
