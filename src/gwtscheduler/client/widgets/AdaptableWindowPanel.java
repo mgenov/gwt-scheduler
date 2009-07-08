@@ -11,43 +11,54 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Defines a viewport to calendar events.
+ * Defines a panel that occupies just about enough of the visible screen. It can
+ * coexist with other hmtml elements or widgets in the same page.
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
  */
-public class ViewportPanel extends Composite implements ResizeHandler {
+public class AdaptableWindowPanel extends Composite implements ResizeHandler {
 
   /** main container */
-  private ScrollPanel container;
+  private ScrollPanel scrollPanel;
+  /** wrapper */
+  private Panel container;
+
   /** the minimum size for the target */
   private final int minWidth, minHeight;
 
   /**
    * Default constructor.
    */
-  public ViewportPanel() {
+  public AdaptableWindowPanel() {
     this(-1, -1);
   }
 
   /**
    * Another constructor.
-   * @param parent
    * @param minWidth the minimum width
    * @param minHeight the minimum height
    */
-  public ViewportPanel(int minWidth, int minHeight) {
+  public AdaptableWindowPanel(int minWidth, int minHeight) {
     this.minWidth = minWidth;
     this.minHeight = minHeight;
 
     // we never show hscroll
-    container = new ScrollPanel();
-    container.getElement().getStyle().setProperty("overflowX", "hidden");
-    initWidget(container);
+    scrollPanel = new ScrollPanel();
+    initWidget(scrollPanel);
+
+    getElement().getStyle().setProperty("overflowX", "hidden");
+    getElement().getStyle().setProperty("position", "relative");
+
+    container = new FlowPanel();
+    container.setSize("100%", "100%");
+    scrollPanel.add(container);
 
     Window.addResizeHandler(this);
   }
@@ -104,7 +115,7 @@ public class ViewportPanel extends Composite implements ResizeHandler {
    * @param handler the resize handler
    */
   public void add(Widget w, WidgetResizeHandler handler) {
-    container.add(w);
+    add(w);
     addHandler(handler, WidgetResizeEvent.getType());
   }
 

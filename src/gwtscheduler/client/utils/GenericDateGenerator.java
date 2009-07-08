@@ -14,7 +14,8 @@ import org.goda.time.ReadableDateTime;
 import com.google.inject.Inject;
 
 /**
- * Generic date factory. Used to calculate the correct interval for a given type of calendar.
+ * Generic date factory. Used to calculate the correct interval for a given type
+ * of calendar.
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0

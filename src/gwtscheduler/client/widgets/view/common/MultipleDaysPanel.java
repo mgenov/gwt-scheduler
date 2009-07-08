@@ -8,13 +8,14 @@ import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHand
 
 import java.util.List;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Abstract class for day and week views. Holds the main grid cells.
  */
-public abstract class AbstractDayPanel extends WrappedWidget implements HasResizeHandler {
+public abstract class MultipleDaysPanel extends WrappedWidget implements HasResizeHandler {
 
   /** Main container */
   protected VerticalPanel container;
@@ -26,8 +27,9 @@ public abstract class AbstractDayPanel extends WrappedWidget implements HasResiz
   /**
    * Default constructor.
    */
-  public AbstractDayPanel() {
+  public MultipleDaysPanel() {
     container = new VerticalPanel();
+    container.setSize("100%", getRows() * 2 + "em"); //TODO move this to configuration
     wrapWidget(container);
 
     grid = new HorizontalGridFill(getRows(), getColumns());
@@ -35,6 +37,18 @@ public abstract class AbstractDayPanel extends WrappedWidget implements HasResiz
     rh = new HorizontalGridFillResizeHandler(grid);
 
     container.add(grid);
+  }
+
+  /**
+   * Gets the offset position of a cell.
+   * @param cell the cell
+   * @return an array with the offset left and top
+   */
+  int[] getCellOffsetPosition(Cell<Element> cell) {
+    if (!DOM.isOrHasChild(grid.getElement(), cell.getCellElement())) {
+      throw new IllegalArgumentException("The cell is not a child of the grid widget!");
+    }
+    return grid.getCellOffsetPosition(cell);
   }
 
   /**
@@ -72,4 +86,5 @@ public abstract class AbstractDayPanel extends WrappedWidget implements HasResiz
    * @return the number of columns of this panel
    */
   protected abstract int getColumns();
+
 }

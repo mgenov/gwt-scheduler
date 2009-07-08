@@ -9,7 +9,7 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
  * @version $Revision: $
  * @since 1.0
  */
-public class DayWeekCell extends BaseCell {
+public class DayCell extends BaseCell {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -20,7 +20,7 @@ public class DayWeekCell extends BaseCell {
    * @param col the column index
    * @param label the label
    */
-  public DayWeekCell(int row, int col, String label) {
+  public DayCell(int row, int col, String label) {
     super(row, col);
 
     setStyleName(row % 2 == 0 ? CSS.evenCell() : CSS.oddCell());

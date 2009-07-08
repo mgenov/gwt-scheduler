@@ -17,17 +17,19 @@ public interface HasMultipleDecorables<T extends Element> {
    * Gets the horizontal decorable elements iterator.
    * @return the elements. The list should be unmodifiable
    */
-  List<Cell<T>> getDaysDecorableElements();
+  List<Cell<T>> getColumnsDecorableElements();
 
   /**
-   * Gets the vertical decorable elements iterator. These elements represent some time instance within the same day.
+   * Gets the vertical decorable elements iterator. These elements represent
+   * some time instance within the same day.
    * @return the elements. The list should be unmodifiable
    */
-  List<Cell<T>> getWithinDayDecorableElements();
+  List<Cell<T>> getRowsDecorableElements();
 
   /**
-   * Gets the decorable elements iterator that are neither horizontal or vertical, or are both at the same time.
+   * Gets the decorable elements iterator that are neither horizontal or
+   * vertical, or are both at the same time.
    * @return the elements. The list should be unmodifiable
    */
-  List<Cell<T>> getMultipleDecorableElements();
+  List<Cell<T>> getContentDecorableElements();
 }

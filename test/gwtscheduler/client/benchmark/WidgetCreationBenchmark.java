@@ -1,6 +1,6 @@
 package gwtscheduler.client.benchmark;
 
-import gwtscheduler.client.widgets.view.month.CompositeMonthPanel;
+import gwtscheduler.client.widgets.view.month.MonthCalendar;
 
 import org.junit.Test;
 
@@ -23,8 +23,7 @@ public class WidgetCreationBenchmark extends Benchmark {
    */
   @Test
   public void testMonthWidgetsCreation() {
-    CompositeMonthPanel cmp = new CompositeMonthPanel();
+    MonthCalendar cmp = new MonthCalendar();
     RootPanel.get().add(cmp);
   }
-
 }

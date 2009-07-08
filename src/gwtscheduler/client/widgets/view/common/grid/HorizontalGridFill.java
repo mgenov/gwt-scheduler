@@ -3,12 +3,13 @@ package gwtscheduler.client.widgets.view.common.grid;
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.widgets.view.common.cell.DayWeekCell;
+import gwtscheduler.client.widgets.view.common.cell.DayCell;
 import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
@@ -18,7 +19,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Horizontal Grid class.
+ * Horizontal Grid class. The grid has relative CSS positioning.
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
@@ -37,7 +38,6 @@ public class HorizontalGridFill extends LazyPanel {
   /** columns */
   private List<Panel> mainColumns;
   /** elements for quick access */
-  //TODO: we don't really need the extra list, we could create a combined iterator
   private List<Cell<Element>> mainElements;
   /** grid col count, excluding title column */
   private int columns;
@@ -45,7 +45,8 @@ public class HorizontalGridFill extends LazyPanel {
   private int rows;
 
   /**
-   * Creates a new grid with the supplied dimensions. An additional column will be added to supply a title.
+   * Creates a new grid with the supplied dimensions. An additional column will
+   * be added to supply a title.
    * @param rows the number of rows
    * @param cols the number of columns
    */
@@ -60,6 +61,7 @@ public class HorizontalGridFill extends LazyPanel {
     impl = new Grid(1, this.columns + 1);
     impl.setBorderWidth(0);
     impl.setStyleName(CSS.horizontalFillGrid());
+    impl.getElement().getStyle().setProperty("position", "relative");
 
     mainColumns = new ArrayList<Panel>();
     mainElements = new ArrayList<Cell<Element>>();
@@ -70,6 +72,8 @@ public class HorizontalGridFill extends LazyPanel {
       FlowPanel flowPanel = new FlowPanel();
       String className = (i == 0) ? CSS.titleColumn() : CSS.column();
       flowPanel.setStyleName(className);
+      flowPanel.getElement().getStyle().setProperty("position", "relative");
+
       if (i == 0) {
         titleColumn = flowPanel;
       } else {
@@ -92,13 +96,36 @@ public class HorizontalGridFill extends LazyPanel {
 
       for (int r = 0; r < rows; r++) {
         // int id = (c * r) + c;
-        DayWeekCell cell = new DayWeekCell(r, c, "");
+        DayCell cell = new DayCell(r, c, "");
         col.add(cell);
         mainElements.add(cell);
       }
     }
     return impl;
+  }
 
+  /**
+   * Gets the offset position of a base cell.
+   * @param baseCell the cell
+   * @return an array with the offset position of the cell
+   */
+  public int[] getCellOffsetPosition(Cell<? extends Element> baseCell) {
+    Element cell = baseCell.getCellElement();
+
+    int left = 0, top = 0;
+    left = cell.getOffsetLeft();
+    top = cell.getOffsetTop();
+
+    if (!titleElements.contains(baseCell)) {
+      for (Panel col : mainColumns) {
+        if (DOM.isOrHasChild(col.getElement(), cell)) {
+          left += col.getElement().getOffsetLeft();
+          top += col.getElement().getOffsetTop();
+          break;
+        }
+      }
+    }
+    return new int[] {left, top};
   }
 
   @Override

@@ -2,8 +2,8 @@ package gwtscheduler.client.widgets.view;
 
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
-import gwtscheduler.client.widgets.view.common.AbstractCompositeDaysPanel;
-import gwtscheduler.client.widgets.view.common.AbstractDayPanel;
+import gwtscheduler.client.widgets.view.common.MultipleDaysCalendar;
+import gwtscheduler.client.widgets.view.common.MultipleDaysPanel;
 import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.Interval;
@@ -17,13 +17,13 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class WeekController extends AbstractViewController<AbstractCompositeDaysPanel> {
+public class WeekController extends GenericViewController<MultipleDaysCalendar> {
 
-  protected AbstractCompositeDaysPanel createView() {
-    return new AbstractCompositeDaysPanel() {
+  protected MultipleDaysCalendar createView() {
+    return new MultipleDaysCalendar() {
       @Override
-      protected AbstractDayPanel createDayView() {
-        return new AbstractDayPanel() {
+      protected MultipleDaysPanel createDaysPanel() {
+        return new MultipleDaysPanel() {
 
           @Override
           protected int getColumns() {

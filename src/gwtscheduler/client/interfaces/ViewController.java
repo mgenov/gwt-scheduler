@@ -3,8 +3,8 @@ package gwtscheduler.client.interfaces;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Defines a calendar controller. Responsible for mediating the view and the listener. For most cases, the implementing class will be the
- * listener itself.
+ * Defines a calendar controller. Responsible for mediating the view and the
+ * listener. For most cases, the implementing class will be the listener itself.
  * @author malp
  */
 public interface ViewController {

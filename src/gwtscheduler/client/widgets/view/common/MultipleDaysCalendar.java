@@ -7,7 +7,7 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
-import gwtscheduler.client.widgets.ViewportPanel;
+import gwtscheduler.client.widgets.AdaptableWindowPanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class AbstractCompositeDaysPanel extends Composite implements HasMultipleDecorables<Element> {
+public abstract class MultipleDaysCalendar extends Composite implements HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -32,31 +32,37 @@ public abstract class AbstractCompositeDaysPanel extends Composite implements Ha
   /** widget impl */
   protected VerticalPanel impl;
   /** day view */
-  protected AbstractDayPanel mainView;
+  protected MultipleDaysPanel mainView;
   /** top view */
-  protected Widget topView;
+  protected Widget topHeader;
   /** top view cells */
   protected List<Cell<Element>> topLabels;
 
   /** viewport widget */
-  private ViewportPanel vmain;
+  private AdaptableWindowPanel vmain;
 
   /**
    * Default constructor.
    */
-  public AbstractCompositeDaysPanel() {
+  public MultipleDaysCalendar() {
     impl = new VerticalPanel();
 
-    mainView = createDayView();
-    vmain = new ViewportPanel();
+    mainView = createDaysPanel();
+    vmain = new AdaptableWindowPanel();
     vmain.add(mainView, mainView.getResizeHandler());
 
-    topView = createTopView(mainView.getColumns());
+    //css positioning
+    vmain.getElement().getStyle().setProperty("position", "relative");
+    mainView.getElement().getStyle().setProperty("position", "absolute");
+    mainView.getElement().getStyle().setPropertyPx("top", 0);
+    mainView.getElement().getStyle().setPropertyPx("left", 0);
 
-    impl.add(topView);
+    topHeader = createTopHeader(mainView.getColumns());
+
+    impl.add(topHeader);
     impl.add(vmain);
-
     initWidget(impl);
+
     // we'll delegate the resize to the viewport panel
     addHandler(new WidgetResizeHandler() {
       public void onResize(WidgetResizeEvent event) {
@@ -65,12 +71,33 @@ public abstract class AbstractCompositeDaysPanel extends Composite implements Ha
     }, WidgetResizeEvent.getType());
   }
 
+  //XXX: remove this code after testing
+//  @Override
+//  protected void onLoad() {
+//    super.onLoad();
+//    DeferredCommand.addCommand(new Command() {
+//      public void execute() {
+//        Label l = new Label("xxx");
+//        vmain.add(l);
+//
+//        int[] pos = mainView.getCellOffsetPosition(mainView.getMainDecorables().get(2));
+//        int left = pos[0];
+//        int top = pos[1];
+//        l.getElement().getStyle().setProperty("position", "absolute");
+//        l.getElement().getStyle().setPropertyPx("left", left);
+//        l.getElement().getStyle().setPropertyPx("top", top);
+//        DebugUtils.addBgColor(l.getElement());
+//        DebugUtils.addDebugBorder(l.getElement());
+//      }
+//    });
+//  }
+
   /**
    * Creates the top view widget.
    * @param columns the number of columns
    * @return the top view widget
    */
-  protected Widget createTopView(int columns) {
+  protected Widget createTopHeader(int columns) {
     FlexTable g = new FlexTable();
     g.addStyleName(CSS.genericContainer());
     g.setWidth("100%");
@@ -89,15 +116,15 @@ public abstract class AbstractCompositeDaysPanel extends Composite implements Ha
     return g;
   }
 
-  public List<Cell<Element>> getDaysDecorableElements() {
+  public List<Cell<Element>> getColumnsDecorableElements() {
     return Collections.unmodifiableList(topLabels);
   }
 
-  public List<Cell<Element>> getWithinDayDecorableElements() {
+  public List<Cell<Element>> getRowsDecorableElements() {
     return Collections.unmodifiableList(mainView.getTitleDecorables());
   }
 
-  public List<Cell<Element>> getMultipleDecorableElements() {
+  public List<Cell<Element>> getContentDecorableElements() {
     return Collections.unmodifiableList(mainView.getMainDecorables());
   }
 
@@ -105,5 +132,5 @@ public abstract class AbstractCompositeDaysPanel extends Composite implements Ha
    * Creates the day view widget.
    * @return the day view widget
    */
-  protected abstract AbstractDayPanel createDayView();
+  protected abstract MultipleDaysPanel createDaysPanel();
 }

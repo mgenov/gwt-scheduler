@@ -6,7 +6,7 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.widgets.ViewportPanel;
+import gwtscheduler.client.widgets.AdaptableWindowPanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Defines the composite month view.
  */
-public class CompositeMonthPanel extends Composite implements HasMultipleDecorables<Element> {
+public class MonthCalendar extends Composite implements HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -36,22 +36,27 @@ public class CompositeMonthPanel extends Composite implements HasMultipleDecorab
   /** top view cells */
   protected List<Cell<Element>> topLabels;
 
+  /** adaptable viewport */
+  private AdaptableWindowPanel vp;
+
   /**
    * Default constructor.
    */
-  public CompositeMonthPanel() {
+  public MonthCalendar() {
     impl = new VerticalPanel();
 
     monthView = new MonthPanel();
-    Widget topView = createTopView();
+    Widget topHeader = createTopHeader();
 
-    final ViewportPanel vp = new ViewportPanel();
+    vp = new AdaptableWindowPanel();
     DOM.setStyleAttribute(vp.getElement(), "overflowY", "hidden");
+    DOM.setStyleAttribute(vp.getElement(), "position", "relative");
     vp.add(monthView, monthView);
 
-    impl.add(topView);
+    impl.add(topHeader);
     impl.add(vp);
     initWidget(impl);
+
     // we'll delegate the resize to the viewport panel
     addHandler(new WidgetResizeHandler() {
       public void onResize(WidgetResizeEvent event) {
@@ -64,7 +69,7 @@ public class CompositeMonthPanel extends Composite implements HasMultipleDecorab
    * Creates the top view.
    * @return the top view widget
    */
-  private Widget createTopView() {
+  private Widget createTopHeader() {
     FlexTable g = new FlexTable();
     g.addStyleName(CSS.genericContainer());
     g.setWidth("100%");
@@ -72,7 +77,7 @@ public class CompositeMonthPanel extends Composite implements HasMultipleDecorab
     topLabels = new ArrayList<Cell<Element>>(7);
     for (int i = 0; i < 7; i++) {
       Cell<Element> cell = new BaseCell(0, i);
-      cell.getCellElement().setInnerHTML(0 + ", " + i);//debug
+      cell.getCellElement().setInnerHTML(0 + ", " + i);
       topLabels.add(cell);
 
       g.setElement(0, i, cell.getCellElement());
@@ -82,15 +87,37 @@ public class CompositeMonthPanel extends Composite implements HasMultipleDecorab
     return g;
   }
 
-  public List<Cell<Element>> getDaysDecorableElements() {
+  //XXX: delete after testing
+  //  @Override
+  //  protected void onLoad() {
+  //    super.onLoad();
+  //    DeferredCommand.addCommand(new Command() {
+  //      public void execute() {
+  //        Label l = new Label("month");
+  //        vp.add(l);
+  //
+  //        Cell<Element> cell = getContentDecorableElements().get(10);
+  //        int[] pos = monthView.getCellOffsetPosition(cell);
+  //        int left = pos[0];
+  //        int top = pos[1];
+  //        l.getElement().getStyle().setProperty("position", "absolute");
+  //        l.getElement().getStyle().setPropertyPx("left", left);
+  //        l.getElement().getStyle().setPropertyPx("top", top);
+  //        DebugUtils.addBgColor(l.getElement());
+  //        DebugUtils.addDebugBorder(l.getElement());
+  //      }
+  //    });
+  //  }
+
+  public List<Cell<Element>> getColumnsDecorableElements() {
     return Collections.unmodifiableList(topLabels);
   }
 
-  public List<Cell<Element>> getMultipleDecorableElements() {
+  public List<Cell<Element>> getContentDecorableElements() {
     return Collections.unmodifiableList(monthView.getMainElements());
   }
 
-  public List<Cell<Element>> getWithinDayDecorableElements() {
+  public List<Cell<Element>> getRowsDecorableElements() {
     return null;
   }
 

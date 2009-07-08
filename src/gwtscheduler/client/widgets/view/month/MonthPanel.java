@@ -45,7 +45,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
     container = new FlowPanel();
     handler = new DefaultResizeHandler(this);
     wrapWidget(container);
-
+    
     monthRows = new ArrayList<MonthRow>();
     hiddenRows = new ArrayList<MonthRow>();
 
@@ -55,6 +55,30 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
       monthRows.add(row);
       container.add(row);
     }
+  }
+
+  /**
+   * Gets the offset left and top of a cell. The cell must belong to this month
+   * panel.
+   * @param baseCell the cell
+   * @return an array with the offset left and top coordinates
+   */
+  public int[] getCellOffsetPosition(Cell<? extends Element> baseCell) {
+    Element cell = baseCell.getCellElement();
+    if (!DOM.isOrHasChild(container.getElement(), cell)) {
+      throw new IllegalArgumentException("The cell is not a child of the grid widget!");
+    }
+
+    int left = cell.getOffsetLeft();
+    int top = cell.getOffsetTop();
+    for (MonthRow row : monthRows) {
+      if (DOM.isOrHasChild(row.getElement(), cell)) {
+        left += row.getElement().getOffsetLeft();
+        top += row.getElement().getOffsetTop();
+        return new int[] {left, top};
+      }
+    }
+    throw new IllegalArgumentException("The cell is not a child of this widget");
   }
 
   @Override
@@ -69,7 +93,6 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
   protected void setRowHeights() {
     float height = ((float) 100 / monthRows.size());
     for (int i = 0; i < monthRows.size(); i++) {
-
       float top = ((float) 100 / monthRows.size()) * i;
       Element rowElement = monthRows.get(i).getElement();
       DOM.setStyleAttribute(rowElement, "top", top + "%");

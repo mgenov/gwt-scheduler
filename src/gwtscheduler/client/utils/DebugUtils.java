@@ -1,6 +1,5 @@
 package gwtscheduler.client.utils;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 
@@ -17,19 +16,15 @@ public class DebugUtils {
    * @param el the element
    */
   public static void addBgColor(Element el) {
-    if (GWT.isClient()) {
-      DOM.setStyleAttribute(el, "backgroundColor", "silver");
-    }
+    DOM.setStyleAttribute(el, "backgroundColor", "silver");
   }
 
   /**
    * Adds a border to the element.
    * @param el the element
    */
-  public static void addDebugBorder1(Element el) {
-    if (GWT.isClient()) {
-      DOM.setStyleAttribute(el, "border", "1px solid red");
-    }
+  public static void addDebugBorder(Element el) {
+    DOM.setStyleAttribute(el, "border", "1px solid red");
   }
 
   /**

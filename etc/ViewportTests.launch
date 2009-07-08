@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="com.google.gdt.eclipse.suite.webapp">
 <stringAttribute key="bad_container_name" value="\gwt-scheduler2\et"/>
-<booleanAttribute key="com.google.gdt.eclipse.core.AUTO_PORT_SELECTION" value="true"/>
+<stringAttribute key="com.google.gdt.eclipse.core.SERVER_PORT" value="8383"/>
 <listAttribute key="com.google.gwt.eclipse.core.ENTRY_POINT_MODULES">
 <listEntry value="gwtscheduler.ViewportTests"/>
 </listAttribute>

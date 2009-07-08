@@ -8,7 +8,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.libideas.client.StyleInjector;
 
 /**
- * "Shortcut" class for general resources. Will lazy {@link GWT#create(Class)} the resources as needed on first call.
+ * "Shortcut" class for general resources. Will lazy {@link GWT#create(Class)}
+ * the resources as needed on first call.
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0

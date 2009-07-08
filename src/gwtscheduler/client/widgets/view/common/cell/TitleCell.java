@@ -6,7 +6,7 @@ package gwtscheduler.client.widgets.view.common.cell;
  * @version $Revision: $
  * @since 1.0
  */
-public class TitleCell extends DayWeekCell {
+public class TitleCell extends DayCell {
 
   /**
    * Creates a new label.

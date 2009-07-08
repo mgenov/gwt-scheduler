@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -16,16 +17,26 @@ public abstract class WrappedWidget extends Composite {
   private SimplePanel wrapper;
 
   /**
-   * Default constructor. Should call {@link #wrapWidget(Widget)} here to initalize the widget.
+   * Default constructor. Should call {@link #wrapWidget(Widget)} here to
+   * initalize the widget.
    */
   public WrappedWidget() {
     wrapper = new SimplePanel();
+    wrapper.setSize("100%", "100%");
     super.initWidget(wrapper);
   }
 
   @Override
   protected void initWidget(Widget widget) {
     throw new IllegalArgumentException("Please call wrapWidget(Widget) instead");
+  }
+
+  /**
+   * Gets the wrapper widget.
+   * @return the wrapper widget
+   */
+  public Panel getWrapper() {
+    return wrapper;
   }
 
   /**

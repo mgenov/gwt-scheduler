@@ -3,7 +3,7 @@ package gwtscheduler.client.widgets.view;
 import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.decorator.MonthLabelDecorator;
-import gwtscheduler.client.widgets.view.month.CompositeMonthPanel;
+import gwtscheduler.client.widgets.view.month.MonthCalendar;
 import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.Days;
@@ -19,7 +19,7 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class MonthController extends AbstractViewController<CompositeMonthPanel> {
+public class MonthController extends GenericViewController<MonthCalendar> {
 
   /** decorator for labels */
   MultipleElementsDecorator<Element> decorator = new MonthLabelDecorator();
@@ -37,8 +37,8 @@ public class MonthController extends AbstractViewController<CompositeMonthPanel>
   }
 
   @Override
-  protected CompositeMonthPanel createView() {
-    return new CompositeMonthPanel();
+  protected MonthCalendar createView() {
+    return new MonthCalendar();
   }
 
   public String getTabLabel() {

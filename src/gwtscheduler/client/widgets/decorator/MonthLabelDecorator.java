@@ -34,8 +34,8 @@ public class MonthLabelDecorator implements MultipleElementsDecorator<Element> {
 
   public void decorate(Interval interval, HasMultipleDecorables<Element> decorable) {
     Period p = new Period(0, 0, 0, WeekDays, 0, 0, 0, 0);
-    decorateHorizontal(interval.getStart(), p, decorable.getDaysDecorableElements());
-    decorateDays(interval, decorable.getMultipleDecorableElements());
+    decorateHorizontal(interval.getStart(), p, decorable.getColumnsDecorableElements());
+    decorateDays(interval, decorable.getContentDecorableElements());
   }
 
   /**

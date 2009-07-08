@@ -80,7 +80,7 @@
 	</target>
 
 	<!-- runs all junit tests -->
-	<target name="test-all" depends="compile" description="Runs all junit test">
+	<target name="test-all" depends="clean,compile" description="Runs all junit test">
 		<junit printsummary="yes" haltonfailure="false">
 			<jvmarg value="-Xmx512M" />
 			<classpath refid="project.test.class.path" />
@@ -96,14 +96,14 @@
 			</fileset>
 			<report format="frames" todir="${reports.dir}" />
 		</junitreport>
+	</target>
 
-		<!-- launches benchmark viewer (windows only) -->
-		<!-- 
+	<!-- launches benchmark viewer (windows only) -->
+	<target name="benchmark-viewer" description="Launches the benchmark viewer">
 		<exec executable="cmd">
 			<arg value="/c" />
 			<arg value="benchmarkViewer" />
 		</exec>
-		-->
 	</target>
 
 	<!-- builds the project -->

@@ -28,7 +28,8 @@ public interface Cell<T extends Element> {
   Element getCellElement();
 
   /**
-   * Gets the index of this cell. The index is given by <code>(row * rowsize) + col</code>
+   * Gets the index of this cell. The index is given by
+   * <code>(row * rowsize) + col</code>
    * @param rowsize the rowsize
    * @return the index
    */

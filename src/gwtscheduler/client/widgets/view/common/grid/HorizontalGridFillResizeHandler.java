@@ -6,7 +6,7 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.resize.AbstractResizeHandler;
-import gwtscheduler.client.widgets.view.common.cell.DayWeekCell;
+import gwtscheduler.client.widgets.view.common.cell.DayCell;
 
 import java.util.Iterator;
 
@@ -57,22 +57,22 @@ public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<Horiz
 
     grid.setPixelSize(width - Constants.SCROLLBAR_WIDTH, height);
     int[] availableSize = getCellSize(width - Constants.SCROLLBAR_WIDTH, height);
-    
+
     // here's the src to update column widths also
-    int remainW = width - getTitleColumnOffsetWidth();
-    int remainingColWidth = (remainW / grid.getColumnCount()) - Constants.SCROLLBAR_WIDTH;
+    //    int remainW = width - getTitleColumnOffsetWidth();
+    //    int remainingColWidth = (remainW / grid.getColumnCount()) - Constants.SCROLLBAR_WIDTH;
 
     //column sizing
-    grid.getTitleColumn().setPixelSize(getTitleColumnOffsetWidth(), height);
-    for (int j = 0; j < grid.getMainColumns().size(); j++) {
-      Panel c = grid.getMainColumns().get(j);
-      c.setPixelSize(remainingColWidth, height);
-    }
+    //    grid.getTitleColumn().setPixelSize(getTitleColumnOffsetWidth(), height);
+    //    for (int j = 0; j < grid.getMainColumns().size(); j++) {
+    //      Panel c = grid.getMainColumns().get(j);
+    //      c.setPixelSize(remainingColWidth, height);
+    //    }
 
     // update title column
     Panel titleColumn = grid.getTitleColumn();
     for (Iterator<Widget> it = titleColumn.iterator(); it.hasNext();) {
-      DayWeekCell cell = (DayWeekCell) it.next();
+      DayCell cell = (DayCell) it.next();
       cell.setCompensatedPixelSize(getTitleColumnWidth(), availableSize[1]);
     }
 
@@ -82,7 +82,7 @@ public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<Horiz
 
       // resize cells
       for (Iterator<Widget> it = column.iterator(); it.hasNext();) {
-        DayWeekCell cell = (DayWeekCell) it.next();
+        DayCell cell = (DayCell) it.next();
         cell.setCompensatedPixelSize(availableSize[0], availableSize[1]);
       }
     }
@@ -97,7 +97,8 @@ public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<Horiz
   }
 
   /**
-   * Gets the title column width for the title column, including borders and padding.
+   * Gets the title column width for the title column, including borders and
+   * padding.
    * @return the title column offset width
    */
   int getTitleColumnOffsetWidth() {

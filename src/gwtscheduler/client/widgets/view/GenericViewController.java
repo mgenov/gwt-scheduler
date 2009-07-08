@@ -14,7 +14,7 @@ import com.google.inject.Inject;
  * Abstract class for view controllers.
  * @author malp
  */
-public abstract class AbstractViewController<T extends Widget> implements ViewController, EventNavigationListener {
+public abstract class GenericViewController<T extends Widget> implements ViewController, EventNavigationListener {
 
   /** view widget for the controller */
   private T view;
@@ -32,7 +32,7 @@ public abstract class AbstractViewController<T extends Widget> implements ViewCo
   /**
    * Default constructor.
    */
-  protected AbstractViewController() {
+  protected GenericViewController() {
     view = createView();
   }
 
