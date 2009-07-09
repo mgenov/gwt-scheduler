@@ -39,6 +39,7 @@ public class MonthRow extends Composite implements WidgetResizeHandler {
     initWidget(impl);
 
     setStyleName(Resources.monthCss().monthRow());
+    getElement().getStyle().setProperty("position", "relative");
   }
 
   public void onResize(WidgetResizeEvent event) {

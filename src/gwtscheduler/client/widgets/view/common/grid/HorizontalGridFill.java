@@ -9,7 +9,6 @@ import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
@@ -102,30 +101,6 @@ public class HorizontalGridFill extends LazyPanel {
       }
     }
     return impl;
-  }
-
-  /**
-   * Gets the offset position of a base cell.
-   * @param baseCell the cell
-   * @return an array with the offset position of the cell
-   */
-  public int[] getCellOffsetPosition(Cell<? extends Element> baseCell) {
-    Element cell = baseCell.getCellElement();
-
-    int left = 0, top = 0;
-    left = cell.getOffsetLeft();
-    top = cell.getOffsetTop();
-
-    if (!titleElements.contains(baseCell)) {
-      for (Panel col : mainColumns) {
-        if (DOM.isOrHasChild(col.getElement(), cell)) {
-          left += col.getElement().getOffsetLeft();
-          top += col.getElement().getOffsetTop();
-          break;
-        }
-      }
-    }
-    return new int[] {left, top};
   }
 
   @Override

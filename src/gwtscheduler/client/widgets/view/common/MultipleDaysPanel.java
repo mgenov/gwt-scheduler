@@ -8,7 +8,6 @@ import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHand
 
 import java.util.List;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -37,18 +36,6 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasResi
     rh = new HorizontalGridFillResizeHandler(grid);
 
     container.add(grid);
-  }
-
-  /**
-   * Gets the offset position of a cell.
-   * @param cell the cell
-   * @return an array with the offset left and top
-   */
-  int[] getCellOffsetPosition(Cell<Element> cell) {
-    if (!DOM.isOrHasChild(grid.getElement(), cell.getCellElement())) {
-      throw new IllegalArgumentException("The cell is not a child of the grid widget!");
-    }
-    return grid.getCellOffsetPosition(cell);
   }
 
   /**

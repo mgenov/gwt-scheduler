@@ -7,6 +7,8 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
+import gwtscheduler.client.utils.DOMUtils;
+import gwtscheduler.client.utils.DebugUtils;
 import gwtscheduler.client.widgets.AdaptableWindowPanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
@@ -14,17 +16,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class MultipleDaysCalendar extends Composite implements HasMultipleDecorables<Element> {
+public abstract class MultipleDaysCalendar extends Composite implements HasMultipleDecorables<Element>, SelectionHandler<Integer> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -69,28 +75,26 @@ public abstract class MultipleDaysCalendar extends Composite implements HasMulti
         vmain.doDeferredResize();
       }
     }, WidgetResizeEvent.getType());
+    //also need the handler for the selection
+    addHandler(this, SelectionEvent.getType());
   }
 
-  //XXX: remove this code after testing
-//  @Override
-//  protected void onLoad() {
-//    super.onLoad();
-//    DeferredCommand.addCommand(new Command() {
-//      public void execute() {
-//        Label l = new Label("xxx");
-//        vmain.add(l);
-//
-//        int[] pos = mainView.getCellOffsetPosition(mainView.getMainDecorables().get(2));
-//        int left = pos[0];
-//        int top = pos[1];
-//        l.getElement().getStyle().setProperty("position", "absolute");
-//        l.getElement().getStyle().setPropertyPx("left", left);
-//        l.getElement().getStyle().setPropertyPx("top", top);
-//        DebugUtils.addBgColor(l.getElement());
-//        DebugUtils.addDebugBorder(l.getElement());
-//      }
-//    });
-//  }
+  @Override
+  public void onSelection(SelectionEvent<Integer> event) {
+    //TODO fixme this is not working properly
+    GWT.log("onSelection called - good time to make some calcs", null);
+    Label l = new Label("xxx");
+    vmain.add(l);
+
+    Cell<Element> cell = mainView.getMainDecorables().get(10);
+    int[] pos = DOMUtils.getOffset(mainView.getElement(), cell.getCellElement());
+    int left = pos[0];
+    int top = pos[1];
+    l.getElement().getStyle().setProperty("position", "absolute");
+    l.getElement().getStyle().setPropertyPx("left", left);
+    l.getElement().getStyle().setPropertyPx("top", top);
+    DebugUtils.addBgColor(l.getElement());
+  }
 
   /**
    * Creates the top view widget.
