@@ -13,11 +13,7 @@ import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -26,7 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Main navigation panel.
  * @author malp
  */
-public class DateViewsTabPanel extends Composite implements BeforeSelectionHandler<Integer>, SelectionHandler<Integer> {
+public class DateViewsTabPanel extends Composite implements BeforeSelectionHandler<Integer>{
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -42,8 +38,6 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
     impl = new DecoratedTabPanel();
     initWidget(impl);
     impl.addBeforeSelectionHandler(this);
-    impl.addSelectionHandler(this);
-
     controllers = new HashMap<Integer, ViewController>();
   }
 
@@ -53,18 +47,7 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
     w.fireEvent(new WidgetResizeEvent(DOMUtils.getViewportDimensions()));
   }
 
-  @Override
-  public void onSelection(final SelectionEvent<Integer> event) {
-    final Widget w = impl.getWidget(event.getSelectedItem());
-    DeferredCommand.addCommand(new Command() {
-      @Override
-      public void execute() {
-        w.fireEvent(event);
-      }
-    });
-  }
-
-  /**
+   /**
    * Adds a new view to this tab panel.
    * @param controller the controller
    */

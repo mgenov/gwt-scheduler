@@ -1,8 +1,6 @@
 package gwtscheduler.client.utils;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 
 /**
  * All native code goes here.
@@ -29,15 +27,18 @@ public class DOMUtils {
    * @param child the child element
    * @return an array with the left and top offsets
    */
-  public static int[] getOffset(Element parent, Element child) {
-    assert DOM.isOrHasChild(parent, child) : "The supplied element is not a child of the parent.";
+  public static int[] getOffset(com.google.gwt.dom.client.Element parent, com.google.gwt.dom.client.Element child) {
     assert parent != child : "The parent element is the same as the child element.";
+    assert parent != null : "The parent element cannot be null";
+    assert parent.isOrHasChild(child) : "The supplied element is not a child of the parent.";
+
     int left = 0, top = 0;
-    Element nextParent = (Element) child.getOffsetParent();
-    while (nextParent != parent && nextParent != null) {
+    com.google.gwt.dom.client.Element nextParent = child.getParentElement();
+    //using > while(nextParent != parent...) doesn't wokr
+    while (parent.isOrHasChild(nextParent) && nextParent != null) {
       left += nextParent.getOffsetLeft();
       top += nextParent.getOffsetTop();
-      nextParent = (Element) nextParent.getOffsetParent();
+      nextParent = nextParent.getOffsetParent();
     }
     if (nextParent == null) {
       GWT.log("DOMUtils: offset was traced to a null parent node!", null);

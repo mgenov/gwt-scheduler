@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.uievents.resize.HasResizeHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
@@ -17,12 +18,12 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
 
 /**
- * View class for months.
+ * View class for months. Handles its own resizes.
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0
  */
-class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
+class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasResizeHandler {
 
   /** Main container */
   private FlowPanel container;
@@ -55,6 +56,10 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler {
       monthRows.add(row);
       container.add(row);
     }
+  }
+  
+  public WidgetResizeHandler getResizeHandler() {
+    return this;
   }
 
   @Override

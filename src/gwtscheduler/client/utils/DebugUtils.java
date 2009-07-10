@@ -1,5 +1,9 @@
 package gwtscheduler.client.utils;
 
+import gwtscheduler.client.interfaces.Cell;
+
+import java.util.Collection;
+
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 
@@ -10,6 +14,20 @@ import com.google.gwt.user.client.Element;
  * @since 1.0
  */
 public class DebugUtils {
+
+  /**
+   * Creates a timer that keeps updating each one of the collection elements
+   * regularly with their offset position.
+   * @param parent the parent to calculate the offset
+   * @param els the collection
+   * @param scheduleTime the time for the timer repeating schedule
+   */
+  public static void trackPosition(final Element parent, final Collection<Cell<Element>> els) {
+    for (Cell<Element> el : els) {
+      int[] pos = DOMUtils.getOffset(parent, el.getCellElement());
+      el.getCellElement().setInnerText("left: " + pos[0] + ", top: " + pos[1]);
+    }
+  }
 
   /**
    * Adds a border to the element.

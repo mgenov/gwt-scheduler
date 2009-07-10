@@ -17,8 +17,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
@@ -30,7 +28,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class MultipleDaysCalendar extends Composite implements HasMultipleDecorables<Element>, SelectionHandler<Integer> {
+public abstract class MultipleDaysCalendar extends Composite implements HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -55,7 +53,9 @@ public abstract class MultipleDaysCalendar extends Composite implements HasMulti
 
     mainView = createDaysPanel();
     vmain = new AdaptableWindowPanel();
-    vmain.add(mainView, mainView.getResizeHandler());
+    //    vmain.add(mainView, mainView.getResizeHandler());
+    vmain.add(mainView);
+    vmain.addResizeHandler(mainView.getResizeHandler());
 
     //css positioning
     vmain.getElement().getStyle().setProperty("position", "relative");
@@ -73,14 +73,12 @@ public abstract class MultipleDaysCalendar extends Composite implements HasMulti
     addHandler(new WidgetResizeHandler() {
       public void onResize(WidgetResizeEvent event) {
         vmain.doDeferredResize();
+        onSelection();
       }
     }, WidgetResizeEvent.getType());
-    //also need the handler for the selection
-    addHandler(this, SelectionEvent.getType());
   }
 
-  @Override
-  public void onSelection(SelectionEvent<Integer> event) {
+  public void onSelection() {
     //TODO fixme this is not working properly
     GWT.log("onSelection called - good time to make some calcs", null);
     Label l = new Label("xxx");

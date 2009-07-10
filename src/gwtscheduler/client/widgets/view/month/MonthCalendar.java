@@ -6,7 +6,6 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.utils.DebugUtils;
 import gwtscheduler.client.widgets.AdaptableWindowPanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
@@ -15,22 +14,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Defines the composite month view.
  */
-public class MonthCalendar extends Composite implements HasMultipleDecorables<Element>, SelectionHandler<Integer> {
+public class MonthCalendar extends Composite implements HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -57,7 +52,8 @@ public class MonthCalendar extends Composite implements HasMultipleDecorables<El
     vp = new AdaptableWindowPanel();
     DOM.setStyleAttribute(vp.getElement(), "overflowY", "hidden");
     DOM.setStyleAttribute(vp.getElement(), "position", "relative");
-    vp.add(monthView, monthView);
+    vp.add(monthView);
+    vp.addResizeHandler(monthView.getResizeHandler());
 
     impl.add(topHeader);
     impl.add(vp);
@@ -67,27 +63,23 @@ public class MonthCalendar extends Composite implements HasMultipleDecorables<El
     addHandler(new WidgetResizeHandler() {
       public void onResize(WidgetResizeEvent event) {
         vp.doDeferredResize();
+        onSelection();
       }
     }, WidgetResizeEvent.getType());
+
     //also need the handler for the selection
-    addHandler(this, SelectionEvent.getType());
+    //    vp.addResizeHandler(new WidgetResizeHandler() {
+    //      public void onResize(WidgetResizeEvent event) {
+    //        onSelection();
+    //      }
+    //    });
   }
 
-  @Override
-  public void onSelection(SelectionEvent<Integer> event) {
-    //TODO fixme this is not working properly
-    GWT.log("onSelection called - good time to make some calcs", null);
-    Label l = new Label("month");
-    vp.add(l);
-
-    Cell<Element> cell = getContentDecorableElements().get(10);
-    int[] pos = DOMUtils.getOffset(getElement(), cell.getCellElement());
-    int left = pos[0];
-    int top = pos[1];
-    l.getElement().getStyle().setProperty("position", "absolute");
-    l.getElement().getStyle().setPropertyPx("left", left);
-    l.getElement().getStyle().setPropertyPx("top", top);
-    DebugUtils.addBgColor(l.getElement());
+  /**
+   * Debug method.
+   */
+  void onSelection() {
+    DebugUtils.trackPosition(monthView.getElement(), getContentDecorableElements());
   }
 
   /**

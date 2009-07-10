@@ -110,12 +110,10 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler {
   }
 
   /**
-   * Adds a widget to this viewport.
-   * @param w the widget
+   * Adds a resize handler to this panel.
    * @param handler the resize handler
    */
-  public void add(Widget w, WidgetResizeHandler handler) {
-    add(w);
+  public void addResizeHandler(WidgetResizeHandler handler) {
     addHandler(handler, WidgetResizeEvent.getType());
   }
 
