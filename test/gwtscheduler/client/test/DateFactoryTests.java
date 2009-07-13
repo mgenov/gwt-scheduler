@@ -95,5 +95,11 @@ public class DateFactoryTests extends GWTTestCase {
     assertEquals(1, intv.getEnd().getDayOfMonth());
     assertEquals(MARCH, intv.getEnd().getMonthOfYear());
   }
+  
+  @Test
+  public void testDayIntervalsJuly(){
+    Interval intv = moveGenerator(dayf, 13, JULY, 2009).interval();
+    assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
+  }
 
 }

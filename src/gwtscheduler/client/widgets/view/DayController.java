@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.widgets.view.common.MultipleDaysCalendar;
-import gwtscheduler.client.widgets.view.common.MultipleDaysPanel;
+import gwtscheduler.client.widgets.view.days.MultipleDaysCalendar;
+import gwtscheduler.client.widgets.view.days.MultipleDaysPanel;
 import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.Interval;

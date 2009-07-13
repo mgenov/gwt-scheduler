@@ -53,6 +53,7 @@ public class GenericDateGenerator implements DateGenerator {
     } else {
       throw new IllegalArgumentException("Unknown interval type: " + interval.toString());
     }
+    goTo(start.toDateTime());
   }
 
   public void goTo(DateTime start) {

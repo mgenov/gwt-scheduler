@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.Cell;
-import gwtscheduler.client.interfaces.uievents.resize.HasResizeHandler;
+import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
@@ -13,6 +13,7 @@ import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -23,7 +24,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasResizeHandler {
+class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidgetResizeHandlers {
 
   /** Main container */
   private FlowPanel container;
@@ -57,9 +58,18 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasResize
       container.add(row);
     }
   }
-  
-  public WidgetResizeHandler getResizeHandler() {
+
+  /**
+   * Gets the resize handler for this widget.
+   * @return the resize handler
+   */
+  WidgetResizeHandler getWidgetResizeHandler() {
     return this;
+  }
+
+  @Override
+  public HandlerRegistration addWidgetResizeHandler(WidgetResizeHandler handler) {
+    return addHandler(handler, WidgetResizeEvent.getType());
   }
 
   @Override
@@ -76,7 +86,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasResize
     for (int i = 0; i < monthRows.size(); i++) {
       Element rowElement = monthRows.get(i).getElement();
       //this is incompatible with 'position:relative'
-      //      DOM.setStyleAttribute(rowElement, "top", (((float) 100 / monthRows.size()) * i) + "%"); 
+      // DOM.setStyleAttribute(rowElement, "top", (((float) 100 / monthRows.size()) * i) + "%"); 
       DOM.setStyleAttribute(rowElement, "height", height + "%");
     }
   }

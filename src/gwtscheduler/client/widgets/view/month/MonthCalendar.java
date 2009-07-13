@@ -2,12 +2,13 @@ package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
+import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
+import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
+import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DebugUtils;
-import gwtscheduler.client.widgets.AdaptableWindowPanel;
+import gwtscheduler.client.widgets.view.common.RedrawableCalendar;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
@@ -17,62 +18,43 @@ import java.util.List;
 import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Defines the composite month view.
  */
-public class MonthCalendar extends Composite implements HasMultipleDecorables<Element> {
+public class MonthCalendar extends RedrawableCalendar implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
-  /** widget impl */
-  protected VerticalPanel impl;
   /** month view instance */
   protected MonthPanel monthView;
   /** top view cells */
   protected List<Cell<Element>> topLabels;
 
-  /** adaptable viewport */
-  private AdaptableWindowPanel vp;
-
   /**
    * Default constructor.
    */
   public MonthCalendar() {
-    impl = new VerticalPanel();
-
     monthView = new MonthPanel();
     Widget topHeader = createTopHeader();
 
-    vp = new AdaptableWindowPanel();
-    DOM.setStyleAttribute(vp.getElement(), "overflowY", "hidden");
-    DOM.setStyleAttribute(vp.getElement(), "position", "relative");
-    vp.add(monthView);
-    vp.addResizeHandler(monthView.getResizeHandler());
+    DOM.setStyleAttribute(getWindowPanel().getElement(), "overflowY", "hidden");
+    DOM.setStyleAttribute(getWindowPanel().getElement(), "position", "relative");
+    getWindowPanel().add(monthView);
+    getWindowPanel().addWidgetResizeHandler(monthView.getWidgetResizeHandler());
 
-    impl.add(topHeader);
-    impl.add(vp);
-    initWidget(impl);
+    getContainer().add(topHeader);
+    getContainer().add(getWindowPanel());
 
-    // we'll delegate the resize to the viewport panel
-    addHandler(new WidgetResizeHandler() {
-      public void onResize(WidgetResizeEvent event) {
-        vp.doDeferredResize();
+    addWidgetRedrawHandler(new WidgetRedrawHandler() {
+      @Override
+      public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
         onSelection();
       }
-    }, WidgetResizeEvent.getType());
-
-    //also need the handler for the selection
-    //    vp.addResizeHandler(new WidgetResizeHandler() {
-    //      public void onResize(WidgetResizeEvent event) {
-    //        onSelection();
-    //      }
-    //    });
+    });
   }
 
   /**

@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets;
 
+import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.utils.Constants;
@@ -7,6 +8,7 @@ import gwtscheduler.client.utils.DOMUtils;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
@@ -23,7 +25,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class AdaptableWindowPanel extends Composite implements ResizeHandler {
+public class AdaptableWindowPanel extends Composite implements ResizeHandler, HasWidgetResizeHandlers {
 
   /** main container */
   private ScrollPanel scrollPanel;
@@ -109,12 +111,9 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler {
     container.add(w);
   }
 
-  /**
-   * Adds a resize handler to this panel.
-   * @param handler the resize handler
-   */
-  public void addResizeHandler(WidgetResizeHandler handler) {
-    addHandler(handler, WidgetResizeEvent.getType());
+  @Override
+  public HandlerRegistration addWidgetResizeHandler(WidgetResizeHandler handler) {
+    return addHandler(handler, WidgetResizeEvent.getType());
   }
 
   public void onResize(final ResizeEvent event) {
