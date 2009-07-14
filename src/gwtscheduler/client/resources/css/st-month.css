@@ -27,6 +27,7 @@
   width: 100%;
   table-layout: fixed;
   background: defaultBg;
+  border-right: monthCellBorderLeftPx solid blued;
 }
 
 .monthCell {
