@@ -7,7 +7,7 @@ import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 
 /**
- * General application module.
+ * General application module. Change at will.
  * @author malp
  */
 public class AppModule extends AbstractGinModule {

@@ -32,12 +32,13 @@ public class DOMUtils {
     assert parent != null : "The parent element cannot be null";
     assert parent.isOrHasChild(child) : "The supplied element is not a child of the parent.";
 
-    int left = 0, top = 0;
+    int left = child.getOffsetLeft(), top = child.getOffsetTop();
     com.google.gwt.dom.client.Element nextParent = child.getParentElement();
     //using > while(nextParent != parent...) doesn't work
     while (parent.isOrHasChild(nextParent) && nextParent != null) {
       left += nextParent.getOffsetLeft();
       top += nextParent.getOffsetTop();
+
       nextParent = nextParent.getOffsetParent();
     }
     if (nextParent == null) {

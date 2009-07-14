@@ -16,4 +16,8 @@ public class DefaultAppConfiguration implements AppConfiguration {
     return 7;
   }
 
+  public int getDaysLineHeight() {
+    return 2;
+  }
+
 }

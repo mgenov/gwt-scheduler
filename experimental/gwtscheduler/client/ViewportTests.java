@@ -38,7 +38,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     DateViewsTabPanel main = new DateViewsTabPanel();
     // the registry will be pre-filled with default controllers
-    // for day, week and month, plus our own dummy controller
     for (ViewController controller : registry.getControllers()) {
       main.add(controller);
     }

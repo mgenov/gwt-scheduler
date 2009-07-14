@@ -20,4 +20,10 @@ public interface AppConfiguration {
    * @return the number of days in a week
    */
   int daysInWeek();
+
+  /**
+   * Gets the line height of the days cells in the day/week view.
+   * @return the number of lines that each cell occupies
+   */
+  int getDaysLineHeight();
 }

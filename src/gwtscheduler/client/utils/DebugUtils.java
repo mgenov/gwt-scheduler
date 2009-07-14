@@ -23,9 +23,10 @@ public class DebugUtils {
    * @param scheduleTime the time for the timer repeating schedule
    */
   public static void trackPosition(final Element parent, final Collection<Cell<Element>> els) {
-    for (Cell<Element> el : els) {
-      int[] pos = DOMUtils.getOffset(parent, el.getCellElement());
-      el.getCellElement().setInnerText("left: " + pos[0] + ", top: " + pos[1]);
+    for (Cell<Element> cell : els) {
+      int[] pos = DOMUtils.getOffset(parent, cell.getCellElement());
+      Element el = cell.getCellElement();
+      el.setInnerText("left: " + pos[0] + ", top: " + pos[1]);
     }
   }
 

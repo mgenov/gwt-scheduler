@@ -4,6 +4,8 @@ import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
+import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFill;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHandler;
@@ -26,17 +28,24 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
   /** Resize handler */
   private WidgetResizeHandler rh;
 
+  /** static ref to app configuration */
+  private static final AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
+
   /**
    * Default constructor.
    */
   public MultipleDaysPanel() {
     container = new VerticalPanel();
-    container.setSize("100%", getRows() * 2 + "em"); //TODO move this to configuration
     wrapWidget(container);
 
     grid = new HorizontalGridFill(getRows(), getColumns());
-    grid.setSize("100%", getRows() * 2 + "em"); //TODO move this to configuration
     rh = new HorizontalGridFillResizeHandler(grid);
+
+    // this defines the row height 
+    int lh = config.getDaysLineHeight();
+    //FIXME this two lines don't work very well in IE...
+    container.setSize("100%", getRows() * lh + "em");
+    grid.setSize("100%", getRows() * lh + "em");
 
     container.add(grid);
   }

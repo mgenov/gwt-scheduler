@@ -46,9 +46,6 @@ public abstract class MultipleDaysCalendar extends RedrawableCalendar implements
 
     //css positioning
     getWindowPanel().getElement().getStyle().setProperty("position", "relative");
-//    mainView.getElement().getStyle().setProperty("position", "relative");
-//    mainView.getElement().getStyle().setPropertyPx("top", 0);
-//    mainView.getElement().getStyle().setPropertyPx("left", 0);
 
     topHeader = createTopHeader(mainView.getColumns());
 
@@ -66,6 +63,10 @@ public abstract class MultipleDaysCalendar extends RedrawableCalendar implements
   void onSelection() {
     DebugUtils.trackPosition(mainView.getElement(), getContentDecorableElements());
   }
+
+  static native int getOffsetJSNI(Element el) /*-{
+    return el.offsetTop;
+  }-*/;
 
   /**
    * Creates the top view widget.
