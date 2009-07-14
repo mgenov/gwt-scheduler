@@ -66,6 +66,10 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
     return grid.getMainElements();
   }
 
+  /**
+   * Gets the proper resize handler for this widget.
+   * @return the resize handler
+   */
   WidgetResizeHandler getWidgetResizeHandler() {
     return rh;
   }
