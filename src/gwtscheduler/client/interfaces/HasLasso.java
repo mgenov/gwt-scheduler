@@ -5,14 +5,14 @@ package gwtscheduler.client.interfaces;
  * lasso selection on the screen.
  * @author malp
  */
-public interface Lasso {
+public interface HasLasso {
 
   /**
    * Sets the lasso size.
    * @param rows the number of rows
    * @param cols the number of columns
    */
-  void setSize(int rows, int cols);
+  void setGridSize(int rows, int cols);
 
   /**
    * Starts the lasso selection at the specified index.

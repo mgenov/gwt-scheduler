@@ -8,8 +8,7 @@ import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
-import gwtscheduler.client.utils.DebugUtils;
-import gwtscheduler.client.widgets.view.common.RedrawableCalendar;
+import gwtscheduler.client.widgets.view.common.RedrawablePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class MultipleDaysCalendar extends RedrawableCalendar implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
+public abstract class MultipleDaysCalendar extends RedrawablePanel implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -40,17 +39,14 @@ public abstract class MultipleDaysCalendar extends RedrawableCalendar implements
    * Default constructor.
    */
   public MultipleDaysCalendar() {
+    super();
     mainView = createDaysPanel();
-    getWindowPanel().add(mainView);
-    getWindowPanel().addWidgetResizeHandler(mainView.getWidgetResizeHandler());
-
-    //css positioning
-    getWindowPanel().getElement().getStyle().setProperty("position", "relative");
-
     topHeader = createTopHeader(mainView.getColumns());
 
-    getContainer().add(topHeader);
-    getContainer().add(getWindowPanel());
+    addToWindow(mainView);
+    addWidgetResizeHandler(mainView.getWidgetResizeHandler());
+
+    insert(topHeader, 0);
 
     addWidgetRedrawHandler(new WidgetRedrawHandler() {
       @Override
@@ -61,12 +57,7 @@ public abstract class MultipleDaysCalendar extends RedrawableCalendar implements
   }
 
   void onSelection() {
-    DebugUtils.trackPosition(mainView.getElement(), getContentDecorableElements());
   }
-
-  static native int getOffsetJSNI(Element el) /*-{
-    return el.offsetTop;
-  }-*/;
 
   /**
    * Creates the top view widget.

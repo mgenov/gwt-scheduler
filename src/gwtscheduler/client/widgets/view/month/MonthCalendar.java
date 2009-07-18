@@ -7,8 +7,7 @@ import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
 import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.utils.DebugUtils;
-import gwtscheduler.client.widgets.view.common.RedrawableCalendar;
+import gwtscheduler.client.widgets.view.common.RedrawablePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
@@ -24,7 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Defines the composite month view.
  */
-public class MonthCalendar extends RedrawableCalendar implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
+public class MonthCalendar extends RedrawablePanel implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -38,16 +36,16 @@ public class MonthCalendar extends RedrawableCalendar implements HasWidgetRedraw
    * Default constructor.
    */
   public MonthCalendar() {
+    super();
     monthView = new MonthPanel();
     Widget topHeader = createTopHeader();
 
-    DOM.setStyleAttribute(getWindowPanel().getElement(), "overflowY", "hidden");
-    DOM.setStyleAttribute(getWindowPanel().getElement(), "position", "relative");
-    getWindowPanel().add(monthView);
-    getWindowPanel().addWidgetResizeHandler(monthView.getWidgetResizeHandler());
+    // DOM.setStyleAttribute(getWindowPanel().getElement(), "overflowY", "hidden");
 
-    getContainer().add(topHeader);
-    getContainer().add(getWindowPanel());
+    addToWindow(monthView);
+    addWidgetResizeHandler(monthView.getWidgetResizeHandler());
+
+    insert(topHeader, 0);
 
     addWidgetRedrawHandler(new WidgetRedrawHandler() {
       @Override
@@ -61,7 +59,6 @@ public class MonthCalendar extends RedrawableCalendar implements HasWidgetRedraw
    * Debug method.
    */
   void onSelection() {
-    DebugUtils.trackPosition(monthView.getElement(), getContentDecorableElements());
   }
 
   /**

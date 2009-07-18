@@ -6,20 +6,19 @@ import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
-import gwtscheduler.client.widgets.AdaptableWindowPanel;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Abstract class for calendars with resize and redraw events.
  * @author malp
  */
-public abstract class RedrawableCalendar extends Composite implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
+public abstract class RedrawablePanel extends Composite implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
 
   /** widget impl */
   private VerticalPanel impl;
@@ -29,13 +28,13 @@ public abstract class RedrawableCalendar extends Composite implements HasWidgetR
   /**
    * Default constructor.
    */
-  public RedrawableCalendar() {
-    super();
+  public RedrawablePanel() {
     impl = new VerticalPanel();
     initWidget(impl);
 
     windowPanel = new AdaptableWindowPanel();
-    
+    windowPanel.getElement().getStyle().setProperty("position", "relative");
+
     // we'll "delegate" the resize to the window panel
     // but the viewport panel will retrieve the available size
     //this is only fired the first time the panel is loaded
@@ -46,31 +45,52 @@ public abstract class RedrawableCalendar extends Composite implements HasWidgetR
     });
     windowPanel.addWidgetResizeHandler(new WidgetResizeHandler() {
       @Override
-      public void onResize(WidgetResizeEvent event) {
+      public void onResize(final WidgetResizeEvent event) {
         DeferredCommand.addCommand(new Command() {
           @Override
           public void execute() {
-            delegateEvent(RedrawableCalendar.this, new WidgetRedrawEvent());
+            delegateEvent(RedrawablePanel.this, event);
+            delegateEvent(RedrawablePanel.this, new WidgetRedrawEvent());
           }
         });
       }
     });
+    add(windowPanel);
   }
 
   /**
-   * Gets the main panel.
-   * @return the main panel
+   * Adds a wiget to this panel.
+   * @param w the widget
    */
-  protected Panel getContainer() {
-    return impl;
+  protected void add(Widget w) {
+    impl.add(w);
   }
 
   /**
-   * Gets the window panel.
-   * @return the window panel
+   * Adds a wiget to this panel.
+   * @param w the widget
+   * @param beforeIndex the index
    */
-  protected AdaptableWindowPanel getWindowPanel() {
-    return windowPanel;
+  protected void insert(Widget w, int beforeIndex) {
+    impl.insert(w, beforeIndex);
+  }
+
+  /**
+   * Adds a widget to the window panel.
+   * @param w the widget to add
+   */
+  protected void addToWindow(Widget w) {
+    windowPanel.add(w);
+  }
+
+  /**
+   * Adds an absolutely positioned widget to the window panel
+   * @param widget the widget
+   * @param left left
+   * @param top top
+   */
+  protected void addToWindow(Widget widget, int left, int top) {
+    windowPanel.add(widget, left, top);
   }
 
   @Override

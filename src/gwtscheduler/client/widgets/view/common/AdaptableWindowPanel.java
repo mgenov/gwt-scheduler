@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets;
+package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
@@ -10,11 +10,11 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -30,27 +30,13 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler, Ha
   /** main container */
   private ScrollPanel scrollPanel;
   /** wrapper */
-  private Panel container;
-
-  /** the minimum size for the target */
-  private final int minWidth, minHeight;
+  private AbsolutePanel container;
 
   /**
    * Default constructor.
    */
   public AdaptableWindowPanel() {
-    this(-1, -1);
-  }
-
-  /**
-   * Another constructor.
-   * @param minWidth the minimum width
-   * @param minHeight the minimum height
-   */
-  public AdaptableWindowPanel(int minWidth, int minHeight) {
-    this.minWidth = minWidth;
-    this.minHeight = minHeight;
-
+    super();
     // we never show hscroll
     scrollPanel = new ScrollPanel();
     initWidget(scrollPanel);
@@ -58,8 +44,10 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler, Ha
     getElement().getStyle().setProperty("overflowX", "hidden");
     getElement().getStyle().setProperty("position", "relative");
 
-    container = new FlowPanel();
+    //    container = new FlowPanel();
+    container = new AbsolutePanel();
     container.setSize("100%", "100%");
+    DOM.setStyleAttribute(container.getElement(), "overflow", "");
     scrollPanel.add(container);
 
     Window.addResizeHandler(this);
@@ -71,11 +59,11 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler, Ha
    * @param viewportHeight the available viewport height
    */
   void doResize(int viewporWidth, int viewportHeight) {
-    int maxWidth = viewporWidth - getWidget().getAbsoluteLeft();
-    int maxHeight = viewportHeight - getWidget().getAbsoluteTop();
+    int maxWidth = viewporWidth - scrollPanel.getAbsoluteLeft();
+    int maxHeight = viewportHeight - scrollPanel.getAbsoluteTop();
 
-    maxWidth = Math.max(maxWidth, minWidth) - Constants.SCROLLBAR_WIDTH;
-    maxHeight = Math.max(maxHeight, minHeight) - 10; // 10px for margin
+    maxWidth = maxWidth - Constants.SCROLLBAR_WIDTH;
+    maxHeight = maxHeight - 10; // 10px for margin
 
     if (maxWidth > 0) {
       setWidth(maxWidth + "px");
@@ -111,6 +99,10 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler, Ha
     container.add(w);
   }
 
+  public void add(Widget w, int left, int top) {
+    container.add(w, left, top);
+  }
+
   @Override
   public HandlerRegistration addWidgetResizeHandler(WidgetResizeHandler handler) {
     return addHandler(handler, WidgetResizeEvent.getType());
@@ -143,5 +135,4 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler, Ha
     super.onAttach();
     doDeferredResize();
   }
-
 }
