@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
@@ -40,8 +41,6 @@ public class MonthCalendar extends RedrawablePanel implements HasWidgetRedrawHan
     monthView = new MonthPanel();
     Widget topHeader = createTopHeader();
 
-    // DOM.setStyleAttribute(getWindowPanel().getElement(), "overflowY", "hidden");
-
     addToWindow(monthView);
     addWidgetResizeHandler(monthView.getWidgetResizeHandler());
 
@@ -53,6 +52,13 @@ public class MonthCalendar extends RedrawablePanel implements HasWidgetRedrawHan
         onSelection();
       }
     });
+  }
+
+  @Override
+  protected void styleWindow(Widget window) {
+    super.styleWindow(window);
+    //TODO this is not elegant, but works...
+    DOM.setStyleAttribute(window.getElement(), "overflowY", "hidden");
   }
 
   /**

@@ -18,7 +18,8 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Horizontal Grid class. The grid has relative CSS positioning.
+ * Horizontal Grid class. The grid has relative CSS positioning. Also contains a
+ * title column aligned to the left.
  * @author Miguel Ping
  * @version $Revision: $
  * @since 1.0

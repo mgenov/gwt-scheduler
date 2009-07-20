@@ -43,6 +43,7 @@ public class DayController extends GenericViewController<MultipleDaysCalendar> {
   }
 
   public Interval onNavigateNext() {
+    //TODO verify that the view is attached
     Interval tp = getFactory().next().interval();
     getDecorator().decorate(tp, getViewWidget());
     return tp;

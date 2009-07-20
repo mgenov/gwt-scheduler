@@ -54,6 +54,13 @@ public abstract class MultipleDaysCalendar extends RedrawablePanel implements Ha
         onSelection();
       }
     });
+
+    //TODO I need a special lasso event
+    // because the lasso size may not be the window size
+    //    LassoPanel lasso = new LassoPanel();
+    //    lasso.setSize("100%", "100%");
+    //    DOM.setStyleAttribute(lasso.getElement(), "zIndex", "1");
+    //    addToWindow(lasso, 0, 0);
   }
 
   void onSelection() {

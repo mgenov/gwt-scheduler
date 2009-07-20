@@ -46,7 +46,6 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
     //FIXME this two lines don't work very well in IE...
     container.setSize("100%", getRows() * lh + "em");
     grid.setSize("100%", getRows() * lh + "em");
-
     container.add(grid);
   }
 

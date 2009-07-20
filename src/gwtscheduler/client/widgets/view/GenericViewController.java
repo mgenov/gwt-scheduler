@@ -22,7 +22,7 @@ public abstract class GenericViewController<T extends Widget> implements ViewCon
   /** date factory class */
   @Inject
   private DateGenerator factory;
-
+  
   /** elements decorator */
   //TODO use gin to inject
   //  @Inject
