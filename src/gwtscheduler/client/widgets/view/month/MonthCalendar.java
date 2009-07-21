@@ -5,10 +5,11 @@ import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
 import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
 import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
 import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.widgets.view.common.RedrawablePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
+import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Defines the composite month view.
  */
-public class MonthCalendar extends RedrawablePanel implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
+public class MonthCalendar extends LassoAwarePanel implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -65,6 +66,15 @@ public class MonthCalendar extends RedrawablePanel implements HasWidgetRedrawHan
    * Debug method.
    */
   void onSelection() {
+  }
+
+  @Override
+  protected void positionLasso(Widget lasso) {
+  }
+
+  @Override
+  protected void resizeLasso(Widget lasso, WidgetResizeEvent event) {
+    lasso.setPixelSize(event.width, event.height);
   }
 
   /**

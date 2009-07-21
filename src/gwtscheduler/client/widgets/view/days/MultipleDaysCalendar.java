@@ -5,17 +5,22 @@ import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
 import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
 import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
 import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
+import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
-import gwtscheduler.client.widgets.view.common.RedrawablePanel;
+import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
+import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
@@ -23,7 +28,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class MultipleDaysCalendar extends RedrawablePanel implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
+public abstract class MultipleDaysCalendar extends LassoAwarePanel implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -34,6 +39,9 @@ public abstract class MultipleDaysCalendar extends RedrawablePanel implements Ha
   protected Widget topHeader;
   /** top view cells */
   protected List<Cell<Element>> topLabels;
+
+  /** static ref to app configuration */
+  private static final AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
 
   /**
    * Default constructor.
@@ -54,16 +62,23 @@ public abstract class MultipleDaysCalendar extends RedrawablePanel implements Ha
         onSelection();
       }
     });
-
-    //TODO I need a special lasso event
-    // because the lasso size may not be the window size
-    //    LassoPanel lasso = new LassoPanel();
-    //    lasso.setSize("100%", "100%");
-    //    DOM.setStyleAttribute(lasso.getElement(), "zIndex", "1");
-    //    addToWindow(lasso, 0, 0);
   }
 
   void onSelection() {
+  }
+
+  @Override
+  protected void positionLasso(Widget lasso) {
+    Element first = getContentDecorableElements().get(0).getCellElement();
+    int[] offset = DOMUtils.getOffset(lasso.getParent().getElement(), first);
+    if (offset[0] > 0) {
+      DOM.setStyleAttribute(lasso.getElement(), "left", offset[0] + "px");
+    }
+  }
+
+  @Override
+  protected void resizeLasso(Widget lasso, WidgetResizeEvent event) {
+    lasso.setSize("100%", (config.getDaysLineHeight() * mainView.getRows()) + "em");
   }
 
   /**
