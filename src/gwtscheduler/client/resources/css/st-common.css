@@ -33,3 +33,8 @@
   padding: genericContainerPaddingPx;
 }
 
+/** lasso widgets */
+.lasso {
+  background: silver;
+}
+

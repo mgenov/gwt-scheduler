@@ -16,6 +16,9 @@ import com.google.inject.Singleton;
 @Singleton
 public class DayController extends GenericViewController<MultipleDaysCalendar> {
 
+  /** number of rows */
+  private final int Rows = 48;
+
   @Override
   protected MultipleDaysCalendar createView() {
     return new MultipleDaysCalendar() {
@@ -30,7 +33,7 @@ public class DayController extends GenericViewController<MultipleDaysCalendar> {
 
           @Override
           protected int getRows() {
-            return 48; // 24*2
+            return Rows; // 24*2
           }
 
         };

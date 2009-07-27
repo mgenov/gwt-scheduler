@@ -19,6 +19,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class WeekController extends GenericViewController<MultipleDaysCalendar> {
 
+
   protected MultipleDaysCalendar createView() {
     return new MultipleDaysCalendar() {
       @Override
@@ -50,7 +51,7 @@ public class WeekController extends GenericViewController<MultipleDaysCalendar> 
     return tp;
   }
 
-  public Interval onNavigatePrevious() { 
+  public Interval onNavigatePrevious() {
     //TODO verify that the view is attached
     Interval period = getFactory().previous().interval();
     getDecorator().decorate(period, getViewWidget());

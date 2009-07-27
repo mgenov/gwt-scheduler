@@ -55,6 +55,7 @@ public class MonthController extends GenericViewController<MonthCalendar> {
   public Interval onNavigatePrevious() {
     Interval prev = getFactory().previous().interval();
     adjustVisibleRows(prev);
+    //    getViewWidget().setGridSize(rows, cols)
     decorator.decorate(prev, getViewWidget());
     return prev;
   }

@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
@@ -24,7 +25,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidgetResizeHandlers {
+class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidgetResizeHandlers, LassoSubject {
 
   /** Main container */
   private FlowPanel container;
@@ -174,5 +175,15 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidget
       mergedList.addAll(rl);
     }
     return mergedList;
+  }
+
+  @Override
+  public int[] getLassoGridSize() {
+    return new int[] {getVisibleRowsSize(), 7};
+  }
+
+  @Override
+  public final List<Cell<Element>> getLassoSubjects() {
+    return getMainElements();
   }
 }
