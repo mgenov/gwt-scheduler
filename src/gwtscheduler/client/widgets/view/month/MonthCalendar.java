@@ -53,6 +53,8 @@ public class MonthCalendar extends LassoAwarePanel implements HasWidgetRedrawHan
         onSelection();
       }
     });
+    
+    initLasso(monthView);
   }
 
   @Override

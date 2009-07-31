@@ -12,10 +12,16 @@ import com.google.gwt.user.client.Element;
 public interface LassoSubject {
 
   /**
-   * Gets the lasso grid size.
-   * @return the lasso grid size
+   * Gets the number of rows.
+   * @return the number of rows
    */
-  int[] getLassoGridSize();
+  int getRowNum();
+
+  /**
+   * Gets the number of columns
+   * @return the number of columns
+   */
+  int getColNum();
 
   /**
    * Gets the lasso subject elements.

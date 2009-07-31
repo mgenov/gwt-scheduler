@@ -40,8 +40,8 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
    * Sets the lasso subject.
    * @param subject the subject
    */
-  void setLassoSubject(LassoSubject subject) {
-    lasso.setLassoSubject(subject);
+  protected void initLasso(LassoSubject subject) {
+    lasso.initialize(subject);
   }
 
   /**

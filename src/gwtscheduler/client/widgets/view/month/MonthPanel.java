@@ -178,8 +178,14 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidget
   }
 
   @Override
-  public int[] getLassoGridSize() {
-    return new int[] {getVisibleRowsSize(), 7};
+  public int getColNum() {
+    //always 7 columns, one for each week day
+    return 7; //TODO use config?
+  }
+
+  @Override
+  public int getRowNum() {
+    return getVisibleRowsSize();
   }
 
   @Override

@@ -51,8 +51,13 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
   }
 
   @Override
-  public int[] getLassoGridSize() {
-    return new int[] {getRows(), getColumns()};
+  public int getColNum() {
+    return getColumns();
+  }
+
+  @Override
+  public int getRowNum() {
+    return getRows();
   }
 
   @Override

@@ -62,6 +62,8 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements Ha
         onSelection();
       }
     });
+    
+    initLasso(mainView);
   }
 
   /**
