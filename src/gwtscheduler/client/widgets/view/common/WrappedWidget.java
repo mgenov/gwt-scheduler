@@ -27,7 +27,7 @@ public abstract class WrappedWidget extends Composite {
   }
 
   @Override
-  protected void initWidget(Widget widget) {
+  protected final void initWidget(Widget widget) {
     throw new IllegalArgumentException("Please call wrapWidget(Widget) instead");
   }
 

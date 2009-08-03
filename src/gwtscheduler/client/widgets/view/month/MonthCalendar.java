@@ -50,10 +50,10 @@ public class MonthCalendar extends LassoAwarePanel implements HasWidgetRedrawHan
     addWidgetRedrawHandler(new WidgetRedrawHandler() {
       @Override
       public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
-        onSelection();
+        MonthCalendar.this.onRedraw();
       }
     });
-    
+
     initLasso(monthView);
   }
 
@@ -67,11 +67,12 @@ public class MonthCalendar extends LassoAwarePanel implements HasWidgetRedrawHan
   /**
    * Debug method.
    */
-  void onSelection() {
+  void onRedraw() {
   }
 
   @Override
-  protected void positionLasso(Widget lasso) {
+  protected void positionLasso(Widget lasso, WidgetResizeEvent event) {
+    //lasso is fixed position
   }
 
   @Override

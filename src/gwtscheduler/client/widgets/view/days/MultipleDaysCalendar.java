@@ -59,21 +59,21 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements Ha
     addWidgetRedrawHandler(new WidgetRedrawHandler() {
       @Override
       public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
-        onSelection();
+        MultipleDaysCalendar.this.onRedraw();
       }
     });
-    
+
     initLasso(mainView);
   }
 
   /**
    * Utility method fired when the calendar is redrawn.
    */
-  void onSelection() {
+  void onRedraw() {
   }
 
   @Override
-  protected void positionLasso(Widget lasso) {
+  protected void positionLasso(Widget lasso, WidgetResizeEvent event) {
     Element first = getContentDecorableElements().get(0).getCellElement();
     int[] offset = DOMUtils.getOffset(lasso.getParent().getElement(), first);
     if (offset[0] > 0) {

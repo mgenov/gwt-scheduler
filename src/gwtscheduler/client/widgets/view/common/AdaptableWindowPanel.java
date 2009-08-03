@@ -44,7 +44,6 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler, Ha
     getElement().getStyle().setProperty("overflowX", "hidden");
     getElement().getStyle().setProperty("position", "relative");
 
-    //    container = new FlowPanel();
     container = new AbsolutePanel();
     container.setSize("100%", "100%");
     DOM.setStyleAttribute(container.getElement(), "overflow", "");

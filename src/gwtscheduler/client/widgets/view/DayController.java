@@ -17,6 +17,7 @@ import com.google.inject.Singleton;
 public class DayController extends GenericViewController<MultipleDaysCalendar> {
 
   /** number of rows */
+  //TODO move to constant file or so
   private final int Rows = 48;
 
   @Override

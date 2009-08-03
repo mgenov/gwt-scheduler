@@ -24,6 +24,18 @@ public interface LassoSubject {
   int getColNum();
 
   /**
+   * Gets the subject's width
+   * @return the width
+   */
+  int getWidth();
+
+  /**
+   * Gets the subject's height
+   * @return the height
+   */
+  int getHeight();
+
+  /**
    * Gets the lasso subject elements.
    * @return the lasso elements
    */

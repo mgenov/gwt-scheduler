@@ -14,10 +14,10 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 /**
- * Lasso panel.
+ * Lasso panel. Responsible for displaying user lasso selections.
  * @author malp
  */
-public class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHandler, MouseUpHandler {
+class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHandler, MouseUpHandler {
 
   /** the lasso subject grid */
   private LassoSubject subject;
@@ -28,7 +28,7 @@ public class LassoPanel extends AbsolutePanel implements MouseDownHandler, Mouse
   /**
    * Default constructor.
    */
-  public LassoPanel() {
+  LassoPanel() {
     //style
     addStyleName(Resources.dayWeekCss().lasso());
     DOM.setStyleAttribute(getElement(), "opacity", "0.3");
@@ -39,11 +39,23 @@ public class LassoPanel extends AbsolutePanel implements MouseDownHandler, Mouse
     addDomHandler(this, MouseMoveEvent.getType());
   }
 
+  /**
+   * Sets the lasso subject.
+   * @param subject the subject
+   */
+  void initialize(LassoSubject subject) {
+    this.subject = subject;
+  }
+
   @Override
   public void onMouseDown(MouseDownEvent event) {
     isMouseDown = true;
     int x = event.getRelativeX(getElement());
-    int y = event.getRelativeX(getElement());
+    int y = event.getRelativeY(getElement());
+
+    int rowPos = (y / (subject.getHeight() / subject.getRowNum()));
+    int colPos = (x / (subject.getWidth() / subject.getColNum()));
+
   }
 
   @Override
@@ -56,14 +68,6 @@ public class LassoPanel extends AbsolutePanel implements MouseDownHandler, Mouse
     if (!isMouseDown) {
       return;
     }
-  }
-
-  /**
-   * Sets the lasso subject.
-   * @param subject the subject
-   */
-  void initialize(LassoSubject subject) {
-    this.subject = subject;
   }
 
 }

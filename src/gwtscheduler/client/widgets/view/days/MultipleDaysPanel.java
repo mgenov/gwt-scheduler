@@ -93,6 +93,16 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
     return addHandler(handler, WidgetResizeEvent.getType());
   }
 
+  @Override
+  public int getHeight() {
+    return grid.getElement().getOffsetHeight();
+  }
+
+  @Override
+  public int getWidth() {
+    return grid.getElement().getOffsetWidth();
+  }
+
   /**
    * Gets the number of rows.
    * @return the number of rows of this panel

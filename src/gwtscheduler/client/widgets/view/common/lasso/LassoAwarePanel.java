@@ -25,12 +25,13 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
   public LassoAwarePanel() {
     super();
     lasso = new LassoPanel();
+    //TODO move to constant file or so
     DOM.setStyleAttribute(lasso.getElement(), "zIndex", "1");
     addToWindow(lasso, 0, 0);
     addWidgetResizeHandler(new WidgetResizeHandler() {
       @Override
       public void onResize(WidgetResizeEvent event) {
-        positionLasso(lasso);
+        positionLasso(lasso, event);
         resizeLasso(lasso, event);
       }
     });
@@ -45,14 +46,15 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
   }
 
   /**
-   * Should position the lasso correctly.
+   * Responsible for positioning the lasso correctly.
    * @param lasso the lasso
+   * @param event the last resize event
    */
-  protected abstract void positionLasso(Widget lasso);
+  protected abstract void positionLasso(Widget lasso, WidgetResizeEvent event);
 
   /**
    * Responsible for sizing the lasso appropriately.
-   * @param lasso the lasso
+   * @param lasso the lasso widget
    * @param event the last resize event
    */
   protected abstract void resizeLasso(Widget lasso, WidgetResizeEvent event);
