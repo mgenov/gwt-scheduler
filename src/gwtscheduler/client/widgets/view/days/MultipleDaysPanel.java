@@ -7,6 +7,8 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.resources.Resources;
+import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFill;
 import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHandler;
@@ -21,6 +23,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * Abstract class for day and week views. Holds the main grid cells.
  */
 public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidgetResizeHandlers, LassoSubject {
+
+  /** static ref to css */
+  private static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
   /** Main container */
   protected VerticalPanel container;
@@ -95,12 +100,12 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
 
   @Override
   public int getHeight() {
-    return grid.getElement().getOffsetHeight();
+    return grid.getElement().getOffsetHeight();// - CSS.smallBorderPx();
   }
 
   @Override
   public int getWidth() {
-    return grid.getElement().getOffsetWidth();
+    return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx();
   }
 
   /**

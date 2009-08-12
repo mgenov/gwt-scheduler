@@ -2,6 +2,7 @@ package gwtscheduler.client.widgets.view.common.lasso;
 
 import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.resources.Resources;
+import gwtscheduler.client.resources.css.DayWeekCssResource;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -22,7 +23,6 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
 
   /** the lasso subject grid */
   private LassoSubject subject;
-
   /** indicates if a lasso is being selected or not */
   private boolean isMouseDown = false;
   /** the lasso starting position */
@@ -39,7 +39,6 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
     addDomHandler(this, MouseUpEvent.getType());
     addDomHandler(this, MouseMoveEvent.getType());
     
-    DOM.setStyleAttribute(getElement(), "position", "absolute");
     DOM.setStyleAttribute(getElement(), "opacity", "0.5");
     DOM.setStyleAttribute(getElement(), "filter", "alpha(opacity=50)");
   }
@@ -70,6 +69,9 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
 
   @Override
   public void onMouseDown(MouseDownEvent event) {
+    if(isMouseDown) {
+      return;
+    }
     isMouseDown = true;
     startPos = calculateCellPosition(event);
     clear();
@@ -122,7 +124,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
 
     int x = event.getRelativeX(getElement());
     int y = event.getRelativeY(getElement());
-
+    //TODO factor row width and height
     int rowPos = (y / (subject.getHeight() / subject.getRowNum()));
     int colPos = (x / (subject.getWidth() / subject.getColNum()));
 
@@ -137,6 +139,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
   private int[] calculateLeftTop(int[] cellPos) {
     assert cellPos != null : "Cell position cannot be null";
     assert cellPos.length == 2 : "Position length != 2";
+    //TODO factor row width and height
     int rowH = (subject.getHeight() / subject.getRowNum());
     int colW = (subject.getWidth() / subject.getColNum());
     return new int[] {cellPos[1] * colW, cellPos[0] * rowH};
