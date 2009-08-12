@@ -42,7 +42,7 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
    * @param subject the subject
    */
   protected void initLasso(LassoSubject subject) {
-    lasso.initialize(subject);
+    lasso.setLassoSubject(subject);
   }
 
   /**
