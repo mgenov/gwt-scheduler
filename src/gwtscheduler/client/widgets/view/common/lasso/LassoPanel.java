@@ -2,7 +2,7 @@ package gwtscheduler.client.widgets.view.common.lasso;
 
 import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.resources.css.DayWeekCssResource;
+import gwtscheduler.client.utils.PointUtils;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -19,7 +19,8 @@ import com.google.gwt.user.client.ui.Label;
  * Lasso panel. Responsible for displaying user lasso selections.
  * @author malp
  */
-class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHandler, MouseUpHandler {
+class LassoPanel extends AbsolutePanel implements MouseDownHandler,
+    MouseMoveHandler, MouseUpHandler {
 
   /** the lasso subject grid */
   private LassoSubject subject;
@@ -38,7 +39,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
     addDomHandler(this, MouseDownEvent.getType());
     addDomHandler(this, MouseUpEvent.getType());
     addDomHandler(this, MouseMoveEvent.getType());
-    
+
     DOM.setStyleAttribute(getElement(), "opacity", "0.5");
     DOM.setStyleAttribute(getElement(), "filter", "alpha(opacity=50)");
   }
@@ -54,7 +55,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
     label.getElement().getStyle().setProperty("opacity", "1.0");
     label.getElement().getStyle().setProperty("filter", "alpha(opacity=100)");
     int[] coords = calculateLeftTop(p1);
-    
+
     add(label, coords[0], coords[1]);
   }
 
@@ -69,7 +70,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
 
   @Override
   public void onMouseDown(MouseDownEvent event) {
-    if(isMouseDown) {
+    if (isMouseDown) {
       return;
     }
     isMouseDown = true;
@@ -82,9 +83,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
   public void onMouseUp(MouseUpEvent event) {
     isMouseDown = false;
     int[] pos = calculateCellPosition(event);
-    if (!equals(pos, startPos)) {
-      selectRange(startPos, pos);
-    }
+    selectRange(startPos, pos);
   }
 
   @Override
@@ -93,25 +92,9 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
       return;
     }
     int[] pos = calculateCellPosition(event);
-    if (!equals(pos, startPos)) {
+    if (!PointUtils.equals(pos, startPos)) {
       selectRange(startPos, pos);
     }
-  }
-
-  /**
-   * Compares two positions.
-   * @param p1 the first position
-   * @param p2 the second position
-   * @return <code>true</code> if the two positions are the same
-   */
-  private boolean equals(int[] p1, int[] p2) {
-    assert p1 != null : "Cannot compare a null position";
-    assert p2 != null : "Cannot compare a null position";
-
-    assert p1.length == 2 : "Position length != 2";
-    assert p2.length == 2 : "Position length != 2";
-
-    return (p1[0] == p2[0] && p1[1] == p2[1]);
   }
 
   /**
@@ -120,11 +103,11 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
    * @return the cell position
    */
   private int[] calculateCellPosition(MouseEvent<?> event) {
-    assert subject != null : "Lasso subject cannot be null.";
+    assertLassoInit();
 
     int x = event.getRelativeX(getElement());
     int y = event.getRelativeY(getElement());
-    //TODO factor row width and height
+    // TODO factor row width and height
     int rowPos = (y / (subject.getHeight() / subject.getRowNum()));
     int colPos = (x / (subject.getWidth() / subject.getColNum()));
 
@@ -137,12 +120,20 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
    * @return
    */
   private int[] calculateLeftTop(int[] cellPos) {
+    assertLassoInit();
     assert cellPos != null : "Cell position cannot be null";
     assert cellPos.length == 2 : "Position length != 2";
-    //TODO factor row width and height
+    // TODO factor row width and height
     int rowH = (subject.getHeight() / subject.getRowNum());
     int colW = (subject.getWidth() / subject.getColNum());
     return new int[] {cellPos[1] * colW, cellPos[0] * rowH};
+  }
+
+  /**
+   * Asserts that the lasso has been inited.
+   */
+  private void assertLassoInit() {
+    assert subject != null : "Lasso subject cannot be null. Did you forget to call LassoAwarePanel.initLasso()?";
   }
 
 }

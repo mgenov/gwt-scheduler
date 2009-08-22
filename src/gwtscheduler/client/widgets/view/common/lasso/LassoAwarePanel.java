@@ -46,14 +46,16 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
   }
 
   /**
-   * Responsible for positioning the lasso correctly.
+   * Responsible for positioning the lasso correctly. This method is fired on
+   * viewport resize.
    * @param lasso the lasso
    * @param event the last resize event
    */
   protected abstract void positionLasso(Widget lasso, WidgetResizeEvent event);
 
   /**
-   * Responsible for sizing the lasso appropriately.
+   * Responsible for sizing the lasso appropriately.This method is fired on
+   * viewport resize.
    * @param lasso the lasso widget
    * @param event the last resize event
    */
