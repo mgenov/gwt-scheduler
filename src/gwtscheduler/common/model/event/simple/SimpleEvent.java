@@ -1,7 +1,7 @@
-package gwtscheduler.common.event.simple;
+package gwtscheduler.common.model.event.simple;
 
-import gwtscheduler.common.event.Event;
-import gwtscheduler.common.event.EventType;
+import gwtscheduler.common.model.event.Event;
+import gwtscheduler.common.model.event.EventType;
 
 import org.goda.time.DateTime;
 

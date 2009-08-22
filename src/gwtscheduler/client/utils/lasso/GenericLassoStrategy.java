@@ -21,14 +21,30 @@ public abstract class GenericLassoStrategy implements LassoStrategy {
    * @return the segments
    */
   public List<int[]> getBlocks(LassoSubject subject, int[] start, int[] end) {
+    checkBounds(subject, start);
+    checkBounds(subject, end);
+
     if (PointUtils.equals(start, end)) {
       ArrayList<int[]> result = new ArrayList<int[]>();
       result.add(start);
+      result.add(end);
       return result;
     }
     int[] from = getFirst(start, end);
     int[] to = getLast(start, end);
-    return stripInSegments(from, to);
+    return stripInSegments(subject, from, to);
+  }
+
+  /**
+   * Checks if the point is within the subject bounds.
+   * @param subject the subject
+   * @param point the point
+   */
+  private void checkBounds(LassoSubject subject, int[] point) {
+    if (point[0] < 0 || point[0] >= subject.getRowNum())
+      throw new IllegalArgumentException("Row out of bounds");
+    if (point[1] < 0 || point[1] >= subject.getColNum())
+      throw new IllegalArgumentException("Column out of bounds");
   }
 
   /**
@@ -38,7 +54,8 @@ public abstract class GenericLassoStrategy implements LassoStrategy {
    * @param to the end point
    * @return the segments
    */
-  protected abstract List<int[]> stripInSegments(int[] from, int[] to);
+  protected abstract List<int[]> stripInSegments(LassoSubject subject,
+      int[] from, int[] to);
 
   /**
    * Compares 2 points.

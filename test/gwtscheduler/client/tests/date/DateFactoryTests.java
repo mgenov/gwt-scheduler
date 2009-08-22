@@ -1,4 +1,4 @@
-package gwtscheduler.client.tests;
+package gwtscheduler.client.tests.date;
 
 import static org.goda.time.DateTimeConstants.AUGUST;
 import static org.goda.time.DateTimeConstants.FEBRUARY;

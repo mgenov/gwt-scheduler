@@ -1,6 +1,7 @@
-package gwtscheduler.client.tests;
+package gwtscheduler.client.tests.lasso;
 
 import static junit.framework.Assert.*;
+import static gwtscheduler.client.tests.TestUtils.*;
 import gwtscheduler.client.tests.mock.SimpleLassoSubject;
 import gwtscheduler.client.utils.lasso.GenericLassoStrategy;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
@@ -14,17 +15,15 @@ import org.junit.Test;
  * Tests lasso selection modes.
  * @author malp
  */
-public class LassoSelectionTests {
+public class HorizontalLassoSelectionTests {
 
   static SimpleLassoSubject subject;
   static GenericLassoStrategy hStrat;
-  static GenericLassoStrategy vStrat;
 
   @BeforeClass
   public static void setUp() {
     subject = new SimpleLassoSubject(10, 10);
     hStrat = new HorizontalLassoStrategy();
-    vStrat = new HorizontalLassoStrategy();
   }
 
   @Test
@@ -35,23 +34,16 @@ public class LassoSelectionTests {
     assertTrue(hStrat.compare(new int[] {1, 2}, new int[] {1, 1}) > 0);
     assertTrue(hStrat.compare(new int[] {1, 0}, new int[] {0, 1}) > 0);
   }
-  @Test
-  public void testVComparator() {
-    assertTrue(vStrat.compare(new int[] {1, 1}, new int[] {1, 1}) == 0);
-    assertTrue(vStrat.compare(new int[] {1, 1}, new int[] {1, 2}) < 0);
-    assertTrue(vStrat.compare(new int[] {0, 1}, new int[] {1, 0}) < 0);
-    assertTrue(vStrat.compare(new int[] {1, 2}, new int[] {1, 1}) > 0);
-    assertTrue(vStrat.compare(new int[] {1, 0}, new int[] {0, 1}) > 0);
-  }
 
   @Test
   public void testHorizontalLassoSelectionSimple1() {
     int[] topLeft = {0, 0};
     int[] next = {0, 0};
     List<int[]> sequences = hStrat.getBlocks(subject, topLeft, next);
-
-    assertEquals(1, sequences.size());
+    //same start and end
+    assertEquals(2, sequences.size());
     assertEqualPoints(new int[] {0, 0}, sequences.get(0));
+    assertEqualPoints(new int[] {0, 0}, sequences.get(1));
   }
 
   @Test
@@ -59,20 +51,40 @@ public class LassoSelectionTests {
     int[] topLeft = {0, 0};
     int[] next = {0, 1};
     List<int[]> sequences = hStrat.getBlocks(subject, topLeft, next);
-
-    assertEquals(1, sequences.size());
+    //adjacent cell, same row
+    assertEquals(2, sequences.size());
     assertEqualPoints(new int[] {0, 0}, sequences.get(0));
     assertEqualPoints(new int[] {0, 1}, sequences.get(1));
   }
 
-  /**
-   * Utility method to compare two points.
-   * @param p1 the first point
-   * @param p2 the second point
-   */
-  void assertEqualPoints(int[] p1, int[] p2) {
-    assertEquals("Rows differ", p1[0], p2[0]);
-    assertEquals("Columns differ", p1[1], p2[1]);
+  @Test
+  public void testHorizontalLassoSelectionSimple3() {
+    int[] topLeft = {0, 0};
+    int[] next = {0, 3};
+    List<int[]> sequences = hStrat.getBlocks(subject, topLeft, next);
+    //adjacent cell, same row
+    assertEquals(2, sequences.size());
+    assertEqualPoints(new int[] {0, 0}, sequences.get(0));
+    assertEqualPoints(new int[] {0, 3}, sequences.get(1));
   }
 
+  @Test
+  public void testHorizontalLassoSelectionSimple4() {
+    int[] topLeft = {0, 1};
+    int[] next = {2, 3};
+    List<int[]> sequences = hStrat.getBlocks(subject, topLeft, next);
+    //0,1 - 0,10
+    //1,0 - 1, 10
+    //2,0 - 2,3
+    assertEquals(6, sequences.size());
+
+    assertEqualPoints(new int[] {0, 1}, sequences.get(0));
+    assertEqualPoints(new int[] {0, 9}, sequences.get(1));
+
+    assertEqualPoints(new int[] {1, 0}, sequences.get(2));
+    assertEqualPoints(new int[] {1, 9}, sequences.get(3));
+
+    assertEqualPoints(new int[] {2, 0}, sequences.get(4));
+    assertEqualPoints(new int[] {2, 3}, sequences.get(5));
+  }
 }

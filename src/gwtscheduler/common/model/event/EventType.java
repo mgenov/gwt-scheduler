@@ -1,4 +1,4 @@
-package gwtscheduler.common.event;
+package gwtscheduler.common.model.event;
 
 /**
  * Defines possible types for events.

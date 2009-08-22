@@ -1,6 +1,6 @@
 package gwtscheduler.client.interfaces;
 
-import gwtscheduler.common.event.Event;
+import gwtscheduler.common.model.event.Event;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package gwtscheduler.common.event;
+package gwtscheduler.common.model.event;
 
 import org.goda.time.DateTime;
 
