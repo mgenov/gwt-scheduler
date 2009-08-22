@@ -1,9 +1,9 @@
-package gwtscheduler.client.tests.lasso;
+package gwtscheduler.tests.lasso;
 
-import gwtscheduler.client.tests.mock.SimpleLassoSubject;
 import gwtscheduler.client.utils.lasso.GenericLassoStrategy;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
+import gwtscheduler.tests.mock.SimpleLassoSubject;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

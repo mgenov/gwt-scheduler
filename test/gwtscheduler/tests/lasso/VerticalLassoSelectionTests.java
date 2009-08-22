@@ -1,11 +1,11 @@
-package gwtscheduler.client.tests.lasso;
+package gwtscheduler.tests.lasso;
 
-import static gwtscheduler.client.tests.TestUtils.assertEqualPoints;
+import static gwtscheduler.tests.TestUtils.assertEqualPoints;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import gwtscheduler.client.tests.mock.SimpleLassoSubject;
 import gwtscheduler.client.utils.lasso.GenericLassoStrategy;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
+import gwtscheduler.tests.mock.SimpleLassoSubject;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package gwtscheduler.client.tests.mock;
+package gwtscheduler.tests.mock;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.LassoSubject;
