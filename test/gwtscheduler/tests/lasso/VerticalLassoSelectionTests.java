@@ -20,11 +20,13 @@ public class VerticalLassoSelectionTests {
 
   static SimpleLassoSubject subject;
   static GenericLassoStrategy vStrat;
+  static GenericLassoStrategy vStratNoMulti;
 
   @BeforeClass
   public static void setUp() {
     subject = new SimpleLassoSubject(10, 10);
     vStrat = new  VerticalLassoStrategy();
+    vStratNoMulti = new  VerticalLassoStrategy(false);
   }
 
 
@@ -91,6 +93,44 @@ public class VerticalLassoSelectionTests {
 
     assertEqualPoints(new int[] {0, 3}, sequences.get(4));
     assertEqualPoints(new int[] {2, 3}, sequences.get(5));
+  }
+  
+  
+  
+  @Test
+  public void testVerticalLassoSelectionNoMultiSimple2() {
+    int[] topLeft = {0, 0};
+    int[] next = {0, 1};
+    List<int[]> sequences = vStratNoMulti.getBlocks(subject, topLeft, next);
+    assertEquals(2, sequences.size());
+    assertEqualPoints(new int[] {0, 0}, sequences.get(0));
+    assertEqualPoints(new int[] {9, 0}, sequences.get(1));
+  }
+
+  @Test
+  public void testVerticalLassoSelectionNoMultiSimple3() {
+    int[] topLeft = {0, 0};
+    int[] next = {3, 0};
+    List<int[]> sequences = vStratNoMulti.getBlocks(subject, topLeft, next);
+    //0,0 - 3,0
+    assertEquals(2, sequences.size());
+    
+    assertEqualPoints(new int[] {0, 0}, sequences.get(0));
+    assertEqualPoints(new int[] {9, 0}, sequences.get(1));
+  }
+
+  @Test
+  public void testVerticalLassoSelectionNoMultiSimple4() {
+    int[] topLeft = {0, 1};
+    int[] next = {2, 3};
+    List<int[]> sequences = vStratNoMulti.getBlocks(subject, topLeft, next);
+    //0,1 - 9,1
+    //0,2 - 9, 2
+    //0,3 - 2,3
+    assertEquals(2, sequences.size());
+
+    assertEqualPoints(new int[] {0, 1}, sequences.get(0));
+    assertEqualPoints(new int[] {9, 1}, sequences.get(1));
   }
 
 }

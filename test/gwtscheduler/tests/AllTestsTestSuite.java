@@ -18,8 +18,8 @@ public class AllTestsTestSuite extends TestSuite {
    */
   public static Test suite() {
     TestSuite suite = new TestSuite();
-    suite.addTest(new GwtTestsTestSuite(AllTestsTestSuite.class.getName()));
-    suite.addTest(new NonGwtTestsTestSuite(AllTestsTestSuite.class.getName()));
+//    suite.addTest(new GwtTestsTestSuite(GwtTestsTestSuite.class.getName()));
+//    suite.addTest(new NonGwtTestsTestSuite(NonGwtTestsTestSuite.class.getName()));
     return suite;
   }
 
