@@ -2,6 +2,8 @@ package gwtscheduler.client.interfaces;
 
 import java.util.List;
 
+import org.goda.time.Interval;
+
 import com.google.gwt.user.client.Element;
 
 /**
@@ -40,5 +42,13 @@ public interface LassoSubject {
    * @return the lasso elements
    */
   List<Cell<Element>> getLassoSubjects();
+
+  /**
+   * Gets the correspondent time interval for a given cell range
+   * @param start the starting cell
+   * @param end the end cell
+   * @return the time interval
+   */
+  Interval getIntervalForRange(int[] start, int[] end);
 
 }

@@ -1,5 +1,7 @@
 package gwtscheduler.client.interfaces;
 
+import gwtscheduler.client.interfaces.navigation.EventNavigationListener;
+
 import com.google.gwt.user.client.ui.Widget;
 
 /**

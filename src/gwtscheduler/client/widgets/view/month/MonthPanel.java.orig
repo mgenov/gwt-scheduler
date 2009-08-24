@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
-import gwtscheduler.client.interfaces.ViewController;
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
@@ -16,13 +16,10 @@ import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.goda.time.Interval;
-
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.inject.Inject;
 
 /**
  * View class for months. Handles its own resizes.
@@ -43,13 +40,12 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   private List<MonthRow> hiddenRows;
   /** application config retrieved value */
   private final int WeekSize;
-
-  @Inject
-  @Month
-  ViewController controller;
+  /** the strategy */
+  private @Month LassoStrategy strategy;
 
   /**
    * Default constructor.
+   * @param s the lasso strategy
    */
   public MonthPanel() {
     AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
@@ -71,9 +67,8 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   }
 
   @Override
-  public Interval getIntervalForRange(int[] start, int[] end) {
-    // TODO XXX implement me
-    return null;
+  public LassoStrategy getStrategy() {
+    return strategy;
   }
 
   /**

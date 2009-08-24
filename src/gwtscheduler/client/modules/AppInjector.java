@@ -1,6 +1,6 @@
 package gwtscheduler.client.modules;
 
-import gwtscheduler.client.interfaces.DateGenerator;
+import gwtscheduler.client.interfaces.navigation.DateGenerator;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.modules.views.UIManager;
 

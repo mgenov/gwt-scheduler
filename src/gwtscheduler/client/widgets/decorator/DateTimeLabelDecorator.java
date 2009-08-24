@@ -2,7 +2,7 @@ package gwtscheduler.client.widgets.decorator;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
-import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
+import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.google.gwt.user.client.Element;
  * Decorator for Days and Weeks.
  * @author malp
  */
-public class DateTimeLabelDecorator implements MultipleElementsDecorator<Element> {
+public class DateTimeLabelDecorator implements MultipleElementsIntervalDecorator<Element> {
 
   /** used to decide if vertical redraw is needed */
   boolean hasRunVertical = false;

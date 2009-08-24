@@ -1,8 +1,15 @@
 package gwtscheduler.client.widgets.view.common.lasso;
 
+import gwtscheduler.client.interfaces.EventWidgetFactory;
+import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
+import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.utils.PointUtils;
+import gwtscheduler.client.widgets.view.common.EventWidget;
+
+import java.util.List;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -13,14 +20,14 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Label;
+import com.google.inject.Inject;
 
 /**
  * Lasso panel. Responsible for displaying user lasso selections.
  * @author malp
  */
 class LassoPanel extends AbsolutePanel implements MouseDownHandler,
-    MouseMoveHandler, MouseUpHandler {
+    MouseMoveHandler, MouseUpHandler, WidgetResizeHandler {
 
   /** the lasso subject grid */
   private LassoSubject subject;
@@ -28,9 +35,15 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
   private boolean isMouseDown = false;
   /** the lasso starting position */
   private int[] startPos;
+  /** the lasso strategy */
+  private LassoStrategy strategy;
+
+  @Inject
+  private EventWidgetFactory eventFactory;
 
   /**
    * Default constructor.
+   * @param strat
    */
   LassoPanel() {
     // style
@@ -45,18 +58,32 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
   }
 
   /**
+   * Sets the current lasso strategy.
+   * @param strat the strategy
+   */
+  public void setStrategy(LassoStrategy strat) {
+    strategy = strat;
+  }
+
+  /**
    * Selects a range of lasso cells.
    * @param p1 the first position
    * @param p2 the second position
    */
   private void selectRange(int[] p1, int[] p2) {
-    Label label = new Label("x");
-    label.getElement().getStyle().setProperty("border", "1px solid red");
-    label.getElement().getStyle().setProperty("opacity", "1.0");
-    label.getElement().getStyle().setProperty("filter", "alpha(opacity=100)");
-    int[] coords = calculateLeftTop(p1);
+    List<int[]> range = strategy.getBlocks(subject, p1, p2);
+    assert range.size() >= 2 : "Event blocks are less than 2.";
+    assert range.size() % 2 == 0 : "Odd number of events";
 
-    add(label, coords[0], coords[1]);
+    for (int i = 0; i < range.size(); i += 2) {
+      int[] from = range.get(i);
+      int[] to = range.get(i + 1);
+      EventWidget event = eventFactory.createEvent(subject, from, to);
+
+      int[] coords = calculateLeftTop(from);
+      add(event, coords[0], coords[1]);
+    }
+
   }
 
   /**
@@ -103,8 +130,6 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
    * @return the cell position
    */
   private int[] calculateCellPosition(MouseEvent<?> event) {
-    assertLassoInit();
-
     int x = event.getRelativeX(getElement());
     int y = event.getRelativeY(getElement());
     // TODO factor row width and height
@@ -120,7 +145,6 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
    * @return
    */
   private int[] calculateLeftTop(int[] cellPos) {
-    assertLassoInit();
     assert cellPos != null : "Cell position cannot be null";
     assert cellPos.length == 2 : "Position length != 2";
     // TODO factor row width and height
@@ -129,11 +153,9 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
     return new int[] {cellPos[1] * colW, cellPos[0] * rowH};
   }
 
-  /**
-   * Asserts that the lasso has been inited.
-   */
-  private void assertLassoInit() {
-    assert subject != null : "Lasso subject cannot be null. Did you forget to call LassoAwarePanel.initLasso()?";
+  @Override
+  public void onResize(WidgetResizeEvent event) {
+    //reposition events
   }
 
 }

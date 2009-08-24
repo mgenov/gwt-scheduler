@@ -3,11 +3,10 @@ package gwtscheduler.client.widgets.view.month;
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
 import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
-import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
-import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
+import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 
@@ -24,7 +23,8 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Defines the composite month view.
  */
-public class MonthCalendar extends LassoAwarePanel implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
+public class MonthCalendar extends LassoAwarePanel implements
+    HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -47,28 +47,28 @@ public class MonthCalendar extends LassoAwarePanel implements HasWidgetRedrawHan
 
     insert(topHeader, 0);
 
-    addWidgetRedrawHandler(new WidgetRedrawHandler() {
-      @Override
-      public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
-        MonthCalendar.this.onRedraw();
-      }
-    });
+//    addWidgetRedrawHandler(new WidgetRedrawHandler() {
+//      @Override
+//      public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
+//        MonthCalendar.this.onRedraw();
+//      }
+//    });
 
-    initLasso(monthView);
+    initLasso(new HorizontalLassoStrategy(), monthView);
   }
 
   @Override
-  protected void styleWindow(Widget window) {
-    super.styleWindow(window);
+  protected void styleWindowPanel(Widget windowPanel) {
+    super.styleWindowPanel(windowPanel);
     //TODO this is not elegant, but works...
-    DOM.setStyleAttribute(window.getElement(), "overflowY", "hidden");
+    DOM.setStyleAttribute(windowPanel.getElement(), "overflowY", "hidden");
   }
 
-  /**
-   * Debug method.
-   */
-  void onRedraw() {
-  }
+//  /**
+//   * Debug method.
+//   */
+//  void onRedraw() {
+//  }
 
   @Override
   protected void positionLasso(Widget lasso, WidgetResizeEvent event) {
@@ -97,7 +97,8 @@ public class MonthCalendar extends LassoAwarePanel implements HasWidgetRedrawHan
 
       g.setElement(0, i, cell.getCellElement());
       g.getCellFormatter().setWidth(0, 0, ((float) 100 / 7) + "%");
-      g.getFlexCellFormatter().setHorizontalAlignment(0, i, HasHorizontalAlignment.ALIGN_CENTER);
+      g.getFlexCellFormatter().setHorizontalAlignment(0, i,
+          HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;
   }

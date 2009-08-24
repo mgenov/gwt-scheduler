@@ -9,12 +9,12 @@ import com.google.gwt.user.client.Element;
  * @author malp
  * @param <T> the decorable
  */
-public interface MultipleElementsDecorator<T extends Element> {
+public interface MultipleElementsIntervalDecorator<T extends Element> {
 
   /**
    * Fired when the decorator should decorate elements.
    * @param interval the time interval
    * @param decorable the decorable
    */
-  void decorate(Interval interval, HasMultipleDecorables<Element> decorable);
+  void decorate(Interval interval, HasMultipleDecorables<T> decorable);
 }

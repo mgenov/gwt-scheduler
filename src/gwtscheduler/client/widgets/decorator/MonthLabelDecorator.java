@@ -2,7 +2,7 @@ package gwtscheduler.client.widgets.decorator;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
-import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
+import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.modules.AppInjector;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import com.google.gwt.user.client.Element;
  * Decorator for month labels.
  * @author malp
  */
-public class MonthLabelDecorator implements MultipleElementsDecorator<Element> {
+public class MonthLabelDecorator implements MultipleElementsIntervalDecorator<Element> {
 
   /** used to decide if horizontal redraw is needed */
   boolean hasRunHorizontal = false;

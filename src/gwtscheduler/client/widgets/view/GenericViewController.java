@@ -1,9 +1,9 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.DateGenerator;
-import gwtscheduler.client.interfaces.EventNavigationListener;
 import gwtscheduler.client.interfaces.ViewController;
-import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
+import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.interfaces.navigation.DateGenerator;
+import gwtscheduler.client.interfaces.navigation.EventNavigationListener;
 import gwtscheduler.client.widgets.decorator.DateTimeLabelDecorator;
 
 import com.google.gwt.user.client.Element;
@@ -14,7 +14,8 @@ import com.google.inject.Inject;
  * Abstract class for view controllers.
  * @author malp
  */
-public abstract class GenericViewController<T extends Widget> implements ViewController, EventNavigationListener {
+public abstract class GenericViewController<T extends Widget> implements
+    ViewController, EventNavigationListener {
 
   /** view widget for the controller */
   private T view;
@@ -22,12 +23,10 @@ public abstract class GenericViewController<T extends Widget> implements ViewCon
   /** date factory class */
   @Inject
   private DateGenerator factory;
-  
+
   /** elements decorator */
   //TODO use gin to inject
-  //  @Inject
-  //  private MultipleElementsDecorator<Element> decorator;
-  private MultipleElementsDecorator<Element> decorator = new DateTimeLabelDecorator();
+    protected MultipleElementsIntervalDecorator<Element> decorator = new DateTimeLabelDecorator();
 
   /**
    * Default constructor.
@@ -53,7 +52,7 @@ public abstract class GenericViewController<T extends Widget> implements ViewCon
    * Gets the labels decorator.
    * @return the labels decorator
    */
-  public MultipleElementsDecorator<Element> getDecorator() {
+  public MultipleElementsIntervalDecorator<Element> getDecorator() {
     return decorator;
   }
 

@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common.lasso;
 
+import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
@@ -23,7 +24,6 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
    * @param subject
    */
   public LassoAwarePanel() {
-    super();
     lasso = new LassoPanel();
     //TODO move to constant file or so
     DOM.setStyleAttribute(lasso.getElement(), "zIndex", "1");
@@ -33,15 +33,18 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
       public void onResize(WidgetResizeEvent event) {
         positionLasso(lasso, event);
         resizeLasso(lasso, event);
+        //resize events
       }
     });
   }
 
   /**
-   * Sets the lasso subject.
+   * Inits the lasso.
+   * @param strat the strategy
    * @param subject the subject
    */
-  protected void initLasso(LassoSubject subject) {
+  protected void initLasso(LassoStrategy strat, LassoSubject subject) {
+    lasso.setStrategy(strat);
     lasso.setLassoSubject(subject);
   }
 

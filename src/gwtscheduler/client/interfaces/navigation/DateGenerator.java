@@ -1,4 +1,4 @@
-package gwtscheduler.client.interfaces;
+package gwtscheduler.client.interfaces.navigation;
 
 import gwtscheduler.common.calendar.IntervalType;
 

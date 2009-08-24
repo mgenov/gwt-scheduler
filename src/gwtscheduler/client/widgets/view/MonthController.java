@@ -1,6 +1,5 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.decoration.MultipleElementsDecorator;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.decorator.MonthLabelDecorator;
 import gwtscheduler.client.widgets.view.month.MonthCalendar;
@@ -10,7 +9,6 @@ import org.goda.time.Days;
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
-import com.google.gwt.user.client.Element;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -20,9 +18,6 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class MonthController extends GenericViewController<MonthCalendar> {
-
-  /** decorator for labels */
-  MultipleElementsDecorator<Element> decorator = new MonthLabelDecorator();
 
   /** defines the number of days in a week */
   final int WeekSize;
@@ -34,6 +29,7 @@ public class MonthController extends GenericViewController<MonthCalendar> {
   @Inject
   private MonthController(AppConfiguration cfg) {
     WeekSize = cfg.daysInWeek();
+    decorator = new MonthLabelDecorator();
   }
 
   @Override
@@ -48,7 +44,7 @@ public class MonthController extends GenericViewController<MonthCalendar> {
   public Interval onNavigateNext() {
     Interval next = getFactory().next().interval();
     adjustVisibleRows(next);
-    decorator.decorate(next, getViewWidget());
+    getDecorator().decorate(next, getViewWidget());
     return next;
   }
 
@@ -56,7 +52,7 @@ public class MonthController extends GenericViewController<MonthCalendar> {
     Interval prev = getFactory().previous().interval();
     adjustVisibleRows(prev);
     //    getViewWidget().setGridSize(rows, cols)
-    decorator.decorate(prev, getViewWidget());
+    getDecorator().decorate(prev, getViewWidget());
     return prev;
   }
 
@@ -66,7 +62,7 @@ public class MonthController extends GenericViewController<MonthCalendar> {
     }
     Interval intv = getFactory().interval();
     adjustVisibleRows(intv);
-    decorator.decorate(intv, getViewWidget());
+    getDecorator().decorate(intv, getViewWidget());
     return intv;
   }
 

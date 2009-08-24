@@ -33,7 +33,7 @@ public abstract class RedrawablePanel extends Composite implements HasWidgetResi
     initWidget(impl);
 
     windowPanel = new AdaptableWindowPanel();
-    styleWindow(windowPanel);
+    styleWindowPanel(windowPanel);
 
     // we'll "delegate" the resize to the window panel
     // but the viewport panel will retrieve the available size
@@ -62,7 +62,7 @@ public abstract class RedrawablePanel extends Composite implements HasWidgetResi
    * This method is used to style the window panel.
    * @param window the window panel
    */
-  protected void styleWindow(Widget window) {
+  protected void styleWindowPanel(Widget window) {
     window.getElement().getStyle().setProperty("position", "relative");
   }
 

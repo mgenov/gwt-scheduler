@@ -1,10 +1,9 @@
 package gwtscheduler.client.widgets.view.days;
 
 import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
 import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
-import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
-import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
@@ -28,7 +27,8 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class MultipleDaysCalendar extends LassoAwarePanel implements HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
+public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
+    HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -56,21 +56,27 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements Ha
 
     insert(topHeader, 0);
 
-    addWidgetRedrawHandler(new WidgetRedrawHandler() {
-      @Override
-      public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
-        MultipleDaysCalendar.this.onRedraw();
-      }
-    });
+//    addWidgetRedrawHandler(new WidgetRedrawHandler() {
+//      @Override
+//      public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
+//        MultipleDaysCalendar.this.onRedraw();
+//      }
+//    });
 
-    initLasso(mainView);
+    initLasso(getStrategy(), mainView);
   }
 
   /**
-   * Utility method fired when the calendar is redrawn.
+   * Gets the lasso strategy
+   * @return the strategy
    */
-  void onRedraw() {
-  }
+  protected abstract LassoStrategy getStrategy();
+
+//  /**
+//   * Utility method fired when the calendar is redrawn.
+//   */
+//  void onRedraw() {
+//  }
 
   @Override
   protected void positionLasso(Widget lasso, WidgetResizeEvent event) {
@@ -83,7 +89,8 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements Ha
 
   @Override
   protected void resizeLasso(Widget lasso, WidgetResizeEvent event) {
-    lasso.setSize("100%", (config.getDaysLineHeight() * mainView.getRows()) + "em");
+    lasso.setSize("100%", (config.getDaysLineHeight() * mainView.getRows())
+        + "em");
   }
 
   /**
@@ -96,7 +103,8 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements Ha
     g.addStyleName(CSS.genericContainer());
     g.setWidth("100%");
     g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
-    g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH + "px");
+    g.getCellFormatter().setWidth(0, columns + 2,
+        Constants.SCROLLBAR_WIDTH + "px");
 
     topLabels = new ArrayList<Cell<Element>>(columns);
     for (int i = 0; i < columns; i++) {
@@ -105,7 +113,8 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements Ha
 
       topLabels.add(topCell);
       g.setElement(0, 1 + i, topCell.getCellElement());
-      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
+      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i,
+          HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;
   }

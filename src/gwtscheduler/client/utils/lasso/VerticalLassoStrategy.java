@@ -14,12 +14,20 @@ public class VerticalLassoStrategy extends GenericLassoStrategy {
   /** indicates if can select more than one column */
   private boolean isMultiColumn = true;
 
+  /**
+   * Default constructor.
+   */
   public VerticalLassoStrategy() {
     super();
   }
 
+  /**
+   * Optional constructor for defining multi-column mode.
+   * @param isMultiColumn <code>true</code> if multi column selection is to be
+   *          available
+   */
   public VerticalLassoStrategy(boolean isMultiColumn) {
-    super();
+    this();
     this.isMultiColumn = isMultiColumn;
   }
 
@@ -60,7 +68,7 @@ public class VerticalLassoStrategy extends GenericLassoStrategy {
       //if last col and multi, return bound
       // if not multi, return last row in same col
       int[] endingPoint = (i == lastCol) ? (isMultiColumn ? to : new int[] {
-          s.getRowNum()-1,from[1] }) : new int[] {s.getRowNum() - 1, i};
+          s.getRowNum() - 1, from[1]}) : new int[] {s.getRowNum() - 1, i};
 
       result.add(startingPoint);
       result.add(endingPoint);

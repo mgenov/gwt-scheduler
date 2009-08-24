@@ -13,7 +13,7 @@ import com.google.gwt.user.client.Element;
  * Utilit class for lasso tests.
  * @author malp
  */
-public class SimpleLassoSubject implements LassoSubject {
+public class TestLassoSubject implements LassoSubject {
 
   final int rows, cols;
   final int w = 100, h = 100;
@@ -23,7 +23,7 @@ public class SimpleLassoSubject implements LassoSubject {
    * @param rows the number of rows
    * @param cols the number of cols
    */
-  public SimpleLassoSubject(int rows, int cols) {
+  public TestLassoSubject(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
   }

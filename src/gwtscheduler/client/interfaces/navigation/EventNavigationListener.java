@@ -1,4 +1,4 @@
-package gwtscheduler.client.interfaces;
+package gwtscheduler.client.interfaces.navigation;
 
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;

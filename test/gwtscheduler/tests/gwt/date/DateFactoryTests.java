@@ -6,7 +6,7 @@ import static org.goda.time.DateTimeConstants.JANUARY;
 import static org.goda.time.DateTimeConstants.JULY;
 import static org.goda.time.DateTimeConstants.JUNE;
 import static org.goda.time.DateTimeConstants.MARCH;
-import gwtscheduler.client.interfaces.DateGenerator;
+import gwtscheduler.client.interfaces.navigation.DateGenerator;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.common.calendar.IntervalType;
