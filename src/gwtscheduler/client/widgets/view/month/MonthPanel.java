@@ -2,14 +2,13 @@ package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.LassoSubject;
-import gwtscheduler.client.interfaces.ViewController;
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
-import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
+import gwtscheduler.client.widgets.view.MonthController;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 
@@ -22,7 +21,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.inject.Inject;
 
 /**
  * View class for months. Handles its own resizes.
@@ -43,15 +41,14 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   private List<MonthRow> hiddenRows;
   /** application config retrieved value */
   private final int WeekSize;
-
-  @Inject
-  @Month
-  ViewController controller;
+  /** the controller */
+  private MonthController controller;
 
   /**
    * Default constructor.
    */
-  public MonthPanel() {
+  public MonthPanel(MonthController ctrl) {
+    controller = ctrl;
     AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
     WeekSize = config.daysInWeek();
 

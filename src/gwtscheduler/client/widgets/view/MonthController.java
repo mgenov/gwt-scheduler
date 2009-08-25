@@ -34,7 +34,7 @@ public class MonthController extends GenericViewController<MonthCalendar> {
 
   @Override
   protected MonthCalendar createView() {
-    return new MonthCalendar();
+    return new MonthCalendar(this);
   }
 
   public String getTabLabel() {

@@ -7,6 +7,7 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
+import gwtscheduler.client.widgets.view.MonthController;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 
@@ -37,9 +38,8 @@ public class MonthCalendar extends LassoAwarePanel implements
   /**
    * Default constructor.
    */
-  public MonthCalendar() {
-    super();
-    monthView = new MonthPanel();
+  public MonthCalendar(MonthController ctrl) {
+    monthView = new MonthPanel(ctrl);
     Widget topHeader = createTopHeader();
 
     addToWindow(monthView);
