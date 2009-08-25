@@ -15,6 +15,7 @@ import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -35,8 +36,7 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
    * Default constructor.
    */
   public DateViewsTabPanel() {
-//    impl = new DecoratedTabPanel();
-    impl = new TabPanel();
+    impl = new DecoratedTabPanel();
     initWidget(impl);
     impl.addBeforeSelectionHandler(this);
     controllers = new HashMap<Integer, ViewController>();
@@ -81,7 +81,8 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
       }
     };
     // TODO get this from the css resources?
-    rp.setCornerColor("#E8EEF7");
+//    rp.setCornerColor("#E8EEF7");
+    rp.setCornerColor("#92C1F0");
     rp.add(child);
     return rp;
   }

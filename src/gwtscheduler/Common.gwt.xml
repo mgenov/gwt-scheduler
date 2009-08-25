@@ -20,9 +20,9 @@
    	<inherits name='org.cobogw.gwt.user.User' />
    	
    	<!--
-   	<inherits name='com.google.gwt.user.theme.standard.StandardResources'/>
-   	 -->
    	<inherits name='com.google.gwt.user.theme.standard.Standard'/> 
+   	 -->
+   	<inherits name='com.google.gwt.user.theme.standard.StandardResources'/>
    	<inherits name="com.google.gwt.inject.Inject"/>
    	
    	<inherits name="com.google.gwt.libideas.ImmutableResources" />
