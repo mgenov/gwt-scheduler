@@ -20,7 +20,6 @@ import com.google.gwt.user.client.Element;
 public class DateTimeAwareLassoSubject implements LassoSubject {
 
   final int rows, cols;
-  final int w = 100, h = 100;
 
   static Interval Interval;
 
@@ -57,12 +56,12 @@ public class DateTimeAwareLassoSubject implements LassoSubject {
 
   @Override
   public int getWidth() {
-    return w;
+    return 100;
   }
 
   @Override
   public int getHeight() {
-    return h;
+    return 100;
   }
 
   @Override

@@ -17,7 +17,6 @@ import com.google.gwt.user.client.Element;
 public class TestLassoSubject implements LassoSubject {
 
   final int rows, cols;
-  final int w = 100, h = 100;
 
   /**
    * Creates a new mock lasso subject, with a 100px x 100px grid.
@@ -46,12 +45,12 @@ public class TestLassoSubject implements LassoSubject {
 
   @Override
   public int getWidth() {
-    return w;
+    return 100;
   }
 
   @Override
   public int getHeight() {
-    return h;
+    return 100;
   }
 
   @Override

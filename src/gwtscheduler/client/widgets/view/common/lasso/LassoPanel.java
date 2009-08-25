@@ -1,17 +1,21 @@
 package gwtscheduler.client.widgets.view.common.lasso;
 
-import gwtscheduler.client.interfaces.EventWidgetFactory;
+import static gwtscheduler.client.resources.css.MainCss.Lasso;
+import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX;
+import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX_SELECTING;
+import gwtscheduler.client.interfaces.LassoElementFactory;
 import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
-import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.utils.PointUtils;
 import gwtscheduler.client.widgets.view.common.EventWidget;
-import gwtscheduler.client.widgets.view.common.GenericEventWidgetFactory;
+import gwtscheduler.client.widgets.view.common.GenericLassoElementFactory;
 
 import java.util.List;
 
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
+import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseEvent;
@@ -19,7 +23,9 @@ import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 /**
@@ -38,24 +44,42 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
   /** the lasso strategy */
   private LassoStrategy strategy;
 
+  /** lasso container */
+  private AbsolutePanel lassoPanel;
+
   //TODO bind with GIN
-  private EventWidgetFactory eventFactory;
+//  private EventWidgetFactory eventFactory;
+  //TODO bind with GIN
+  private LassoElementFactory lassoFactory;
 
   /**
    * Default constructor.
    * @param strat
    */
   LassoPanel() {
-    eventFactory = new GenericEventWidgetFactory();
-    // style
-    addStyleName(Resources.dayWeekCss().lasso());
+    addStyleName(Lasso);
+    
+    lassoFactory = new GenericLassoElementFactory();
 
+    //lasso/ events set up
+    lassoPanel = new LassoContainer();
+    lassoPanel.setSize("100%", "100%");
+
+    Element lassoEl = lassoPanel.getElement();
+    DOM.setIntStyleAttribute(lassoEl, "zIndex", LASSO_ZINDEX);
+//
+//    lassoPanel.addMouseDownHandler(this);
+//    lassoPanel.addMouseDownHandler(this);
+//    lassoPanel.addMouseDownHandler(this);
+    
     addDomHandler(this, MouseDownEvent.getType());
     addDomHandler(this, MouseUpEvent.getType());
     addDomHandler(this, MouseMoveEvent.getType());
 
-    DOM.setStyleAttribute(getElement(), "opacity", "0.5");
-    DOM.setStyleAttribute(getElement(), "filter", "alpha(opacity=50)");
+
+    add(lassoPanel, 0, 0);
+
+    //    setVisible(false);
   }
 
   /**
@@ -79,12 +103,11 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
     for (int i = 0; i < range.size(); i += 2) {
       int[] from = range.get(i);
       int[] to = range.get(i + 1);
-      EventWidget event = eventFactory.createEvent(subject, from, to);
+      EventWidget event = lassoFactory.createLassoElement(subject, from, to);
 
       int[] coords = calculateLeftTop(from);
-      add(event, coords[0], coords[1]);
+      lassoPanel.add(event, coords[0], coords[1]);
     }
-
   }
 
   /**
@@ -101,17 +124,14 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
     if (isMouseDown) {
       return;
     }
+    //TODO verify if the lasso panel was the src
     isMouseDown = true;
-    startPos = calculateCellPosition(event);
-    clear();
-    selectRange(startPos, startPos);
-  }
+    lassoPanel.clear();
+    Element lassoEl = lassoPanel.getElement();
+    DOM.setIntStyleAttribute(lassoEl, "zIndex", LASSO_ZINDEX_SELECTING);
 
-  @Override
-  public void onMouseUp(MouseUpEvent event) {
-    isMouseDown = false;
-    int[] pos = calculateCellPosition(event);
-    selectRange(startPos, pos);
+    startPos = calculateCellPosition(event);
+    selectRange(startPos, startPos);
   }
 
   @Override
@@ -120,9 +140,22 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
       return;
     }
     int[] pos = calculateCellPosition(event);
-    if (!PointUtils.equals(pos, startPos)) {
-      selectRange(startPos, pos);
-    }
+    //TODO this is not very efficient
+    //in the future we must take account if we need to clear or not
+    //right now we're clearing because one could start selecting in one dir
+    //and then move to opposite dir, so we need to make sure that previous selected
+    //cells are deselected
+    lassoPanel.clear();
+    selectRange(startPos, pos);
+  }
+
+  @Override
+  public void onMouseUp(MouseUpEvent event) {
+    lassoPanel.clear();
+    DOM.setIntStyleAttribute(lassoPanel.getElement(), "zIndex", LASSO_ZINDEX);
+
+    isMouseDown = false;
+    //show events dialog
   }
 
   /**
@@ -133,10 +166,9 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
   private int[] calculateCellPosition(MouseEvent<?> event) {
     int x = event.getRelativeX(getElement());
     int y = event.getRelativeY(getElement());
-    // TODO factor row width and height
+
     int rowPos = (y / (subject.getHeight() / subject.getRowNum()));
     int colPos = (x / (subject.getWidth() / subject.getColNum()));
-
     return new int[] {rowPos, colPos};
   }
 
@@ -148,7 +180,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
   private int[] calculateLeftTop(int[] cellPos) {
     assert cellPos != null : "Cell position cannot be null";
     assert cellPos.length == 2 : "Position length != 2";
-    // TODO factor row width and height
+
     int rowH = (subject.getHeight() / subject.getRowNum());
     int colW = (subject.getWidth() / subject.getColNum());
     return new int[] {cellPos[1] * colW, cellPos[0] * rowH};
@@ -156,7 +188,33 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
 
   @Override
   public void onResize(WidgetResizeEvent event) {
+    lassoPanel.clear();
+    DOM.setIntStyleAttribute(lassoPanel.getElement(), "zIndex", LASSO_ZINDEX);
     //reposition events
+  }
+
+  /**
+   * Utility class to facilitate event registration.
+   * @author malp
+   */
+  private static class LassoContainer extends AbsolutePanel implements
+      HasMouseDownHandlers, HasMouseMoveHandlers, HasMouseUpHandlers {
+
+    @Override
+    public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+      return addDomHandler(handler, MouseDownEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+      return addDomHandler(handler, MouseUpEvent.getType());
+    }
+
+    @Override
+    public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+      return addDomHandler(handler, MouseMoveEvent.getType());
+    }
+
   }
 
 }

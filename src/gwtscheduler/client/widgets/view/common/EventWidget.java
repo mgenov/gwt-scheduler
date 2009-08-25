@@ -12,7 +12,7 @@ public class EventWidget extends Composite {
    * Default constructor.
    */
   public EventWidget() {
-    Label label = new Label("ABCD");
+    Label label = new Label();
     initWidget(label);
   }
 }

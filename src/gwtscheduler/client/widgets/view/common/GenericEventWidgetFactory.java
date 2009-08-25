@@ -7,7 +7,7 @@ import gwtscheduler.client.interfaces.LassoSubject;
  * Creates event widgets.
  * @author malp
  */
-public class GenericEventWidgetFactory implements EventWidgetFactory {
+public class GenericEventWidgetFactory extends AbstractMultiCellWidgetFactory implements EventWidgetFactory {
 
   @Override
   public EventWidget createEvent(LassoSubject subject, int[] from, int[] to) {
@@ -23,24 +23,5 @@ public class GenericEventWidgetFactory implements EventWidgetFactory {
     return ew;
   }
 
-  /**
-   * @param subject
-   * @param size
-   * @return
-   */
-  protected int getWidth(LassoSubject subject, int size) {
-    assert size > 0 : "Dimension should not be negative";
-    return (int) (subject.getWidth() * ((float) size / subject.getColNum()));
-  }
-
-  /**
-   * @param subject
-   * @param size
-   * @return
-   */
-  protected int getHeight(LassoSubject subject, int size) {
-    assert size > 0 : "Dimension should not be negative";
-    return (int) (subject.getHeight() * ((float) size / subject.getRowNum()));
-  }
 
 }

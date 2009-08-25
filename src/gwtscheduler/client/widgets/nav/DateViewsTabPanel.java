@@ -15,7 +15,7 @@ import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -27,7 +27,7 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
   /** widget delegate */
-  private DecoratedTabPanel impl;
+  private TabPanel impl;
   /** controllers map */
   private Map<Integer, ViewController> controllers;
 
@@ -35,7 +35,8 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
    * Default constructor.
    */
   public DateViewsTabPanel() {
-    impl = new DecoratedTabPanel();
+//    impl = new DecoratedTabPanel();
+    impl = new TabPanel();
     initWidget(impl);
     impl.addBeforeSelectionHandler(this);
     controllers = new HashMap<Integer, ViewController>();

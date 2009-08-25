@@ -7,6 +7,8 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.resources.Resources;
+import gwtscheduler.client.resources.css.MonthCssResource;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
 import gwtscheduler.client.widgets.view.MonthController;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
@@ -33,6 +35,9 @@ import com.google.gwt.user.client.ui.FlowPanel;
  */
 class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
     HasWidgetResizeHandlers, LassoSubject {
+
+  /** CSS resources */
+  private static final MonthCssResource MonthCss = Resources.monthCss();
 
   /** Main container */
   private FlowPanel container;
@@ -81,7 +86,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   public Instant getInstantForCell(int[] start) {
     int distance = (start[0] * getColNum()) + start[1];
     ReadableInterval curr = controller.getCurrentInterval().toMutableInterval();
-    MutableDateTime time =  curr.getStart().toMutableDateTime();
+    MutableDateTime time = curr.getStart().toMutableDateTime();
     time.addDays(distance);
     return time.toInstant();
   }
@@ -205,7 +210,8 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
 
   @Override
   public int getHeight() {
-    return container.getElement().getOffsetHeight();
+    return container.getElement().getOffsetHeight()
+        + MonthCss.monthCellTitleBorderTopPx();
   }
 
   @Override

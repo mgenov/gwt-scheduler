@@ -20,16 +20,4 @@ public class PointUtils {
 
     return (p1[0] == p2[0] && p1[1] == p2[1]);
   }
-
-  /**
-   * Calculates the distance between two points
-   * @param p1
-   * @param p2
-   * @param isHorizontal
-   * @return
-   */
-  public int distance(int[] p1, int[] p2, boolean isHorizontal) {
-    //TODO implement
-    return 0;
-  }
 }

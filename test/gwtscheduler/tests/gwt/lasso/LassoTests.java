@@ -17,7 +17,7 @@ import com.google.gwt.junit.client.GWTTestCase;
  */
 public class LassoTests extends GWTTestCase {
 
-  static DateTimeAwareLassoSubject subject;
+  DateTimeAwareLassoSubject subject;
 
   @Override
   public String getModuleName() {
