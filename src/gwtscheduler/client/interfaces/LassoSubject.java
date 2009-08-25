@@ -2,6 +2,7 @@ package gwtscheduler.client.interfaces;
 
 import java.util.List;
 
+import org.goda.time.Instant;
 import org.goda.time.Interval;
 
 import com.google.gwt.user.client.Element;
@@ -50,5 +51,12 @@ public interface LassoSubject {
    * @return the time interval
    */
   Interval getIntervalForRange(int[] start, int[] end);
+  
+  /**
+   * Gets the correspondent instant for a cell
+   * @param start the starting cell
+   * @param end the end cell
+   */
+  Instant getInstantForCell(int[] start);
 
 }

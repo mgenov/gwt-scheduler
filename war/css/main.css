@@ -3,13 +3,10 @@
  */
 body {
   color: black;
-  margin: 0px;
-  border: 0px;
-  padding: 0px;
+  margin: 0; border: 0; padding: 0;
   background: #fff;
   direction: ltr;
-  font-family: Arial Unicode MS, Arial, sans-serif;
-  font-size: small;
+
 }
 
 .fixed {

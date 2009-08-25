@@ -15,7 +15,10 @@ import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.goda.time.Instant;
 import org.goda.time.Interval;
+import org.goda.time.MutableDateTime;
+import org.goda.time.ReadableInterval;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
@@ -46,6 +49,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
 
   /**
    * Default constructor.
+   * @param ctrl the controller
    */
   public MonthPanel(MonthController ctrl) {
     controller = ctrl;
@@ -69,8 +73,17 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
 
   @Override
   public Interval getIntervalForRange(int[] start, int[] end) {
-    // TODO XXX implement me
-    return null;
+    Interval i = new Interval(getInstantForCell(start), getInstantForCell(end));
+    return i;
+  }
+
+  @Override
+  public Instant getInstantForCell(int[] start) {
+    int distance = (start[0] * getColNum()) + start[1];
+    ReadableInterval curr = controller.getCurrentInterval().toMutableInterval();
+    MutableDateTime time =  curr.getStart().toMutableDateTime();
+    time.addDays(distance);
+    return time.toInstant();
   }
 
   /**

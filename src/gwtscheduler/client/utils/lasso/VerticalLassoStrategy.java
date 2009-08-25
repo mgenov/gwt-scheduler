@@ -58,8 +58,8 @@ public class VerticalLassoStrategy extends GenericLassoStrategy {
 
   @Override
   protected List<int[]> stripInSegments(LassoSubject s, int[] from, int[] to) {
-    int cols = to[1] - from[1] + 1;
-    List<int[]> result = new ArrayList<int[]>(cols);
+    int colspan = to[1] - from[1] + 1;//colspan
+    List<int[]> result = new ArrayList<int[]>(colspan);
     int firstCol = from[1];
     int lastCol = isMultiColumn ? to[1] : from[1];
 
@@ -67,8 +67,7 @@ public class VerticalLassoStrategy extends GenericLassoStrategy {
       int[] startingPoint = (i == firstCol) ? from : new int[] {0, i};
       //if last col and multi, return bound
       // if not multi, return last row in same col
-      int[] endingPoint = (i == lastCol) ? (isMultiColumn ? to : new int[] {
-          s.getRowNum() - 1, from[1]}) : new int[] {s.getRowNum() - 1, i};
+      int[] endingPoint = (i == lastCol) ? to : new int[] {s.getRowNum() - 1, i};
 
       result.add(startingPoint);
       result.add(endingPoint);

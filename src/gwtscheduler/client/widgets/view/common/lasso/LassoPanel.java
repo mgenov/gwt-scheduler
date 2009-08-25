@@ -8,6 +8,7 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.utils.PointUtils;
 import gwtscheduler.client.widgets.view.common.EventWidget;
+import gwtscheduler.client.widgets.view.common.GenericEventWidgetFactory;
 
 import java.util.List;
 
@@ -20,7 +21,6 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.inject.Inject;
 
 /**
  * Lasso panel. Responsible for displaying user lasso selections.
@@ -38,7 +38,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
   /** the lasso strategy */
   private LassoStrategy strategy;
 
-  @Inject
+  //TODO bind with GIN
   private EventWidgetFactory eventFactory;
 
   /**
@@ -46,6 +46,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
    * @param strat
    */
   LassoPanel() {
+    eventFactory = new GenericEventWidgetFactory();
     // style
     addStyleName(Resources.dayWeekCss().lasso());
 

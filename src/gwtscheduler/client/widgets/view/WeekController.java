@@ -8,6 +8,7 @@ import gwtscheduler.client.widgets.view.days.MultipleDaysCalendar;
 import gwtscheduler.client.widgets.view.days.MultipleDaysPanel;
 import gwtscheduler.common.calendar.IntervalType;
 
+import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -103,6 +104,13 @@ public class WeekController extends GenericViewController<MultipleDaysCalendar> 
 
     @Override
     public Interval getIntervalForRange(int[] start, int[] end) {
+      Interval i = new Interval(getInstantForCell(start),
+          getInstantForCell(end));
+      return i;
+    }
+
+    @Override
+    public Instant getInstantForCell(int[] start) {
       // TODO XXX implement me
       return null;
     }

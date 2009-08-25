@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view;
 
+import org.goda.time.Interval;
+
 import gwtscheduler.client.interfaces.ViewController;
 import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.interfaces.navigation.DateGenerator;
@@ -26,7 +28,7 @@ public abstract class GenericViewController<T extends Widget> implements
 
   /** elements decorator */
   //TODO use gin to inject
-    protected MultipleElementsIntervalDecorator<Element> decorator = new DateTimeLabelDecorator();
+  protected MultipleElementsIntervalDecorator<Element> decorator = new DateTimeLabelDecorator();
 
   /**
    * Default constructor.
@@ -56,12 +58,19 @@ public abstract class GenericViewController<T extends Widget> implements
     return decorator;
   }
 
+  @Override
   public EventNavigationListener getNavigationListener() {
     return this;
   }
 
+  @Override
   public T getViewWidget() {
     return view;
+  }
+
+  @Override
+  public Interval getCurrentInterval() {
+    return getFactory().interval();
   }
 
 }

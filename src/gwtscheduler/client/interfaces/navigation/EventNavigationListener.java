@@ -29,4 +29,10 @@ public interface EventNavigationListener {
    * @return the visible time period
    */
   Interval onNavigateTo(ReadableDateTime date);
+
+  /**
+   * Gets the current interval.
+   * @return the current interval
+   */
+  Interval getCurrentInterval();
 }

@@ -1,11 +1,11 @@
 package gwtscheduler.tests.lasso;
 
-import static gwtscheduler.tests.TestUtils.assertEqualPoints;
+import static gwtscheduler.tests.gwt.TestUtils.assertEqualPoints;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import gwtscheduler.client.utils.lasso.GenericLassoStrategy;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
-import gwtscheduler.tests.mock.SimpleLassoSubject;
+import gwtscheduler.tests.mock.TestLassoSubject;
 
 import java.util.List;
 
@@ -18,13 +18,13 @@ import org.junit.Test;
  */
 public class VerticalLassoSelectionTests {
 
-  static SimpleLassoSubject subject;
+  static TestLassoSubject subject;
   static GenericLassoStrategy vStrat;
   static GenericLassoStrategy vStratNoMulti;
 
   @BeforeClass
   public static void setUp() {
-    subject = new SimpleLassoSubject(10, 10);
+    subject = new TestLassoSubject(10, 10);
     vStrat = new  VerticalLassoStrategy();
     vStratNoMulti = new  VerticalLassoStrategy(false);
   }
@@ -100,7 +100,7 @@ public class VerticalLassoSelectionTests {
   @Test
   public void testVerticalLassoSelectionNoMultiSimple2() {
     int[] topLeft = {0, 0};
-    int[] next = {0, 1};
+    int[] next = {9, 0};
     List<int[]> sequences = vStratNoMulti.getBlocks(subject, topLeft, next);
     assertEquals(2, sequences.size());
     assertEqualPoints(new int[] {0, 0}, sequences.get(0));
@@ -110,7 +110,7 @@ public class VerticalLassoSelectionTests {
   @Test
   public void testVerticalLassoSelectionNoMultiSimple3() {
     int[] topLeft = {0, 0};
-    int[] next = {3, 0};
+    int[] next = {0, 1};
     List<int[]> sequences = vStratNoMulti.getBlocks(subject, topLeft, next);
     //0,0 - 3,0
     assertEquals(2, sequences.size());

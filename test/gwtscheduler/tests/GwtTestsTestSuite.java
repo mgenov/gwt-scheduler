@@ -1,6 +1,7 @@
 package gwtscheduler.tests;
 
 import gwtscheduler.tests.gwt.date.DateFactoryTests;
+import gwtscheduler.tests.gwt.lasso.LassoTests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -27,6 +28,7 @@ public class GwtTestsTestSuite extends GWTTestSuite {
   public static Test suite() {
     TestSuite suite = new TestSuite();
     suite.addTest(new DateFactoryTests());
+    suite.addTest(new LassoTests());
     return suite;
   }
 

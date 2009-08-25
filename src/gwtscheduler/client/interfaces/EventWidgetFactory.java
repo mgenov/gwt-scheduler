@@ -2,6 +2,10 @@ package gwtscheduler.client.interfaces;
 
 import gwtscheduler.client.widgets.view.common.EventWidget;
 
+/**
+ * @author malp
+ *
+ */
 public interface EventWidgetFactory {
 
   /**
