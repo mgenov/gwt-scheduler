@@ -28,7 +28,6 @@ body {
 
 .lasso-element {
 	background: red;
-	border: 1px solid red;
 }
 
 /** 
@@ -42,7 +41,6 @@ body {
  * TabBar styles.
  */
 .gwt-DecoratedTabBar {
-	
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarFirst {
@@ -50,7 +48,6 @@ body {
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarRest {
-	
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarItem {

@@ -48,8 +48,8 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
   /** lasso container */
   private AbsolutePanel lassoPanel;
 
-  //TODO bind with GIN
-//  private EventWidgetFactory eventFactory;
+  //  @Inject
+  //  private EventWidgetFactory eventFactory;
   @Inject
   private LassoElementFactory lassoFactory;
 
@@ -59,7 +59,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
    */
   LassoPanel() {
     addStyleName(Lasso);
-    
+
     lassoFactory = new GenericLassoElementFactory();
 
     //lasso/ events set up
@@ -68,11 +68,10 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
 
     Element lassoEl = lassoPanel.getElement();
     DOM.setIntStyleAttribute(lassoEl, "zIndex", LASSO_ZINDEX);
-    
+
     addDomHandler(this, MouseDownEvent.getType());
     addDomHandler(this, MouseUpEvent.getType());
     addDomHandler(this, MouseMoveEvent.getType());
-
 
     add(lassoPanel, 0, 0);
 

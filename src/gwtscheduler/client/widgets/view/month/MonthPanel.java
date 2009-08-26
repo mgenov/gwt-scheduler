@@ -224,8 +224,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
 
   @Override
   public int getColNum() {
-    //always 7 columns, one for each week day
-    return DaysInWeek; //TODO use config?
+    return DaysInWeek; 
   }
 
   @Override

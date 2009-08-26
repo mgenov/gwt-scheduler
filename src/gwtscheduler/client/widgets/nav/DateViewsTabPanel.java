@@ -23,7 +23,8 @@ import com.google.gwt.user.client.ui.Widget;
  * Main navigation panel.
  * @author malp
  */
-public class DateViewsTabPanel extends Composite implements BeforeSelectionHandler<Integer>{
+public class DateViewsTabPanel extends Composite implements
+    BeforeSelectionHandler<Integer> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -48,7 +49,7 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
     w.fireEvent(new WidgetResizeEvent(DOMUtils.getViewportDimensions()));
   }
 
-   /**
+  /**
    * Adds a new view to this tab panel.
    * @param controller the controller
    */
@@ -81,7 +82,6 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
       }
     };
     // TODO get this from the css resources?
-//    rp.setCornerColor("#E8EEF7");
     rp.setCornerColor("#92C1F0");
     rp.add(child);
     return rp;

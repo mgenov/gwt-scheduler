@@ -29,7 +29,7 @@
 }
 .evenTitleCell, .oddTitleCell {
   background-color: lightBlued;
-  padding-right: smallPaddingPx;
+  padding-left: smallPaddingPx;
 }
 .evenTitleCell {
   border-top: smallBorderPx solid lightBlued;
@@ -40,8 +40,8 @@
 
 /** regular cells */
 .evenCell, .oddCell {
-  border-left: mediumBorderPx double smooth;
-  padding-right: smallPaddingPx;
+  border-right: mediumBorderPx double smooth;
+  padding-left: smallPaddingPx;
 }
 .evenCell {
   border-top: smallBorderPx solid smooth;
