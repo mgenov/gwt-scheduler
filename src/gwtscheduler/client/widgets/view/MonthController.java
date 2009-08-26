@@ -1,7 +1,8 @@
 package gwtscheduler.client.widgets.view;
 
+import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.config.AppConfiguration;
-import gwtscheduler.client.widgets.decorator.MonthLabelDecorator;
 import gwtscheduler.client.widgets.view.month.MonthCalendar;
 import gwtscheduler.common.calendar.IntervalType;
 
@@ -20,16 +21,19 @@ import com.google.inject.Singleton;
 public class MonthController extends GenericViewController<MonthCalendar> {
 
   /** defines the number of days in a week */
-  final int WeekSize;
+  private final int WeekSize;
+
+  @Inject
+  @Month
+  private MultipleElementsIntervalDecorator decorator;
 
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
   @Inject
-  private MonthController(AppConfiguration cfg) {
+  protected MonthController(AppConfiguration cfg) {
     WeekSize = cfg.daysInWeek();
-    decorator = new MonthLabelDecorator();
   }
 
   @Override
@@ -44,15 +48,14 @@ public class MonthController extends GenericViewController<MonthCalendar> {
   public Interval onNavigateNext() {
     Interval next = getFactory().next().interval();
     adjustVisibleRows(next);
-    getDecorator().decorate(next, getViewWidget());
+    decorator.decorate(next, getViewWidget());
     return next;
   }
 
   public Interval onNavigatePrevious() {
     Interval prev = getFactory().previous().interval();
     adjustVisibleRows(prev);
-    //    getViewWidget().setGridSize(rows, cols)
-    getDecorator().decorate(prev, getViewWidget());
+    decorator.decorate(prev, getViewWidget());
     return prev;
   }
 
@@ -62,7 +65,7 @@ public class MonthController extends GenericViewController<MonthCalendar> {
     }
     Interval intv = getFactory().interval();
     adjustVisibleRows(intv);
-    getDecorator().decorate(intv, getViewWidget());
+    decorator.decorate(intv, getViewWidget());
     return intv;
   }
 

@@ -8,9 +8,8 @@ import gwtscheduler.client.interfaces.LassoSubject;
  * Creates event widgets.
  * @author malp
  */
-public class GenericLassoElementFactory extends AbstractMultiCellWidgetFactory  implements LassoElementFactory {
-
-  //TODO unify with GenericEventWidgetFactory
+public class GenericLassoElementFactory extends AbstractMultiCellWidgetFactory
+    implements LassoElementFactory {
 
   @Override
   public EventWidget createLassoElement(LassoSubject subject, int[] from,

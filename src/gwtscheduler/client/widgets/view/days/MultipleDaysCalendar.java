@@ -89,7 +89,7 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
 
   @Override
   protected void resizeLasso(Widget lasso, WidgetResizeEvent event) {
-    lasso.setSize("100%", (config.getDaysLineHeight() * mainView.getRows())
+    lasso.setSize("100%", (config.daysLineHeightEMs() * mainView.getRows())
         + "em");
   }
 

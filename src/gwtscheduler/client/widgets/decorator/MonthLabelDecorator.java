@@ -18,7 +18,7 @@ import com.google.gwt.user.client.Element;
  * Decorator for month labels.
  * @author malp
  */
-public class MonthLabelDecorator implements MultipleElementsIntervalDecorator<Element> {
+public class MonthLabelDecorator implements MultipleElementsIntervalDecorator {
 
   /** used to decide if horizontal redraw is needed */
   boolean hasRunHorizontal = false;

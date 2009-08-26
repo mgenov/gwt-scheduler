@@ -1,6 +1,9 @@
 package gwtscheduler.client.widgets.view;
 
 import gwtscheduler.client.interfaces.LassoStrategy;
+import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.view.days.MultipleDaysCalendar;
 import gwtscheduler.client.widgets.view.days.MultipleDaysPanel;
@@ -10,6 +13,7 @@ import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -20,13 +24,17 @@ import com.google.inject.Singleton;
 public class DayController extends GenericViewController<MultipleDaysCalendar> {
 
   /** number of rows */
-  //TODO move to constant file or so
-  private static final int Rows = 48;
+  private static final int Rows = AppInjector.GIN.getInjector().getConfiguration().rowsInDay();
+
+  @Day
+  @Inject
+  protected MultipleElementsIntervalDecorator decorator;
 
   /**
    * Default constructor.
+   * @param cfg the application configuration
    */
-  public DayController() {
+  protected DayController() {
   }
 
   @Override
@@ -41,13 +49,13 @@ public class DayController extends GenericViewController<MultipleDaysCalendar> {
   public Interval onNavigateNext() {
     //TODO verify that the view is attached
     Interval tp = getFactory().next().interval();
-    getDecorator().decorate(tp, getViewWidget());
+    decorator.decorate(tp, getViewWidget());
     return tp;
   }
 
   public Interval onNavigatePrevious() {
     Interval period = getFactory().previous().interval();
-    getDecorator().decorate(period, getViewWidget());
+    decorator.decorate(period, getViewWidget());
     return period;
   }
 
@@ -56,7 +64,7 @@ public class DayController extends GenericViewController<MultipleDaysCalendar> {
       getFactory().init(IntervalType.DAY, date);
     }
     Interval period = getFactory().interval();
-    getDecorator().decorate(period, getViewWidget());
+    decorator.decorate(period, getViewWidget());
     return period;
   }
 

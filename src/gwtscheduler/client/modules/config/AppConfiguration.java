@@ -22,8 +22,15 @@ public interface AppConfiguration {
   int daysInWeek();
 
   /**
-   * Gets the line height of the days cells in the day/week view.
+   * Gets the line height (in css <em>em</em> units )of the days cells in the
+   * day/week view.
    * @return the number of lines that each cell occupies
    */
-  int getDaysLineHeight();
+  int daysLineHeightEMs();
+
+  /**
+   * Gets the number of rows for each day.
+   * @return the number of rows (ex: 48)
+   */
+  int rowsInDay();
 }

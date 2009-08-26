@@ -16,7 +16,7 @@ import com.google.gwt.user.client.Element;
  * Decorator for Days and Weeks.
  * @author malp
  */
-public class DateTimeLabelDecorator implements MultipleElementsIntervalDecorator<Element> {
+public class DateTimeLabelDecorator implements MultipleElementsIntervalDecorator {
 
   /** used to decide if vertical redraw is needed */
   boolean hasRunVertical = false;

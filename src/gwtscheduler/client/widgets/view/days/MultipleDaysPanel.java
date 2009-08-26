@@ -48,8 +48,7 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
     rh = new HorizontalGridFillResizeHandler(grid);
 
     // this defines the row height 
-    int lh = config.getDaysLineHeight();
-    //FIXME this two lines don't work very well in IE...
+    int lh = config.daysLineHeightEMs();
     container.setSize("100%", getRows() * lh + "em");
     grid.setSize("100%", getRows() * lh + "em");
     container.add(grid);

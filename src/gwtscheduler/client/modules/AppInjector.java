@@ -18,7 +18,7 @@ public interface AppInjector extends Ginjector {
   UIManager getUIRegistry();
 
   /**
-   * Gets the date generator.
+   * Gets a new date generator instance.
    * @return the date generator
    */
   DateGenerator getDateGenerator();

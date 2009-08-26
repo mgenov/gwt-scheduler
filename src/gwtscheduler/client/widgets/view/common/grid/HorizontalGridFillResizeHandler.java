@@ -48,7 +48,6 @@ public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<Horiz
 
     final HorizontalGridFill grid = getTarget();
     final Element parentEl = grid.getParent().getElement();
-    //FIXME this has some issues in IE
     int height = parentEl.getOffsetHeight();
     int width = event.width;
 

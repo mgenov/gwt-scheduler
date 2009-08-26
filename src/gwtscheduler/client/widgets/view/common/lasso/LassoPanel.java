@@ -27,6 +27,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.inject.Inject;
 
 /**
  * Lasso panel. Responsible for displaying user lasso selections.
@@ -49,7 +50,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
 
   //TODO bind with GIN
 //  private EventWidgetFactory eventFactory;
-  //TODO bind with GIN
+  @Inject
   private LassoElementFactory lassoFactory;
 
   /**
@@ -67,10 +68,6 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
 
     Element lassoEl = lassoPanel.getElement();
     DOM.setIntStyleAttribute(lassoEl, "zIndex", LASSO_ZINDEX);
-//
-//    lassoPanel.addMouseDownHandler(this);
-//    lassoPanel.addMouseDownHandler(this);
-//    lassoPanel.addMouseDownHandler(this);
     
     addDomHandler(this, MouseDownEvent.getType());
     addDomHandler(this, MouseUpEvent.getType());

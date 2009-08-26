@@ -39,6 +39,9 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   /** CSS resources */
   private static final MonthCssResource MonthCss = Resources.monthCss();
 
+  /** number of days in a week */
+  private static final int DaysInWeek = AppInjector.GIN.getInjector().getConfiguration().daysInWeek();
+
   /** Main container */
   private FlowPanel container;
   /** resize handler */
@@ -222,7 +225,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   @Override
   public int getColNum() {
     //always 7 columns, one for each week day
-    return 7; //TODO use config?
+    return DaysInWeek; //TODO use config?
   }
 
   @Override

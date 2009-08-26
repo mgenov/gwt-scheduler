@@ -16,7 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.gwt.gen2.table.override.client.FlexTable;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
@@ -56,12 +55,10 @@ public class MonthCalendar extends LassoAwarePanel implements
 
     initLasso(new HorizontalLassoStrategy(), monthView);
   }
-
+  
   @Override
-  protected void styleWindowPanel(Widget windowPanel) {
-    super.styleWindowPanel(windowPanel);
-    //TODO this is not elegant, but works...
-    DOM.setStyleAttribute(windowPanel.getElement(), "overflowY", "hidden");
+  protected boolean isOverflowY() {
+    return false;
   }
 
 //  /**

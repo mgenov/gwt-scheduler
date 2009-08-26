@@ -9,6 +9,7 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -18,7 +19,8 @@ import com.google.gwt.user.client.ui.Widget;
  * Abstract class for calendars with resize and redraw events.
  * @author malp
  */
-public abstract class RedrawablePanel extends Composite implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
+public abstract class RedrawablePanel extends Composite implements
+    HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
 
   /** widget impl */
   private VerticalPanel impl;
@@ -62,8 +64,19 @@ public abstract class RedrawablePanel extends Composite implements HasWidgetResi
    * This method is used to style the window panel.
    * @param window the window panel
    */
-  protected void styleWindowPanel(Widget window) {
+  private void styleWindowPanel(Widget window) {
     window.getElement().getStyle().setProperty("position", "relative");
+    if (!isOverflowY()) {
+      DOM.setStyleAttribute(windowPanel.getElement(), "overflowY", "hidden");
+    }
+  }
+
+  /**
+   * Indicates if y-axis overflow is to be visible or hidden
+   * @return <code>true</code> to show a scroll bar, <code>false</code> to hide
+   */
+  protected boolean isOverflowY() {
+    return true;
   }
 
   /**
