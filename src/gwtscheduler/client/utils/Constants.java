@@ -5,7 +5,7 @@ package gwtscheduler.client.utils;
  */
 public interface Constants {
 
-  /** the scrollbar widht - magic number */
+  /** the scrollbar width - magic number */
   public static final int SCROLLBAR_WIDTH = 19;
 
   /** z index for lasso panel */
