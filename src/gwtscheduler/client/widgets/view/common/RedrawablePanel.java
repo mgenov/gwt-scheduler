@@ -6,7 +6,6 @@ import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
-import gwtscheduler.client.utils.NonRepeatableWindowResizeHandler;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
@@ -53,14 +52,14 @@ public abstract class RedrawablePanel extends Composite implements
 //    final HandlerRegistration reg = addWidgetResizeHandler(wrh);
 //    wrh.handlerRegistration = reg;
     
-    addWidgetResizeHandler(new NonRepeatableWindowResizeHandler() {
-      public void onNewResize(WidgetResizeEvent event) {
+    addWidgetResizeHandler(new WidgetResizeHandler() {
+      public void onResize(WidgetResizeEvent event) {
         windowPanel.doDeferredResize();
       }
     });
-    windowPanel.addWidgetResizeHandler(new NonRepeatableWindowResizeHandler() {
+    windowPanel.addWidgetResizeHandler(new WidgetResizeHandler() {
       @Override
-      public void onNewResize(final WidgetResizeEvent event) {
+      public void onResize(final WidgetResizeEvent event) {
         DeferredCommand.addCommand(new Command() {
           @Override
           public void execute() {
