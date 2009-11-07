@@ -30,12 +30,12 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     Resources.injectAllStylesheets();
 
     // let's test a registration
-    AppInjector uiResources = AppInjector.GIN.getInjector();
-    UIManager registry = uiResources.getUIRegistry();
-//    registry.addController(new DummyMonthController());
+    final AppInjector uiResources = AppInjector.GIN.getInjector();
+    final UIManager registry = uiResources.getUIRegistry();
+    //    registry.addController(new DummyMonthController());
 
     DateViewsTabPanel main = new DateViewsTabPanel();
-    // the registry will be pre-filled with default controllers
+    //     the registry will be pre-filled with default controllers
     for (ViewController controller : registry.getControllers()) {
       main.add(controller);
     }
@@ -54,7 +54,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     RootPanel.get("nav").add(nav);
     RootPanel.get("main").add(main);
     main.selectTab(0);
-
     registry.fireDateNavigation(getCurrentDate());
   }
 

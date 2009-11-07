@@ -23,6 +23,7 @@ public final class Resources {
    * Injects all stylesheets.
    */
   public static void injectAllStylesheets() {
+    //TODO: concatenate css and then inject
     StyleInjector.injectAtStart(Resources.dayWeekCss().getText());
     StyleInjector.injectAtStart(Resources.monthCss().getText());
   }

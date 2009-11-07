@@ -6,6 +6,7 @@ import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
+import gwtscheduler.client.utils.NonRepeatableWindowResizeHandler;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
@@ -40,19 +41,32 @@ public abstract class RedrawablePanel extends Composite implements
     // we'll "delegate" the resize to the window panel
     // but the viewport panel will retrieve the available size
     //this is only fired the first time the panel is loaded
-    addWidgetResizeHandler(new WidgetResizeHandler() {
-      public void onResize(WidgetResizeEvent event) {
+//    HandlerRegistrationAwareWidgetResizeHandler wrh = new HandlerRegistrationAwareWidgetResizeHandler(){
+//      public void onResize(WidgetResizeEvent event) {
+//        windowPanel.doDeferredResize();
+//        if(handlerRegistration != null) {
+//          handlerRegistration.removeHandler();
+//          handlerRegistration = null;
+//        }
+//      }
+//    };
+//    final HandlerRegistration reg = addWidgetResizeHandler(wrh);
+//    wrh.handlerRegistration = reg;
+    
+    addWidgetResizeHandler(new NonRepeatableWindowResizeHandler() {
+      public void onNewResize(WidgetResizeEvent event) {
         windowPanel.doDeferredResize();
       }
     });
-    windowPanel.addWidgetResizeHandler(new WidgetResizeHandler() {
+    windowPanel.addWidgetResizeHandler(new NonRepeatableWindowResizeHandler() {
       @Override
-      public void onResize(final WidgetResizeEvent event) {
+      public void onNewResize(final WidgetResizeEvent event) {
         DeferredCommand.addCommand(new Command() {
           @Override
           public void execute() {
-            delegateEvent(RedrawablePanel.this, event);
-            delegateEvent(RedrawablePanel.this, new WidgetRedrawEvent());
+            //delegates to this widget (self)
+            delegateEvent(RedrawablePanel.this, event); //fires a resize 
+            delegateEvent(RedrawablePanel.this, new WidgetRedrawEvent()); //fires a redraw
           }
         });
       }

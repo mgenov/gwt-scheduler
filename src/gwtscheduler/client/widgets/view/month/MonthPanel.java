@@ -129,6 +129,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   public void onResize(WidgetResizeEvent event) {
     // we delegate to default handler
     handler.onResize(event);
+    setRowHeights();
     for (MonthRow row : monthRows) {
       row.onResize(event);
     }
