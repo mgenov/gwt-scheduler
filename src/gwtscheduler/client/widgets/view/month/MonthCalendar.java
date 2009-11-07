@@ -6,6 +6,7 @@ import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
+import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
 import gwtscheduler.client.widgets.view.MonthController;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
@@ -15,8 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -46,26 +47,26 @@ public class MonthCalendar extends LassoAwarePanel implements
 
     insert(topHeader, 0);
 
-//    addWidgetRedrawHandler(new WidgetRedrawHandler() {
-//      @Override
-//      public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
-//        MonthCalendar.this.onRedraw();
-//      }
-//    });
+    //    addWidgetRedrawHandler(new WidgetRedrawHandler() {
+    //      @Override
+    //      public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
+    //        MonthCalendar.this.onRedraw();
+    //      }
+    //    });
 
     initLasso(new HorizontalLassoStrategy(), monthView);
   }
-  
+
   @Override
   protected boolean isOverflowY() {
     return false;
   }
 
-//  /**
-//   * Debug method.
-//   */
-//  void onRedraw() {
-//  }
+  //  /**
+  //   * Debug method.
+  //   */
+  //  void onRedraw() {
+  //  }
 
   @Override
   protected void positionLasso(Widget lasso, WidgetResizeEvent event) {
@@ -92,7 +93,8 @@ public class MonthCalendar extends LassoAwarePanel implements
       cell.getCellElement().setInnerHTML(0 + ", " + i);
       topLabels.add(cell);
 
-      g.setElement(0, i, cell.getCellElement());
+      g.setWidget(0, i, DOMUtils.wrapElement(cell.getCellElement()));
+      //      g.setElement(0, i, cell.getCellElement());
       g.getCellFormatter().setWidth(0, 0, ((float) 100 / 7) + "%");
       g.getFlexCellFormatter().setHorizontalAlignment(0, i,
           HasHorizontalAlignment.ALIGN_CENTER);
