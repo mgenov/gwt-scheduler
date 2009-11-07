@@ -214,7 +214,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   @Override
   public int getHeight() {
     return container.getElement().getOffsetHeight()
-        + MonthCss.monthCellTitleBorderTopPx();
+        + MonthCss.monthCellPadTopPx();
   }
 
   @Override
@@ -224,7 +224,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
 
   @Override
   public int getColNum() {
-    return DaysInWeek; 
+    return DaysInWeek;
   }
 
   @Override

@@ -38,4 +38,9 @@ public class HorizontalLassoStrategy extends GenericLassoStrategy {
     return result;
   }
 
+  @Override
+  public int absoluteDistance(LassoSubject s, int[] pos) {
+    return (pos[0] * s.getColNum()) + pos[1];
+  }
+
 }

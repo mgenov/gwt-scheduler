@@ -177,8 +177,8 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
     assert cellPos != null : "Cell position cannot be null";
     assert cellPos.length == 2 : "Position length != 2";
 
-    int rowH = (subject.getHeight() / subject.getRowNum());
-    int colW = (subject.getWidth() / subject.getColNum());
+    int rowH = Math.round((float) subject.getHeight() / subject.getRowNum());
+    int colW = Math.round((float) subject.getWidth() / subject.getColNum());
     return new int[] {cellPos[1] * colW, cellPos[0] * rowH};
   }
 

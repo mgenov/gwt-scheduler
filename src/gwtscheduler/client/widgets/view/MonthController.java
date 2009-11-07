@@ -32,7 +32,7 @@ public class MonthController extends GenericViewController<MonthCalendar> {
    * @param cfg the application configuration
    */
   @Inject
-  protected MonthController(AppConfiguration cfg) {
+  public MonthController(AppConfiguration cfg) {
     WeekSize = cfg.daysInWeek();
   }
 

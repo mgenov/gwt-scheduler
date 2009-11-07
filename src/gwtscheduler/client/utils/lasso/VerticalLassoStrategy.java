@@ -63,18 +63,24 @@ public class VerticalLassoStrategy extends GenericLassoStrategy {
     int firstCol = from[1];
     int lastCol = isMultiColumn ? to[1] : from[1];
 
-    int[] lastElem = to[1] == lastCol ? to : new int[] { to[0], lastCol};
+    int[] lastElem = to[1] == lastCol ? to : new int[] {to[0], lastCol};
 
     for (int i = firstCol; i <= lastCol; i++) {
       int[] startingPoint = (i == firstCol) ? from : new int[] {0, i};
       //if last col and multi, return bound
       // if not multi, return last row in same col
-      int[] endingPoint = (i == lastCol) ? lastElem : new int[] { s.getRowNum() - 1, i};
+      int[] endingPoint = (i == lastCol) ? lastElem : new int[] {
+          s.getRowNum() - 1, i};
 
       result.add(startingPoint);
       result.add(endingPoint);
     }
     return result;
+  }
+
+  @Override
+  public int absoluteDistance(LassoSubject s, int[] pos) {
+    return (pos[1] * s.getRowNum()) + pos[0];
   }
 
 }

@@ -32,13 +32,16 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     // let's test a registration
     AppInjector uiResources = AppInjector.GIN.getInjector();
     UIManager registry = uiResources.getUIRegistry();
-    // registry.addController(new DummyMonthController());
+//    registry.addController(new DummyMonthController());
 
     DateViewsTabPanel main = new DateViewsTabPanel();
     // the registry will be pre-filled with default controllers
     for (ViewController controller : registry.getControllers()) {
       main.add(controller);
     }
+
+    //    MonthController ctrl = new MonthController(uiResources.getConfiguration());
+    //    main.add(ctrl);
 
     back = new Button("<<", this);
     forward = new Button(">>", this);

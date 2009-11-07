@@ -13,5 +13,15 @@ public interface LassoStrategy {
    * @param end the end
    * @return the blocks
    */
-  public List<int[]> getBlocks(LassoSubject subject, int[] start, int[] end);
+  List<int[]> getBlocks(LassoSubject subject, int[] start, int[] end);
+
+  /**
+   * Gets the number of cells that are needed to traverse from the beggining of
+   * the grid to the supplied position.
+   * @param s the subject
+   * @param pos the position
+   * @return the absolute distance
+   */
+  int absoluteDistance(LassoSubject s, int[] pos);
+
 }
