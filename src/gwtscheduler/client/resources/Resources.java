@@ -5,7 +5,7 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.resources.css.MonthCssResource;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.libideas.client.StyleInjector;
+import com.google.gwt.dom.client.StyleInjector;
 
 /**
  * "Shortcut" class for general resources. Will lazy {@link GWT#create(Class)}
@@ -23,8 +23,8 @@ public final class Resources {
    * Injects all stylesheets.
    */
   public static void injectAllStylesheets() {
-    StyleInjector.injectStylesheet(Resources.dayWeekCss().getText());
-    StyleInjector.injectStylesheet(Resources.monthCss().getText());
+    StyleInjector.injectAtStart(Resources.dayWeekCss().getText());
+    StyleInjector.injectAtStart(Resources.monthCss().getText());
   }
 
   /**

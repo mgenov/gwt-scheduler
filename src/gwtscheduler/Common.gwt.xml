@@ -25,14 +25,17 @@
    	<inherits name='com.google.gwt.user.theme.standard.StandardResources'/>
    	<inherits name="com.google.gwt.inject.Inject"/>
    	
+   	<!-- 
    	<inherits name="com.google.gwt.libideas.ImmutableResources" />
 	<inherits name="com.google.gwt.libideas.StyleInjector" />
 	<inherits name="com.google.gwt.gen2.table.Table" />
+	 -->
 	
-	<!-- this comes in handy for debugging css -->
+	<!-- this comes in handy for debugging css 
 	<set-property name="CssResource.globalPrefix" value="empty" />
 	<set-property name="CssResource.style" value="pretty" />
 	<set-property name="ResourceBundle.enableInlining" value="false" />
+	-->
 
    	<!-- aggregates all common source code (shared between client/server) -->
    	<source path="common" />

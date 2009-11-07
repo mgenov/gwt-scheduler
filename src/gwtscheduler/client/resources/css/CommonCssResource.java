@@ -1,6 +1,6 @@
 package gwtscheduler.client.resources.css;
 
-import com.google.gwt.libideas.resources.client.CssResource;
+import com.google.gwt.resources.client.CssResource;
 
 /**
  * Common Css Resources. This will hold structural css values.

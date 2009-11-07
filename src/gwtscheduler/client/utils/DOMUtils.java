@@ -39,7 +39,7 @@ public class DOMUtils {
     int left = child.getOffsetLeft(), top = child.getOffsetTop();
     com.google.gwt.dom.client.Element nextParent = child.getParentElement();
     //using > while(nextParent != parent...) doesn't work
-    while (parent.isOrHasChild(nextParent) && nextParent != null) {
+    while (nextParent != null && parent.isOrHasChild(nextParent)) {
       left += nextParent.getOffsetLeft();
       top += nextParent.getOffsetTop();
 

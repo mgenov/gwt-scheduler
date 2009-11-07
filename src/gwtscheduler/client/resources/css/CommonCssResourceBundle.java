@@ -1,6 +1,7 @@
 package gwtscheduler.client.resources.css;
 
-import com.google.gwt.libideas.resources.client.ImmutableResourceBundle;
+
+import com.google.gwt.resources.client.ClientBundle;
 
 /**
  * Defines structural css resources. "st" in filename stands for "Structural".
@@ -8,20 +9,20 @@ import com.google.gwt.libideas.resources.client.ImmutableResourceBundle;
  * @version $Revision: $
  * @since 1.0
  */
-public interface CommonCssResourceBundle extends ImmutableResourceBundle {
+public interface CommonCssResourceBundle extends ClientBundle {
 
   /**
    * This is the main stylesheet for days and weeks.
    * @return the day/week stylesheet resource
    */
-  @Resource(value = {"st-common.css", "st-day-week.css"})
+  @Source(value = {"st-common.css", "st-day-week.css"})
   public DayWeekCssResource dayWeekCss();
 
   /**
    * This is the main stylesheet for months.
    * @return the month stylesheet resource
    */
-  @Resource(value = {"st-common.css", "st-month.css"})
+  @Source(value = {"st-common.css", "st-month.css"})
   public MonthCssResource monthCss();
 
 }
