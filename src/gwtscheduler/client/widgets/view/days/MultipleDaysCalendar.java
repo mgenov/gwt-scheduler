@@ -112,7 +112,7 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
       topCell.getCellElement().setInnerHTML(0 + ", " + i);//debug
 
       topLabels.add(topCell);
-      g.setWidget(0, i, DOMUtils.wrapElement(topCell.getCellElement()));
+      g.setWidget(0,  1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
       //      g.setElement(0, 1 + i, topCell.getCellElement());
       g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i,
           HasHorizontalAlignment.ALIGN_CENTER);
