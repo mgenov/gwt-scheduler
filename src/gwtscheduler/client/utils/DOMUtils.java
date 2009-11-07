@@ -43,7 +43,7 @@ public class DOMUtils {
       left += nextParent.getOffsetLeft();
       top += nextParent.getOffsetTop();
 
-      nextParent = nextParent.getParentElement();
+      nextParent = nextParent.getOffsetParent();
     }
     if (nextParent == null) {
       GWT.log("DOMUtils: offset was traced to a null parent node!", null);
