@@ -75,7 +75,7 @@ public class WidgetResizeEvent extends GwtEvent<WidgetResizeHandler> {
     if (obj == null) {
       return false;
     }
-    if (getClass() != obj.getClass()) {
+    if (!(obj instanceof WidgetResizeEvent)) {
       return false;
     }
     WidgetResizeEvent other = (WidgetResizeEvent) obj;

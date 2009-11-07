@@ -14,36 +14,23 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 /**
  * @author malp
  */
-public abstract class NonRepeatableWindowResizeHandler implements
+public abstract class NonRepeatableWidgetResizeHandler implements
     WidgetResizeHandler {
 
   private WidgetResizeEvent lastResizeEvent;
 
   @Override
   public final void onResize(WidgetResizeEvent event) {
-    if (!eventsAreEqual(event, lastResizeEvent)) {
+    if (!event.equals(lastResizeEvent)) {
       onNewResize(event);
       lastResizeEvent = event;
     }
   }
 
   /**
-   * @param evt
+   * Fired when a resize event is fired. The fired event is guaranteed to be
+   * different from the last one.
+   * @param evt the event
    */
   protected abstract void onNewResize(WidgetResizeEvent evt);
-
-  /**
-   * Utility to compare two events.
-   * @param event the event to compare. Cannot be <code>null</code>
-   * @param other the other event
-   * @return <code>true</code> if the event's data is the same
-   */
-  private boolean eventsAreEqual(WidgetResizeEvent event,
-      WidgetResizeEvent other) {
-    assert event != null : "Event cannot be null";
-    if (other != null) {
-      return event.width == other.width && event.height == other.height;
-    }
-    return false;
-  }
 }
