@@ -72,7 +72,7 @@ public class DayController extends GenericViewController<MultipleDaysCalendar> {
    * Inner class for days calendar.
    * @author malp
    */
-  private class DayCalendar extends MultipleDaysCalendar {
+  private static class DayCalendar extends MultipleDaysCalendar {
 
     @Override
     protected MultipleDaysPanel createDaysPanel() {
@@ -90,7 +90,7 @@ public class DayController extends GenericViewController<MultipleDaysCalendar> {
    * Inner class for days panel.
    * @author malp
    */
-  private class DayPanel extends MultipleDaysPanel {
+  private static class DayPanel extends MultipleDaysPanel {
 
     @Override
     protected int getColumns() {

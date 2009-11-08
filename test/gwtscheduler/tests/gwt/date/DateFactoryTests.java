@@ -1,11 +1,7 @@
 package gwtscheduler.tests.gwt.date;
 
-import static org.goda.time.DateTimeConstants.AUGUST;
-import static org.goda.time.DateTimeConstants.FEBRUARY;
-import static org.goda.time.DateTimeConstants.JANUARY;
-import static org.goda.time.DateTimeConstants.JULY;
-import static org.goda.time.DateTimeConstants.JUNE;
-import static org.goda.time.DateTimeConstants.MARCH;
+import static org.goda.time.DateTimeConstants.*;
+import static gwtscheduler.tests.gwt.TestUtils.*;
 import gwtscheduler.client.interfaces.navigation.DateGenerator;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
@@ -61,7 +57,8 @@ public class DateFactoryTests extends GWTTestCase {
    * @param year the year
    * @return the generator
    */
-  protected DateGenerator moveGenerator(DateGenerator gen, int day, int month, int year) {
+  protected DateGenerator moveGenerator(DateGenerator gen, int day, int month,
+      int year) {
     MutableDateTime mdt = now.toMutableDateTime();
     mdt.setDayOfMonth(day);
     mdt.setMonthOfYear(month);
@@ -72,32 +69,44 @@ public class DateFactoryTests extends GWTTestCase {
   }
 
   @Test
+  public void testMonthIntervalsJanuary() {
+    Interval intv = moveGenerator(monthf, 1, JANUARY, 2010).interval();
+
+    assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
+    assertInstantDate(intv.getStart(), 2009, DECEMBER, 28);
+    assertInstantDate(intv.getEnd(), 2010, JANUARY, 31);
+  }
+
+  @Test
   public void testMonthIntervalsJuly() {
     Interval intv = moveGenerator(monthf, 10, JULY, 2009).interval();
 
     assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
-
-    assertEquals(29, intv.getStart().getDayOfMonth());
-    assertEquals(JUNE, intv.getStart().getMonthOfYear());
-
-    assertEquals(2, intv.getEnd().getDayOfMonth());
-    assertEquals(AUGUST, intv.getEnd().getMonthOfYear());
+    assertInstantDate(intv.getStart(), 2009, JUNE, 29);
+    assertInstantDate(intv.getEnd(), 2009, AUGUST, 2);
   }
 
   @Test
   public void testMonthIntervalsFeb() {
     Interval intv = moveGenerator(monthf, 10, FEBRUARY, 2009).interval();
     assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
-
-    assertEquals(26, intv.getStart().getDayOfMonth());
-    assertEquals(JANUARY, intv.getStart().getMonthOfYear());
-
-    assertEquals(1, intv.getEnd().getDayOfMonth());
-    assertEquals(MARCH, intv.getEnd().getMonthOfYear());
+    assertInstantDate(intv.getStart(), 2009, JANUARY, 26);
+    assertInstantDate(intv.getEnd(), 2009, MARCH, 1);
   }
   
   @Test
-  public void testDayIntervalsJuly(){
+  public void testMonthIntervalsNov() {
+    Interval intv = moveGenerator(monthf, 10, NOVEMBER, 2009).interval();
+    monthf.next();
+    monthf.previous();
+    assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
+    
+    assertInstantDate(intv.getStart(), 2009, OCTOBER, 26);
+    assertInstantDate(intv.getEnd(), 2009, DECEMBER, 6);
+  }
+
+  @Test
+  public void testDayIntervalsJuly() {
     Interval intv = moveGenerator(dayf, 13, JULY, 2009).interval();
     assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
   }

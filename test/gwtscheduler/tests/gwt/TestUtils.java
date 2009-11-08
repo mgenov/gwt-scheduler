@@ -1,6 +1,7 @@
 package gwtscheduler.tests.gwt;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 import org.goda.time.DateTimeFieldType;
 import org.goda.time.ReadableInstant;
@@ -17,7 +18,7 @@ public class TestUtils {
   }
 
   /**
-   * Asserts an instant
+   * Asserts an instant.
    * @param ri the instant
    * @param year the year of the instant
    * @param month the month of the instant
@@ -28,4 +29,5 @@ public class TestUtils {
     assertEquals("Month differ", month, ri.get(DateTimeFieldType.monthOfYear()));
     assertEquals("Day differ", day, ri.get(DateTimeFieldType.dayOfMonth()));
   }
+  
 }
