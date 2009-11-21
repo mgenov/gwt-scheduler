@@ -104,7 +104,7 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
 
   @Override
   public int getWidth() {
-    return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx();
+    return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx() - CSS.smallPaddingPx();
   }
 
   /**

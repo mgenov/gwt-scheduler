@@ -3,10 +3,18 @@ package gwtscheduler.client.utils;
 /**
  * Application constants.
  */
-public interface Constants {
+public class Constants {
+
+  /** holds the scrollbar width */
+  public static int width = 0;
 
   /** the scrollbar width - magic number */
-  public static final int SCROLLBAR_WIDTH = 19;
+  public static final int SCROLLBAR_WIDTH() {
+    if (width == 0) {
+      width = JSNIUtils.getScrollbarWidthP();
+    }
+    return width;
+  }
 
   /** z index for lasso panel */
   public static final int LASSO_ZINDEX = 1;

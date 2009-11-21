@@ -104,7 +104,7 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
     g.setWidth("100%");
     g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
     g.getCellFormatter().setWidth(0, columns + 2,
-        Constants.SCROLLBAR_WIDTH + "px");
+        Constants.SCROLLBAR_WIDTH() + "px");
 
     topLabels = new ArrayList<Cell<Element>>(columns);
     for (int i = 0; i < columns; i++) {

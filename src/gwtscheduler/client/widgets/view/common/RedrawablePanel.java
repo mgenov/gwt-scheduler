@@ -26,6 +26,8 @@ public abstract class RedrawablePanel extends Composite implements
   private VerticalPanel impl;
   /** adaptable viewport */
   private AdaptableWindowPanel windowPanel;
+  /** hack */
+  private WidgetResizeEvent lastEvt;
 
   /**
    * Default constructor.
@@ -41,6 +43,7 @@ public abstract class RedrawablePanel extends Composite implements
     //this makes sure the outer window is properly resized
     addWidgetResizeHandler(new WidgetResizeHandler() {
       public void onResize(WidgetResizeEvent event) {
+        lastEvt = event;
         windowPanel.doDeferredResize();
       }
     });
@@ -49,6 +52,9 @@ public abstract class RedrawablePanel extends Composite implements
     windowPanel.addWidgetResizeHandler(new WidgetResizeHandler() {
       @Override
       public void onResize(final WidgetResizeEvent event) {
+        if (event.equals(lastEvt)) {
+          return;
+        }
         DeferredCommand.addCommand(new Command() {
           @Override
           public void execute() {

@@ -14,7 +14,7 @@ import org.goda.time.ReadableInterval;
 import com.google.gwt.user.client.Element;
 
 /**
- * Utilit class for lasso tests.
+ * Utility class for lasso tests.
  * @author malp
  */
 public class DateTimeAwareLassoSubject implements LassoSubject {

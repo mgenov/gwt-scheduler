@@ -30,6 +30,7 @@
 .evenTitleCell, .oddTitleCell {
   background-color: lightBlued;
   padding-left: smallPaddingPx;
+  text-align: center;
 }
 .evenTitleCell {
   border-top: smallBorderPx solid lightBlued;
