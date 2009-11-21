@@ -35,28 +35,17 @@ public abstract class RedrawablePanel extends Composite implements
     initWidget(impl);
 
     windowPanel = new AdaptableWindowPanel();
+    //TODO fix this hack method
     styleWindowPanel(windowPanel);
 
-    // we'll "delegate" the resize to the window panel
-    // but the viewport panel will retrieve the available size
-    //this is only fired the first time the panel is loaded
-//    HandlerRegistrationAwareWidgetResizeHandler wrh = new HandlerRegistrationAwareWidgetResizeHandler(){
-//      public void onResize(WidgetResizeEvent event) {
-//        windowPanel.doDeferredResize();
-//        if(handlerRegistration != null) {
-//          handlerRegistration.removeHandler();
-//          handlerRegistration = null;
-//        }
-//      }
-//    };
-//    final HandlerRegistration reg = addWidgetResizeHandler(wrh);
-//    wrh.handlerRegistration = reg;
-    
+    //this makes sure the outer window is properly resized
     addWidgetResizeHandler(new WidgetResizeHandler() {
       public void onResize(WidgetResizeEvent event) {
         windowPanel.doDeferredResize();
       }
     });
+
+    //this makes sure my childs are resized and redrawed
     windowPanel.addWidgetResizeHandler(new WidgetResizeHandler() {
       @Override
       public void onResize(final WidgetResizeEvent event) {

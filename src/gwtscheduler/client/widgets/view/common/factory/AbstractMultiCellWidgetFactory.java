@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view.common;
+package gwtscheduler.client.widgets.view.common.factory;
 
 import gwtscheduler.client.interfaces.LassoSubject;
 

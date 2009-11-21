@@ -1,7 +1,8 @@
-package gwtscheduler.client.widgets.view.common;
+package gwtscheduler.client.widgets.view.common.factory;
 
 import gwtscheduler.client.interfaces.EventWidgetFactory;
 import gwtscheduler.client.interfaces.LassoSubject;
+import gwtscheduler.client.widgets.view.common.EventWidget;
 
 /**
  * Creates event widgets.

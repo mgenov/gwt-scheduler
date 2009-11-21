@@ -16,8 +16,8 @@ import gwtscheduler.client.widgets.decorator.MonthLabelDecorator;
 import gwtscheduler.client.widgets.view.DayController;
 import gwtscheduler.client.widgets.view.MonthController;
 import gwtscheduler.client.widgets.view.WeekController;
-import gwtscheduler.client.widgets.view.common.GenericEventWidgetFactory;
-import gwtscheduler.client.widgets.view.common.GenericLassoElementFactory;
+import gwtscheduler.client.widgets.view.common.factory.GenericEventWidgetFactory;
+import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactory;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;

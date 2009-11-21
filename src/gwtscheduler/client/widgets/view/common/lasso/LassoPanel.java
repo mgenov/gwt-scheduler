@@ -9,7 +9,7 @@ import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.EventWidget;
-import gwtscheduler.client.widgets.view.common.GenericLassoElementFactory;
+import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactory;
 
 import java.util.List;
 
