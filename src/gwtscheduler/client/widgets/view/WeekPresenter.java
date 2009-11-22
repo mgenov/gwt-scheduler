@@ -5,7 +5,7 @@ import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
-import gwtscheduler.client.widgets.view.dayweek.AbstractDaysCalendar;
+import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
 import net.customware.gwt.presenter.client.EventBus;
 
@@ -22,7 +22,7 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class WeekPresenter extends
-    AbstractCalendarPresenter<AbstractDaysCalendar> {
+    AbstractCalendarPresenter<AbstractDaysView> {
 
   /** holds the number of rows within a day */
   private final int Rows;
@@ -37,7 +37,7 @@ public class WeekPresenter extends
    */
   @Inject
   protected WeekPresenter(AppConfiguration cfg,
-      @Week AbstractDaysCalendar view, EventBus bus) {
+      @Week AbstractDaysView view, EventBus bus) {
     super(view, bus);
     this.Rows = cfg.rowsInDay();
   }

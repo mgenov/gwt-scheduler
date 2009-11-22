@@ -24,7 +24,7 @@ import com.google.inject.Inject;
  * Generic class for a calendar presenter.
  * @author malp
  */
-public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay>
+public abstract class AbstractCalendarPresenter<T extends GenericCalendarView>
     extends WidgetPresenter<T> implements CalendarPresenter,
     EventNavigationListener, LassoSubject {
 

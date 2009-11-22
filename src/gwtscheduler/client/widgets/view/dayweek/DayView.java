@@ -11,11 +11,11 @@ import org.goda.time.Interval;
  * Inner class for days calendar.
  * @author malp
  */
-public class WeekCalendar extends AbstractDaysCalendar {
+public class DayView extends AbstractDaysView {
 
   @Override
   protected AbstractDaysPanel createDaysPanel() {
-    return new WeekPanel();
+    return new DayPanel();
   }
 
   @Override
@@ -27,11 +27,11 @@ public class WeekCalendar extends AbstractDaysCalendar {
    * Inner class for days panel.
    * @author malp
    */
-  private static class WeekPanel extends AbstractDaysPanel {
+  private static class DayPanel extends AbstractDaysPanel {
 
     @Override
     protected int getColumns() {
-      return 7;
+      return 1;
     }
 
     @Override
@@ -48,8 +48,8 @@ public class WeekCalendar extends AbstractDaysCalendar {
 
     @Override
     public Instant getInstantForCell(int[] start) {
-      // TODO XXX implement me
       return null;
     }
+
   }
 }

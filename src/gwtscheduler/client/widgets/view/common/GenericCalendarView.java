@@ -2,6 +2,7 @@ package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
+import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import com.google.gwt.user.client.Element;
  * Defines a generic view for displaying a calendar.
  * @author malp
  */
-public interface GenericCalendarDisplay extends WidgetDisplay {
+public interface GenericCalendarView extends WidgetDisplay {
 
   /**
    * Gets the height in pixels.
@@ -39,4 +40,9 @@ public interface GenericCalendarDisplay extends WidgetDisplay {
    */
   HasMultipleDecorables<Element> getDecorables();
 
+//  /**
+//   * Gets the lasso panel.
+//   * @return the lasso panel
+//   */
+//  LassoAwarePanel asLassoPanel();
 }

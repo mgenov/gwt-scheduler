@@ -1,9 +1,9 @@
 package gwtscheduler.client.interfaces;
 
-import com.google.gwt.user.client.ui.Widget;
-
 import gwtscheduler.client.interfaces.navigation.EventNavigationListener;
 import net.customware.gwt.presenter.client.Presenter;
+
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Defines a calendar controller. Responsible for mediating the view and the
@@ -25,8 +25,9 @@ public interface CalendarPresenter extends Presenter {
   EventNavigationListener getNavigationListener();
 
   /**
-   * @return
+   * Gets the widget.
+   * @return the widget
    */
   Widget getWidgetDisplay();
-
+  
 }

@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Defines the composite month view.
  */
-public class MonthCalendar extends LassoAwarePanel implements MonthDisplay,
+public class MonthView extends LassoAwarePanel implements MonthDisplay,
     HasMultipleDecorables<Element>, HasWidgetRedrawHandlers {
 
   /** static ref to css */
@@ -37,7 +37,7 @@ public class MonthCalendar extends LassoAwarePanel implements MonthDisplay,
   /**
    * Default constructor.
    */
-  public MonthCalendar() {
+  public MonthView() {
     monthPanel = new MonthPanel();
     Widget topHeader = createTopHeader();
 
