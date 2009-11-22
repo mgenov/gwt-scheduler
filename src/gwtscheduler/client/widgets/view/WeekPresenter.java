@@ -1,17 +1,13 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.config.AppConfiguration;
-import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.view.common.GenericViewController;
-import gwtscheduler.client.widgets.view.days.MultipleDaysCalendar;
-import gwtscheduler.client.widgets.view.days.MultipleDaysPanel;
+import gwtscheduler.client.widgets.view.dayweek.AbstractDaysCalendar;
 import gwtscheduler.common.calendar.IntervalType;
 
-import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -24,20 +20,23 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class WeekController extends GenericViewController<MultipleDaysCalendar> {
-  /** number of rows */
-  private static final int Rows = AppInjector.GIN.getInjector().getConfiguration().rowsInDay();
+public class WeekPresenter extends GenericViewController<AbstractDaysCalendar> {
+
+  private final int Rows;
+  //XXX: correct this
+  public static final int ROWS = AppInjector.GIN.getInjector().getConfiguration().rowsInDay();
 
   @Inject
   @Week
   protected MultipleElementsIntervalDecorator decorator;
-  
+
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
   @Inject
-  protected WeekController(@Week MultipleDaysCalendar view) {
+  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysCalendar view) {
+    this.Rows = cfg.rowsInDay();
     this.view = view;
   }
 
@@ -74,51 +73,4 @@ public class WeekController extends GenericViewController<MultipleDaysCalendar> 
     return period;
   }
 
-  /**
-   * Inner class for days calendar.
-   * @author malp
-   */
-  public static class WeekCalendar extends MultipleDaysCalendar {
-
-    @Override
-    protected MultipleDaysPanel createDaysPanel() {
-      return new WeekPanel();
-    }
-
-    @Override
-    protected LassoStrategy getStrategy() {
-      return new VerticalLassoStrategy(false);
-    }
-
-  }
-
-  /**
-   * Inner class for days panel.
-   * @author malp
-   */
-  private static class WeekPanel extends MultipleDaysPanel {
-
-    @Override
-    protected int getColumns() {
-      return 7;
-    }
-
-    @Override
-    protected int getRows() {
-      return Rows;
-    }
-
-    @Override
-    public Interval getIntervalForRange(int[] start, int[] end) {
-      Interval i = new Interval(getInstantForCell(start),
-          getInstantForCell(end));
-      return i;
-    }
-
-    @Override
-    public Instant getInstantForCell(int[] start) {
-      // TODO XXX implement me
-      return null;
-    }
-  }
 }

@@ -20,7 +20,7 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class MonthController extends GenericCalendarPresenter<MonthDisplay> {
+public class MonthPresenter extends GenericCalendarPresenter<MonthDisplay> {
 
   /** defines the number of days in a week */
   private final int WeekSize;
@@ -34,7 +34,7 @@ public class MonthController extends GenericCalendarPresenter<MonthDisplay> {
    * @param cfg the application configuration
    */
   @Inject
-  public MonthController(AppConfiguration cfg, @Month MonthDisplay display,
+  public MonthPresenter(AppConfiguration cfg, @Month MonthDisplay display,
       EventBus bus) {
     super(display, bus);
     WeekSize = cfg.daysInWeek();

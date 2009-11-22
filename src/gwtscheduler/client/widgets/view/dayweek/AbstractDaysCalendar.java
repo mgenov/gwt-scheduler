@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view.days;
+package gwtscheduler.client.widgets.view.dayweek;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.LassoStrategy;
@@ -27,14 +27,14 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
+public abstract class AbstractDaysCalendar extends LassoAwarePanel implements
     HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
   /** day view */
-  protected MultipleDaysPanel mainView;
+  protected AbstractDaysPanel mainView;
   /** top view */
   protected Widget topHeader;
   /** top view cells */
@@ -46,7 +46,7 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
   /**
    * Default constructor.
    */
-  public MultipleDaysCalendar() {
+  public AbstractDaysCalendar() {
     super();
     mainView = createDaysPanel();
     topHeader = createTopHeader(mainView.getColumns());
@@ -124,5 +124,5 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
    * Creates the day view widget.
    * @return the day view widget
    */
-  protected abstract MultipleDaysPanel createDaysPanel();
+  protected abstract AbstractDaysPanel createDaysPanel();
 }

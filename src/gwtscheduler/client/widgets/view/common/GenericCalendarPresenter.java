@@ -36,7 +36,7 @@ public abstract class GenericCalendarPresenter<T extends GenericCalendarDisplay>
    * @param display
    * @param eventBus
    */
-  public GenericCalendarPresenter(T display, EventBus eventBus) {
+  protected GenericCalendarPresenter(T display, EventBus eventBus) {
     super(display, eventBus);
   }
 
@@ -66,12 +66,6 @@ public abstract class GenericCalendarPresenter<T extends GenericCalendarDisplay>
   public EventNavigationListener getNavigationListener() {
     return this;
   }
-
-  //  @Override
-  //  public String getTabLabel() {
-  //    //XXX implement
-  //    return null;
-  //  }
 
   /**
    * View Controller methods

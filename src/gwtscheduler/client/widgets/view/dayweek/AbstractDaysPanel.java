@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view.days;
+package gwtscheduler.client.widgets.view.dayweek;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.LassoSubject;
@@ -22,7 +22,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * Abstract class for day and week views. Holds the main grid cells.
  */
-public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidgetResizeHandlers, LassoSubject {
+//FIXME: migrate the LassoSubject to the presenter
+public abstract class AbstractDaysPanel extends WrappedWidget implements
+    HasWidgetResizeHandlers, LassoSubject {
 
   /** static ref to css */
   private static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -40,7 +42,7 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
   /**
    * Default constructor.
    */
-  public MultipleDaysPanel() {
+  public AbstractDaysPanel() {
     container = new VerticalPanel();
     wrapWidget(container);
 
@@ -104,7 +106,8 @@ public abstract class MultipleDaysPanel extends WrappedWidget implements HasWidg
 
   @Override
   public int getWidth() {
-    return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx() - CSS.smallPaddingPx();
+    return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx()
+        - CSS.smallPaddingPx();
   }
 
   /**

@@ -13,12 +13,14 @@ import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.utils.GenericDateGenerator;
 import gwtscheduler.client.widgets.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.decorator.MonthLabelDecorator;
-import gwtscheduler.client.widgets.view.DayController;
-import gwtscheduler.client.widgets.view.MonthController;
-import gwtscheduler.client.widgets.view.WeekController;
+import gwtscheduler.client.widgets.view.DayPresenter;
+import gwtscheduler.client.widgets.view.MonthPresenter;
+import gwtscheduler.client.widgets.view.WeekPresenter;
 import gwtscheduler.client.widgets.view.common.factory.GenericEventWidgetFactory;
 import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactory;
-import gwtscheduler.client.widgets.view.days.MultipleDaysCalendar;
+import gwtscheduler.client.widgets.view.dayweek.AbstractDaysCalendar;
+import gwtscheduler.client.widgets.view.dayweek.DayCalendar;
+import gwtscheduler.client.widgets.view.dayweek.WeekCalendar;
 import gwtscheduler.client.widgets.view.month.MonthCalendar;
 import gwtscheduler.client.widgets.view.month.MonthDisplay;
 import net.customware.gwt.presenter.client.DefaultEventBus;
@@ -44,9 +46,9 @@ public class UIModule extends AbstractGinModule {
     bind(LassoElementFactory.class).to(GenericLassoElementFactory.class).in(Singleton.class);
 
     // controllers
-    bind(CalendarPresenter.class).annotatedWith(Day.class).to(DayController.class);
-    bind(CalendarPresenter.class).annotatedWith(Week.class).to(WeekController.class);
-    bind(CalendarPresenter.class).annotatedWith(Month.class).to(MonthController.class);
+    bind(CalendarPresenter.class).annotatedWith(Day.class).to(DayPresenter.class);
+    bind(CalendarPresenter.class).annotatedWith(Week.class).to(WeekPresenter.class);
+    bind(CalendarPresenter.class).annotatedWith(Month.class).to(MonthPresenter.class);
 
     // decorators
     bind(MultipleElementsIntervalDecorator.class).annotatedWith(Day.class).to(DateTimeLabelDecorator.class);
@@ -54,8 +56,8 @@ public class UIModule extends AbstractGinModule {
     bind(MultipleElementsIntervalDecorator.class).annotatedWith(Month.class).to(MonthLabelDecorator.class);
     
     //bind the view to the ctrl
-    bind(MultipleDaysCalendar.class).annotatedWith(Week.class).to(WeekController.WeekCalendar.class);
-    bind(MultipleDaysCalendar.class).annotatedWith(Day.class).to(DayController.DayCalendar.class);
+    bind(AbstractDaysCalendar.class).annotatedWith(Week.class).to(WeekCalendar.class);
+    bind(AbstractDaysCalendar.class).annotatedWith(Day.class).to(DayCalendar.class);
     bind(MonthDisplay.class).annotatedWith(Month.class).to(MonthCalendar.class);
 
   }

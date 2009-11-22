@@ -30,6 +30,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
+//FIXME: migrate the LassoSubject to the presenter
 class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
     HasWidgetResizeHandlers, LassoSubject {
 
@@ -49,15 +50,12 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   private List<MonthRow> hiddenRows;
   /** application config retrieved value */
   private final int WeekSize;
-//  /** the controller */
-//  private MonthController controller;
 
   /**
    * Default constructor.
    * @param ctrl the controller
    */
-  public MonthPanel(/**/) {
-//    controller = ctrl;
+  public MonthPanel() {
     AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
     WeekSize = config.daysInWeek();
 
@@ -86,11 +84,11 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   public Instant getInstantForCell(int[] start) {
     return null;
     //FIXME correct this
-//    int distance = (start[0] * getColNum()) + start[1];
-//    ReadableInterval curr = controller.getCurrentInterval().toMutableInterval();
-//    MutableDateTime time = curr.getStart().toMutableDateTime();
-//    time.addDays(distance);
-//    return time.toInstant();
+    //    int distance = (start[0] * getColNum()) + start[1];
+    //    ReadableInterval curr = controller.getCurrentInterval().toMutableInterval();
+    //    MutableDateTime time = curr.getStart().toMutableDateTime();
+    //    time.addDays(distance);
+    //    return time.toInstant();
   }
 
   /**
