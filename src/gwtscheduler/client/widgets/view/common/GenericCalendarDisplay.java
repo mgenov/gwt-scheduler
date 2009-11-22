@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view;
+package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.interfaces.Cell;
 

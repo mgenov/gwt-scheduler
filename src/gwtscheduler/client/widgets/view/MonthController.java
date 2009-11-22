@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view;
 import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.widgets.view.common.GenericViewController;
 import gwtscheduler.client.widgets.view.month.MonthCalendar;
 import gwtscheduler.common.calendar.IntervalType;
 
@@ -35,11 +36,6 @@ public class MonthController extends GenericViewController<MonthCalendar> {
   public MonthController(AppConfiguration cfg, @Month MonthCalendar view) {
     WeekSize = cfg.daysInWeek();
     this.view = view;
-  }
-
-  @Override
-  protected MonthCalendar createView() {
-    return view;//new MonthCalendar(this);
   }
 
   public String getTabLabel() {

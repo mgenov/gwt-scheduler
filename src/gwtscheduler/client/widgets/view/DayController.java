@@ -5,6 +5,7 @@ import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorat
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
+import gwtscheduler.client.widgets.view.common.GenericViewController;
 import gwtscheduler.client.widgets.view.days.MultipleDaysCalendar;
 import gwtscheduler.client.widgets.view.days.MultipleDaysPanel;
 import gwtscheduler.common.calendar.IntervalType;
@@ -37,11 +38,6 @@ public class DayController extends GenericViewController<MultipleDaysCalendar> {
   @Inject
   protected DayController(@Day MultipleDaysCalendar view) {
     this.view = view;
-  }
-
-  @Override
-  protected MultipleDaysCalendar createView() {
-    return new DayCalendar();
   }
 
   public String getTabLabel() {

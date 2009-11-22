@@ -6,6 +6,7 @@ import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
+import gwtscheduler.client.widgets.view.common.GenericViewController;
 import gwtscheduler.client.widgets.view.days.MultipleDaysCalendar;
 import gwtscheduler.client.widgets.view.days.MultipleDaysPanel;
 import gwtscheduler.common.calendar.IntervalType;
@@ -38,11 +39,6 @@ public class WeekController extends GenericViewController<MultipleDaysCalendar> 
   @Inject
   protected WeekController(@Week MultipleDaysCalendar view) {
     this.view = view;
-  }
-
-  protected MultipleDaysCalendar createView() {
-    return  this.view;
-//    return new WeekCalendar();
   }
 
   public String getTabLabel() {

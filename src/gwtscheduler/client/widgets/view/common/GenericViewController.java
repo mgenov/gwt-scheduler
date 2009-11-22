@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view;
+package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.interfaces.ViewController;
 import gwtscheduler.client.interfaces.navigation.DateGenerator;
@@ -27,14 +27,8 @@ public abstract class GenericViewController<T extends Widget> implements
    * Default constructor.
    */
   protected GenericViewController() {
-    view = createView();
   }
-
-  /**
-   * This method is responsibel for creating the view.
-   */
-  protected abstract T createView();
-
+  
   /**
    * Gets the date factory.
    * @return the date factory
