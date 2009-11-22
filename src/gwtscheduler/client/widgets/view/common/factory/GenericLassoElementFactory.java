@@ -3,7 +3,9 @@ package gwtscheduler.client.widgets.view.common.factory;
 import static gwtscheduler.client.resources.css.MainCss.LassoElement;
 import gwtscheduler.client.interfaces.LassoElementFactory;
 import gwtscheduler.client.interfaces.LassoSubject;
-import gwtscheduler.client.widgets.view.common.EventWidget;
+
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Creates event widgets.
@@ -13,9 +15,9 @@ public class GenericLassoElementFactory extends AbstractMultiCellWidgetFactory
     implements LassoElementFactory {
 
   @Override
-  public EventWidget createLassoElement(LassoSubject subject, int[] from,
+  public Widget createLassoElement(LassoSubject subject, int[] from,
       int[] to) {
-    EventWidget ew = new EventWidget();
+    Label ew = new Label();
     ew.addStyleName(LassoElement);
 
     int w = getWidth(subject, to[1] - from[1] + 1);

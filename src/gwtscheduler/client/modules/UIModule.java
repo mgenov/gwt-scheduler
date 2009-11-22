@@ -1,7 +1,6 @@
 package gwtscheduler.client.modules;
 
 import gwtscheduler.client.interfaces.CalendarPresenter;
-import gwtscheduler.client.interfaces.EventWidgetFactory;
 import gwtscheduler.client.interfaces.LassoElementFactory;
 import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.interfaces.navigation.DateGenerator;
@@ -16,7 +15,6 @@ import gwtscheduler.client.widgets.decorator.MonthLabelDecorator;
 import gwtscheduler.client.widgets.view.DayPresenter;
 import gwtscheduler.client.widgets.view.MonthPresenter;
 import gwtscheduler.client.widgets.view.WeekPresenter;
-import gwtscheduler.client.widgets.view.common.factory.GenericEventWidgetFactory;
 import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactory;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysCalendar;
 import gwtscheduler.client.widgets.view.dayweek.DayCalendar;
@@ -42,7 +40,6 @@ public class UIModule extends AbstractGinModule {
     
     
     bind(DateGenerator.class).to(GenericDateGenerator.class);
-    bind(EventWidgetFactory.class).to(GenericEventWidgetFactory.class).in(Singleton.class);
     bind(LassoElementFactory.class).to(GenericLassoElementFactory.class).in(Singleton.class);
 
     // controllers

@@ -8,7 +8,6 @@ import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.common.EventWidget;
 import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactory;
 
 import java.util.List;
@@ -27,6 +26,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 /**
@@ -64,8 +64,8 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
     lassoPanel = new LassoContainer();
     lassoPanel.setSize("100%", "100%");
 
-//    Element lassoEl = lassoPanel.getElement();
-//    DOM.setIntStyleAttribute(lassoEl, "zIndex", LASSO_ZINDEX);
+    //    Element lassoEl = lassoPanel.getElement();
+    //    DOM.setIntStyleAttribute(lassoEl, "zIndex", LASSO_ZINDEX);
 
     addDomHandler(this, MouseDownEvent.getType());
     addDomHandler(this, MouseUpEvent.getType());
@@ -97,10 +97,10 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
     for (int i = 0; i < range.size(); i += 2) {
       int[] from = range.get(i);
       int[] to = range.get(i + 1);
-      EventWidget event = lassoFactory.createLassoElement(subject, from, to);
+      Widget lasso = lassoFactory.createLassoElement(subject, from, to);
 
       int[] coords = calculateLeftTop(from);
-      lassoPanel.add(event, coords[0], coords[1]);
+      lassoPanel.add(lasso, coords[0], coords[1]);
     }
   }
 

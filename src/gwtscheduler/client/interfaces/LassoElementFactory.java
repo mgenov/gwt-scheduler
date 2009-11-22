@@ -1,10 +1,9 @@
 package gwtscheduler.client.interfaces;
 
-import gwtscheduler.client.widgets.view.common.EventWidget;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author malp
- *
  */
 public interface LassoElementFactory {
 
@@ -15,6 +14,6 @@ public interface LassoElementFactory {
    * @param to the to position
    * @return
    */
-  EventWidget createLassoElement(LassoSubject subject, int[] from, int[] to);
+  Widget createLassoElement(LassoSubject subject, int[] from, int[] to);
 
 }
