@@ -11,6 +11,7 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
+import gwtscheduler.client.widgets.view.common.GenericCalendarDisplay;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 
@@ -28,13 +29,14 @@ import com.google.gwt.user.client.ui.Widget;
  * Composite view class for days. Has an upper label and a grid.
  */
 public abstract class AbstractDaysCalendar extends LassoAwarePanel implements
-    HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
+    GenericCalendarDisplay, HasMultipleDecorables<Element>,
+    HasWidgetRedrawHandlers {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
   /** day view */
-  protected AbstractDaysPanel mainView;
+  protected AbstractDaysPanel mainPanel;
   /** top view */
   protected Widget topHeader;
   /** top view cells */
@@ -48,16 +50,34 @@ public abstract class AbstractDaysCalendar extends LassoAwarePanel implements
    */
   public AbstractDaysCalendar() {
     super();
-    mainView = createDaysPanel();
-    topHeader = createTopHeader(mainView.getColumns());
+    mainPanel = createDaysPanel();
+    topHeader = createTopHeader(mainPanel.getColumns());
 
-    addToWindow(mainView);
-    addWidgetResizeHandler(mainView.getWidgetResizeHandler());
+    addToWindow(mainPanel);
+    addWidgetResizeHandler(mainPanel.getWidgetResizeHandler());
 
     insert(topHeader, 0);
 
     //move this to the presenter
-    initLasso(getStrategy(), mainView);
+    initLasso(getStrategy(), mainPanel);
+  }
+
+  /**
+   * Gets the main panel.
+   * @return the main panel
+   */
+  protected AbstractDaysPanel getMainPanel() {
+    return mainPanel;
+  }
+
+  @Override
+  public int getHeight() {
+    return getMainPanel().getHeight();
+  }
+
+  @Override
+  public int getWidth() {
+    return getMainPanel().getWidth();
   }
 
   /**
@@ -77,7 +97,7 @@ public abstract class AbstractDaysCalendar extends LassoAwarePanel implements
 
   @Override
   protected void resizeLasso(Widget lasso, WidgetResizeEvent event) {
-    lasso.setSize("100%", (config.daysLineHeightEMs() * mainView.getRows())
+    lasso.setSize("100%", (config.daysLineHeightEMs() * mainPanel.getRows())
         + "em");
   }
 
@@ -113,11 +133,11 @@ public abstract class AbstractDaysCalendar extends LassoAwarePanel implements
   }
 
   public List<Cell<Element>> getRowsDecorableElements() {
-    return Collections.unmodifiableList(mainView.getTitleDecorables());
+    return Collections.unmodifiableList(mainPanel.getTitleDecorables());
   }
 
   public List<Cell<Element>> getContentDecorableElements() {
-    return Collections.unmodifiableList(mainView.getMainDecorables());
+    return Collections.unmodifiableList(mainPanel.getMainDecorables());
   }
 
   /**
@@ -125,4 +145,28 @@ public abstract class AbstractDaysCalendar extends LassoAwarePanel implements
    * @return the day view widget
    */
   protected abstract AbstractDaysPanel createDaysPanel();
+
+  @Override
+  public HasMultipleDecorables<Element> getDecorables() {
+    return this;
+  }
+
+  @Override
+  public List<Cell<Element>> getVisibleElements() {
+    return getContentDecorableElements();
+  }
+
+  @Override
+  public Widget asWidget() {
+    return this;
+  }
+
+  @Override
+  public void startProcessing() {
+  }
+
+  @Override
+  public void stopProcessing() {
+  }
+
 }

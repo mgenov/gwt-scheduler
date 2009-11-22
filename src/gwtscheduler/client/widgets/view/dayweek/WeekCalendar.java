@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.dayweek;
 
 import gwtscheduler.client.interfaces.LassoStrategy;
+import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
-import gwtscheduler.client.widgets.view.WeekPresenter;
 
 import org.goda.time.Instant;
 import org.goda.time.Interval;
@@ -36,7 +36,7 @@ public class WeekCalendar extends AbstractDaysCalendar {
 
     @Override
     protected int getRows() {
-      return WeekPresenter.ROWS;
+      return AppInjector.GIN.getInjector().getConfiguration().rowsInDay();
     }
 
     @Override

@@ -1,11 +1,12 @@
 package gwtscheduler.client.widgets.view;
 
 import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
-import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.annotation.Day;
-import gwtscheduler.client.widgets.view.common.GenericViewController;
+import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.widgets.view.common.GenericCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysCalendar;
 import gwtscheduler.common.calendar.IntervalType;
+import net.customware.gwt.presenter.client.EventBus;
 
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
@@ -18,11 +19,11 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class DayPresenter extends GenericViewController<AbstractDaysCalendar> {
+public class DayPresenter extends
+    GenericCalendarPresenter<AbstractDaysCalendar> {
 
   /** number of rows */
-  //XXX: fix this
-  public static final int Rows = AppInjector.GIN.getInjector().getConfiguration().rowsInDay();
+  public final int Rows;
 
   @Day
   @Inject
@@ -33,24 +34,36 @@ public class DayPresenter extends GenericViewController<AbstractDaysCalendar> {
    * @param cfg the application configuration
    */
   @Inject
-  protected DayPresenter(@Day AbstractDaysCalendar view) {
-    this.view = view;
+  protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysCalendar view,
+      EventBus bus) {
+    super(view, bus);
+    Rows = cfg.rowsInDay();
   }
 
   public String getTabLabel() {
     return "Day";
   }
 
+  @Override
+  public int getColNum() {
+    return 1;
+  }
+
+  @Override
+  public int getRowNum() {
+    return Rows;
+  }
+
   public Interval onNavigateNext() {
     //TODO verify that the view is attached
     Interval tp = getFactory().next().interval();
-    decorator.decorate(tp, getViewWidget());
+    decorator.decorate(tp, getDisplay().getDecorables());
     return tp;
   }
 
   public Interval onNavigatePrevious() {
     Interval period = getFactory().previous().interval();
-    decorator.decorate(period, getViewWidget());
+    decorator.decorate(period, getDisplay().getDecorables());
     return period;
   }
 
@@ -59,10 +72,8 @@ public class DayPresenter extends GenericViewController<AbstractDaysCalendar> {
       getFactory().init(IntervalType.DAY, date);
     }
     Interval period = getFactory().interval();
-    decorator.decorate(period, getViewWidget());
+    decorator.decorate(period, getDisplay().getDecorables());
     return period;
   }
-
-
 
 }
