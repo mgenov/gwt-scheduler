@@ -48,8 +48,6 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
   /** lasso container */
   private AbsolutePanel lassoPanel;
 
-  //  @Inject
-  //  private EventWidgetFactory eventFactory;
   @Inject
   private LassoElementFactory lassoFactory;
 

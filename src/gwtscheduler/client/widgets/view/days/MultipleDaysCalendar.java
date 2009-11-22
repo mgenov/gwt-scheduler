@@ -56,13 +56,7 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
 
     insert(topHeader, 0);
 
-    //    addWidgetRedrawHandler(new WidgetRedrawHandler() {
-    //      @Override
-    //      public void onRedraw(WidgetRedrawEvent widgetRedrawEvent) {
-    //        MultipleDaysCalendar.this.onRedraw();
-    //      }
-    //    });
-
+    //move this to the presenter
     initLasso(getStrategy(), mainView);
   }
 
@@ -71,12 +65,6 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
    * @return the strategy
    */
   protected abstract LassoStrategy getStrategy();
-
-  //  /**
-  //   * Utility method fired when the calendar is redrawn.
-  //   */
-  //  void onRedraw() {
-  //  }
 
   @Override
   protected void positionLasso(Widget lasso, WidgetResizeEvent event) {
@@ -112,7 +100,7 @@ public abstract class MultipleDaysCalendar extends LassoAwarePanel implements
       topCell.getCellElement().setInnerHTML(0 + ", " + i);//debug
 
       topLabels.add(topCell);
-      g.setWidget(0,  1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
+      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
       //      g.setElement(0, 1 + i, topCell.getCellElement());
       g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i,
           HasHorizontalAlignment.ALIGN_CENTER);

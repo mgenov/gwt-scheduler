@@ -12,3 +12,4 @@ tomcat
 .gwt-tmp
 report*.xml
 reports
+*.orig

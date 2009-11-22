@@ -41,10 +41,12 @@ public abstract class GenericLassoStrategy implements LassoStrategy {
    * @param point the point
    */
   private void checkBounds(LassoSubject subject, int[] point) {
-    if (point[0] < 0 || point[0] >= subject.getRowNum())
+    if (point[0] < 0 || point[0] >= subject.getRowNum()) {
       throw new IllegalArgumentException("Row out of bounds");
-    if (point[1] < 0 || point[1] >= subject.getColNum())
+    }
+    if (point[1] < 0 || point[1] >= subject.getColNum()) {
       throw new IllegalArgumentException("Column out of bounds");
+    }
   }
 
   /**

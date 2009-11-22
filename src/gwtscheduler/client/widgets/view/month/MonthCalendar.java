@@ -37,7 +37,7 @@ public class MonthCalendar extends LassoAwarePanel implements
   /**
    * Default constructor.
    */
-  public MonthCalendar(/*MonthController ctrl*/) {
+  public MonthCalendar(/* MonthController ctrl */) {
     monthView = new MonthPanel();
     Widget topHeader = createTopHeader();
 
@@ -45,6 +45,8 @@ public class MonthCalendar extends LassoAwarePanel implements
     addWidgetResizeHandler(monthView.getWidgetResizeHandler());
 
     insert(topHeader, 0);
+    
+    //move this to the presenter
     initLasso(new HorizontalLassoStrategy(), monthView);
   }
 
@@ -52,6 +54,7 @@ public class MonthCalendar extends LassoAwarePanel implements
   protected boolean isOverflowY() {
     return false;
   }
+
   @Override
   protected void positionLasso(Widget lasso, WidgetResizeEvent event) {
     //lasso is fixed position
