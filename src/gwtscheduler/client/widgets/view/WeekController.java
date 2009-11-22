@@ -30,16 +30,19 @@ public class WeekController extends GenericViewController<MultipleDaysCalendar> 
   @Inject
   @Week
   protected MultipleElementsIntervalDecorator decorator;
-
+  
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
-  protected WeekController() {
+  @Inject
+  protected WeekController(@Week MultipleDaysCalendar view) {
+    this.view = view;
   }
 
   protected MultipleDaysCalendar createView() {
-    return new WeekCalendar();
+    return  this.view;
+//    return new WeekCalendar();
   }
 
   public String getTabLabel() {
@@ -79,7 +82,7 @@ public class WeekController extends GenericViewController<MultipleDaysCalendar> 
    * Inner class for days calendar.
    * @author malp
    */
-  private static class WeekCalendar extends MultipleDaysCalendar {
+  public static class WeekCalendar extends MultipleDaysCalendar {
 
     @Override
     protected MultipleDaysPanel createDaysPanel() {

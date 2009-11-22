@@ -34,7 +34,9 @@ public class DayController extends GenericViewController<MultipleDaysCalendar> {
    * Default constructor.
    * @param cfg the application configuration
    */
-  protected DayController() {
+  @Inject
+  protected DayController(@Day MultipleDaysCalendar view) {
+    this.view = view;
   }
 
   @Override
@@ -72,7 +74,7 @@ public class DayController extends GenericViewController<MultipleDaysCalendar> {
    * Inner class for days calendar.
    * @author malp
    */
-  private static class DayCalendar extends MultipleDaysCalendar {
+  public static class DayCalendar extends MultipleDaysCalendar {
 
     @Override
     protected MultipleDaysPanel createDaysPanel() {

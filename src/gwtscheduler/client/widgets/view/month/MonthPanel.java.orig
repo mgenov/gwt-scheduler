@@ -10,6 +10,7 @@ import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
+import gwtscheduler.client.widgets.view.MonthPresenter;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 
@@ -18,6 +19,8 @@ import java.util.List;
 
 import org.goda.time.Instant;
 import org.goda.time.Interval;
+import org.goda.time.MutableDateTime;
+import org.goda.time.ReadableInterval;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
@@ -49,15 +52,15 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
   private List<MonthRow> hiddenRows;
   /** application config retrieved value */
   private final int WeekSize;
-//  /** the controller */
-//  private MonthController controller;
+  /** the controller */
+  private MonthPresenter controller;
 
   /**
    * Default constructor.
    * @param ctrl the controller
    */
-  public MonthPanel(/**/) {
-//    controller = ctrl;
+  public MonthPanel(MonthPresenter ctrl) {
+    controller = ctrl;
     AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
     WeekSize = config.daysInWeek();
 
@@ -84,13 +87,11 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
 
   @Override
   public Instant getInstantForCell(int[] start) {
-    return null;
-    //FIXME correct this
-//    int distance = (start[0] * getColNum()) + start[1];
-//    ReadableInterval curr = controller.getCurrentInterval().toMutableInterval();
-//    MutableDateTime time = curr.getStart().toMutableDateTime();
-//    time.addDays(distance);
-//    return time.toInstant();
+    int distance = (start[0] * getColNum()) + start[1];
+    ReadableInterval curr = controller.getCurrentInterval().toMutableInterval();
+    MutableDateTime time = curr.getStart().toMutableDateTime();
+    time.addDays(distance);
+    return time.toInstant();
   }
 
   /**

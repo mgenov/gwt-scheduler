@@ -8,6 +8,7 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
+import gwtscheduler.client.widgets.view.MonthPresenter;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 
@@ -33,18 +34,21 @@ public class MonthCalendar extends LassoAwarePanel implements
   protected MonthPanel monthView;
   /** top view cells */
   protected List<Cell<Element>> topLabels;
+  /** lasso panel */
+  protected LassoAwarePanel lassoAwarePanel;
 
   /**
    * Default constructor.
    */
-  public MonthCalendar(/*MonthController ctrl*/) {
-    monthView = new MonthPanel();
+  public MonthCalendar(MonthPresenter ctrl) {
+    monthView = new MonthPanel(ctrl);
     Widget topHeader = createTopHeader();
 
     addToWindow(monthView);
     addWidgetResizeHandler(monthView.getWidgetResizeHandler());
 
     insert(topHeader, 0);
+
     initLasso(new HorizontalLassoStrategy(), monthView);
   }
 
@@ -52,9 +56,9 @@ public class MonthCalendar extends LassoAwarePanel implements
   protected boolean isOverflowY() {
     return false;
   }
+
   @Override
   protected void positionLasso(Widget lasso, WidgetResizeEvent event) {
-    //lasso is fixed position
   }
 
   @Override
@@ -78,7 +82,6 @@ public class MonthCalendar extends LassoAwarePanel implements
       topLabels.add(cell);
 
       g.setWidget(0, i, DOMUtils.wrapElement(cell.getCellElement()));
-      //      g.setElement(0, i, cell.getCellElement());
       g.getCellFormatter().setWidth(0, 0, ((float) 100 / 7) + "%");
       g.getFlexCellFormatter().setHorizontalAlignment(0, i,
           HasHorizontalAlignment.ALIGN_CENTER);

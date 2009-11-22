@@ -17,7 +17,7 @@ public abstract class GenericViewController<T extends Widget> implements
     ViewController, EventNavigationListener {
 
   /** view widget for the controller */
-  private T view;
+  protected T view;
 
   /** date factory class */
   @Inject

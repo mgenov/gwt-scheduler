@@ -32,13 +32,14 @@ public class MonthController extends GenericViewController<MonthCalendar> {
    * @param cfg the application configuration
    */
   @Inject
-  public MonthController(AppConfiguration cfg) {
+  public MonthController(AppConfiguration cfg, @Month MonthCalendar view) {
     WeekSize = cfg.daysInWeek();
+    this.view = view;
   }
 
   @Override
   protected MonthCalendar createView() {
-    return new MonthCalendar(this);
+    return view;//new MonthCalendar(this);
   }
 
   public String getTabLabel() {
