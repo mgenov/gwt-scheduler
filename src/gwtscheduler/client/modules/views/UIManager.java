@@ -1,6 +1,6 @@
 package gwtscheduler.client.modules.views;
 
-import gwtscheduler.client.interfaces.ViewController;
+import gwtscheduler.client.interfaces.CalendarPresenter;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ public interface UIManager {
    * Gets the views.
    * @return the views
    */
-  List<ViewController> getControllers();
+  List<CalendarPresenter> getControllers();
 
   /**
    * Adds a new controller.
    * @param provider the controller
    */
-  void addController(ViewController controller);
+  void addController(CalendarPresenter controller);
 
   /**
    * Fires the back navigation event.

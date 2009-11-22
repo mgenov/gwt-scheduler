@@ -1,7 +1,10 @@
 package gwtscheduler.client.widgets.view.common;
 
+import gwtscheduler.client.interfaces.CalendarPresenter;
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.LassoSubject;
+import gwtscheduler.client.interfaces.navigation.DateGenerator;
+import gwtscheduler.client.interfaces.navigation.EventNavigationListener;
 
 import java.util.List;
 
@@ -14,22 +17,40 @@ import org.goda.time.Instant;
 import org.goda.time.Interval;
 
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 /**
  * Generic class for a calendar presenter.
  * @author malp
  */
-public class GenericCalendarPresenter extends
-    WidgetPresenter<GenericCalendarDisplay> implements LassoSubject {
+public abstract class GenericCalendarPresenter<T extends GenericCalendarDisplay>
+    extends WidgetPresenter<T> implements CalendarPresenter,
+    EventNavigationListener, LassoSubject {
+
+  @Inject
+  private DateGenerator factory;
 
   /**
    * Default constructor.
    * @param display
    * @param eventBus
    */
-  public GenericCalendarPresenter(GenericCalendarDisplay display,
-      EventBus eventBus) {
+  public GenericCalendarPresenter(T display, EventBus eventBus) {
     super(display, eventBus);
+  }
+
+  /**
+   * Gets the date factory.
+   * @return the date factory
+   */
+  protected DateGenerator getFactory() {
+    return factory;
+  }
+
+  @Override
+  public Interval getCurrentInterval() {
+    return getFactory().interval();
   }
 
   /**
@@ -39,6 +60,26 @@ public class GenericCalendarPresenter extends
   @Override
   public Place getPlace() {
     return null;
+  }
+
+  @Override
+  public EventNavigationListener getNavigationListener() {
+    return this;
+  }
+
+  //  @Override
+  //  public String getTabLabel() {
+  //    //XXX implement
+  //    return null;
+  //  }
+
+  /**
+   * View Controller methods
+   */
+
+  @Override
+  public Widget getViewWidget() {
+    return getDisplay().asWidget();
   }
 
   @Override
@@ -65,15 +106,15 @@ public class GenericCalendarPresenter extends
    * Lasso Subject methods.
    */
 
-  @Override
-  public int getColNum() {
-    return 0;
-  }
-
-  @Override
-  public int getRowNum() {
-    return 0;
-  }
+  //  @Override
+  //  public int getColNum() {
+  //    return 0;
+  //  }
+  //
+  //  @Override
+  //  public int getRowNum() {
+  //    return 0;
+  //  }
 
   @Override
   public int getWidth() {
@@ -87,11 +128,13 @@ public class GenericCalendarPresenter extends
 
   @Override
   public Instant getInstantForCell(int[] start) {
+    //XXX implement
     return null;
   }
 
   @Override
   public Interval getIntervalForRange(int[] start, int[] end) {
+    //XXX implement
     return null;
   }
 

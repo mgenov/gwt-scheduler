@@ -3,9 +3,10 @@ package gwtscheduler.client.widgets.view;
 import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.config.AppConfiguration;
-import gwtscheduler.client.widgets.view.common.GenericViewController;
-import gwtscheduler.client.widgets.view.month.MonthCalendar;
+import gwtscheduler.client.widgets.view.common.GenericCalendarPresenter;
+import gwtscheduler.client.widgets.view.month.MonthDisplay;
 import gwtscheduler.common.calendar.IntervalType;
+import net.customware.gwt.presenter.client.EventBus;
 
 import org.goda.time.Days;
 import org.goda.time.Interval;
@@ -19,7 +20,7 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class MonthController extends GenericViewController<MonthCalendar> {
+public class MonthController extends GenericCalendarPresenter<MonthDisplay> {
 
   /** defines the number of days in a week */
   private final int WeekSize;
@@ -33,9 +34,10 @@ public class MonthController extends GenericViewController<MonthCalendar> {
    * @param cfg the application configuration
    */
   @Inject
-  public MonthController(AppConfiguration cfg, @Month MonthCalendar view) {
+  public MonthController(AppConfiguration cfg, @Month MonthDisplay display,
+      EventBus bus) {
+    super(display, bus);
     WeekSize = cfg.daysInWeek();
-    this.view = view;
   }
 
   public String getTabLabel() {
@@ -45,14 +47,14 @@ public class MonthController extends GenericViewController<MonthCalendar> {
   public Interval onNavigateNext() {
     Interval next = getFactory().next().interval();
     adjustVisibleRows(next);
-    decorator.decorate(next, getViewWidget());
+    decorator.decorate(next, getDisplay().getDecorables());
     return next;
   }
 
   public Interval onNavigatePrevious() {
     Interval prev = getFactory().previous().interval();
     adjustVisibleRows(prev);
-    decorator.decorate(prev, getViewWidget());
+    decorator.decorate(prev, getDisplay().getDecorables());
     return prev;
   }
 
@@ -62,8 +64,18 @@ public class MonthController extends GenericViewController<MonthCalendar> {
     }
     Interval intv = getFactory().interval();
     adjustVisibleRows(intv);
-    decorator.decorate(intv, getViewWidget());
+    decorator.decorate(intv, getDisplay().getDecorables());
     return intv;
+  }
+
+  @Override
+  public int getColNum() {
+    return WeekSize;
+  }
+
+  @Override
+  public int getRowNum() {
+    return getDisplay().getVisibleRows();
   }
 
   /**
@@ -73,7 +85,9 @@ public class MonthController extends GenericViewController<MonthCalendar> {
   protected void adjustVisibleRows(Interval intv) {
     //must show the necessary rows only
     int weeks = (Days.daysIn(intv).getDays() + 1) / WeekSize;
-    getViewWidget().showRows(weeks);
+    getDisplay().showRows(weeks);
   }
+  
+  
 
 }

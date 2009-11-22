@@ -23,31 +23,31 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Defines the composite month view.
  */
-public class MonthCalendar extends LassoAwarePanel implements
-    HasWidgetRedrawHandlers, HasMultipleDecorables<Element> {
+public class MonthCalendar extends LassoAwarePanel implements MonthDisplay,
+    HasMultipleDecorables<Element>, HasWidgetRedrawHandlers {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
   /** month view instance */
-  protected MonthPanel monthView;
+  protected MonthPanel monthPanel;
   /** top view cells */
   protected List<Cell<Element>> topLabels;
 
   /**
    * Default constructor.
    */
-  public MonthCalendar(/* MonthController ctrl */) {
-    monthView = new MonthPanel();
+  public MonthCalendar() {
+    monthPanel = new MonthPanel();
     Widget topHeader = createTopHeader();
 
-    addToWindow(monthView);
-    addWidgetResizeHandler(monthView.getWidgetResizeHandler());
+    addToWindow(monthPanel);
+    addWidgetResizeHandler(monthPanel.getWidgetResizeHandler());
 
     insert(topHeader, 0);
-    
+
     //move this to the presenter
-    initLasso(new HorizontalLassoStrategy(), monthView);
+    initLasso(new HorizontalLassoStrategy(), monthPanel);
   }
 
   @Override
@@ -94,7 +94,7 @@ public class MonthCalendar extends LassoAwarePanel implements
   }
 
   public List<Cell<Element>> getContentDecorableElements() {
-    return Collections.unmodifiableList(monthView.getMainElements());
+    return Collections.unmodifiableList(monthPanel.getMainElements());
   }
 
   public List<Cell<Element>> getRowsDecorableElements() {
@@ -106,7 +106,45 @@ public class MonthCalendar extends LassoAwarePanel implements
    * @param rowNum the number of rows
    */
   public void showRows(int rowNum) {
-    monthView.showRows(rowNum);
+    monthPanel.showRows(rowNum);
+  }
+
+  @Override
+  public Widget asWidget() {
+    return this;
+  }
+
+  @Override
+  public void startProcessing() {
+  }
+
+  @Override
+  public void stopProcessing() {
+  }
+
+  @Override
+  public HasMultipleDecorables<Element> getDecorables() {
+    return this;
+  }
+
+  @Override
+  public int getHeight() {
+    return monthPanel.getHeight();
+  }
+
+  @Override
+  public List<Cell<Element>> getVisibleElements() {
+    return monthPanel.getMainElements();
+  }
+
+  @Override
+  public int getWidth() {
+    return monthPanel.getWidth();
+  }
+
+  @Override
+  public int getVisibleRows() {
+    return monthPanel.getVisibleRowsSize();
   }
 
 }

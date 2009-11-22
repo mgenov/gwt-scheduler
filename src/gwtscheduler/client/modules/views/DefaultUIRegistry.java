@@ -1,6 +1,6 @@
 package gwtscheduler.client.modules.views;
 
-import gwtscheduler.client.interfaces.ViewController;
+import gwtscheduler.client.interfaces.CalendarPresenter;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
@@ -21,7 +21,7 @@ import com.google.inject.Singleton;
 public class DefaultUIRegistry implements UIManager {
 
   /** holds the views data */
-  private ArrayList<ViewController> views;
+  private ArrayList<CalendarPresenter> views;
 
   /**
    * Default constructor.
@@ -30,8 +30,8 @@ public class DefaultUIRegistry implements UIManager {
    * @param month the month controller
    */
   @Inject
-  public DefaultUIRegistry(@Day ViewController day, @Week ViewController week, @Month ViewController month) {
-    views = new ArrayList<ViewController>();
+  public DefaultUIRegistry(@Day CalendarPresenter day, @Week CalendarPresenter week, @Month CalendarPresenter month) {
+    views = new ArrayList<CalendarPresenter>();
     views.add(day);
     views.add(week);
     views.add(month);
@@ -40,29 +40,29 @@ public class DefaultUIRegistry implements UIManager {
   //TODO: navigation could be optimized, if the controller
   //is aware of its own visibility. can defer the advance for non-visible controller views
 
-  public void addController(ViewController view) {
+  public void addController(CalendarPresenter view) {
     views.add(view);
   }
 
-  public List<ViewController> getControllers() {
+  public List<CalendarPresenter> getControllers() {
     return views;
   }
 
   public void fireBackNavigation() {
-    for (ViewController controller : getControllers()) {
+    for (CalendarPresenter controller : getControllers()) {
       controller.getNavigationListener().onNavigatePrevious();
     }
   }
 
   public void fireForwardNavigation() {
-    for (ViewController controller : getControllers()) {
+    for (CalendarPresenter controller : getControllers()) {
       controller.getNavigationListener().onNavigateNext();
     }
 
   }
 
   public void fireDateNavigation(ReadableDateTime date) {
-    for (ViewController controller : getControllers()) {
+    for (CalendarPresenter controller : getControllers()) {
       controller.getNavigationListener().onNavigateTo(date);
     }
   }

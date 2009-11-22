@@ -1,6 +1,6 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.interfaces.ViewController;
+import gwtscheduler.client.interfaces.CalendarPresenter;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
@@ -36,7 +36,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     DateViewsTabPanel main = new DateViewsTabPanel();
     //     the registry will be pre-filled with default controllers
-    for (ViewController controller : registry.getControllers()) {
+    for (CalendarPresenter controller : registry.getControllers()) {
       main.add(controller);
     }
 

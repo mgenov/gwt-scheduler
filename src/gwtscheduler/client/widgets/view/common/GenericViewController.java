@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.ViewController;
+import gwtscheduler.client.interfaces.CalendarPresenter;
 import gwtscheduler.client.interfaces.navigation.DateGenerator;
 import gwtscheduler.client.interfaces.navigation.EventNavigationListener;
 
@@ -13,8 +13,9 @@ import com.google.inject.Inject;
  * Abstract class for view controllers.
  * @author malp
  */
+@Deprecated
 public abstract class GenericViewController<T extends Widget> implements
-    ViewController, EventNavigationListener {
+    CalendarPresenter, EventNavigationListener {
 
   /** view widget for the controller */
   protected T view;
@@ -28,13 +29,18 @@ public abstract class GenericViewController<T extends Widget> implements
    */
   protected GenericViewController() {
   }
-  
+
   /**
    * Gets the date factory.
    * @return the date factory
    */
   protected DateGenerator getFactory() {
     return factory;
+  }
+
+  @Override
+  public Interval getCurrentInterval() {
+    return getFactory().interval();
   }
 
   @Override
@@ -45,11 +51,6 @@ public abstract class GenericViewController<T extends Widget> implements
   @Override
   public T getViewWidget() {
     return view;
-  }
-
-  @Override
-  public Interval getCurrentInterval() {
-    return getFactory().interval();
   }
 
 }

@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.nav;
 
-import gwtscheduler.client.interfaces.ViewController;
+import gwtscheduler.client.interfaces.CalendarPresenter;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
@@ -31,7 +31,7 @@ public class DateViewsTabPanel extends Composite implements
   /** widget delegate */
   private TabPanel impl;
   /** controllers map */
-  private Map<Integer, ViewController> controllers;
+  private Map<Integer, CalendarPresenter> controllers;
 
   /**
    * Default constructor.
@@ -40,7 +40,7 @@ public class DateViewsTabPanel extends Composite implements
     impl = new DecoratedTabPanel();
     initWidget(impl);
     impl.addBeforeSelectionHandler(this);
-    controllers = new HashMap<Integer, ViewController>();
+    controllers = new HashMap<Integer, CalendarPresenter>();
   }
 
   public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
@@ -53,7 +53,7 @@ public class DateViewsTabPanel extends Composite implements
    * Adds a new view to this tab panel.
    * @param controller the controller
    */
-  public void add(ViewController controller) {
+  public void add(CalendarPresenter controller) {
     Widget view = controller.getViewWidget();
     impl.add(createWrapper(view), controller.getTabLabel());
     Integer index = impl.getWidgetIndex(view);

@@ -9,7 +9,9 @@ import com.google.gwt.user.client.ui.Widget;
  * listener. For most cases, the implementing class will be the listener itself.
  * @author malp
  */
-public interface ViewController {
+@Deprecated
+public interface CalendarPresenter {
+  //FIXME delete this class?
 
   /**
    * Gets the widget for the view.
