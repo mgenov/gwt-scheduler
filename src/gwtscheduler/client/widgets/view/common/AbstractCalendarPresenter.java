@@ -24,7 +24,7 @@ import com.google.inject.Inject;
  * Generic class for a calendar presenter.
  * @author malp
  */
-public abstract class GenericCalendarPresenter<T extends GenericCalendarDisplay>
+public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay>
     extends WidgetPresenter<T> implements CalendarPresenter,
     EventNavigationListener, LassoSubject {
 
@@ -36,7 +36,7 @@ public abstract class GenericCalendarPresenter<T extends GenericCalendarDisplay>
    * @param display
    * @param eventBus
    */
-  protected GenericCalendarPresenter(T display, EventBus eventBus) {
+  protected AbstractCalendarPresenter(T display, EventBus eventBus) {
     super(display, eventBus);
   }
 
@@ -67,14 +67,14 @@ public abstract class GenericCalendarPresenter<T extends GenericCalendarDisplay>
     return this;
   }
 
+  @Override
+  public Widget getWidgetDisplay() {
+    return getDisplay().asWidget();
+  }
+
   /**
    * View Controller methods
    */
-
-  @Override
-  public Widget getViewWidget() {
-    return getDisplay().asWidget();
-  }
 
   @Override
   protected void onBind() {

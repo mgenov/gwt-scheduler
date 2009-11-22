@@ -51,13 +51,13 @@ public class DateViewsTabPanel extends Composite implements
 
   /**
    * Adds a new view to this tab panel.
-   * @param controller the controller
+   * @param presenter the controller
    */
-  public void add(CalendarPresenter controller) {
-    Widget view = controller.getViewWidget();
-    impl.add(createWrapper(view), controller.getTabLabel());
+  public void add(CalendarPresenter presenter) {
+    Widget view = presenter.getWidgetDisplay();
+    impl.add(createWrapper(view), presenter.getTabLabel());
     Integer index = impl.getWidgetIndex(view);
-    controllers.put(index, controller);
+    controllers.put(index, presenter);
   }
 
   /**

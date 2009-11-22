@@ -11,7 +11,6 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
 import gwtscheduler.client.widgets.view.common.WrappedWidget;
-import gwtscheduler.client.widgets.view.month.composite.MonthRow;
 
 import java.util.ArrayList;
 import java.util.List;

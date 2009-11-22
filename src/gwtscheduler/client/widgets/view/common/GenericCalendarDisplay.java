@@ -17,25 +17,25 @@ public interface GenericCalendarDisplay extends WidgetDisplay {
 
   /**
    * Gets the height in pixels.
-   * @return
+   * @return the height in px
    */
   int getHeight();
 
   /**
    * Gets the width in pixels.
-   * @return
+   * @return the width in px
    */
   int getWidth();
 
   /**
    * Gets the current visible elements.
-   * @return
+   * @return a list of visible elements
    */
   List<Cell<Element>> getVisibleElements();
 
   /**
    * Gets the decorables elements.
-   * @return
+   * @return the decorables element
    */
   HasMultipleDecorables<Element> getDecorables();
 

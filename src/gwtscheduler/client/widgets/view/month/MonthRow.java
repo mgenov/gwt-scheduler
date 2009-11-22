@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view.month.composite;
+package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
