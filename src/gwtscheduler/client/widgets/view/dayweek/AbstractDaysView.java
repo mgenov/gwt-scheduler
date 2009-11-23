@@ -1,7 +1,6 @@
 package gwtscheduler.client.widgets.view.dayweek;
 
 import gwtscheduler.client.interfaces.Cell;
-import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
 import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
@@ -84,12 +83,6 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements
   public int getWidth() {
     return getMainPanel().getWidth();
   }
-
-  /**
-   * Gets the lasso strategy
-   * @return the strategy
-   */
-  protected abstract LassoStrategy getStrategy();
 
   @Override
   protected void positionLasso(Widget lasso, WidgetResizeEvent event) {

@@ -1,8 +1,6 @@
 package gwtscheduler.client.widgets.view.dayweek;
 
-import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.modules.AppInjector;
-import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 
 /**
  * Inner class for days calendar.
@@ -13,12 +11,6 @@ public class WeekView extends AbstractDaysView {
   @Override
   protected AbstractDaysPanel createDaysPanel() {
     return new WeekPanel();
-  }
-
-  @Override
-  protected LassoStrategy getStrategy() {
-    //XXX: move this to presenter
-    return new VerticalLassoStrategy(false);
   }
 
   /**

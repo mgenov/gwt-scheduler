@@ -15,7 +15,7 @@ import com.google.gwt.user.client.Element;
 public interface LassoSubject {
 
   /**
-   * Gets the number of rows.
+   * Gets the number of rows within the lasso subject.
    * @return the number of rows
    */
   int getRowNum();
@@ -51,7 +51,7 @@ public interface LassoSubject {
    * @return the time interval
    */
   Interval getIntervalForRange(int[] start, int[] end);
-  
+
   /**
    * Gets the correspondent instant for a cell
    * @param start the starting cell

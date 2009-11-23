@@ -64,16 +64,11 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
     lassoPanel = new LassoContainer();
     lassoPanel.setSize("100%", "100%");
 
-    //    Element lassoEl = lassoPanel.getElement();
-    //    DOM.setIntStyleAttribute(lassoEl, "zIndex", LASSO_ZINDEX);
-
     addDomHandler(this, MouseDownEvent.getType());
     addDomHandler(this, MouseUpEvent.getType());
     addDomHandler(this, MouseMoveEvent.getType());
 
     add(lassoPanel, 0, 0);
-
-    //    setVisible(false);
   }
 
   /**
