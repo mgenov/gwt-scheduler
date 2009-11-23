@@ -59,7 +59,7 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements
     insert(topHeader, 0);
 
     //move this to the presenter
-    initLasso(getStrategy(), mainPanel);
+    //    initLasso(getStrategy(), mainPanel);
   }
 
   @Override
@@ -143,6 +143,10 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements
 
   public List<Cell<Element>> getContentDecorableElements() {
     return Collections.unmodifiableList(mainPanel.getMainDecorables());
+  }
+
+  public List<Cell<Element>> getMainDecorables() {
+    return mainPanel.getMainDecorables();
   }
 
   /**

@@ -1,7 +1,6 @@
 package gwtscheduler.client.widgets.view.dayweek;
 
 import gwtscheduler.client.interfaces.Cell;
-import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
@@ -24,7 +23,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 //FIXME: migrate the LassoSubject to the presenter
 public abstract class AbstractDaysPanel extends WrappedWidget implements
-    HasWidgetResizeHandlers, LassoSubject {
+    HasWidgetResizeHandlers {
 
   /** static ref to css */
   private static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -56,21 +55,6 @@ public abstract class AbstractDaysPanel extends WrappedWidget implements
     container.add(grid);
   }
 
-  @Override
-  public int getColNum() {
-    return getColumns();
-  }
-
-  @Override
-  public int getRowNum() {
-    return getRows();
-  }
-
-  @Override
-  public final List<Cell<Element>> getLassoSubjects() {
-    return getMainDecorables();
-  }
-
   /**
    * Gets the decorable elements.
    * @return the decorable elements
@@ -99,13 +83,19 @@ public abstract class AbstractDaysPanel extends WrappedWidget implements
     return addHandler(handler, WidgetResizeEvent.getType());
   }
 
-  @Override
-  public int getHeight() {
+  /**
+   * Gets the height in px.
+   * @return the height in px
+   */
+  int getHeight() {
     return grid.getElement().getOffsetHeight();// - CSS.smallBorderPx();
   }
 
-  @Override
-  public int getWidth() {
+  /**
+   * Gets the width in px.
+   * @return the width in px
+   */
+  int getWidth() {
     return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx()
         - CSS.smallPaddingPx();
   }

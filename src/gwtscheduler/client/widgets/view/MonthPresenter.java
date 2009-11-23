@@ -49,7 +49,6 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay>
       EventBus bus) {
     super(display, bus);
     WeekSize = cfg.daysInWeek();
-    //move this to the presenter
     display.asLassoPanel().initLasso(new HorizontalLassoStrategy(), this);
   }
 

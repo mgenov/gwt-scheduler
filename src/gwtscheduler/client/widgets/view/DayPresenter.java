@@ -1,16 +1,22 @@
 package gwtscheduler.client.widgets.view;
 
+import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
+
+import java.util.List;
+
 import net.customware.gwt.presenter.client.EventBus;
 
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
+import com.google.gwt.user.client.Element;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -19,11 +25,10 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class DayPresenter extends
-    AbstractCalendarPresenter<AbstractDaysView> {
+public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   /** number of rows */
-  public final int Rows;
+  public final int rows;
 
   @Day
   @Inject
@@ -37,7 +42,8 @@ public class DayPresenter extends
   protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view,
       EventBus bus) {
     super(view, bus);
-    Rows = cfg.rowsInDay();
+    rows = cfg.rowsInDay();
+    display.asLassoPanel().initLasso(new VerticalLassoStrategy(false), this);
   }
 
   public String getTabLabel() {
@@ -51,7 +57,7 @@ public class DayPresenter extends
 
   @Override
   public int getRowNum() {
-    return Rows;
+    return rows;
   }
 
   public Interval onNavigateNext() {
@@ -74,6 +80,21 @@ public class DayPresenter extends
     Interval period = getFactory().interval();
     decorator.decorate(period, getDisplay().getDecorables());
     return period;
+  }
+
+  @Override
+  public int getHeight() {
+    return getDisplay().getHeight();
+  }
+
+  @Override
+  public int getWidth() {
+    return getDisplay().getWidth();
+  }
+
+  @Override
+  public final List<Cell<Element>> getLassoSubjects() {
+    return getDisplay().getMainDecorables();
   }
 
 }

@@ -4,6 +4,7 @@ import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorat
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
@@ -21,11 +22,10 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class WeekPresenter extends
-    AbstractCalendarPresenter<AbstractDaysView> {
+public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   /** holds the number of rows within a day */
-  private final int Rows;
+  private final int rows;
 
   @Inject
   @Week
@@ -36,10 +36,11 @@ public class WeekPresenter extends
    * @param cfg the application configuration
    */
   @Inject
-  protected WeekPresenter(AppConfiguration cfg,
-      @Week AbstractDaysView view, EventBus bus) {
+  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView view,
+      EventBus bus) {
     super(view, bus);
-    this.Rows = cfg.rowsInDay();
+    rows = cfg.rowsInDay();
+    display.asLassoPanel().initLasso(new VerticalLassoStrategy(false), this);
   }
 
   public String getTabLabel() {
@@ -54,7 +55,7 @@ public class WeekPresenter extends
 
   @Override
   public int getRowNum() {
-    return Rows;
+    return rows;
   }
 
   public Interval onNavigateNext() {
