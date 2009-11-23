@@ -43,7 +43,7 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
    * @param strat the strategy
    * @param subject the subject
    */
-  protected void initLasso(LassoStrategy strat, LassoSubject subject) {
+  public void initLasso(LassoStrategy strat, LassoSubject subject) {
     lasso.setStrategy(strat);
     lasso.setLassoSubject(subject);
   }

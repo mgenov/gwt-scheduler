@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.dayweek;
 import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
+import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 
 import org.goda.time.Instant;
 import org.goda.time.Interval;
@@ -20,6 +21,7 @@ public class WeekView extends AbstractDaysView {
 
   @Override
   protected LassoStrategy getStrategy() {
+    //XXX: fix this
     return new VerticalLassoStrategy(false);
   }
 

@@ -40,9 +40,9 @@ public interface GenericCalendarView extends WidgetDisplay {
    */
   HasMultipleDecorables<Element> getDecorables();
 
-//  /**
-//   * Gets the lasso panel.
-//   * @return the lasso panel
-//   */
-//  LassoAwarePanel asLassoPanel();
+  /**
+   * Gets the lasso panel.
+   * @return the lasso panel
+   */
+  LassoAwarePanel asLassoPanel();
 }

@@ -62,6 +62,11 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements
     initLasso(getStrategy(), mainPanel);
   }
 
+  @Override
+  public LassoAwarePanel asLassoPanel() {
+    return this;
+  }
+
   /**
    * Gets the main panel.
    * @return the main panel

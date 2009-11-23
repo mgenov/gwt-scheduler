@@ -1,7 +1,6 @@
 package gwtscheduler.client.widgets.view.month;
 
 import gwtscheduler.client.interfaces.Cell;
-import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
@@ -15,9 +14,6 @@ import gwtscheduler.client.widgets.view.common.WrappedWidget;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.goda.time.Instant;
-import org.goda.time.Interval;
-
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
@@ -29,15 +25,11 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-//FIXME: migrate the LassoSubject to the presenter
 class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
-    HasWidgetResizeHandlers, LassoSubject {
+    HasWidgetResizeHandlers {
 
   /** CSS resources */
   private static final MonthCssResource MonthCss = Resources.monthCss();
-
-  /** number of days in a week */
-  private static final int DaysInWeek = AppInjector.GIN.getInjector().getConfiguration().daysInWeek();
 
   /** Main container */
   private FlowPanel container;
@@ -71,23 +63,6 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
       monthRows.add(row);
       container.add(row);
     }
-  }
-
-  @Override
-  public Interval getIntervalForRange(int[] start, int[] end) {
-    Interval i = new Interval(getInstantForCell(start), getInstantForCell(end));
-    return i;
-  }
-
-  @Override
-  public Instant getInstantForCell(int[] start) {
-    return null;
-    //FIXME correct this
-    //    int distance = (start[0] * getColNum()) + start[1];
-    //    ReadableInterval curr = controller.getCurrentInterval().toMutableInterval();
-    //    MutableDateTime time = curr.getStart().toMutableDateTime();
-    //    time.addDays(distance);
-    //    return time.toInstant();
   }
 
   /**
@@ -208,29 +183,21 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
     return mergedList;
   }
 
-  @Override
-  public int getHeight() {
+  /**
+   * Gets the height.
+   * @return
+   */
+  int getHeight() {
     return container.getElement().getOffsetHeight()
         + MonthCss.monthCellPadTopPx();
   }
 
-  @Override
-  public int getWidth() {
+  /**
+   * Gets the width.
+   * @return
+   */
+  int getWidth() {
     return container.getElement().getOffsetWidth();
   }
 
-  @Override
-  public int getColNum() {
-    return DaysInWeek;
-  }
-
-  @Override
-  public int getRowNum() {
-    return getVisibleRowsSize();
-  }
-
-  @Override
-  public final List<Cell<Element>> getLassoSubjects() {
-    return getMainElements();
-  }
 }
