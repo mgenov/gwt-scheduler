@@ -12,6 +12,7 @@ import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactor
 
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -145,6 +146,10 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
 
     isMouseDown = false;
     //show events dialog
+    int[] pos = calculateCellPosition(event);
+    GWT.log("Start position: " + startPos, null);
+    GWT.log("End   position: " + pos, null);
+
   }
 
   /**
