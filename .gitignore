@@ -1,0 +1,4 @@
+.project
+.settings/
+war/WEB-INF/classes/
+war/gwtscheduler.ViewportTests/
