@@ -57,8 +57,7 @@ public class DateFactoryTests extends GWTTestCase {
    * @param year the year
    * @return the generator
    */
-  protected DateGenerator moveGenerator(DateGenerator gen, int day, int month,
-      int year) {
+  protected DateGenerator moveGenerator(DateGenerator gen, int day, int month, int year) {
     MutableDateTime mdt = now.toMutableDateTime();
     mdt.setDayOfMonth(day);
     mdt.setMonthOfYear(month);
@@ -93,14 +92,14 @@ public class DateFactoryTests extends GWTTestCase {
     assertInstantDate(intv.getStart(), 2009, JANUARY, 26);
     assertInstantDate(intv.getEnd(), 2009, MARCH, 1);
   }
-  
+
   @Test
   public void testMonthIntervalsNov() {
     Interval intv = moveGenerator(monthf, 10, NOVEMBER, 2009).interval();
     monthf.next();
     monthf.previous();
     assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
-    
+
     assertInstantDate(intv.getStart(), 2009, OCTOBER, 26);
     assertInstantDate(intv.getEnd(), 2009, DECEMBER, 6);
   }

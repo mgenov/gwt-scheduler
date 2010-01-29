@@ -29,8 +29,7 @@ public class HorizontalLassoStrategy extends GenericLassoStrategy {
 
     for (int i = firstRow; i <= lastRow; i++) {
       int[] startingPoint = (i == firstRow) ? from : new int[] {i, 0};
-      int[] endingPoint = (i == lastRow) ? to
-          : new int[] {i, s.getColNum() - 1};
+      int[] endingPoint = (i == lastRow) ? to : new int[] {i, s.getColNum() - 1};
 
       result.add(startingPoint);
       result.add(endingPoint);

@@ -1,6 +1,5 @@
 package gwtscheduler.client.resources.css;
 
-
 import com.google.gwt.resources.client.ClientBundle;
 
 /**

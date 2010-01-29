@@ -25,8 +25,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
-    HasWidgetResizeHandlers {
+class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidgetResizeHandlers {
 
   /** CSS resources */
   private static final MonthCssResource MonthCss = Resources.monthCss();
@@ -188,8 +187,7 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler,
    * @return
    */
   int getHeight() {
-    return container.getElement().getOffsetHeight()
-        + MonthCss.monthCellPadTopPx();
+    return container.getElement().getOffsetHeight() + MonthCss.monthCellPadTopPx();
   }
 
   /**

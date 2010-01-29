@@ -19,8 +19,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Abstract class for calendars with resize and redraw events.
  * @author malp
  */
-public abstract class RedrawablePanel extends Composite implements
-    HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
+public abstract class RedrawablePanel extends Composite implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
 
   /** widget impl */
   private VerticalPanel impl;

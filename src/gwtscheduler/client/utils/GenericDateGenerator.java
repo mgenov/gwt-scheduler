@@ -171,16 +171,16 @@ public class GenericDateGenerator implements DateGenerator {
   private class MonthDateGenerator implements FixedDateGenerator {
 
     public void goTo(DateTime where) {
-      MutableDateTime mtd = new MutableDateTime(where.getMillis(),where.getChronology());
+      MutableDateTime mtd = new MutableDateTime(where.getMillis(), where.getChronology());
       mtd.setDayOfMonth(1);
       current = mtd.toDateTime();
     }
 
     public Interval interval() {
       DateTime end = null;
-//      MutableDateTime monthStart = current.toMutableDateTime();
-      DateTime iterator = new DateTime(current.getMillis(),current.getChronology()); 
-//      monthStart.setDayOfMonth(1);
+      //      MutableDateTime monthStart = current.toMutableDateTime();
+      DateTime iterator = new DateTime(current.getMillis(), current.getChronology());
+      //      monthStart.setDayOfMonth(1);
       end = current.toDateTime().plusMonths(1);
 
       //adjust start date so that the first week contains the start day 
@@ -211,11 +211,11 @@ public class GenericDateGenerator implements DateGenerator {
      * @param months the number of months to move. Can be negative
      */
     private void moveStart(int months) {
-//      Days d = Days.daysBetween(current, current.plusMonths(months));
-//      int days = d.getDays();
-//      current = current.plusDays(days / 2);
+      //      Days d = Days.daysBetween(current, current.plusMonths(months));
+      //      int days = d.getDays();
+      //      current = current.plusDays(days / 2);
       current = current.plusMonths(months);
-//      System.out.println("Start: " + current);
+      //      System.out.println("Start: " + current);
     }
   }
 

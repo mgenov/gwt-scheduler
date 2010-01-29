@@ -7,7 +7,7 @@ package gwtscheduler.client.resources.css;
 public class MainCss {
   /** lasso container */
   public static final String Lasso = "lasso";
-  
+
   /** lasso element */
   public static final String LassoElement = "lasso-element";
 }

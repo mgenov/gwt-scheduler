@@ -29,5 +29,5 @@ public interface CalendarPresenter extends Presenter {
    * @return the widget
    */
   Widget getWidgetDisplay();
-  
+
 }

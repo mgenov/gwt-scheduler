@@ -30,8 +30,7 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay>
-    implements LassoSubject {
+public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> implements LassoSubject {
 
   /** defines the number of days in a week */
   private final int WeekSize;
@@ -45,8 +44,7 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay>
    * @param cfg the application configuration
    */
   @Inject
-  public MonthPresenter(AppConfiguration cfg, @Month MonthDisplay display,
-      EventBus bus) {
+  public MonthPresenter(AppConfiguration cfg, @Month MonthDisplay display, EventBus bus) {
     super(display, bus);
     WeekSize = cfg.daysInWeek();
     getDisplay().asLassoPanel().initLasso(new HorizontalLassoStrategy(), this);

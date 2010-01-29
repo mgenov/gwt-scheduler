@@ -37,8 +37,7 @@ public class UIModule extends AbstractGinModule {
     //general
     bind(UIManager.class).to(DefaultUIRegistry.class).in(Singleton.class);
     bind(EventBus.class).to(DefaultEventBus.class).in(Singleton.class);
-    
-    
+
     bind(DateGenerator.class).to(GenericDateGenerator.class);
     bind(LassoElementFactory.class).to(GenericLassoElementFactory.class).in(Singleton.class);
 
@@ -51,7 +50,7 @@ public class UIModule extends AbstractGinModule {
     bind(MultipleElementsIntervalDecorator.class).annotatedWith(Day.class).to(DateTimeLabelDecorator.class);
     bind(MultipleElementsIntervalDecorator.class).annotatedWith(Week.class).to(DateTimeLabelDecorator.class);
     bind(MultipleElementsIntervalDecorator.class).annotatedWith(Month.class).to(MonthLabelDecorator.class);
-    
+
     //bind the view to the ctrl
     bind(AbstractDaysView.class).annotatedWith(Week.class).to(WeekView.class);
     bind(AbstractDaysView.class).annotatedWith(Day.class).to(DayView.class);

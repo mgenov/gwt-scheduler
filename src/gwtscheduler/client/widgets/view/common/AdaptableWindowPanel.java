@@ -25,8 +25,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class AdaptableWindowPanel extends Composite implements ResizeHandler,
-    HasWidgetResizeHandlers {
+public class AdaptableWindowPanel extends Composite implements ResizeHandler, HasWidgetResizeHandlers {
 
   /** main container */
   private ScrollPanel scrollPanel;
@@ -109,7 +108,7 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler,
   }
 
   public void onResize(final ResizeEvent event) {
-      doDeferredResize();
+    doDeferredResize();
   }
 
   /**

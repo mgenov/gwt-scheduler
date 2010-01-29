@@ -22,8 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * Abstract class for day and week views. Holds the main grid cells.
  */
 //FIXME: migrate the LassoSubject to the presenter
-public abstract class AbstractDaysPanel extends WrappedWidget implements
-    HasWidgetResizeHandlers {
+public abstract class AbstractDaysPanel extends WrappedWidget implements HasWidgetResizeHandlers {
 
   /** static ref to css */
   private static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -96,8 +95,7 @@ public abstract class AbstractDaysPanel extends WrappedWidget implements
    * @return the width in px
    */
   int getWidth() {
-    return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx()
-        - CSS.smallPaddingPx();
+    return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx() - CSS.smallPaddingPx();
   }
 
   /**

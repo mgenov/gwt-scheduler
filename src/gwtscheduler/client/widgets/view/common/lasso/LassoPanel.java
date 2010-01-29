@@ -34,8 +34,7 @@ import com.google.inject.Inject;
  * Lasso panel. Responsible for displaying user lasso selections.
  * @author malp
  */
-class LassoPanel extends AbsolutePanel implements MouseDownHandler,
-    MouseMoveHandler, MouseUpHandler, WidgetResizeHandler {
+class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHandler, MouseUpHandler, WidgetResizeHandler {
 
   /** the lasso subject grid */
   private LassoSubject subject;
@@ -61,7 +60,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
 
     lassoFactory = new GenericLassoElementFactory();
 
-    //lasso/ events set up
+    // lasso/ events set up
     lassoPanel = new LassoContainer();
     lassoPanel.setSize("100%", "100%");
 
@@ -114,7 +113,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
     if (isMouseDown) {
       return;
     }
-    //TODO verify if the lasso panel was the src
+    // TODO verify if the lasso panel was the src
     isMouseDown = true;
     lassoPanel.clear();
     Element lassoEl = lassoPanel.getElement();
@@ -130,11 +129,12 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
       return;
     }
     int[] pos = calculateCellPosition(event);
-    //TODO this is not very efficient
-    //in the future we must take account if we need to clear or not
-    //right now we're clearing because one could start selecting in one dir
-    //and then move to opposite dir, so we need to make sure that previous selected
-    //cells are deselected
+    // TODO this is not very efficient
+    // in the future we must take account if we need to clear or not
+    // right now we're clearing because one could start selecting in one dir
+    // and then move to opposite dir, so we need to make sure that previous
+    // selected
+    // cells are deselected
     lassoPanel.clear();
     selectRange(startPos, pos);
   }
@@ -145,11 +145,9 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
     DOM.setIntStyleAttribute(lassoPanel.getElement(), "zIndex", LASSO_ZINDEX);
 
     isMouseDown = false;
-    //show events dialog
+    // show events dialog
     int[] pos = calculateCellPosition(event);
-    GWT.log("Start position: " + startPos, null);
-    GWT.log("End   position: " + pos, null);
-
+    GWT.log("(" + startPos[0] + ", " + startPos[1] + "->" + pos[0] + ", " + pos[1] + ")", null);
   }
 
   /**
@@ -184,15 +182,14 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler,
   public void onResize(WidgetResizeEvent event) {
     lassoPanel.clear();
     DOM.setIntStyleAttribute(lassoPanel.getElement(), "zIndex", LASSO_ZINDEX);
-    //reposition events
+    // reposition events
   }
 
   /**
    * Utility class to facilitate event registration.
    * @author malp
    */
-  private static class LassoContainer extends AbsolutePanel implements
-      HasMouseDownHandlers, HasMouseMoveHandlers, HasMouseUpHandlers {
+  private static class LassoContainer extends AbsolutePanel implements HasMouseDownHandlers, HasMouseMoveHandlers, HasMouseUpHandlers {
 
     @Override
     public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {

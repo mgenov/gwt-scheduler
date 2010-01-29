@@ -27,8 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class AbstractDaysView extends LassoAwarePanel implements
-    GenericCalendarView, HasMultipleDecorables<Element>,
+public abstract class AbstractDaysView extends LassoAwarePanel implements GenericCalendarView, HasMultipleDecorables<Element>,
     HasWidgetRedrawHandlers {
 
   /** static ref to css */
@@ -95,8 +94,7 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements
 
   @Override
   protected void resizeLasso(Widget lasso, WidgetResizeEvent event) {
-    lasso.setSize("100%", (config.daysLineHeightEMs() * mainPanel.getRows())
-        + "em");
+    lasso.setSize("100%", (config.daysLineHeightEMs() * mainPanel.getRows()) + "em");
   }
 
   /**
@@ -109,8 +107,7 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements
     g.addStyleName(CSS.genericContainer());
     g.setWidth("100%");
     g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
-    g.getCellFormatter().setWidth(0, columns + 2,
-        Constants.SCROLLBAR_WIDTH() + "px");
+    g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH() + "px");
 
     topLabels = new ArrayList<Cell<Element>>(columns);
     for (int i = 0; i < columns; i++) {
@@ -120,8 +117,7 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements
       topLabels.add(topCell);
       g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
       //      g.setElement(0, 1 + i, topCell.getCellElement());
-      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i,
-          HasHorizontalAlignment.ALIGN_CENTER);
+      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;
   }

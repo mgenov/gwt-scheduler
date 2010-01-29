@@ -11,12 +11,10 @@ import com.google.gwt.user.client.ui.Widget;
  * Creates event widgets.
  * @author malp
  */
-public class GenericLassoElementFactory extends AbstractMultiCellWidgetFactory
-    implements LassoElementFactory {
+public class GenericLassoElementFactory extends AbstractMultiCellWidgetFactory implements LassoElementFactory {
 
   @Override
-  public Widget createLassoElement(LassoSubject subject, int[] from,
-      int[] to) {
+  public Widget createLassoElement(LassoSubject subject, int[] from, int[] to) {
     Label ew = new Label();
     ew.addStyleName(LassoElement);
 

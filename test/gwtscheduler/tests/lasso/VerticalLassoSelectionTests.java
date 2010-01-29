@@ -25,10 +25,9 @@ public class VerticalLassoSelectionTests {
   @BeforeClass
   public static void setUp() {
     subject = new TestLassoSubject(10, 10);
-    vStrat = new  VerticalLassoStrategy();
-    vStratNoMulti = new  VerticalLassoStrategy(false);
+    vStrat = new VerticalLassoStrategy();
+    vStratNoMulti = new VerticalLassoStrategy(false);
   }
-
 
   @Test
   public void testVComparator() {
@@ -70,7 +69,7 @@ public class VerticalLassoSelectionTests {
     List<int[]> sequences = vStrat.getBlocks(subject, topLeft, next);
     //0,0 - 3,0
     assertEquals(2, sequences.size());
-    
+
     assertEqualPoints(new int[] {0, 0}, sequences.get(0));
     assertEqualPoints(new int[] {3, 0}, sequences.get(1));
   }
@@ -94,9 +93,7 @@ public class VerticalLassoSelectionTests {
     assertEqualPoints(new int[] {0, 3}, sequences.get(4));
     assertEqualPoints(new int[] {2, 3}, sequences.get(5));
   }
-  
-  
-  
+
   @Test
   public void testVerticalLassoSelectionNoMultiSimple2() {
     int[] topLeft = {0, 0};
@@ -114,7 +111,7 @@ public class VerticalLassoSelectionTests {
     List<int[]> sequences = vStratNoMulti.getBlocks(subject, topLeft, next);
     //0,0 - 3,0
     assertEquals(2, sequences.size());
-    
+
     assertEqualPoints(new int[] {0, 0}, sequences.get(0));
     assertEqualPoints(new int[] {9, 0}, sequences.get(1));
   }

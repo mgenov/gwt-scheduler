@@ -10,7 +10,7 @@ import com.google.gwt.user.client.Element;
  * @param <T> the decorable
  */
 //FIXME: Gin doesn't like generic interfaces...
-public interface MultipleElementsIntervalDecorator/*<T extends Element>*/ {
+public interface MultipleElementsIntervalDecorator/* <T extends Element> */{
 
   /**
    * Fired when the decorator should decorate elements.

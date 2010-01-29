@@ -23,8 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Main navigation panel.
  * @author malp
  */
-public class DateViewsTabPanel extends Composite implements
-    BeforeSelectionHandler<Integer> {
+public class DateViewsTabPanel extends Composite implements BeforeSelectionHandler<Integer> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();

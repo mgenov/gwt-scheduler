@@ -29,19 +29,19 @@ public class GenericLassoSelectionTests {
     int[] p1 = {-1, 0};
     hStrat.getBlocks(subject, p1, p1);
   }
-  
+
   @Test(expected = IllegalArgumentException.class)
   public void testHBoundsOutside() {
     int[] p1 = {0, 10};
     hStrat.getBlocks(subject, p1, p1);
   }
-  
+
   @Test(expected = IllegalArgumentException.class)
   public void testVBoundsNegative() {
     int[] p1 = {-1, 0};
     hStrat.getBlocks(subject, p1, p1);
   }
-  
+
   @Test(expected = IllegalArgumentException.class)
   public void testVBoundsOutside() {
     int[] p1 = {10, 10};

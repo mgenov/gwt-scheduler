@@ -56,8 +56,7 @@ public abstract class GenericLassoStrategy implements LassoStrategy {
    * @param to the end point
    * @return the segments
    */
-  protected abstract List<int[]> stripInSegments(LassoSubject subject,
-      int[] from, int[] to);
+  protected abstract List<int[]> stripInSegments(LassoSubject subject, int[] from, int[] to);
 
   /**
    * Compares 2 points.

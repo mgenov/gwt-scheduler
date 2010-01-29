@@ -10,7 +10,7 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class DefaultAppConfiguration implements AppConfiguration {
-  
+
   @Override
   public int startDayOfWeek() {
     return DateTimeConstants.MONDAY;

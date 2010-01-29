@@ -22,8 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Defines the composite month view.
  */
-public class MonthView extends LassoAwarePanel implements MonthDisplay,
-    HasMultipleDecorables<Element>, HasWidgetRedrawHandlers {
+public class MonthView extends LassoAwarePanel implements MonthDisplay, HasMultipleDecorables<Element>, HasWidgetRedrawHandlers {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -85,8 +84,7 @@ public class MonthView extends LassoAwarePanel implements MonthDisplay,
       g.setWidget(0, i, DOMUtils.wrapElement(cell.getCellElement()));
       //      g.setElement(0, i, cell.getCellElement());
       g.getCellFormatter().setWidth(0, 0, ((float) 100 / 7) + "%");
-      g.getFlexCellFormatter().setHorizontalAlignment(0, i,
-          HasHorizontalAlignment.ALIGN_CENTER);
+      g.getFlexCellFormatter().setHorizontalAlignment(0, i, HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;
   }

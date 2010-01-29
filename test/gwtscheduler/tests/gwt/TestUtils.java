@@ -13,8 +13,7 @@ public class TestUtils {
    * @param p2 the second point
    */
   public static void assertEqualPoints(int[] p1, int[] p2) {
-    assertTrue("Expected '[" + p1[0] + "," + p1[1] + "]', but got '[" + p2[0]
-        + "," + p2[1] + "']", p1[0] == p2[0] && p1[1] == p2[1]);
+    assertTrue("Expected '[" + p1[0] + "," + p1[1] + "]', but got '[" + p2[0] + "," + p2[1] + "']", p1[0] == p2[0] && p1[1] == p2[1]);
   }
 
   /**
@@ -29,5 +28,5 @@ public class TestUtils {
     assertEquals("Month differ", month, ri.get(DateTimeFieldType.monthOfYear()));
     assertEquals("Day differ", day, ri.get(DateTimeFieldType.dayOfMonth()));
   }
-  
+
 }

@@ -14,8 +14,7 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 /**
  * @author malp
  */
-public abstract class NonRepeatableWidgetResizeHandler implements
-    WidgetResizeHandler {
+public abstract class NonRepeatableWidgetResizeHandler implements WidgetResizeHandler {
 
   private WidgetResizeEvent lastResizeEvent;
 

@@ -144,8 +144,8 @@ class MonthRowTable extends Composite {
 
   /** number of columns */
   private final int columns;
-//  /** cached available height */
-//  private int availableHeight = 0;
+  //  /** cached available height */
+  //  private int availableHeight = 0;
   /** table for month cells */
   private FlexTable grid;
   /** list for title elements */
@@ -180,7 +180,7 @@ class MonthRowTable extends Composite {
   @Override
   protected void onAttach() {
     super.onAttach();
-    DeferredCommand.addCommand(new Command(){
+    DeferredCommand.addCommand(new Command() {
 
       @Override
       public void execute() {

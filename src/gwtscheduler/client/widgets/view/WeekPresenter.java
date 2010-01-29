@@ -36,8 +36,7 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
    * @param cfg the application configuration
    */
   @Inject
-  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView view,
-      EventBus bus) {
+  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView view, EventBus bus) {
     super(view, bus);
     rows = cfg.rowsInDay();
     display.asLassoPanel().initLasso(new VerticalLassoStrategy(false), this);

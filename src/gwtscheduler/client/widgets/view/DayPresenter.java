@@ -39,8 +39,7 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
    * @param cfg the application configuration
    */
   @Inject
-  protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view,
-      EventBus bus) {
+  protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view, EventBus bus) {
     super(view, bus);
     rows = cfg.rowsInDay();
     getDisplay().asLassoPanel().initLasso(new VerticalLassoStrategy(false), this);

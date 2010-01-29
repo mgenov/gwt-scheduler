@@ -69,8 +69,7 @@ public class VerticalLassoStrategy extends GenericLassoStrategy {
       int[] startingPoint = (i == firstCol) ? from : new int[] {0, i};
       //if last col and multi, return bound
       // if not multi, return last row in same col
-      int[] endingPoint = (i == lastCol) ? lastElem : new int[] {
-          s.getRowNum() - 1, i};
+      int[] endingPoint = (i == lastCol) ? lastElem : new int[] {s.getRowNum() - 1, i};
 
       result.add(startingPoint);
       result.add(endingPoint);
