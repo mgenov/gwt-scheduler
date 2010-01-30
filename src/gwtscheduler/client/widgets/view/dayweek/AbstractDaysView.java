@@ -47,7 +47,6 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements Generi
    * Default constructor.
    */
   public AbstractDaysView() {
-    super();
     mainPanel = createDaysPanel();
     topHeader = createTopHeader(mainPanel.getColumns());
 

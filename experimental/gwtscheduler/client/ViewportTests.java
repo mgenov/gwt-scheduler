@@ -43,8 +43,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     //    MonthController ctrl = new MonthController(uiResources.getConfiguration());
     //    main.add(ctrl);
 
-    back = new Button("<<", this);
-    forward = new Button(">>", this);
+    back = new Button("&laquo;", this);
+    forward = new Button("&raquo;", this);
     today = new Button("today", this);
     HorizontalPanel nav = new HorizontalPanel();
     nav.add(back);

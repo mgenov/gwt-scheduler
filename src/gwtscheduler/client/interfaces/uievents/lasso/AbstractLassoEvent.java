@@ -1,5 +1,7 @@
 package gwtscheduler.client.interfaces.uievents.lasso;
 
+import gwtscheduler.client.interfaces.LassoSubject;
+
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
@@ -14,6 +16,9 @@ public abstract class AbstractLassoEvent extends GwtEvent<LassoEventHandler> {
   public final int row;
   /** col */
   public final int column;
+  /** subject */
+  public final LassoSubject subject;
+
   /**
    * Event type for lasso events. Represents the meta-data associated with this
    * event.
@@ -38,7 +43,8 @@ public abstract class AbstractLassoEvent extends GwtEvent<LassoEventHandler> {
    * @param row the row
    * @param col the column
    */
-  public AbstractLassoEvent(int row, int col) {
+  public AbstractLassoEvent(LassoSubject subject, int row, int col) {
+    this.subject = subject;
     this.row = row;
     this.column = col;
   }

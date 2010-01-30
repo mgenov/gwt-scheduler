@@ -26,7 +26,6 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
 
   /**
    * Default constructor.
-   * @param subject
    */
   public LassoAwarePanel() {
     eventsPanel = new CalendarEventsPanel();
