@@ -55,9 +55,6 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements Generi
     addWidgetResizeHandler(mainPanel.getWidgetResizeHandler());
 
     insert(topHeader, 0);
-
-    //move this to the presenter
-    //    initLasso(getStrategy(), mainPanel);
   }
 
   @Override
@@ -116,7 +113,6 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements Generi
 
       topLabels.add(topCell);
       g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
-      //      g.setElement(0, 1 + i, topCell.getCellElement());
       g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;

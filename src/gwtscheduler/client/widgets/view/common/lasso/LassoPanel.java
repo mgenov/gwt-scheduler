@@ -6,13 +6,18 @@ import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX_SELECTING;
 import gwtscheduler.client.interfaces.LassoElementFactory;
 import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
+import gwtscheduler.client.interfaces.uievents.lasso.AbstractLassoEvent;
+import gwtscheduler.client.interfaces.uievents.lasso.HasLassoHandlers;
+import gwtscheduler.client.interfaces.uievents.lasso.LassoEndSelectionEvent;
+import gwtscheduler.client.interfaces.uievents.lasso.LassoEventHandler;
+import gwtscheduler.client.interfaces.uievents.lasso.LassoStartSelectionEvent;
+import gwtscheduler.client.interfaces.uievents.lasso.LassoUpdateSelectionEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactory;
 
 import java.util.List;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -34,7 +39,7 @@ import com.google.inject.Inject;
  * Lasso panel. Responsible for displaying user lasso selections.
  * @author malp
  */
-class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHandler, MouseUpHandler, WidgetResizeHandler {
+class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHandler, MouseMoveHandler, MouseUpHandler, WidgetResizeHandler {
 
   /** the lasso subject grid */
   private LassoSubject subject;
@@ -121,6 +126,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
 
     startPos = calculateCellPosition(event);
     selectRange(startPos, startPos);
+    fireEvent(new LassoStartSelectionEvent(startPos[0],startPos[1]));
   }
 
   @Override
@@ -137,6 +143,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
     // cells are deselected
     lassoPanel.clear();
     selectRange(startPos, pos);
+    fireEvent(new LassoUpdateSelectionEvent(pos[0],pos[1]));
   }
 
   @Override
@@ -147,7 +154,7 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
     isMouseDown = false;
     // show events dialog
     int[] pos = calculateCellPosition(event);
-    GWT.log("(" + startPos[0] + ", " + startPos[1] + "->" + pos[0] + ", " + pos[1] + ")", null);
+    fireEvent(new LassoEndSelectionEvent(pos[0],pos[1]));
   }
 
   /**
@@ -205,7 +212,13 @@ class LassoPanel extends AbsolutePanel implements MouseDownHandler, MouseMoveHan
     public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
       return addDomHandler(handler, MouseMoveEvent.getType());
     }
-
   }
+
+  @Override
+  public HandlerRegistration addLassoHandler(LassoEventHandler handler) {
+    return addHandler(handler, AbstractLassoEvent.getType());
+  }
+  
+  
 
 }

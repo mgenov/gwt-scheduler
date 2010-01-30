@@ -4,7 +4,9 @@ import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
+import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.view.common.RedrawablePanel;
+import gwtscheduler.client.widgets.view.common.overlay.CalendarEventsPanel;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
@@ -14,26 +16,31 @@ import com.google.gwt.user.client.ui.Widget;
  * selection.
  * @author malp
  */
+//TODO migrate to MVP
 public abstract class LassoAwarePanel extends RedrawablePanel {
 
   /** the lasso widget itself */
   private LassoPanel lasso;
+  /**the redraw panel*/
+  private CalendarEventsPanel eventsPanel;
 
   /**
    * Default constructor.
    * @param subject
    */
   public LassoAwarePanel() {
+    eventsPanel = new CalendarEventsPanel();
+    
     lasso = new LassoPanel();
-    //TODO move to constant file or so
-    DOM.setStyleAttribute(lasso.getElement(), "zIndex", "1");
+    lasso.addLassoHandler(eventsPanel);
+    
+    DOM.setIntStyleAttribute(lasso.getElement(), "zIndex", Constants.LASSO_ZINDEX);
     addToWindow(lasso, 0, 0);
     addWidgetResizeHandler(new WidgetResizeHandler() {
       @Override
       public void onResize(WidgetResizeEvent event) {
         positionLasso(lasso, event);
         resizeLasso(lasso, event);
-        //resize events
       }
     });
   }
