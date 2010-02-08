@@ -1,6 +1,5 @@
 package gwtscheduler.client.utils;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -44,7 +43,7 @@ public class DOMUtils {
       nextParent = nextParent.getOffsetParent();
     }
     if (nextParent == null) {
-      GWT.log("DOMUtils: offset was traced to a null parent node!", null);
+//      GWT.log("DOMUtils: offset was traced to a null parent node!", null);
     }
     return new int[] {left, top};
   }

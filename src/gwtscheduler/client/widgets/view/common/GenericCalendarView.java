@@ -1,8 +1,9 @@
 package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.interfaces.LassoStrategy;
+import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
-import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 
 import java.util.List;
 
@@ -41,8 +42,21 @@ public interface GenericCalendarView extends WidgetDisplay {
   HasMultipleDecorables<Element> getDecorables();
 
   /**
-   * Gets the lasso panel.
-   * @return the lasso panel
+   * Inits the lasso.
+   * @param strat the strategy
+   * @param subject the lasso subject
    */
-  LassoAwarePanel asLassoPanel();
+  void initLasso(LassoStrategy strat, LassoSubject subject);
+
+  /**
+   * Gets the number of columns.
+   * @return
+   */
+  int getColumns();
+
+  /**
+   * Gets the number of rows.
+   * @return
+   */
+  int getRows();
 }

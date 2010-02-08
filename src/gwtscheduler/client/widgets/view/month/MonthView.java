@@ -9,6 +9,7 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
+import gwtscheduler.client.widgets.view.common.overlay.EventsPanel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,11 +32,14 @@ public class MonthView extends LassoAwarePanel implements MonthDisplay, HasMulti
   protected MonthPanel monthPanel;
   /** top view cells */
   protected List<Cell<Element>> topLabels;
+  /** events panel */
+  protected EventsPanel eventsPanel;
 
   /**
    * Default constructor.
    */
   public MonthView() {
+    eventsPanel = new EventsPanel();
     monthPanel = new MonthPanel();
     Widget topHeader = createTopHeader();
 
@@ -43,13 +47,20 @@ public class MonthView extends LassoAwarePanel implements MonthDisplay, HasMulti
     addWidgetResizeHandler(monthPanel.getWidgetResizeHandler());
 
     insert(topHeader, 0);
-
   }
+  
 
   @Override
-  public LassoAwarePanel asLassoPanel() {
-    return this;
+  public int getColumns() {
+    return monthPanel.getColumns();
   }
+
+
+  @Override
+  public int getRows() {
+    return monthPanel.getRows();
+  }
+
 
   @Override
   protected boolean isOverflowY() {

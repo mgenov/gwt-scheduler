@@ -33,4 +33,10 @@ public interface AppConfiguration {
    * @return the number of rows (ex: 48)
    */
   int rowsInDay();
+
+  /**
+   * Gets the number of top rows in the day/week views for month events display.
+   * @return
+   */
+  int getDayViewTopRows();
 }

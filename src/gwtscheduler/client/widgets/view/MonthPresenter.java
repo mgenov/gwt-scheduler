@@ -47,7 +47,7 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
   public MonthPresenter(AppConfiguration cfg, @Month MonthDisplay display, EventBus bus) {
     super(display, bus);
     WeekSize = cfg.daysInWeek();
-    getDisplay().asLassoPanel().initLasso(new HorizontalLassoStrategy(), this);
+    getDisplay().initLasso(new HorizontalLassoStrategy(), this);
   }
 
   public String getTabLabel() {

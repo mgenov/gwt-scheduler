@@ -39,7 +39,7 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView view, EventBus bus) {
     super(view, bus);
     rows = cfg.rowsInDay();
-    display.asLassoPanel().initLasso(new VerticalLassoStrategy(false), this);
+    getDisplay().initLasso(new VerticalLassoStrategy(false), this);
   }
 
   public String getTabLabel() {

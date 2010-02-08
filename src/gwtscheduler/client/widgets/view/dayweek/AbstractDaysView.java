@@ -13,6 +13,7 @@ import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.view.common.GenericCalendarView;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
+import gwtscheduler.client.widgets.view.common.overlay.EventsPanel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,20 +34,23 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements Generi
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
-  /** day view */
-  protected AbstractDaysPanel mainPanel;
   /** top view */
   protected Widget topHeader;
+  /** day view */
+  protected AbstractDaysPanel mainPanel;
+  /** calendar */
+  protected EventsPanel eventsPanel;
   /** top view cells */
   protected List<Cell<Element>> topLabels;
 
   /** static ref to app configuration */
-  private static final AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
+  private AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
 
   /**
    * Default constructor.
    */
   public AbstractDaysView() {
+    eventsPanel = new EventsPanel();
     mainPanel = createDaysPanel();
     topHeader = createTopHeader(mainPanel.getColumns());
 
@@ -54,11 +58,6 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements Generi
     addWidgetResizeHandler(mainPanel.getWidgetResizeHandler());
 
     insert(topHeader, 0);
-  }
-
-  @Override
-  public LassoAwarePanel asLassoPanel() {
-    return this;
   }
 
   /**
@@ -99,6 +98,8 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements Generi
    * @return the top view widget
    */
   protected Widget createTopHeader(int columns) {
+    assert config.getDayViewTopRows() > 0 : "Top rows should be bigger than 0";
+
     FlexTable g = new FlexTable();
     g.addStyleName(CSS.genericContainer());
     g.setWidth("100%");
@@ -106,14 +107,23 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements Generi
     g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH() + "px");
 
     topLabels = new ArrayList<Cell<Element>>(columns);
+
     for (int i = 0; i < columns; i++) {
       Cell<Element> topCell = new BaseCell(0, i);
-      topCell.getCellElement().setInnerHTML(0 + ", " + i);//debug
 
+      //only top row is for labels
       topLabels.add(topCell);
+
       g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
       g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
     }
+    
+//    for (int row = 0; row < config.getDayViewTopRows(); row++) {
+//      g.add
+//    }
+//    g.getCellFormatter().getElement(1, 1).setInnerText("month display here");
+//    g.getFlexCellFormatter().setRowSpan(1, 1, config.getDayViewTopRows() - 1);
+//    g.getFlexCellFormatter().setColSpan(1, 1, columns);
     return g;
   }
 
@@ -131,6 +141,16 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements Generi
 
   public List<Cell<Element>> getMainDecorables() {
     return mainPanel.getMainDecorables();
+  }
+
+  @Override
+  public int getColumns() {
+    return mainPanel.getColumns();
+  }
+
+  @Override
+  public int getRows() {
+    return mainPanel.getRows();
   }
 
   /**

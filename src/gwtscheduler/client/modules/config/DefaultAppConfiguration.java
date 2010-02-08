@@ -15,6 +15,13 @@ public class DefaultAppConfiguration implements AppConfiguration {
   public int startDayOfWeek() {
     return DateTimeConstants.MONDAY;
   }
+  
+
+  @Override
+  public int getDayViewTopRows() {
+    return 3;
+  }
+
 
   @Override
   public int daysInWeek() {

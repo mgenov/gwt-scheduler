@@ -42,7 +42,7 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view, EventBus bus) {
     super(view, bus);
     rows = cfg.rowsInDay();
-    getDisplay().asLassoPanel().initLasso(new VerticalLassoStrategy(false), this);
+    getDisplay().initLasso(new VerticalLassoStrategy(false), this);
   }
 
   public String getTabLabel() {

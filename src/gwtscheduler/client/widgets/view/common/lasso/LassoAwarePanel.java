@@ -6,7 +6,6 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.view.common.RedrawablePanel;
-import gwtscheduler.client.widgets.view.common.overlay.CalendarEventsPanel;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Widget;
@@ -21,17 +20,12 @@ public abstract class LassoAwarePanel extends RedrawablePanel {
 
   /** the lasso widget itself */
   private LassoPanel lasso;
-  /**the redraw panel*/
-  private CalendarEventsPanel eventsPanel;
 
   /**
    * Default constructor.
    */
   public LassoAwarePanel() {
-    eventsPanel = new CalendarEventsPanel();
-    
     lasso = new LassoPanel();
-    lasso.addLassoHandler(eventsPanel);
     
     DOM.setIntStyleAttribute(lasso.getElement(), "zIndex", Constants.LASSO_ZINDEX);
     addToWindow(lasso, 0, 0);

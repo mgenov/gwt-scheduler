@@ -198,4 +198,20 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidget
     return container.getElement().getOffsetWidth();
   }
 
+  /**
+   * Gets the number of columns.
+   * @return
+   */
+  int getColumns() {
+    return WeekSize;
+  }
+
+  /**
+   * Gets the number of visible rows.
+   * @return
+   */
+  int getRows() {
+    return getVisibleRowsSize();
+  }
+
 }

@@ -1,5 +1,6 @@
 package gwtscheduler.client.modules;
 
+import net.customware.gwt.presenter.client.EventBus;
 import gwtscheduler.client.interfaces.navigation.DateGenerator;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.modules.views.UIManager;
@@ -30,6 +31,11 @@ public interface AppInjector extends Ginjector {
   AppConfiguration getConfiguration();
 
   /**
+   *Gets the event bus.
+   */
+  EventBus getEventBus();
+
+  /**
    * Proxy class for acessing injector.
    * @author Miguel Ping
    * @version $Revision: $
@@ -51,5 +57,4 @@ public interface AppInjector extends Ginjector {
     }
 
   }
-
 }
