@@ -47,17 +47,6 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler, Ha
    * Default constructor.
    */
   public AdaptableWindowPanel() {
-    // we never show hscroll
-    //    scrollPanel = new ScrollPanel();
-    //    initWidget(scrollPanel);
-    //
-    //    getElement().getStyle().setProperty("overflowX", "hidden");
-    //    getElement().getStyle().setProperty("position", "relative");
-    //
-    //    container = new AbsolutePanel();
-    //    container.setSize("100%", "100%");
-    //    DOM.setStyleAttribute(container.getElement(), "overflow", "");
-    //    scrollPanel.add(container);
     initWidget(uiBinder.createAndBindUi(this));
     Window.addResizeHandler(this);
   }

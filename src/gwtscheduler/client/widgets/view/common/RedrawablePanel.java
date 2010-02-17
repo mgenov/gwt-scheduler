@@ -7,7 +7,10 @@ import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
@@ -22,20 +25,31 @@ import com.google.gwt.user.client.ui.Widget;
 public abstract class RedrawablePanel extends Composite implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
 
   /** widget impl */
-  private VerticalPanel impl;
+  @UiField
+  VerticalPanel impl;
   /** adaptable viewport */
-  private AdaptableWindowPanel windowPanel;
+  @UiField
+  AdaptableWindowPanel windowPanel;
   /** hack */
   private WidgetResizeEvent lastEvt;
+
+  /** ui binder instance */
+  private static RedrawablePanelUiBinder uiBinder = GWT.create(RedrawablePanelUiBinder.class);
+
+  /** ui binder interface */
+  interface RedrawablePanelUiBinder extends UiBinder<Widget, RedrawablePanel> {
+  }
 
   /**
    * Default constructor.
    */
   public RedrawablePanel() {
-    impl = new VerticalPanel();
-    initWidget(impl);
+    initWidget(uiBinder.createAndBindUi(this));
 
-    windowPanel = new AdaptableWindowPanel();
+    //    impl = new VerticalPanel();
+    //    initWidget(impl);
+    //
+    //    windowPanel = new AdaptableWindowPanel();
     //TODO fix this hack method
     styleWindowPanel(windowPanel);
 
@@ -64,7 +78,7 @@ public abstract class RedrawablePanel extends Composite implements HasWidgetResi
         });
       }
     });
-    add(windowPanel);
+    //    add(windowPanel);
   }
 
   /**
