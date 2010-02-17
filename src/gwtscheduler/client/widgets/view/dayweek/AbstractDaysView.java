@@ -14,7 +14,7 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
-import gwtscheduler.client.widgets.view.common.LassoAwarePanel2;
+import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Composite view class for days. Has an upper label and a grid.
  */
 public abstract class AbstractDaysView extends Composite implements DaysDisplay, HasMultipleDecorables<Element>, HasWidgetRedrawHandlers,
-    LassoAwarePanel2.LassoHandler {
+    LassoAwarePanel.LassoHandler {
 
   @UiField
   VerticalPanel impl;
@@ -49,7 +49,7 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   @UiField
   EventsPanel eventsPanel;
   @UiField
-  LassoAwarePanel2 lassoAwarePanel;
+  LassoAwarePanel lassoAwarePanel;
 
   /** top view cells */
   protected List<Cell<Element>> topLabels;
@@ -72,6 +72,7 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
     lassoAwarePanel.addWidgetResizeHandler(daysPanel.getWidgetResizeHandler());
     lassoAwarePanel.setOverflowY(true);
     lassoAwarePanel.setLassoHandler(this);
+//    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
   }
 
   /**

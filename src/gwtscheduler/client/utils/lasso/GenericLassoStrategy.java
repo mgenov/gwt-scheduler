@@ -21,11 +21,12 @@ public abstract class GenericLassoStrategy implements LassoStrategy {
    * @return the segments
    */
   public List<int[]> getBlocks(LassoSubject subject, int[] start, int[] end) {
-    checkBounds(subject, start);
-    checkBounds(subject, end);
+    ArrayList<int[]> result = new ArrayList<int[]>();
+    
+    if(!checkBounds(subject, start)) return result;
+    if(!checkBounds(subject, end)) return result;
 
     if (PointUtils.equals(start, end)) {
-      ArrayList<int[]> result = new ArrayList<int[]>();
       result.add(start);
       result.add(end);
       return result;
@@ -40,13 +41,14 @@ public abstract class GenericLassoStrategy implements LassoStrategy {
    * @param subject the subject
    * @param point the point
    */
-  private void checkBounds(LassoSubject subject, int[] point) {
+  private boolean checkBounds(LassoSubject subject, int[] point) {
     if (point[0] < 0 || point[0] >= subject.getRowNum()) {
-      throw new IllegalArgumentException("Row out of bounds");
+      return false;
     }
     if (point[1] < 0 || point[1] >= subject.getColNum()) {
-      throw new IllegalArgumentException("Column out of bounds");
+      return false;
     }
+    return true;
   }
 
   /**

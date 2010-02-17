@@ -1,6 +1,5 @@
 package gwtscheduler.client.widgets.view.common;
 
-import static gwtscheduler.client.resources.css.MainCss.Lasso;
 import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX;
 import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX_SELECTING;
 import gwtscheduler.client.interfaces.LassoElementFactory;
@@ -15,6 +14,7 @@ import gwtscheduler.client.interfaces.uievents.lasso.LassoUpdateSelectionEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactory;
 
 import java.util.List;
@@ -65,14 +65,13 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
    * @param strat
    */
   LassoPanel() {
-    addStyleName(Lasso);
+    addStyleName(Resources.dayWeekCss().lassoPanel());
 
     lassoFactory = new GenericLassoElementFactory();
     evtBus = AppInjector.GIN.getInjector().getEventBus();
     
     // lasso/ events set up
     lassoPanel = new LassoContainer();
-    lassoPanel.setSize("100%", "100%");
 
     addDomHandler(this, MouseDownEvent.getType());
     addDomHandler(this, MouseUpEvent.getType());

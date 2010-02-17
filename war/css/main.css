@@ -16,19 +16,7 @@ body {
 	font-family: Calibri, sans-serif;
 }
 
-/** 
- * Lasso widgets 
- */
-.lasso {
-	cursor: default;
-	background: transparent;
-	opacity: 0.5;
-	filter: alpha(opacity = 50);
-}
 
-.lasso-element {
-	background: red;
-}
 
 /** 
  * Misc 

@@ -1,10 +1,10 @@
 package gwtscheduler.client.widgets.nav;
 
 import gwtscheduler.client.interfaces.CalendarPresenter;
+import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.utils.DOMUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +45,8 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
   public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
     // fire resize, redraw
     Widget w = impl.getWidget(event.getItem());
-    w.fireEvent(new WidgetResizeEvent(DOMUtils.getViewportDimensions()));
+    w.fireEvent(new WidgetResizeEvent());
+    w.fireEvent(new WidgetRedrawEvent());
   }
 
   /**

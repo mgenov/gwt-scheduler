@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.common.factory;
 
-import static gwtscheduler.client.resources.css.MainCss.LassoElement;
 import gwtscheduler.client.interfaces.LassoElementFactory;
 import gwtscheduler.client.interfaces.LassoSubject;
+import gwtscheduler.client.resources.Resources;
 
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -16,7 +16,7 @@ public class GenericLassoElementFactory extends AbstractMultiCellWidgetFactory i
   @Override
   public Widget createLassoElement(LassoSubject subject, int[] from, int[] to) {
     Label ew = new Label();
-    ew.addStyleName(LassoElement);
+    ew.addStyleName(Resources.dayWeekCss().lassoElement());
 
     int w = getWidth(subject, to[1] - from[1] + 1);
     int h = getHeight(subject, to[0] - from[0] + 1);

@@ -15,6 +15,16 @@ public interface CommonCssResource extends CssResource {
    * @return the css class for a generic container
    */
   String genericContainer();
+  
+  /**
+   * @return
+   */
+  String lassoPanel();
+  
+  /**
+   * @return
+   */
+  String lassoElement();
 
   /**
    * Generic container padding.

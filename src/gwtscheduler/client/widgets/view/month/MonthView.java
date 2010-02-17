@@ -13,7 +13,7 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
-import gwtscheduler.client.widgets.view.common.LassoAwarePanel2;
+import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Defines the composite month view.
  */
-public class MonthView extends Composite implements LassoAwarePanel2.LassoHandler, MonthDisplay, HasMultipleDecorables<Element>,
+public class MonthView extends Composite implements LassoAwarePanel.LassoHandler, MonthDisplay, HasMultipleDecorables<Element>,
     HasWidgetRedrawHandlers {
 
   /** static ref to css */
@@ -46,7 +46,7 @@ public class MonthView extends Composite implements LassoAwarePanel2.LassoHandle
   @UiField
   FlexTable header;
   @UiField
-  LassoAwarePanel2 lassoAwarePanel;
+  LassoAwarePanel lassoAwarePanel;
   @UiField
   MonthPanel monthPanel;
   @UiField
@@ -73,6 +73,7 @@ public class MonthView extends Composite implements LassoAwarePanel2.LassoHandle
     initWidget(uiBinder.createAndBindUi(this));
     lassoAwarePanel.setOverflowY(false);
     lassoAwarePanel.addWidgetResizeHandler(monthPanel.getWidgetResizeHandler());
+//    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
   }
 
   /**

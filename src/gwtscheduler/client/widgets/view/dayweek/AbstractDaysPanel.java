@@ -68,10 +68,10 @@ public abstract class AbstractDaysPanel extends Composite implements HasWidgetRe
 
   /**
    * Builds the grid.
-   * @return the gri
+   * @return the grid
    */
   @UiFactory
-  HorizontalGridFill buildGrid() { // method name is insignificant
+  HorizontalGridFill buildGrid() {
     return new HorizontalGridFill(getRows(), getColumns());
   }
 

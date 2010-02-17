@@ -9,9 +9,9 @@
 
 	<g:VerticalPanel ui:field="impl">
 		<g:FlexTable ui:field="header" />
-		<common:LassoAwarePanel2 ui:field="lassoAwarePanel">
+		<common:LassoAwarePanel ui:field="lassoAwarePanel">
 			<common:EventsPanel ui:field="eventsPanel" />
 			<days:AbstractDaysPanel ui:field="daysPanel" />
-		</common:LassoAwarePanel2>
+		</common:LassoAwarePanel>
 	</g:VerticalPanel>
 </ui:UiBinder> 

@@ -27,3 +27,14 @@
 	background: lightBlued;
 	padding: genericContainerPaddingPx;
 }
+
+/** 
+ * Lasso widgets 
+ */
+.lassoPanel, .lassoElement {
+	cursor: default;
+	background: transparent;
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+	background: red;
+}
