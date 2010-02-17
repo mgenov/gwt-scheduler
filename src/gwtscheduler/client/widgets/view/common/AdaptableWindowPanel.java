@@ -6,11 +6,13 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -28,27 +30,35 @@ import com.google.gwt.user.client.ui.Widget;
 public class AdaptableWindowPanel extends Composite implements ResizeHandler, HasWidgetResizeHandlers {
 
   /** main container */
-  private ScrollPanel scrollPanel;
+  @UiField
+  ScrollPanel scrollPanel;
   /** wrapper */
-  private AbsolutePanel container;
+  @UiField
+  AbsolutePanel container;
+
+  /** ui binder instance */
+  private static AdaptableWindowPanelUiBinder uiBinder = GWT.create(AdaptableWindowPanelUiBinder.class);
+
+  /** ui binder interface */
+  interface AdaptableWindowPanelUiBinder extends UiBinder<Widget, AdaptableWindowPanel> {
+  }
 
   /**
    * Default constructor.
    */
   public AdaptableWindowPanel() {
-    super();
     // we never show hscroll
-    scrollPanel = new ScrollPanel();
-    initWidget(scrollPanel);
-
-    getElement().getStyle().setProperty("overflowX", "hidden");
-    getElement().getStyle().setProperty("position", "relative");
-
-    container = new AbsolutePanel();
-    container.setSize("100%", "100%");
-    DOM.setStyleAttribute(container.getElement(), "overflow", "");
-    scrollPanel.add(container);
-
+    //    scrollPanel = new ScrollPanel();
+    //    initWidget(scrollPanel);
+    //
+    //    getElement().getStyle().setProperty("overflowX", "hidden");
+    //    getElement().getStyle().setProperty("position", "relative");
+    //
+    //    container = new AbsolutePanel();
+    //    container.setSize("100%", "100%");
+    //    DOM.setStyleAttribute(container.getElement(), "overflow", "");
+    //    scrollPanel.add(container);
+    initWidget(uiBinder.createAndBindUi(this));
     Window.addResizeHandler(this);
   }
 
