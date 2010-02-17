@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
+import java.util.Iterator;
+
 import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
@@ -17,6 +19,7 @@ import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -27,7 +30,8 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
-public class AdaptableWindowPanel extends Composite implements ResizeHandler, HasWidgetResizeHandlers {
+public class AdaptableWindowPanel extends Composite 
+implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
 
   /** main container */
   @UiField
@@ -133,4 +137,21 @@ public class AdaptableWindowPanel extends Composite implements ResizeHandler, Ha
     super.onAttach();
     doDeferredResize();
   }
+
+  @Override
+  public void clear() {
+    scrollPanel.clear();
+  }
+
+  @Override
+  public Iterator<Widget> iterator() {
+    return scrollPanel.iterator();
+  }
+
+  @Override
+  public boolean remove(Widget w) {
+    return scrollPanel.remove(w);
+  }
+  
+  
 }

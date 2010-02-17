@@ -15,6 +15,7 @@ import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHand
 import java.util.List;
 
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -52,6 +53,15 @@ public abstract class AbstractDaysPanel extends WrappedWidget implements HasWidg
     grid.setSize("100%", getRows() * lh + "em");
     container.add(grid);
   }
+
+//  /**
+//   * Builds the grid.
+//   * @return the gri
+//   */
+//  @UiFactory
+//  HorizontalGridFill buildGrod() { // method name is insignificant
+//    return new HorizontalGridFill(getRows(), getColumns());
+//  }
 
   /**
    * Gets the decorable elements.

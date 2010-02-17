@@ -1,0 +1,20 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
+	xmlns:grid="urn:import:gwtscheduler.client.widgets.view.common.grid">
+	
+	<ui:style>
+		.simple-panel {
+			overflow-x: hidden;
+			position: relative;
+		}
+	</ui:style>
+
+	<g:SimplePanel styleName="style.simple-panel" ui:field="simplePanel">
+		<g:VerticalPanel ui:field="container">
+			<grid:HorizontalGridFill ui:field="grid">
+			</grid:HorizontalGridFill>
+		</g:VerticalPanel>
+	</g:SimplePanel>
+
+</ui:UiBinder> 

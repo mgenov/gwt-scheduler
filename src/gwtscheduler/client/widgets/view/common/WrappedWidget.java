@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @version $Revision: $
  * @since 1.0
  */
+@Deprecated
 public abstract class WrappedWidget extends Composite {
 
   /** Wrapper widget */
