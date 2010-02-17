@@ -10,7 +10,6 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
-import gwtscheduler.client.widgets.view.common.GenericCalendarView;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
 import gwtscheduler.client.widgets.view.common.overlay.EventsPanel;
@@ -28,7 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Composite view class for days. Has an upper label and a grid.
  */
-public abstract class AbstractDaysView extends LassoAwarePanel implements GenericCalendarView, HasMultipleDecorables<Element>,
+public abstract class AbstractDaysView extends LassoAwarePanel implements DaysDisplay, HasMultipleDecorables<Element>,
     HasWidgetRedrawHandlers {
 
   /** static ref to css */
@@ -117,13 +116,13 @@ public abstract class AbstractDaysView extends LassoAwarePanel implements Generi
       g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
       g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
     }
-    
-//    for (int row = 0; row < config.getDayViewTopRows(); row++) {
-//      g.add
-//    }
-//    g.getCellFormatter().getElement(1, 1).setInnerText("month display here");
-//    g.getFlexCellFormatter().setRowSpan(1, 1, config.getDayViewTopRows() - 1);
-//    g.getFlexCellFormatter().setColSpan(1, 1, columns);
+
+    //    for (int row = 0; row < config.getDayViewTopRows(); row++) {
+    //      g.add
+    //    }
+    //    g.getCellFormatter().getElement(1, 1).setInnerText("month display here");
+    //    g.getFlexCellFormatter().setRowSpan(1, 1, config.getDayViewTopRows() - 1);
+    //    g.getFlexCellFormatter().setColSpan(1, 1, columns);
     return g;
   }
 

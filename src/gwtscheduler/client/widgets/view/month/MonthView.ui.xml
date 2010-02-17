@@ -1,0 +1,25 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
+	xmlns:common="urn:import:gwtscheduler.client.widgets.view.common"
+	xmlns:month="urn:import:gwtscheduler.client.widgets.view.month"
+	xmlns:events="urn:import:gwtscheduler.client.widgets.view.common.overlay"
+	xmlns:lasso="urn:import:gwtscheduler.client.widgets.view.common.lasso">
+	
+	<ui:style>
+		.lasso {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	</ui:style>
+
+	<g:VerticalPanel ui:field="impl">
+		<g:FlexTable ui:field="header"/>
+		<common:AdaptableWindowPanel ui:field="windowPanel">
+			<events:EventsPanel ui:field="eventsPanel"/>
+			<month:MonthPanel ui:field="monthPanel"/>
+			<lasso:LassoPanel ui:field="lasso" styleName="{style.lasso}"/>
+		</common:AdaptableWindowPanel>
+	</g:VerticalPanel>
+</ui:UiBinder> 

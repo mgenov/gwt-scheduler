@@ -29,7 +29,8 @@ import com.google.gwt.user.client.ui.Widget;
  * @author malp
  */
 //TODO migrate to MVP
-public abstract class LassoAwarePanel extends Composite implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
+public abstract class LassoAwarePanel extends Composite 
+implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
   /** widget impl */
   @UiField
   VerticalPanel impl;
