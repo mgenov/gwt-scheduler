@@ -3,16 +3,14 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:grid="urn:import:gwtscheduler.client.widgets.view.common.grid">
 
 	<ui:style>
-		.simple-panel {
-			width: 100%;
-			height: 100%;
+		.month-row-table {
+			padding: 0;
+			position: relative;
+			border-collapse: collapse;
 		}
 	</ui:style>
 
-	<g:SimplePanel styleName="{style.simple-panel}" ui:field="simplePanel">
-		<g:VerticalPanel ui:field="container">
-			<grid:HorizontalGridFill ui:field="grid" />
-		</g:VerticalPanel>
-	</g:SimplePanel>
+	<g:FlexTable styleName="{style.month-row-table}" ui:field="grid">
+	</g:FlexTable>
 
 </ui:UiBinder> 

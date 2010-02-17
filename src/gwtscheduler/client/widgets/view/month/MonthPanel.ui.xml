@@ -7,12 +7,14 @@
 			width: 100%;
 			height: 100%;
 		}
+		.container {
+			width: 100%;
+			height: 100%;
+		}
 	</ui:style>
 
 	<g:SimplePanel styleName="{style.simple-panel}" ui:field="simplePanel">
-		<g:VerticalPanel ui:field="container">
-			<grid:HorizontalGridFill ui:field="grid" />
-		</g:VerticalPanel>
+		<g:FlowPanel ui:field="container" styleName="{style.container}" />
 	</g:SimplePanel>
 
 </ui:UiBinder> 

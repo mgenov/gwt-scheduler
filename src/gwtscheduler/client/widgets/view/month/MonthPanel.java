@@ -9,15 +9,20 @@ import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
 import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
-import gwtscheduler.client.widgets.view.common.WrappedWidget;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * View class for months. Handles its own resizes.
@@ -25,13 +30,18 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * @version $Revision: $
  * @since 1.0
  */
-class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidgetResizeHandlers {
+class MonthPanel extends Composite implements WidgetResizeHandler, HasWidgetResizeHandlers {
 
   /** CSS resources */
   private static final MonthCssResource MonthCss = Resources.monthCss();
 
   /** Main container */
-  private FlowPanel container;
+  @UiField
+  FlowPanel container;
+  /** root container */
+  @UiField
+  SimplePanel simplePanel;
+
   /** resize handler */
   private DefaultResizeHandler handler;
   /** collection of month rows */
@@ -41,6 +51,13 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidget
   /** application config retrieved value */
   private final int WeekSize;
 
+  /** ui binder instance */
+  private static MonthPanelUiBinder uiBinder = GWT.create(MonthPanelUiBinder.class);
+
+  /** ui binder interface */
+  interface MonthPanelUiBinder extends UiBinder<Widget, MonthPanel> {
+  }
+
   /**
    * Default constructor.
    * @param ctrl the controller
@@ -48,10 +65,9 @@ class MonthPanel extends WrappedWidget implements WidgetResizeHandler, HasWidget
   public MonthPanel() {
     AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
     WeekSize = config.daysInWeek();
+    initWidget(uiBinder.createAndBindUi(this));
 
-    container = new FlowPanel();
     handler = new DefaultResizeHandler(this);
-    wrapWidget(container);
 
     monthRows = new ArrayList<MonthRow>();
     hiddenRows = new ArrayList<MonthRow>();
