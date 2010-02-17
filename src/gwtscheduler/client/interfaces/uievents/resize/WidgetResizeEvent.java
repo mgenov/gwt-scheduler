@@ -1,6 +1,7 @@
 package gwtscheduler.client.interfaces.uievents.resize;
 
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.user.client.Window;
 
 /**
  * Resize event for resize aware widgets.
@@ -39,6 +40,13 @@ public class WidgetResizeEvent extends GwtEvent<WidgetResizeHandler> {
     return TYPE;
   }
 
+  /**
+   * Main constructor.
+   */
+  public WidgetResizeEvent() {
+    this.width = Window.getClientWidth();
+    this.height = Window.getClientHeight();
+  }
   /**
    * Main constructor.
    * @param availableWidth the available width

@@ -1,4 +1,6 @@
-package gwtscheduler.client.widgets.view.common.lasso;
+package gwtscheduler.client.widgets.view.common;
+
+import java.util.Iterator;
 
 import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
@@ -9,7 +11,6 @@ import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.utils.Constants;
-import gwtscheduler.client.widgets.view.common.AdaptableWindowPanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Position;
@@ -20,7 +21,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -29,17 +30,17 @@ import com.google.gwt.user.client.ui.Widget;
  * @author malp
  */
 //TODO migrate to MVP
-public abstract class LassoAwarePanel extends Composite 
-implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
-  /** widget impl */
-  @UiField
-  VerticalPanel impl;
+public class LassoAwarePanel2 extends Composite implements HasWidgets, HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
+
   /** adaptable viewport */
   @UiField
   AdaptableWindowPanel windowPanel;
   /** the lasso widget itself */
   @UiField
   LassoPanel lasso;
+
+  private boolean isOverflowY;
+  private LassoHandler handler;
 
   /** hack */
   private WidgetResizeEvent lastEvt;
@@ -48,13 +49,13 @@ implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
   private static LassoAwarePanelUiBinder uiBinder = GWT.create(LassoAwarePanelUiBinder.class);
 
   /** ui binder interface */
-  interface LassoAwarePanelUiBinder extends UiBinder<Widget, LassoAwarePanel> {
+  interface LassoAwarePanelUiBinder extends UiBinder<Widget, LassoAwarePanel2> {
   }
 
   /**
    * Default constructor.
    */
-  public LassoAwarePanel() {
+  public LassoAwarePanel2() {
     initWidget(uiBinder.createAndBindUi(this));
     styleWindowPanel(windowPanel);
 
@@ -77,8 +78,8 @@ implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
           @Override
           public void execute() {
             //delegates to this widget (self)
-            delegateEvent(LassoAwarePanel.this, event); //fires a resize 
-            delegateEvent(LassoAwarePanel.this, new WidgetRedrawEvent()); //fires a redraw
+            delegateEvent(LassoAwarePanel2.this, event); //fires a resize 
+            delegateEvent(LassoAwarePanel2.this, new WidgetRedrawEvent()); //fires a redraw
           }
         });
       }
@@ -87,8 +88,10 @@ implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
     addWidgetResizeHandler(new WidgetResizeHandler() {
       @Override
       public void onResize(WidgetResizeEvent event) {
-        positionLasso(lasso, event);
-        resizeLasso(lasso, event);
+        if (handler != null) {
+          handler.positionLasso(lasso, event);
+          handler.resizeLasso(lasso, event);
+        }
       }
     });
     //don't know why but the UiBinder doesn't assume this
@@ -108,46 +111,18 @@ implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
   }
 
   /**
+   * @param overflow
+   */
+  public void setOverflowY(boolean overflow) {
+    this.isOverflowY = overflow;
+  }
+
+  /**
    * Indicates if y-axis overflow is to be visible or hidden
    * @return <code>true</code> to show a scroll bar, <code>false</code> to hide
    */
   protected boolean isOverflowY() {
-    return true;
-  }
-
-  /**
-   * Adds a wiget to this panel.
-   * @param w the widget
-   */
-  protected void add(Widget w) {
-    impl.add(w);
-  }
-
-  /**
-   * Adds a wiget to this panel.
-   * @param w the widget
-   * @param beforeIndex the index
-   */
-  protected void insert(Widget w, int beforeIndex) {
-    impl.insert(w, beforeIndex);
-  }
-
-  /**
-   * Adds a widget to the window panel.
-   * @param w the widget to add
-   */
-  protected void addToWindow(Widget w) {
-    windowPanel.add(w);
-  }
-
-  /**
-   * Adds an absolutely positioned widget to the window panel
-   * @param widget the widget
-   * @param left left
-   * @param top top
-   */
-  protected void addToWindow(Widget widget, int left, int top) {
-    windowPanel.add(widget, left, top);
+    return isOverflowY;
   }
 
   @Override
@@ -170,20 +145,42 @@ implements HasWidgetResizeHandlers, HasWidgetRedrawHandlers {
     lasso.setLassoSubject(subject);
   }
 
-  /**
-   * Responsible for positioning the lasso correctly. This method is fired on
-   * viewport resize.
-   * @param lasso the lasso
-   * @param event the last resize event
-   */
-  protected abstract void positionLasso(Widget lasso, WidgetResizeEvent event);
+  @Override
+  public void add(Widget w) {
+    windowPanel.add(w);
+  }
 
-  /**
-   * Responsible for sizing the lasso appropriately.This method is fired on
-   * viewport resize.
-   * @param lasso the lasso widget
-   * @param event the last resize event
-   */
-  protected abstract void resizeLasso(Widget lasso, WidgetResizeEvent event);
+  @Override
+  public void clear() {
+    windowPanel.clear();
+  }
+
+  @Override
+  public Iterator<Widget> iterator() {
+    return windowPanel.iterator();
+  }
+
+  @Override
+  public boolean remove(Widget w) {
+    return windowPanel.remove(w);
+  }
+
+  public interface LassoHandler {
+    /**
+     * Responsible for positioning the lasso correctly. This method is fired on
+     * viewport resize.
+     * @param lasso the lasso
+     * @param event the last resize event
+     */
+    void positionLasso(Widget lasso, WidgetResizeEvent event);
+
+    /**
+     * Responsible for sizing the lasso appropriately.This method is fired on
+     * viewport resize.
+     * @param lasso the lasso widget
+     * @param event the last resize event
+     */
+    void resizeLasso(Widget lasso, WidgetResizeEvent event);
+  }
 
 }

@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view.common.lasso;
+package gwtscheduler.client.widgets.view.common;
 
 import static gwtscheduler.client.resources.css.MainCss.Lasso;
 import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX;

@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view.common.overlay;
+package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.interfaces.uievents.lasso.AbstractLassoEvent;
 import gwtscheduler.client.interfaces.uievents.lasso.LassoCancelSelectionEvent;

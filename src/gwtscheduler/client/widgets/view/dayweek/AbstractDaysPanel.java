@@ -8,8 +8,8 @@ import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFill;
-import gwtscheduler.client.widgets.view.common.grid.HorizontalGridFillResizeHandler;
+import gwtscheduler.client.widgets.view.common.HorizontalGridFill;
+import gwtscheduler.client.widgets.view.common.HorizontalGridFillResizeHandler;
 
 import java.util.List;
 

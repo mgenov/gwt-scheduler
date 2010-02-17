@@ -10,9 +10,9 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
+import gwtscheduler.client.widgets.view.common.EventsPanel;
+import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
-import gwtscheduler.client.widgets.view.common.lasso.LassoAwarePanel;
-import gwtscheduler.client.widgets.view.common.overlay.EventsPanel;
 
 import java.util.ArrayList;
 import java.util.Collections;

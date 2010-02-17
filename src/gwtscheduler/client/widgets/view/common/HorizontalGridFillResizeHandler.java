@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view.common.grid;
+package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;

@@ -1,6 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:grid="urn:import:gwtscheduler.client.widgets.view.common.grid">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
+	xmlns:common="urn:import:gwtscheduler.client.widgets.view.common">
 
 	<ui:style>
 		.simple-panel {
@@ -11,7 +12,7 @@
 
 	<g:SimplePanel styleName="{style.simple-panel}" ui:field="simplePanel">
 		<g:VerticalPanel ui:field="container">
-			<grid:HorizontalGridFill ui:field="grid" />
+			<common:HorizontalGridFill ui:field="grid" />
 		</g:VerticalPanel>
 	</g:SimplePanel>
 
