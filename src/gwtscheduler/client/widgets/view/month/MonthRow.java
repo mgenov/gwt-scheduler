@@ -7,9 +7,14 @@ import gwtscheduler.client.resources.Resources;
 
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiFactory;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Represents a month row.
@@ -20,11 +25,20 @@ import com.google.gwt.user.client.ui.FlowPanel;
 public class MonthRow extends Composite implements WidgetResizeHandler {
 
   /** impl */
-  private FlowPanel impl;
+  @UiField
+  FlowPanel impl;
   /** will hold grid data */
-  private MonthRowTable grid;
+  @UiField
+  MonthRowTable grid;
   /** number of cols */
   private final int columns;
+
+  /** ui binder instance */
+  private static MonthRowUiBinder uiBinder = GWT.create(MonthRowUiBinder.class);
+
+  /** ui binder interface */
+  interface MonthRowUiBinder extends UiBinder<Widget, MonthRow> {
+  }
 
   /**
    * Default constructor.
@@ -32,14 +46,17 @@ public class MonthRow extends Composite implements WidgetResizeHandler {
    */
   public MonthRow(int cols) {
     columns = cols;
-    impl = new FlowPanel();
-
     grid = new MonthRowTable(columns);
-    impl.add(grid);
-    initWidget(impl);
-
+    initWidget(uiBinder.createAndBindUi(this));
     setStyleName(Resources.monthCss().monthRow());
-    getElement().getStyle().setProperty("position", "relative");
+  }
+
+  /**
+   * @return
+   */
+  @UiFactory
+  public MonthRowTable buildMonthRowTable() {
+    return new MonthRowTable(columns);
   }
 
   public void onResize(WidgetResizeEvent event) {

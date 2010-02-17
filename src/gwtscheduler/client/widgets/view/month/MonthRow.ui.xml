@@ -1,0 +1,18 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
+	xmlns:month="urn:import:gwtscheduler.client.widgets.view.month">
+
+	<ui:style>
+		.month-grid {
+			padding: 0;
+			position: relative;
+			border-collapse: collapse;
+		}
+	</ui:style>
+	
+	<g:FlowPanel ui:field="impl">
+		<month:MonthRowTable ui:field="grid"/>
+	</g:FlowPanel>
+
+</ui:UiBinder> 
