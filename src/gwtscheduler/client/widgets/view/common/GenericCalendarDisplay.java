@@ -15,7 +15,7 @@ import com.google.gwt.user.client.Element;
  * Defines a generic view for displaying a calendar.
  * @author malp
  */
-public interface GenericCalendarView extends WidgetDisplay {
+public interface GenericCalendarDisplay extends WidgetDisplay {
 
   /**
    * Gets the height in pixels.

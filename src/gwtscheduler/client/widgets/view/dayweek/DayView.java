@@ -9,8 +9,13 @@ import gwtscheduler.client.modules.AppInjector;
 public class DayView extends AbstractDaysView {
 
   @Override
-  protected AbstractDaysPanel createDaysPanel() {
+  protected AbstractDaysPanel buildDaysPanel() {
     return new DayPanel();
+  }
+
+  @Override
+  protected int getColumnsSize() {
+    return 1;
   }
 
   /**

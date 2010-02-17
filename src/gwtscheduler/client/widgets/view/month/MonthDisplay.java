@@ -1,12 +1,12 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.widgets.view.common.GenericCalendarView;
+import gwtscheduler.client.widgets.view.common.GenericCalendarDisplay;
 
 /**
  * Display class for months.
  * @author malp
  */
-public interface MonthDisplay extends GenericCalendarView {
+public interface MonthDisplay extends GenericCalendarDisplay {
 
   /**
    * Shows only the supplied rows.

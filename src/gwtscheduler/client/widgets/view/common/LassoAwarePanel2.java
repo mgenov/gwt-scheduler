@@ -39,7 +39,7 @@ public class LassoAwarePanel2 extends Composite implements HasWidgets, HasWidget
   @UiField
   LassoPanel lasso;
 
-  private boolean isOverflowY;
+  private boolean isOverflowY = true;
   private LassoHandler handler;
 
   /** hack */
@@ -97,6 +97,14 @@ public class LassoAwarePanel2 extends Composite implements HasWidgets, HasWidget
     //don't know why but the UiBinder doesn't assume this
     lasso.getElement().getStyle().setPosition(Position.ABSOLUTE);
     lasso.getElement().getStyle().setZIndex(Constants.LASSO_ZINDEX);
+  }
+
+  /**
+   * Sets the lasso handler.
+   * @param handler the handler
+   */
+  public void setLassoHandler(LassoHandler handler) {
+    this.handler = handler;
   }
 
   /**
