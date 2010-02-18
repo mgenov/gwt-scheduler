@@ -148,7 +148,6 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
     // cells are deselected
     lassoPanel.clear();
     selectRange(startPos, pos);
-    //    fireEvent(new LassoUpdateSelectionEvent(subject, pos[0], pos[1]));
     evtBus.fireEvent(new LassoUpdateSelectionEvent(subject, pos[0], pos[1]));
   }
 

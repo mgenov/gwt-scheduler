@@ -18,6 +18,11 @@ import com.google.gwt.user.client.Element;
 public interface GenericCalendarDisplay extends WidgetDisplay {
 
   /**
+   * Forces the layout.
+   */
+  void forceLayout();
+
+  /**
    * Gets the height in pixels.
    * @return the height in px
    */

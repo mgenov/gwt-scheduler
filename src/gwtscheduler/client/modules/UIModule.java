@@ -8,10 +8,12 @@ import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.views.DefaultUIRegistry;
+import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.utils.GenericDateGenerator;
 import gwtscheduler.client.widgets.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.decorator.MonthLabelDecorator;
+import gwtscheduler.client.widgets.nav.DateViewsTabPanel;
 import gwtscheduler.client.widgets.view.DayPresenter;
 import gwtscheduler.client.widgets.view.MonthPresenter;
 import gwtscheduler.client.widgets.view.WeekPresenter;
@@ -19,8 +21,8 @@ import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactor
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.client.widgets.view.dayweek.DayView;
 import gwtscheduler.client.widgets.view.dayweek.WeekView;
-import gwtscheduler.client.widgets.view.month.MonthView;
 import gwtscheduler.client.widgets.view.month.MonthDisplay;
+import gwtscheduler.client.widgets.view.month.MonthView;
 import net.customware.gwt.presenter.client.DefaultEventBus;
 import net.customware.gwt.presenter.client.EventBus;
 
@@ -35,6 +37,7 @@ public class UIModule extends AbstractGinModule {
 
   protected void configure() {
     //general
+    bind(MainView.class).to(DateViewsTabPanel.class).in(Singleton.class);
     bind(UIManager.class).to(DefaultUIRegistry.class).in(Singleton.class);
     bind(EventBus.class).to(DefaultEventBus.class).in(Singleton.class);
 

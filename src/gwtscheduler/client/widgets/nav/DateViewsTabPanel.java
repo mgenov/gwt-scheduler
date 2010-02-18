@@ -1,63 +1,76 @@
 package gwtscheduler.client.widgets.nav;
 
 import gwtscheduler.client.interfaces.CalendarPresenter;
-import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
+import gwtscheduler.client.modules.annotation.Day;
+import gwtscheduler.client.modules.annotation.Month;
+import gwtscheduler.client.modules.annotation.Week;
+import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.cobogw.gwt.user.client.ui.RoundedPanel;
-
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
-import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 /**
  * Main navigation panel.
  * @author malp
  */
-public class DateViewsTabPanel extends Composite implements BeforeSelectionHandler<Integer> {
+//TODO migrate to MVP
+public class DateViewsTabPanel extends Composite implements MainView, BeforeSelectionHandler<Integer> {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
+
   /** widget delegate */
-  private TabPanel impl;
-  /** controllers map */
-  private Map<Integer, CalendarPresenter> controllers;
+  private DecoratedTabPanel impl;
+
+  private CalendarPresenter[] presenters;
 
   /**
    * Default constructor.
+   * @param day
+   * @param week
+   * @param month
    */
-  public DateViewsTabPanel() {
+  @Inject
+  public DateViewsTabPanel(@Day CalendarPresenter day, @Week CalendarPresenter week, @Month CalendarPresenter month) {
     impl = new DecoratedTabPanel();
     initWidget(impl);
     impl.addBeforeSelectionHandler(this);
-    controllers = new HashMap<Integer, CalendarPresenter>();
+
+    presenters = new CalendarPresenter[3];
+    presenters[0] = day;
+    presenters[1] = week;
+    presenters[2] = month;
+    add(day);
+    add(week);
+    add(month);
+  }
+
+  @Override
+  public Widget asWidget() {
+    return this;
   }
 
   public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
-    // fire resize, redraw
-    Widget w = impl.getWidget(event.getItem());
-    w.fireEvent(new WidgetResizeEvent());
-    w.fireEvent(new WidgetRedrawEvent());
+    CalendarPresenter presenter = presenters[event.getItem()];
+    presenter.forceLayout();
   }
 
   /**
    * Adds a new view to this tab panel.
    * @param presenter the controller
    */
-  public void add(CalendarPresenter presenter) {
+  private void add(CalendarPresenter presenter) {
     Widget view = presenter.getWidgetDisplay();
-    impl.add(createWrapper(view), presenter.getTabLabel());
-    Integer index = impl.getWidgetIndex(view);
-    controllers.put(index, presenter);
+    TabPanelContainer container = new TabPanelContainer();
+    container.add(view);
+
+    impl.add(container, presenter.getTabLabel());
   }
 
   /**
@@ -67,24 +80,4 @@ public class DateViewsTabPanel extends Composite implements BeforeSelectionHandl
   public void selectTab(int i) {
     impl.selectTab(i);
   }
-
-  /**
-   * Creates a rounded panel wrapper for the widget.
-   * @param child the widget to wrap
-   * @return the child wrapped in a rounded panel
-   */
-  protected Widget createWrapper(Widget child) {
-    // will delegate events to child panel
-    RoundedPanel rp = new RoundedPanel(RoundedPanel.ALL, 4) {
-      @Override
-      public void fireEvent(GwtEvent<?> event) {
-        getWidget().fireEvent(event);
-      }
-    };
-    // TODO get this from the css resources?
-    rp.setCornerColor("#92C1F0");
-    rp.add(child);
-    return rp;
-  }
-
 }

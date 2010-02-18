@@ -5,6 +5,7 @@ import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
 import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
+import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
 import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.modules.AppInjector;
@@ -72,7 +73,6 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
     lassoAwarePanel.addWidgetResizeHandler(daysPanel.getWidgetResizeHandler());
     lassoAwarePanel.setOverflowY(true);
     lassoAwarePanel.setLassoHandler(this);
-//    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
   }
 
   /**
@@ -110,6 +110,11 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
    */
   @UiFactory
   protected abstract AbstractDaysPanel buildDaysPanel();
+
+  @Override
+  public void forceLayout() {
+    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
+  }
 
   /**
    * Gets the number of columns
@@ -208,5 +213,4 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   @Override
   public void stopProcessing() {
   }
-
 }

@@ -1,6 +1,5 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.interfaces.CalendarPresenter;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
@@ -32,16 +31,12 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     // let's test a registration
     final AppInjector uiResources = AppInjector.GIN.getInjector();
     final UIManager registry = uiResources.getUIRegistry();
-    //    registry.addController(new DummyMonthController());
 
-    DateViewsTabPanel main = new DateViewsTabPanel();
-    //     the registry will be pre-filled with default controllers
-    for (CalendarPresenter controller : registry.getControllers()) {
-      main.add(controller);
-    }
-
-    //    MonthController ctrl = new MonthController(uiResources.getConfiguration());
-    //    main.add(ctrl);
+    DateViewsTabPanel main = uiResources.getMainPanel();
+    //    DateViewsTabPanel main = new DateViewsTabPanel();
+    //    for (CalendarPresenter controller : registry.getControllers()) {
+    //      main.add(controller);
+    //    }
 
     back = new Button("&laquo;", this);
     forward = new Button("&raquo;", this);

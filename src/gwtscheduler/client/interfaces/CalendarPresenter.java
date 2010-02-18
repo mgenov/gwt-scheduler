@@ -30,4 +30,9 @@ public interface CalendarPresenter extends Presenter {
    */
   Widget getWidgetDisplay();
 
+  /**
+   * Forces the layout of the display.
+   */
+  void forceLayout();
+
 }

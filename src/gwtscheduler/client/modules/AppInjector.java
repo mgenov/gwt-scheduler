@@ -4,6 +4,7 @@ import net.customware.gwt.presenter.client.EventBus;
 import gwtscheduler.client.interfaces.navigation.DateGenerator;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.modules.views.UIManager;
+import gwtscheduler.client.widgets.nav.DateViewsTabPanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.inject.client.GinModules;
@@ -17,6 +18,11 @@ public interface AppInjector extends Ginjector {
    * @return the UI Registry
    */
   UIManager getUIRegistry();
+  
+  /**
+   * @return
+   */
+  DateViewsTabPanel getMainPanel();
 
   /**
    * Gets a new date generator instance.

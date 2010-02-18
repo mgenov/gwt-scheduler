@@ -5,6 +5,7 @@ import gwtscheduler.client.interfaces.LassoStrategy;
 import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
 import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
+import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
 import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.modules.AppInjector;
@@ -73,7 +74,6 @@ public class MonthView extends Composite implements LassoAwarePanel.LassoHandler
     initWidget(uiBinder.createAndBindUi(this));
     lassoAwarePanel.setOverflowY(false);
     lassoAwarePanel.addWidgetResizeHandler(monthPanel.getWidgetResizeHandler());
-//    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
   }
 
   /**
@@ -97,6 +97,11 @@ public class MonthView extends Composite implements LassoAwarePanel.LassoHandler
       g.getFlexCellFormatter().setHorizontalAlignment(0, i, HasHorizontalAlignment.ALIGN_CENTER);
     }
     return g;
+  }
+
+  @Override
+  public void forceLayout() {
+    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
   }
 
   @Override
