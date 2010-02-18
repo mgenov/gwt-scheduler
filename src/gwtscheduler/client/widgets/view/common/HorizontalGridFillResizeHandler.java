@@ -5,7 +5,6 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
-import gwtscheduler.client.widgets.resize.AbstractResizeHandler;
 import gwtscheduler.client.widgets.view.common.cell.DayCell;
 
 import java.util.Iterator;

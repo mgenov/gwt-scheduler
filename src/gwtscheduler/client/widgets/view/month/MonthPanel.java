@@ -8,7 +8,7 @@ import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
-import gwtscheduler.client.widgets.resize.DefaultResizeHandler;
+import gwtscheduler.client.widgets.view.common.DefaultResizeHandler;
 
 import java.util.ArrayList;
 import java.util.List;

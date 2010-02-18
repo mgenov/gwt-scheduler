@@ -56,6 +56,13 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
     return this;
   }
 
+  @Override
+  public void forceLayout() {
+    for (CalendarPresenter p : presenters) {
+      p.forceLayout();
+    }
+  }
+
   public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
     CalendarPresenter presenter = presenters[event.getItem()];
     presenter.forceLayout();

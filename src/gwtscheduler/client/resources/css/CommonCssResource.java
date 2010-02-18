@@ -8,19 +8,19 @@ import com.google.gwt.resources.client.CssResource;
  * @version $Revision: $
  * @since 1.0
  */
-public interface CommonCssResource extends CssResource {
+interface CommonCssResource extends CssResource {
 
   /**
    * Generic container .
    * @return the css class for a generic container
    */
   String genericContainer();
-  
+
   /**
    * @return
    */
   String lassoPanel();
-  
+
   /**
    * @return
    */

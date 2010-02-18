@@ -36,5 +36,6 @@
 	background: transparent;
 	opacity: 0.5;
 	background: red;
-	filter: alpha(opacity = 50);
+	/*fuck ie*/
+	/*filter: alpha(opacity = 50);*/
 }
