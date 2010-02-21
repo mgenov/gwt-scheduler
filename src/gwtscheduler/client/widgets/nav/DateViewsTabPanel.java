@@ -27,7 +27,7 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
 
   /** widget delegate */
   private DecoratedTabPanel impl;
-
+  /** presenters array */
   private CalendarPresenter[] presenters;
 
   /**

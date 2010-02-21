@@ -10,7 +10,6 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
@@ -29,27 +28,22 @@ public class EventsPanel extends AbsolutePanel implements WidgetResizeHandler, L
 
   @Override
   public void onCancelSelection(LassoCancelSelectionEvent event) {
-    GWT.log("onCancelSelection", null);
   }
 
   @Override
   public void onEndSelection(LassoEndSelectionEvent event) {
-    GWT.log("onEndSelection", null);
   }
 
   @Override
   public void onStartSelection(LassoStartSelectionEvent event) {
-    GWT.log("onStartSelection", null);
   }
 
   @Override
   public void onUpdateSelection(LassoUpdateSelectionEvent event) {
-    GWT.log("onUpdateSelection", null);
   }
 
   @Override
   public void onResize(WidgetResizeEvent event) {
-    GWT.log("Should resize events", null);
   }
 
 }

@@ -6,7 +6,12 @@ import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
-public abstract class AbstractResizeHandler<T extends Widget> implements WidgetResizeHandler {
+/**
+ * Abstract class for handling resizes.
+ * @author malp
+ * @param <T>
+ */
+abstract class AbstractResizeHandler<T extends Widget> implements WidgetResizeHandler {
 
   /** Wrapper */
   private final T target;

@@ -6,13 +6,13 @@ package gwtscheduler.client.utils;
  * @version $Revision: $
  * @since 1.0
  */
-public class JSNIUtils {
+class JSNIUtils {
 
   /**
    * @see http://www.alexandre-gomes.com/?p=115
    * @return
    */
-  public static native int getScrollbarWidthP() /*-{
+  static native int getScrollbarWidth() /*-{
     var inner = document.createElement('p');
     inner.style.width = '100%';
     inner.style.height = '200px';
@@ -39,24 +39,6 @@ public class JSNIUtils {
   }-*/;
 
   /**
-   * @see http://javascript.jstruebig.de/javascript/70/
-   * @return
-   */
-  public static native int getScrollbarWidth() /*-{
-    // Scrollbalken im Body ausschalten
-    document.body.style.overflow = 'hidden';
-    var width = document.body.clientWidth;
-    // Scrollbalken
-    document.body.style.overflow = 'scroll';
-    width -= document.body.clientWidth;
-    // Der IE im Standardmode
-    if(!width) width = document.body.offsetWidth-document.body.clientWidth;
-    // urspr?ngliche Einstellungen
-    document.body.style.overflow = '';
-    return width;
-  }-*/;
-
-  /**
    * Gets the viewport width.
    * @return the viewport width
    */
@@ -73,7 +55,7 @@ public class JSNIUtils {
    * Gets the viewport height.
    * @return the viewport height
    */
-  public static native int getViewportHeight() /*-{
+  static native int getViewportHeight() /*-{
     var e = $wnd , a = 'inner';
     if ( !( 'innerWidth' in $wnd ) ) {
     a = 'client';

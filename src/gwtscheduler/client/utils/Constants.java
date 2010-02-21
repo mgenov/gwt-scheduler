@@ -11,7 +11,7 @@ public class Constants {
   /** the scrollbar width - magic number */
   public static final int SCROLLBAR_WIDTH() {
     if (width == 0) {
-      width = JSNIUtils.getScrollbarWidthP();
+      width = JSNIUtils.getScrollbarWidth();
     }
     return width;
   }

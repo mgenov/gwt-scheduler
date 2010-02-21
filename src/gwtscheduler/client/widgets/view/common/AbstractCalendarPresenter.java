@@ -43,14 +43,6 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
     eventBus.addHandler(AbstractLassoEvent.getType(), this);
   }
 
-  /**
-   * Gets the date factory.
-   * @return the date factory
-   */
-  protected DateGenerator getFactory() {
-    return factory;
-  }
-
   @Override
   public Interval getCurrentInterval() {
     return getFactory().interval();
@@ -102,6 +94,14 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
 
   @Override
   public void revealDisplay() {
+  }
+
+  /**
+   * Gets the date factory.
+   * @return the date factory
+   */
+  protected DateGenerator getFactory() {
+    return factory;
   }
 
   /**
