@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.common;
 
 
+
 /**
  * Defines a lasso component. The lasso component is responsible for drawing the
  * lasso selection on the screen.

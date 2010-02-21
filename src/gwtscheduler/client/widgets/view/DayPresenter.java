@@ -14,7 +14,6 @@ import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.Period;
-import org.goda.time.PeriodType;
 import org.goda.time.ReadableDateTime;
 import org.goda.time.ReadableInterval;
 

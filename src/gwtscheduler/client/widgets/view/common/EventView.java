@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.common.model.event.Event;
+import gwtscheduler.common.model.event.AbstractAppointment;
 
 import java.util.Collection;
 
@@ -23,14 +23,14 @@ public interface EventView {
    * Adds a collection of events.
    * @param events the collection of events to add
    */
-  void addEvents(Collection<Event> events);
+  void addEvents(Collection<AbstractAppointment> events);
 
   /**
    * Removes an event from this view.
    * @param event the event to remove
    * @return <code>true</code> if the event was removed
    */
-  boolean removeEvent(Event event);
+  boolean removeEvent(AbstractAppointment event);
 
   /**
    * Goes to the next series of events.

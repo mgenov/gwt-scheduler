@@ -17,7 +17,7 @@ import gwtscheduler.client.widgets.common.navigation.DateViewsTabPanel;
 import gwtscheduler.client.widgets.view.DayPresenter;
 import gwtscheduler.client.widgets.view.MonthPresenter;
 import gwtscheduler.client.widgets.view.WeekPresenter;
-import gwtscheduler.client.widgets.view.common.LassoElementFactory;
+import gwtscheduler.client.widgets.view.common.factory.LassoElementFactory;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.client.widgets.view.dayweek.DayView;
 import gwtscheduler.client.widgets.view.dayweek.WeekView;

@@ -1,9 +1,9 @@
 package gwtscheduler.common.model.event.simple;
 
-import gwtscheduler.common.model.event.Event;
+import gwtscheduler.common.model.event.AbstractAppointment;
 import gwtscheduler.common.model.event.EventType;
 
-import org.goda.time.DateTime;
+import org.goda.time.Interval;
 
 /**
  * Defines a simple event, ie, an event that does not last more than a day.
@@ -11,19 +11,19 @@ import org.goda.time.DateTime;
  * @version $Revision: $
  * @since 1.0
  */
-public class SimpleEvent extends Event {
+public class SimpleAppointment extends AbstractAppointment {
 
   /**
    * @param start
    * @param end
-   * @param type
    */
-  public SimpleEvent(DateTime start, DateTime end, EventType type) {
-    super(start, end, type);
+  public SimpleAppointment(Interval interval) {
+    super(interval, EventType.SIMPLE);
   }
 
   @Override
-  protected DateTime filter(DateTime date) {
-    return date;
+  protected Interval filter(Interval interval) {
+    return interval;
   }
+
 }

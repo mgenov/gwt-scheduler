@@ -41,7 +41,7 @@ public class GenericDateGenerator implements DateGenerator {
   }
 
   public void init(IntervalType interval, ReadableDateTime start) {
-    //TODO maybe use a flag for this?
+    //TODO maybe use a flag|bitmask for resetting fields?
     MutableDateTime mtd = new MutableDateTime(start.getMillis());
     mtd.setMillisOfSecond(0);
     mtd.setSecondOfMinute(0);

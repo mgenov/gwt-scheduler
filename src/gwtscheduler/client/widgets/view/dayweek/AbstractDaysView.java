@@ -7,8 +7,8 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.common.Cell;
-import gwtscheduler.client.widgets.common.LassoStrategy;
 import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.LassoStrategy;
 import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
@@ -70,6 +70,7 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
    */
   public AbstractDaysView() {
     initWidget(uiBinder.createAndBindUi(this));
+    eventsPanel.setComplexGrid(this);
     lassoAwarePanel.addWidgetResizeHandler(daysPanel.getWidgetResizeHandler());
     lassoAwarePanel.setOverflowY(true);
     lassoAwarePanel.setLassoHandler(this);
@@ -141,18 +142,17 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   }
 
   @Override
-  public void positionLasso(Widget lasso, WidgetResizeEvent event) {
+  public void forceLayout(Widget lassoPanel, WidgetResizeEvent event) {
     Element first = getContentDecorableElements().get(0).getCellElement();
-    int[] offset = DOMUtils.getOffset(lasso.getParent().getElement(), first);
+    int[] offset = DOMUtils.getOffset(lassoPanel.getParent().getElement(), first);
     if (offset[0] > 0) {
-      DOM.setStyleAttribute(lasso.getElement(), "left", offset[0] + "px");
+      DOM.setStyleAttribute(lassoPanel.getElement(), "left", offset[0] + "px");
+      DOM.setStyleAttribute(eventsPanel.getElement(), "left", offset[0] + "px");
     }
-  }
 
-  @Override
-  public void resizeLasso(Widget lasso, WidgetResizeEvent event) {
     AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
-    lasso.setSize("100%", (config.daysLineHeightEMs() * daysPanel.getRows()) + "em");
+    lassoPanel.setSize("100%", (config.daysLineHeightEMs() * daysPanel.getRows()) + "em");
+    eventsPanel.setSize("100%", (config.daysLineHeightEMs() * daysPanel.getRows()) + "em");
   }
 
   public List<Cell<Element>> getColumnsDecorableElements() {
@@ -182,12 +182,12 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   }
 
   @Override
-  public int getColumns() {
+  public int getColNum() {
     return daysPanel.getColumns();
   }
 
   @Override
-  public int getRows() {
+  public int getRowNum() {
     return daysPanel.getRows();
   }
 
@@ -213,4 +213,5 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   @Override
   public void stopProcessing() {
   }
+
 }

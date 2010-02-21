@@ -4,8 +4,8 @@ import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX;
 import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX_SELECTING;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.widgets.common.LassoStrategy;
 import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.LassoStrategy;
 import gwtscheduler.client.widgets.common.event.AbstractLassoEvent;
 import gwtscheduler.client.widgets.common.event.GenericLassoElementFactory;
 import gwtscheduler.client.widgets.common.event.HasLassoHandlers;
@@ -15,6 +15,7 @@ import gwtscheduler.client.widgets.common.event.LassoStartSelectionEvent;
 import gwtscheduler.client.widgets.common.event.LassoUpdateSelectionEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
+import gwtscheduler.client.widgets.view.common.factory.LassoElementFactory;
 
 import java.util.List;
 
@@ -25,7 +26,6 @@ import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -40,19 +40,14 @@ import com.google.gwt.user.client.ui.Widget;
  * Lasso panel. Responsible for displaying user lasso selections.
  * @author malp
  */
-class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHandler, MouseMoveHandler, MouseUpHandler, WidgetResizeHandler {
+class LassoPanel extends AbstractGridOverlay implements HasLassoHandlers, MouseDownHandler, MouseMoveHandler, MouseUpHandler, WidgetResizeHandler {
 
-  /** the lasso subject grid */
-  private ComplexGrid subject;
   /** indicates if a lasso is being selected or not */
   private boolean isMouseDown = false;
   /** the lasso starting position */
   private int[] startPos;
   /** the lasso strategy */
   private LassoStrategy strategy;
-
-  /** lasso container */
-  private AbsolutePanel lassoPanel;
 
   /** elements factory */
   private LassoElementFactory lassoFactory;
@@ -64,19 +59,15 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
    * @param strat
    */
   LassoPanel() {
+    super(new LassoContainer());
     addStyleName(Resources.dayWeekCss().lassoPanel());
 
     lassoFactory = new GenericLassoElementFactory();
     evtBus = AppInjector.GIN.getInjector().getEventBus();
 
-    // lasso/ events set up
-    lassoPanel = new LassoContainer();
-
     addDomHandler(this, MouseDownEvent.getType());
     addDomHandler(this, MouseUpEvent.getType());
     addDomHandler(this, MouseMoveEvent.getType());
-
-    add(lassoPanel, 0, 0);
   }
 
   /**
@@ -93,17 +84,17 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
    * @param p2 the second position
    */
   private void selectRange(int[] p1, int[] p2) {
-    List<int[]> range = strategy.getBlocks(subject, p1, p2);
+    List<int[]> range = strategy.getBlocks(grid, p1, p2);
     assert range.size() >= 2 : "Event blocks are less than 2.";
     assert range.size() % 2 == 0 : "Odd number of events";
 
     for (int i = 0; i < range.size(); i += 2) {
       int[] from = range.get(i);
       int[] to = range.get(i + 1);
-      Widget lasso = lassoFactory.createLassoElement(subject, from, to);
+      Widget lasso = lassoFactory.createLassoElement(grid, from, to);
 
       int[] coords = calculateLeftTop(from);
-      lassoPanel.add(lasso, coords[0], coords[1]);
+      overlayPanel.add(lasso, coords[0], coords[1]);
     }
   }
 
@@ -113,7 +104,7 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
    */
   void setLassoSubject(ComplexGrid subject) {
     assert subject != null : "Lasso subject cannot be null.";
-    this.subject = subject;
+    this.grid = subject;
   }
 
   @Override
@@ -123,13 +114,13 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
     }
     // TODO verify if the lasso panel was the src
     isMouseDown = true;
-    lassoPanel.clear();
-    Element lassoEl = lassoPanel.getElement();
+    overlayPanel.clear();
+    Element lassoEl = overlayPanel.getElement();
     DOM.setIntStyleAttribute(lassoEl, "zIndex", LASSO_ZINDEX_SELECTING);
 
     startPos = calculateCellPosition(event);
     selectRange(startPos, startPos);
-    evtBus.fireEvent(new LassoStartSelectionEvent(subject, startPos));
+    evtBus.fireEvent(new LassoStartSelectionEvent(grid, startPos));
   }
 
   @Override
@@ -144,55 +135,28 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
     // and then move to opposite dir, so we need to make sure that previous
     // selected
     // cells are deselected
-    lassoPanel.clear();
+    overlayPanel.clear();
     selectRange(startPos, pos);
-    evtBus.fireEvent(new LassoUpdateSelectionEvent(subject, pos));
+    evtBus.fireEvent(new LassoUpdateSelectionEvent(grid, pos));
   }
 
   @Override
   public void onMouseUp(MouseUpEvent event) {
-    lassoPanel.clear();
-    DOM.setIntStyleAttribute(lassoPanel.getElement(), "zIndex", LASSO_ZINDEX);
+    overlayPanel.clear();
+    DOM.setIntStyleAttribute(overlayPanel.getElement(), "zIndex", LASSO_ZINDEX);
 
     isMouseDown = false;
     // show events dialog
     int[] endPos = calculateCellPosition(event);
-    evtBus.fireEvent(new LassoEndSelectionEvent(subject, startPos, endPos));
+    evtBus.fireEvent(new LassoEndSelectionEvent(grid, startPos, endPos));
   }
 
-  /**
-   * Calculates the cell position for a given mouse event
-   * @param event the mouse event
-   * @return the cell position
-   */
-  private int[] calculateCellPosition(MouseEvent<?> event) {
-    int x = event.getRelativeX(getElement());
-    int y = event.getRelativeY(getElement());
 
-    int rowPos = (y / (subject.getHeight() / subject.getRowNum()));
-    int colPos = (x / (subject.getWidth() / subject.getColNum()));
-    return new int[] {rowPos, colPos};
-  }
-
-  /**
-   * Calculates the top and left coordinates for a given cell position.
-   * @param cellPos the cell position
-   * @return
-   */
-  private int[] calculateLeftTop(int[] cellPos) {
-    assert cellPos != null : "Cell position cannot be null";
-    assert cellPos.length == 2 : "Position length != 2";
-
-    int rowH = Math.round((float) subject.getHeight() / subject.getRowNum());
-    int colW = Math.round((float) subject.getWidth() / subject.getColNum());
-    return new int[] {cellPos[1] * colW, cellPos[0] * rowH};
-  }
 
   @Override
   public void onResize(WidgetResizeEvent event) {
-    lassoPanel.clear();
-    DOM.setIntStyleAttribute(lassoPanel.getElement(), "zIndex", LASSO_ZINDEX);
-    // reposition events
+    super.onResize(event);
+    DOM.setIntStyleAttribute(overlayPanel.getElement(), "zIndex", LASSO_ZINDEX);
   }
 
   /**

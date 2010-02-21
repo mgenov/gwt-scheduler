@@ -6,8 +6,8 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.common.Cell;
-import gwtscheduler.client.widgets.common.LassoStrategy;
 import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.LassoStrategy;
 import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
@@ -72,6 +72,7 @@ public class MonthView extends Composite implements LassoAwarePanel.LassoHandler
     AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
     WeekSize = config.daysInWeek();
     initWidget(uiBinder.createAndBindUi(this));
+    eventsPanel.setComplexGrid(this);
     lassoAwarePanel.setOverflowY(false);
     lassoAwarePanel.addWidgetResizeHandler(monthPanel.getWidgetResizeHandler());
   }
@@ -105,22 +106,19 @@ public class MonthView extends Composite implements LassoAwarePanel.LassoHandler
   }
 
   @Override
-  public int getColumns() {
+  public int getColNum() {
     return monthPanel.getColumns();
   }
 
   @Override
-  public int getRows() {
+  public int getRowNum() {
     return monthPanel.getRows();
   }
 
   @Override
-  public void positionLasso(Widget lasso, WidgetResizeEvent event) {
-  }
-
-  @Override
-  public void resizeLasso(Widget lasso, WidgetResizeEvent event) {
-    lasso.setPixelSize(event.width, event.height);
+  public void forceLayout(Widget lassoPanel, WidgetResizeEvent event) {
+    lassoPanel.setPixelSize(event.width, event.height);
+    eventsPanel.setPixelSize(event.width, event.height);
   }
 
   public List<Cell<Element>> getColumnsDecorableElements() {

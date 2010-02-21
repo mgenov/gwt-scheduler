@@ -1,6 +1,6 @@
 package gwtscheduler.common.model.event;
 
-import org.goda.time.DateTime;
+import org.goda.time.Interval;
 
 /**
  * Super class for events.
@@ -8,10 +8,9 @@ import org.goda.time.DateTime;
  * @version $Revision: $
  * @since 1.0
  */
-public abstract class Event {
+public abstract class AbstractAppointment {
 
-  protected DateTime start;
-  protected DateTime end;
+  protected Interval interval;
   protected EventType type;
 
   /**
@@ -20,9 +19,8 @@ public abstract class Event {
    * @param end
    * @param type
    */
-  public Event(DateTime start, DateTime end, EventType type) {
-    this.start = filter(start);
-    this.end = filter(end);
+  public AbstractAppointment(Interval interval, EventType type) {
+    this.interval = filter(interval);
     this.type = type;
   }
 
@@ -30,6 +28,6 @@ public abstract class Event {
    * Filters dates, removing the unecessary parts.
    * @param date the date to filter
    */
-  protected abstract DateTime filter(DateTime date);
+  protected abstract Interval filter(Interval interval);
 
 }

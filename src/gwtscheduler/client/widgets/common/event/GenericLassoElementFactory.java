@@ -3,7 +3,7 @@ package gwtscheduler.client.widgets.common.event;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.AbstractMultiCellWidgetFactory;
 import gwtscheduler.client.widgets.common.ComplexGrid;
-import gwtscheduler.client.widgets.view.common.LassoElementFactory;
+import gwtscheduler.client.widgets.view.common.factory.LassoElementFactory;
 
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;

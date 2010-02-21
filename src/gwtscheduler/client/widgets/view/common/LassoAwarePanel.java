@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.utils.Constants;
-import gwtscheduler.client.widgets.common.LassoStrategy;
 import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.LassoStrategy;
 import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
 import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
@@ -33,14 +33,15 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
 
   /** adaptable viewport */
   @UiField
-  AdaptableWindowPanel windowPanel;
+  protected AdaptableWindowPanel windowPanel;
   /** the lasso widget itself */
   @UiField
-  LassoPanel lasso;
+  protected LassoPanel lasso;
 
+  /** state for determining if overflow is to be shown */
   private boolean isOverflowY = true;
+  /** state for handling repositions */
   private LassoHandler handler;
-
   /** hack */
   private WidgetResizeEvent lastEvt;
 
@@ -81,8 +82,7 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
       @Override
       public void onResize(WidgetResizeEvent event) {
         if (handler != null) {
-          handler.positionLasso(lasso, event);
-          handler.resizeLasso(lasso, event);
+          handler.forceLayout(lasso,event);
         }
       }
     });
@@ -180,22 +180,16 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
     return windowPanel.remove(w);
   }
 
+  /**
+   * Interface class for lasso repositioning handling.
+   * @author malp
+   */
   public interface LassoHandler {
     /**
-     * Responsible for positioning the lasso correctly. This method is fired on
-     * viewport resize.
-     * @param lasso the lasso
+     * Forces the layout.
      * @param event the last resize event
      */
-    void positionLasso(Widget lasso, WidgetResizeEvent event);
-
-    /**
-     * Responsible for sizing the lasso appropriately.This method is fired on
-     * viewport resize.
-     * @param lasso the lasso widget
-     * @param event the last resize event
-     */
-    void resizeLasso(Widget lasso, WidgetResizeEvent event);
+    void forceLayout(Widget lassoPanel,WidgetResizeEvent event);
   }
 
 }

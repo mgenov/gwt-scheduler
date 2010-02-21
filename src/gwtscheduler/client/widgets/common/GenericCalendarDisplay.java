@@ -12,7 +12,7 @@ import com.google.gwt.user.client.Element;
  * Defines a generic view for displaying a calendar.
  * @author malp
  */
-public interface GenericCalendarDisplay extends WidgetDisplay {
+public interface GenericCalendarDisplay extends WidgetDisplay, ComplexGrid {
 
   /**
    * Forces the layout.
@@ -54,11 +54,11 @@ public interface GenericCalendarDisplay extends WidgetDisplay {
    * Gets the number of columns.
    * @return
    */
-  int getColumns();
+  int getColNum();
 
   /**
    * Gets the number of rows.
    * @return
    */
-  int getRows();
+  int getRowNum();
 }
