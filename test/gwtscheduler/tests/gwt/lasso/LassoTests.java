@@ -1,7 +1,7 @@
 package gwtscheduler.tests.gwt.lasso;
 
 import static gwtscheduler.tests.gwt.TestUtils.assertInstantDate;
-import gwtscheduler.tests.gwt.DateTimeAwareLassoSubject;
+import gwtscheduler.tests.gwt.DateTimeAwarePresenter;
 
 import org.goda.time.Instant;
 import org.goda.time.Interval;
@@ -17,7 +17,7 @@ import com.google.gwt.junit.client.GWTTestCase;
  */
 public class LassoTests extends GWTTestCase {
 
-  DateTimeAwareLassoSubject subject;
+  DateTimeAwarePresenter subject;
 
   @Override
   public String getModuleName() {
@@ -27,7 +27,7 @@ public class LassoTests extends GWTTestCase {
   @Before
   @Override
   public void gwtSetUp() {
-    subject = new DateTimeAwareLassoSubject(10, 10);
+    subject = new DateTimeAwarePresenter(10, 10);
   }
 
   @Test

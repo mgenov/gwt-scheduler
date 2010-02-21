@@ -1,8 +1,8 @@
 package gwtscheduler.client.utils.lasso;
 
-import gwtscheduler.client.interfaces.LassoStrategy;
-import gwtscheduler.client.interfaces.LassoSubject;
 import gwtscheduler.client.utils.PointUtils;
+import gwtscheduler.client.widgets.common.LassoStrategy;
+import gwtscheduler.client.widgets.common.ComplexGrid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public abstract class GenericLassoStrategy implements LassoStrategy {
    * @param end the end point
    * @return the segments
    */
-  public List<int[]> getBlocks(LassoSubject subject, int[] start, int[] end) {
+  public List<int[]> getBlocks(ComplexGrid subject, int[] start, int[] end) {
     ArrayList<int[]> result = new ArrayList<int[]>();
     
     if(!checkBounds(subject, start)) return result;
@@ -41,7 +41,7 @@ public abstract class GenericLassoStrategy implements LassoStrategy {
    * @param subject the subject
    * @param point the point
    */
-  private boolean checkBounds(LassoSubject subject, int[] point) {
+  private boolean checkBounds(ComplexGrid subject, int[] point) {
     if (point[0] < 0 || point[0] >= subject.getRowNum()) {
       return false;
     }
@@ -58,7 +58,7 @@ public abstract class GenericLassoStrategy implements LassoStrategy {
    * @param to the end point
    * @return the segments
    */
-  protected abstract List<int[]> stripInSegments(LassoSubject subject, int[] from, int[] to);
+  protected abstract List<int[]> stripInSegments(ComplexGrid subject, int[] from, int[] to);
 
   /**
    * Compares 2 points.

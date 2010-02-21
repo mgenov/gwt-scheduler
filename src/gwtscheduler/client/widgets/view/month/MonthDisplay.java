@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.widgets.view.common.GenericCalendarDisplay;
+import gwtscheduler.client.widgets.common.GenericCalendarDisplay;
 
 /**
  * Display class for months.

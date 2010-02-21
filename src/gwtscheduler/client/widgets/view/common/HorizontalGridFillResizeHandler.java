@@ -1,10 +1,11 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
+import gwtscheduler.client.widgets.common.event.AbstractResizeHandler;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.cell.DayCell;
 
 import java.util.Iterator;

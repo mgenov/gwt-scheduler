@@ -8,8 +8,8 @@
  */
 package gwtscheduler.client.utils;
 
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 
 /**
  * @author malp

@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.common.cell;
 
-import gwtscheduler.client.interfaces.Cell;
+import gwtscheduler.client.widgets.common.Cell;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;

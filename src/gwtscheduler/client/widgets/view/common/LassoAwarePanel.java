@@ -1,14 +1,14 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.LassoStrategy;
-import gwtscheduler.client.interfaces.LassoSubject;
-import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
-import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
-import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
-import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.utils.Constants;
+import gwtscheduler.client.widgets.common.LassoStrategy;
+import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
+import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
+import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
+import gwtscheduler.client.widgets.common.event.WidgetRedrawHandler;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 
 import java.util.Iterator;
 
@@ -155,7 +155,7 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
    * @param strat the strategy
    * @param subject the subject
    */
-  public void initLasso(LassoStrategy strat, LassoSubject subject) {
+  public void initLasso(LassoStrategy strat, ComplexGrid subject) {
     lasso.setStrategy(strat);
     lasso.setLassoSubject(subject);
   }

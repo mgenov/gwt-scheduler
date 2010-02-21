@@ -1,14 +1,14 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.uievents.lasso.AbstractLassoEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoCancelSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoEndSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoEventHandler;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoStartSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoUpdateSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.widgets.common.event.AbstractLassoEvent;
+import gwtscheduler.client.widgets.common.event.LassoCancelSelectionEvent;
+import gwtscheduler.client.widgets.common.event.LassoEndSelectionEvent;
+import gwtscheduler.client.widgets.common.event.LassoEventHandler;
+import gwtscheduler.client.widgets.common.event.LassoStartSelectionEvent;
+import gwtscheduler.client.widgets.common.event.LassoUpdateSelectionEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.user.client.ui.AbsolutePanel;

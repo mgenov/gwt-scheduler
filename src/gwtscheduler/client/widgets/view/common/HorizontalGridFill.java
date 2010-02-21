@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
+import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.view.common.cell.DayCell;
 import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 

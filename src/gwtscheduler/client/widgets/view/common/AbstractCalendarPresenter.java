@@ -1,15 +1,10 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.client.interfaces.CalendarPresenter;
-import gwtscheduler.client.interfaces.LassoSubject;
-import gwtscheduler.client.interfaces.navigation.DateGenerator;
-import gwtscheduler.client.interfaces.navigation.EventNavigationListener;
-import gwtscheduler.client.interfaces.uievents.lasso.AbstractLassoEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoCancelSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoEndSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoEventHandler;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoStartSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoUpdateSelectionEvent;
+import gwtscheduler.client.widgets.common.CalendarPresenter;
+import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.GenericCalendarDisplay;
+import gwtscheduler.client.widgets.common.navigation.DateGenerator;
+import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.Place;
 import net.customware.gwt.presenter.client.place.PlaceRequest;
@@ -19,7 +14,6 @@ import org.goda.time.Duration;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -28,7 +22,7 @@ import com.google.inject.Inject;
  * @author malp
  */
 public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay> extends WidgetPresenter<T> implements CalendarPresenter,
-    EventNavigationListener, LassoSubject, LassoEventHandler {
+    EventNavigationListener, ComplexGrid {
 
   @Inject
   private DateGenerator factory;
@@ -40,7 +34,7 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
    */
   protected AbstractCalendarPresenter(T display, EventBus eventBus) {
     super(display, eventBus);
-    eventBus.addHandler(AbstractLassoEvent.getType(), this);
+    new EventsMediator(this,eventBus);
   }
 
   @Override
@@ -134,26 +128,6 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
     Instant to = getInstantForCell(end).plus(getDurationPerCells(1));
     //this is to make sure that [0,0] is at least one cell's duration
     return new Interval(from, to);
-  }
-
-  @Override
-  public void onCancelSelection(LassoCancelSelectionEvent event) {
-  }
-
-  @Override
-  public void onEndSelection(LassoEndSelectionEvent event) {
-    if (event.subject == this) {
-      Interval time = getIntervalForRange(event.cell, event.endCell);
-      GWT.log("-> " + time.toString());
-    }
-  }
-
-  @Override
-  public void onStartSelection(LassoStartSelectionEvent event) {
-  }
-
-  @Override
-  public void onUpdateSelection(LassoUpdateSelectionEvent event) {
   }
 
 }

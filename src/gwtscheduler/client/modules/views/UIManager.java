@@ -1,6 +1,6 @@
 package gwtscheduler.client.modules.views;
 
-import gwtscheduler.client.interfaces.CalendarPresenter;
+import gwtscheduler.client.widgets.common.CalendarPresenter;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.MonthCssResource;
+import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;

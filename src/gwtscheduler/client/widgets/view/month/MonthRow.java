@@ -1,9 +1,9 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.interfaces.Cell;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.resources.Resources;
+import gwtscheduler.client.widgets.common.Cell;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 
 import java.util.List;
 

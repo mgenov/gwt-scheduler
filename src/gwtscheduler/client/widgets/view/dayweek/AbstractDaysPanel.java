@@ -1,13 +1,13 @@
 package gwtscheduler.client.widgets.view.dayweek;
 
-import gwtscheduler.client.interfaces.Cell;
-import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
+import gwtscheduler.client.widgets.common.Cell;
+import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.HorizontalGridFill;
 import gwtscheduler.client.widgets.view.common.HorizontalGridFillResizeHandler;
 

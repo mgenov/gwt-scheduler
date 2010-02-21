@@ -1,6 +1,6 @@
 package gwtscheduler.client.utils.lasso;
 
-import gwtscheduler.client.interfaces.LassoSubject;
+import gwtscheduler.client.widgets.common.ComplexGrid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class HorizontalLassoStrategy extends GenericLassoStrategy {
   }
 
   @Override
-  protected List<int[]> stripInSegments(LassoSubject s, int[] from, int[] to) {
+  protected List<int[]> stripInSegments(ComplexGrid s, int[] from, int[] to) {
     int rows = to[0] - from[0] + 1;
     List<int[]> result = new ArrayList<int[]>(rows);
     int firstRow = from[0];
@@ -38,7 +38,7 @@ public class HorizontalLassoStrategy extends GenericLassoStrategy {
   }
 
   @Override
-  public int absoluteDistance(LassoSubject s, int[] pos) {
+  public int absoluteDistance(ComplexGrid s, int[] pos) {
     return (pos[0] * s.getColNum()) + pos[1];
   }
 

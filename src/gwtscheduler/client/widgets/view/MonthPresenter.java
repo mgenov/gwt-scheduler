@@ -1,10 +1,10 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.LassoSubject;
-import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
+import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.month.MonthDisplay;
 import gwtscheduler.common.calendar.IntervalType;
@@ -28,7 +28,7 @@ import com.google.inject.Singleton;
  * @author malp
  */
 @Singleton
-public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> implements LassoSubject {
+public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> implements ComplexGrid {
 
   /** defines the number of days in a week */
   private final int WeekSize;

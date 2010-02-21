@@ -3,7 +3,7 @@ package gwtscheduler.client;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.widgets.nav.DateViewsTabPanel;
+import gwtscheduler.client.widgets.common.navigation.DateViewsTabPanel;
 
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;

@@ -1,10 +1,18 @@
 package gwtscheduler.tests.gwt.date;
 
-import static org.goda.time.DateTimeConstants.*;
-import static gwtscheduler.tests.gwt.TestUtils.*;
-import gwtscheduler.client.interfaces.navigation.DateGenerator;
+import static gwtscheduler.tests.gwt.TestUtils.assertInstantDate;
+import static org.goda.time.DateTimeConstants.AUGUST;
+import static org.goda.time.DateTimeConstants.DECEMBER;
+import static org.goda.time.DateTimeConstants.FEBRUARY;
+import static org.goda.time.DateTimeConstants.JANUARY;
+import static org.goda.time.DateTimeConstants.JULY;
+import static org.goda.time.DateTimeConstants.JUNE;
+import static org.goda.time.DateTimeConstants.MARCH;
+import static org.goda.time.DateTimeConstants.NOVEMBER;
+import static org.goda.time.DateTimeConstants.OCTOBER;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.DateTime;

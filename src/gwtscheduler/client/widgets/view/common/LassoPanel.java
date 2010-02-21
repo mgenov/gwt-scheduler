@@ -2,20 +2,19 @@ package gwtscheduler.client.widgets.view.common;
 
 import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX;
 import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX_SELECTING;
-import gwtscheduler.client.interfaces.LassoElementFactory;
-import gwtscheduler.client.interfaces.LassoStrategy;
-import gwtscheduler.client.interfaces.LassoSubject;
-import gwtscheduler.client.interfaces.uievents.lasso.AbstractLassoEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.HasLassoHandlers;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoEndSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoEventHandler;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoStartSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.lasso.LassoUpdateSelectionEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.widgets.view.common.factory.GenericLassoElementFactory;
+import gwtscheduler.client.widgets.common.LassoStrategy;
+import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.event.AbstractLassoEvent;
+import gwtscheduler.client.widgets.common.event.GenericLassoElementFactory;
+import gwtscheduler.client.widgets.common.event.HasLassoHandlers;
+import gwtscheduler.client.widgets.common.event.LassoEndSelectionEvent;
+import gwtscheduler.client.widgets.common.event.LassoEventHandler;
+import gwtscheduler.client.widgets.common.event.LassoStartSelectionEvent;
+import gwtscheduler.client.widgets.common.event.LassoUpdateSelectionEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ import com.google.gwt.user.client.ui.Widget;
 class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHandler, MouseMoveHandler, MouseUpHandler, WidgetResizeHandler {
 
   /** the lasso subject grid */
-  private LassoSubject subject;
+  private ComplexGrid subject;
   /** indicates if a lasso is being selected or not */
   private boolean isMouseDown = false;
   /** the lasso starting position */
@@ -112,7 +111,7 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
    * Sets the lasso subject.
    * @param subject the subject
    */
-  void setLassoSubject(LassoSubject subject) {
+  void setLassoSubject(ComplexGrid subject) {
     assert subject != null : "Lasso subject cannot be null.";
     this.subject = subject;
   }

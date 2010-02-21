@@ -1,15 +1,12 @@
 package gwtscheduler.tests.mock;
 
-import gwtscheduler.client.interfaces.LassoSubject;
-
-import org.goda.time.Instant;
-import org.goda.time.Interval;
+import gwtscheduler.client.widgets.common.ComplexGrid;
 
 /**
  * Utilit class for lasso tests.
  * @author malp
  */
-public class TestLassoSubject implements LassoSubject {
+public class TestLassoSubject implements ComplexGrid {
 
   final int rows, cols;
 
@@ -41,16 +38,6 @@ public class TestLassoSubject implements LassoSubject {
   @Override
   public int getHeight() {
     return 100;
-  }
-
-  @Override
-  public Interval getIntervalForRange(int[] start, int[] end) {
-    return null;
-  }
-
-  @Override
-  public Instant getInstantForCell(int[] start) {
-    return null;
   }
 
 }

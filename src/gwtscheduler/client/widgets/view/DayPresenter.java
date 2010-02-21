@@ -1,9 +1,9 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
+import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
@@ -13,6 +13,8 @@ import org.goda.time.Duration;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
+import org.goda.time.Period;
+import org.goda.time.PeriodType;
 import org.goda.time.ReadableDateTime;
 import org.goda.time.ReadableInterval;
 
@@ -90,7 +92,8 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   @Override
   protected Duration getDurationPerCells(int count) {
-    return new Duration(((24 * 60) / getRowNum()) * 1000 * count);
+    int minutesPerCell = (24 * 60) / getRowNum();
+    return new Period(0,minutesPerCell * count, 0,0).toStandardDuration();
   }
 
   @Override

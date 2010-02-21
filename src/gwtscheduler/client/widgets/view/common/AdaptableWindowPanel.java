@@ -1,12 +1,12 @@
 package gwtscheduler.client.widgets.view.common;
 
-import java.util.Iterator;
-
-import gwtscheduler.client.interfaces.uievents.resize.HasWidgetResizeHandlers;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeHandler;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
+import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
+
+import java.util.Iterator;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;

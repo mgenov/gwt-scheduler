@@ -1,8 +1,8 @@
 package gwtscheduler.client.utils;
 
-import gwtscheduler.client.interfaces.navigation.DateGenerator;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.DateTime;

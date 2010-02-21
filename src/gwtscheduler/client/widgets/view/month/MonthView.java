@@ -1,18 +1,18 @@
 package gwtscheduler.client.widgets.view.month;
 
-import gwtscheduler.client.interfaces.Cell;
-import gwtscheduler.client.interfaces.LassoStrategy;
-import gwtscheduler.client.interfaces.LassoSubject;
-import gwtscheduler.client.interfaces.decoration.HasMultipleDecorables;
-import gwtscheduler.client.interfaces.uievents.redraw.HasWidgetRedrawHandlers;
-import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawEvent;
-import gwtscheduler.client.interfaces.uievents.redraw.WidgetRedrawHandler;
-import gwtscheduler.client.interfaces.uievents.resize.WidgetResizeEvent;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;
+import gwtscheduler.client.widgets.common.Cell;
+import gwtscheduler.client.widgets.common.LassoStrategy;
+import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
+import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
+import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
+import gwtscheduler.client.widgets.common.event.WidgetRedrawHandler;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
@@ -141,7 +141,7 @@ public class MonthView extends Composite implements LassoAwarePanel.LassoHandler
   }
 
   @Override
-  public void initLasso(LassoStrategy strat, LassoSubject subject) {
+  public void initLasso(LassoStrategy strat, ComplexGrid subject) {
     lassoAwarePanel.initLasso(strat, subject);
   }
 
