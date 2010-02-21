@@ -10,11 +10,17 @@ import gwtscheduler.client.interfaces.LassoSubject;
  */
 public class LassoEndSelectionEvent extends AbstractLassoEvent {
 
+  /** row/column */
+  public final int[] endCell;
+
   /**
-   * @see AbstractLassoEvent#AbstractLassoEvent(int, int)
+   * @param subject
+   * @param from
+   * @param to
    */
-  public LassoEndSelectionEvent(LassoSubject subject, int row, int col) {
-    super(subject, row, col);
+  public LassoEndSelectionEvent(LassoSubject subject, int[] from, int[] to) {
+    super(subject, from);
+    endCell = to;
   }
 
   @Override

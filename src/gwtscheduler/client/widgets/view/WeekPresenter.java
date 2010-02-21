@@ -10,9 +10,14 @@ import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
 import net.customware.gwt.presenter.client.EventBus;
 
+import org.goda.time.Duration;
+import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
+import org.goda.time.Period;
+import org.goda.time.PeriodType;
 import org.goda.time.ReadableDateTime;
+import org.goda.time.ReadableInterval;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -64,7 +69,6 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   }
 
   public Interval onNavigatePrevious() {
-    //TODO verify that the view is attached
     Interval period = getFactory().previous().interval();
     decorator.decorate(period, getDisplay().getDecorables());
     return period;
@@ -86,4 +90,18 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
     return period;
   }
 
+  public Instant getInstantForCell(int[] start) {
+    int distance = (start[1] * getRowNum()) + start[0];
+    ReadableInterval curr = getCurrentInterval().toMutableInterval();
+    int minutesPerCell = (24 * 60) / getRowNum();
+    MutableDateTime time = curr.getStart().toMutableDateTime();
+    time.addMinutes(minutesPerCell * distance);
+    return time.toInstant();
+  }
+
+  @Override
+  protected Duration getDurationPerCells(int count) {
+    int minutesPerCell = (24 * 60) / getRowNum();
+    return new Period(minutesPerCell * count, PeriodType.minutes()).toStandardDuration();
+  }
 }

@@ -1,6 +1,5 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.config.AppConfiguration;
@@ -8,15 +7,15 @@ import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
-
-import java.util.List;
-
 import net.customware.gwt.presenter.client.EventBus;
 
+import org.goda.time.Duration;
+import org.goda.time.Instant;
 import org.goda.time.Interval;
+import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
+import org.goda.time.ReadableInterval;
 
-import com.google.gwt.user.client.Element;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -60,7 +59,6 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   }
 
   public Interval onNavigateNext() {
-    //TODO verify that the view is attached
     Interval tp = getFactory().next().interval();
     decorator.decorate(tp, getDisplay().getDecorables());
     return tp;
@@ -82,6 +80,20 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   }
 
   @Override
+  public Instant getInstantForCell(int[] start) {
+    int distance = (start[1] * getRowNum()) + start[0];
+    ReadableInterval curr = getCurrentInterval().toMutableInterval();
+    MutableDateTime time = curr.getStart().toMutableDateTime();
+    time.add(getDurationPerCells(distance));
+    return time.toInstant();
+  }
+
+  @Override
+  protected Duration getDurationPerCells(int count) {
+    return new Duration(((24 * 60) / getRowNum()) * 1000 * count);
+  }
+
+  @Override
   public int getHeight() {
     return getDisplay().getHeight();
   }
@@ -90,10 +102,4 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   public int getWidth() {
     return getDisplay().getWidth();
   }
-
-  @Override
-  public final List<Cell<Element>> getLassoSubjects() {
-    return getDisplay().getMainDecorables();
-  }
-
 }

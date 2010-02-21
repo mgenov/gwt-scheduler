@@ -54,10 +54,10 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
 
   /** lasso container */
   private AbsolutePanel lassoPanel;
-  
+
   /** elements factory */
   private LassoElementFactory lassoFactory;
-  /**event bus*/
+  /** event bus */
   private EventBus evtBus;
 
   /**
@@ -69,7 +69,7 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
 
     lassoFactory = new GenericLassoElementFactory();
     evtBus = AppInjector.GIN.getInjector().getEventBus();
-    
+
     // lasso/ events set up
     lassoPanel = new LassoContainer();
 
@@ -130,8 +130,7 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
 
     startPos = calculateCellPosition(event);
     selectRange(startPos, startPos);
-    //    fireEvent(new LassoStartSelectionEvent(subject, startPos[0], startPos[1]));
-    evtBus.fireEvent(new LassoStartSelectionEvent(subject, startPos[0], startPos[1]));
+    evtBus.fireEvent(new LassoStartSelectionEvent(subject, startPos));
   }
 
   @Override
@@ -148,7 +147,7 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
     // cells are deselected
     lassoPanel.clear();
     selectRange(startPos, pos);
-    evtBus.fireEvent(new LassoUpdateSelectionEvent(subject, pos[0], pos[1]));
+    evtBus.fireEvent(new LassoUpdateSelectionEvent(subject, pos));
   }
 
   @Override
@@ -158,9 +157,8 @@ class LassoPanel extends AbsolutePanel implements HasLassoHandlers, MouseDownHan
 
     isMouseDown = false;
     // show events dialog
-    int[] pos = calculateCellPosition(event);
-    //    fireEvent(new LassoEndSelectionEvent(subject, pos[0], pos[1]));
-    evtBus.fireEvent(new LassoEndSelectionEvent(subject, pos[0], pos[1]));
+    int[] endPos = calculateCellPosition(event);
+    evtBus.fireEvent(new LassoEndSelectionEvent(subject, startPos, endPos));
   }
 
   /**

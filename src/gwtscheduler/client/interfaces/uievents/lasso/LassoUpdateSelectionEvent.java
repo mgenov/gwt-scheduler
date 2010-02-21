@@ -11,10 +11,10 @@ import gwtscheduler.client.interfaces.LassoSubject;
 public class LassoUpdateSelectionEvent extends AbstractLassoEvent {
 
   /**
-   * @see AbstractLassoEvent#AbstractLassoEvent(int, int)
+   * @see AbstractLassoEvent#AbstractLassoEvent(LassoSubject, int[])
    */
-  public LassoUpdateSelectionEvent(LassoSubject subject, int row, int col) {
-    super(subject, row, col);
+  public LassoUpdateSelectionEvent(LassoSubject subject, int[] pos) {
+    super(subject, pos);
   }
 
   @Override

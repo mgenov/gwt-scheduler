@@ -1,17 +1,12 @@
 package gwtscheduler.tests.gwt;
 
-import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.LassoSubject;
-
-import java.util.List;
 
 import org.goda.time.DateTime;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableInterval;
-
-import com.google.gwt.user.client.Element;
 
 /**
  * Utility class for lasso tests.
@@ -42,11 +37,6 @@ public class DateTimeAwareLassoSubject implements LassoSubject {
   @Override
   public int getColNum() {
     return cols;
-  }
-
-  @Override
-  public List<Cell<Element>> getLassoSubjects() {
-    return null;
   }
 
   @Override

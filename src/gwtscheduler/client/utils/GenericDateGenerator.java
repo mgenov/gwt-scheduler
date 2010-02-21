@@ -41,7 +41,13 @@ public class GenericDateGenerator implements DateGenerator {
   }
 
   public void init(IntervalType interval, ReadableDateTime start) {
-    this.current = new DateTime(start.getMillis());
+    //TODO maybe use a flag for this?
+    MutableDateTime mtd = new MutableDateTime(start.getMillis());
+    mtd.setMillisOfSecond(0);
+    mtd.setSecondOfMinute(0);
+    mtd.setMinuteOfHour(0);
+    
+    this.current = mtd.toDateTime();
 
     if (IntervalType.DAY.equals(interval)) {
       generator = new DayDateGenerator();
@@ -52,7 +58,7 @@ public class GenericDateGenerator implements DateGenerator {
     } else {
       throw new IllegalArgumentException("Unknown interval type: " + interval.toString());
     }
-    goTo(start.toDateTime());
+    goTo(this.current.toDateTime());
   }
 
   public void goTo(DateTime start) {
@@ -211,11 +217,7 @@ public class GenericDateGenerator implements DateGenerator {
      * @param months the number of months to move. Can be negative
      */
     private void moveStart(int months) {
-      //      Days d = Days.daysBetween(current, current.plusMonths(months));
-      //      int days = d.getDays();
-      //      current = current.plusDays(days / 2);
       current = current.plusMonths(months);
-      //      System.out.println("Start: " + current);
     }
   }
 

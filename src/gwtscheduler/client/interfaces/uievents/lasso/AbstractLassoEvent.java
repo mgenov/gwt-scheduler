@@ -12,10 +12,8 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public abstract class AbstractLassoEvent extends GwtEvent<LassoEventHandler> {
 
-  /** row */
-  public final int row;
-  /** col */
-  public final int column;
+  /** row/column */
+  public final int[] cell;
   /** subject */
   public final LassoSubject subject;
 
@@ -40,12 +38,10 @@ public abstract class AbstractLassoEvent extends GwtEvent<LassoEventHandler> {
 
   /**
    * Main constructor.
-   * @param row the row
-   * @param col the column
+   * @param pos the x/y coordinates
    */
-  public AbstractLassoEvent(LassoSubject subject, int row, int col) {
+  public AbstractLassoEvent(LassoSubject subject, int[] pos) {
     this.subject = subject;
-    this.row = row;
-    this.column = col;
+    this.cell = pos;
   }
 }

@@ -1,14 +1,9 @@
 package gwtscheduler.tests.mock;
 
-import gwtscheduler.client.interfaces.Cell;
 import gwtscheduler.client.interfaces.LassoSubject;
-
-import java.util.List;
 
 import org.goda.time.Instant;
 import org.goda.time.Interval;
-
-import com.google.gwt.user.client.Element;
 
 /**
  * Utilit class for lasso tests.
@@ -31,11 +26,6 @@ public class TestLassoSubject implements LassoSubject {
   @Override
   public int getColNum() {
     return cols;
-  }
-
-  @Override
-  public List<Cell<Element>> getLassoSubjects() {
-    return null;
   }
 
   @Override

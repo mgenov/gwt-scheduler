@@ -1,11 +1,7 @@
 package gwtscheduler.client.interfaces;
 
-import java.util.List;
-
 import org.goda.time.Instant;
 import org.goda.time.Interval;
-
-import com.google.gwt.user.client.Element;
 
 /**
  * Defines a lasso component. The lasso component is responsible for drawing the
@@ -37,12 +33,6 @@ public interface LassoSubject {
    * @return the height
    */
   int getHeight();
-
-  /**
-   * Gets the lasso subject elements.
-   * @return the lasso elements
-   */
-  List<Cell<Element>> getLassoSubjects();
 
   /**
    * Gets the correspondent time interval for a given cell range
