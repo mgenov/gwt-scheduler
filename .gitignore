@@ -4,3 +4,6 @@ war/WEB-INF/classes/
 war/gwtscheduler.ViewportTests/
 .classpath
 .gwt-tmp
+Gwt-scheduler.iml
+gwt-scheduler.ipr
+gwt-scheduler.iws
