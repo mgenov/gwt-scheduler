@@ -215,17 +215,4 @@ public class ColumnsViewWidget extends Composite implements ColumnsView.Display,
     return getContentDecorableElements();
   }
 
-  @Override
-  public Widget asWidget() {
-    return this;
-  }
-
-  @Override
-  public void startProcessing() {
-  }
-
-  @Override
-  public void stopProcessing() {
-  }
-
 }

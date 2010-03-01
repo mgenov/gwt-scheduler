@@ -9,7 +9,7 @@
    	<inherits name="com.google.gwt.i18n.I18N"/>
    	
    	<!-- MVP -->
-   	<inherits name='net.customware.gwt.presenter.Presenter' />
+   	<!--<inherits name='net.customware.gwt.presenter.Presenter' />-->
 
 	<!-- Joda-Time emulation via gwittir
 	<inherits name='org.goda.Time' />

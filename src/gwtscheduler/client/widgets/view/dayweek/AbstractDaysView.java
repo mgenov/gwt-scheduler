@@ -82,28 +82,28 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
    */
   @UiFactory
   public FlexTable buildHeader() {
-    return new FlexTable();
-//    int columns = getColumnsSize();
-//
-//    FlexTable g = new FlexTable();
-//    g.addStyleName(CSS.genericContainer());
-//    g.setWidth("100%");
-//    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
-//    g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH() + "px");
-//
-//    topLabels = new ArrayList<Cell<Element>>(columns);
-//
-//    for (int i = 0; i < columns; i++) {
-//      Cell<Element> topCell = new BaseCell(0, i);
-//
-//      //only top row is for labels
-//      topLabels.add(topCell);
-//
-//      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
-//      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
-//    }
-//
-//    return g;
+//    return new FlexTable();
+    int columns = getColumnsSize();
+
+    FlexTable g = new FlexTable();
+    g.addStyleName(CSS.genericContainer());
+    g.setWidth("100%");
+    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
+    g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH() + "px");
+
+    topLabels = new ArrayList<Cell<Element>>(columns);
+
+    for (int i = 0; i < columns; i++) {
+      Cell<Element> topCell = new BaseCell(0, i);
+
+      //only top row is for labels
+      topLabels.add(topCell);
+
+      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
+      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
+    }
+
+    return g;
   }
 
   public void renderHeader(int columnSize) {
@@ -204,19 +204,6 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   @Override
   public List<Cell<Element>> getVisibleElements() {
     return getContentDecorableElements();
-  }
-
-  @Override
-  public Widget asWidget() {
-    return this;
-  }
-
-  @Override
-  public void startProcessing() {
-  }
-
-  @Override
-  public void stopProcessing() {
   }
 
 }

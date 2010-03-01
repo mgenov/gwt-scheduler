@@ -2,13 +2,12 @@ package gwtscheduler.client.widgets.view;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.ColumnView;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
-import gwtscheduler.client.widgets.view.columns.MultiColumnsViewProvider;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
-import net.customware.gwt.presenter.client.EventBus;
 import org.goda.time.Duration;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
@@ -21,15 +20,13 @@ public class MultiColumnPresenter extends AbstractCalendarPresenter<AbstractDays
 
   public static class  MultyColumnPresenterProvider implements Provider<MultiColumnPresenter>{
     private AppConfiguration cfg;
-    private MultiColumnsViewProvider multiColumnsViewProvider;
     private AbstractDaysView display;
     private MultipleElementsIntervalDecorator decorator;
     private EventBus eventBus;
 
     @Inject
-    public MultyColumnPresenterProvider(AppConfiguration cfg, MultiColumnsViewProvider multiColumnsViewProvider, @ColumnView AbstractDaysView display, @ColumnView MultipleElementsIntervalDecorator decorator, EventBus eventBus) {
+    public MultyColumnPresenterProvider(AppConfiguration cfg,  @ColumnView AbstractDaysView display, @ColumnView MultipleElementsIntervalDecorator decorator, EventBus eventBus) {
       this.cfg = cfg;
-      this.multiColumnsViewProvider = multiColumnsViewProvider;
       this.display = display;
       this.decorator = decorator;
       this.eventBus = eventBus;

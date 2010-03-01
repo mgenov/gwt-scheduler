@@ -4,7 +4,6 @@ import org.goda.time.Instant;
 import org.goda.time.Interval;
 
 import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;
-import net.customware.gwt.presenter.client.Presenter;
 
 import com.google.gwt.user.client.ui.Widget;
 
@@ -13,7 +12,7 @@ import com.google.gwt.user.client.ui.Widget;
  * listener. For most cases, the implementing class will be the listener itself.
  * @author malp
  */
-public interface CalendarPresenter extends Presenter {
+public interface CalendarPresenter {
 
   /**
    * Gets the label for the view.
@@ -49,7 +48,6 @@ public interface CalendarPresenter extends Presenter {
   /**
    * Gets the correspondent instant for a cell
    * @param start the starting cell
-   * @param end the end cell
    */
   Instant getInstantForCell(int[] start);
 

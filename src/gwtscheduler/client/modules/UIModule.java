@@ -26,8 +26,6 @@ import gwtscheduler.client.widgets.view.dayweek.DayView;
 import gwtscheduler.client.widgets.view.dayweek.WeekView;
 import gwtscheduler.client.widgets.view.month.MonthDisplay;
 import gwtscheduler.client.widgets.view.month.MonthView;
-import net.customware.gwt.presenter.client.DefaultEventBus;
-import net.customware.gwt.presenter.client.EventBus;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
@@ -42,7 +40,7 @@ public class UIModule extends AbstractGinModule {
     //general
     bind(MainView.class).to(DateViewsTabPanel.class).in(Singleton.class);
     bind(UIManager.class).to(DefaultUIRegistry.class).in(Singleton.class);
-    bind(EventBus.class).to(DefaultEventBus.class).in(Singleton.class);
+    bind(EventBus.class).in(Singleton.class);
 
     bind(DateGenerator.class).to(GenericDateGenerator.class);
     bind(LassoElementFactory.class).to(GenericLassoElementFactory.class).in(Singleton.class);
@@ -62,11 +60,11 @@ public class UIModule extends AbstractGinModule {
     bind(AbstractDaysView.class).annotatedWith(Day.class).to(DayView.class);
     bind(MonthDisplay.class).annotatedWith(Month.class).to(MonthView.class);
 
-    bind(AbstractDaysView.class).annotatedWith(ColumnView.class).to(MultiColumnsView.class);
+//    bind(AbstractDaysView.class).annotatedWith(ColumnView.class).to(MultiColumnsView.class);
 
 
     //bind presentor providers
-    bind(MultiColumnPresenter.class).toProvider(MultiColumnPresenter.MultyColumnPresenterProvider.class);
+//    bind(MultiColumnPresenter.class).toProvider(MultiColumnPresenter.MultyColumnPresenterProvider.class);
 
   }
 }

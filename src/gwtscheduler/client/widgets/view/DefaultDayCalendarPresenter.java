@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view;
 
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
-import net.customware.gwt.presenter.client.EventBus;
 import org.goda.time.Duration;
 import org.goda.time.Instant;
 import org.goda.time.Interval;

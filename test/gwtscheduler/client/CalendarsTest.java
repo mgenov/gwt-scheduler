@@ -59,7 +59,7 @@ public class CalendarsTest extends GWTTestCase {
   @Test
   public void testNewMultiColumn(){
     calendars = ginjector.getCalendars();
-    AbstractCalendarPresenter<AbstractDaysView> presenter = calendars.newMultiColumn().build();
+    AbstractCalendarPresenter<AbstractDaysView> presenter = calendars.newMultiColumn(null).build();
     assertTrue(presenter instanceof MultiColumnPresenter);
   }
   
