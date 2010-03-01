@@ -2,6 +2,7 @@ package gwtscheduler.client;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import gwtscheduler.client.widgets.view.MultiColumnPresenter;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
@@ -19,7 +20,8 @@ public class Calendars {
     this.multiColumnPresenterProvider = multiColumnPresenterProvider;
   }
 
-  public Calendars newMultiColumn() {
+  public Calendars newMultiColumn(ColumnTitleProvider columnTitleProvider) {
+    
     calendar = multiColumnPresenterProvider.get();
     return this;
   }

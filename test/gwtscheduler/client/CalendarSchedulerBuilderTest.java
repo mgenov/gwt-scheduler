@@ -8,7 +8,7 @@ import org.junit.Test;
  */
 public class CalendarSchedulerBuilderTest {
 
-  CalendarSchedulerBuilder builder;
+//  CalendarSchedulerBuilder builder;
 
   @Before
   public void setUp() throws Exception {

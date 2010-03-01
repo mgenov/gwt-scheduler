@@ -1,5 +1,17 @@
-package gwtscheduler.client.widgets.view.dayweek;
+package gwtscheduler.client.widgets.view.columns;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiFactory;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -17,28 +29,16 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
+import gwtscheduler.client.widgets.view.dayweek.DaysDisplay;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiFactory;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
-
 /**
- * Composite view class for days. Has an upper label and a grid.
+ * @author mlesikov  {mlesikov@gmail.com}
  */
-public abstract class AbstractDaysView extends Composite implements DaysDisplay, HasMultipleDecorables<Element>, HasWidgetRedrawHandlers,
+public class ColumnsViewWidget extends Composite implements ColumnsView.Display,DaysDisplay, HasMultipleDecorables<Element>, HasWidgetRedrawHandlers,
     LassoAwarePanel.LassoHandler {
 
   @UiField
@@ -46,7 +46,7 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   @UiField
   FlexTable header;
   @UiField
-  AbstractDaysPanel daysPanel;
+  ColumnPanelWidget daysPanel;
   @UiField
   EventsPanel eventsPanel;
   @UiField
@@ -59,16 +59,21 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
   /** ui binder instance */
-  private static AbstractDaysViewUiBinder uiBinder = GWT.create(AbstractDaysViewUiBinder.class);
+  private static DayColumnsWidgetUiBinder uiBinder = GWT.create(DayColumnsWidgetUiBinder.class);
 
   /** ui binder interface */
-  interface AbstractDaysViewUiBinder extends UiBinder<Widget, AbstractDaysView> {
+  interface DayColumnsWidgetUiBinder extends UiBinder<Widget, ColumnsViewWidget> {
   }
+
+  private int rows;
+  private int columns;
 
   /**
    * Default constructor.
    */
-  public AbstractDaysView() {
+  public ColumnsViewWidget(int rows,int columns) {
+    this.rows = rows;
+    this.columns = columns;
     initWidget(uiBinder.createAndBindUi(this));
     eventsPanel.setComplexGrid(this);
     lassoAwarePanel.addWidgetResizeHandler(daysPanel.getWidgetResizeHandler());
@@ -82,28 +87,29 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
    */
   @UiFactory
   public FlexTable buildHeader() {
-    return new FlexTable();
+//    return new FlexTable();
+    int columns = this.columns;
 //    int columns = getColumnsSize();
-//
-//    FlexTable g = new FlexTable();
-//    g.addStyleName(CSS.genericContainer());
-//    g.setWidth("100%");
-//    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
-//    g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH() + "px");
-//
-//    topLabels = new ArrayList<Cell<Element>>(columns);
-//
-//    for (int i = 0; i < columns; i++) {
-//      Cell<Element> topCell = new BaseCell(0, i);
-//
-//      //only top row is for labels
-//      topLabels.add(topCell);
-//
-//      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
-//      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
-//    }
-//
-//    return g;
+
+    FlexTable g = new FlexTable();
+    g.addStyleName(CSS.genericContainer());
+    g.setWidth("100%");
+    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
+    g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH() + "px");
+
+    topLabels = new ArrayList<Cell<Element>>(columns);
+
+    for (int i = 0; i < columns; i++) {
+      Cell<Element> topCell = new BaseCell(0, i);
+
+      //only top row is for labels
+      topLabels.add(topCell);
+
+      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
+      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
+    }
+
+    return g;
   }
 
   public void renderHeader(int columnSize) {
@@ -112,27 +118,30 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
 
   /**
    * Creates the day view widget.
+   *
    * @return the day view widget
    */
   @UiFactory
-  protected abstract AbstractDaysPanel buildDaysPanel();
+  public ColumnPanelWidget buildColumnPanel() {
+    return new ColumnPanelWidget(rows,columns);
+  }
 
   @Override
   public void forceLayout() {
     lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
   }
 
-  /**
-   * Gets the number of columns
-   * @return the number of cols
-   */
-  protected abstract int getColumnsSize();
+//  /**
+//   * Gets the number of columns
+//   * @return the number of cols
+//   */
+//  protected abstract int getColumnsSize();
 
   /**
    * Gets the main panel.
    * @return the main panel
    */
-  protected AbstractDaysPanel getMainPanel() {
+  public ColumnPanel.Display getMainPanel() {
     return daysPanel;
   }
 

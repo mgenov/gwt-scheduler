@@ -21,6 +21,7 @@ public class MultiColumnPresenter extends AbstractCalendarPresenter<AbstractDays
 
   public static class  MultyColumnPresenterProvider implements Provider<MultiColumnPresenter>{
     private AppConfiguration cfg;
+    private MultiColumnsViewProvider multiColumnsViewProvider;
     private AbstractDaysView display;
     private MultipleElementsIntervalDecorator decorator;
     private EventBus eventBus;
@@ -28,6 +29,7 @@ public class MultiColumnPresenter extends AbstractCalendarPresenter<AbstractDays
     @Inject
     public MultyColumnPresenterProvider(AppConfiguration cfg, MultiColumnsViewProvider multiColumnsViewProvider, @ColumnView AbstractDaysView display, @ColumnView MultipleElementsIntervalDecorator decorator, EventBus eventBus) {
       this.cfg = cfg;
+      this.multiColumnsViewProvider = multiColumnsViewProvider;
       this.display = display;
       this.decorator = decorator;
       this.eventBus = eventBus;
