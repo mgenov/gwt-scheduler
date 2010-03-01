@@ -61,7 +61,6 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
     return getDisplay().asWidget();
   }
 
-  @Override
   public void forceLayout() {
     getDisplay().forceLayout();
   }

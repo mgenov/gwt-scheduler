@@ -5,6 +5,7 @@ import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.widgets.common.decorator.MonthTitleProvider;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.month.MonthDisplay;
 import gwtscheduler.common.calendar.IntervalType;
@@ -36,14 +37,16 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
   @Inject
   @Month
   private MultipleElementsIntervalDecorator decorator;
+  private MonthTitleProvider columnTitleProvider;
 
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
   @Inject
-  public MonthPresenter(AppConfiguration cfg, @Month MonthDisplay display, EventBus bus) {
+  public MonthPresenter(AppConfiguration cfg, @Month MonthDisplay display, MonthTitleProvider columnTitleProvider, EventBus bus) {
     super(display, bus);
+    this.columnTitleProvider = columnTitleProvider;
     WeekSize = cfg.daysInWeek();
     getDisplay().initLasso(new HorizontalLassoStrategy(), this);
   }
@@ -55,14 +58,16 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
   public Interval onNavigateNext() {
     Interval next = getFactory().next().interval();
     adjustVisibleRows(next);
-    decorator.decorate(next, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(next);
+    decorator.decorate(next,columnTitleProvider, getDisplay().getDecorables());
     return next;
   }
 
   public Interval onNavigatePrevious() {
     Interval prev = getFactory().previous().interval();
     adjustVisibleRows(prev);
-    decorator.decorate(prev, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(prev);
+    decorator.decorate(prev,columnTitleProvider, getDisplay().getDecorables());
     return prev;
   }
 
@@ -72,7 +77,9 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     }
     Interval intv = getFactory().interval();
     adjustVisibleRows(intv);
-    decorator.decorate(intv, getDisplay().getDecorables());
+    Interval interval = new Interval(intv.getStart(),new Period(0, 0, 0, WeekSize, 0, 0, 0, 0));
+    columnTitleProvider.setInterval(interval);
+    decorator.decorate(intv,columnTitleProvider, getDisplay().getDecorables());
     return intv;
   }
 

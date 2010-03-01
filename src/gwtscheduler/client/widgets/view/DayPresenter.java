@@ -4,6 +4,7 @@ import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.widgets.common.decorator.DaysTitleProvider;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
@@ -33,14 +34,16 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Day
   @Inject
   protected MultipleElementsIntervalDecorator decorator;
+  private DaysTitleProvider columnTitleProvider;
 
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
   @Inject
-  protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view, EventBus bus) {
+  protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view, DaysTitleProvider columnTitleProvider, EventBus bus) {
     super(view, bus);
+    this.columnTitleProvider = columnTitleProvider;
     rows = cfg.rowsInDay();
     getDisplay().initLasso(new VerticalLassoStrategy(false), this);
   }
@@ -61,13 +64,15 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   public Interval onNavigateNext() {
     Interval tp = getFactory().next().interval();
-    decorator.decorate(tp, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(tp);
+    decorator.decorate(tp, columnTitleProvider, getDisplay().getDecorables());
     return tp;
   }
 
   public Interval onNavigatePrevious() {
     Interval period = getFactory().previous().interval();
-    decorator.decorate(period, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(period);
+    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 
@@ -76,7 +81,8 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
       getFactory().init(IntervalType.DAY, date);
     }
     Interval period = getFactory().interval();
-    decorator.decorate(period, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(period);
+    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 

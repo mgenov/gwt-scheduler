@@ -59,5 +59,6 @@ public class UIModule extends AbstractGinModule {
     bind(AbstractDaysView.class).annotatedWith(Day.class).to(DayView.class);
     bind(MonthDisplay.class).annotatedWith(Month.class).to(MonthView.class);
 
+
   }
 }

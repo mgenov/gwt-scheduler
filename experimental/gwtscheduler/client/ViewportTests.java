@@ -52,6 +52,29 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     registry.fireDateNavigation(getCurrentDate());
   }
 
+
+//  // in evo adm
+//  public void ourEntryPoint() {
+//    GwtScheduler scheduler = new CalendarBuilder().withColumns()
+//            .col("ГОРНА").ofType(ColumnType.TEAMS).build();
+//
+//  }
+//
+//
+//  class CalendarBuilder {
+//    public GwtScheduler build() {
+//      Resources.injectAllStylesheets();
+//
+//      // let's test a registration
+//      final AppInjector uiResources = AppInjector.GIN.getInjector();
+//      final UIManager registry = uiResources.getUIRegistry();
+//
+//      DateViewsTabPanel main = uiResources.getMainPanel();
+//
+//      return new GwtScheduler(main, registry);
+//    }
+//  }
+
   protected ReadableDateTime getCurrentDate() {
     MutableDateTime start = new MutableDateTime();
     start.setHourOfDay(0);

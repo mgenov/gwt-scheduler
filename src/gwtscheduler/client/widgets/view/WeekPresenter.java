@@ -5,6 +5,7 @@ import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.widgets.common.decorator.DaysTitleProvider;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
@@ -34,14 +35,16 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Inject
   @Week
   protected MultipleElementsIntervalDecorator decorator;
+  private DaysTitleProvider columnTitleProvider;
 
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
   @Inject
-  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView view, EventBus bus) {
+  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView view, DaysTitleProvider columnTitleProvider, EventBus bus) {
     super(view, bus);
+    this.columnTitleProvider = columnTitleProvider;
     rows = cfg.rowsInDay();
     getDisplay().initLasso(new VerticalLassoStrategy(false), this);
   }
@@ -63,13 +66,15 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   public Interval onNavigateNext() {
     Interval tp = getFactory().next().interval();
-    decorator.decorate(tp, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(tp);
+    decorator.decorate(tp, columnTitleProvider, getDisplay().getDecorables());
     return tp;
   }
 
   public Interval onNavigatePrevious() {
     Interval period = getFactory().previous().interval();
-    decorator.decorate(period, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(period);
+    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 
@@ -85,7 +90,8 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
       getFactory().init(IntervalType.WEEK, copy);
     }
     Interval period = getFactory().interval();
-    decorator.decorate(period, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(period);
+    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 

@@ -32,34 +32,31 @@ public class MonthLabelDecorator implements MultipleElementsIntervalDecorator {
     WeekDays = AppInjector.GIN.getInjector().getConfiguration().daysInWeek();
   }
 
-  public void decorate(Interval interval, HasMultipleDecorables<Element> decorable) {
-    Period p = new Period(0, 0, 0, WeekDays, 0, 0, 0, 0);
-    decorateHorizontal(interval.getStart(), p, decorable.getColumnsDecorableElements());
+  public void decorate(Interval interval,ColumnTitleProvider columnTitleProvider, HasMultipleDecorables<Element> decorable) {
+    decorateHorizontal(columnTitleProvider, decorable.getColumnsDecorableElements());
     decorateDays(interval, decorable.getContentDecorableElements());
   }
 
+
   /**
    * Decorates the horizontal title label.
-   * @param start the start date
-   * @param p the period of time
+   * @param titleProvider provides the titles fpr the columns
    * @param elems the elements
    */
-  private void decorateHorizontal(DateTime start, Period p, List<Cell<Element>> elems) {
+  private void decorateHorizontal(ColumnTitleProvider titleProvider, List<Cell<Element>> elems) {
     if (elems == null || hasRunHorizontal) {
       return;
     }
-    int days = p.toStandardDays().getDays();
-    int increment = elems.size() / days;
-
-    assert days > 0 : "Number of days should not be <= 0";
-    assert increment > 0 : "Increment should not be zero.";
-
+    String columns[] = titleProvider.getColumns(elems.size());
+    int index = 0;
     for (Cell<Element> cell : elems) {
-      cell.getCellElement().setInnerText(start.dayOfWeek().getAsShortText());
-      start = start.plusDays(increment);
+      cell.getCellElement().setInnerText(columns[index]);
+      index++;
     }
     hasRunHorizontal = true;
   }
+
+
 
   /**
    * Decorates all the cells.

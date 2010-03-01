@@ -5,6 +5,7 @@ import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 
 import java.util.List;
+import java.util.Set;
 
 import org.goda.time.DateTime;
 import org.goda.time.Interval;
@@ -21,13 +22,11 @@ public class DateTimeLabelDecorator implements MultipleElementsIntervalDecorator
   /** used to decide if vertical redraw is needed */
   boolean hasRunVertical = false;
 
-  public void decorate(Interval interval, HasMultipleDecorables<Element> d) {
-    int days = interval.toPeriod().toStandardDays().getDays();
-    Period p = new Period(0, 0, 0, days, 0, 0, 0, 0);
+  public void decorate(Interval interval,ColumnTitleProvider titleProvider, HasMultipleDecorables<Element> d) {
     Period day = new Period(0, 0, 0, 1, 0, 0, 0, 0);
-    decorateHorizontal(interval.getStart(), p, d.getColumnsDecorableElements());
+    decorateHorizontal(titleProvider, d.getColumnsDecorableElements());
     decorateVertical(interval.getStart(), day, d.getRowsDecorableElements());
-
+//              interval.getStart(), p,
   }
 
   /**
@@ -56,29 +55,13 @@ public class DateTimeLabelDecorator implements MultipleElementsIntervalDecorator
     hasRunVertical = true;
   }
 
-  /**
-   * Handles horizontal decoration.
-   * @param start the start time
-   * @param p the time period that the elems correspond
-   * @param elems the decorable elements
-   */
-  protected void decorateHorizontal(DateTime start, Period p, List<Cell<Element>> elems) {
-    if (elems == null) {
-      return;
-    }
-    int days = p.toStandardDays().getDays();
-    int increment = elems.size() / days;
 
-    assert days > 0 : "Number of days should not be <= 0";
-    assert increment > 0 : "Increment should not be zero.";
-
+  protected void decorateHorizontal(ColumnTitleProvider titleProvider, List<Cell<Element>> elems) {
+    String columns[] = titleProvider.getColumns(elems.size());
+    int index = 0;
     for (Cell<Element> cell : elems) {
-      String wd = start.dayOfWeek().getAsShortText();
-      String month = start.monthOfYear().getAsShortText();
-      String day = start.dayOfMonth().getAsShortText();
-
-      cell.getCellElement().setInnerText(wd + ", " + month + " " + day);
-      start = start.plusDays(increment);
+      cell.getCellElement().setInnerText(columns[index]);
+      index++;
     }
   }
 }
