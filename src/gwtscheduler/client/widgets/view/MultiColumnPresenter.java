@@ -16,9 +16,9 @@ import org.goda.time.ReadableDateTime;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class MultyColumnPresenter extends AbstractCalendarPresenter {
+public class MultiColumnPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
-  public static class  MultyColumnPresenterProvider implements Provider<MultyColumnPresenter>{
+  public static class  MultyColumnPresenterProvider implements Provider<MultiColumnPresenter>{
     private AppConfiguration cfg;
     private AbstractDaysView display;
     private MultipleElementsIntervalDecorator decorator;
@@ -33,9 +33,9 @@ public class MultyColumnPresenter extends AbstractCalendarPresenter {
     }
 
     @Override
-    public MultyColumnPresenter get() {
-      MultyColumnPresenter multyColumn = new MultyColumnPresenter(cfg,display,decorator,eventBus);
-      return multyColumn;
+    public MultiColumnPresenter get() {
+      MultiColumnPresenter multiColumn = new MultiColumnPresenter(cfg,display,decorator,eventBus);
+      return multiColumn;
     }
   }
 
@@ -56,7 +56,7 @@ public class MultyColumnPresenter extends AbstractCalendarPresenter {
    * @param display  the display
    * @param eventBus the event bus
    */
-  public MultyColumnPresenter(AppConfiguration cfg, @ColumnView AbstractDaysView view, @ColumnView MultipleElementsIntervalDecorator decorator, EventBus eventBus) {
+  public MultiColumnPresenter(AppConfiguration cfg,@ColumnView AbstractDaysView view, @ColumnView MultipleElementsIntervalDecorator decorator, EventBus eventBus) {
     super(view, eventBus);
     this.cfg = cfg;
     this.view = view;

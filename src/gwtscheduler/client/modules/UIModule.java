@@ -1,5 +1,6 @@
 package gwtscheduler.client.modules;
 
+import gwtscheduler.client.modules.annotation.ColumnView;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
@@ -16,7 +17,9 @@ import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.common.navigation.DateViewsTabPanel;
 import gwtscheduler.client.widgets.view.DayPresenter;
 import gwtscheduler.client.widgets.view.MonthPresenter;
+import gwtscheduler.client.widgets.view.MultiColumnPresenter;
 import gwtscheduler.client.widgets.view.WeekPresenter;
+import gwtscheduler.client.widgets.view.common.columns.MultiColumnsView;
 import gwtscheduler.client.widgets.view.common.factory.LassoElementFactory;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.client.widgets.view.dayweek.DayView;
@@ -59,6 +62,11 @@ public class UIModule extends AbstractGinModule {
     bind(AbstractDaysView.class).annotatedWith(Day.class).to(DayView.class);
     bind(MonthDisplay.class).annotatedWith(Month.class).to(MonthView.class);
 
+    bind(AbstractDaysView.class).annotatedWith(ColumnView.class).to(MultiColumnsView.class);
+
+
+    //bind presentor providers
+    bind(MultiColumnPresenter.class).toProvider(MultiColumnPresenter.MultyColumnPresenterProvider.class);
 
   }
 }
