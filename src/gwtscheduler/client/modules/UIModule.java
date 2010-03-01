@@ -19,7 +19,7 @@ import gwtscheduler.client.widgets.view.DayPresenter;
 import gwtscheduler.client.widgets.view.MonthPresenter;
 import gwtscheduler.client.widgets.view.MultiColumnPresenter;
 import gwtscheduler.client.widgets.view.WeekPresenter;
-import gwtscheduler.client.widgets.view.common.columns.MultiColumnsView;
+import gwtscheduler.client.widgets.view.columns.MultiColumnsView;
 import gwtscheduler.client.widgets.view.common.factory.LassoElementFactory;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.client.widgets.view.dayweek.DayView;
