@@ -4,6 +4,7 @@ import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
+import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.widgets.common.decorator.MonthTitleProvider;
@@ -36,6 +37,7 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
   @Inject
   @Month
   private MultipleElementsIntervalDecorator decorator;
+  private MonthDisplay display;
   private MonthTitleProvider columnTitleProvider;
 
   /**
@@ -44,7 +46,8 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
    */
   @Inject
   public MonthPresenter(AppConfiguration cfg, @Month MonthDisplay display, MonthTitleProvider columnTitleProvider, EventBus bus) {
-    super(display, bus);
+    super(bus);
+    this.display = display;
     this.columnTitleProvider = columnTitleProvider;
     WeekSize = cfg.daysInWeek();
     getDisplay().initLasso(new HorizontalLassoStrategy(), this);
@@ -52,6 +55,25 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
 
   public String getTabLabel() {
     return "Month";
+  }
+
+  @Override
+  public void bindDispaly(Display display) {
+  }
+
+  @Override
+  public void setColNum(int columns) {
+
+  }
+
+  @Override
+  public void setTabLabel(String tabLabel) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public MonthDisplay getDisplay() {
+    return display;
   }
 
   public Interval onNavigateNext() {

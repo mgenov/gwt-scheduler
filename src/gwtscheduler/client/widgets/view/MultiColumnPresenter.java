@@ -6,6 +6,7 @@ import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.ColumnView;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import org.goda.time.Duration;
@@ -23,10 +24,12 @@ public class MultiColumnPresenter extends AbstractCalendarPresenter<AbstractDays
     private AbstractDaysView display;
     private MultipleElementsIntervalDecorator decorator;
     private EventBus eventBus;
+    private ColumnTitleProvider columnTitleProvider;
 
     @Inject
-    public MultyColumnPresenterProvider(AppConfiguration cfg,  @ColumnView AbstractDaysView display, @ColumnView MultipleElementsIntervalDecorator decorator, EventBus eventBus) {
+    public MultyColumnPresenterProvider(AppConfiguration cfg,@ColumnView ColumnTitleProvider columnTitleProvider,  @ColumnView AbstractDaysView display, @ColumnView MultipleElementsIntervalDecorator decorator, EventBus eventBus) {
       this.cfg = cfg;
+      this.columnTitleProvider = columnTitleProvider;
       this.display = display;
       this.decorator = decorator;
       this.eventBus = eventBus;
@@ -34,14 +37,15 @@ public class MultiColumnPresenter extends AbstractCalendarPresenter<AbstractDays
 
     @Override
     public MultiColumnPresenter get() {
-      MultiColumnPresenter multiColumn = new MultiColumnPresenter(cfg,display,decorator,eventBus);
+      MultiColumnPresenter multiColumn = new MultiColumnPresenter(cfg,decorator, columnTitleProvider, eventBus);
       return multiColumn;
     }
   }
 
 
   private AppConfiguration cfg;
-  private AbstractDaysView view;
+  private ColumnTitleProvider columnTitleProvider;
+//  private AbstractDaysView view;
   private MultipleElementsIntervalDecorator decorator;
   private EventBus eventBus;
 
@@ -49,26 +53,37 @@ public class MultiColumnPresenter extends AbstractCalendarPresenter<AbstractDays
    * holds the number of rows within a day
    */
   private final int rows;
+  private Display display;
+  private String tabLabel;
+  private int columns;
 
   /**
    * Default constructor.
    *
-   * @param display  the display
+   * @param columnTitleProvider
    * @param eventBus the event bus
    */
-  public MultiColumnPresenter(AppConfiguration cfg,@ColumnView AbstractDaysView view, @ColumnView MultipleElementsIntervalDecorator decorator, EventBus eventBus) {
-    super(view, eventBus);
+  public MultiColumnPresenter(AppConfiguration cfg, @ColumnView MultipleElementsIntervalDecorator decorator, ColumnTitleProvider columnTitleProvider, EventBus eventBus) {
+    super(eventBus);
     this.cfg = cfg;
-    this.view = view;
+    this.columnTitleProvider = columnTitleProvider;
+//    this.view = view;
     this.decorator = decorator;
     this.eventBus = eventBus;
-    rows = cfg.getDayViewTopRows();
+    rows =  cfg.rowsInDay();
   }
 
-
+  @Override
+  public void bindDispaly(Display display) {
+    this.display = display;
+  }
 
   public String getTabLabel() {
-    return null;
+    return tabLabel;
+  }
+
+  public void setTabLabel(String tabLabel) {
+    this.tabLabel = tabLabel;
   }
 
   @Override
@@ -82,11 +97,15 @@ public class MultiColumnPresenter extends AbstractCalendarPresenter<AbstractDays
   }
 
   public int getRowNum() {
-    return 0;
+    return rows;
   }
 
   public int getColNum() {
-    return 0;
+    return columns;
+  }
+
+  public void setColNum(int columns) {
+    this.columns = columns;
   }
 
   public Interval onNavigateNext() {

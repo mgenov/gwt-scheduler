@@ -29,8 +29,7 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
    * @param display the display
    * @param eventBus the event bus
    */
-  protected AbstractCalendarPresenter(T display, EventBus eventBus) {
-    this.display = display;
+  protected AbstractCalendarPresenter( EventBus eventBus) {
     new EventsMediator(this,eventBus);
   }
 

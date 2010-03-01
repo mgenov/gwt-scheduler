@@ -5,6 +5,7 @@ import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
+import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.widgets.common.decorator.DaysTitleProvider;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
@@ -35,18 +36,41 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Inject
   @Week
   protected MultipleElementsIntervalDecorator decorator;
+  private AbstractDaysView display;
   private DaysTitleProvider columnTitleProvider;
+  private int columns;
+  private String tabLabel;
 
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
   @Inject
-  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView view, DaysTitleProvider columnTitleProvider, EventBus bus) {
-    super(view, bus);
+  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView display, DaysTitleProvider columnTitleProvider, EventBus bus) {
+    super(bus);
+    this.display = display;
     this.columnTitleProvider = columnTitleProvider;
     rows = cfg.rowsInDay();
     getDisplay().initLasso(new VerticalLassoStrategy(false), this);
+  }
+
+  @Override
+  public AbstractDaysView getDisplay() {
+    return display;
+  }
+
+  @Override
+  public void bindDispaly(Display display) {
+  }
+
+  @Override
+  public void setColNum(int columns) {
+    this.columns = columns;
+  }
+  //TODO: must be used in the builder to set the tab label
+  @Override
+  public void setTabLabel(String tabLabel) {
+    this.tabLabel = tabLabel;
   }
 
   public String getTabLabel() {

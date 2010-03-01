@@ -18,6 +18,7 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
+import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.LassoStrategy;
@@ -38,7 +39,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class ColumnsViewWidget extends Composite implements ColumnsView.Display,DaysDisplay, HasMultipleDecorables<Element>, HasWidgetRedrawHandlers,
+public class ColumnsViewWidget extends Composite implements CalendarPresenter.Display,DaysDisplay, HasMultipleDecorables<Element>, HasWidgetRedrawHandlers,
     LassoAwarePanel.LassoHandler {
 
   @UiField

@@ -4,7 +4,7 @@ package gwtscheduler.client.widgets.view.columns;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnPanel {
-  interface Display{
+  public interface Display{
     
     int getHeight();
 
