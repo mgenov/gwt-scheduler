@@ -36,7 +36,6 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Inject
   @Week
   protected MultipleElementsIntervalDecorator decorator;
-  private AbstractDaysView display;
   private DaysTitleProvider columnTitleProvider;
   private int columns;
   private String tabLabel;

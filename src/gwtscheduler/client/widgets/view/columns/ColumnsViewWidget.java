@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class ColumnsViewWidget extends Composite implements CalendarPresenter.Display,DaysDisplay, HasMultipleDecorables<Element>, HasWidgetRedrawHandlers,
+public class ColumnsViewWidget extends Composite implements CalendarPresenter.Display, HasMultipleDecorables<Element>, HasWidgetRedrawHandlers,
     LassoAwarePanel.LassoHandler {
 
   @UiField

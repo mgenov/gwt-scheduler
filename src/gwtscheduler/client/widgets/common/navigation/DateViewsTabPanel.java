@@ -15,23 +15,33 @@ import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
+import java.util.List;
+
 /**
  * Main navigation panel.
+ *
  * @author malp
  */
 //TODO migrate to MVP
 public class DateViewsTabPanel extends Composite implements MainView, BeforeSelectionHandler<Integer> {
 
-  /** static ref to css */
+  /**
+   * static ref to css
+   */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
-  /** widget delegate */
+  /**
+   * widget delegate
+   */
   private DecoratedTabPanel impl;
-  /** presenters array */
+  /**
+   * presenters array
+   */
   private CalendarPresenter[] presenters;
 
   /**
    * Default constructor.
+   *
    * @param day
    * @param week
    * @param month
@@ -49,6 +59,27 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
     add(day);
     add(week);
     add(month);
+  }
+
+  public DateViewsTabPanel() {
+    impl = new DecoratedTabPanel();
+    initWidget(impl);
+    impl.addBeforeSelectionHandler(this);
+  }
+
+  public DateViewsTabPanel(List<CalendarPresenter> tabs) {
+    impl = new DecoratedTabPanel();
+    initWidget(impl);
+    impl.addBeforeSelectionHandler(this);
+
+    presenters = new CalendarPresenter[tabs.size()];
+    int i = 0;
+    for (CalendarPresenter tab : tabs) {
+      presenters[i] = tab;
+      add(tab);
+      i++;
+    }
+
   }
 
   @Override
@@ -70,6 +101,7 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
 
   /**
    * Adds a new view to this tab panel.
+   *
    * @param presenter the controller
    */
   private void add(CalendarPresenter presenter) {
@@ -82,6 +114,7 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
 
   /**
    * Selects a tab.
+   *
    * @param i the tab index
    */
   public void selectTab(int i) {

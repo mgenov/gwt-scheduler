@@ -1,10 +1,14 @@
 package gwtscheduler.client;
 
 import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.modules.EventBus;
+import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
+import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import gwtscheduler.client.widgets.common.navigation.DateViewsTabPanel;
 
+import org.goda.time.DateTimeConstants;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
 
@@ -45,6 +49,20 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     nav.add(back);
     nav.add(today);
     nav.add(forward);
+
+
+    CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
+    main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(),new ColumnTitleProvider(){
+      @Override
+      public String[] getColumns(int columnCount) {
+        String[] names = new String[3];
+        names[0] = "aaaa";
+        names[1] = "bbbb";
+        names[2] = "cccc";
+        return names;
+      }
+    },new EventBus()).columns(3).build()).build();
+
 
     RootPanel.get("nav").add(nav);
     RootPanel.get("main").add(main);
@@ -97,4 +115,38 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     }
 
   }
+
+
+  public static class TestAppConfiguration implements AppConfiguration {
+    public TestAppConfiguration() {
+    }
+
+    @Override
+    public int startDayOfWeek() {
+      return DateTimeConstants.MONDAY;
+    }
+
+
+    @Override
+    public int getDayViewTopRows() {
+      return 3;
+    }
+
+
+    @Override
+    public int daysInWeek() {
+      return 7;
+    }
+
+    @Override
+    public int daysLineHeightEMs() {
+      return 2;
+    }
+
+    @Override
+    public int rowsInDay() {
+      return 48;
+    }
+  }
+
 }

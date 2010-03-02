@@ -35,7 +35,6 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Day
   @Inject
   protected MultipleElementsIntervalDecorator decorator;
-  private AbstractDaysView view;
   private DaysTitleProvider columnTitleProvider;
 
   /**
@@ -45,7 +44,7 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Inject
   protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view, DaysTitleProvider columnTitleProvider, EventBus bus) {
     super(bus);
-    this.view = view;
+    this.display = view;
     this.columnTitleProvider = columnTitleProvider;
     rows = cfg.rowsInDay();
     getDisplay().initLasso(new VerticalLassoStrategy(false), this);
@@ -53,12 +52,11 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   @Override
   public AbstractDaysView getDisplay() {
-    return view;  
+    return display;  
   }
 
   @Override
   public void bindDispaly(Display display) {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @Override
@@ -67,7 +65,6 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   @Override
   public void setTabLabel(String tabLabel) {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   public String getTabLabel() {

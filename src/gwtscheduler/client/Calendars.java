@@ -20,12 +20,15 @@ import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 public class Calendars {
 
 
-  private static CalendarPresenter calendar;
+  private CalendarPresenter calendar;
   private AppConfiguration configuration;
+  private int columns;
+  private int rows;
 
 
   public Calendars newMultiColumn(AppConfiguration configuration,ColumnTitleProvider columnTitleProvider, EventBus eventBus) {
     this.configuration = configuration;
+    rows = configuration.daysLineHeightEMs();
     MultipleElementsIntervalDecorator decorator = new DateTimeLabelDecorator();
     calendar = new  MultiColumnPresenter(configuration,decorator,columnTitleProvider,eventBus);
     return this;
@@ -36,13 +39,20 @@ public class Calendars {
     return this;
   }
   public Calendars columnsNames(String[] names){
-    calendar.setColNum(names.length);
+    columns = names.length;
+    calendar.setColNum(columns);
+    return this;
+  }
+
+   public Calendars columns(int columns){
+    this.columns = columns;
+    calendar.setColNum(columns);
     return this;
   }
 
 
   public CalendarPresenter build(){
-    CalendarPresenter.Display display = new ColumnsViewWidget(48,);
+    CalendarPresenter.Display display = new ColumnsViewWidget(rows,columns);
     return calendar;
   }
 }

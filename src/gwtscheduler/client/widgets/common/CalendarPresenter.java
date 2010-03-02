@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author malp
  */
 public interface CalendarPresenter {
-  public interface Display {
+  public interface Display extends GenericCalendarDisplay{
 
   }
 
