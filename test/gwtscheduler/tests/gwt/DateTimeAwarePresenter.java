@@ -1,5 +1,6 @@
 package gwtscheduler.tests.gwt;
 
+import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;
@@ -80,6 +81,10 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
 
     time.addDays(distance);
     return time.toInstant();
+  }
+
+  @Override
+  public void onDropEvent(DropEvent event) {
   }
 
   @Override

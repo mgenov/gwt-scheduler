@@ -50,7 +50,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 //    HorizontalPanel tickets = new HorizontalPanel();
 
-    TicketView ticketWidget = new TicketView();
+    TicketView2 ticketWidget = new TicketView2();
     TicketPresenter ticketPresenter = new TicketPresenter(ticketWidget);
 //    tickets.add(ticketWidget);
 
