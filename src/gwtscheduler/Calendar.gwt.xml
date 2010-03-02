@@ -5,6 +5,7 @@
 <!-- GWT Module for calendar source code-->
 <module>
 	<inherits name='gwtscheduler.Common' />
+
 	
 	<source path="client"/>
 	<!-- stupid css hack for ie

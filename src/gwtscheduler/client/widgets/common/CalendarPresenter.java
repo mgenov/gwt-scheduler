@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.common;
 
+import gwtscheduler.client.dragndrop.DropEvent;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 
@@ -53,4 +54,5 @@ public interface CalendarPresenter extends Presenter {
    */
   Instant getInstantForCell(int[] start);
 
+  void onDropEvent(DropEvent event);
 }

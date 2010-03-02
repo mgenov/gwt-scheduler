@@ -1,5 +1,8 @@
 package gwtscheduler.client.widgets.view.dayweek;
 
+import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.dragndrop.DropHandler;
+import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -118,7 +121,7 @@ public abstract class AbstractDaysPanel extends Composite implements HasWidgetRe
   int getWidth() {
     return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx() - CSS.smallPaddingPx();
   }
-
+  
   /**
    * Gets the number of rows.
    * @return the number of rows of this panel

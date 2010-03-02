@@ -1,5 +1,7 @@
 package gwtscheduler.client;
 
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import gwtscheduler.client.dragndrop.DraggerImpl;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
@@ -46,8 +48,22 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     nav.add(today);
     nav.add(forward);
 
-    RootPanel.get("nav").add(nav);
-    RootPanel.get("main").add(main);
+//    HorizontalPanel tickets = new HorizontalPanel();
+
+    TicketView ticketWidget = new TicketView();
+    TicketPresenter ticketPresenter = new TicketPresenter(ticketWidget);
+//    tickets.add(ticketWidget);
+
+    AbsolutePanel absolutePanel = new AbsolutePanel();
+
+    DraggerImpl dragger = new DraggerImpl(absolutePanel);
+    dragger.registerDraggable(ticketWidget, ticketPresenter);
+
+    absolutePanel.add(ticketWidget);
+    absolutePanel.add(nav);
+    absolutePanel.add(main);
+
+    RootPanel.get("nav").add(absolutePanel);
     main.selectTab(0);
     registry.fireDateNavigation(getCurrentDate());
   }

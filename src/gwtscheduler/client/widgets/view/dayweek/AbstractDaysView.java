@@ -1,5 +1,8 @@
 package gwtscheduler.client.widgets.view.dayweek;
 
+import com.google.gwt.user.client.ui.Label;
+import gwtscheduler.client.TicketPresenter;
+import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -214,4 +217,18 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   public void stopProcessing() {
   }
 
+  // TODO: I BROKE HERE :D
+  public void onDropEvent(DropEvent event, ComplexGrid grid){
+    TicketPresenter presenter = (TicketPresenter)event.getDroppedObject();
+    Widget w = event.getSourceWidget();
+
+//    eventsPanel.setComplexGrid(grid);
+                                       
+    int[] eventPosition = eventsPanel.calculateCellPosition(event);
+    int h = eventPosition[2];
+    int we = eventPosition[3];
+    w.setPixelSize(h, we * presenter.getDuration());
+    w.getElement().getStyle().setZIndex(20);
+    eventsPanel.add(w, eventPosition[0], eventPosition[1]);
+  }
 }

@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view;
 
+import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
@@ -112,6 +113,10 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     MutableDateTime time = curr.getStart().toMutableDateTime();
     time.addDays(distance);
     return time.toInstant();
+  }
+
+  @Override
+  public void onDropEvent(DropEvent event) {
   }
 
   @Override

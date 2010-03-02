@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
+import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
@@ -57,6 +58,17 @@ public class AbstractGridOverlay extends AbsolutePanel implements WidgetResizeHa
     int rowPos = (y / (grid.getHeight() / grid.getRowNum()));
     int colPos = (x / (grid.getWidth() / grid.getColNum()));
     return new int[] {rowPos, colPos};
+  }
+
+  // TODO: BAD IMPLEMENTATION... ONLY FOR EXPERIMENTING
+  public int[] calculateCellPosition(DropEvent event){
+    int x = event.getMouseX();
+    int y = event.getMouseY();
+
+    int colPos = (x / (grid.getWidth() / grid.getColNum()));
+    int rowPos = (y / (grid.getHeight() / grid.getRowNum()));
+    int[] position = calculateLeftTop(new int[] {rowPos, colPos});
+    return new int[] {position[0], position[1], grid.getWidth() / grid.getColNum(), grid.getHeight() / grid.getRowNum()};
   }
 
   /**

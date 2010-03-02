@@ -56,7 +56,6 @@ class LassoPanel extends AbstractGridOverlay implements HasLassoHandlers, MouseD
 
   /**
    * Default constructor.
-   * @param strat
    */
   LassoPanel() {
     super(new LassoContainer());

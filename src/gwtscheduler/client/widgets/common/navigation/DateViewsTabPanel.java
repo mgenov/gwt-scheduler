@@ -1,5 +1,12 @@
 package gwtscheduler.client.widgets.common.navigation;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
+import gwtscheduler.client.dragndrop.DragOverlapEvent;
+import gwtscheduler.client.dragndrop.DragOverlapHandler;
+import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.dragndrop.DropHandler;
+import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
@@ -20,7 +27,7 @@ import com.google.inject.Inject;
  * @author malp
  */
 //TODO migrate to MVP
-public class DateViewsTabPanel extends Composite implements MainView, BeforeSelectionHandler<Integer> {
+public class DateViewsTabPanel extends Composite implements MainView, BeforeSelectionHandler<Integer>, DropZone {
 
   /** static ref to css */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
@@ -37,7 +44,7 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
    * @param month
    */
   @Inject
-  public DateViewsTabPanel(@Day CalendarPresenter day, @Week CalendarPresenter week, @Month CalendarPresenter month) {
+  public DateViewsTabPanel(final @Day CalendarPresenter day, final @Week CalendarPresenter week, @Month CalendarPresenter month) {
     impl = new DecoratedTabPanel();
     initWidget(impl);
     impl.addBeforeSelectionHandler(this);
@@ -49,6 +56,25 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
     add(day);
     add(week);
     add(month);
+
+
+    // TODO: delete this 2 handlers.. this is added only for researching
+    addDropHandler(new DropHandler(){
+      @Override
+      public void onDrop(DropEvent event) {
+        day.onDropEvent(event);
+        week.onDropEvent(event);
+        GWT.log("Dropped in x: " + event.getMouseX() + " y: " + event.getMouseY(), null);
+      }
+    });
+//
+//    addDragOverlapHandler(new DragOverlapHandler(){
+//      @Override
+//      public void onDragOverlap(DragOverlapEvent event) {
+//        GWT.log("Dragged in drag zone", null);
+//        event.getFrame().setPixelSize(20, 20);
+//      }
+//    });
   }
 
   @Override
@@ -86,5 +112,15 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
    */
   public void selectTab(int i) {
     impl.selectTab(i);
+  }
+
+  @Override
+  public void addDropHandler(DropHandler handler) {
+    addHandler(handler, DropEvent.TYPE);
+  }
+
+  @Override
+  public void addDragOverlapHandler(DragOverlapHandler handler) {
+    addHandler(handler, DragOverlapEvent.TYPE);
   }
 }

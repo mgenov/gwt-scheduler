@@ -172,3 +172,7 @@ body {
 	height: 5px;
 	overflow: hidden;
 }
+
+.dragFrame{
+    border:1px dotted;
+}

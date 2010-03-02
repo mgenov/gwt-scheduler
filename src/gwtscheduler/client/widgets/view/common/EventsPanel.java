@@ -1,5 +1,10 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.core.client.GWT;
+import gwtscheduler.client.dragndrop.DragOverlapHandler;
+import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.dragndrop.DropHandler;
+import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.widgets.common.event.AppointmentEvent;
 import gwtscheduler.client.widgets.common.event.AppointmentHandler;

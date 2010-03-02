@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view;
 
+import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.config.AppConfiguration;
@@ -34,6 +35,7 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Inject
   @Week
   protected MultipleElementsIntervalDecorator decorator;
+  private AbstractDaysView view;
 
   /**
    * Default constructor.
@@ -42,6 +44,7 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Inject
   protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView view, EventBus bus) {
     super(view, bus);
+    this.view = view;
     rows = cfg.rowsInDay();
     getDisplay().initLasso(new VerticalLassoStrategy(false), this);
   }
@@ -96,6 +99,11 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
     MutableDateTime time = curr.getStart().toMutableDateTime();
     time.addMinutes(minutesPerCell * distance);
     return time.toInstant();
+  }
+
+  @Override
+  public void onDropEvent(DropEvent event) {
+    view.onDropEvent(event, this);
   }
 
   @Override
