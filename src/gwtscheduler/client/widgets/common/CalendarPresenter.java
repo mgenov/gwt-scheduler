@@ -18,7 +18,7 @@ public interface CalendarPresenter {
 
   }
 
-  public void bindDispaly(Display display);
+  public void bindDisplay(Display display);
 
   public void setColNum(int columns);
 

@@ -58,7 +58,7 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
   }
 
   @Override
-  public void bindDispaly(Display display) {
+  public void bindDisplay(Display display) {
   }
 
   @Override

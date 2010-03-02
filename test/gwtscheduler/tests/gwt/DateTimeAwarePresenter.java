@@ -91,7 +91,7 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
-  public void bindDispaly(Display display) {
+  public void bindDisplay(Display display) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 

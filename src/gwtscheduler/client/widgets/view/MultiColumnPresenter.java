@@ -1,8 +1,6 @@
 package gwtscheduler.client.widgets.view;
 
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.ColumnView;
 import gwtscheduler.client.modules.config.AppConfiguration;
@@ -10,52 +8,81 @@ import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
-import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;
-import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
-import gwtscheduler.client.widgets.view.common.EventsMediator;
-import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
+import gwtscheduler.client.widgets.common.decoration.DecorationRenderer;
+import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.Duration;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
+import org.goda.time.Period;
 import org.goda.time.ReadableDateTime;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class MultiColumnPresenter implements CalendarPresenter, EventNavigationListener, ComplexGrid {
+public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
   private int rows;
   private AppConfiguration cfg;
   private MultipleElementsIntervalDecorator decorator;
   private ColumnTitleProvider columnTitleProvider;
+  private DateGenerator dateGenerator;
+  private DecorationRenderer decorationRenderer;
   private EventBus eventBus;
   private Display display;
   private int columns;
   private String tabLabel;
 
-
-
-
-
-  /**
-   * Default constructor.
-   *
-   * @param columnTitleProvider
-   * @param eventBus the event bus
-   */
-  public MultiColumnPresenter(AppConfiguration cfg, @ColumnView MultipleElementsIntervalDecorator decorator, ColumnTitleProvider columnTitleProvider, EventBus eventBus) {
+  public MultiColumnPresenter(AppConfiguration cfg, DateGenerator dateGenerator, DecorationRenderer decorationRenderer, EventBus eventBus) {
     this.cfg = cfg;
-    this.decorator = decorator;
-    this.columnTitleProvider = columnTitleProvider;
+    this.dateGenerator = dateGenerator;
+    this.decorationRenderer = decorationRenderer;
     this.eventBus = eventBus;
-    rows =  cfg.rowsInDay();
-
-    //TODO: investigate this
-//    new EventsMediator(this,eventBus);
   }
 
+//  /**
+//   * Default constructor.
+//   *
+//   * @param columnTitleProvider
+//   * @param eventBus            the event bus
+//   */
+//  public MultiColumnPresenter(AppConfiguration cfg, @ColumnView MultipleElementsIntervalDecorator decorator, ColumnTitleProvider columnTitleProvider, EventBus eventBus) {
+//    this.cfg = cfg;
+//    this.decorator = decorator;
+//    this.columnTitleProvider = columnTitleProvider;
+//    this.eventBus = eventBus;
+//    rows = cfg.rowsInDay();
+//
+//    //TODO: investigate this
+////    new EventsMediator(this,eventBus);
+//  }
+
   @Override
-  public void bindDispaly(Display display) {
+  public void bindDisplay(final Display display) {
     this.display = display;
+    Interval interval = dateGenerator.interval();
+    decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
+    decorationRenderer.decorateHorizontalTitlesLine(interval,display.getDecorables());
+
+    eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
+      @Override
+      public void onNavigateNext() {
+        decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.next().interval(),display.getDecorables());
+      }
+    });
+
+    eventBus.addHandler(NavigatePreviousEvent.TYPE, new NavigatePreviousEventHandler() {
+      @Override
+      public void onNavigatePrevious() {
+        decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.previous().interval(),display.getDecorables());
+      }
+    });
+
+
+    eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
+      @Override
+      public void onNavigateTo(ReadableDateTime date) {
+        decorationRenderer.decorateHorizontalTitlesLine(new Interval(date),display.getDecorables());
+      }
+    });
   }
 
   @Override
@@ -75,7 +102,7 @@ public class MultiColumnPresenter implements CalendarPresenter, EventNavigationL
 
   @Override
   public EventNavigationListener getNavigationListener() {
-    return this;
+    return null;
   }
 
   @Override
@@ -96,6 +123,12 @@ public class MultiColumnPresenter implements CalendarPresenter, EventNavigationL
     return new Interval(from, to);
   }
 
+
+  protected Duration getDurationPerCells(int count) {
+    int minutesPerCell = (24 * 60) / getRowNum();
+    return new Period(0,minutesPerCell * count, 0,0).toStandardDuration();
+  }
+
   @Override
   public Instant getInstantForCell(int[] start) {
     return null;
@@ -103,124 +136,21 @@ public class MultiColumnPresenter implements CalendarPresenter, EventNavigationL
 
   @Override
   public int getRowNum() {
-    return 0;
+    return display.getRowNum();
   }
 
   @Override
   public int getColNum() {
-    return 0;
+    return display.getColNum();
   }
 
   @Override
   public int getWidth() {
-    return 0;
+    return display.getWidth();
   }
 
   @Override
   public int getHeight() {
-    return 0;
+    return display.getHeight();
   }
-
-  @Override
-  public Interval onNavigateNext() {
-    return null;
-  }
-
-  @Override
-  public Interval onNavigatePrevious() {
-    return null;
-  }
-
-  @Override
-  public Interval onNavigateTo(ReadableDateTime date) {
-    return null;
-  }
-
-  @Override
-  public Interval getCurrentInterval() {
-    return null;
-  }
-//  private AppConfiguration cfg;
-//  private ColumnTitleProvider columnTitleProvider;
-////  private AbstractDaysView view;
-//  private MultipleElementsIntervalDecorator decorator;
-//  private EventBus eventBus;
-//
-//  /**
-//   * holds the number of rows within a day
-//   */
-//  private final int rows;
-////  private Display display;
-//  private String tabLabel;
-//  private int columns;
-//
-//  /**
-//   * Default constructor.
-//   *
-//   * @param columnTitleProvider
-//   * @param eventBus the event bus
-//   */
-//  public MultiColumnPresenter(AppConfiguration cfg, @ColumnView MultipleElementsIntervalDecorator decorator, ColumnTitleProvider columnTitleProvider, EventBus eventBus) {
-//    super(eventBus);
-//    this.cfg = cfg;
-//    this.columnTitleProvider = columnTitleProvider;
-////    this.view = view;
-//    this.decorator = decorator;
-//    this.eventBus = eventBus;
-//    rows =  cfg.rowsInDay();
-//  }
-//
-//  @Override
-//  public void bindDispaly(Display display) {
-//    this.display = display;
-//  }
-//
-//  @Override
-//  public AbstractDaysView getDisplay() {
-//    return display;
-//  }
-//
-//  public String getTabLabel() {
-//    return tabLabel;
-//  }
-//
-//  public void setTabLabel(String tabLabel) {
-//    this.tabLabel = tabLabel;
-//  }
-//
-//  @Override
-//  public Instant getInstantForCell(int[] start) {
-//    return null;
-//  }
-//
-//  @Override
-//  protected Duration getDurationPerCells(int count) {
-//    return null;
-//  }
-//
-//  public int getRowNum() {
-//    return rows;
-//  }
-//
-//  public int getColNum() {
-//    return columns;
-//  }
-//
-//  public void setColNum(int columns) {
-//    this.columns = columns;
-//  }
-//
-//  public Interval onNavigateNext() {
-//    return null;
-//  }
-//
-//  public Interval onNavigatePrevious() {
-//    return null;
-//  }
-//
-//  public Interval onNavigateTo(ReadableDateTime date) {
-
-//    return null;
-
-//  }
 }

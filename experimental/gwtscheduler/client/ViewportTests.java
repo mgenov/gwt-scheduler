@@ -8,7 +8,11 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import gwtscheduler.client.widgets.common.navigation.DateViewsTabPanel;
 
+import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
+import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
+import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import org.goda.time.DateTimeConstants;
+import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
 
@@ -25,6 +29,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class ViewportTests implements EntryPoint, ClickHandler {
 
   Button back, forward, today;
+  private EventBus eventBus = new EventBus();
 
   /**
    * This is the entry point method.
@@ -34,7 +39,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     // let's test a registration
     final AppInjector uiResources = AppInjector.GIN.getInjector();
-    final UIManager registry = uiResources.getUIRegistry();
+//    final UIManager registry = uiResources.getUIRegistry();
 
     DateViewsTabPanel main = uiResources.getMainPanel();
     //    DateViewsTabPanel main = new DateViewsTabPanel();
@@ -52,7 +57,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
-    main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(),new ColumnTitleProvider(){
+    main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
       @Override
       public String[] getColumns(int columnCount) {
         String[] names = new String[3];
@@ -61,13 +66,18 @@ public class ViewportTests implements EntryPoint, ClickHandler {
         names[2] = "cccc";
         return names;
       }
-    },new EventBus()).columns(3).build()).build();
+
+      @Override
+      public void setInterval(Interval interval) {
+        
+      }
+    }, eventBus).columns(3).build()).build();
 
 
     RootPanel.get("nav").add(nav);
     RootPanel.get("main").add(main);
     main.selectTab(0);
-    registry.fireDateNavigation(getCurrentDate());
+//    registry.fireDateNavigation(getCurrentDate());
   }
 
 
@@ -107,11 +117,14 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     UIManager registry = uiResources.getUIRegistry();
 
     if (event.getSource() == back) {
-      registry.fireBackNavigation();
+//      registry.fireBackNavigation();
+      eventBus.fireEvent(new NavigatePreviousEvent());
     } else if (event.getSource() == forward) {
-      registry.fireForwardNavigation();
+//      registry.fireForwardNavigation();
+      eventBus.fireEvent(new NavigateNextEvent());
     } else if (event.getSource() == today) {
-      registry.fireDateNavigation(getCurrentDate());
+//      registry.fireDateNavigation(getCurrentDate());
+      eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
     }
 
   }

@@ -113,10 +113,6 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     return g;
   }
 
-  public void renderHeader(int columnSize) {
-
-  }
-
   /**
    * Creates the day view widget.
    *

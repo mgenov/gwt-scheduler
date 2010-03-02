@@ -24,8 +24,8 @@ public class DateTimeLabelDecorator implements MultipleElementsIntervalDecorator
 
   public void decorate(Interval interval,ColumnTitleProvider titleProvider, HasMultipleDecorables<Element> d) {
     Period day = new Period(0, 0, 0, 1, 0, 0, 0, 0);
-    decorateHorizontal(titleProvider, d.getColumnsDecorableElements());
-    decorateVertical(interval.getStart(), day, d.getRowsDecorableElements());
+    decorateHorizontal(titleProvider, d.getRowsDecorableElements());
+    decorateVertical(interval.getStart(), day, d.getColumnsDecorableElements());
 //              interval.getStart(), p,
   }
 

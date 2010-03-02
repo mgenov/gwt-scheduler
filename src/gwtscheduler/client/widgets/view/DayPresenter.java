@@ -56,7 +56,7 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   }
 
   @Override
-  public void bindDispaly(Display display) {
+  public void bindDisplay(Display display) {
   }
 
   @Override
