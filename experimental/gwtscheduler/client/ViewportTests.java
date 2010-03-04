@@ -41,7 +41,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     final AppInjector uiResources = AppInjector.GIN.getInjector();
 //    final UIManager registry = uiResources.getUIRegistry();
 
-    DateViewsTabPanel main = uiResources.getMainPanel();
+//    DateViewsTabPanel main = uiResources.getMainPanel();
     //    DateViewsTabPanel main = new DateViewsTabPanel();
     //    for (CalendarPresenter controller : registry.getControllers()) {
     //      main.add(controller);
@@ -57,13 +57,15 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
-    main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
+    DateViewsTabPanel main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
       @Override
       public String[] getColumns(int columnCount) {
-        String[] names = new String[3];
-        names[0] = "aaaa";
-        names[1] = "bbbb";
-        names[2] = "cccc";
+        String[] names = new String[4];
+        names[0] =  "Team 1";
+        names[1] =  "Team 2";
+        names[2] =  "Team 3";
+        names[3] =  "Team 4";
+//        names[4] =  "Team 5";
         return names;
       }
 
@@ -71,13 +73,30 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       public void setInterval(Interval interval) {
         
       }
-    }, eventBus).columns(3).build()).build();
+    }, eventBus).columns(4).named("Teams").build()).addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
+      @Override
+      public String[] getColumns(int columnCount) {
+        String[] names = new String[5];
+        names[0] =  "Team 11";
+        names[1] =  "Team 22";
+        names[2] =  "Team 33";
+        names[3] =  "Team 44";
+        names[4] =  "Team 55";
+        return names;
+      }
+
+      @Override
+      public void setInterval(Interval interval) {
+
+      }
+    }, eventBus).columns(5).named("Teams2").build()).build();
 
 
     RootPanel.get("nav").add(nav);
     RootPanel.get("main").add(main);
     main.selectTab(0);
 //    registry.fireDateNavigation(getCurrentDate());
+   eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
   }
 
 

@@ -4,6 +4,7 @@ import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.ColumnView;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
@@ -21,9 +22,9 @@ import org.goda.time.ReadableDateTime;
  */
 public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
   private int rows;
-  private AppConfiguration cfg;
-  private MultipleElementsIntervalDecorator decorator;
-  private ColumnTitleProvider columnTitleProvider;
+//  private AppConfiguration cfg;
+//  private MultipleElementsIntervalDecorator decorator;
+//  private ColumnTitleProvider columnTitleProvider;
   private DateGenerator dateGenerator;
   private DecorationRenderer decorationRenderer;
   private EventBus eventBus;
@@ -32,7 +33,7 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
   private String tabLabel;
 
   public MultiColumnPresenter(AppConfiguration cfg, DateGenerator dateGenerator, DecorationRenderer decorationRenderer, EventBus eventBus) {
-    this.cfg = cfg;
+//    this.cfg = cfg;
     this.dateGenerator = dateGenerator;
     this.decorationRenderer = decorationRenderer;
     this.eventBus = eventBus;
@@ -58,13 +59,13 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void bindDisplay(final Display display) {
     this.display = display;
-    Interval interval = dateGenerator.interval();
-    decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
-    decorationRenderer.decorateHorizontalTitlesLine(interval,display.getDecorables());
+    display.initLasso(new VerticalLassoStrategy(false), this);
+    final Interval interval = dateGenerator.interval();
 
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
       @Override
       public void onNavigateNext() {
+        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
         decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.next().interval(),display.getDecorables());
       }
     });
@@ -72,6 +73,7 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigatePreviousEvent.TYPE, new NavigatePreviousEventHandler() {
       @Override
       public void onNavigatePrevious() {
+        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
         decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.previous().interval(),display.getDecorables());
       }
     });
@@ -80,7 +82,9 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
       public void onNavigateTo(ReadableDateTime date) {
-        decorationRenderer.decorateHorizontalTitlesLine(new Interval(date),display.getDecorables());
+        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
+        Interval interval = new Interval(date,date);
+        decorationRenderer.decorateHorizontalTitlesLine(interval,display.getDecorables());
       }
     });
   }
