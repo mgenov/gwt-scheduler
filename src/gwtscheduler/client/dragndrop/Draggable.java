@@ -1,23 +1,16 @@
 package gwtscheduler.client.dragndrop;
 
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Composite;
-
 /**
+ * This interface can be implemented by object that need to be dragged over drag area.
+ * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class Draggable extends Composite implements HasMouseDownHandlers, HasMouseMoveHandlers, HasMouseUpHandlers {
-
-  public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
-    return addDomHandler(handler, MouseDownEvent.getType());
-  }
-
-  public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
-    return addDomHandler(handler, MouseMoveEvent.getType());
-  }
-
-  public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
-    return addDomHandler(handler, MouseUpEvent.getType());
-  }
+public interface Draggable {
+  /**
+   * Send draggable to the dragger on given coordinates.
+   * @param dragger implementation of given dragger.
+   * @param left coordinate from left.
+   * @param top coordinate from top.
+   */
+  void go(Dragger dragger, int left, int top);
 }

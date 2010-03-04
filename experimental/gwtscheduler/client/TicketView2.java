@@ -1,14 +1,14 @@
 package gwtscheduler.client;
 
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
-import gwtscheduler.client.dragndrop.Draggable;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class TicketView2 extends Draggable implements TicketPresenter.Display{
+public class TicketView2 extends Composite implements TicketPresenter.Display{
   private FlexTable table = new FlexTable();
   private Label taskName = new Label("Task name.");
   private Label taskDescription = new Label("Task description");

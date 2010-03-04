@@ -1,5 +1,6 @@
 package gwtscheduler.client.dragndrop;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -9,21 +10,35 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.HashMap;
 
 /**
+ * This object cares about dragging widgets over drag zone and drop objects over drop zone when drag stops.
+ * When instancing this object accept AbsolutePanel where widgets will be dragged. New widget who will be registered for
+ * dragging will be wrapped and placed on given coordinates on absolute panel. For every given widget can be registered 
+ * object who will be dropped when dragging stops. Object for dropping can be the same widget or another object. When
+ * object is dropped over drop zone, event is fired to the given drop zone.
+ *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class DraggerImpl implements Dragger{
   private AbsolutePanel absolutePanel;
-  private DraggedFrame frame = new DraggedFrame();
+  private Label frame = new Label();
   private Widget dragWidget;
   private HashMap<HasMouseDownHandlers, Object> draggingRegister = new HashMap<HasMouseDownHandlers, Object>();
 
+  /**
+   * Constructor of the dragger. Accepts AbsolutePanel where widgets will be dragged.
+   *
+   * @param absolutePanel dragging zone.
+   */
   public DraggerImpl(AbsolutePanel absolutePanel) {
     this.absolutePanel = absolutePanel;
+
+    frame.setStyleName("dragFrame");
 
     frame.addMouseMoveHandler(new MouseMoveHandler(){
       public void onMouseMove(MouseMoveEvent mouseMoveEvent) {
@@ -38,8 +53,13 @@ public class DraggerImpl implements Dragger{
     });
   }
 
-
-  public void registerDraggable(HasMouseDownHandlers widget, Object object) {
+  /**
+   * Register widget for dragging and object for dropping over drop zone. Dragging widget must implements HasMouseDownHandlers.
+   *
+   * @param widget this will be dragged.
+   * @param object this will be dropped.
+   */
+  private void registerDraggable(HasMouseDownHandlers widget, Object object) {
     draggingRegister.put(widget, object);
 
     widget.addMouseDownHandler(new MouseDownHandler(){
@@ -63,6 +83,7 @@ public class DraggerImpl implements Dragger{
     absolutePanel.add(frame, x-10, y-10);
 
     DOM.setCapture(frame.getElement());
+//    GWT.log("On Mouse Down", null);
   }
 
   private void mouseMove(MouseMoveEvent event){
@@ -94,6 +115,12 @@ public class DraggerImpl implements Dragger{
     }
   }
 
+  /**
+   * Winds drop zone positioned on given coordinates.
+   * @param x left.
+   * @param y top.
+   * @return return drop zone from coordinates or null when drop zone is not fount on given coordinates.
+   */
   private Widget getWidgetOnPosition(int x, int y){
     for(int i = 0; i < absolutePanel.getWidgetCount(); i++){
       Widget dropWidget = absolutePanel.getWidget(i);
@@ -107,6 +134,12 @@ public class DraggerImpl implements Dragger{
     return null;
   }
 
+  /**
+   * Sending event to drop zone.
+   * @param widget drop zone widget.
+   * @param x mouse left coordinates when object has been dropped over drop zone.
+   * @param y mouse top coordinates when object has been dropped over drop zone.
+   */
   private void dropTo(Widget widget, int x, int y){
     DropEvent dropEvent = new DropEvent(dragWidget, draggingRegister.get(dragWidget));
     // here can be implemented logic that add more data in the event.
@@ -116,6 +149,13 @@ public class DraggerImpl implements Dragger{
     dropEvent.fire(widget);
   }
 
+  /**
+   * Check if given point with coordinates is in given widget.
+   * @param x left mouse coordinate.
+   * @param y top mouse coordinate.
+   * @param w widget who need to be checked.
+   * @return true if given point is over widget area.
+   */
   private boolean checkPosition(int x, int y, Widget w) {
     // TODO: make better logic for checking if point
     int widgetX = w.getAbsoluteLeft();
@@ -128,4 +168,32 @@ public class DraggerImpl implements Dragger{
     }
     return false;
   }
+
+  /**
+   * Add new widget to the drag zone. Given widget will be wrapped and placed on the dragging zone. Widget will be
+   * removed from parent.
+   * @param widget this widget that will be dragged.
+   * @param o object who will be dropped over drop zone.
+   * @param left position on drag zone from left .
+   * @param top position on drag zone from top.
+   */
+  @Override
+  public void add(Widget widget, Object o, int left, int top) {
+    if(widget.getParent() != null){
+      widget.removeFromParent();
+    }
+    DragWrapperImpl nextDragDisplay = new DragWrapperImpl();
+    nextDragDisplay.add(absolutePanel, widget, left, top);
+    registerDraggable(nextDragDisplay, o);
+  }
+
+  /**
+   * Set style name for dragging frame.
+   * @param styleName style name.
+   */
+  @Override
+  public void setFrameStyle(String styleName) {
+    frame.setStyleName(styleName);
+  }
+
 }

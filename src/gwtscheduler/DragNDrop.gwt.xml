@@ -6,6 +6,6 @@
     <inherits name="org.goda.Goda"/>
     <inherits name="gwtscheduler.Common"/>
 
-    <entry-point class='gwtscheduler.DragNDrop'/>
+    <entry-point class='gwtscheduler.client.DragNDrop'/>
 
 </module>

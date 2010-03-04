@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * This event is fired up when widget is dropped over drop zone.
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class DropEvent extends GwtEvent<DropHandler> {

@@ -1,5 +1,7 @@
 package gwtscheduler.client.dragndrop;
 
+import com.google.gwt.event.shared.HasHandlers;
+
 /**
  * Widgets that implements this interface will be drop zones and only this widgets will accept objects that is dropped.
  * After implementing this interface you can use this code to attach drop handlers to the widget.
