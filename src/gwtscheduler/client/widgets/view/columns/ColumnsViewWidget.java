@@ -30,7 +30,6 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
-import gwtscheduler.client.widgets.view.dayweek.DaysDisplay;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +46,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @UiField
   FlexTable header;
   @UiField
-  ColumnPanelWidget daysPanel;
+  ColumnPanelWidget columnsPanel;
   @UiField
   EventsPanel eventsPanel;
   @UiField
@@ -77,7 +76,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     this.columns = columns;
     initWidget(uiBinder.createAndBindUi(this));
     eventsPanel.setComplexGrid(this);
-    lassoAwarePanel.addWidgetResizeHandler(daysPanel.getWidgetResizeHandler());
+    lassoAwarePanel.addWidgetResizeHandler(columnsPanel.getWidgetResizeHandler());
     lassoAwarePanel.setOverflowY(true);
     lassoAwarePanel.setLassoHandler(this);
   }
@@ -139,7 +138,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
    * @return the main panel
    */
   public ColumnPanel.Display getMainPanel() {
-    return daysPanel;
+    return columnsPanel;
   }
 
   @Override
@@ -162,8 +161,8 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     }
 
     AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
-    lassoPanel.setSize("100%", (config.daysLineHeightEMs() * daysPanel.getRows()) + "em");
-    eventsPanel.setSize("100%", (config.daysLineHeightEMs() * daysPanel.getRows()) + "em");
+    lassoPanel.setSize("100%", (config.daysLineHeightEMs() * columnsPanel.getRows()) + "em");
+    eventsPanel.setSize("100%", (config.daysLineHeightEMs() * columnsPanel.getRows()) + "em");
   }
 
   public List<Cell<Element>> getColumnsDecorableElements() {
@@ -171,15 +170,15 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   public List<Cell<Element>> getRowsDecorableElements() {
-    return Collections.unmodifiableList(daysPanel.getTitleDecorables());
+    return Collections.unmodifiableList(columnsPanel.getTitleDecorables());
   }
 
   public List<Cell<Element>> getContentDecorableElements() {
-    return Collections.unmodifiableList(daysPanel.getMainDecorables());
+    return Collections.unmodifiableList(columnsPanel.getMainDecorables());
   }
 
   public List<Cell<Element>> getMainDecorables() {
-    return daysPanel.getMainDecorables();
+    return columnsPanel.getMainDecorables();
   }
 
   @Override
@@ -188,18 +187,18 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   @Override
-  public void initLasso(LassoStrategy strat, ComplexGrid subject) {
-    lassoAwarePanel.initLasso(strat, subject);
+  public void initLasso(LassoStrategy start, ComplexGrid subject) {
+    lassoAwarePanel.initLasso(start, subject);
   }
 
   @Override
   public int getColNum() {
-    return daysPanel.getColumns();
+    return columnsPanel.getColumns();
   }
 
   @Override
   public int getRowNum() {
-    return daysPanel.getRows();
+    return columnsPanel.getRows();
   }
 
   @Override
@@ -212,4 +211,8 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     return getContentDecorableElements();
   }
 
+  @Override
+  public void removeColumn() {
+    columnsPanel.removeColumn();
+  }
 }

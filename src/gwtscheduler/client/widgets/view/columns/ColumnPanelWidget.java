@@ -18,8 +18,9 @@ import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.common.HorizontalGridFill;
-import gwtscheduler.client.widgets.view.common.HorizontalGridFillResizeHandler;
+import gwtscheduler.client.widgets.view.common.CalendarViewPanel;
+import gwtscheduler.client.widgets.view.common.CalendarViewPanelWidget;
+import gwtscheduler.client.widgets.view.common.HorizontalCalendarViewPanelResizeHandler;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
   VerticalPanel container;
   /** Hours grid */
   @UiField
-  HorizontalGridFill grid;
+  CalendarViewPanelWidget grid;
   /** root container */
   @UiField
   SimplePanel simplePanel;
@@ -64,7 +65,7 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
     this.rows = rows;
     this.columns = columns;
     initWidget(uiBinder.createAndBindUi(this));
-    rh = new HorizontalGridFillResizeHandler(grid);
+    rh = new HorizontalCalendarViewPanelResizeHandler(grid);
 
     int lh = config.daysLineHeightEMs();
     container.setSize("100%",rows * lh + "em");
@@ -76,8 +77,8 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
    * @return the grid
    */
   @UiFactory
-  HorizontalGridFill buildGrid() {
-    return new HorizontalGridFill(rows, columns);
+  CalendarViewPanelWidget buildGrid() {
+    return new CalendarViewPanelWidget(rows, columns);
   }
 
   /**
@@ -100,7 +101,8 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
    * Gets the proper resize handler for this widget.
    * @return the resize handler
    */
-  WidgetResizeHandler getWidgetResizeHandler() {
+  @Override
+  public WidgetResizeHandler getWidgetResizeHandler() {
     return rh;
   }
 
@@ -145,5 +147,9 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
 
   public int getColumns() {
     return columns;
+  }
+
+  public void removeColumn() {
+    grid.removeColumn();
   }
 }

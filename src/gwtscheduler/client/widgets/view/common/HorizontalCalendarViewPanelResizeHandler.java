@@ -1,41 +1,32 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
-import gwtscheduler.client.widgets.common.event.AbstractResizeHandler;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.cell.DayCell;
 
 import java.util.Iterator;
 
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Widget;
-
 /**
- * Handlers resize events for the wrapper widget.
- * @author Miguel Ping
- * @version $Revision: $
- * @since 1.0
+ * @author mlesikov  {mlesikov@gmail.com}
  */
-public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<HorizontalGridFill> implements WidgetResizeHandler {
+public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHandler {
 
   /** static ref to css */
   private static final DayWeekCssResource CSS = Resources.dayWeekCss();
+  private CalendarViewPanel.Display target;
 
   /**
    * Creates a new resize handler for the supplied widget.
-   * @param widget the widget thath should handle resizes
+   * @param target the widget thath should handle resizes
    */
-  public HorizontalGridFillResizeHandler(HorizontalGridFill widget) {
-    super(widget);
-  }
-
-  @Override
-  protected void onDelayedResize(WidgetResizeEvent event) {
-    onResize(event);
+  public HorizontalCalendarViewPanelResizeHandler(CalendarViewPanel.Display target) {
+    this.target = target;
   }
 
   /**
@@ -44,9 +35,8 @@ public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<Horiz
    */
   @Override
   public void onResize(WidgetResizeEvent event) {
-    super.onResize(event);
 
-    final HorizontalGridFill grid = getTarget();
+    final CalendarViewPanel.Display  grid = target;
     final Element parentEl = grid.getParent().getElement();
     int height = parentEl.getOffsetHeight();
     int width = event.width;
@@ -115,5 +105,25 @@ public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<Horiz
     int availW = ((parentWidth - getTitleColumnOffsetWidth()) / getTarget().getColumnCount());
     int availH = parentHeight / getTarget().getRowCount();
     return new int[] {availW, availH};
+  }
+
+
+
+
+  /**
+   * Indicates if the target widget has any size.
+   * @return <code>true</code> if it has size
+   */
+  protected boolean hasSize() {
+    if (!getTarget().isAttached()) {
+      return false;
+    }
+
+    Element parentEl = getTarget().getElement();
+    return parentEl.getOffsetHeight() > 0 && parentEl.getOffsetWidth() > 0;
+  }
+
+  public CalendarViewPanel.Display getTarget() {
+    return target;
   }
 }

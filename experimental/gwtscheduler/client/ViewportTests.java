@@ -76,12 +76,22 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     }, eventBus).columns(4).named("Teams").build()).addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
       @Override
       public String[] getColumns(int columnCount) {
-        String[] names = new String[5];
-        names[0] =  "Team 11";
-        names[1] =  "Team 22";
-        names[2] =  "Team 33";
-        names[3] =  "Team 44";
-        names[4] =  "Team 55";
+        String[] names = new String[15];
+        names[0] =  "Team 1";
+        names[1] =  "Team 2";
+        names[2] =  "Team 3";
+        names[3] =  "Team 4";
+        names[4] =  "Team 5";
+        names[5] =  "Team 6";
+        names[6] =  "Team 7";
+        names[7] =  "Team 8";
+        names[8] =  "Team 9";
+        names[9] =  "Team 10";
+        names[10] =  "Team 11";
+        names[11] =  "Team 12";
+        names[12] =  "Team 13";
+        names[13] =  "Team 14";
+        names[14] =  "Team 15";
         return names;
       }
 
@@ -89,7 +99,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       public void setInterval(Interval interval) {
 
       }
-    }, eventBus).columns(5).named("Teams2").build()).build();
+    }, eventBus).columns(15).named("Teams2").build()).build();
 
 
     RootPanel.get("nav").add(nav);

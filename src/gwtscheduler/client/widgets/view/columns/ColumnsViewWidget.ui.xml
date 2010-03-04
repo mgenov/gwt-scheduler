@@ -12,7 +12,7 @@
 		<g:FlexTable ui:field="header" />
 		<common:LassoAwarePanel ui:field="lassoAwarePanel">
 			<common:EventsPanel ui:field="eventsPanel" />
-			<columns:ColumnPanelWidget ui:field="daysPanel" />
+			<columns:ColumnPanelWidget ui:field="columnsPanel" />
 		</common:LassoAwarePanel>
 	</g:VerticalPanel>
 </ui:UiBinder> 

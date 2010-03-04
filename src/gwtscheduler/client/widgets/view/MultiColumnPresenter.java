@@ -10,6 +10,8 @@ import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import gwtscheduler.client.widgets.common.decoration.DecorationRenderer;
+import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.Duration;
 import org.goda.time.Instant;
@@ -62,11 +64,16 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
     display.initLasso(new VerticalLassoStrategy(false), this);
     final Interval interval = dateGenerator.interval();
 
+    eventBus.addHandler(WidgetResizeEvent.getType(),display.getMainPanel().getWidgetResizeHandler());
+
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
       @Override
       public void onNavigateNext() {
+        display.removeColumn();
+        eventBus.fireEvent(new WidgetResizeEvent());
         decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
         decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.next().interval(),display.getDecorables());
+
       }
     });
 

@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.common;
 
+import gwtscheduler.client.widgets.view.columns.ColumnPanel;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 
@@ -16,6 +17,9 @@ import com.google.gwt.user.client.ui.Widget;
 public interface CalendarPresenter {
   public interface Display extends GenericCalendarDisplay{
 
+    void removeColumn();
+
+    ColumnPanel.Display getMainPanel();
   }
 
   public void bindDisplay(Display display);
