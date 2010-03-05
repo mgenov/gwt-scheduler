@@ -1,5 +1,6 @@
 package gwtscheduler.client.dragndrop;
 
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -9,6 +10,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+
+import java.util.ArrayList;
 
 /**
  * @author Miroslav Genov (mgenov@gmail.com)
@@ -47,13 +50,19 @@ public class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
-  public int getOffsetWidth(MouseDownEvent event) {
-    return 0;
+  public int getSourceWidth() {
+    if(dragWidget == null){
+      return 0;
+    }
+    return dragWidget.getOffsetWidth();
   }
 
   @Override
-  public int getOffsetHeight(MouseDownEvent event) {
-    return 0;
+  public int getSourceHeight() {
+    if(dragWidget == null){
+      return 0;
+    }
+    return dragWidget.getOffsetHeight();
   }
 
   @Override
@@ -82,18 +91,43 @@ public class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
-  public DropZone getDropZone(int x, int y) {
-     for (int i = 0; i < absolutePanel.getWidgetCount(); i++) {
-      Widget dropWidget = absolutePanel.getWidget(i);
-      if (dropWidget instanceof DropZone && dropWidget != dragWidget) {
-        if (checkPosition(x, y, dropWidget)) {
-          this.dropZone = dropWidget;          
-          DropZone zone = (DropZone) dropWidget;
-          return zone;
-        }
+  public DropZone getDropZone(ArrayList<HasWidgets> roots, int x, int y) {
+    DropZone dropZone = null;
+    for(HasWidgets widget : roots){
+      dropZone = getDropZone(widget, x, y);
+      if(dropZone != null){
+        return dropZone;
       }
     }
-    return null;
+
+//     for (int i = 0; i < absolutePanel.getWidgetCount(); i++) {
+//      Widget dropWidget = absolutePanel.getWidget(i);
+//      if (dropWidget instanceof DropZone && dropWidget != dragWidget) {
+//        if (checkPosition(x, y, dropWidget)) {
+//          this.dropZone = dropWidget;
+//          DropZone zone = (DropZone) dropWidget;
+//          return zone;
+//        }
+//      }
+//    }
+    return dropZone;
+  }
+
+  private DropZone getDropZone(HasWidgets root, int x, int y){
+    DropZone dropZone = null;
+    for(Widget widget : root){
+      if(widget instanceof HasWidgets){
+        dropZone = getDropZone((HasWidgets)widget, x, y);
+        if(dropZone != null){
+          return dropZone;
+        }
+      }
+
+      if (checkPosition(x, y, widget)) {
+        return (DropZone) widget;
+      }
+    }
+    return dropZone;
   }
 
   @Override
@@ -119,7 +153,7 @@ public class DragZoneView extends Composite implements DragZone.Display {
     absolutePanel.remove(frame);
   }
 
-  @Override
+  @Override   // TODO: remove when Fixing
   public void dropTo(int x, int y, Object targetObject) {
      DropEvent dropEvent = new DropEvent(dragWidget, targetObject);
     // here can be implemented logic that add more data in the event.
@@ -135,19 +169,13 @@ public class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
-  public void attachWidgetToDragWrapper(Widget widget, int left, int top) {      
-
-
-  }
-
-  @Override
   public HasWidgets getContainer() {
     return absolutePanel;
   }
 
   @Override
-  public void setPosition(DragWrapperImpl wrapper, int left, int top) {
-    absolutePanel.setWidgetPosition(wrapper, left, top);
+  public void setSize(int width, int height) {
+    absolutePanel.setPixelSize(width, height);
   }
 
   /**

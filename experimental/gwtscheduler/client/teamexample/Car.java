@@ -1,5 +1,6 @@
 package gwtscheduler.client.teamexample;
 
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.dragndrop.Draggable;
@@ -26,6 +27,6 @@ public class Car implements Draggable{
 
   @Override
   public void go(DragZone dragZone, int left, int top) {
-    dragZone.add((Widget) display, this, left, top);
+    dragZone.add((HasMouseDownHandlers) display, this, left, top);
   }
 }

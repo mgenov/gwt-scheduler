@@ -10,19 +10,6 @@ import gwtscheduler.client.teamexample.*;
  */
 public class DragNDrop implements EntryPoint {
   public void onModuleLoad() {
-//    AbsolutePanel absolutePanel = new AbsolutePanel();
-//    absolutePanel.setPixelSize(500, 500);
-//
-//    DragNDropView dragNDropWidget1 = new DragNDropView();
-//    DragNDropPresenter dragNDropPresenter1 = new DragNDropPresenter(dragNDropWidget1);
-//
-//    DragNDropView dragNDropWidget2 = new DragNDropView();
-//    DragNDropPresenter dragNDropPresenter2 = new DragNDropPresenter(dragNDropWidget2);
-//
-//    DragZoneImpl dragger = new DragZoneImpl(absolutePanel);
-//    dragNDropPresenter1.go(dragger, 50, 50);
-//    dragNDropPresenter2.go(dragger, 50, 100);
-
     AbsolutePanel absolutePanel = new AbsolutePanel();
     absolutePanel.setPixelSize(800, 800);
     Team team1 = new Team(new TeamView());

@@ -56,7 +56,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     AbsolutePanel absolutePanel = new AbsolutePanel();
 
-    DragZoneImpl dragger = new DragZoneImpl(absolutePanel);
+//    DragZoneImpl dragger = new DragZoneImpl(absolutePanel);
 //    dragger.registerDraggable(ticketWidget, ticketPresenter);
 
     absolutePanel.add(ticketWidget);

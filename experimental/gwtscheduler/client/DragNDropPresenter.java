@@ -1,5 +1,6 @@
 package gwtscheduler.client;
 
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.dragndrop.DragZone;
@@ -38,7 +39,7 @@ public class DragNDropPresenter {
   }
 
   public void go(DragZone controller, int left, int top) {
-    controller.add((Widget) display, this, left, top);
+    controller.add((HasMouseDownHandlers) display, this, left, top);
   }
 
 }

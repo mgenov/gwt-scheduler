@@ -1,10 +1,12 @@
 package gwtscheduler.client.dragndrop;
 
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
+
+import java.util.ArrayList;
 
 /**
  * This interface represents Object that care about dragging widgets and dropping object over drop zones.
@@ -45,9 +47,9 @@ public interface DragZone {
 
     void setTop(int top);
 
-    int getOffsetWidth(MouseDownEvent event);
+    int getSourceWidth();
 
-    int getOffsetHeight(MouseDownEvent event);
+    int getSourceHeight();
 
     void addFrameAtPosition(int left, int top);
 
@@ -59,7 +61,7 @@ public interface DragZone {
 
     boolean isDragWidgetStored();    
 
-    DropZone getDropZone(int x, int y);
+    DropZone getDropZone(ArrayList<HasWidgets> roots, int x, int y);
 
     void fireDragOverEvent(int x, int y);
 
@@ -73,11 +75,9 @@ public interface DragZone {
 
     void setFrameStyle(String styleName);
 
-    void attachWidgetToDragWrapper(Widget widget, int left, int top);
-
     HasWidgets getContainer();
 
-    void setPosition(DragWrapperImpl wrapper, int left, int top);
+    void setSize(int width, int height);
   }
 
   /**
@@ -88,12 +88,15 @@ public interface DragZone {
    * @param left coordinate from left .
    * @param top coordinate from top.
    */
-  void add(Widget widget, Object object, int left, int top);
+  void add(HasMouseDownHandlers widget, Object object, int left, int top);
 
+  void registerDropZoneRoot(HasWidgets root);
 
   void setLeft(int left);
 
   void setTop(int top);
+
+  void setSize(int width, int height);
 
   /**
    * Set style name of the frame that is dragged instead of draggable widget.
