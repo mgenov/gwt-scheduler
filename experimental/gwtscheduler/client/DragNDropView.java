@@ -3,7 +3,8 @@ package gwtscheduler.client;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
-import gwtscheduler.client.dragndrop.DragOverlapHandler;
+import gwtscheduler.client.dragndrop.DragOutHandler;
+import gwtscheduler.client.dragndrop.DragOverHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 
@@ -26,8 +27,12 @@ public class DragNDropView extends Composite implements DragNDropPresenter.Displ
   }
 
   @Override
-  public void addDragOverlapHandler(DragOverlapHandler handler) {
+  public void addDragOverHandler(DragOverHandler handler) {
     
+  }
+
+  @Override
+  public void addDragOutHandler(DragOutHandler handler) {
   }
 
 }

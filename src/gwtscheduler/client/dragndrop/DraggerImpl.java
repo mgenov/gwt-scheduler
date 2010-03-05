@@ -29,6 +29,7 @@ public class DraggerImpl implements Dragger{
   private Label frame = new Label();
   private Widget dragWidget;
   private HashMap<HasMouseDownHandlers, Object> draggingRegister = new HashMap<HasMouseDownHandlers, Object>();
+  private Widget dropZone = null;
 
   /**
    * Constructor of the dragger. Accepts AbsolutePanel where widgets will be dragged.
@@ -97,9 +98,14 @@ public class DraggerImpl implements Dragger{
 
     Widget dropZone = getWidgetOnPosition(mouseX, mouseY);
 
-    if(dropZone != null){
-      DragOverlapEvent dragOverlap = new DragOverlapEvent(frame, mouseX, mouseY);
-      dragOverlap.fire(dropZone);
+    if(dropZone != null && this.dropZone == null){
+      this.dropZone = dropZone;
+      DragOverEvent dragOver = new DragOverEvent(frame, mouseX, mouseY);
+      dragOver.fire(dropZone);
+    } else if(dropZone == null && this.dropZone != null){
+      DragOutEvent dragOut = new DragOutEvent(frame);
+      this.dropZone.fireEvent(dragOut);
+      this.dropZone = null;
     }
 
     absolutePanel.add(frame, mouseX-10, mouseY-10);

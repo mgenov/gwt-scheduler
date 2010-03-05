@@ -1,16 +1,6 @@
 package gwtscheduler.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.*;
-import gwtscheduler.client.dragndrop.DragOverlapHandler;
-import gwtscheduler.client.dragndrop.DraggerImpl;
-import gwtscheduler.client.dragndrop.DropEvent;
-import gwtscheduler.client.dragndrop.DropHandler;
-import gwtscheduler.client.dragndrop.DropZone;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -178,7 +168,7 @@ public class DragNDropExample implements EntryPoint {
 //    }
 //
 //    @Override
-//    public void addDragOverlapHandler(DragOverlapHandler handler) {
+//    public void addDragOverHandler(DragOverHandler handler) {
 //
 //    }
 //
@@ -244,7 +234,7 @@ public class DragNDropExample implements EntryPoint {
 //    }
 //
 //    @Override
-//    public void addDragOverlapHandler(DragOverlapHandler handler) {
+//    public void addDragOverHandler(DragOverHandler handler) {
 //
 //    }
 //

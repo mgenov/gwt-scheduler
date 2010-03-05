@@ -3,12 +3,11 @@ package gwtscheduler.client.teamexample;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
-import gwtscheduler.client.dragndrop.DragOverlapEvent;
-import gwtscheduler.client.dragndrop.DragOverlapHandler;
+import gwtscheduler.client.dragndrop.DragOutHandler;
+import gwtscheduler.client.dragndrop.DragOverEvent;
+import gwtscheduler.client.dragndrop.DragOverHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
-
-import java.util.List;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -35,7 +34,11 @@ public class RaceView extends Composite implements Race.Display{
   }
 
   @Override
-  public void addDragOverlapHandler(DragOverlapHandler handler) {
-    addHandler(handler, DragOverlapEvent.TYPE);
+  public void addDragOverHandler(DragOverHandler handler) {
+    addHandler(handler, DragOverEvent.TYPE);
+  }
+
+  @Override
+  public void addDragOutHandler(DragOutHandler handler) {
   }
 }

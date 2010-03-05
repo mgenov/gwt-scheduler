@@ -1,9 +1,9 @@
 package gwtscheduler.client.widgets.common.navigation;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
-import gwtscheduler.client.dragndrop.DragOverlapEvent;
-import gwtscheduler.client.dragndrop.DragOverlapHandler;
+import gwtscheduler.client.dragndrop.DragOutHandler;
+import gwtscheduler.client.dragndrop.DragOverEvent;
+import gwtscheduler.client.dragndrop.DragOverHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
@@ -68,9 +68,9 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
       }
     });
 //
-//    addDragOverlapHandler(new DragOverlapHandler(){
+//    addDragOverHandler(new DragOverHandler(){
 //      @Override
-//      public void onDragOverlap(DragOverlapEvent event) {
+//      public void onDragOverlap(DragOverEvent event) {
 //        GWT.log("Dragged in drag zone", null);
 //        event.getFrame().setPixelSize(20, 20);
 //      }
@@ -120,7 +120,11 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
   }
 
   @Override
-  public void addDragOverlapHandler(DragOverlapHandler handler) {
-    addHandler(handler, DragOverlapEvent.TYPE);
+  public void addDragOverHandler(DragOverHandler handler) {
+    addHandler(handler, DragOverEvent.TYPE);
+  }
+
+  @Override
+  public void addDragOutHandler(DragOutHandler handler) {
   }
 }

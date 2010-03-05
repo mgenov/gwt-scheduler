@@ -1,14 +1,10 @@
 package gwtscheduler.client.dragndrop;
 
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-
-import java.util.Iterator;
 
 /**
  * This widget will wrap widget that will be dragged.
@@ -28,14 +24,20 @@ class DragWrapperImpl extends Composite implements DragWrapper{
         }
       });
 
-      addDragOverlapHandler(new DragOverlapHandler(){
+      addDragOverHandler(new DragOverHandler(){
         @Override
-        public void onDragOverlap(DragOverlapEvent event) {
+        public void onDragOverlap(DragOverEvent event) {
+          event.fire(widget);
+        }
+      });
+
+      addDragOutHandler(new DragOutHandler(){
+        @Override
+        public void onDragUnOverlap(DragOutEvent event) {
           event.fire(widget);
         }
       });
     }
-
 
     panel.add(this, left, top);
   }
@@ -58,7 +60,12 @@ class DragWrapperImpl extends Composite implements DragWrapper{
   }
 
   @Override
-  public void addDragOverlapHandler(DragOverlapHandler handler) {
-    addHandler(handler, DragOverlapEvent.TYPE);
+  public void addDragOverHandler(DragOverHandler handler) {
+    addHandler(handler, DragOverEvent.TYPE);
+  }
+
+  @Override
+  public void addDragOutHandler(DragOutHandler handler) {
+    addHandler(handler, DragOutEvent.TYPE);
   }
 }

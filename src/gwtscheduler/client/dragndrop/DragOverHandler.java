@@ -5,6 +5,6 @@ import com.google.gwt.event.shared.EventHandler;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public interface DragOverlapHandler extends EventHandler{
-  void onDragOverlap(DragOverlapEvent event);
+public interface DragOverHandler extends EventHandler{
+  void onDragOverlap(DragOverEvent event);
 }
