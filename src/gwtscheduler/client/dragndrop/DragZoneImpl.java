@@ -119,7 +119,8 @@ public class DragZoneImpl implements DragZone {
 
     // we have to fire drop event to indicate that object has been dropeed in the drop zone    
     if(dropZone != null){
-      display.dropTo(event.getClientX(), event.getClientY(), draggingRegister.get(dragWidget));
+        //TODO: Fix me
+//      display.dropTo(event.getClientX(), event.getClientY(), draggingRegister.get(dragWidget));
     }
   }
 
