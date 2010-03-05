@@ -102,11 +102,6 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   }
 
   @Override
-  public void onDropEvent(DropEvent event) {
-    view.onDropEvent(event, this);
-  }
-
-  @Override
   protected Duration getDurationPerCells(int count) {
     int minutesPerCell = (24 * 60) / getRowNum();
     return new Period(0,minutesPerCell * count, 0,0).toStandardDuration();

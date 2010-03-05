@@ -95,31 +95,6 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   }
 
   @Override
-  public void onDropEvent(DropEvent event) {
-//    int x = event.getMouseX();
-//    int y = event.getMouseY();
-//
-//    int colPos = (x / (this.getWidth() / this.getColNum()));
-//    int rowPos = (y / (this.getHeight() / this.getRowNum()));
-//
-//    int rowH = Math.round((float) this.getHeight() / this.getRowNum());
-//    int colW = Math.round((float) this.getWidth() / this.getColNum());
-//    int[] position = new int[] {colPos * colW, rowPos * rowH};
-//
-//    TicketPresenter presenter = (TicketPresenter)event.getDroppedObject();
-//    Widget w = event.getSourceWidget();
-//
-////    eventsPanel.setComplexGrid(grid);
-//
-//    int h = eventPosition[2];
-//    int we = eventPosition[3];
-//    w.setPixelSize(h, we * presenter.getDuration());
-//    w.getElement().getStyle().setZIndex(20);
-//    eventsPanel.add(w, eventPosition[0], eventPosition[1]);
-//    view.onDropEvent(event, this);
-  }
-
-  @Override
   protected Duration getDurationPerCells(int count) {
     int minutesPerCell = (24 * 60) / getRowNum();
     return new Period(0,minutesPerCell * count, 0,0).toStandardDuration();

@@ -54,5 +54,4 @@ public interface CalendarPresenter extends Presenter {
    */
   Instant getInstantForCell(int[] start);
 
-  void onDropEvent(DropEvent event);
 }

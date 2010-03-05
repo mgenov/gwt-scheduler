@@ -116,10 +116,6 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
   }
 
   @Override
-  public void onDropEvent(DropEvent event) {
-  }
-
-  @Override
   public int getHeight() {
     return getDisplay().getHeight();
   }
