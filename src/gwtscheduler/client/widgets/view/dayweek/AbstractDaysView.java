@@ -85,6 +85,7 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
    */
   @UiFactory
   public FlexTable buildHeader() {
+//    return new FlexTable();
     int columns = getColumnsSize();
 
     FlexTable g = new FlexTable();
@@ -106,6 +107,10 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
     }
 
     return g;
+  }
+
+  public void renderHeader(int columnSize) {
+
   }
 
   /**
@@ -202,19 +207,6 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
   @Override
   public List<Cell<Element>> getVisibleElements() {
     return getContentDecorableElements();
-  }
-
-  @Override
-  public Widget asWidget() {
-    return this;
-  }
-
-  @Override
-  public void startProcessing() {
-  }
-
-  @Override
-  public void stopProcessing() {
   }
 
 }

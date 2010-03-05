@@ -27,8 +27,8 @@ import java.util.HashMap;
 public class DraggerImpl implements Dragger{
   private AbsolutePanel absolutePanel;
   private Label frame = new Label();
-  private Widget dragWidget;
-  private HashMap<HasMouseDownHandlers, Object> draggingRegister = new HashMap<HasMouseDownHandlers, Object>();
+  private DragWrapper dragWidget;
+  private HashMap<DragWrapper, Object> draggingRegister = new HashMap<DragWrapper, Object>();
   private Widget dropZone = null;
 
   /**
@@ -55,14 +55,11 @@ public class DraggerImpl implements Dragger{
   }
 
   /**
-   * Register widget for dragging and object for dropping over drop zone. Dragging widget must implements HasMouseDownHandlers.
+   * Register widget for dragging and object for dropping over drop zone.
    *
    * @param widget this will be dragged.
-   * @param object this will be dropped.
    */
-  private void registerDraggable(HasMouseDownHandlers widget, Object object) {
-    draggingRegister.put(widget, object);
-
+  private void registerDraggable(HasMouseDownHandlers widget) {
     widget.addMouseDownHandler(new MouseDownHandler(){
       public void onMouseDown(MouseDownEvent mouseDownEvent) {
         mouseDown(mouseDownEvent);
@@ -71,7 +68,7 @@ public class DraggerImpl implements Dragger{
   }
 
   private void mouseDown(MouseDownEvent event){
-    dragWidget = (Widget) event.getSource();
+    dragWidget = (DragWrapper) event.getSource();
     event.preventDefault();
 
     int x = event.getClientX();
@@ -188,9 +185,10 @@ public class DraggerImpl implements Dragger{
     if(widget.getParent() != null){
       widget.removeFromParent();
     }
-    DragWrapperImpl nextDragDisplay = new DragWrapperImpl();
-    nextDragDisplay.add(absolutePanel, widget, left, top);
-    registerDraggable(nextDragDisplay, o);
+    DragWrapperImpl dragWrapper = new DragWrapperImpl();
+    dragWrapper.add(absolutePanel, widget, left, top);
+    draggingRegister.put(dragWrapper, o);
+    registerDraggable(dragWrapper);
   }
 
   /**

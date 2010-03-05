@@ -7,6 +7,7 @@ import gwtscheduler.client.dragndrop.DragOverHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.annotation.Week;
@@ -22,23 +23,33 @@ import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
+import java.util.List;
+
 /**
  * Main navigation panel.
+ *
  * @author malp
  */
 //TODO migrate to MVP
-public class DateViewsTabPanel extends Composite implements MainView, BeforeSelectionHandler<Integer> {
+public class DateViewsTabPanel extends Composite implements MainView, BeforeSelectionHandler<Integer>, DropZone {
 
-  /** static ref to css */
+  /**
+   * static ref to css
+   */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
-  /** widget delegate */
+  /**
+   * widget delegate
+   */
   private DecoratedTabPanel impl;
-  /** presenters array */
+  /**
+   * presenters array
+   */
   private CalendarPresenter[] presenters;
 
   /**
    * Default constructor.
+   *
    * @param day
    * @param week
    * @param month
@@ -56,6 +67,35 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
     add(day);
     add(week);
     add(month);
+  }
+
+  public DateViewsTabPanel() {
+    impl = new DecoratedTabPanel();
+    initWidget(impl);
+    impl.addBeforeSelectionHandler(this);
+  }
+
+  public DateViewsTabPanel(List<CalendarPresenter> tabs, final EventBus eventBus) {
+    impl = new DecoratedTabPanel();
+    initWidget(impl);
+    impl.addBeforeSelectionHandler(this);
+
+    presenters = new CalendarPresenter[tabs.size()];
+    int i = 0;
+    for (CalendarPresenter tab : tabs) {
+      presenters[i] = tab;
+      add(tab);
+      i++;
+    }
+
+    // TODO: {lazo} move this logic to presenter!
+    addDropHandler(new DropHandler(){
+      @Override
+      public void onDrop(DropEvent event) {
+        eventBus.fireEvent(event);
+      }
+    });
+
   }
 
   @Override
@@ -77,6 +117,7 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
 
   /**
    * Adds a new view to this tab panel.
+   *
    * @param presenter the controller
    */
   private void add(CalendarPresenter presenter) {
@@ -89,10 +130,23 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
 
   /**
    * Selects a tab.
+   *
    * @param i the tab index
    */
   public void selectTab(int i) {
     impl.selectTab(i);
   }
 
+  @Override
+  public void addDropHandler(DropHandler handler) {
+    addHandler(handler, DropEvent.TYPE);
+  }
+
+  @Override
+  public void addDragOverHandler(DragOverHandler handler) {
+  }
+
+  @Override
+  public void addDragOutHandler(DragOutHandler handler) {
+  }
 }

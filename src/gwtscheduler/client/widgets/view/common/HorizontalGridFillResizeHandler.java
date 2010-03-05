@@ -59,15 +59,15 @@ public class HorizontalGridFillResizeHandler extends AbstractResizeHandler<Horiz
     int[] availableSize = getCellSize(width - Constants.SCROLLBAR_WIDTH(), height);
 
     // here's the src to update column widths also
-    //    int remainW = width - getTitleColumnOffsetWidth();
-    //    int remainingColWidth = (remainW / grid.getColumnCount()) - Constants.SCROLLBAR_WIDTH;
+//        int remainW = width - getTitleColumnOffsetWidth();
+//        int remainingColWidth = (remainW / grid.getColumnCount()) - Constants.SCROLLBAR_WIDTH;
 
     //column sizing
-    //    grid.getTitleColumn().setPixelSize(getTitleColumnOffsetWidth(), height);
-    //    for (int j = 0; j < grid.getMainColumns().size(); j++) {
-    //      Panel c = grid.getMainColumns().get(j);
-    //      c.setPixelSize(remainingColWidth, height);
-    //    }
+//        grid.getTitleColumn().setPixelSize(getTitleColumnOffsetWidth(), height);
+//        for (int j = 0; j < grid.getMainColumns().size(); j++) {
+//          Panel c = grid.getMainColumns().get(j);
+//          c.setPixelSize(remainingColWidth, height);
+//        }
 
     // update title column
     Panel titleColumn = grid.getTitleColumn();

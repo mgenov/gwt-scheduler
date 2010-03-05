@@ -6,9 +6,6 @@ import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
@@ -28,7 +25,7 @@ public class Race {
         Object o = event.getDroppedObject();
         if(o instanceof Team){
           racingTeam((Team)o);
-          event.getSourceWidget().removeFromParent();
+          event.getWidget().removeFromParent();
         }
       }
     });

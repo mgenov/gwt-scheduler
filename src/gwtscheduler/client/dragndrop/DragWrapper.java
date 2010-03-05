@@ -12,4 +12,10 @@ import com.google.gwt.user.client.ui.Widget;
 public interface DragWrapper extends HasMouseDownHandlers, HasMouseMoveHandlers, HasMouseUpHandlers, DropZone{
 
   void add(AbsolutePanel panel, final Widget widget, int left, int top);
+
+  Widget getWrappedWidget();
+
+  int getOffsetWidth();
+
+  int getOffsetHeight();
 }

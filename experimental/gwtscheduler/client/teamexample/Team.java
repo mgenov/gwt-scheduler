@@ -9,9 +9,7 @@ import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -37,11 +35,11 @@ public class Team implements Draggable{
         if(o instanceof Car){
           Car car = (Car)o;
           addCar(car);
-          event.getSourceWidget().removeFromParent();
+          event.getWidget().removeFromParent();
         } else if(o instanceof Truck){
           Truck truck = (Truck)o;
           addTruck(truck);
-          event.getSourceWidget().removeFromParent();
+          event.getWidget().removeFromParent();
         }
       }
     });

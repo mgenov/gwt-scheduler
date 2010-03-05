@@ -10,12 +10,12 @@ import com.google.gwt.user.client.ui.Widget;
 public class DropEvent extends GwtEvent<DropHandler> {
   public static final GwtEvent.Type<DropHandler> TYPE = new GwtEvent.Type<DropHandler>();
 
-  private Widget source;
+  private DragWrapper source;
   private Object object;
   private int mouseX;
   private int mouseY;
 
-  public DropEvent(Widget source, Object object) {
+  public DropEvent(DragWrapper source, Object object) {
     this.source = source;
     this.object = object;
   }
@@ -34,8 +34,12 @@ public class DropEvent extends GwtEvent<DropHandler> {
     return object;
   }
 
-  public Widget getSourceWidget(){
-    return source;
+  public Widget getWidget(){
+    return (Widget)source;
+  }
+
+  public Widget getWrappedWidget(){
+    return source.getWrappedWidget();
   }
 
   public void fire(Widget dropZone) {

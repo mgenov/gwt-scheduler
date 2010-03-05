@@ -12,9 +12,12 @@ import com.google.gwt.user.client.ui.Widget;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 class DragWrapperImpl extends Composite implements DragWrapper{
+  private Widget widget;
 
   public void add(AbsolutePanel panel, final Widget widget, int left, int top) {
     initWidget(widget);
+
+    this.widget = widget;
 
     if(widget instanceof DropZone){
       addDropHandler(new DropHandler(){
@@ -41,7 +44,12 @@ class DragWrapperImpl extends Composite implements DragWrapper{
 
     panel.add(this, left, top);
   }
-  
+
+  @Override
+  public Widget getWrappedWidget() {
+    return widget;
+  }
+
   public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
     return addDomHandler(handler, MouseDownEvent.getType());
   }

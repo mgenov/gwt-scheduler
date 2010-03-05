@@ -4,33 +4,21 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class TicketView2 extends Composite implements TicketPresenter.Display{
-  private FlexTable table = new FlexTable();
-  private Label taskName = new Label("Task name.");
-  private Label taskDescription = new Label("Task description");
-  private TextBox name = new TextBox();
-  private TextBox description = new TextBox();
-  private TextBox value = new TextBox();
+  private VerticalPanel panel = new VerticalPanel();
+
 
   public TicketView2() {
-    table.setWidget(0, 0, taskName);
-    table.setWidget(0, 1, name);
-
-    table.setWidget(1, 0, taskDescription);
-    table.setWidget(1, 1, description);
-
-    table.setWidget(2, 1, value);
-
-    initWidget(table);
+    initWidget(panel);
   }
 
 
   public void setText(String string) {
-    value.setText("");
-    value.setText(string);
+    panel.add(new Label(string));
   }
 }
