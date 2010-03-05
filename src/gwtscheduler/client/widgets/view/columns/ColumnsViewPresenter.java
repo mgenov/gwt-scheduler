@@ -68,6 +68,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     final Interval interval = dateGenerator.interval();
 
     eventBus.addHandler(WidgetResizeEvent.getType(),display.getMainPanel().getWidgetResizeHandler());
+    eventBus.addHandler(WidgetResizeEvent.getType(),display.getCalendarHeaderResizeHandler());
 
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
       @Override

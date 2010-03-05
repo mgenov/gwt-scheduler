@@ -27,6 +27,7 @@ import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawHandler;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
@@ -44,7 +45,9 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @UiField
   VerticalPanel impl;
   @UiField
-  FlexTable header;
+//  FlexTable header;
+          CalendarHeaderWidget header;
+
   @UiField
   ColumnPanelWidget columnsPanel;
   @UiField
@@ -55,7 +58,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   /**
    * top view cells
    */
-  protected List<Cell<Element>> topLabels;
+//  protected List<Cell<Element>> topLabels;
 
   /**
    * static ref to css
@@ -95,31 +98,40 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
    * @return the top view widget
    */
   @UiFactory
-  public FlexTable buildHeader() {
-//    return new FlexTable();
-    int columns = this.columns;
-//    int columns = getColumnsSize();
-
-    FlexTable g = new FlexTable();
-    g.addStyleName(CSS.genericContainer());
-    g.setWidth("100%");
-    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
-//    g.getCellFormatter().setWidth(0, columns + 1, Constants.SCROLLBAR_WIDTH() + "px");
-
-    topLabels = new ArrayList<Cell<Element>>(columns);
-
-    for (int i = 0; i < columns; i++) {
-      Cell<Element> topCell = new BaseCell(0, i);
-
-      //only top row is for labels
-      topLabels.add(topCell);
-
-      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
-      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
-    }
-
-    return g;
+  public CalendarHeaderWidget buildHeader() {
+    CalendarHeaderWidget widget = new CalendarHeaderWidget(columns);
+    return widget;
   }
+
+//  /**
+//   * Creates the top view widget.
+//   *
+//   * @return the top view widget
+//   */
+//  @UiFactory
+//  public FlexTable buildHeader() {
+//    int columns = this.columns;
+//
+//    FlexTable g = new FlexTable();
+//    g.addStyleName(CSS.genericContainer());
+//    g.setWidth("100%");
+//    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
+////    g.getCellFormatter().setWidth(0, columns + 1, Constants.SCROLLBAR_WIDTH() + "px");
+//
+//    topLabels = new ArrayList<Cell<Element>>(columns);
+//
+//    for (int i = 0; i < columns; i++) {
+//      Cell<Element> topCell = new BaseCell(0, i+1);
+//
+//      //only top row is for labels
+//      topLabels.add(topCell);
+//
+//      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
+//      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
+//    }
+//
+//    return g;
+//  }
 
   /**
    * Creates the day view widget.
@@ -154,22 +166,19 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @Override
   public void removeColumn(int calendarColumnIndex) {
     columnsPanel.removeColumn(calendarColumnIndex);
-    header.removeCell(0, calendarColumnIndex + 1);
-    topLabels.remove(calendarColumnIndex);
+    header.removeCell(calendarColumnIndex + 1);
   }
 
   @Override
   public void addColumn(String title) {
 //    columns++;
     columnsPanel.addColumn(title);
+    header.addColumn(title);
+  }
 
-    Cell<Element> topCell = new BaseCell(0, topLabels.size());
-    //only top row is for labels
-    topLabels.add(topCell);
-
-    header.setWidget(0, topLabels.size(), DOMUtils.wrapElement(topCell.getCellElement()));
-    header.getFlexCellFormatter().setHorizontalAlignment(0, topLabels.size(), HasHorizontalAlignment.ALIGN_CENTER);
-
+  @Override
+  public WidgetResizeHandler getCalendarHeaderResizeHandler() {
+    return header;  
   }
 
   @Override
@@ -197,7 +206,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   public List<Cell<Element>> getColumnsDecorableElements() {
-    return Collections.unmodifiableList(topLabels);
+    return Collections.unmodifiableList(header.getTopLabels());
   }
 
   public List<Cell<Element>> getRowsDecorableElements() {
@@ -216,6 +225,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   public HandlerRegistration addWidgetRedrawHandler(WidgetRedrawHandler handler) {
     return lassoAwarePanel.addWidgetRedrawHandler(handler);
   }
+
 
   @Override
   public void initLasso(LassoStrategy start, ComplexGrid subject) {

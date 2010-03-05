@@ -51,4 +51,8 @@ public class BaseCell extends Widget implements Cell<Element> {
   public int index(int rowsize) {
     return row * rowsize + col;
   }
+
+  public void setStyleName(String style){
+    super.setStyleName(style);
+  }
 }

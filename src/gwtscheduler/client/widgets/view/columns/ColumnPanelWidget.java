@@ -18,7 +18,6 @@ import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.common.CalendarViewPanel;
 import gwtscheduler.client.widgets.view.common.CalendarViewPanelWidget;
 import gwtscheduler.client.widgets.view.common.HorizontalCalendarViewPanelResizeHandler;
 
@@ -30,7 +29,7 @@ import java.util.List;
 public class ColumnPanelWidget extends Composite implements ColumnPanel.Display, HasWidgetResizeHandlers{
 
 
-/** static ref to css */
+  /** static ref to css */
   private static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
   /** Main container */

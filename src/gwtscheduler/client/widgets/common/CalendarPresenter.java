@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.common;
 
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.ColumnPanel;
 import org.goda.time.Instant;
@@ -23,6 +24,8 @@ public interface CalendarPresenter {
     void removeColumn(int calendarColumn);
 
     void addColumn(String title);
+
+    WidgetResizeHandler getCalendarHeaderResizeHandler();
   }
 
   public void bindDisplay(Display display);
