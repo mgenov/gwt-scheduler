@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.view;
+package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.EventBus;
