@@ -128,18 +128,6 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
     return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx() - CSS.smallPaddingPx();
   }
 
-//  /**
-//   * Gets the number of rows.
-//   * @return the number of rows of this panel
-//   */
-//  protected abstract int getRows();
-//
-//  /**
-//   * Gets the number of columns.
-//   * @return the number of columns of this panel
-//   */
-//  protected abstract int getColumns();
-
 
   public int getRows() {
     return rows;
@@ -149,7 +137,11 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
     return columns;
   }
 
-  public void removeColumn() {
-    grid.removeColumn();
+  public void removeColumn(int calendarColumnIndex) {
+    grid.removeColumn(calendarColumnIndex);
+  }
+
+  public void addColumn(String title) {
+   grid.addColumn(title);
   }
 }

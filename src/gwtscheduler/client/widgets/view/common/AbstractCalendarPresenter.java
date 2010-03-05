@@ -6,6 +6,7 @@ import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.GenericCalendarDisplay;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;
+import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import org.goda.time.Duration;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
@@ -103,5 +104,15 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
 
   public Display getDisplay() {
     return display;
+  }
+
+  @Override
+  public void deleteColumn(CalendarColumn column) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void addColumn(CalendarColumn column) {
+    //To change body of implemented methods use File | Settings | File Templates.
   }
 }
