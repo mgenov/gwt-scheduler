@@ -39,13 +39,13 @@ public interface Dragger {
    * @param left coordinate from left .
    * @param top coordinate from top.
    */
-  public void add(Widget widget, Object object, int left, int top);
+  void add(Widget widget, Object object, int left, int top);
 
   /**
    * Set style name of the frame that is dragged instead of draggable widget.
    * Default is dragFrame
    * @param styleName style name.
    */
-  public void setFrameStyle(String styleName);
+  void setFrameStyle(String styleName);
 
 }
