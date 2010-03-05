@@ -12,20 +12,27 @@ import java.util.List;
 public class CalendarSchedulerBuilder {
 
   private DateViewsTabPanel dateViewsTabPanel;
-  private List<CalendarPresenter> tabs = new ArrayList<CalendarPresenter>();
+  private List<CalendarPresenter> presenters = new ArrayList<CalendarPresenter>();
+
+  private GwtScheduler gwtScheduler;
+  private GwtSchedulerWidget gwtSchedulerWidget;
 
 
   public CalendarSchedulerBuilder() {
   }
 
-  public CalendarSchedulerBuilder addTab(CalendarPresenter tab) {
-    tabs.add(tab);
+  public CalendarSchedulerBuilder addTab(CalendarPresenter presenter) {
+    presenters.add(presenter);
     return this;
   }
 
-  public DateViewsTabPanel build(){
-     dateViewsTabPanel = new DateViewsTabPanel(tabs);
-    return dateViewsTabPanel;
+  public GwtScheduler build(){
+//     dateViewsTabPanel = new DateViewsTabPanel(presenters);
+    gwtScheduler = new GwtScheduler(presenters);
+    gwtSchedulerWidget = new GwtSchedulerWidget();
+    gwtScheduler.bindDisplay(gwtSchedulerWidget);
+
+    return gwtScheduler;
   }
 
 }

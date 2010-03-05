@@ -8,7 +8,7 @@ import gwtscheduler.client.widgets.common.decorator.ColumnStrategyDecorationRend
 import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import gwtscheduler.client.widgets.common.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
-import gwtscheduler.client.widgets.view.columns.MultiColumnPresenter;
+import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
 import gwtscheduler.common.calendar.IntervalType;
 import org.goda.time.MutableDateTime;
@@ -34,7 +34,7 @@ public class Calendars {
     ColumnStrategyDecorationRenderer decorationRenderer  = new ColumnStrategyDecorationRenderer(decorator,columnTitleProvider);
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.DAY,getCurrentDate());
-    calendar = new MultiColumnPresenter(configuration,dateGenerator,decorationRenderer,eventBus);
+    calendar = new ColumnsViewPresenter(configuration,dateGenerator,decorationRenderer,eventBus);
     return this;
   }
 

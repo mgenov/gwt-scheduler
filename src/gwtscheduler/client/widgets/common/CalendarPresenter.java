@@ -28,12 +28,14 @@ public interface CalendarPresenter {
 
   public void setTabLabel(String tabLabel);
 
+  public Display getDisplay();
+
   /**
    * Gets the label for the view.
    *
    * @return the label
    */
-  String getTabLabel();
+  String getTitle();
 
   /**
    * Gets the navigation events listener.

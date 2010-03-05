@@ -22,7 +22,7 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
 
   @Inject
   private DateGenerator factory;
-  protected T display;
+  protected Display display;
 
   /**
    * Default constructor.
@@ -101,7 +101,7 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
     return new Interval(from, to);
   }
 
-  public T getDisplay() {
+  public Display getDisplay() {
     return display;
   }
 }

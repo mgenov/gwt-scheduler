@@ -38,7 +38,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     Resources.injectAllStylesheets();
 
     // let's test a registration
-    final AppInjector uiResources = AppInjector.GIN.getInjector();
+//    final AppInjector uiResources = AppInjector.GIN.getInjector();
 //    final UIManager registry = uiResources.getUIRegistry();
 
 //    DateViewsTabPanel main = uiResources.getMainPanel();
@@ -57,7 +57,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
-    DateViewsTabPanel main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
+    GwtScheduler main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
       @Override
       public String[] getColumns(int columnCount) {
         String[] names = new String[4];
@@ -103,7 +103,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 
     RootPanel.get("nav").add(nav);
-    RootPanel.get("main").add(main);
+    RootPanel.get("main").add(main.asWidget());
     main.selectTab(0);
 //    registry.fireDateNavigation(getCurrentDate());
    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
@@ -142,8 +142,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
   }
 
   public void onClick(ClickEvent event) {
-    AppInjector uiResources = AppInjector.GIN.getInjector();
-    UIManager registry = uiResources.getUIRegistry();
+//    AppInjector uiResources = AppInjector.GIN.getInjector();
+//    UIManager registry = uiResources.getUIRegistry();
 
     if (event.getSource() == back) {
 //      registry.fireBackNavigation();

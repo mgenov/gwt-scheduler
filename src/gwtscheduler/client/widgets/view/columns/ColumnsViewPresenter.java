@@ -22,7 +22,7 @@ import org.goda.time.ReadableDateTime;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
+public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private int rows;
 //  private AppConfiguration cfg;
 //  private MultipleElementsIntervalDecorator decorator;
@@ -34,7 +34,7 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
   private int columns;
   private String tabLabel;
 
-  public MultiColumnPresenter(AppConfiguration cfg, DateGenerator dateGenerator, DecorationRenderer decorationRenderer, EventBus eventBus) {
+  public ColumnsViewPresenter(AppConfiguration cfg, DateGenerator dateGenerator, DecorationRenderer decorationRenderer, EventBus eventBus) {
 //    this.cfg = cfg;
     this.dateGenerator = dateGenerator;
     this.decorationRenderer = decorationRenderer;
@@ -107,7 +107,12 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
-  public String getTabLabel() {
+  public Display getDisplay() {
+    return display; 
+  }
+
+  @Override
+  public String getTitle() {
     return tabLabel;
   }
 

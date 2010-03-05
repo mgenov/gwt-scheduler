@@ -106,7 +106,12 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
-  public String getTabLabel() {
+  public Display getDisplay() {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public String getTitle() {
     return null;
   }
 
