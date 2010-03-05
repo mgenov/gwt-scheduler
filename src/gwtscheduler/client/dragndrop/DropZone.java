@@ -7,6 +7,14 @@ package gwtscheduler.client.dragndrop;
  * public void addDropHandler(DropHandler handler){
  *   addHandler(handler, DropEvent.TYPE);
  * }
+ *
+ * public void addDragOverHandler(DragOverHandler handler) {
+ *   addHandler(handler, DragOverEvent.TYPE);
+ * }
+ *
+ * public void addDragOutHandler(DragOutHandler handler) {
+ *   addHandler(handler, DragOutEvent.TYPE);
+ * }
  * </pre>
  *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -20,14 +28,14 @@ public interface DropZone {
   void addDropHandler(DropHandler handler);
 
   /**
-   * Attaches drag overlap handler. This handler accept event fired when dragged widget enter to the dragged zone.
-   * @param handler drag overlap handler.
+   * Attaches drag over handler. This handler accept event fired when dragged widget enter to the dragged zone.
+   * @param handler drag over handler.
    */
   void addDragOverHandler(DragOverHandler handler);
 
   /**
-   * Attaches drag un overlap handler. This handler accept event fired when dragged widget exit from dragged zone.
-   * @param handler drag un overlap handler.
+   * Attaches drag out handler. This handler accept event fired when dragged widget exit from dragged zone.
+   * @param handler drag out handler.
    */
   void addDragOutHandler(DragOutHandler handler);
 

@@ -3,6 +3,7 @@ package gwtscheduler.client.teamexample;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
+import gwtscheduler.client.dragndrop.DragOutEvent;
 import gwtscheduler.client.dragndrop.DragOutHandler;
 import gwtscheduler.client.dragndrop.DragOverEvent;
 import gwtscheduler.client.dragndrop.DragOverHandler;
@@ -40,5 +41,6 @@ public class RaceView extends Composite implements Race.Display{
 
   @Override
   public void addDragOutHandler(DragOutHandler handler) {
+    addHandler(handler, DragOutEvent.TYPE);
   }
 }
