@@ -30,7 +30,7 @@ public class DragNDropExample implements EntryPoint {
 //    john.go(absolutePanel, 70, 90);
 //    jack.go(absolutePanel, 65, 120);
 //
-//    DraggerImpl dragger = new DraggerImpl(absolutePanel);
+//    DragZoneImpl dragger = new DragZoneImpl(absolutePanel);
 //    dragger.registerDraggable(dragNDropWidget1, dragNDropPresenter1);
 //    dragger.registerDraggable(dragNDropWidget2, dragNDropPresenter2);
 ////    dragger.registerDraggable(jackView, jack);

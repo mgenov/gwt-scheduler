@@ -3,7 +3,7 @@ package gwtscheduler.client.teamexample;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.dragndrop.Draggable;
-import gwtscheduler.client.dragndrop.Dragger;
+import gwtscheduler.client.dragndrop.DragZone;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -25,7 +25,7 @@ public class Car implements Draggable{
   }
 
   @Override
-  public void go(Dragger dragger, int left, int top) {
-    dragger.add((Widget) display, this, left, top);
+  public void go(DragZone dragZone, int left, int top) {
+    dragZone.add((Widget) display, this, left, top);
   }
 }

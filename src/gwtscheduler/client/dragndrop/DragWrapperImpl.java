@@ -4,6 +4,8 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -13,7 +15,12 @@ import com.google.gwt.user.client.ui.Widget;
  */
 class DragWrapperImpl extends Composite implements DragWrapper{
 
-  public void add(AbsolutePanel panel, final Widget widget, int left, int top) {
+  /**
+   * The widget that will be wrapped arround current panel
+   * @param widget the widget that will be wrapped
+   */
+  public DragWrapperImpl(final Widget widget) {
+
     initWidget(widget);
 
     if(widget instanceof DropZone){
@@ -38,10 +45,8 @@ class DragWrapperImpl extends Composite implements DragWrapper{
         }
       });
     }
+  }  
 
-    panel.add(this, left, top);
-  }
-  
   public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
     return addDomHandler(handler, MouseDownEvent.getType());
   }
@@ -67,5 +72,10 @@ class DragWrapperImpl extends Composite implements DragWrapper{
   @Override
   public void addDragOutHandler(DragOutHandler handler) {
     addHandler(handler, DragOutEvent.TYPE);
+  }
+
+  @Override
+  public void go(HasWidgets parent) {
+    parent.add(this);
   }
 }

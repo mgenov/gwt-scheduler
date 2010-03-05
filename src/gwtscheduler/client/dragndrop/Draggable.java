@@ -7,10 +7,10 @@ package gwtscheduler.client.dragndrop;
  */
 public interface Draggable {
   /**
-   * Send draggable to the dragger on given coordinates.
-   * @param dragger implementation of given dragger.
+   * Send draggable to the dragZone on given coordinates.
+   * @param dragZone implementation of given dragZone.
    * @param left coordinate from left.
    * @param top coordinate from top.
    */
-  void go(Dragger dragger, int left, int top);
+  void go(DragZone dragZone, int left, int top);
 }

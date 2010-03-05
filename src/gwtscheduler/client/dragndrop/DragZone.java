@@ -1,5 +1,9 @@
 package gwtscheduler.client.dragndrop;
 
+import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
+import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -16,7 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
  * draggingArea.setPixelSize(800, 800);
  * Draggable draggable = new DraggablePresenter(new DraggableWidget());
  *
- * Dragger dragger = new DraggerImpl(draggingArea);
+ * DragZone dragger = new DragZoneImpl(draggingArea);
  * draggable.go(dragger, 10, 10);
  *
  * RootPanel.get().add(draggingArea);
@@ -29,7 +33,52 @@ import com.google.gwt.user.client.ui.Widget;
  *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public interface Dragger {
+public interface DragZone {
+
+  public interface Display {
+
+    HasMouseMoveHandlers getFrameMouseMoveHandlers();
+
+    HasMouseUpHandlers getFrameMouseUpHandlers();
+
+    void setLeft(int left);
+
+    void setTop(int top);
+
+    int getOffsetWidth(MouseDownEvent event);
+
+    int getOffsetHeight(MouseDownEvent event);
+
+    void addFrameAtPosition(int left, int top);
+
+    void captureFrame();
+
+    void setFrameSize(int width, int height);
+
+    void storeDragWidget(MouseDownEvent event);
+
+    boolean isDragWidgetStored();    
+
+    DropZone getDropZone(int x, int y);
+
+    void fireDragOverEvent(int x, int y);
+
+    void fireDragOutEvent();
+
+    void releaseFrameCapture();
+
+    void removeFrameFromPanel();
+
+    void dropTo(int x, int y, Object targetObject);
+
+    void setFrameStyle(String styleName);
+
+    void attachWidgetToDragWrapper(Widget widget, int left, int top);
+
+    HasWidgets getContainer();
+
+    void setPosition(DragWrapperImpl wrapper, int left, int top);
+  }
 
   /**
    * Register widget to be draggable and object that will be dropped when dragging stops over a drop zone. Given widget
@@ -41,11 +90,19 @@ public interface Dragger {
    */
   void add(Widget widget, Object object, int left, int top);
 
+
+  void setLeft(int left);
+
+  void setTop(int top);
+
   /**
    * Set style name of the frame that is dragged instead of draggable widget.
    * Default is dragFrame
    * @param styleName style name.
    */
   void setFrameStyle(String styleName);
+
+  
+  void go(HasWidgets parent);
 
 }

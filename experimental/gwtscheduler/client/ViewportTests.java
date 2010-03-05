@@ -1,7 +1,7 @@
 package gwtscheduler.client;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import gwtscheduler.client.dragndrop.DraggerImpl;
+import gwtscheduler.client.dragndrop.DragZoneImpl;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
@@ -56,7 +56,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     AbsolutePanel absolutePanel = new AbsolutePanel();
 
-    DraggerImpl dragger = new DraggerImpl(absolutePanel);
+    DragZoneImpl dragger = new DragZoneImpl(absolutePanel);
 //    dragger.registerDraggable(ticketWidget, ticketPresenter);
 
     absolutePanel.add(ticketWidget);

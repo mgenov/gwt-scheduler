@@ -2,7 +2,7 @@ package gwtscheduler.client;
 
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.dragndrop.Dragger;
+import gwtscheduler.client.dragndrop.DragZone;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
@@ -37,7 +37,7 @@ public class DragNDropPresenter {
     display.getLabel().setText("Dropped: " + dropped + " accepted: " + accepted);
   }
 
-  public void go(Dragger controller, int left, int top) {
+  public void go(DragZone controller, int left, int top) {
     controller.add((Widget) display, this, left, top);
   }
 

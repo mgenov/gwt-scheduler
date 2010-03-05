@@ -2,9 +2,7 @@ package gwtscheduler.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.*;
-import gwtscheduler.client.DragNDropView;
-import gwtscheduler.client.DragNDropPresenter;
-import gwtscheduler.client.dragndrop.DraggerImpl;
+import gwtscheduler.client.dragndrop.DragZoneImpl;
 import gwtscheduler.client.teamexample.*;
 
 /**
@@ -21,7 +19,7 @@ public class DragNDrop implements EntryPoint {
 //    DragNDropView dragNDropWidget2 = new DragNDropView();
 //    DragNDropPresenter dragNDropPresenter2 = new DragNDropPresenter(dragNDropWidget2);
 //
-//    DraggerImpl dragger = new DraggerImpl(absolutePanel);
+//    DragZoneImpl dragger = new DragZoneImpl(absolutePanel);
 //    dragNDropPresenter1.go(dragger, 50, 50);
 //    dragNDropPresenter2.go(dragger, 50, 100);
 
@@ -45,8 +43,9 @@ public class DragNDrop implements EntryPoint {
     Truck truck3 = new Truck(new TruckView(), "Truck 3");
 
     Race race = new Race(new RaceView());
-
-    DraggerImpl dragger = new DraggerImpl(absolutePanel);
+    
+    DragZoneImpl dragger = new DragZoneImpl(null);
+    
     team1.go(dragger, 10, 10);
     team2.go(dragger, 10, 100);
     team3.go(dragger, 10, 190);
