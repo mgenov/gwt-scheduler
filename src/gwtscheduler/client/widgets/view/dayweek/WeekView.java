@@ -1,6 +1,10 @@
 package gwtscheduler.client.widgets.view.dayweek;
 
+import com.google.gwt.user.client.Element;
 import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.widgets.common.Cell;
+
+import java.util.List;
 
 /**
  * Inner class for days calendar.
@@ -33,5 +37,10 @@ public class WeekView extends AbstractDaysView {
     protected int getRows() {
       return AppInjector.GIN.getInjector().getConfiguration().rowsInDay();
     }
+  }
+
+  @Override
+  public List<Cell<Element>> getDecorableElements() {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 }

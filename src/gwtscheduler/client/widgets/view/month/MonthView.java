@@ -151,10 +151,10 @@ public class MonthView extends Composite implements LassoAwarePanel.LassoHandler
     monthPanel.showRows(rowNum);
   }
 
-  @Override
-  public HasMultipleDecorables<Element> getDecorables() {
-    return this;
-  }
+//  @Override
+//  public HasMultipleDecorables<Element> getDecorables() {
+//    return this;
+//  }
 
   @Override
   public int getHeight() {
@@ -176,4 +176,8 @@ public class MonthView extends Composite implements LassoAwarePanel.LassoHandler
     return monthPanel.getVisibleRowsSize();
   }
 
+  @Override
+  public List<Cell<Element>> getDecorableElements() {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  }
 }

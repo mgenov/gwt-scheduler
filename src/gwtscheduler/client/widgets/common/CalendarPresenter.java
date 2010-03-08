@@ -3,7 +3,9 @@ package gwtscheduler.client.widgets.common;
 import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.columns.ColumnPanel;
+import gwtscheduler.client.widgets.view.columns.CalendarColumnsFrameGrid;
+import gwtscheduler.client.widgets.view.columns.CalendarContent;
+import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 
@@ -20,13 +22,9 @@ import com.google.gwt.user.client.ui.Widget;
 public interface CalendarPresenter {
   public interface Display extends GenericCalendarDisplay, DropZone{
 
-    ColumnPanel.Display getMainPanel();
+    CalendarHeader.Display getCalendarHeaderDisplay();
 
-    void removeColumn(int calendarColumn);
-
-    void addColumn(String title);
-
-    WidgetResizeHandler getCalendarHeaderResizeHandler();
+    CalendarContent.Display getCalendarContentDisplay();
   }
 
   public void bindDisplay(Display display);

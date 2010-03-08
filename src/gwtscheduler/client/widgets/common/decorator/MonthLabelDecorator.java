@@ -33,8 +33,9 @@ public class MonthLabelDecorator implements MultipleElementsIntervalDecorator {
   }
 
   public void decorate(Interval interval,ColumnTitleProvider columnTitleProvider, HasMultipleDecorables<Element> decorable) {
-    decorateHorizontal(columnTitleProvider, decorable.getColumnsDecorableElements());
-    decorateDays(interval, decorable.getContentDecorableElements());
+    //TODO fix this nulls if use this class
+    decorateHorizontal(columnTitleProvider, null);
+    decorateDays(interval, null);
   }
 
 

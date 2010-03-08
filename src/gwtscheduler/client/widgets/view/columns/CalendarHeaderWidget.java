@@ -10,17 +10,19 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.common.Cell;
+import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarHeaderWidget extends Composite implements CalendarHeader.Display, WidgetResizeHandler {
+public class CalendarHeaderWidget extends Composite implements CalendarHeader.Display, WidgetResizeHandler, HasMultipleDecorables<Element> {
   /**
      * static ref to css
      */
@@ -42,7 +44,7 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
 
     initWidget(header);
   }
-  @Override
+  
   public void buildCalendarHeader(int columns){
     FlexTable g = new FlexTable();
     g.addStyleName(CSS.genericContainer());
@@ -66,10 +68,10 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
 
   public void removeCell(int columnIndex) {
     header.removeCell(0,columnIndex);
-    topLabels.remove(columnIndex);
+    topLabels.remove(columnIndex-1);
   }
 
-  public void addColumn(String title) {
+  public void addCell(String title) {
     Cell<Element> topCell = new BaseCell(0, topLabels.size());
     //only top row is for labels
     topLabels.add(topCell);
@@ -77,6 +79,16 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
     header.setWidget(0, topLabels.size(), DOMUtils.wrapElement(topCell.getCellElement()));
     header.getFlexCellFormatter().setHorizontalAlignment(0, topLabels.size(), HasHorizontalAlignment.ALIGN_CENTER);
     columns++;
+  }
+
+  @Override
+  public WidgetResizeHandler getCalendarHeaderResizeHandler() {
+    return this;  
+  }
+
+  @Override
+  public HasMultipleDecorables getDecorables() {
+    return this;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
   public List<Cell<Element>> getTopLabels() {
@@ -131,5 +143,10 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
   int getCellWidth(int parentWidth) {
     int availW = ((parentWidth - getTitleColumnOffsetWidth()) / columns);
     return availW;
+  }
+
+  @Override
+  public List<Cell<Element>> getDecorableElements() {
+    return Collections.unmodifiableList(topLabels); 
   }
 }
