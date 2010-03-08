@@ -3,8 +3,7 @@ package gwtscheduler.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.*;
 import gwtscheduler.client.dragndrop.DragZone;
-import gwtscheduler.client.dragndrop.DragZoneImpl;
-import gwtscheduler.client.dragndrop.DragZoneView;
+import gwtscheduler.client.dragndrop.Zones;
 import gwtscheduler.client.teamexample.*;
 
 /**
@@ -29,8 +28,7 @@ public class DragNDrop implements EntryPoint {
 
     Race race = new Race(new RaceView());
 
-    DragZone dragger = new DragZoneImpl(new DragZoneView());
-    dragger.setSize(800, 800);
+    DragZone dragger = Zones.getDragZone(800, 800);
 
     team1.go(dragger);
     team2.go(dragger);
