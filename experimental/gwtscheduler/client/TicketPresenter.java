@@ -1,5 +1,8 @@
 package gwtscheduler.client;
 
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import gwtscheduler.client.dragndrop.DragZone;
+
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
@@ -21,5 +24,9 @@ public class TicketPresenter {
 
   public int getDuration(){
     return 4;
+  }
+
+  public void dragWith(DragZone dragZone) {
+    dragZone.add((HasMouseDownHandlers)display, this);
   }
 }

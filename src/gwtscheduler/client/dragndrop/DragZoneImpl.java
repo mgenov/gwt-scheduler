@@ -1,5 +1,6 @@
 package gwtscheduler.client.dragndrop;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
@@ -113,6 +114,10 @@ class DragZoneImpl implements DragZone {
     display.releaseFrameCapture();
     display.removeFrameFromPanel();
 
+    if(dropZones.size() == 0){
+      GWT.log("No registered drop zones!", null);
+    }
+
     // user has released object when it's position was over a drop zone
     DropZone dropZone = display.getDropZone(dropZones, event.getClientX(), event.getClientY());
 
@@ -144,6 +149,11 @@ class DragZoneImpl implements DragZone {
     display.addWidget(widget, left, top);
   }
 
+  @Override
+  public void addWidget(Widget widget) {
+    display.addWidget(widget);
+  }
+
   /**
    * Add new root who contains drop zones. This roots will be searched to find drop zones.
    * @param root widget who implements HasWidgets.
@@ -160,6 +170,11 @@ class DragZoneImpl implements DragZone {
    */
   @Override
   public void setSize(int width, int height) {
+    display.setSize(width, height);
+  }
+
+  @Override
+  public void setSize(String width, String height) {
     display.setSize(width, height);
   }
 

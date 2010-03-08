@@ -29,7 +29,8 @@ public class DragNDrop implements EntryPoint {
     /**
      * Create drag zone with size 800x800 px.
      */
-    DragZone dragger = Zones.getDragZone(800, 800);
+    DragZone dragger = Zones.getDragZone();
+    dragger.setSize(800, 800);
 
     // make teams draggable. Team widgets implements DropZone interface. Presenter only attach DropHandler to the widget.
     team1.go(dragger);

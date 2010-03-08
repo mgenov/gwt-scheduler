@@ -83,6 +83,10 @@ public interface DragZone {
     HasMouseDownHandlers getDragWidget();
 
     void fireDragOverEvent(DropZone dropZone, int mouseX, int mouseY);
+
+    void setSize(String width, String height);
+
+    void addWidget(Widget widget);
   }
 
   /**
@@ -100,6 +104,8 @@ public interface DragZone {
    * @param top
    */
   void addWidget(Widget widget, int left, int top);
+
+  void addWidget(Widget widget);
 
    /**
     * Default is dragFrame
@@ -119,6 +125,13 @@ public interface DragZone {
    * @param height in pixels.
    */
   void setSize(int width, int height);
+
+  /**
+   * Set size for a drop zone.
+   * @param width
+   * @param height
+   */
+  void setSize(String width, String height);
 
   /**
    * Attach DragZone view to the parent widget.

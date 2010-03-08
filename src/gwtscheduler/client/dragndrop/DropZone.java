@@ -6,8 +6,8 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * Widgets that implements this interface will be drop zones and only this widgets will accept objects that is dropped.
  * After implementing this interface you can use this code to attach drop handlers to the widget.
  * <pre>
- * public void addDropHandler(DropHandler handler){
- *   addHandler(handler, DropEvent.TYPE);
+ * public HandlerRegistration addDropHandler(DropHandler handler){
+ *   return addHandler(handler, DropEvent.TYPE);
  * }
  * </pre>
  *

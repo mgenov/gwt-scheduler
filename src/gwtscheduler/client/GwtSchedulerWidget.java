@@ -2,9 +2,15 @@ package gwtscheduler.client;
 
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.dragndrop.DragInHandler;
+import gwtscheduler.client.dragndrop.DragOutHandler;
+import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.dragndrop.DropHandler;
+import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
@@ -48,4 +54,19 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
   public void addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler) {
     impl.addBeforeSelectionHandler(handler);
   }
+
+//  @Override
+//  public HandlerRegistration addDropHandler(DropHandler handler) {
+//    return addHandler(handler, DropEvent.TYPE);
+//  }
+//
+//  @Override
+//  public HandlerRegistration addDragOverHandler(DragInHandler handler) {
+//    return null;
+//  }
+//
+//  @Override
+//  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
+//    return null;
+//  }
 }

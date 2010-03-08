@@ -12,6 +12,11 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.dragndrop.DragInHandler;
+import gwtscheduler.client.dragndrop.DragOutHandler;
+import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.dragndrop.DropHandler;
+import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -253,4 +258,18 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
 
+  @Override
+  public HandlerRegistration addDropHandler(DropHandler handler) {
+    return addHandler(handler, DropEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addDragOverHandler(DragInHandler handler) {
+    return null;
+  }
+
+  @Override
+  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
+    return null;
+  }
 }

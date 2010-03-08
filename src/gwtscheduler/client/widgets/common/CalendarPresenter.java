@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.common;
 
+import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.ColumnPanel;
@@ -17,7 +18,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author malp
  */
 public interface CalendarPresenter {
-  public interface Display extends GenericCalendarDisplay{
+  public interface Display extends GenericCalendarDisplay, DropZone{
 
     ColumnPanel.Display getMainPanel();
 

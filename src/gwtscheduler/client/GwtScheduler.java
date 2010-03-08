@@ -1,8 +1,12 @@
 package gwtscheduler.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.dragndrop.DropHandler;
+import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
@@ -45,6 +49,13 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     for (CalendarPresenter presenter : presenters) {
       add(presenter);
     }
+
+//    display.addDropHandler(new DropHandler(){
+//      @Override
+//      public void onDrop(DropEvent event) {
+//        GWT.log("Dropped", null);
+//      }
+//    });
 
   }
 

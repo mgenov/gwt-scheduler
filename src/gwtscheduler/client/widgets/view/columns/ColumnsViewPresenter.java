@@ -1,6 +1,9 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
@@ -101,6 +104,13 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 //        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
 //        Interval interval = new Interval(date,date);
 //        decorationRenderer.decorateHorizontalTitlesLine(interval,display.getDecorables());
+      }
+    });
+
+    display.addDropHandler(new DropHandler(){
+      @Override
+      public void onDrop(DropEvent event) {
+        GWT.log("Dropped", null);
       }
     });
   }

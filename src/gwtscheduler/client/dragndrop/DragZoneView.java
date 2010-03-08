@@ -90,7 +90,7 @@ class DragZoneView extends Composite implements DragZone.Display {
     }
     return dropZone;
   }
-                                         // TODO first check coordinates and after that check if there is more widgets!
+  // todo: what we do when drop zone has another drop zone inside. and what happen if nested drop zone is the zone when widget is dropped?
   private DropZone getDropZone(HasWidgets root, int x, int y){
     DropZone dropZone = null;
     for(Widget widget : root){
@@ -164,6 +164,17 @@ class DragZoneView extends Composite implements DragZone.Display {
   @Override
   public void setSize(int width, int height) {
     absolutePanel.setPixelSize(width, height);
+  }
+
+  @Override
+  public void setSize(String width, String height){
+    absolutePanel.setWidth(width);
+    absolutePanel.setHeight(height);
+  }
+
+  @Override
+  public void addWidget(Widget widget) {
+    absolutePanel.add(widget);
   }
 
   @Override
