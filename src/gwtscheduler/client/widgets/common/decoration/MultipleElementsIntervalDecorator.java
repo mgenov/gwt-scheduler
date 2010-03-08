@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.common.decoration;
 
+import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import org.goda.time.Interval;
 
 import com.google.gwt.user.client.Element;
@@ -7,7 +8,6 @@ import com.google.gwt.user.client.Element;
 /**
  * Defines a generic decorator.
  * @author malp
- * @param <T> the decorable
  */
 //FIXME: Gin doesn't like generic interfaces...
 public interface MultipleElementsIntervalDecorator/* <T extends Element> */{
@@ -17,5 +17,9 @@ public interface MultipleElementsIntervalDecorator/* <T extends Element> */{
    * @param interval the time interval
    * @param decorable the decorable
    */
-  void decorate(Interval interval, HasMultipleDecorables<Element> decorable);
+  void decorate(Interval interval, ColumnTitleProvider titleProvider, HasMultipleDecorables<Element> decorable);
+
+
+
+  
 }

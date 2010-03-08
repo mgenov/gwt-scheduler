@@ -1,15 +1,16 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
+import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.widgets.common.decorator.DaysTitleProvider;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
-import net.customware.gwt.presenter.client.EventBus;
 
 import org.goda.time.Duration;
 import org.goda.time.Instant;
@@ -35,18 +36,40 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Inject
   @Week
   protected MultipleElementsIntervalDecorator decorator;
-  private AbstractDaysView view;
+  private DaysTitleProvider columnTitleProvider;
+  private int columns;
+  private String tabLabel;
 
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
   @Inject
-  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView view, EventBus bus) {
-    super(view, bus);
-    this.view = view;
+  protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView display, DaysTitleProvider columnTitleProvider, EventBus bus) {
+    super(bus);
+    this.display = display;
+    this.columnTitleProvider = columnTitleProvider;
     rows = cfg.rowsInDay();
     getDisplay().initLasso(new VerticalLassoStrategy(false), this);
+  }
+
+  @Override
+  public AbstractDaysView getDisplay() {
+    return display;
+  }
+
+  @Override
+  public void bindDisplay(Display display) {
+  }
+
+  @Override
+  public void setColNum(int columns) {
+    this.columns = columns;
+  }
+  //TODO: must be used in the builder to set the tab label
+  @Override
+  public void setTabLabel(String tabLabel) {
+    this.tabLabel = tabLabel;
   }
 
   public String getTabLabel() {
@@ -66,13 +89,15 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   public Interval onNavigateNext() {
     Interval tp = getFactory().next().interval();
-    decorator.decorate(tp, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(tp);
+    decorator.decorate(tp, columnTitleProvider, getDisplay().getDecorables());
     return tp;
   }
 
   public Interval onNavigatePrevious() {
     Interval period = getFactory().previous().interval();
-    decorator.decorate(period, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(period);
+    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 
@@ -88,7 +113,8 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
       getFactory().init(IntervalType.WEEK, copy);
     }
     Interval period = getFactory().interval();
-    decorator.decorate(period, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(period);
+    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 
@@ -99,11 +125,6 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
     MutableDateTime time = curr.getStart().toMutableDateTime();
     time.addMinutes(minutesPerCell * distance);
     return time.toInstant();
-  }
-
-  @Override
-  public void onDropEvent(DropEvent event) {
-    view.onDropEvent(event, this);
   }
 
   @Override

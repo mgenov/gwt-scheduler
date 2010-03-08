@@ -4,7 +4,6 @@ import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.common.navigation.DateViewsTabPanel;
-import net.customware.gwt.presenter.client.EventBus;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.inject.client.GinModules;

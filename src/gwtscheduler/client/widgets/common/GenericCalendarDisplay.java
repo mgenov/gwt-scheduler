@@ -4,15 +4,13 @@ import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 
 import java.util.List;
 
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
-
 import com.google.gwt.user.client.Element;
 
 /**
  * Defines a generic view for displaying a calendar.
  * @author malp
  */
-public interface GenericCalendarDisplay extends WidgetDisplay, ComplexGrid {
+public interface GenericCalendarDisplay extends ComplexGrid {
 
   /**
    * Forces the layout.

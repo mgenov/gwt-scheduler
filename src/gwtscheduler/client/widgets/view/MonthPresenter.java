@@ -1,16 +1,16 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.Month;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.HorizontalLassoStrategy;
+import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.widgets.common.decorator.MonthTitleProvider;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.month.MonthDisplay;
 import gwtscheduler.common.calendar.IntervalType;
-import net.customware.gwt.presenter.client.EventBus;
-
 import org.goda.time.Days;
 import org.goda.time.Duration;
 import org.goda.time.Instant;
@@ -37,14 +37,18 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
   @Inject
   @Month
   private MultipleElementsIntervalDecorator decorator;
+  private MonthDisplay display;
+  private MonthTitleProvider columnTitleProvider;
 
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
   @Inject
-  public MonthPresenter(AppConfiguration cfg, @Month MonthDisplay display, EventBus bus) {
-    super(display, bus);
+  public MonthPresenter(AppConfiguration cfg, @Month MonthDisplay display, MonthTitleProvider columnTitleProvider, EventBus bus) {
+    super(bus);
+    this.display = display;
+    this.columnTitleProvider = columnTitleProvider;
     WeekSize = cfg.daysInWeek();
     getDisplay().initLasso(new HorizontalLassoStrategy(), this);
   }
@@ -53,17 +57,38 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     return "Month";
   }
 
+  @Override
+  public void bindDisplay(Display display) {
+  }
+
+  @Override
+  public void setColNum(int columns) {
+
+  }
+
+  @Override
+  public void setTabLabel(String tabLabel) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public MonthDisplay getDisplay() {
+    return display;
+  }
+
   public Interval onNavigateNext() {
     Interval next = getFactory().next().interval();
     adjustVisibleRows(next);
-    decorator.decorate(next, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(next);
+    decorator.decorate(next,columnTitleProvider, getDisplay().getDecorables());
     return next;
   }
 
   public Interval onNavigatePrevious() {
     Interval prev = getFactory().previous().interval();
     adjustVisibleRows(prev);
-    decorator.decorate(prev, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(prev);
+    decorator.decorate(prev,columnTitleProvider, getDisplay().getDecorables());
     return prev;
   }
 
@@ -73,7 +98,9 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     }
     Interval intv = getFactory().interval();
     adjustVisibleRows(intv);
-    decorator.decorate(intv, getDisplay().getDecorables());
+    Interval interval = new Interval(intv.getStart(),new Period(0, 0, 0, WeekSize, 0, 0, 0, 0));
+    columnTitleProvider.setInterval(interval);
+    decorator.decorate(intv,columnTitleProvider, getDisplay().getDecorables());
     return intv;
   }
 
@@ -113,10 +140,6 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     MutableDateTime time = curr.getStart().toMutableDateTime();
     time.addDays(distance);
     return time.toInstant();
-  }
-
-  @Override
-  public void onDropEvent(DropEvent event) {
   }
 
   @Override

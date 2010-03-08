@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.common;
 import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX;
 import static gwtscheduler.client.utils.Constants.LASSO_ZINDEX_SELECTING;
 import gwtscheduler.client.modules.AppInjector;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.LassoStrategy;
@@ -18,8 +19,6 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.factory.LassoElementFactory;
 
 import java.util.List;
-
-import net.customware.gwt.presenter.client.EventBus;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;

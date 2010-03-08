@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.event.AbstractLassoEvent;
 import gwtscheduler.client.widgets.common.event.AppointmentEvent;
@@ -10,7 +11,6 @@ import gwtscheduler.client.widgets.common.event.LassoStartSelectionEvent;
 import gwtscheduler.client.widgets.common.event.LassoUpdateSelectionEvent;
 import gwtscheduler.common.model.event.AbstractAppointment;
 import gwtscheduler.common.model.event.simple.SimpleAppointment;
-import net.customware.gwt.presenter.client.EventBus;
 
 import org.goda.time.Interval;
 

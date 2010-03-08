@@ -1,8 +1,5 @@
 package gwtscheduler.client.widgets.view.dayweek;
 
-import com.google.gwt.user.client.ui.Label;
-import gwtscheduler.client.TicketPresenter;
-import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -85,6 +82,7 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
    */
   @UiFactory
   public FlexTable buildHeader() {
+//    return new FlexTable();
     int columns = getColumnsSize();
 
     FlexTable g = new FlexTable();
@@ -106,6 +104,10 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
     }
 
     return g;
+  }
+
+  public void renderHeader(int columnSize) {
+
   }
 
   /**
@@ -204,31 +206,4 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
     return getContentDecorableElements();
   }
 
-  @Override
-  public Widget asWidget() {
-    return this;
-  }
-
-  @Override
-  public void startProcessing() {
-  }
-
-  @Override
-  public void stopProcessing() {
-  }
-
-  // TODO: I BROKE HERE :D
-  public void onDropEvent(DropEvent event, ComplexGrid grid){
-    TicketPresenter presenter = (TicketPresenter)event.getDroppedObject();
-    Widget w = event.getSourceWidget();
-
-//    eventsPanel.setComplexGrid(grid);
-                                       
-    int[] eventPosition = eventsPanel.calculateCellPosition(event);
-    int h = eventPosition[2];
-    int we = eventPosition[3];
-    w.setPixelSize(h, we * presenter.getDuration());
-    w.getElement().getStyle().setZIndex(20);
-    eventsPanel.add(w, eventPosition[0], eventPosition[1]);
-  }
 }

@@ -152,19 +152,6 @@ public class MonthView extends Composite implements LassoAwarePanel.LassoHandler
   }
 
   @Override
-  public Widget asWidget() {
-    return this;
-  }
-
-  @Override
-  public void startProcessing() {
-  }
-
-  @Override
-  public void stopProcessing() {
-  }
-
-  @Override
   public HasMultipleDecorables<Element> getDecorables() {
     return this;
   }

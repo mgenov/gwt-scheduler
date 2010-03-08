@@ -1,14 +1,15 @@
 package gwtscheduler.client.widgets.view;
 
-import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
+import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
+import gwtscheduler.client.widgets.common.decorator.DaysTitleProvider;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
-import net.customware.gwt.presenter.client.EventBus;
 
 import org.goda.time.Duration;
 import org.goda.time.Instant;
@@ -34,18 +35,36 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Day
   @Inject
   protected MultipleElementsIntervalDecorator decorator;
-  private AbstractDaysView view;
+  private DaysTitleProvider columnTitleProvider;
 
   /**
    * Default constructor.
    * @param cfg the application configuration
    */
   @Inject
-  protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view, EventBus bus) {
-    super(view, bus);
-    this.view = view;
+  protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view, DaysTitleProvider columnTitleProvider, EventBus bus) {
+    super(bus);
+    this.display = view;
+    this.columnTitleProvider = columnTitleProvider;
     rows = cfg.rowsInDay();
     getDisplay().initLasso(new VerticalLassoStrategy(false), this);
+  }
+
+  @Override
+  public AbstractDaysView getDisplay() {
+    return display;  
+  }
+
+  @Override
+  public void bindDisplay(Display display) {
+  }
+
+  @Override
+  public void setColNum(int columns) {
+  }
+
+  @Override
+  public void setTabLabel(String tabLabel) {
   }
 
   public String getTabLabel() {
@@ -64,13 +83,15 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   public Interval onNavigateNext() {
     Interval tp = getFactory().next().interval();
-    decorator.decorate(tp, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(tp);
+    decorator.decorate(tp, columnTitleProvider, getDisplay().getDecorables());
     return tp;
   }
 
   public Interval onNavigatePrevious() {
     Interval period = getFactory().previous().interval();
-    decorator.decorate(period, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(period);
+    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 
@@ -79,7 +100,8 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
       getFactory().init(IntervalType.DAY, date);
     }
     Interval period = getFactory().interval();
-    decorator.decorate(period, getDisplay().getDecorables());
+    columnTitleProvider.setInterval(period);
+    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 
@@ -90,31 +112,6 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
     MutableDateTime time = curr.getStart().toMutableDateTime();
     time.add(getDurationPerCells(distance));
     return time.toInstant();
-  }
-
-  @Override
-  public void onDropEvent(DropEvent event) {
-//    int x = event.getEndX();
-//    int y = event.getMouseY();
-//
-//    int colPos = (x / (this.getWidth() / this.getColNum()));
-//    int rowPos = (y / (this.getHeight() / this.getRowNum()));
-//
-//    int rowH = Math.round((float) this.getHeight() / this.getRowNum());
-//    int colW = Math.round((float) this.getWidth() / this.getColNum());
-//    int[] position = new int[] {colPos * colW, rowPos * rowH};
-//
-//    TicketPresenter presenter = (TicketPresenter)event.getDroppedObject();
-//    Widget w = event.getSourceWidget();
-//
-////    eventsPanel.setComplexGrid(grid);
-//
-//    int h = eventPosition[2];
-//    int we = eventPosition[3];
-//    w.setPixelSize(h, we * presenter.getDuration());
-//    w.getElement().getStyle().setZIndex(20);
-//    eventsPanel.add(w, eventPosition[0], eventPosition[1]);
-//    view.onDropEvent(event, this);
   }
 
   @Override
