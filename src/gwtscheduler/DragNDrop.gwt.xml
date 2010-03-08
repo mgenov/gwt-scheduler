@@ -5,6 +5,7 @@
     <inherits name='com.google.gwt.user.User'/>
     <inherits name="org.goda.Goda"/>
     <inherits name="gwtscheduler.Common"/>
+    <inherits name="com.google.gwt.junit.JUnit"/>
 
     <entry-point class='gwtscheduler.client.DragNDrop'/>
 
