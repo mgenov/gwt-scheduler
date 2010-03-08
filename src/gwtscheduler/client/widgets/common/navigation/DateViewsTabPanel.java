@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.common.navigation;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.HandlerRegistration;
 import gwtscheduler.client.dragndrop.DragOutHandler;
 import gwtscheduler.client.dragndrop.DragInEvent;
 import gwtscheduler.client.dragndrop.DragInHandler;
@@ -115,16 +116,17 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
   }
 
   @Override
-  public void addDropHandler(DropHandler handler) {
-    addHandler(handler, DropEvent.TYPE);
+  public HandlerRegistration addDropHandler(DropHandler handler) {
+    return addHandler(handler, DropEvent.TYPE);
   }
 
   @Override
-  public void addDragOverHandler(DragInHandler handler) {
-    addHandler(handler, DragInEvent.TYPE);
+  public HandlerRegistration addDragOverHandler(DragInHandler handler) {
+    return addHandler(handler, DragInEvent.TYPE);
   }
 
   @Override
-  public void addDragOutHandler(DragOutHandler handler) {
+  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
+    return null;
   }
 }

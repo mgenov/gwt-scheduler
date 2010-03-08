@@ -1,7 +1,6 @@
 package gwtscheduler.client;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import gwtscheduler.client.dragndrop.DragZoneImpl;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
