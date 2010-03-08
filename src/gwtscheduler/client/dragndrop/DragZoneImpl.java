@@ -20,7 +20,6 @@ import java.util.HashMap;
 public class DragZoneImpl implements DragZone {
 
   private final Display display;
-  private final HandlerManager eventBus;
   private DropZone dropZone = null;
 
   private HashMap<HasMouseDownHandlers, Object> draggingRegister = new HashMap<HasMouseDownHandlers, Object>();
@@ -31,9 +30,8 @@ public class DragZoneImpl implements DragZone {
    *
    * @param display target display
    */
-  public DragZoneImpl(Display display, HandlerManager eventBus) {
+  public DragZoneImpl(Display display) {
     this.display = display;
-    this.eventBus = eventBus;
 
     display.getFrameMouseMoveHandlers().addMouseMoveHandler(new MouseMoveHandler() {
       @Override
@@ -94,24 +92,21 @@ public class DragZoneImpl implements DragZone {
 
     DropZone dropZone = display.getDropZone(dropZones, mouseX, mouseY);
 
-
     if(dropZone != null && this.dropZone == null){
 
       this.dropZone = dropZone;
-      // TODO: Fix me. Don't fire event on widget level.
-      display.fireDragOverEvent(mouseX, mouseY); // TODO: Rename DragOverEvent to DragInEvent. DragOverEvent need to be fired all time when dragging over drag zone
+
+      display.fireDragOverEvent(dropZone, mouseX, mouseY); // TODO: Rename DragOverEvent to DragInEvent. DragOverEvent need to be fired all time when dragging over drag zone
 
     } else if(dropZone == null && this.dropZone != null){
 
-      display.fireDragOutEvent();
+      display.fireDragOutEvent(dropZone);
     }
 
     display.addFrameAtPosition(mouseX - 10, mouseY - 10); // TODO: make correction when dragging
   }
 
-  // TODO:
   private void mouseUp(MouseUpEvent event){
-
     display.releaseFrameCapture();
     display.removeFrameFromPanel();
 
@@ -120,8 +115,7 @@ public class DragZoneImpl implements DragZone {
 
     // we have to fire drop event to indicate that object has been dropeed in the drop zone
     if(dropZone != null){
-        //TODO: Fix me
-//      display.dropTo(event.getClientX(), event.getClientY(), draggingRegister.get(dragWidget));
+      display.dropTo(dropZone, event.getClientX(), event.getClientY(), draggingRegister.get(display.getDragWidget()));
     }
   }
 
@@ -130,13 +124,16 @@ public class DragZoneImpl implements DragZone {
    * removed from parent.
    * @param widget this widget that will be dragged.
    * @param o object who will be dropped over drop zone.
-   * @param left position on drag zone from left .
-   * @param top position on drag zone from top.
    */
   @Override
-  public void add(HasMouseDownHandlers widget, Object o, int left, int top) {
+  public void add(HasMouseDownHandlers widget, Object o) {
     draggingRegister.put(widget, o);
     registerDraggable(widget);
+  }
+
+  @Override
+  public void addWidget(Widget widget, int left, int top) {
+    display.addWidget(widget, left, top);
   }
 
   @Override

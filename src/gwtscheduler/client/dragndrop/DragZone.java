@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 
@@ -63,21 +64,25 @@ public interface DragZone {
 
     DropZone getDropZone(ArrayList<HasWidgets> roots, int x, int y);
 
-    void fireDragOverEvent(int x, int y);
+    void fireDragOverEvent(DropZone dropZone, int x, int y);
 
-    void fireDragOutEvent();
+    void fireDragOutEvent(DropZone dropZone);
 
     void releaseFrameCapture();
 
     void removeFrameFromPanel();
 
-    void dropTo(int x, int y, Object targetObject);
+    void dropTo(DropZone dropZone, int x, int y, Object targetObject);
 
     void setFrameStyle(String styleName);
 
     HasWidgets getContainer();
 
     void setSize(int width, int height);
+
+    void addWidget(Widget widget, int left, int top);
+
+    HasMouseDownHandlers getDragWidget();
   }
 
   /**
@@ -85,26 +90,24 @@ public interface DragZone {
    * will be placed over dragging area in given left and top coordinates.
    * @param widget this widget that will be dragged.
    * @param object this object will be dropped when drag stops over drop zone.
-   * @param left coordinate from left .
-   * @param top coordinate from top.
    */
-  void add(HasMouseDownHandlers widget, Object object, int left, int top);
+  void add(HasMouseDownHandlers widget, Object object);
+
+  void addWidget(Widget widget, int left, int top);
+
+   /**
+    * Default is dragFrame
+    * @param styleName style name.
+    */
+  void setFrameStyle(String styleName);
 
   void registerDropZoneRoot(HasWidgets root);
 
   void setLeft(int left);
-
+  
   void setTop(int top);
 
   void setSize(int width, int height);
-
-  /**
-   * Set style name of the frame that is dragged instead of draggable widget.
-   * Default is dragFrame
-   * @param styleName style name.
-   */
-  void setFrameStyle(String styleName);
-
   
   void go(HasWidgets parent);
 

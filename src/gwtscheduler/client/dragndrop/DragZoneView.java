@@ -21,7 +21,6 @@ public class DragZoneView extends Composite implements DragZone.Display {
   private AbsolutePanel absolutePanel = new AbsolutePanel();
   private Label frame = new Label();
   private Widget dragWidget;
-  private Widget dropZone;
 
   public DragZoneView() {
     initWidget(absolutePanel);
@@ -112,35 +111,36 @@ public class DragZoneView extends Composite implements DragZone.Display {
 //    }
     return dropZone;
   }
-
+                                         // TODO first check coordinates and after that check if there is more widgets!
   private DropZone getDropZone(HasWidgets root, int x, int y){
     DropZone dropZone = null;
     for(Widget widget : root){
+
+      if (widget instanceof DropZone && checkPosition(x, y, widget)) {
+        return (DropZone) widget;
+      }
+
       if(widget instanceof HasWidgets){
         dropZone = getDropZone((HasWidgets)widget, x, y);
         if(dropZone != null){
           return dropZone;
         }
       }
-
-      if (checkPosition(x, y, widget)) {
-        return (DropZone) widget;
-      }
+      
     }
     return dropZone;
   }
 
   @Override
-  public void fireDragOverEvent(int x, int y) {
+  public void fireDragOverEvent(DropZone dropZone, int x, int y) {
     DragOverEvent dragOver = new DragOverEvent(frame, x, y);
-    dragOver.fire(dropZone);
+    dragOver.fire((Widget)dropZone);
   }
 
   @Override
-  public void fireDragOutEvent() {
+  public void fireDragOutEvent(DropZone dropZone) {
     DragOutEvent dragOut = new DragOutEvent(frame);
-    this.dropZone.fireEvent(dragOut);
-    this.dropZone = null;
+    dragOut.fire((Widget)dropZone);
   }
 
   @Override
@@ -153,14 +153,12 @@ public class DragZoneView extends Composite implements DragZone.Display {
     absolutePanel.remove(frame);
   }
 
-  @Override   // TODO: remove when Fixing
-  public void dropTo(int x, int y, Object targetObject) {
-     DropEvent dropEvent = new DropEvent(dragWidget, targetObject);
-    // here can be implemented logic that add more data in the event.
-    // data like coordinates on draggable widget, parent of draggable widget and stuff like that.
+  @Override
+  public void dropTo(DropZone dropZone, int x, int y, Object targetObject) {
+    DropEvent dropEvent = new DropEvent(dragWidget, targetObject);
     dropEvent.setMouseX(x);
     dropEvent.setMouseY(y);
-    dropEvent.fire(dropZone);
+    dropEvent.fire((Widget)dropZone);
   }
 
   @Override
@@ -176,6 +174,16 @@ public class DragZoneView extends Composite implements DragZone.Display {
   @Override
   public void setSize(int width, int height) {
     absolutePanel.setPixelSize(width, height);
+  }
+
+  @Override
+  public void addWidget(Widget widget, int left, int top) {
+    absolutePanel.add(widget, left, top);
+  }
+
+  @Override
+  public HasMouseDownHandlers getDragWidget() {
+    return (HasMouseDownHandlers)dragWidget;
   }
 
   /**

@@ -2,6 +2,7 @@ package gwtscheduler.client.teamexample;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.dragndrop.Draggable;
 import gwtscheduler.client.dragndrop.DragZone;
@@ -18,7 +19,9 @@ import java.util.List;
 public class Team implements Draggable{
   public interface Display extends DropZone {
     HasText getTeamName();
+
     void addCarName(String carName);
+
     void addTrackName(String carName);
   }
 
@@ -26,8 +29,9 @@ public class Team implements Draggable{
   private List<Car> cars = new ArrayList<Car>();
   private List<Truck> trucks = new ArrayList<Truck>();
 
-  public Team(Display display) {
+  public Team(Display display, String teamName) {
     this.display = display;
+    display.getTeamName().setText(teamName);
 
     display.addDropHandler(new DropHandler(){
       @Override
@@ -73,7 +77,11 @@ public class Team implements Draggable{
   }
 
   @Override
-  public void go(DragZone dragZone, int left, int top) {
-    dragZone.add((HasMouseDownHandlers)display, this, left, top);
+  public void go(DragZone dragZone) {
+    dragZone.add((HasMouseDownHandlers)display, this);
+  }
+
+  public void go(HasWidgets widget){
+    widget.add((Widget)display);
   }
 }

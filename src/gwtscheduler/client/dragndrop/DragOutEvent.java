@@ -38,4 +38,5 @@ public class DragOutEvent extends GwtEvent<DragOutHandler>{
   public void setFrame(Widget frame) {
     this.frame = frame;
   }
+
 }

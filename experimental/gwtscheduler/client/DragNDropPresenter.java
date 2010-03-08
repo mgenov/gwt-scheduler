@@ -38,8 +38,8 @@ public class DragNDropPresenter {
     display.getLabel().setText("Dropped: " + dropped + " accepted: " + accepted);
   }
 
-  public void go(DragZone controller, int left, int top) {
-    controller.add((HasMouseDownHandlers) display, this, left, top);
+  public void go(DragZone controller) {
+    controller.add((HasMouseDownHandlers) display, this);
   }
 
 }
