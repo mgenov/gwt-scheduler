@@ -10,6 +10,7 @@ import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import gwtscheduler.client.widgets.common.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
+import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
 import gwtscheduler.common.calendar.IntervalType;
@@ -50,7 +51,8 @@ public class Calendars {
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.DAY,getCurrentDate());
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
-    calendar = new ColumnsViewPresenter(columnsProvider.getColumns(),dateGenerator,titlesRenderer,eventBus);
+    CalendarHeader calendarHeader = new CalendarHeader();
+    calendar = new ColumnsViewPresenter(columnsProvider.getColumns(),dateGenerator,titlesRenderer,calendarHeader,eventBus);
     return this;
   }
 

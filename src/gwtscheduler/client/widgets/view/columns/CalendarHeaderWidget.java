@@ -42,7 +42,7 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
 
     initWidget(header);
   }
-  @Override
+  
   public void buildCalendarHeader(int columns){
     FlexTable g = new FlexTable();
     g.addStyleName(CSS.genericContainer());
@@ -69,7 +69,7 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
     topLabels.remove(columnIndex);
   }
 
-  public void addColumn(String title) {
+  public void addCell(String title) {
     Cell<Element> topCell = new BaseCell(0, topLabels.size());
     //only top row is for labels
     topLabels.add(topCell);
@@ -77,6 +77,11 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
     header.setWidget(0, topLabels.size(), DOMUtils.wrapElement(topCell.getCellElement()));
     header.getFlexCellFormatter().setHorizontalAlignment(0, topLabels.size(), HasHorizontalAlignment.ALIGN_CENTER);
     columns++;
+  }
+
+  @Override
+  public WidgetResizeHandler getCalendarHeaderResizeHandler() {
+    return this;  
   }
 
   public List<Cell<Element>> getTopLabels() {

@@ -6,7 +6,6 @@ import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
-import gwtscheduler.client.widgets.common.decoration.DecorationRenderer;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.Duration;
@@ -23,7 +22,8 @@ import java.util.List;
 public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private DateGenerator dateGenerator;
   private List<CalendarColumn> columns;
-  private CalendarTitlesRenderer titlesRenderer; 
+  private CalendarTitlesRenderer titlesRenderer;
+  private CalendarHeader calendarHeader;
   private EventBus eventBus;
   private Display display;
   private String tabLabel;
@@ -34,10 +34,11 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     this.eventBus = eventBus;
   }
 
-  public ColumnsViewPresenter( List<CalendarColumn> columns,DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, EventBus eventBus) {
+  public ColumnsViewPresenter( List<CalendarColumn> columns,DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer,CalendarHeader calendarHeader, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
     this.columns = columns;
     this.titlesRenderer = titlesRenderer;
+    this.calendarHeader = calendarHeader;
     this.eventBus = eventBus;
   }
 
@@ -61,18 +62,19 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void bindDisplay(final Display display) {
     this.display = display;
+    calendarHeader.bindDisplay(display.getCalendarHeaderDisplay());
     display.initLasso(new VerticalLassoStrategy(false), this);
     final Interval interval = dateGenerator.interval();
 
     titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
 
     eventBus.addHandler(WidgetResizeEvent.getType(),display.getMainPanel().getWidgetResizeHandler());
-    eventBus.addHandler(WidgetResizeEvent.getType(),display.getCalendarHeaderResizeHandler());
+    eventBus.addHandler(WidgetResizeEvent.getType(),calendarHeader.getCalendarHeaderResizeHandler());
 
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
       @Override
       public void onNavigateNext() {
-//        display.removeColumn();
+//        display.removeColumnHeader();
 //        eventBus.fireEvent(new WidgetResizeEvent());
 
         titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
@@ -164,7 +166,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
       if (calendarColumn.getTitle().equals(column.getTitle())){
         int index = columns.indexOf(calendarColumn);
         columns.remove(calendarColumn);
-        display.removeColumn(index);
+        display.removeColumnHeader(index);
+        calendarHeader.removeColumn(index);
         titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
         eventBus.fireEvent(new WidgetResizeEvent());
       }
@@ -174,6 +177,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void addColumn(CalendarColumn column) {
     columns.add(column);
+    calendarHeader.addColumnHeader(column.getTitle());
     display.addColumn(column.getTitle());
     titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
     eventBus.fireEvent(new WidgetResizeEvent());

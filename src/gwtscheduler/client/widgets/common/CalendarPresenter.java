@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.common;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsFrameGrid;
+import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 
@@ -21,11 +22,11 @@ public interface CalendarPresenter {
 
     CalendarColumnsFrameGrid.Display getMainPanel();
 
-    void removeColumn(int calendarColumn);
+    void removeColumnHeader(int calendarColumn);
 
     void addColumn(String title);
 
-    WidgetResizeHandler getCalendarHeaderResizeHandler();
+    CalendarHeader.Display getCalendarHeaderDisplay();
   }
 
   public void bindDisplay(Display display);

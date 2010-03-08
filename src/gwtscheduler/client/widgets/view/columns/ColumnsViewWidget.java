@@ -123,21 +123,26 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   @Override
-  public void removeColumn(int calendarColumnIndex) {
+  public void removeColumnHeader(int calendarColumnIndex) {
     columnsPanel.removeColumn(calendarColumnIndex);
-    header.removeCell(calendarColumnIndex + 1);
+//    header.removeCell(calendarColumnIndex + 1);
   }
 
   @Override
   public void addColumn(String title) {
 //    columns++;
     columnsPanel.addColumn(title);
-    header.addColumn(title);
+//    header.addColumn(title);
   }
 
+//  @Override
+//  public WidgetResizeHandler getCalendarHeaderResizeHandler() {
+//    return header;
+//  }
+
   @Override
-  public WidgetResizeHandler getCalendarHeaderResizeHandler() {
-    return header;  
+  public CalendarHeader.Display getCalendarHeaderDisplay() {
+    return header;
   }
 
   @Override
