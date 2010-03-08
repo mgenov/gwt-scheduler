@@ -25,7 +25,7 @@
  */
 .genericContainer {
 	background: lightBlued;
-	padding: genericContainerPaddingPx;
+	padding: genericContainerPaddingPx   10px  genericContainerPaddingPx 0px;
 }
 
 /** 

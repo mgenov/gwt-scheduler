@@ -44,16 +44,20 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Inject
   protected DayPresenter(AppConfiguration cfg, @Day AbstractDaysView view, DaysTitleProvider columnTitleProvider, EventBus bus) {
     super(bus);
-    this.display = view;
+//    this.display = view;
     this.columnTitleProvider = columnTitleProvider;
     rows = cfg.rowsInDay();
     getDisplay().initLasso(new VerticalLassoStrategy(false), this);
   }
 
-  @Override
-  public AbstractDaysView getDisplay() {
-    return display;  
+   @Override
+  public Display getDisplay(){
+    return null;
   }
+//  @Override
+//  public AbstractDaysView getDisplay() {
+//    return display;
+//  }
 
   @Override
   public void bindDisplay(Display display) {
@@ -67,7 +71,7 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   public void setTabLabel(String tabLabel) {
   }
 
-  public String getTabLabel() {
+  public String getTitle() {
     return "Day";
   }
 

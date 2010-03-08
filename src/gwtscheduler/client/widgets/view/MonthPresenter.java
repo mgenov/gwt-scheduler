@@ -53,7 +53,7 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     getDisplay().initLasso(new HorizontalLassoStrategy(), this);
   }
 
-  public String getTabLabel() {
+  public String getTitle() {
     return "Month";
   }
 
@@ -72,9 +72,14 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
   }
 
   @Override
-  public MonthDisplay getDisplay() {
-    return display;
+  public Display getDisplay(){
+    return null;
   }
+
+//  @Override
+//  public MonthDisplay getDisplay() {
+//    return display;
+//  }
 
   public Interval onNavigateNext() {
     Interval next = getFactory().next().interval();
@@ -111,7 +116,8 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
 
   @Override
   public int getRowNum() {
-    return getDisplay().getVisibleRows();
+//    return getDisplay().getVisibleRows();
+    return 0;
   }
 
   /**
@@ -121,7 +127,7 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
   protected void adjustVisibleRows(Interval intv) {
     //must show the necessary rows only
     int weeks = (Days.daysIn(intv).getDays() + 1) / WeekSize;
-    getDisplay().showRows(weeks);
+//    getDisplay().showRows(weeks);
   }
 
   @Override

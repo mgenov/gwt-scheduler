@@ -1,16 +1,12 @@
-package gwtscheduler.client.widgets.view;
+package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.EventBus;
-import gwtscheduler.client.modules.annotation.ColumnView;
-import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
-import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
-import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
+import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.common.decoration.DecorationRenderer;
-import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.Duration;
@@ -19,25 +15,32 @@ import org.goda.time.Interval;
 import org.goda.time.Period;
 import org.goda.time.ReadableDateTime;
 
+import java.util.List;
+
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
+public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private int rows;
-//  private AppConfiguration cfg;
 //  private MultipleElementsIntervalDecorator decorator;
 //  private ColumnTitleProvider columnTitleProvider;
   private DateGenerator dateGenerator;
+  private List<CalendarColumn> columns;
   private DecorationRenderer decorationRenderer;
+  private CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer(); 
   private EventBus eventBus;
   private Display display;
-  private int columns;
   private String tabLabel;
 
-  public MultiColumnPresenter(AppConfiguration cfg, DateGenerator dateGenerator, DecorationRenderer decorationRenderer, EventBus eventBus) {
-//    this.cfg = cfg;
+  public ColumnsViewPresenter(DateGenerator dateGenerator, DecorationRenderer decorationRenderer, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
     this.decorationRenderer = decorationRenderer;
+    this.eventBus = eventBus;
+  }
+
+  public ColumnsViewPresenter(DateGenerator dateGenerator, List<CalendarColumn> columns, EventBus eventBus) {
+    this.dateGenerator = dateGenerator;
+    this.columns = columns;
     this.eventBus = eventBus;
   }
 
@@ -65,23 +68,27 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
     final Interval interval = dateGenerator.interval();
 
     eventBus.addHandler(WidgetResizeEvent.getType(),display.getMainPanel().getWidgetResizeHandler());
+    eventBus.addHandler(WidgetResizeEvent.getType(),display.getCalendarHeaderResizeHandler());
 
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
       @Override
       public void onNavigateNext() {
-        display.removeColumn();
-        eventBus.fireEvent(new WidgetResizeEvent());
-        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
-        decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.next().interval(),display.getDecorables());
-
+//        display.removeColumn();
+//        eventBus.fireEvent(new WidgetResizeEvent());
+        titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
+        titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
+//        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
+//        decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.next().interval(),display.getDecorables());
       }
     });
 
     eventBus.addHandler(NavigatePreviousEvent.TYPE, new NavigatePreviousEventHandler() {
       @Override
       public void onNavigatePrevious() {
-        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
-        decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.previous().interval(),display.getDecorables());
+        titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
+        titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
+//        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
+//        decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.previous().interval(),display.getDecorables());
       }
     });
 
@@ -89,16 +96,18 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
       public void onNavigateTo(ReadableDateTime date) {
-        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
-        Interval interval = new Interval(date,date);
-        decorationRenderer.decorateHorizontalTitlesLine(interval,display.getDecorables());
+        titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
+        titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
+//        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
+//        Interval interval = new Interval(date,date);
+//        decorationRenderer.decorateHorizontalTitlesLine(interval,display.getDecorables());
       }
     });
   }
 
   @Override
   public void setColNum(int columns) {
-    this.columns = columns;
+//    this.columns = columns;
   }
 
   @Override
@@ -107,7 +116,12 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
-  public String getTabLabel() {
+  public Display getDisplay() {
+    return display; 
+  }
+
+  @Override
+  public String getTitle() {
     return tabLabel;
   }
 
@@ -143,6 +157,27 @@ public class MultiColumnPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public Instant getInstantForCell(int[] start) {
     return null;
+  }
+
+  @Override
+  public void deleteColumn(CalendarColumn column) {
+    for (CalendarColumn calendarColumn : columns) {
+      if (calendarColumn.getTitle().equals(column.getTitle())){
+        int index = columns.indexOf(calendarColumn);
+        columns.remove(calendarColumn);
+        display.removeColumn(index);
+        titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
+        eventBus.fireEvent(new WidgetResizeEvent());
+      }
+    }
+  }
+
+  @Override
+  public void addColumn(CalendarColumn column) {
+    columns.add(column);
+    display.addColumn(column.getTitle());
+    titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
+    eventBus.fireEvent(new WidgetResizeEvent());
   }
 
   @Override

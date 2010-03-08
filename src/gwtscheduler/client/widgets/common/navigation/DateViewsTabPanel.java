@@ -117,7 +117,7 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
     TabPanelContainer container = new TabPanelContainer();
     container.add(view);
 
-    impl.add(container, presenter.getTabLabel());
+    impl.add(container, presenter.getTitle());
   }
 
   /**

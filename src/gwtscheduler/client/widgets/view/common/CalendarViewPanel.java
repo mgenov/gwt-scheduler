@@ -28,6 +28,8 @@ public class CalendarViewPanel {
 
     Element getElement();
 
-    void removeColumn();
+    void removeColumn(int calendarColumnIndex);
+
+    void addColumn(String title);
   }
 }

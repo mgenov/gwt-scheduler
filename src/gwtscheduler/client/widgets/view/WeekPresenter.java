@@ -47,16 +47,21 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   @Inject
   protected WeekPresenter(AppConfiguration cfg, @Week AbstractDaysView display, DaysTitleProvider columnTitleProvider, EventBus bus) {
     super(bus);
-    this.display = display;
+//    this.display = display;
     this.columnTitleProvider = columnTitleProvider;
     rows = cfg.rowsInDay();
     getDisplay().initLasso(new VerticalLassoStrategy(false), this);
   }
 
-  @Override
-  public AbstractDaysView getDisplay() {
-    return display;
+   @Override
+  public Display getDisplay(){
+    return null;
   }
+
+//  @Override
+//  public AbstractDaysView getDisplay() {
+//    return display;
+//  }
 
   @Override
   public void bindDisplay(Display display) {
@@ -72,7 +77,7 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
     this.tabLabel = tabLabel;
   }
 
-  public String getTabLabel() {
+  public String getTitle() {
     return "Week";
   }
 

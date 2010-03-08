@@ -3,15 +3,12 @@ package gwtscheduler.client.widgets.view.common;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.LazyPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.common.Cell;
-import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.cell.DayCell;
 import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 
@@ -52,7 +49,7 @@ public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPa
   /**
    * grid col count, excluding title column
    */
-  private int columns;
+  private int columnsCount;
   /**
    * grid row count
    */
@@ -67,7 +64,7 @@ public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPa
    */
   public CalendarViewPanelWidget(int rows, int cols) {
     this.rows = rows;
-    this.columns = cols;
+    this.columnsCount = cols;
     titleElements = new ArrayList<Cell<Element>>();
   }
 
@@ -84,7 +81,7 @@ public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPa
 
     // here we add one column for each day
     // one more col for cell labels
-    for (int i = 0; i < this.columns + 1; i++) {
+    for (int i = 0; i < this.columnsCount + 1; i++) {
       FlowPanel flowPanel = new FlowPanel();
       String className = (i == 0) ? CSS.titleColumn() : CSS.column();
       flowPanel.setStyleName(className);
@@ -96,7 +93,7 @@ public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPa
         mainColumns.add(flowPanel);
       }
 //      impl.setWidget(0, i, flowPanel);
-      impl.setWidget(0,i,flowPanel);
+      impl.setWidget(0, i, flowPanel);
     }
 
     // create title cells
@@ -108,7 +105,7 @@ public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPa
     }
 
     // regular cells are different from title cells
-    for (int c = 0; c < columns; c++) {
+    for (int c = 0; c < columnsCount; c++) {
       Panel col = mainColumns.get(c);
 
       for (int r = 0; r < rows; r++) {
@@ -170,7 +167,7 @@ public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPa
    */
   @Override
   public int getColumnCount() {
-    return columns;
+    return columnsCount;
   }
 
   /**
@@ -184,12 +181,28 @@ public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPa
   }
 
   @Override
-  public void removeColumn() {
-    if(mainColumns.size()-1>=0){
-    impl.remove(mainColumns.get(mainColumns.size()-1));
-    mainColumns.remove(mainColumns.size()-1);
-    columns--;
+  public void removeColumn(int calendarColumnIndex) {
+    if (mainColumns.size() - 1 >= 0) {
+      impl.remove(mainColumns.get(calendarColumnIndex));
+      mainColumns.remove(calendarColumnIndex);
+      columnsCount--;
     }
-//    impl.removeCells(0,1,0);
+  }
+
+  @Override
+  public void addColumn(String title) {
+    Panel col = new FlowPanel();
+    String className = CSS.column();
+    col.setStyleName(className);
+    col.getElement().getStyle().setProperty("position", "relative");
+    mainColumns.add(col);
+    for (int r = 0; r < rows; r++) {
+      DayCell cell = new DayCell(r, mainColumns.size(), "");
+      col.add(cell);
+      mainElements.add(cell);
+    }
+    impl.setWidget(0, mainColumns.size(), col);
+
+    columnsCount++;
   }
 }

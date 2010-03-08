@@ -1,7 +1,5 @@
 package gwtscheduler.client.widgets.view.common.cell;
 
-import gwtscheduler.client.dragndrop.DropEvent;
-import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.widgets.common.Cell;
 
 import com.google.gwt.core.client.GWT;
@@ -54,4 +52,7 @@ public class BaseCell extends Widget implements Cell<Element> {
     return row * rowsize + col;
   }
 
+  public void setStyleName(String style){
+    super.setStyleName(style);
+  }
 }

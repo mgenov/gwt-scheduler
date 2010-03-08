@@ -27,6 +27,7 @@ import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawHandler;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
@@ -39,12 +40,14 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewWidget extends Composite implements CalendarPresenter.Display, HasMultipleDecorables<Element>, HasWidgetRedrawHandlers,
-    LassoAwarePanel.LassoHandler {
+        LassoAwarePanel.LassoHandler {
 
   @UiField
   VerticalPanel impl;
   @UiField
-  FlexTable header;
+//  FlexTable header;
+          CalendarHeaderWidget header;
+
   @UiField
   ColumnPanelWidget columnsPanel;
   @UiField
@@ -52,16 +55,24 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @UiField
   LassoAwarePanel lassoAwarePanel;
 
-  /** top view cells */
-  protected List<Cell<Element>> topLabels;
+  /**
+   * top view cells
+   */
+//  protected List<Cell<Element>> topLabels;
 
-  /** static ref to css */
+  /**
+   * static ref to css
+   */
   protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
-  /** ui binder instance */
+  /**
+   * ui binder instance
+   */
   private static DayColumnsWidgetUiBinder uiBinder = GWT.create(DayColumnsWidgetUiBinder.class);
 
-  /** ui binder interface */
+  /**
+   * ui binder interface
+   */
   interface DayColumnsWidgetUiBinder extends UiBinder<Widget, ColumnsViewWidget> {
   }
 
@@ -71,7 +82,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   /**
    * Default constructor.
    */
-  public ColumnsViewWidget(int rows,int columns) {
+  public ColumnsViewWidget(int rows, int columns) {
     this.rows = rows;
     this.columns = columns;
     initWidget(uiBinder.createAndBindUi(this));
@@ -83,34 +94,44 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 
   /**
    * Creates the top view widget.
+   *
    * @return the top view widget
    */
   @UiFactory
-  public FlexTable buildHeader() {
-//    return new FlexTable();
-    int columns = this.columns;
-//    int columns = getColumnsSize();
-
-    FlexTable g = new FlexTable();
-    g.addStyleName(CSS.genericContainer());
-    g.setWidth("100%");
-    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
-    g.getCellFormatter().setWidth(0, columns + 2, Constants.SCROLLBAR_WIDTH() + "px");
-
-    topLabels = new ArrayList<Cell<Element>>(columns);
-
-    for (int i = 0; i < columns; i++) {
-      Cell<Element> topCell = new BaseCell(0, i);
-
-      //only top row is for labels
-      topLabels.add(topCell);
-
-      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
-      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
-    }
-
-    return g;
+  public CalendarHeaderWidget buildHeader() {
+    CalendarHeaderWidget widget = new CalendarHeaderWidget(columns);
+    return widget;
   }
+
+//  /**
+//   * Creates the top view widget.
+//   *
+//   * @return the top view widget
+//   */
+//  @UiFactory
+//  public FlexTable buildHeader() {
+//    int columns = this.columns;
+//
+//    FlexTable g = new FlexTable();
+//    g.addStyleName(CSS.genericContainer());
+//    g.setWidth("100%");
+//    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
+////    g.getCellFormatter().setWidth(0, columns + 1, Constants.SCROLLBAR_WIDTH() + "px");
+//
+//    topLabels = new ArrayList<Cell<Element>>(columns);
+//
+//    for (int i = 0; i < columns; i++) {
+//      Cell<Element> topCell = new BaseCell(0, i+1);
+//
+//      //only top row is for labels
+//      topLabels.add(topCell);
+//
+//      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
+//      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
+//    }
+//
+//    return g;
+//  }
 
   /**
    * Creates the day view widget.
@@ -119,7 +140,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
    */
   @UiFactory
   public ColumnPanelWidget buildColumnPanel() {
-    return new ColumnPanelWidget(rows,columns);
+    return new ColumnPanelWidget(rows, columns);
   }
 
   @Override
@@ -135,10 +156,29 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 
   /**
    * Gets the main panel.
+   *
    * @return the main panel
    */
   public ColumnPanel.Display getMainPanel() {
     return columnsPanel;
+  }
+
+  @Override
+  public void removeColumn(int calendarColumnIndex) {
+    columnsPanel.removeColumn(calendarColumnIndex);
+    header.removeCell(calendarColumnIndex + 1);
+  }
+
+  @Override
+  public void addColumn(String title) {
+//    columns++;
+    columnsPanel.addColumn(title);
+    header.addColumn(title);
+  }
+
+  @Override
+  public WidgetResizeHandler getCalendarHeaderResizeHandler() {
+    return header;  
   }
 
   @Override
@@ -166,7 +206,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   public List<Cell<Element>> getColumnsDecorableElements() {
-    return Collections.unmodifiableList(topLabels);
+    return Collections.unmodifiableList(header.getTopLabels());
   }
 
   public List<Cell<Element>> getRowsDecorableElements() {
@@ -185,6 +225,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   public HandlerRegistration addWidgetRedrawHandler(WidgetRedrawHandler handler) {
     return lassoAwarePanel.addWidgetRedrawHandler(handler);
   }
+
 
   @Override
   public void initLasso(LassoStrategy start, ComplexGrid subject) {
@@ -211,8 +252,5 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     return getContentDecorableElements();
   }
 
-  @Override
-  public void removeColumn() {
-    columnsPanel.removeColumn();
-  }
+
 }

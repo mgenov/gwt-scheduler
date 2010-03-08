@@ -5,6 +5,7 @@ import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;
 
+import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import org.goda.time.DateTime;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
@@ -83,6 +84,16 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
+  public void deleteColumn(CalendarColumn column) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void addColumn(CalendarColumn column) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
   public void forceLayout() {
   }
 
@@ -107,7 +118,12 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
-  public String getTabLabel() {
+  public Display getDisplay() {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public String getTitle() {
     return null;
   }
 
