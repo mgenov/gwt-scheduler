@@ -16,7 +16,7 @@ import java.util.HashMap;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  * @author Miroslav Genov (mgenov@gmail.com)
  */
-public class DragZoneImpl implements DragZone {
+class DragZoneImpl implements DragZone {
 
   private final Display display;
   private DropZone dropZone = null;
@@ -95,11 +95,16 @@ public class DragZoneImpl implements DragZone {
 
       this.dropZone = dropZone;
 
-      display.fireDragInEvent(dropZone, mouseX, mouseY); // TODO: Rename DragInEvent to DragInEvent. DragOverEvent need to be fired all time when dragging over drag zone
+      display.fireDragInEvent(dropZone, mouseX, mouseY); // TODO: DragOverEvent need to be fired all time when dragging over drag zone
 
     } else if(dropZone == null && this.dropZone != null){
 
       display.fireDragOutEvent(dropZone);
+
+    } else if(dropZone != null){
+
+      display.fireDragOverEvent(dropZone, mouseX, mouseY);
+
     }
 
     display.addFrameAtPosition(mouseX - 10, mouseY - 10); // TODO: make correction when dragging
@@ -141,16 +146,6 @@ public class DragZoneImpl implements DragZone {
   }
 
   @Override
-  public void setLeft(int left) {
-    display.setLeft(left);
-  }
-
-  @Override
-  public void setTop(int top) {
-    display.setTop(top);
-  }
-
-  @Override
   public void setSize(int width, int height) {
     display.setSize(width, height);
   }
@@ -167,6 +162,11 @@ public class DragZoneImpl implements DragZone {
   @Override
   public void go(HasWidgets parent) {
     parent.add((Widget)display);
+  }
+
+  @Override
+  public HasWidgets getDragZone() {
+    return (HasWidgets)display;
   }
 
 }

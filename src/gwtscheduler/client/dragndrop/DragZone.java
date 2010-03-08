@@ -38,15 +38,11 @@ import java.util.ArrayList;
  */
 public interface DragZone {
 
-  public interface Display {
+  interface Display {
 
     HasMouseMoveHandlers getFrameMouseMoveHandlers();
 
     HasMouseUpHandlers getFrameMouseUpHandlers();
-
-    void setLeft(int left);
-
-    void setTop(int top);
 
     int getSourceWidth();
 
@@ -83,6 +79,8 @@ public interface DragZone {
     void addWidget(Widget widget, int left, int top);
 
     HasMouseDownHandlers getDragWidget();
+
+    void fireDragOverEvent(DropZone dropZone, int mouseX, int mouseY);
   }
 
   /**
@@ -103,12 +101,10 @@ public interface DragZone {
 
   void registerDropZoneRoot(HasWidgets root);
 
-  void setLeft(int left);
-  
-  void setTop(int top);
-
   void setSize(int width, int height);
   
   void go(HasWidgets parent);
+
+  HasWidgets getDragZone();
 
 }

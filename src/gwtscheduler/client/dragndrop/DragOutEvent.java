@@ -25,12 +25,6 @@ public class DragOutEvent extends GwtEvent<DragOutHandler>{
     dragOutHandler.onDragUnOverlap(this);
   }
 
-  public void fire(Widget dropZone) {
-    if (TYPE != null) {
-      dropZone.fireEvent(this);
-    }
-  }
-
   public Widget getFrame() {
     return frame;
   }

@@ -38,12 +38,6 @@ public class DropEvent extends GwtEvent<DropHandler> {
     return source;
   }
 
-  public void fire(Widget dropZone) {
-    if (TYPE != null) {
-      dropZone.fireEvent(this);
-    }
-  }
-
   public int getMouseX() {
     return mouseX;
   }

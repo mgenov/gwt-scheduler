@@ -36,12 +36,6 @@ public class DragInEvent extends GwtEvent<DragInHandler> {
     dragInHandler.onDragOverlap(this);
   }
 
-  public void fire(Widget dropZone) {
-    if (TYPE != null) {
-      dropZone.fireEvent(this);
-    }
-  }
-
   public Widget getFrame() {
     return frame;
   }

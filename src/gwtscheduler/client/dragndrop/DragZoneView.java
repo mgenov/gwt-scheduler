@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * @author Miroslav Genov (mgenov@gmail.com)
  */
-public class DragZoneView extends Composite implements DragZone.Display {
+class DragZoneView extends Composite implements DragZone.Display {
 
   private AbsolutePanel absolutePanel = new AbsolutePanel();
   private Label frame = new Label();
@@ -36,16 +36,6 @@ public class DragZoneView extends Composite implements DragZone.Display {
   @Override
   public HasMouseUpHandlers getFrameMouseUpHandlers() {
     return frame;
-  }
-
-  @Override
-  public void setLeft(int left) {
-
-  }
-
-  @Override
-  public void setTop(int top) {
-
   }
 
   @Override
@@ -98,17 +88,6 @@ public class DragZoneView extends Composite implements DragZone.Display {
         return dropZone;
       }
     }
-
-//     for (int i = 0; i < absolutePanel.getWidgetCount(); i++) {
-//      Widget dropWidget = absolutePanel.getWidget(i);
-//      if (dropWidget instanceof DropZone && dropWidget != dragWidget) {
-//        if (checkPosition(x, y, dropWidget)) {
-//          this.dropZone = dropWidget;
-//          DropZone zone = (DropZone) dropWidget;
-//          return zone;
-//        }
-//      }
-//    }
     return dropZone;
   }
                                          // TODO first check coordinates and after that check if there is more widgets!
@@ -134,13 +113,19 @@ public class DragZoneView extends Composite implements DragZone.Display {
   @Override
   public void fireDragInEvent(DropZone dropZone, int x, int y) {
     DragInEvent dragIn = new DragInEvent(frame, x, y);
-    dragIn.fire((Widget)dropZone);
+    ((Widget)dropZone).fireEvent(dragIn);
+  }
+
+  @Override
+  public void fireDragOverEvent(DropZone dropZone, int mouseX, int mouseY) {
+    DragOverEvent dragOver = new DragOverEvent(frame, mouseX, mouseY);
+    ((Widget)dropZone).fireEvent(dragOver);
   }
 
   @Override
   public void fireDragOutEvent(DropZone dropZone) {
     DragOutEvent dragOut = new DragOutEvent(frame);
-    dragOut.fire((Widget)dropZone);
+    ((Widget)dropZone).fireEvent(dragOut);
   }
 
   @Override
@@ -156,9 +141,11 @@ public class DragZoneView extends Composite implements DragZone.Display {
   @Override
   public void dropTo(DropZone dropZone, int x, int y, Object targetObject) {
     DropEvent dropEvent = new DropEvent(dragWidget, targetObject);
+
     dropEvent.setMouseX(x);
     dropEvent.setMouseY(y);
-    dropEvent.fire((Widget)dropZone);
+    
+    ((Widget)dropZone).fireEvent(dropEvent);
   }
 
   @Override

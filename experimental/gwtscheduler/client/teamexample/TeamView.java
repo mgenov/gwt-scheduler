@@ -3,6 +3,7 @@ package gwtscheduler.client.teamexample;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -61,17 +62,18 @@ public class TeamView extends Composite implements Team.Display, HasMouseDownHan
   }
 
   @Override
-  public void addDropHandler(DropHandler handler) {
-    addHandler(handler, DropEvent.TYPE);
+  public HandlerRegistration addDropHandler(DropHandler handler) {
+    return addHandler(handler, DropEvent.TYPE);
   }
 
   @Override
-  public void addDragOverHandler(DragInHandler handler) {
-    addHandler(handler, DragInEvent.TYPE);
+  public HandlerRegistration addDragOverHandler(DragInHandler handler) {
+    return addHandler(handler, DragInEvent.TYPE);
   }
 
   @Override
-  public void addDragOutHandler(DragOutHandler handler) {
+  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
+    return null;
   }
 
   @Override

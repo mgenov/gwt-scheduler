@@ -1,5 +1,7 @@
 package gwtscheduler.client.dragndrop;
 
+import com.google.gwt.event.shared.HandlerRegistration;
+
 /**
  * Widgets that implements this interface will be drop zones and only this widgets will accept objects that is dropped.
  * After implementing this interface you can use this code to attach drop handlers to the widget.
@@ -17,18 +19,18 @@ public interface DropZone {
    * Attaches drop handler that will handle dropped object.
    * @param handler drop handler.
    */
-  void addDropHandler(DropHandler handler);
+  HandlerRegistration addDropHandler(DropHandler handler);
 
   /**
    * Attaches drag overlap handler. This handler accept event fired when dragged widget enter to the dragged zone.
    * @param handler drag overlap handler.
    */
-  void addDragOverHandler(DragInHandler handler);
+  HandlerRegistration addDragOverHandler(DragInHandler handler);
 
   /**
    * Attaches drag un overlap handler. This handler accept event fired when dragged widget exit from dragged zone.
    * @param handler drag un overlap handler.
    */
-  void addDragOutHandler(DragOutHandler handler);
+  HandlerRegistration addDragOutHandler(DragOutHandler handler);
 
 }
