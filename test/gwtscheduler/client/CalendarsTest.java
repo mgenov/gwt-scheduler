@@ -12,9 +12,6 @@ import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */

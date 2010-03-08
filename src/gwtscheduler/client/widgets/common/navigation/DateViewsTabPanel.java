@@ -31,7 +31,7 @@ import java.util.List;
  * @author malp
  */
 //TODO migrate to MVP
-public class DateViewsTabPanel extends Composite implements MainView, BeforeSelectionHandler<Integer>, DropZone {
+public class DateViewsTabPanel extends Composite implements MainView, BeforeSelectionHandler<Integer>{
 
   /**
    * static ref to css
@@ -67,25 +67,6 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
     add(day);
     add(week);
     add(month);
-
-
-    // TODO: delete this 2 handlers.. this is added only for researching
-    addDropHandler(new DropHandler(){
-      @Override
-      public void onDrop(DropEvent event) {
-        day.onDropEvent(event);
-        week.onDropEvent(event);
-        GWT.log("Dropped in x: " + event.getEndX() + " y: " + event.getMouseY(), null);
-      }
-    });
-//
-//    addDragOverHandler(new DragInHandler(){
-//      @Override
-//      public void onDragOverlap(DragInEvent event) {
-//        GWT.log("Dragged in drag zone", null);
-//        event.getFrame().setPixelSize(20, 20);
-//      }
-//    });
   }
 
   public DateViewsTabPanel() {
@@ -146,20 +127,5 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
    */
   public void selectTab(int i) {
     impl.selectTab(i);
-  }
-
-  @Override
-  public HandlerRegistration addDropHandler(DropHandler handler) {
-    return addHandler(handler, DropEvent.TYPE);
-  }
-
-  @Override
-  public HandlerRegistration addDragOverHandler(DragInHandler handler) {
-    return addHandler(handler, DragInEvent.TYPE);
-  }
-
-  @Override
-  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
-    return null;
   }
 }
