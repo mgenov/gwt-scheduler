@@ -44,7 +44,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   CalendarHeaderWidget header;
 
   @UiField
-  CalendarGridRendererWidget columnsPanel;
+  CalendarColumnsFrameGridWidget columnsPanel;
   @UiField
   EventsPanel eventsPanel;
   @UiField
@@ -104,8 +104,8 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
    * @return the day view widget
    */
   @UiFactory
-  public CalendarGridRendererWidget buildColumnPanel() {
-    return new CalendarGridRendererWidget(rows, columns);
+  public CalendarColumnsFrameGridWidget buildColumnPanel() {
+    return new CalendarColumnsFrameGridWidget(rows, columns);
   }
 
   @Override
@@ -118,7 +118,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
    *
    * @return the main panel
    */
-  public CalendarGridRenderer.Display getMainPanel() {
+  public CalendarColumnsFrameGrid.Display getMainPanel() {
     return columnsPanel;
   }
 

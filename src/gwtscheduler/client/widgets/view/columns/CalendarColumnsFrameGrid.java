@@ -7,7 +7,7 @@ import gwtscheduler.client.widgets.view.common.CalendarViewPanelWidget;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarGridRenderer {
+public class CalendarColumnsFrameGrid {
   public interface Display{
     
     int getHeight();
@@ -19,7 +19,7 @@ public class CalendarGridRenderer {
   }
   public Display display;
 
-  public CalendarGridRenderer() {
+  public CalendarColumnsFrameGrid() {
   }
 
   public void bindDisplay(Display  display){
