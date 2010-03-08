@@ -10,9 +10,11 @@ import com.google.gwt.user.client.ui.Widget;
 public class DropEvent extends GwtEvent<DropHandler> {
   public static final GwtEvent.Type<DropHandler> TYPE = new GwtEvent.Type<DropHandler>();
 
-  private Widget source;
-  private Object object;
-  private int mouseX;
+  private final Widget source;
+  private final Object object;
+  private int startX;
+  private int startY;
+  private int endX;
   private int mouseY;
 
   public DropEvent(Widget source, Object object) {
@@ -38,12 +40,12 @@ public class DropEvent extends GwtEvent<DropHandler> {
     return source;
   }
 
-  public int getMouseX() {
-    return mouseX;
+  public int getEndX() {
+    return endX;
   }
 
-  public void setMouseX(int mouseX) {
-    this.mouseX = mouseX;
+  public void setEndX(int endX) {
+    this.endX = endX;
   }
 
   public int getMouseY() {
@@ -52,5 +54,21 @@ public class DropEvent extends GwtEvent<DropHandler> {
 
   public void setMouseY(int mouseY) {
     this.mouseY = mouseY;
+  }
+
+  public int getStartX() {
+    return startX;
+  }
+
+  public void setStartX(int startX) {
+    this.startX = startX;
+  }
+
+  public int getStartY() {
+    return startY;
+  }
+
+  public void setStartY(int startY) {
+    this.startY = startY;
   }
 }

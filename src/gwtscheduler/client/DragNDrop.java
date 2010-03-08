@@ -11,9 +11,7 @@ import gwtscheduler.client.teamexample.*;
  */
 public class DragNDrop implements EntryPoint {
   public void onModuleLoad() {
-//    AbsolutePanel absolutePanel = new AbsolutePanel();
-
-//    absolutePanel.setPixelSize(800, 800);
+    // Generate presenters and widgets that will be showed on the screen
     Team team1 = new Team(new TeamView(), "Team one");
     Team team2 = new Team(new TeamView(), "Team two");
     Team team3 = new Team(new TeamView(), "Team three");
@@ -28,28 +26,37 @@ public class DragNDrop implements EntryPoint {
 
     Race race = new Race(new RaceView());
 
+    /**
+     * Create drag zone with size 800x800 px.
+     */
     DragZone dragger = Zones.getDragZone(800, 800);
 
+    // make teams draggable. Team widgets implements DropZone interface. Presenter only attach DropHandler to the widget.
     team1.go(dragger);
     team2.go(dragger);
     team3.go(dragger);
 
+    // add teams to the panel where they will stay
     VerticalPanel teamPanel = new VerticalPanel();
     team1.go(teamPanel);
     team2.go(teamPanel);
     team3.go(teamPanel);
 
+    // attach that panel over drag zone. Or to some other panel. But have on mind that dragging frame is visible over a drag zone.
     dragger.addWidget(teamPanel, 10, 10);
-    dragger.registerDropZoneRoot(teamPanel);
+    dragger.registerDropZoneRoot(teamPanel); // register teamPanel that have drop zones attached to him.
 
+    // make cars draggable
     car1.go(dragger);
     car2.go(dragger);
     car3.go(dragger);
 
+    // make trucks draggable
     truck1.go(dragger);
     truck2.go(dragger);
     truck3.go(dragger);
 
+    // attach cars and trucks to the panel
     VerticalPanel carPanel = new VerticalPanel();
     car1.go(carPanel);
     car2.go(carPanel);
@@ -59,7 +66,7 @@ public class DragNDrop implements EntryPoint {
     truck2.go(carPanel);
     truck3.go(carPanel);
 
-    dragger.addWidget(carPanel, 250, 10);
+    dragger.addWidget(carPanel, 250, 10); // attach car panel to the drag zone view.
 
     VerticalPanel racePanel = new VerticalPanel();
     race.go(racePanel);
@@ -67,6 +74,6 @@ public class DragNDrop implements EntryPoint {
     dragger.addWidget(racePanel, 360, 10);
     dragger.registerDropZoneRoot(racePanel);
 
-    dragger.go(RootPanel.get());
+    dragger.go(RootPanel.get()); // attach drag zone to the root panel or another panel.
   }
 }

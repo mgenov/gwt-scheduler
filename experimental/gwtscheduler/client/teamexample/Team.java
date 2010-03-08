@@ -4,7 +4,6 @@ import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.dragndrop.Draggable;
 import gwtscheduler.client.dragndrop.DragZone;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
@@ -16,7 +15,7 @@ import java.util.List;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class Team implements Draggable{
+public class Team {
   public interface Display extends DropZone {
     HasText getTeamName();
 
@@ -76,7 +75,6 @@ public class Team implements Draggable{
     return trucks;
   }
 
-  @Override
   public void go(DragZone dragZone) {
     dragZone.add((HasMouseDownHandlers)display, this);
   }

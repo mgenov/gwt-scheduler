@@ -1,7 +1,5 @@
 package gwtscheduler.client.widgets.view;
 
-import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.TicketPresenter;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.modules.annotation.Day;
 import gwtscheduler.client.modules.config.AppConfiguration;
@@ -96,7 +94,7 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
 
   @Override
   public void onDropEvent(DropEvent event) {
-//    int x = event.getMouseX();
+//    int x = event.getEndX();
 //    int y = event.getMouseY();
 //
 //    int colPos = (x / (this.getWidth() / this.getColNum()));

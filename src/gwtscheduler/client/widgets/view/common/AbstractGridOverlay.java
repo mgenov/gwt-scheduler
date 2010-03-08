@@ -62,7 +62,7 @@ public class AbstractGridOverlay extends AbsolutePanel implements WidgetResizeHa
 
   // TODO: BAD IMPLEMENTATION... ONLY FOR EXPERIMENTING
   public int[] calculateCellPosition(DropEvent event){
-    int x = event.getMouseX();
+    int x = event.getEndX();
     int y = event.getMouseY();
 
     int colPos = (x / (grid.getWidth() / grid.getColNum()));

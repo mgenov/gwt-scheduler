@@ -64,7 +64,7 @@ public class DateViewsTabPanel extends Composite implements MainView, BeforeSele
       public void onDrop(DropEvent event) {
         day.onDropEvent(event);
         week.onDropEvent(event);
-        GWT.log("Dropped in x: " + event.getMouseX() + " y: " + event.getMouseY(), null);
+        GWT.log("Dropped in x: " + event.getEndX() + " y: " + event.getMouseY(), null);
       }
     });
 //

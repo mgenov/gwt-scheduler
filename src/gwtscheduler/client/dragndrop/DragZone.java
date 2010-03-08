@@ -11,22 +11,24 @@ import java.util.ArrayList;
 
 /**
  * This interface represents Object that care about dragging widgets and dropping object over drop zones.
- * <p>
- * Interface has only one method that accept:
- * widget to be dragged, Object to be dropped when dragging stops over drop zone
- * and positions where given widget to be attached on the panel.
- * </p>
+ *
  * One simple example how this need to be used:
  *
  * <pre>
- * AbsolutePanel draggingArea = new AbsolutePanel();
- * draggingArea.setPixelSize(800, 800);
- * Draggable draggable = new DraggablePresenter(new DraggableWidget());
+ * DraggableWidget draggableWidget = new DraggableWidget(); 
+ * DraggablePresenter draggablePresenter = new DraggablePresenter(draggableWidget);
  *
- * DragZone dragger = new DragZoneImpl(draggingArea);
- * draggable.go(dragger, 10, 10);
+ * DropZone dropZone = new PresenterImplementsDropZone(new DisplayWidget());
  *
- * RootPanel.get().add(draggingArea);
+ * VerticalPanel dropZonesPanel = new VerticalPanel();
+ * verticalPanel.add(dropZone);
+ *
+ * DragZone dragZone = Zones.getDragZone(800, 800);
+ * dragZone.add((HasMouseDownHandlers)draggableWidget, draggablePresenter);
+ * 
+ * dragZone.registerDropZoneRoot(dropZonesPanel);
+ *
+ * dragger.go(RootPanel.get());
  * </pre>
  *
  * Every given widget is wrapped by another widget who is dragged over drag area. If widget is attached to another
@@ -68,7 +70,7 @@ public interface DragZone {
 
     void removeFrameFromPanel();
 
-    void dropTo(DropZone dropZone, int x, int y, Object targetObject);
+    void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY);
 
     void setFrameStyle(String styleName);
 
@@ -91,6 +93,12 @@ public interface DragZone {
    */
   void add(HasMouseDownHandlers widget, Object object);
 
+  /**
+   * Add widget to be added on drag zone view with given coordinates.
+   * @param widget to be added.
+   * @param left
+   * @param top
+   */
   void addWidget(Widget widget, int left, int top);
 
    /**
@@ -99,12 +107,29 @@ public interface DragZone {
     */
   void setFrameStyle(String styleName);
 
+   /**
+   * Add new root who contains drop zones. This roots will be searched to find drop zones.
+   * @param root widget who implements HasWidgets.
+   */
   void registerDropZoneRoot(HasWidgets root);
 
+   /**
+   * Set size for a drop zone.
+   * @param width in pixels;
+   * @param height in pixels.
+   */
   void setSize(int width, int height);
-  
+
+  /**
+   * Attach DragZone view to the parent widget.
+   * @param parent widget where drag zone will be attached.
+   */
   void go(HasWidgets parent);
 
+  /**
+   * Return an instance of DragZoneView.
+   * @return drag zone view who is AbsolutePanel.
+   */
   HasWidgets getDragZone();
 
 }
