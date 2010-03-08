@@ -168,7 +168,7 @@ public class DragNDropExample implements EntryPoint {
 //    }
 //
 //    @Override
-//    public void addDragOverHandler(DragOverHandler handler) {
+//    public void addDragOverHandler(DragInHandler handler) {
 //
 //    }
 //
@@ -234,7 +234,7 @@ public class DragNDropExample implements EntryPoint {
 //    }
 //
 //    @Override
-//    public void addDragOverHandler(DragOverHandler handler) {
+//    public void addDragOverHandler(DragInHandler handler) {
 //
 //    }
 //

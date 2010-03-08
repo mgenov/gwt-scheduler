@@ -8,9 +8,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
+import gwtscheduler.client.dragndrop.DragInEvent;
+import gwtscheduler.client.dragndrop.DragInHandler;
 import gwtscheduler.client.dragndrop.DragOutHandler;
-import gwtscheduler.client.dragndrop.DragOverEvent;
-import gwtscheduler.client.dragndrop.DragOverHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 
@@ -66,8 +66,8 @@ public class TeamView extends Composite implements Team.Display, HasMouseDownHan
   }
 
   @Override
-  public void addDragOverHandler(DragOverHandler handler) {
-    addHandler(handler, DragOverEvent.TYPE);
+  public void addDragOverHandler(DragInHandler handler) {
+    addHandler(handler, DragInEvent.TYPE);
   }
 
   @Override

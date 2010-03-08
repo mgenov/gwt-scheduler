@@ -8,8 +8,8 @@ import com.google.gwt.user.client.ui.Widget;
  * frame entered over drop zone.
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class DragOverEvent extends GwtEvent<DragOverHandler> {
-  public static final GwtEvent.Type<DragOverHandler> TYPE = new GwtEvent.Type<DragOverHandler>();
+public class DragInEvent extends GwtEvent<DragInHandler> {
+  public static final GwtEvent.Type<DragInHandler> TYPE = new GwtEvent.Type<DragInHandler>();
   private Widget frame;
   private int mouseX;
   private int mouseY;
@@ -20,20 +20,20 @@ public class DragOverEvent extends GwtEvent<DragOverHandler> {
    * @param mouseX mouse left position.
    * @param mouseY mouse top position.
    */
-  public DragOverEvent(Widget frame, int mouseX, int mouseY) {
+  public DragInEvent(Widget frame, int mouseX, int mouseY) {
     this.frame = frame;
     this.mouseX = mouseX;
     this.mouseY = mouseY;
   }
 
   @Override
-  public Type<DragOverHandler> getAssociatedType() {
+  public Type<DragInHandler> getAssociatedType() {
     return TYPE;
   }
 
   @Override
-  protected void dispatch(DragOverHandler dragOverHandler) {
-    dragOverHandler.onDragOverlap(this);
+  protected void dispatch(DragInHandler dragInHandler) {
+    dragInHandler.onDragOverlap(this);
   }
 
   public void fire(Widget dropZone) {

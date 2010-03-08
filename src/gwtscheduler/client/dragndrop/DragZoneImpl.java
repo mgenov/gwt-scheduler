@@ -1,7 +1,6 @@
 package gwtscheduler.client.dragndrop;
 
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -96,7 +95,7 @@ public class DragZoneImpl implements DragZone {
 
       this.dropZone = dropZone;
 
-      display.fireDragOverEvent(dropZone, mouseX, mouseY); // TODO: Rename DragOverEvent to DragInEvent. DragOverEvent need to be fired all time when dragging over drag zone
+      display.fireDragInEvent(dropZone, mouseX, mouseY); // TODO: Rename DragInEvent to DragInEvent. DragOverEvent need to be fired all time when dragging over drag zone
 
     } else if(dropZone == null && this.dropZone != null){
 

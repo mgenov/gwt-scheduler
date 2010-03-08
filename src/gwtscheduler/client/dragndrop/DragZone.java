@@ -64,7 +64,7 @@ public interface DragZone {
 
     DropZone getDropZone(ArrayList<HasWidgets> roots, int x, int y);
 
-    void fireDragOverEvent(DropZone dropZone, int x, int y);
+    void fireDragInEvent(DropZone dropZone, int x, int y);
 
     void fireDragOutEvent(DropZone dropZone);
 
