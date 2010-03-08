@@ -8,15 +8,12 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.Cell;
@@ -30,9 +27,7 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
-import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,10 +41,10 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   VerticalPanel impl;
   @UiField
 //  FlexTable header;
-          CalendarHeaderWidget header;
+  CalendarHeaderWidget header;
 
   @UiField
-  ColumnPanelWidget columnsPanel;
+  CalendarGridRendererWidget columnsPanel;
   @UiField
   EventsPanel eventsPanel;
   @UiField
@@ -103,44 +98,14 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     return widget;
   }
 
-//  /**
-//   * Creates the top view widget.
-//   *
-//   * @return the top view widget
-//   */
-//  @UiFactory
-//  public FlexTable buildHeader() {
-//    int columns = this.columns;
-//
-//    FlexTable g = new FlexTable();
-//    g.addStyleName(CSS.genericContainer());
-//    g.setWidth("100%");
-//    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
-////    g.getCellFormatter().setWidth(0, columns + 1, Constants.SCROLLBAR_WIDTH() + "px");
-//
-//    topLabels = new ArrayList<Cell<Element>>(columns);
-//
-//    for (int i = 0; i < columns; i++) {
-//      Cell<Element> topCell = new BaseCell(0, i+1);
-//
-//      //only top row is for labels
-//      topLabels.add(topCell);
-//
-//      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
-//      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
-//    }
-//
-//    return g;
-//  }
-
   /**
    * Creates the day view widget.
    *
    * @return the day view widget
    */
   @UiFactory
-  public ColumnPanelWidget buildColumnPanel() {
-    return new ColumnPanelWidget(rows, columns);
+  public CalendarGridRendererWidget buildColumnPanel() {
+    return new CalendarGridRendererWidget(rows, columns);
   }
 
   @Override
@@ -148,18 +113,12 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
   }
 
-//  /**
-//   * Gets the number of columns
-//   * @return the number of cols
-//   */
-//  protected abstract int getColumnsSize();
-
   /**
    * Gets the main panel.
    *
    * @return the main panel
    */
-  public ColumnPanel.Display getMainPanel() {
+  public CalendarGridRenderer.Display getMainPanel() {
     return columnsPanel;
   }
 

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class ColumnPanelWidget extends Composite implements ColumnPanel.Display, HasWidgetResizeHandlers{
+public class CalendarGridRendererWidget extends Composite implements CalendarGridRenderer.Display, HasWidgetResizeHandlers{
 
 
   /** static ref to css */
@@ -51,7 +51,7 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
   private static AbstractDaysPanelUiBinder uiBinder = GWT.create(AbstractDaysPanelUiBinder.class);
 
   /** ui binder interface */
-  interface AbstractDaysPanelUiBinder extends UiBinder<Widget, ColumnPanelWidget> {
+  interface AbstractDaysPanelUiBinder extends UiBinder<Widget, CalendarGridRendererWidget> {
   }
 
   private int rows;
@@ -60,7 +60,7 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
   /**
    * Default constructor.
    */
-  public ColumnPanelWidget(int rows,int columns) {
+  public CalendarGridRendererWidget(int rows,int columns) {
     this.rows = rows;
     this.columns = columns;
     initWidget(uiBinder.createAndBindUi(this));

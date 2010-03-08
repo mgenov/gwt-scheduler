@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.LazyPanel;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPanel.Display {
+public class CalendarViewPanelWidget extends Composite implements CalendarViewPanel.Display {
 
   /**
    * static ref to css
@@ -66,10 +67,12 @@ public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPa
     this.rows = rows;
     this.columnsCount = cols;
     titleElements = new ArrayList<Cell<Element>>();
+    impl  = createWidget();
+    initWidget(impl);
   }
 
-  @Override
-  protected Widget createWidget() {
+//  @Override
+  protected FlexTable createWidget() {
 //    impl = new Grid(1, this.columns + 1);
     impl = new FlexTable();
     impl.setBorderWidth(0);
@@ -118,11 +121,11 @@ public class CalendarViewPanelWidget extends LazyPanel implements CalendarViewPa
     return impl;
   }
 
-  @Override
-  protected void onAttach() {
-    ensureWidget();
-    super.onAttach();
-  }
+//  @Override
+//  protected void onAttach() {
+//    ensureWidget();
+//    super.onAttach();
+//  }
 
   /**
    * Gets a list of title elements.

@@ -21,26 +21,23 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
-  private int rows;
-//  private MultipleElementsIntervalDecorator decorator;
-//  private ColumnTitleProvider columnTitleProvider;
   private DateGenerator dateGenerator;
   private List<CalendarColumn> columns;
-  private DecorationRenderer decorationRenderer;
-  private CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer(); 
+  private CalendarTitlesRenderer titlesRenderer; 
   private EventBus eventBus;
   private Display display;
   private String tabLabel;
 
-  public ColumnsViewPresenter(DateGenerator dateGenerator, DecorationRenderer decorationRenderer, EventBus eventBus) {
+  public ColumnsViewPresenter(DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
-    this.decorationRenderer = decorationRenderer;
+    this.titlesRenderer = titlesRenderer;
     this.eventBus = eventBus;
   }
 
-  public ColumnsViewPresenter(DateGenerator dateGenerator, List<CalendarColumn> columns, EventBus eventBus) {
+  public ColumnsViewPresenter( List<CalendarColumn> columns,DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
     this.columns = columns;
+    this.titlesRenderer = titlesRenderer;
     this.eventBus = eventBus;
   }
 
@@ -67,6 +64,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     display.initLasso(new VerticalLassoStrategy(false), this);
     final Interval interval = dateGenerator.interval();
 
+    titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
+
     eventBus.addHandler(WidgetResizeEvent.getType(),display.getMainPanel().getWidgetResizeHandler());
     eventBus.addHandler(WidgetResizeEvent.getType(),display.getCalendarHeaderResizeHandler());
 
@@ -75,7 +74,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
       public void onNavigateNext() {
 //        display.removeColumn();
 //        eventBus.fireEvent(new WidgetResizeEvent());
-        titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
+
         titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
 //        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
 //        decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.next().interval(),display.getDecorables());
@@ -85,7 +84,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigatePreviousEvent.TYPE, new NavigatePreviousEventHandler() {
       @Override
       public void onNavigatePrevious() {
-        titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
+//        titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
         titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
 //        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
 //        decorationRenderer.decorateHorizontalTitlesLine(dateGenerator.previous().interval(),display.getDecorables());
@@ -96,7 +95,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
       public void onNavigateTo(ReadableDateTime date) {
-        titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
+//        titlesRenderer.renderVerticalTitles(interval,display.getDecorables().getRowsDecorableElements());
         titlesRenderer.renderHorizontalTitles(columns,display.getDecorables().getColumnsDecorableElements());
 //        decorationRenderer.decorateVerticalTimeLine(interval,display.getDecorables());
 //        Interval interval = new Interval(date,date);

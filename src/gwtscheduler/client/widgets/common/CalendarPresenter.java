@@ -2,7 +2,7 @@ package gwtscheduler.client.widgets.common;
 
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.columns.ColumnPanel;
+import gwtscheduler.client.widgets.view.columns.CalendarGridRenderer;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 
@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.Widget;
 public interface CalendarPresenter {
   public interface Display extends GenericCalendarDisplay{
 
-    ColumnPanel.Display getMainPanel();
+    CalendarGridRenderer.Display getMainPanel();
 
     void removeColumn(int calendarColumn);
 

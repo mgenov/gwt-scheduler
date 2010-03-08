@@ -13,7 +13,7 @@
         <columns:CalendarHeaderWidget ui:field="header" />
 		<common:LassoAwarePanel ui:field="lassoAwarePanel">
 			<common:EventsPanel ui:field="eventsPanel" />
-			<columns:ColumnPanelWidget ui:field="columnsPanel" />
+			<columns:CalendarGridRendererWidget ui:field="columnsPanel" />
 		</common:LassoAwarePanel>
 	</g:VerticalPanel>
 </ui:UiBinder> 
