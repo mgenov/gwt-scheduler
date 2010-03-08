@@ -15,18 +15,20 @@ import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.common.Cell;
+import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.CalendarViewPanelWidget;
 import gwtscheduler.client.widgets.view.common.HorizontalCalendarViewPanelResizeHandler;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarColumnsFrameGridWidget extends Composite implements CalendarColumnsFrameGrid.Display, HasWidgetResizeHandlers{
+public class CalendarColumnsFrameGridWidget extends Composite implements CalendarColumnsFrameGrid.Display, HasWidgetResizeHandlers, HasMultipleDecorables<Element> {
 
 
   /** static ref to css */
@@ -105,6 +107,11 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
     return rh;
   }
 
+  @Override
+  public HasMultipleDecorables getDecorables() {
+    return this;  
+  }
+
   public HandlerRegistration addWidgetResizeHandler(WidgetResizeHandler handler) {
     return addHandler(handler, WidgetResizeEvent.getType());
   }
@@ -142,5 +149,15 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
 
   public void addColumn(String title) {
    grid.addColumn(title);
+  }
+
+  @Override
+  public List<Cell<Element>> getDecorableElements() {
+    return Collections.unmodifiableList(grid.getTitleElements());
+  }
+
+  @Override
+  public List<Cell<Element>> getContentDecorableElements() {
+    return Collections.unmodifiableList(grid.getMainElements());
   }
 }

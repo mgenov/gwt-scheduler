@@ -35,11 +35,11 @@ public interface GenericCalendarDisplay extends ComplexGrid {
    */
   List<Cell<Element>> getVisibleElements();
 
-  /**
-   * Gets the decorables elements.
-   * @return the decorables element
-   */
-  HasMultipleDecorables<Element> getDecorables();
+//  /**
+//   * Gets the decorables elements.
+//   * @return the decorables element
+//   */
+//  HasMultipleDecorables<Element> getDecorables();
 
   /**
    * Inits the lasso.

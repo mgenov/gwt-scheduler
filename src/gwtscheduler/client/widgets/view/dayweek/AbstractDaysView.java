@@ -196,7 +196,7 @@ public abstract class AbstractDaysView extends Composite implements DaysDisplay,
     return daysPanel.getRows();
   }
 
-  @Override
+//  @Override
   public HasMultipleDecorables<Element> getDecorables() {
     return this;
   }

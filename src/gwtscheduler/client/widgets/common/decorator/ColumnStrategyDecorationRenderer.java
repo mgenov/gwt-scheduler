@@ -25,13 +25,13 @@ public class ColumnStrategyDecorationRenderer implements DecorationRenderer{
   public void decorateVerticalTimeLine(Interval interval, HasMultipleDecorables<Element> decorables) {
     titleProvider.setInterval(interval);
     Period day = new Period(0, 0, 0, 1, 0, 0, 0, 0);
-    decorator.decorateVertical(interval.getStart(), day, decorables.getRowsDecorableElements());
+    decorator.decorateVertical(interval.getStart(), day, decorables.getDecorableElements());
   }
 
   @Override
   public void decorateHorizontalTitlesLine(Interval interval, HasMultipleDecorables<Element> decorables) {
      titleProvider.setInterval(interval);
-     decorator.decorateHorizontal(titleProvider, decorables.getColumnsDecorableElements());
+     decorator.decorateHorizontal(titleProvider, decorables.getDecorableElements());
     
   }
 }

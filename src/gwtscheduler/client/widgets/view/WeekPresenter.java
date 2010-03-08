@@ -95,14 +95,14 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
   public Interval onNavigateNext() {
     Interval tp = getFactory().next().interval();
     columnTitleProvider.setInterval(tp);
-    decorator.decorate(tp, columnTitleProvider, getDisplay().getDecorables());
+//    decorator.decorate(tp, columnTitleProvider, getDisplay().getDecorables());
     return tp;
   }
 
   public Interval onNavigatePrevious() {
     Interval period = getFactory().previous().interval();
     columnTitleProvider.setInterval(period);
-    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
+//    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 
@@ -119,7 +119,7 @@ public class WeekPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
     }
     Interval period = getFactory().interval();
     columnTitleProvider.setInterval(period);
-    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
+//    decorator.decorate(period, columnTitleProvider, getDisplay().getDecorables());
     return period;
   }
 

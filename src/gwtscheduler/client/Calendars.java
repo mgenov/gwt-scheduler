@@ -9,7 +9,9 @@ import gwtscheduler.client.widgets.common.decorator.ColumnStrategyDecorationRend
 import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import gwtscheduler.client.widgets.common.decorator.DateTimeLabelDecorator;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
+import gwtscheduler.client.widgets.view.columns.CalendarColumnsFrameGrid;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
+import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
@@ -46,13 +48,17 @@ public class Calendars {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
     columns = columnsProvider.getColumns().size();
-    DateTimeLabelDecorator decorator = new DateTimeLabelDecorator();
-//    ColumnStrategyDecorationRenderer decorationRenderer  = new ColumnStrategyDecorationRenderer(decorator,columnTitleProvider);
+
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.DAY,getCurrentDate());
+
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
-    calendar = new ColumnsViewPresenter(columnsProvider.getColumns(),dateGenerator,titlesRenderer,calendarHeader,eventBus);
+
+    CalendarContent  calendarContent = new CalendarContent(new CalendarColumnsFrameGrid());
+
+    calendar = new ColumnsViewPresenter(columnsProvider.getColumns(),dateGenerator,titlesRenderer,calendarHeader,calendarContent,eventBus);
+    
     return this;
   }
 

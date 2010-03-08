@@ -85,7 +85,7 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     Interval next = getFactory().next().interval();
     adjustVisibleRows(next);
     columnTitleProvider.setInterval(next);
-    decorator.decorate(next,columnTitleProvider, getDisplay().getDecorables());
+//    decorator.decorate(next,columnTitleProvider, getDisplay().getDecorables());
     return next;
   }
 
@@ -93,7 +93,7 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     Interval prev = getFactory().previous().interval();
     adjustVisibleRows(prev);
     columnTitleProvider.setInterval(prev);
-    decorator.decorate(prev,columnTitleProvider, getDisplay().getDecorables());
+//    decorator.decorate(prev,columnTitleProvider, getDisplay().getDecorables());
     return prev;
   }
 
@@ -105,7 +105,7 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     adjustVisibleRows(intv);
     Interval interval = new Interval(intv.getStart(),new Period(0, 0, 0, WeekSize, 0, 0, 0, 0));
     columnTitleProvider.setInterval(interval);
-    decorator.decorate(intv,columnTitleProvider, getDisplay().getDecorables());
+//    decorator.decorate(intv,columnTitleProvider, getDisplay().getDecorables());
     return intv;
   }
 

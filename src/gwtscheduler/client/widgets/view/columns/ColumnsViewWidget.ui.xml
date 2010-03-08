@@ -11,9 +11,10 @@
 	<g:VerticalPanel ui:field="impl">
 		<!--<g:FlexTable ui:field="header" />-->
         <columns:CalendarHeaderWidget ui:field="header" />
-		<common:LassoAwarePanel ui:field="lassoAwarePanel">
-			<common:EventsPanel ui:field="eventsPanel" />
-			<columns:CalendarColumnsFrameGridWidget ui:field="columnsPanel" />
-		</common:LassoAwarePanel>
+        <columns:CalendarContentWidget ui:field="content" />
+		<!--<common:LassoAwarePanel ui:field="lassoAwarePanel">-->
+			<!--<common:EventsPanel ui:field="eventsPanel" />-->
+			<!--<columns:CalendarColumnsFrameGridWidget ui:field="columnsPanel" />-->
+		<!--</common:LassoAwarePanel>-->
 	</g:VerticalPanel>
 </ui:UiBinder> 
