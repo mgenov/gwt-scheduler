@@ -19,30 +19,36 @@ import java.util.HashMap;
  */
 class DragZoneImpl implements DragZone {
 
-  private final Display display;
+  private Display display;
   private DropZone dropZone = null;
 
   private HashMap<HasMouseDownHandlers, Object> draggingRegister = new HashMap<HasMouseDownHandlers, Object>();
   private ArrayList<HasWidgets> dropZones = new ArrayList<HasWidgets>();
   private int startX = 0;
   private int startY = 0;
+  private DragFrame frame;
+
+  public DragZoneImpl(DragFrame frame){
+    this.frame = frame;
+  }
 
   /**
    * Constructor of the DropZone.
    *
    * @param display target display
    */
-  public DragZoneImpl(Display display) {
+  public void bindDisplay(Display display) {
     this.display = display;
+    this.frame.bindDisplay(display.getFrame());
 
-    display.getFrameMouseMoveHandlers().addMouseMoveHandler(new MouseMoveHandler() {
+    this.frame.getFrameMouseMoveHandlers().addMouseMoveHandler(new MouseMoveHandler() {
       @Override
       public void onMouseMove(MouseMoveEvent event) {
          mouseMove(event);
       }
     });
 
-    display.getFrameMouseUpHandlers().addMouseUpHandler(new MouseUpHandler() {
+    this.frame.getFrameMouseUpHandlers().addMouseUpHandler(new MouseUpHandler() {
       @Override
       public void onMouseUp(MouseUpEvent event) {
         mouseUp(event);
@@ -69,7 +75,7 @@ class DragZoneImpl implements DragZone {
         int cloneWidth = display.getSourceWidth();
         int cloneHeight = display.getSourceHeight();
 
-        display.setFrameSize(cloneWidth, cloneHeight);
+        frame.setFrameSize(cloneWidth, cloneHeight);
 
         display.addFrameAtPosition(startX-10, startY-10);
         display.captureFrame();
@@ -184,7 +190,7 @@ class DragZoneImpl implements DragZone {
    */
   @Override
   public void setFrameStyle(String styleName) {
-    display.setFrameStyle(styleName);    
+    frame.setFrameStyle(styleName);    
   }
 
   /**

@@ -5,7 +5,8 @@ package gwtscheduler.client.dragndrop;
  */
 public class Zones {
   public static DragZone getDragZone(){
-    DragZone dragZone = new DragZoneImpl(new DragZoneView());
+    DragZoneImpl dragZone = new DragZoneImpl(new DragFrame());
+    dragZone.bindDisplay(new DragZoneView());
     return dragZone;
   }
 }

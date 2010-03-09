@@ -19,23 +19,11 @@ import java.util.ArrayList;
 class DragZoneView extends Composite implements DragZone.Display {
 
   private AbsolutePanel absolutePanel = new AbsolutePanel();
-  private Label frame = new Label();
+  private DragFrameWidget frame = new DragFrameWidget();
   private Widget dragWidget;
 
   public DragZoneView() {
     initWidget(absolutePanel);
-
-    frame.setStyleName("dragFrame");
-  }
-
-  @Override
-  public HasMouseMoveHandlers getFrameMouseMoveHandlers() {
-    return frame;
-  }
-
-  @Override
-  public HasMouseUpHandlers getFrameMouseUpHandlers() {
-    return frame;
   }
 
   @Override
@@ -62,11 +50,6 @@ class DragZoneView extends Composite implements DragZone.Display {
   @Override
   public void captureFrame() {
     DOM.setCapture(frame.getElement());
-  }
-
-  @Override
-  public void setFrameSize(int width, int height) {
-    frame.setPixelSize(width, height);
   }
 
   @Override
@@ -152,11 +135,6 @@ class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
-  public void setFrameStyle(String styleName) {
-    frame.setStyleName(styleName);
-  }
-
-  @Override
   public HasWidgets getContainer() {
     return absolutePanel;
   }
@@ -175,6 +153,11 @@ class DragZoneView extends Composite implements DragZone.Display {
   @Override
   public void addWidget(Widget widget) {
     absolutePanel.add(widget);
+  }
+
+  @Override
+  public DragFrame.Display getFrame() {
+    return frame;
   }
 
   @Override

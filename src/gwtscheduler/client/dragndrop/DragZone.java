@@ -42,10 +42,6 @@ public interface DragZone {
 
   interface Display {
 
-    HasMouseMoveHandlers getFrameMouseMoveHandlers();
-
-    HasMouseUpHandlers getFrameMouseUpHandlers();
-
     int getSourceWidth();
 
     int getSourceHeight();
@@ -53,8 +49,6 @@ public interface DragZone {
     void addFrameAtPosition(int left, int top);
 
     void captureFrame();
-
-    void setFrameSize(int width, int height);
 
     void storeDragWidget(MouseDownEvent event);
 
@@ -72,8 +66,6 @@ public interface DragZone {
 
     void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY);
 
-    void setFrameStyle(String styleName);
-
     HasWidgets getContainer();
 
     void setSize(int width, int height);
@@ -87,6 +79,8 @@ public interface DragZone {
     void setSize(String width, String height);
 
     void addWidget(Widget widget);
+
+    DragFrame.Display getFrame();
   }
 
   /**
