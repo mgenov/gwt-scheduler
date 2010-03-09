@@ -13,15 +13,19 @@ import java.util.List;
  */
 public class CalendarContent {
   public interface Display {
+
     CalendarColumnsFrameGrid.Display getCalendarColumnsFrameGridDisplay();
 
-    void removeColumnHeader(int calendarColumnIndex);
+
+    void removeColumn(int calendarColumnIndex);
 
     void addColumn(String title);
-
+    
     int[] getCellAt(int endX, int endY);
 
     void attachWidget(Widget sourceWidget, int[] cell);
+
+    void fireResizeRedrawEvents();
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -41,7 +45,7 @@ public class CalendarContent {
   }
 
   public void removeColumn(int index) {
-    display.removeColumnHeader(index);
+    display.removeColumn(index);
   }
 
   public void addColumn(String title) {
@@ -52,6 +56,10 @@ public class CalendarContent {
     return display.getCalendarColumnsFrameGridDisplay().getWidgetResizeHandler();
   }
 
+  public void fireResizeRedrawEvents() {
+    display.fireResizeRedrawEvents();
+  }
+  
   public int[] getCellPosition(int endX, int endY) {
     return display.getCellAt(endX, endY);
   }

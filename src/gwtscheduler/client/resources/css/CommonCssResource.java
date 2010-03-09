@@ -31,4 +31,6 @@ interface CommonCssResource extends CssResource {
    * @return
    */
   int genericContainerPaddingPx();
+
+  int scrollOffSetPx();
 }

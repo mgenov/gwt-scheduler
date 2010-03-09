@@ -61,4 +61,8 @@
 
 .headerCell{
     overflow:hidden;
+    width:60px;
+}
+.headerEnd{
+  background-color: lightBlued;  
 }

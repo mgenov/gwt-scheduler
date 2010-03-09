@@ -149,8 +149,8 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
   }
 
   public void addColumn(String title) {
-    grid.addColumn(title);
-    columns++;
+   grid.addColumn(title);
+   columns++;
   }
 
   @Override
