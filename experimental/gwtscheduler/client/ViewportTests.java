@@ -42,7 +42,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     Resources.injectAllStylesheets();
     VerticalPanel panel = new VerticalPanel();
     DragZone dragZone = Zones.getDragZone();
-//    dragZone.setSize("100%", "100%");
 
     back = new Button("&laquo;", this);
     forward = new Button("&raquo;", this);
@@ -68,6 +67,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     TicketView2 ticketView = new TicketView2();
     TicketPresenter ticketPresenter = new TicketPresenter(ticketView);
+    ticketPresenter.setInfo("Ticket one");
     ticketPresenter.dragWith(dragZone);
 
     panel.add(ticketView);

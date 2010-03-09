@@ -2,6 +2,7 @@ package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.TicketPresenter;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.modules.EventBus;
@@ -11,14 +12,9 @@ import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.navigation.*;
-import org.goda.time.Duration;
-import org.goda.time.Instant;
-import org.goda.time.Interval;
-import org.goda.time.MutableDateTime;
-import org.goda.time.Period;
-import org.goda.time.ReadableDateTime;
-import org.goda.time.ReadableInterval;
+import org.goda.time.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +29,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private EventBus eventBus;
   private Display display;
   private String tabLabel;
-  private CalendarDropHandler handler;
+  private ArrayList<CalendarDropHandler> handler = new ArrayList<CalendarDropHandler>();
 
   public ColumnsViewPresenter(DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
@@ -50,23 +46,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     this.eventBus = eventBus;
   }
 
-//  /**
-//   * Default constructor.
-//   *
-//   * @param columnTitleProvider
-//   * @param eventBus            the event bus
-//   */
-//  public MultiColumnPresenter(AppConfiguration cfg, @ColumnView MultipleElementsIntervalDecorator decorator, ColumnTitleProvider columnTitleProvider, EventBus eventBus) {
-//    this.cfg = cfg;
-//    this.decorator = decorator;
-//    this.columnTitleProvider = columnTitleProvider;
-//    this.eventBus = eventBus;
-//    rows = cfg.rowsInDay();
-//
-//    //TODO: investigate this
-////    new EventsMediator(this,eventBus);
-//  }
-
   @Override
   public void bindDisplay(final Display display) {
     this.display = display;
@@ -76,7 +55,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     display.initLasso(new VerticalLassoStrategy(false), this);
     final Interval interval = dateGenerator.interval();
 
-    titlesRenderer.renderVerticalTitles(interval,calendarContent.getFrameGridDecorables());
+    titlesRenderer.renderVerticalTitles(interval, calendarContent.getFrameGridDecorables());
 
     eventBus.addHandler(WidgetResizeEvent.getType(),calendarContent.getWidgetResizeHandler());
     eventBus.addHandler(WidgetResizeEvent.getType(),calendarHeader.getCalendarHeaderResizeHandler());
@@ -112,9 +91,19 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   private void proceedDropEvent(DropEvent event){
+    Object o = event.getDroppedObject();
     int[] cell = calendarContent.getCellPosition(event.getEndX(), event.getEndY());
     GWT.log(" row: " + cell[0] + " col: " + cell[1], null);
-    GWT.log("" + columns.get(cell[1]).getTitle(), null);
+    Instant time = getInstantForCell(cell);
+
+    CalendarDropEvent calendarDrop = new CalendarDropEvent(columns.get(cell[1]).getTitle(), time, o);
+    mediateEvent(calendarDrop);
+  }
+
+  private void mediateEvent(CalendarDropEvent calendarDrop){
+    for(CalendarDropHandler handler : this.handler){
+      handler.onCalendarDrop(calendarDrop);
+    }
   }
 
   @Override
@@ -129,7 +118,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public Display getDisplay() {
-    return display; 
+    return display;
   }
 
   @Override
@@ -152,6 +141,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     display.forceLayout();
   }
 
+
   @Override
   public Interval getIntervalForRange(int[] start, int[] end) {
     Instant from = getInstantForCell(start);
@@ -159,7 +149,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     //this is to make sure that [0,0] is at least one cell's duration
     return new Interval(from, to);
   }
-
 
   protected Duration getDurationPerCells(int count) {
     int minutesPerCell = (24 * 60) / getRowNum();
@@ -203,7 +192,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public void addCalendarDropHandler(CalendarDropHandler handler) {
-    this.handler = handler;
+    this.handler.add(handler);
   }
 
   @Override

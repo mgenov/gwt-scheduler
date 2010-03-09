@@ -13,17 +13,22 @@ public class TicketPresenter {
   }
 
   private Display display;
+  private String info;
 
   public TicketPresenter(Display display) {
     this.display = display;
   }
 
   public void setInfo(String string){
-    display.setText(string);
+    info = string;
   }
 
   public int getDuration(){
-    return 4;
+    return 1;
+  }
+
+  public String getInfo(){
+    return info;
   }
 
   public void dragWith(DragZone dragZone) {

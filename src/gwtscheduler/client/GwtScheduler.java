@@ -5,9 +5,6 @@ import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.dragndrop.DropEvent;
-import gwtscheduler.client.dragndrop.DropHandler;
-import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
@@ -39,7 +36,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
    */
   private List<CalendarPresenter> presenters;
   private Display display;
-  private int selectedPresenter=0;
+  private int selectedPresenter = 0;
 
   public GwtScheduler(List<CalendarPresenter> presenters) {
     this.presenters = presenters;
@@ -52,16 +49,24 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
 
     for (CalendarPresenter presenter : presenters) {
       add(presenter);
-      presenter.addCalendarDropHandler(new CalendarDropHandler(){
+      presenter.addCalendarDropHandler(new CalendarDropHandler() {
         @Override
         public void onCalendarDrop(CalendarDropEvent event) {
-          GWT.log("Something is dropped", null);
+          proceedCalendarDropEvent(event);
         }
       });
     }
-
   }
 
+  private void proceedCalendarDropEvent(CalendarDropEvent event) {
+    if(event.getObject() instanceof TicketPresenter){
+      TicketPresenter ticket = (TicketPresenter)event.getObject();
+      GWT.log("Dropped: " + ticket.getInfo(), null);
+      GWT.log("To column: " + event.getCalendarColumn(), null);
+      GWT.log("Start time: " + event.getTime().toString(), null);
+      GWT.log("Simulate sending to server", null);
+    }
+  }
 
   @Override
   public Widget asWidget() {
@@ -99,7 +104,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     display.selectTab(i);
     selectedPresenter = i;
   }
-  
+
   public void deleteColumn(CalendarColumn column) {
     CalendarPresenter presenter = presenters.get(selectedPresenter);
     presenter.deleteColumn(column);

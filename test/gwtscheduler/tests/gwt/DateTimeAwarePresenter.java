@@ -1,6 +1,6 @@
 package gwtscheduler.tests.gwt;
 
-import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.TicketPresenter;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;

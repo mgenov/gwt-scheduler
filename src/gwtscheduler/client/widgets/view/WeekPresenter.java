@@ -1,11 +1,11 @@
 package gwtscheduler.client.widgets.view;
 
+import gwtscheduler.client.TicketPresenter;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.annotation.Week;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
-import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.widgets.common.decorator.DaysTitleProvider;
 import gwtscheduler.client.widgets.view.columns.CalendarDropHandler;
@@ -13,13 +13,7 @@ import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
 
-import org.goda.time.Duration;
-import org.goda.time.Instant;
-import org.goda.time.Interval;
-import org.goda.time.MutableDateTime;
-import org.goda.time.Period;
-import org.goda.time.ReadableDateTime;
-import org.goda.time.ReadableInterval;
+import org.goda.time.*;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

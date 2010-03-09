@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.common;
 
+import gwtscheduler.client.TicketPresenter;
 import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
@@ -7,6 +8,7 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumnsFrameGrid;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
+import org.goda.time.DateTime;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 
@@ -83,4 +85,5 @@ public interface CalendarPresenter {
   void addColumn(CalendarColumn column);
 
   void addCalendarDropHandler(CalendarDropHandler handler);
+
 }
