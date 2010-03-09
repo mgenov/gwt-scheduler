@@ -110,6 +110,15 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     mediateEvent(calendarDrop);
 
     calendarContent.attachWidget(event.getSourceWidget(), cell);
+    getRowForInstant(time);
+  }
+
+  public int getRowForInstant(Instant time) {
+    int minutesPerCell = (24 * 60) / getRowNum();
+    MutableDateTime mTime = time.toMutableDateTime();
+    int cell = Math.round(mTime.getMinuteOfDay()/minutesPerCell);
+    GWT.log("MutableDateTime : " + cell, null);
+    return cell;
   }
 
   private void mediateEvent(CalendarDropEvent calendarDrop){
