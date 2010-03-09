@@ -2,11 +2,12 @@ package gwtscheduler.client.dragndrop;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class DragFrame {
+class DragFrame implements Frame{
   interface Display {
 
     HasMouseMoveHandlers getFrameMouseMoveHandlers();
@@ -16,6 +17,10 @@ public class DragFrame {
     void setSize(int width, int height);
 
     void setStyle(String styleName);
+
+    void capture();
+
+    void release();
   }
 
   private Display display;
@@ -39,5 +44,21 @@ public class DragFrame {
 
   public void setFrameStyle(String styleName){
     display.setStyle(styleName);
+  }
+
+  public void go(DragZone container, int left, int top) {
+    container.addWidget((Widget)display, left, top);
+  }
+
+  public void captureFrame() {
+    display.capture();
+  }
+
+  public void releaseFrameCapture() {
+    display.release();
+  }
+
+  public void removeFrameFromPanel(DragZone container) {
+    container.removeWidget((Widget)display);
   }
 }

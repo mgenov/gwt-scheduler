@@ -9,11 +9,11 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DragOverEvent extends GwtEvent<DragOverHandler>{
   public static final Type<DragOverHandler> TYPE = new Type<DragOverHandler>();
-  private final DragFrame frame;
+  private final Frame frame;
   private final int mouseX;
   private final int mouseY;
 
-  public DragOverEvent(DragFrame frame, int mouseX, int mouseY) {
+  public DragOverEvent(Frame frame, int mouseX, int mouseY) {
     this.frame = frame;
     this.mouseX = mouseX;
     this.mouseY = mouseY;
@@ -29,7 +29,7 @@ public class DragOverEvent extends GwtEvent<DragOverHandler>{
     dragOverHandler.onDragOver(this);
   }
 
-  public DragFrame getFrame() {
+  public Frame getFrame() {
     return frame;
   }
 

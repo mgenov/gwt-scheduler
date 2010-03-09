@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DragInEvent extends GwtEvent<DragInHandler> {
   public static final GwtEvent.Type<DragInHandler> TYPE = new GwtEvent.Type<DragInHandler>();
-  private final DragFrame frame;
+  private final Frame frame;
   private final int mouseX;
   private final int mouseY;
 
@@ -20,7 +20,7 @@ public class DragInEvent extends GwtEvent<DragInHandler> {
    * @param mouseX mouse left position.
    * @param mouseY mouse top position.
    */
-  public DragInEvent(DragFrame frame, int mouseX, int mouseY) {
+  public DragInEvent(Frame frame, int mouseX, int mouseY) {
     this.frame = frame;
     this.mouseX = mouseX;
     this.mouseY = mouseY;
@@ -36,7 +36,7 @@ public class DragInEvent extends GwtEvent<DragInHandler> {
     dragInHandler.onDragOverlap(this);
   }
 
-  public DragFrame getFrame() {
+  public Frame getFrame() {
     return frame;
   }
 

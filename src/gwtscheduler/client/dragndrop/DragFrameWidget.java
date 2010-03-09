@@ -2,8 +2,10 @@ package gwtscheduler.client.dragndrop;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -36,4 +38,15 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   public void setStyle(String styleName) {
     frame.setStyleName(styleName);
   }
+
+  @Override
+  public void capture() {
+    DOM.setCapture(frame.getElement());
+  }
+
+  @Override
+  public void release() {
+    DOM.releaseCapture(frame.getElement());
+  }
+
 }

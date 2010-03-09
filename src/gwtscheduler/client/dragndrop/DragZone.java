@@ -48,9 +48,9 @@ public interface DragZone {
 
     int getSourceHeight();
 
-    void addFrameAtPosition(int left, int top);
+//    void addFrameAtPosition(int left, int top);
 
-    void captureFrame();
+//    void captureFrame();
 
     void storeDragWidget(MouseDownEvent event);
 
@@ -60,9 +60,9 @@ public interface DragZone {
 
     void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event);
 
-    void releaseFrameCapture();
+//    void releaseFrameCapture();
 
-    void removeFrameFromPanel();
+//    void removeFrameFromPanel();
 
     void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY);
 
@@ -78,7 +78,9 @@ public interface DragZone {
 
     void addWidget(Widget widget);
 
-    DragFrame.Display getFrame();
+//    DragFrame.Display getFrame();
+
+    void removeWidget(Widget widget);
   }
 
   /**
@@ -137,4 +139,5 @@ public interface DragZone {
    */
   HasWidgets getDragZone();
 
+  void removeWidget(Widget widget);
 }

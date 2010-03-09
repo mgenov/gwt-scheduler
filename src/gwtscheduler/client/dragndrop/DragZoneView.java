@@ -21,7 +21,6 @@ import java.util.ArrayList;
 class DragZoneView extends Composite implements DragZone.Display {
 
   private AbsolutePanel absolutePanel = new AbsolutePanel();
-  private DragFrameWidget frame = new DragFrameWidget();
   private Widget dragWidget;
 
   public DragZoneView() {
@@ -42,16 +41,6 @@ class DragZoneView extends Composite implements DragZone.Display {
       return 0;
     }
     return dragWidget.getOffsetHeight();
-  }
-
-  @Override
-  public void addFrameAtPosition(int left, int top) {
-    absolutePanel.add(frame, left, top);
-  }
-
-  @Override
-  public void captureFrame() {
-    DOM.setCapture(frame.getElement());
   }
 
   @Override
@@ -101,16 +90,6 @@ class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
-  public void releaseFrameCapture() {
-     DOM.releaseCapture(frame.getElement());
-  }
-
-  @Override
-  public void removeFrameFromPanel() {
-    absolutePanel.remove(frame);
-  }
-
-  @Override
   public void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY) {
     DropEvent dropEvent = new DropEvent(dragWidget, targetObject);
 
@@ -145,8 +124,8 @@ class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
-  public DragFrame.Display getFrame() {
-    return frame;
+  public void removeWidget(Widget widget) {
+    absolutePanel.remove(widget);
   }
 
   @Override

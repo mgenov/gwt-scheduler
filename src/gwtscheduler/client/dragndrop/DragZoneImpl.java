@@ -28,9 +28,9 @@ class DragZoneImpl implements DragZone {
   private ArrayList<HasWidgets> dropZones = new ArrayList<HasWidgets>();
   private int startX = 0;
   private int startY = 0;
-  private DragFrame frame;
+  private Frame frame;
 
-  public DragZoneImpl(DragFrame frame){
+  public DragZoneImpl(Frame frame){
     this.frame = frame;
   }
 
@@ -41,7 +41,6 @@ class DragZoneImpl implements DragZone {
    */
   public void bindDisplay(Display display) {
     this.display = display;
-    this.frame.bindDisplay(display.getFrame());
 
     this.frame.getFrameMouseMoveHandlers().addMouseMoveHandler(new MouseMoveHandler() {
       @Override
@@ -79,8 +78,9 @@ class DragZoneImpl implements DragZone {
 
         frame.setFrameSize(cloneWidth, cloneHeight);
 
-        display.addFrameAtPosition(startX-10, startY-10);
-        display.captureFrame();
+//        display.addFrameAtPosition(startX-10, startY-10);
+        frame.go(DragZoneImpl.this, startX-10, startY-10);
+        frame.captureFrame();
       }
     });
   }
@@ -114,7 +114,8 @@ class DragZoneImpl implements DragZone {
       display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY));
     }
 
-    display.addFrameAtPosition(mouseX - 10, mouseY - 10); // TODO: make correction when dragging
+    frame.go(DragZoneImpl.this, mouseX-10, mouseY-10); // TODO: make correction when dragging
+//    display.addFrameAtPosition(mouseX - 10, mouseY - 10); // TODO: make correction when dragging
   }
 
   private void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event){
@@ -122,8 +123,8 @@ class DragZoneImpl implements DragZone {
   }
 
   private void mouseUp(MouseUpEvent event){
-    display.releaseFrameCapture();
-    display.removeFrameFromPanel();
+    frame.releaseFrameCapture();
+    frame.removeFrameFromPanel(DragZoneImpl.this);
 
     if(dropZones.size() == 0){
       GWT.log("No registered drop zones!", null);
@@ -214,6 +215,11 @@ class DragZoneImpl implements DragZone {
   @Override
   public HasWidgets getDragZone() {
     return display.getContainer();
+  }
+
+  @Override
+  public void removeWidget(Widget widget) {
+    display.removeWidget(widget);
   }
 
 }
