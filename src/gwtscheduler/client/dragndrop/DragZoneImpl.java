@@ -2,6 +2,8 @@ package gwtscheduler.client.dragndrop;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -98,22 +100,25 @@ class DragZoneImpl implements DragZone {
     DropZone dropZone = display.getDropZone(dropZones, mouseX, mouseY);
 
     if(dropZone != null && this.dropZone == null){
-
+      // fires event when get in drop zone.
       this.dropZone = dropZone;
-      display.fireDragInEvent(dropZone, mouseX, mouseY);
+      fireEvent(dropZone, new DragInEvent(frame, mouseX, mouseY));
 
     } else if(dropZone == null && this.dropZone != null){
-
-      display.fireDragOutEvent(this.dropZone);
+      // fires event when get out from drop zone.
+      display.fireEvent(this.dropZone, new DragOutEvent(frame));
       this.dropZone = null;
 
     } else if(this.dropZone != null){
-
-      display.fireDragOverEvent(this.dropZone, mouseX, mouseY);
-
+      // fires event when dragging over drop zone.
+      display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY));
     }
 
     display.addFrameAtPosition(mouseX - 10, mouseY - 10); // TODO: make correction when dragging
+  }
+
+  private void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event){
+    display.fireEvent(dropZone, event);
   }
 
   private void mouseUp(MouseUpEvent event){

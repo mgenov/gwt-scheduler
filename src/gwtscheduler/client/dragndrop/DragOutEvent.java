@@ -8,9 +8,9 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DragOutEvent extends GwtEvent<DragOutHandler>{
   public static final GwtEvent.Type<DragOutHandler> TYPE = new GwtEvent.Type<DragOutHandler>();
-  private Widget frame;
+  private DragFrame frame;
 
-  public DragOutEvent(Widget frame) {
+  public DragOutEvent(DragFrame frame) {
     this.frame = frame;
   }
 
@@ -25,11 +25,11 @@ public class DragOutEvent extends GwtEvent<DragOutHandler>{
     dragOutHandler.onDragUnOverlap(this);
   }
 
-  public Widget getFrame() {
+  public DragFrame getFrame() {
     return frame;
   }
 
-  public void setFrame(Widget frame) {
+  public void setFrame(DragFrame frame) {
     this.frame = frame;
   }
 
