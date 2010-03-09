@@ -74,7 +74,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     panel.add(nav);
     panel.add(main.asWidget());
     dragZone.addWidget(panel);
-    dragZone.registerDropZoneRoot(panel);
+
+    dragZone.registerDropZoneRoot(main.getHasWidgets());
+
     dragZone.go(RootPanel.get("nav"));
     main.selectTab(0);
    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));

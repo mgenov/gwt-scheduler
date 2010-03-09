@@ -146,7 +146,7 @@ class DragZoneView extends Composite implements DragZone.Display {
     dropEvent.setStartY(startY);
     
     dropEvent.setEndX(endX);
-    dropEvent.setMouseY(endY);
+    dropEvent.setEndY(endY);
     
     ((Widget)dropZone).fireEvent(dropEvent);
   }

@@ -1,5 +1,8 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
@@ -21,7 +24,6 @@ public class AbstractGridOverlay extends AbsolutePanel implements WidgetResizeHa
 
   /**
    * Default constructor.
-   * @param strat
    */
   AbstractGridOverlay() {
     this(new AbsolutePanel());
@@ -55,20 +57,21 @@ public class AbstractGridOverlay extends AbsolutePanel implements WidgetResizeHa
     int x = event.getRelativeX(getElement());
     int y = event.getRelativeY(getElement());
 
-    int rowPos = (y / (grid.getHeight() / grid.getRowNum()));
-    int colPos = (x / (grid.getWidth() / grid.getColNum()));
-    return new int[] {rowPos, colPos};
+    return calculateCell(x, y);
   }
 
-  // TODO: BAD IMPLEMENTATION... ONLY FOR EXPERIMENTING
-  public int[] calculateCellPosition(DropEvent event){
-    int x = event.getEndX();
-    int y = event.getMouseY();
+  protected int[] calculateCellPosition(int x, int y){
+    Element element = getElement();
+    int relativeX = x - element.getAbsoluteLeft() + element.getScrollLeft() + element.getOwnerDocument().getScrollLeft();
+    int relativeY = y - element.getAbsoluteTop() + element.getScrollTop() + element.getOwnerDocument().getScrollTop();
+    return calculateCell(relativeX, relativeY);
+  }
 
-    int colPos = (x / (grid.getWidth() / grid.getColNum()));
+  private int[] calculateCell(int x, int y){
     int rowPos = (y / (grid.getHeight() / grid.getRowNum()));
-    int[] position = calculateLeftTop(new int[] {rowPos, colPos});
-    return new int[] {position[0], position[1], grid.getWidth() / grid.getColNum(), grid.getHeight() / grid.getRowNum()};
+    int colPos = (x / (grid.getWidth() / grid.getColNum()));
+
+    return new int[] {rowPos, colPos};
   }
 
   /**

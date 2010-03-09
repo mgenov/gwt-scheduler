@@ -31,6 +31,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private EventBus eventBus;
   private Display display;
   private String tabLabel;
+  private CalendarDropHandler handler;
 
   public ColumnsViewPresenter(DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
@@ -103,9 +104,14 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     display.addDropHandler(new DropHandler(){
       @Override
       public void onDrop(DropEvent event) {
-        GWT.log("Dropped", null);
+        proceedDropEvent(event);
       }
     });
+  }
+
+  private void proceedDropEvent(DropEvent event){
+    int[] cell = calendarContent.getCellPosition(event.getEndX(), event.getEndY());
+    GWT.log(" row: " + cell[0] + " col: " + cell[1], null);
   }
 
   @Override
@@ -186,6 +192,11 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     calendarContent.addColumn(column.getTitle());
     titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
     eventBus.fireEvent(new WidgetResizeEvent());
+  }
+
+  @Override
+  public void addCalendarDropHandler(CalendarDropHandler handler) {
+    this.handler = handler;
   }
 
   @Override

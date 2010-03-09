@@ -7,6 +7,7 @@ import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.widgets.common.decorator.DaysTitleProvider;
+import gwtscheduler.client.widgets.view.columns.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
@@ -116,6 +117,10 @@ public class DayPresenter extends AbstractCalendarPresenter<AbstractDaysView> {
     MutableDateTime time = curr.getStart().toMutableDateTime();
     time.add(getDurationPerCells(distance));
     return time.toInstant();
+  }
+
+  @Override
+  public void addCalendarDropHandler(CalendarDropHandler handler) {
   }
 
   @Override

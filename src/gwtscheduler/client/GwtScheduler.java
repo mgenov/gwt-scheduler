@@ -3,6 +3,7 @@ package gwtscheduler.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
@@ -10,6 +11,8 @@ import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.client.widgets.view.columns.CalendarDropEvent;
+import gwtscheduler.client.widgets.view.columns.CalendarDropHandler;
 
 import java.util.List;
 
@@ -26,6 +29,8 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     void add(CalendarPresenter.Display display, String title);
 
     void addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler);
+
+    HasWidgets getHasWidgets();
   }
 
 
@@ -35,7 +40,6 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
   private List<CalendarPresenter> presenters;
   private Display display;
   private int selectedPresenter=0;
-
 
   public GwtScheduler(List<CalendarPresenter> presenters) {
     this.presenters = presenters;
@@ -48,14 +52,13 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
 
     for (CalendarPresenter presenter : presenters) {
       add(presenter);
+      presenter.addCalendarDropHandler(new CalendarDropHandler(){
+        @Override
+        public void onCalendarDrop(CalendarDropEvent event) {
+          GWT.log("Something is dropped", null);
+        }
+      });
     }
-
-//    display.addDropHandler(new DropHandler(){
-//      @Override
-//      public void onDrop(DropEvent event) {
-//        GWT.log("Dropped", null);
-//      }
-//    });
 
   }
 
@@ -105,5 +108,9 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
   public void addColumn(CalendarColumn column) {
     CalendarPresenter presenter = presenters.get(selectedPresenter);
     presenter.addColumn(column);
+  }
+
+  public HasWidgets getHasWidgets() {
+    return display.getHasWidgets();
   }
 }

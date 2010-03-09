@@ -2,6 +2,7 @@ package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.user.client.Element;
 import gwtscheduler.client.widgets.common.Cell;
+import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 
 import java.util.List;
@@ -11,13 +12,14 @@ import java.util.List;
  */
 public class CalendarContent {
   public interface Display {
-
     CalendarColumnsFrameGrid.Display getCalendarColumnsFrameGridDisplay();
-
 
     void removeColumnHeader(int calendarColumnIndex);
 
     void addColumn(String title);
+
+    int[] getCellAt(int endX, int endY);
+
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -47,4 +49,9 @@ public class CalendarContent {
   public WidgetResizeHandler getWidgetResizeHandler() {
     return display.getCalendarColumnsFrameGridDisplay().getWidgetResizeHandler();
   }
+
+  public int[] getCellPosition(int endX, int endY) {
+    return display.getCellAt(endX, endY);
+  }
+
 }

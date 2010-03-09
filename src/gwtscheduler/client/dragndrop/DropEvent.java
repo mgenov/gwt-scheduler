@@ -15,7 +15,7 @@ public class DropEvent extends GwtEvent<DropHandler> {
   private int startX;
   private int startY;
   private int endX;
-  private int mouseY;
+  private int endY;
 
   public DropEvent(Widget source, Object object) {
     this.source = source;
@@ -48,12 +48,12 @@ public class DropEvent extends GwtEvent<DropHandler> {
     this.endX = endX;
   }
 
-  public int getMouseY() {
-    return mouseY;
+  public int getEndY() {
+    return endY;
   }
 
-  public void setMouseY(int mouseY) {
-    this.mouseY = mouseY;
+  public void setEndY(int endY) {
+    this.endY = endY;
   }
 
   public int getStartX() {

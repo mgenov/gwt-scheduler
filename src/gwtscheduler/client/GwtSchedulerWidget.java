@@ -5,6 +5,7 @@ import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.dragndrop.DragInHandler;
 import gwtscheduler.client.dragndrop.DragOutHandler;
@@ -55,18 +56,9 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
     impl.addBeforeSelectionHandler(handler);
   }
 
-//  @Override
-//  public HandlerRegistration addDropHandler(DropHandler handler) {
-//    return addHandler(handler, DropEvent.TYPE);
-//  }
-//
-//  @Override
-//  public HandlerRegistration addDragOverHandler(DragInHandler handler) {
-//    return null;
-//  }
-//
-//  @Override
-//  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
-//    return null;
-//  }
+  @Override
+  public HasWidgets getHasWidgets() {
+    return impl;
+  }
+
 }

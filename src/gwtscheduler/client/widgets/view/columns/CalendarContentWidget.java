@@ -6,8 +6,7 @@ import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
-import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
@@ -69,6 +68,10 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     columnsPanel.addColumn(title);
   }
 
+  @Override
+  public int[] getCellAt(int endX, int endY) {
+    return eventsPanel.getCellPosition(endX, endY);
+  }
 
   public EventsPanel getEventsPanel() {
     return eventsPanel;

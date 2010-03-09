@@ -8,6 +8,7 @@ import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
 import gwtscheduler.client.widgets.common.decorator.MonthTitleProvider;
+import gwtscheduler.client.widgets.view.columns.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
 import gwtscheduler.client.widgets.view.month.MonthDisplay;
 import gwtscheduler.common.calendar.IntervalType;
@@ -146,6 +147,10 @@ public class MonthPresenter extends AbstractCalendarPresenter<MonthDisplay> impl
     MutableDateTime time = curr.getStart().toMutableDateTime();
     time.addDays(distance);
     return time.toInstant();
+  }
+
+  @Override
+  public void addCalendarDropHandler(CalendarDropHandler handler) {
   }
 
   @Override

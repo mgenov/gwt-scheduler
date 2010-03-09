@@ -6,6 +6,7 @@ import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;
 
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.client.widgets.view.columns.CalendarDropHandler;
 import org.goda.time.DateTime;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
@@ -91,6 +92,10 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   @Override
   public void addColumn(CalendarColumn column) {
     //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void addCalendarDropHandler(CalendarDropHandler handler) {
   }
 
   @Override
