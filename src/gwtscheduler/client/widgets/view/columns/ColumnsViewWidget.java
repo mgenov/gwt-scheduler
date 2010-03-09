@@ -42,13 +42,6 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @UiField
   CalendarContentWidget content;
 
-//  @UiField
-//  CalendarColumnsFrameGridWidget columnsPanel;
-//  @UiField
-//  EventsPanel eventsPanel;
-//  @UiField
-//  LassoAwarePanel lassoAwarePanel;
-
 
   /**
    * top view cells
@@ -87,13 +80,8 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     content.getLassoAwarePanel().addWidgetResizeHandler(header.getCalendarHeaderResizeHandler());
 
     content.getLassoAwarePanel().setOverflowY(true);
-    content.getLassoAwarePanel().setLassoHandler(this);
+//    content.getLassoAwarePanel().setLassoHandler(this);
 
-
-//    eventsPanel.setComplexGrid(this);
-//    lassoAwarePanel.addWidgetResizeHandler(columnsPanel.getWidgetResizeHandler());
-//    lassoAwarePanel.setOverflowY(true);
-//    lassoAwarePanel.setLassoHandler(this);
   }
 
   /**
@@ -117,42 +105,11 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 //   *
 //   * @return the day view widget
 //   */
-//  @UiFactory
-//  public CalendarColumnsFrameGridWidget buildColumnPanel() {
-//    return new CalendarColumnsFrameGridWidget(rows, columns);
-//  }
-
   @Override
   public void forceLayout() {
     content.getLassoAwarePanel().doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
   }
 
-  /**
-   * Gets the main panel.
-   *
-   * @return the main panel
-//   */
-//  public CalendarColumnsFrameGrid.Display getMainPanel() {
-//    return columnsPanel;
-//  }
-
-//  @Override
-//  public void removeColumnHeader(int calendarColumnIndex) {
-//    columnsPanel.removeColumnHeader(calendarColumnIndex);
-////    header.removeCell(calendarColumnIndex + 1);
-//  }
-
-//  @Override
-//  public void addColumn(String title) {
-////    columns++;
-//    columnsPanel.addColumn(title);
-////    header.addColumn(title);
-//  }
-
-//  @Override
-//  public WidgetResizeHandler getCalendarHeaderResizeHandler() {
-//    return header;
-//  }
 
   @Override
   public CalendarHeader.Display getCalendarHeaderDisplay() {
@@ -177,9 +134,8 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @Override
   public void forceLayout(Widget lassoPanel, WidgetResizeEvent event) {
 //    Element first = getContentDecorableElements().get(0).getCellElement();
-    List<Cell<Element>> cells = new ArrayList<Cell<Element>>(content.getCalendarColumnsFrameGridDisplay().getContentDecorableElements());
+     List<Cell<Element>> cells = new ArrayList<Cell<Element>>(content.getCalendarColumnsFrameGridDisplay().getContentDecorableElements());
      Element first = cells.get(0).getCellElement();
-//    Element first = cells[0].getC
     int[] offset = DOMUtils.getOffset(lassoPanel.getParent().getElement(), first);
     if (offset[0] > 0) {
       DOM.setStyleAttribute(lassoPanel.getElement(), "left", offset[0] + "px");
@@ -191,14 +147,6 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     content.getEventsPanel().setSize("100%", (config.daysLineHeightEMs() * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
   }
 
-//  public List<Cell<Element>> getColumnsDecorableElements() {
-//    return Collections.unmodifiableList(header.getTopLabels());
-//  }
-
-
-//  public List<Cell<Element>> getContentDecorableElements() {
-//    return Collections.unmodifiableList(content.getCalendarColumnsFrameGridDisplay().getMainDecorables());
-//  }
 
   @Override
   public HandlerRegistration addWidgetRedrawHandler(WidgetRedrawHandler handler) {

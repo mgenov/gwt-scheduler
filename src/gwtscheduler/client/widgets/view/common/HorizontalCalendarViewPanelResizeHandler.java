@@ -102,6 +102,7 @@ public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHan
    * @return the cell size, without counting with borders or padding
    */
   int[] getCellSize(int parentWidth, int parentHeight) {
+    int cols = getTarget().getColumnCount();
     int availW = ((parentWidth - getTitleColumnOffsetWidth()) / getTarget().getColumnCount());
     int availH = parentHeight / getTarget().getRowCount();
     return new int[] {availW, availH};

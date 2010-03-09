@@ -72,9 +72,8 @@ public class CalendarViewPanelWidget extends Composite implements CalendarViewPa
     initWidget(impl);
   }
 
-//  @Override
   protected FlexTable createWidget() {
-//    impl = new Grid(1, this.columns + 1);
+
     impl = new FlexTable();
     impl.setBorderWidth(0);
     impl.setStyleName(CSS.horizontalFillGrid());
@@ -122,12 +121,6 @@ public class CalendarViewPanelWidget extends Composite implements CalendarViewPa
     }
     return impl;
   }
-
-//  @Override
-//  protected void onAttach() {
-//    ensureWidget();
-//    super.onAttach();
-//  }
 
   /**
    * Gets a list of title elements.
@@ -189,6 +182,7 @@ public class CalendarViewPanelWidget extends Composite implements CalendarViewPa
   public void removeColumn(int calendarColumnIndex) {
     if (mainColumns.size() - 1 >= 0) {
       impl.remove(mainColumns.get(calendarColumnIndex));
+      impl.removeCell(0,calendarColumnIndex+1);
       mainColumns.remove(calendarColumnIndex);
       columnsCount--;
     }
