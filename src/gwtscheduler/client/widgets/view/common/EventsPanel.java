@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.common;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.widgets.common.event.AppointmentEvent;
 import gwtscheduler.client.widgets.common.event.AppointmentHandler;
@@ -44,5 +45,11 @@ public class EventsPanel extends AbstractGridOverlay implements WidgetResizeHand
 
   public int[] getCellPosition(int endX, int endY) {
     return calculateCellPosition(endX, endY);
+  }
+
+  public void addWidget(Widget sourceWidget, int[] cell) {
+    int[] leftTopPoint = calculateLeftTop(cell);
+    this.add(sourceWidget, leftTopPoint[0], leftTopPoint[1]);
+    sourceWidget.getElement().getStyle().setZIndex(50);
   }
 }

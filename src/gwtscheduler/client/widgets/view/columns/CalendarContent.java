@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
@@ -20,6 +21,7 @@ public class CalendarContent {
 
     int[] getCellAt(int endX, int endY);
 
+    void attachWidget(Widget sourceWidget, int[] cell);
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -54,4 +56,7 @@ public class CalendarContent {
     return display.getCellAt(endX, endY);
   }
 
+  public void attachWidget(Widget sourceWidget, int[] cell) {
+    display.attachWidget(sourceWidget, cell);
+  }
 }

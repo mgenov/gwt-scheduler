@@ -91,13 +91,25 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   private void proceedDropEvent(DropEvent event){
+    String columnTitle = null;
+    Instant time = null;
+    String oldColumnTitle = null;
+    Instant oldTime = null;
     Object o = event.getDroppedObject();
-    int[] cell = calendarContent.getCellPosition(event.getEndX(), event.getEndY());
-    GWT.log(" row: " + cell[0] + " col: " + cell[1], null);
-    Instant time = getInstantForCell(cell);
 
-    CalendarDropEvent calendarDrop = new CalendarDropEvent(columns.get(cell[1]).getTitle(), time, o);
+    int[] oldCell = calendarContent.getCellPosition(event.getStartX(), event.getStartY());
+    if(oldCell[0] >= 0 && oldCell[1] >= 0){
+      oldColumnTitle = columns.get(oldCell[1]).getTitle();
+      oldTime = getInstantForCell(oldCell);
+    }
+    int[] cell = calendarContent.getCellPosition(event.getEndX(), event.getEndY());
+    columnTitle = columns.get(cell[1]).getTitle();
+    time = getInstantForCell(cell);
+
+    CalendarDropEvent calendarDrop = new CalendarDropEvent(columnTitle, time, oldColumnTitle, oldTime, o);
     mediateEvent(calendarDrop);
+
+    calendarContent.attachWidget(event.getSourceWidget(), cell);
   }
 
   private void mediateEvent(CalendarDropEvent calendarDrop){

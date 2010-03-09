@@ -73,6 +73,11 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     return eventsPanel.getCellPosition(endX, endY);
   }
 
+  @Override
+  public void attachWidget(Widget sourceWidget, int[] cell) {
+    eventsPanel.addWidget(sourceWidget, cell);
+  }
+
   public EventsPanel getEventsPanel() {
     return eventsPanel;
   }

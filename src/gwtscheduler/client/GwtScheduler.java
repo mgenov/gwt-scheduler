@@ -62,9 +62,14 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     if(event.getObject() instanceof TicketPresenter){
       TicketPresenter ticket = (TicketPresenter)event.getObject();
       GWT.log("Dropped: " + ticket.getInfo(), null);
-      GWT.log("To column: " + event.getCalendarColumn(), null);
+      GWT.log("To column: " + event.getColumnTitle(), null);
       GWT.log("Start time: " + event.getTime().toString(), null);
       GWT.log("Simulate sending to server", null);
+
+      if(event.getOldColumnTitle() != null){
+        GWT.log("From column: " + event.getOldColumnTitle(), null);
+        GWT.log("Start time: " + event.getOldTime().toString(), null);
+      }
     }
   }
 
