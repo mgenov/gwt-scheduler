@@ -25,6 +25,7 @@ import gwtscheduler.client.widgets.common.event.WidgetRedrawHandler;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -176,7 +177,9 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @Override
   public void forceLayout(Widget lassoPanel, WidgetResizeEvent event) {
 //    Element first = getContentDecorableElements().get(0).getCellElement();
-     Element first = content.getCalendarColumnsFrameGridDisplay().getContentDecorableElements().get(0).getCellElement();
+    List<Cell<Element>> cells = new ArrayList<Cell<Element>>(content.getCalendarColumnsFrameGridDisplay().getContentDecorableElements());
+     Element first = cells.get(0).getCellElement();
+//    Element first = cells[0].getC
     int[] offset = DOMUtils.getOffset(lassoPanel.getParent().getElement(), first);
     if (offset[0] > 0) {
       DOM.setStyleAttribute(lassoPanel.getElement(), "left", offset[0] + "px");

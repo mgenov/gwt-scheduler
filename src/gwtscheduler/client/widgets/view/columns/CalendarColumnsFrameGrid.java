@@ -19,7 +19,6 @@ public class CalendarColumnsFrameGrid {
 
     int getWidth();
 
-    
     WidgetResizeHandler getWidgetResizeHandler();
 
     HasMultipleDecorables getDecorables();
@@ -30,6 +29,7 @@ public class CalendarColumnsFrameGrid {
 
     int getColumns();
   }
+  
   public Display display;
 
   public CalendarColumnsFrameGrid() {

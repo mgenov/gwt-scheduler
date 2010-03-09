@@ -44,22 +44,9 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     this.eventBus = eventBus;
   }
 
-//  /**
-//   * Default constructor.
-//   *
-//   * @param columnTitleProvider
-//   * @param eventBus            the event bus
-//   */
-//  public MultiColumnPresenter(AppConfiguration cfg, @ColumnView MultipleElementsIntervalDecorator decorator, ColumnTitleProvider columnTitleProvider, EventBus eventBus) {
-//    this.cfg = cfg;
-//    this.decorator = decorator;
-//    this.columnTitleProvider = columnTitleProvider;
-//    this.eventBus = eventBus;
-//    rows = cfg.rowsInDay();
-//
+
 //    //TODO: investigate this
 ////    new EventsMediator(this,eventBus);
-//  }
 
   @Override
   public void bindDisplay(final Display display) {
@@ -179,7 +166,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     fireResizeRedrawEvents();
     calendarHeader.addColumnHeader(column.getTitle());
     titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
-
   }
 
   @Override

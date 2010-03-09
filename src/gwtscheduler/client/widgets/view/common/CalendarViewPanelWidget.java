@@ -4,6 +4,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LazyPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
@@ -110,6 +111,7 @@ public class CalendarViewPanelWidget extends Composite implements CalendarViewPa
     // regular cells are different from title cells
     for (int c = 0; c < columnsCount; c++) {
       Panel col = mainColumns.get(c);
+//      col.add(new Label(c+""));
 
       for (int r = 0; r < rows; r++) {
         // int id = (c * r) + c;

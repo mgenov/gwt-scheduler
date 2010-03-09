@@ -4,12 +4,16 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.EventsPanel;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
+
+import java.util.List;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
@@ -85,5 +89,9 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
 
   public LassoAwarePanel getLassoAwarePanel() {
     return lassoAwarePanel;
+  }
+
+  public List<Cell<Element>> getTimeLineDecorables() {
+    return columnsPanel.getTitleDecorables();
   }
 }
