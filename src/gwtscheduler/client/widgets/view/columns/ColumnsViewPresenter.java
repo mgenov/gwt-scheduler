@@ -14,8 +14,10 @@ import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.Duration;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
+import org.goda.time.MutableDateTime;
 import org.goda.time.Period;
 import org.goda.time.ReadableDateTime;
+import org.goda.time.ReadableInterval;
 
 import java.util.List;
 
@@ -112,6 +114,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private void proceedDropEvent(DropEvent event){
     int[] cell = calendarContent.getCellPosition(event.getEndX(), event.getEndY());
     GWT.log(" row: " + cell[0] + " col: " + cell[1], null);
+    GWT.log("" + columns.get(cell[1]).getTitle(), null);
   }
 
   @Override
@@ -165,7 +168,11 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public Instant getInstantForCell(int[] start) {
-    return null;
+    int distance = (start[1] * getRowNum()) + start[0];
+    ReadableInterval curr = dateGenerator.interval().toMutableInterval();
+    MutableDateTime time = curr.getStart().toMutableDateTime();
+    time.add(getDurationPerCells(distance));
+    return time.toInstant();
   }
 
   @Override
