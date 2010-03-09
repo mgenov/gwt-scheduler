@@ -145,10 +145,12 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
 
   public void removeColumn(int calendarColumnIndex) {
     grid.removeColumn(calendarColumnIndex);
+    columns--;
   }
 
   public void addColumn(String title) {
    grid.addColumn(title);
+   columns++;
   }
 
   @Override

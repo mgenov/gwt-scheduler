@@ -39,7 +39,7 @@ public class CalendarHeader {
 
 
   public void removeColumnHeader(int index) {
-    display.removeCell(index+1);
+    display.removeCell(index);
   }
 
   public void addColumnHeader(String title) {

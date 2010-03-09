@@ -81,9 +81,14 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     this.columns = columns;
     initWidget(uiBinder.createAndBindUi(this));
     content.getEventsPanel().setComplexGrid(this);
+    
     content.getLassoAwarePanel().addWidgetResizeHandler(content.getCalendarColumnsFrameGridDisplay().getWidgetResizeHandler());
+    content.getLassoAwarePanel().addWidgetResizeHandler(header.getCalendarHeaderResizeHandler());
+
     content.getLassoAwarePanel().setOverflowY(true);
     content.getLassoAwarePanel().setLassoHandler(this);
+
+
 //    eventsPanel.setComplexGrid(this);
 //    lassoAwarePanel.addWidgetResizeHandler(columnsPanel.getWidgetResizeHandler());
 //    lassoAwarePanel.setOverflowY(true);

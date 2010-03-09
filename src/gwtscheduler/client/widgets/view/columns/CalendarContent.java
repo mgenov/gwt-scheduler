@@ -15,9 +15,11 @@ public class CalendarContent {
     CalendarColumnsFrameGrid.Display getCalendarColumnsFrameGridDisplay();
 
 
-    void removeColumnHeader(int calendarColumnIndex);
+    void removeColumn(int calendarColumnIndex);
 
     void addColumn(String title);
+
+    void fireResizeRedrawEvents();
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -37,7 +39,7 @@ public class CalendarContent {
   }
 
   public void removeColumn(int index) {
-    display.removeColumnHeader(index);
+    display.removeColumn(index);
   }
 
   public void addColumn(String title) {
@@ -46,5 +48,9 @@ public class CalendarContent {
 
   public WidgetResizeHandler getWidgetResizeHandler() {
     return display.getCalendarColumnsFrameGridDisplay().getWidgetResizeHandler();
+  }
+
+  public void fireResizeRedrawEvents() {
+    display.fireResizeRedrawEvents();
   }
 }

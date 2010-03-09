@@ -72,8 +72,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
     titlesRenderer.renderVerticalTitles(interval,calendarContent.getFrameGridDecorables());
 
-    eventBus.addHandler(WidgetResizeEvent.getType(),calendarContent.getWidgetResizeHandler());
-    eventBus.addHandler(WidgetResizeEvent.getType(),calendarHeader.getCalendarHeaderResizeHandler());
 
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
       @Override
@@ -160,22 +158,28 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
         columns.remove(index);
         calendarContent.removeColumn(index);
+        fireResizeRedrawEvents();
         calendarHeader.removeColumnHeader(index);
 
         titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
-        eventBus.fireEvent(new WidgetResizeEvent());
+
         return;
       }
     }
   }
 
+  private void fireResizeRedrawEvents() {
+    calendarContent.fireResizeRedrawEvents();
+  }
+
   @Override
   public void addColumn(CalendarColumn column) {
     columns.add(column);
-    calendarHeader.addColumnHeader(column.getTitle());
     calendarContent.addColumn(column.getTitle());
+    fireResizeRedrawEvents();
+    calendarHeader.addColumnHeader(column.getTitle());
     titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
-    eventBus.fireEvent(new WidgetResizeEvent());
+
   }
 
   @Override

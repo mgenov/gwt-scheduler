@@ -34,6 +34,8 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   EventsPanel eventsPanel;
   @UiField
   LassoAwarePanel lassoAwarePanel;
+
+  
   private int rows;
   private int columns;
 
@@ -60,13 +62,20 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   }
 
   @Override
-  public void removeColumnHeader(int calendarColumnIndex) {
+  public void removeColumn(int calendarColumnIndex) {
     columnsPanel.removeColumn(calendarColumnIndex);
   }
 
   @Override
   public void addColumn(String title) {
     columnsPanel.addColumn(title);
+  }
+
+  @Override
+  public void fireResizeRedrawEvents() {
+    int width = lassoAwarePanel.getOffsetWidth();
+    int height = lassoAwarePanel.getOffsetHeight();
+    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(width,height),new WidgetRedrawEvent());
   }
 
 

@@ -76,4 +76,6 @@ public interface DayWeekCssResource extends CommonCssResource, CssResource {
   String oddTitleCell();
 
   String headerCell();
+
+  String headerEnd();
 }

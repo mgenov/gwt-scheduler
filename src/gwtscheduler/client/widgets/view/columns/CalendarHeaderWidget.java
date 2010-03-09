@@ -4,6 +4,8 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
@@ -42,6 +44,12 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
     this.columns = columns;
     buildCalendarHeader(columns);
 
+    VerticalPanel vp = new VerticalPanel();
+    vp.setStyleName(CSS.headerEnd());
+    vp.add(header);
+    SimplePanel sp = new SimplePanel();
+    sp.setStyleName(CSS.headerEnd());
+    vp.add(sp);
     initWidget(header);
   }
   
@@ -49,35 +57,38 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
     FlexTable g = new FlexTable();
     g.addStyleName(CSS.genericContainer());
     g.setWidth("100%");
-    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
+//    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
 //    g.getCellFormatter().setWidth(0, columns + 1, Constants.SCROLLBAR_WIDTH() + "px");
 
     topLabels = new ArrayList<Cell<Element>>(columns);
 
     for (int i = 0; i < columns; i++) {
-      Cell<Element> topCell = new BaseCell(0, i+1);
+      Cell<Element> topCell = new BaseCell(0, i);
 
       //only top row is for labels
       topLabels.add(topCell);
 
-      g.setWidget(0, 1 + i, DOMUtils.wrapElement(topCell.getCellElement()));
-      g.getFlexCellFormatter().setHorizontalAlignment(0, 1 + i, HasHorizontalAlignment.ALIGN_CENTER);
+      g.setWidget(0, i, DOMUtils.wrapElement(topCell.getCellElement()));
+      g.getFlexCellFormatter().setHorizontalAlignment(0, i , HasHorizontalAlignment.ALIGN_CENTER);
     }
      header = g;
   }
 
   public void removeCell(int columnIndex) {
     header.removeCell(0,columnIndex);
-    topLabels.remove(columnIndex-1);
+    topLabels.remove(columnIndex);
+    columns--;
   }
 
   public void addCell(String title) {
-    Cell<Element> topCell = new BaseCell(0, topLabels.size());
+    int pos = topLabels.size();
+    Cell<Element> topCell = new BaseCell(0, pos);
     //only top row is for labels
     topLabels.add(topCell);
+    
 
-    header.setWidget(0, topLabels.size(), DOMUtils.wrapElement(topCell.getCellElement()));
-    header.getFlexCellFormatter().setHorizontalAlignment(0, topLabels.size(), HasHorizontalAlignment.ALIGN_CENTER);
+    header.setWidget(0,pos, DOMUtils.wrapElement(topCell.getCellElement()));
+    header.getFlexCellFormatter().setHorizontalAlignment(0,pos, HasHorizontalAlignment.ALIGN_CENTER);
     columns++;
   }
 
@@ -104,11 +115,11 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
       return;
     }
 
-    header.setPixelSize(width - Constants.SCROLLBAR_WIDTH(), -1);
+    header.setPixelSize(width, -1);
     int availableWidth = getCellWidth(width - Constants.SCROLLBAR_WIDTH());
 
-    for (int i=1;i<header.getCellCount(0);i++) {
-       header.getCellFormatter().setWidth(0,i,""+availableWidth);
+    for (int i = 0;i<header.getCellCount(0);i++) {
+       header.getCellFormatter().setWidth(0,i,""+ availableWidth);
     }
 
     for (Cell<Element> cell : topLabels) {
@@ -141,7 +152,7 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
    * @return the cell size, without counting with borders or padding
    */
   int getCellWidth(int parentWidth) {
-    int availW = ((parentWidth - getTitleColumnOffsetWidth()) / columns);
+    int availW = (parentWidth / columns);
     return availW;
   }
 
