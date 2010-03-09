@@ -5,7 +5,6 @@ import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -47,6 +46,16 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   @Override
   public void release() {
     DOM.releaseCapture(frame.getElement());
+  }
+
+  @Override
+  public int getHeight() {
+    return frame.getOffsetHeight();
+  }
+
+  @Override
+  public int getWidth() {
+    return frame.getOffsetWidth();
   }
 
 }

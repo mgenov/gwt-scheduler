@@ -21,6 +21,11 @@ class DragFrame implements Frame{
     void capture();
 
     void release();
+
+    int getHeight();
+
+    int getWidth();
+   
   }
 
   private Display display;
@@ -44,6 +49,16 @@ class DragFrame implements Frame{
 
   public void setFrameStyle(String styleName){
     display.setStyle(styleName);
+  }
+
+  @Override
+  public int getHeight() {
+    return display.getHeight();
+  }
+
+  @Override
+  public int getWidth() {
+    return display.getWidth();
   }
 
   public void go(DragZone container, int left, int top) {

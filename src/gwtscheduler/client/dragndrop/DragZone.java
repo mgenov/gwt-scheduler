@@ -48,10 +48,6 @@ public interface DragZone {
 
     int getSourceHeight();
 
-//    void addFrameAtPosition(int left, int top);
-
-//    void captureFrame();
-
     void storeDragWidget(MouseDownEvent event);
 
     boolean isDragWidgetStored();    
@@ -59,10 +55,6 @@ public interface DragZone {
     DropZone getDropZone(ArrayList<HasWidgets> roots, int x, int y);
 
     void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event);
-
-//    void releaseFrameCapture();
-
-//    void removeFrameFromPanel();
 
     void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY);
 
@@ -77,10 +69,12 @@ public interface DragZone {
     void setSize(String width, String height);
 
     void addWidget(Widget widget);
-
-//    DragFrame.Display getFrame();
-
+    
     void removeWidget(Widget widget);
+
+    int getSourceTop();
+
+    int getSourceLeft();
   }
 
   /**
@@ -92,13 +86,17 @@ public interface DragZone {
   void add(HasMouseDownHandlers widget, Object object);
 
   /**
-   * Add widget to be added on drag zone view with given coordinates.
+   * Add widget to drag zone view with given coordinates.
    * @param widget to be added.
-   * @param left
-   * @param top
+   * @param left coordinate.
+   * @param top coordinate.
    */
   void addWidget(Widget widget, int left, int top);
 
+  /**
+   * Add widget to drag zone.
+   * @param widget to be added.
+   */
   void addWidget(Widget widget);
 
    /**
@@ -122,8 +120,8 @@ public interface DragZone {
 
   /**
    * Set size for a drop zone.
-   * @param width
-   * @param height
+   * @param width of the drag zone.
+   * @param height of the drag zone.
    */
   void setSize(String width, String height);
 
@@ -139,5 +137,9 @@ public interface DragZone {
    */
   HasWidgets getDragZone();
 
+  /**
+   * Remove widget from drag zone.
+   * @param widget to be removed.
+   */
   void removeWidget(Widget widget);
 }

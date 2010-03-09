@@ -28,6 +28,10 @@ class DragZoneImpl implements DragZone {
   private ArrayList<HasWidgets> dropZones = new ArrayList<HasWidgets>();
   private int startX = 0;
   private int startY = 0;
+  private int cloneTop = 0;
+  private int cloneLeft = 0;
+  private int cloneWidth = 0;
+  private int cloneHeight = 0;
   private Frame frame;
 
   public DragZoneImpl(Frame frame){
@@ -73,13 +77,15 @@ class DragZoneImpl implements DragZone {
         startX = event.getClientX();
         startY = event.getClientY();
 
-        int cloneWidth = display.getSourceWidth();
-        int cloneHeight = display.getSourceHeight();
+        cloneWidth = display.getSourceWidth();
+        cloneHeight = display.getSourceHeight();
+
+        cloneTop = display.getSourceTop();
+        cloneLeft = display.getSourceLeft();
 
         frame.setFrameSize(cloneWidth, cloneHeight);
 
-//        display.addFrameAtPosition(startX-10, startY-10);
-        frame.go(DragZoneImpl.this, startX-10, startY-10);
+        frame.go(DragZoneImpl.this, startX - (startX + cloneLeft), startY - (startY + cloneTop));
         frame.captureFrame();
       }
     });
@@ -114,8 +120,7 @@ class DragZoneImpl implements DragZone {
       display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY));
     }
 
-    frame.go(DragZoneImpl.this, mouseX-10, mouseY-10); // TODO: make correction when dragging
-//    display.addFrameAtPosition(mouseX - 10, mouseY - 10); // TODO: make correction when dragging
+    frame.go(DragZoneImpl.this, mouseX - (mouseX + cloneLeft), mouseX - (mouseX + cloneTop)); // TODO: make correction when dragging
   }
 
   private void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event){
@@ -151,16 +156,20 @@ class DragZoneImpl implements DragZone {
   }
 
   /**
-   * Add widget to be added on drag zone view with given coordinates.
+   * Add widget to drag zone view with given coordinates.
    * @param widget to be added.
-   * @param left
-   * @param top
+   * @param left coordinate.
+   * @param top coordinate.
    */
   @Override
   public void addWidget(Widget widget, int left, int top) {
     display.addWidget(widget, left, top);
   }
 
+  /**
+   * Add widget to drag zone.
+   * @param widget to be added.
+   */
   @Override
   public void addWidget(Widget widget) {
     display.addWidget(widget);
@@ -185,6 +194,11 @@ class DragZoneImpl implements DragZone {
     display.setSize(width, height);
   }
 
+  /**
+   * Set size of drag zone.
+   * @param width of the drag zone.
+   * @param height of the drag zone.
+   */
   @Override
   public void setSize(String width, String height) {
     display.setSize(width, height);
@@ -217,6 +231,10 @@ class DragZoneImpl implements DragZone {
     return display.getContainer();
   }
 
+  /**
+   * Remove widget from drag zone.
+   * @param widget to be removed.
+   */
   @Override
   public void removeWidget(Widget widget) {
     display.removeWidget(widget);
