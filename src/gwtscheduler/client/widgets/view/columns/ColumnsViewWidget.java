@@ -80,7 +80,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     content.getLassoAwarePanel().addWidgetResizeHandler(header.getCalendarHeaderResizeHandler());
 
     content.getLassoAwarePanel().setOverflowY(true);
-//    content.getLassoAwarePanel().setLassoHandler(this);
+    content.getLassoAwarePanel().setLassoHandler(this);
 
   }
 
