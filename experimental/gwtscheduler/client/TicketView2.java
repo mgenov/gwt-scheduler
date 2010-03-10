@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import gwtscheduler.client.dragndrop.DragZone;
 
 /**
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class TicketView2 extends Composite implements TicketPresenter.Display, HasMouseDownHandlers{
   private FlexTable table = new FlexTable();

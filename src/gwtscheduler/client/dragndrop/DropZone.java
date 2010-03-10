@@ -19,7 +19,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * }
  * </pre>
  *
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public interface DropZone {
 

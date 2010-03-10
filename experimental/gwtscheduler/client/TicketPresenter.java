@@ -4,7 +4,7 @@ import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import gwtscheduler.client.dragndrop.DragZone;
 
 /**
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class TicketPresenter {
   public interface Display {

@@ -10,7 +10,7 @@ import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
 
 /**
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)     
  */
 public class Race {
   public interface Display extends DropZone{

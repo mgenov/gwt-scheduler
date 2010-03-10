@@ -12,7 +12,7 @@ import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 
 /**
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class RaceView extends Composite implements Race.Display{
   private FlexTable table = new FlexTable();

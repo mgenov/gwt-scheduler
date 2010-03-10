@@ -38,7 +38,7 @@ import java.util.ArrayList;
  * drop zone. Drop zone must ley on same panel as drag widget. When object is dropped over drop zone, event is fired to
  * given drop zone. Because self widget is not dragged but frame is dragged you can set frame style.
  *
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public interface DragZone {
 

@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.dragndrop.DragZone;
 
 /**
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class Car {
   public interface Display {

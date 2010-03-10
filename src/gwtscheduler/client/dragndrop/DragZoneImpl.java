@@ -17,7 +17,7 @@ import java.util.HashMap;
  * 
  * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
- * @author Miroslav Genov (mgenov@gmail.com)
+ * @author Miroslav Genov (mgenov@gmail.com) 
  */
 class DragZoneImpl implements DragZone {
   private final int CORRECTION = -5;

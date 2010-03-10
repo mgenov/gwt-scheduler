@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class DragOverEvent extends GwtEvent<DragOverHandler>{
+public class DragOverEvent extends GwtEvent<DragOverHandler>{ 
   public static final Type<DragOverHandler> TYPE = new Type<DragOverHandler>();
   private final Frame frame;
   private final int mouseX;

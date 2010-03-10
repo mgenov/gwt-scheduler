@@ -5,7 +5,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * This event is fired up when widget is dropped over drop zone.
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class DropEvent extends GwtEvent<DropHandler> {
   public static final GwtEvent.Type<DropHandler> TYPE = new GwtEvent.Type<DropHandler>();

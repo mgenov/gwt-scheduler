@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 import java.util.ArrayList;
 
 /**
- * @author Miroslav Genov (mgenov@gmail.com)
+ * @author Miroslav Genov (mgenov@gmail.com) 
  */
 class DragZoneView extends Composite implements DragZone.Display {
 

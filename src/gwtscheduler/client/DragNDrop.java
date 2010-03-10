@@ -7,7 +7,7 @@ import gwtscheduler.client.dragndrop.Zones;
 import gwtscheduler.client.teamexample.*;
 
 /**
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class DragNDrop implements EntryPoint {
   public void onModuleLoad() {

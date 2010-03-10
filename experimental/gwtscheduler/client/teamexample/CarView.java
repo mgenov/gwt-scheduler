@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)   
  */
 public class CarView extends Composite implements Car.Display, HasMouseDownHandlers{
   private VerticalPanel mainPanel = new VerticalPanel();

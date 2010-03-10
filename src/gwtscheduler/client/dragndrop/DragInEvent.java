@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * This event is fired when dragged frame enter in drop zone. Event is fired up and drop zone can react when dragged
  * frame entered over drop zone.
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class DragInEvent extends GwtEvent<DragInHandler> {
   public static final GwtEvent.Type<DragInHandler> TYPE = new GwtEvent.Type<DragInHandler>();
