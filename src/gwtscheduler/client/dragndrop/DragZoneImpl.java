@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * DragZoneImpl represents an implementation of DragZone that provides client code
@@ -156,6 +157,11 @@ class DragZoneImpl implements DragZone {
     registerDraggable(widget);
   }
 
+  @Override
+  public void add(Draggable draggable) {
+    add(draggable.getHasMouseDownHandler(), draggable.getDropObject());
+  }
+
   /**
    * Add widget to drag zone view with given coordinates.
    * @param widget to be added.
@@ -181,8 +187,13 @@ class DragZoneImpl implements DragZone {
    * @param root widget who implements HasWidgets.
    */
   @Override
-  public void registerDropZoneRoot(HasWidgets root) {
+  public void addDropZoneRoot(HasWidgets root) {
     dropZones.add(root);
+  }
+
+  @Override
+  public void addDropZoneRoot(List<HasWidgets> roots) {
+    dropZones.addAll(roots);
   }
 
   /**

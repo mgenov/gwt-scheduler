@@ -1,9 +1,10 @@
 package gwtscheduler.client;
 
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import gwtscheduler.client.dragndrop.DragZone;
+import gwtscheduler.client.dragndrop.Zones;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -12,9 +13,6 @@ import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import org.cobogw.gwt.user.client.Color;
-import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
-import org.cobogw.gwt.user.client.ui.RoundedPanel;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -44,15 +42,19 @@ public class ViewportTests implements EntryPoint, ClickHandler {
   public void onModuleLoad() {
     Resources.injectAllStylesheets();
 
-    // let's test a registration
-//    final AppInjector uiResources = AppInjector.GIN.getInjector();
-//    final UIManager registry = uiResources.getUIRegistry();
+    HorizontalPanel ticketsPanel = new HorizontalPanel();
+    TicketPresenter ticket1 = new TicketPresenter(new TicketView2(), "Ticket one");
+    TicketPresenter ticket2 = new TicketPresenter(new TicketView2(), "Ticket two");
+    TicketPresenter ticket3 = new TicketPresenter(new TicketView2(), "Ticket three");
 
-//    DateViewsTabPanel main = uiResources.getMainPanel();
-    //    DateViewsTabPanel main = new DateViewsTabPanel();
-    //    for (CalendarPresenter controller : registry.getControllers()) {
-    //      main.add(controller);
-    //    }
+    ticketsPanel.add(ticket1.getDisplay());
+    ticketsPanel.add(ticket2.getDisplay());
+    ticketsPanel.add(ticket3.getDisplay());
+    
+    DragZone dragZone = Zones.getDragZone();
+    dragZone.add(ticket1);
+    dragZone.add(ticket2);
+    dragZone.add(ticket3);
 
     back = new Button("&laquo;", this);
     forward = new Button("&raquo;", this);
@@ -69,14 +71,29 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     nav.add(deleteColumn);
     nav.add(addColumn);
 
-
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
 
     main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), testteams1,eventBus).named("Teams").build())
             .addTab(new Calendars().newWeekColumn(new TestAppConfiguration(),eventBus).named("Team 1 Week Calendar").build()).build();
 
-    RootPanel.get("nav").add(nav);
-    RootPanel.get("main").add(main.asWidget());
+    dragZone.addDropZoneRoot((HasWidgets)main.asWidget());
+//    VerticalPanel dropRoot = new VerticalPanel();
+//    dropRoot.add(new Panel1());
+//    dropRoot.add(new Panel1());
+//    dropRoot.add(new Panel1());
+//    dragZone.addDropZoneRoot(dropRoot);
+
+    VerticalPanel mainPanel = new VerticalPanel();
+//    mainPanel.add(dropRoot);
+    mainPanel.add(ticketsPanel);
+    mainPanel.add(nav);
+    mainPanel.add(main.asWidget());
+    dragZone.addWidget(mainPanel);
+    dragZone.go(RootPanel.get("nav"));
+
+
+//    RootPanel.get("nav").add(nav);
+//    RootPanel.get("main").add(main.asWidget());
     main.selectTab(0);
 //    registry.fireDateNavigation(getCurrentDate());
    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));     

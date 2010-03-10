@@ -1,12 +1,14 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.dragndrop.*;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
@@ -18,7 +20,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarContentWidget extends Composite implements CalendarContent.Display {
+public class CalendarContentWidget extends Composite implements CalendarContent.Display, DropZone {
 
   /**
    * ui binder instance
@@ -93,5 +95,25 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
 
   public List<Cell<Element>> getTimeLineDecorables() {
     return columnsPanel.getTitleDecorables();
+  }
+
+  @Override
+  public HandlerRegistration addDropHandler(DropHandler handler) {
+    return addHandler(handler, DropEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addDragInHandler(DragInHandler handler) {
+    return addHandler(handler, DragInEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
+    return addHandler(handler, DragOutEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+    return null;
   }
 }

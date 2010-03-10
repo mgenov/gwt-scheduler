@@ -1,5 +1,6 @@
 package gwtscheduler.client.dragndrop;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;

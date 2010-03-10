@@ -1,8 +1,6 @@
 package gwtscheduler.client.dragndrop;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
-import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
@@ -10,6 +8,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This interface represents Object that care about dragging widgets and dropping object over drop zones.
@@ -28,7 +27,7 @@ import java.util.ArrayList;
  * DragZone dragZone = Zones.getDragZone(800, 800);
  * dragZone.add((HasMouseDownHandlers)draggableWidget, draggablePresenter);
  * 
- * dragZone.registerDropZoneRoot(dropZonesPanel);
+ * dragZone.addDropZoneRoot(dropZonesPanel);
  *
  * dragger.go(RootPanel.get());
  * </pre>
@@ -85,6 +84,8 @@ public interface DragZone {
    */
   void add(HasMouseDownHandlers widget, Object object);
 
+  void add(Draggable draggable);
+
   /**
    * Add widget to drag zone view with given coordinates.
    * @param widget to be added.
@@ -109,7 +110,9 @@ public interface DragZone {
    * Add new root who contains drop zones. This roots will be searched to find drop zones.
    * @param root widget who implements HasWidgets.
    */
-  void registerDropZoneRoot(HasWidgets root);
+  void addDropZoneRoot(HasWidgets root);
+
+  void addDropZoneRoot(List<HasWidgets> roots);
 
    /**
    * Set size for a drop zone.

@@ -1,12 +1,14 @@
 package gwtscheduler.client;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.dragndrop.DragZone;
+import gwtscheduler.client.dragndrop.Draggable;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
-public class TicketPresenter {
+public class TicketPresenter implements Draggable{
   public interface Display {
 
     void setText(String string);
@@ -17,6 +19,11 @@ public class TicketPresenter {
 
   public TicketPresenter(Display display) {
     this.display = display;
+  }
+
+  public TicketPresenter(Display display, String info) {
+    this.display = display;
+    setInfo(info);
   }
 
   public void setInfo(String string){
@@ -31,7 +38,16 @@ public class TicketPresenter {
     return info;
   }
 
-  public void dragWith(DragZone dragZone) {
-    dragZone.add((HasMouseDownHandlers)display, this);
+  public Widget getDisplay(){
+    return (Widget)display;
+  }
+
+  public HasMouseDownHandlers getHasMouseDownHandler(){
+    return (HasMouseDownHandlers)display;
+  }
+
+  @Override
+  public Object getDropObject() {
+    return this;
   }
 }
