@@ -1,4 +1,4 @@
-package gwtscheduler.client.widgets.common.event;
+package gwtscheduler.common.event;
 
 import org.goda.time.Interval;
 
@@ -15,6 +15,13 @@ public interface Event {
    * @return the interval value which indicates start/end and date of the current event
    */
   Interval getInterval();
+
+  /**
+   * Sets a new interval for the current event.
+   *
+   * @param interval the new interval to be set
+   */
+  void setInterval(Interval interval);
 
   /**
    * Gets the event title.

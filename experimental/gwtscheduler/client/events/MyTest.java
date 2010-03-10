@@ -1,7 +1,7 @@
 package gwtscheduler.client.events;
 
 import gwtscheduler.client.widgets.common.event.ColumnEvent;
-import gwtscheduler.client.widgets.common.event.Event;
+import gwtscheduler.common.event.Event;
 import org.goda.time.Interval;
 
 import java.util.ArrayList;
