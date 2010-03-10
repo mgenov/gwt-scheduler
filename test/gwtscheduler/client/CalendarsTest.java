@@ -8,8 +8,6 @@ import gwtscheduler.client.modules.AppModule;
 import gwtscheduler.client.modules.UIModule;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}

@@ -1,0 +1,12 @@
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.6//EN"
+        "http://google-web-toolkit.googlecode.com/svn/releases/1.6/distro-source/core/src/gwt-module.dtd"> 
+<module>
+
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="org.goda.Goda"/>
+    <inherits name="gwtscheduler.Common"/>
+    <inherits name="com.google.gwt.junit.JUnit"/>
+
+    <entry-point class='gwtscheduler.client.DragNDrop'/>
+
+</module>

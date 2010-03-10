@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
+import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
