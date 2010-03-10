@@ -15,6 +15,8 @@ import org.goda.time.ReadableDateTime;
 import java.util.List;
 
 /**
+ * Represents a calendar
+ *
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
@@ -26,9 +28,20 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private CalendarContent calendarContent;
   private EventBus eventBus;
   private Display display;
-  private String tabLabel;
+  private String title;
 
-  public ColumnsViewPresenter( CalendarColumnsProvider columnsProvider,DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer,CalendarHeader calendarHeader,CalendarContent calendarContent, EventBus eventBus) {
+
+  /**
+   * Default constructor
+   *
+   * @param columnsProvider
+   * @param dateGenerator
+   * @param titlesRenderer
+   * @param calendarHeader
+   * @param calendarContent
+   * @param eventBus
+   */
+  public ColumnsViewPresenter(CalendarColumnsProvider columnsProvider, DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, CalendarHeader calendarHeader, CalendarContent calendarContent, EventBus eventBus) {
     this.columnsProvider = columnsProvider;
     this.dateGenerator = dateGenerator;
     this.columns = columnsProvider.getColumns();
@@ -42,6 +55,11 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 //    //TODO: investigate this
 ////    new EventsMediator(this,eventBus);
 
+  /**
+   * Binds the display to the presenter
+   *
+   * @param display
+   */
   @Override
   public void bindDisplay(final Display display) {
     this.display = display;
@@ -51,7 +69,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     display.initLasso(new VerticalLassoStrategy(false), this);
     final Interval interval = dateGenerator.interval();
 
-    titlesRenderer.renderVerticalTitles(interval,calendarContent.getFrameGridDecorables());
+    titlesRenderer.renderVerticalTitles(interval, calendarContent.getFrameGridDecorables());
 
 
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
@@ -72,30 +90,34 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
       public void onNavigateTo(ReadableDateTime date) {
-       reRenderHeaderTitles(dateGenerator.currentInterval());
+        reRenderHeaderTitles(dateGenerator.currentInterval());
       }
     });
   }
 
   private void reRenderHeaderTitles(Interval interval) {
-    columnsProvider.updateColumns(interval,columns);
-    titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
+    columnsProvider.updateColumns(interval, columns);
+    titlesRenderer.renderHorizontalTitles(columns, calendarHeader.getHeaderDecorableElements());
   }
 
-
+  /**
+   * Sets the Calendar title
+   *
+   * @param title
+   */
   @Override
-  public void setTabLabel(String tabLabel) {
-    this.tabLabel = tabLabel;
+  public void setTittle(String title) {
+    this.title = title;
   }
 
   @Override
   public Display getDisplay() {
-    return display; 
+    return display;
   }
 
   @Override
   public String getTitle() {
-    return tabLabel;
+    return title;
   }
 
 
@@ -103,6 +125,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   public void forceLayout() {
     display.forceLayout();
   }
+
 
   @Override
   public Interval getIntervalForRange(int[] start, int[] end) {
@@ -115,7 +138,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   protected Duration getDurationPerCells(int count) {
     int minutesPerCell = (24 * 60) / getRowNum();
-    return new Period(0,minutesPerCell * count, 0,0).toStandardDuration();
+    return new Period(0, minutesPerCell * count, 0, 0).toStandardDuration();
   }
 
   @Override
@@ -123,11 +146,16 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     return null;
   }
 
+  /**
+   * Deletes a column from the calendar if it exists
+   *
+   * @param column
+   */
   @Override
   public void deleteColumn(CalendarColumn column) {
     for (CalendarColumn calendarColumn : columns) {
       String columnName = column.getTitle();
-      if (calendarColumn.getTitle().equals(column.getTitle())){
+      if (calendarColumn.getTitle().equals(column.getTitle())) {
         int index = columns.indexOf(calendarColumn);
 
         columns.remove(index);
@@ -135,24 +163,32 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         fireResizeRedrawEvents();
         calendarHeader.removeColumnHeader(index);
 
-        titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
+        titlesRenderer.renderHorizontalTitles(columns, calendarHeader.getHeaderDecorableElements());
 
         return;
       }
     }
   }
 
+  /**
+   * fires an events for resizing the columns and the header. It is need in case we remove or add column.
+   * the columns size must be optimized in order to use the full space of the screen
+   */
   private void fireResizeRedrawEvents() {
     calendarContent.fireResizeRedrawEvents();
   }
 
+  /**
+   * Adds a new Column in the calenadar
+   * @param column
+   */
   @Override
   public void addColumn(CalendarColumn column) {
     columns.add(column);
     calendarContent.addColumn(column.getTitle());
     fireResizeRedrawEvents();
     calendarHeader.addColumnHeader(column.getTitle());
-    titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
+    titlesRenderer.renderHorizontalTitles(columns, calendarHeader.getHeaderDecorableElements());
   }
 
   @Override

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Represents a default week calendar columns provider. It is used when we instantiate calendar that
+ * represents days in the week. 
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class WeekDaysColumnsProvider implements CalendarColumnsProvider {
@@ -19,6 +21,10 @@ public class WeekDaysColumnsProvider implements CalendarColumnsProvider {
   private DateGenerator dateGenerator;
   private List<CalendarColumn> dayColumns;
 
+  /**
+   * Default Constructor
+   * @param dateGenerator used to generate the current week interval
+   */
   public WeekDaysColumnsProvider(DateGenerator dateGenerator) {
     this.dateGenerator = dateGenerator;
 
@@ -31,6 +37,12 @@ public class WeekDaysColumnsProvider implements CalendarColumnsProvider {
 
   }
 
+  /**
+   * Generates a list of Columns for each day of the week.
+   * @param start the start day as Daytime
+   * @param period the Period of the interval
+   * @return array list of calendar columns
+   */
   private ArrayList<CalendarColumn> generateWeekDayColumns(DateTime start, Period period) {
     ArrayList<CalendarColumn> dayColumns = new ArrayList<CalendarColumn>();
 
@@ -47,6 +59,11 @@ public class WeekDaysColumnsProvider implements CalendarColumnsProvider {
     return this.dayColumns;
   }
 
+  /**
+   * Updates the date that is related with every column by the given interval.
+   * @param interval the interval for which we want to update the columns
+   * @param columns the list of columns
+   */
   @Override
   public void updateColumns(Interval interval, List<CalendarColumn> columns) {
     DateTime current = interval.getStart();

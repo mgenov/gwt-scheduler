@@ -71,7 +71,7 @@ public class Calendars {
 
 
   public Calendars named(String title) {
-    calendar.setTabLabel(title);
+    calendar.setTittle(title);
     return this;
   }
 
