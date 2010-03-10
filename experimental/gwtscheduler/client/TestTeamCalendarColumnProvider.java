@@ -47,6 +47,16 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
     public Object getObject() {
       return team;
     }
+
+    @Override
+    public void setObject(Object object) {
+      //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isEventForColumn() {
+      return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
   }
 
   public static class Team {

@@ -9,4 +9,8 @@ public interface CalendarColumn {
 
   Object getObject();
 
+  void setObject(Object object);
+
+  boolean isEventForColumn();
+
 }

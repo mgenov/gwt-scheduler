@@ -77,10 +77,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     });
   }
 
-  @Override
-  public void setColNum(int columns) {
-//    this.columns = columns;
-  }
+
 
   @Override
   public void setTabLabel(String tabLabel) {
@@ -97,15 +94,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     return tabLabel;
   }
 
-  @Override
-  public EventNavigationListener getNavigationListener() {
-    return null;
-  }
-
-  @Override
-  public Widget getWidgetDisplay() {
-    return (Widget) display;
-  }
 
   @Override
   public void forceLayout() {

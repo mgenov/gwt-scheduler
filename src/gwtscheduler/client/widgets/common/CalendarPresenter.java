@@ -28,8 +28,6 @@ public interface CalendarPresenter {
 
   public void bindDisplay(Display display);
 
-  public void setColNum(int columns);
-
   public void setTabLabel(String tabLabel);
 
   public Display getDisplay();
@@ -46,14 +44,14 @@ public interface CalendarPresenter {
    *
    * @return the listener
    */
-  EventNavigationListener getNavigationListener();
+//  EventNavigationListener getNavigationListener();
 
   /**
    * Gets the widget.
    *
    * @return the widget
    */
-  Widget getWidgetDisplay();
+//  Widget getWidgetDisplay();
 
   /**
    * Forces the layout of the display.

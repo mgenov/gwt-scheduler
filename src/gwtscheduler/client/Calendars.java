@@ -54,17 +54,6 @@ public class Calendars {
     calendar.setTabLabel(title);
     return this;
   }
-  public Calendars columnsNames(String[] names){
-    columns = names.length;
-    calendar.setColNum(columns);
-    return this;
-  }
-
-   public Calendars columns(int columns){
-    this.columns = columns;
-    calendar.setColNum(columns);
-    return this;
-  }
 
 
   public CalendarPresenter build(){

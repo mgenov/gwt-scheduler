@@ -96,20 +96,20 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   public void forceLayout() {
   }
 
-  @Override
-  public EventNavigationListener getNavigationListener() {
-    return null;
-  }
+//  @Override
+//  public EventNavigationListener getNavigationListener() {
+//    return null;
+//  }
 
   @Override
   public void bindDisplay(Display display) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  @Override
-  public void setColNum(int columns) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+//  @Override
+//  public void setColNum(int columns) {
+//    //To change body of implemented methods use File | Settings | File Templates.
+//  }
 
   @Override
   public void setTabLabel(String tabLabel) {
@@ -126,8 +126,8 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
     return null;
   }
 
-  @Override
-  public Widget getWidgetDisplay() {
-    return null;
-  }
+//  @Override
+//  public Widget getWidgetDisplay() {
+//    return null;
+//  }
 }

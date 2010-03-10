@@ -44,15 +44,15 @@ public abstract class AbstractCalendarPresenter<T extends GenericCalendarDisplay
    */
 
 
-  @Override
-  public EventNavigationListener getNavigationListener() {
-    return this;
-  }
-
-  @Override
-  public Widget getWidgetDisplay() {
-    return (Widget) display;
-  }
+//  @Override
+//  public EventNavigationListener getNavigationListener() {
+//    return this;
+//  }
+//
+//  @Override
+//  public Widget getWidgetDisplay() {
+//    return (Widget) display;
+//  }
 
   public void forceLayout() {
     display.forceLayout();
