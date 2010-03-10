@@ -33,7 +33,6 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   interface CalendarContentWidgetUiBinder extends UiBinder<Widget, CalendarContentWidget> {
   }
 
-
   @UiField
   CalendarColumnsFrameGridWidget columnsPanel;
   @UiField
@@ -84,17 +83,12 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(width,height),new WidgetRedrawEvent());
   }
 
-
   public EventsPanel getEventsPanel() {
     return eventsPanel;
   }
 
   public LassoAwarePanel getLassoAwarePanel() {
     return lassoAwarePanel;
-  }
-
-  public List<Cell<Element>> getTimeLineDecorables() {
-    return columnsPanel.getTitleDecorables();
   }
 
   @Override

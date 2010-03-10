@@ -11,9 +11,7 @@ import java.util.List;
  */
 public class CalendarContent {
   public interface Display {
-
     CalendarColumnsFrameGrid.Display getCalendarColumnsFrameGridDisplay();
-
 
     void removeColumn(int calendarColumnIndex);
 
