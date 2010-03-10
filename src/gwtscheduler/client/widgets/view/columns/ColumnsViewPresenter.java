@@ -29,12 +29,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private Display display;
   private String tabLabel;
 
-  public ColumnsViewPresenter(DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, EventBus eventBus) {
-    this.dateGenerator = dateGenerator;
-    this.titlesRenderer = titlesRenderer;
-    this.eventBus = eventBus;
-  }
-
   public ColumnsViewPresenter( List<CalendarColumn> columns,DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer,CalendarHeader calendarHeader,CalendarContent calendarContent, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
     this.columns = columns;

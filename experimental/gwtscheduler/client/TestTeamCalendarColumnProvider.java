@@ -1,6 +1,5 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
 
