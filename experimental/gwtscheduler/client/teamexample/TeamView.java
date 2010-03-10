@@ -1,11 +1,17 @@
 package gwtscheduler.client.teamexample;
 
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
+import gwtscheduler.client.dragndrop.DragInEvent;
+import gwtscheduler.client.dragndrop.DragInHandler;
 import gwtscheduler.client.dragndrop.DragOutHandler;
-import gwtscheduler.client.dragndrop.DragOverEvent;
 import gwtscheduler.client.dragndrop.DragOverHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
@@ -13,7 +19,7 @@ import gwtscheduler.client.dragndrop.DropHandler;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class TeamView extends Composite implements Team.Display{
+public class TeamView extends Composite implements Team.Display, HasMouseDownHandlers{
   private FlexTable mainPanel = new FlexTable();
   private Label name = new Label();
   private Label cars = new Label("Cars:");
@@ -57,16 +63,27 @@ public class TeamView extends Composite implements Team.Display{
   }
 
   @Override
-  public void addDropHandler(DropHandler handler) {
-    addHandler(handler, DropEvent.TYPE);
+  public HandlerRegistration addDropHandler(DropHandler handler) {
+    return addHandler(handler, DropEvent.TYPE);
   }
 
   @Override
-  public void addDragOverHandler(DragOverHandler handler) {
-    addHandler(handler, DragOverEvent.TYPE);
+  public HandlerRegistration addDragInHandler(DragInHandler handler) {
+    return addHandler(handler, DragInEvent.TYPE);
   }
 
   @Override
-  public void addDragOutHandler(DragOutHandler handler) {
+  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
+    return null;
+  }
+
+  @Override
+  public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+    return null;
+  }
+
+  @Override
+  public HandlerRegistration addMouseDownHandler(MouseDownHandler mouseDownHandler) {
+    return addDomHandler(mouseDownHandler, MouseDownEvent.getType());
   }
 }

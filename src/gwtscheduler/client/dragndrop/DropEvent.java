@@ -10,12 +10,14 @@ import com.google.gwt.user.client.ui.Widget;
 public class DropEvent extends GwtEvent<DropHandler> {
   public static final GwtEvent.Type<DropHandler> TYPE = new GwtEvent.Type<DropHandler>();
 
-  private DragWrapper source;
-  private Object object;
-  private int mouseX;
-  private int mouseY;
+  private final Widget source;
+  private final Object object;
+  private int startX;
+  private int startY;
+  private int endX;
+  private int endY;
 
-  public DropEvent(DragWrapper source, Object object) {
+  public DropEvent(Widget source, Object object) {
     this.source = source;
     this.object = object;
   }
@@ -34,33 +36,39 @@ public class DropEvent extends GwtEvent<DropHandler> {
     return object;
   }
 
-  public Widget getWidget(){
-    return (Widget)source;
+  public Widget getSourceWidget(){
+    return source;
   }
 
-  public Widget getWrappedWidget(){
-    return source.getWrappedWidget();
+  public int getEndX() {
+    return endX;
   }
 
-  public void fire(Widget dropZone) {
-    if (TYPE != null) {
-      dropZone.fireEvent(this);
-    }
+  public void setEndX(int endX) {
+    this.endX = endX;
   }
 
-  public int getMouseX() {
-    return mouseX;
+  public int getEndY() {
+    return endY;
   }
 
-  public void setMouseX(int mouseX) {
-    this.mouseX = mouseX;
+  public void setEndY(int endY) {
+    this.endY = endY;
   }
 
-  public int getMouseY() {
-    return mouseY;
+  public int getStartX() {
+    return startX;
   }
 
-  public void setMouseY(int mouseY) {
-    this.mouseY = mouseY;
+  public void setStartX(int startX) {
+    this.startX = startX;
+  }
+
+  public int getStartY() {
+    return startY;
+  }
+
+  public void setStartY(int startY) {
+    this.startY = startY;
   }
 }

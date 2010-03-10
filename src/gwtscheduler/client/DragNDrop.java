@@ -2,9 +2,8 @@ package gwtscheduler.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.*;
-import gwtscheduler.client.DragNDropView;
-import gwtscheduler.client.DragNDropPresenter;
-import gwtscheduler.client.dragndrop.DraggerImpl;
+import gwtscheduler.client.dragndrop.DragZone;
+import gwtscheduler.client.dragndrop.Zones;
 import gwtscheduler.client.teamexample.*;
 
 /**
@@ -12,16 +11,10 @@ import gwtscheduler.client.teamexample.*;
  */
 public class DragNDrop implements EntryPoint {
   public void onModuleLoad() {
-    AbsolutePanel absolutePanel = new AbsolutePanel();
-    absolutePanel.setPixelSize(800, 800);
-    Team team1 = new Team(new TeamView());
-    team1.setTeamName("Team one");
-
-    Team team2 = new Team(new TeamView());
-    team2.setTeamName("Team two");
-
-    Team team3 = new Team(new TeamView());
-    team3.setTeamName("Team three");
+    // Generate presenters and widgets that will be showed on the screen
+    Team team1 = new Team(new TeamView(), "Team one");
+    Team team2 = new Team(new TeamView(), "Team two");
+    Team team3 = new Team(new TeamView(), "Team three");
 
     Car car1 = new Car(new CarView(), "Car 1");
     Car car2 = new Car(new CarView(), "Car 2");
@@ -33,21 +26,55 @@ public class DragNDrop implements EntryPoint {
 
     Race race = new Race(new RaceView());
 
-    DraggerImpl dragger = new DraggerImpl(absolutePanel);
-    team1.go(dragger, 10, 10);
-    team2.go(dragger, 10, 100);
-    team3.go(dragger, 10, 190);
+    /**
+     * Create drag zone with size 800x800 px.
+     */
+    DragZone dragger = Zones.getDragZone();
+    dragger.setSize(800, 800);
 
-    car1.go(dragger, 250, 10);
-    car2.go(dragger, 250, 100);
-    car3.go(dragger, 250, 190);
+    // make teams draggable. Team widgets implements DropZone interface. Presenter only attach DropHandler to the widget.
+    team1.go(dragger);
+    team2.go(dragger);
+    team3.go(dragger);
 
-    truck1.go(dragger, 250, 40);
-    truck2.go(dragger, 250, 140);
-    truck3.go(dragger, 250, 230);
+    // add teams to the panel where they will stay
+    VerticalPanel teamPanel = new VerticalPanel();
+    team1.go(teamPanel);
+    team2.go(teamPanel);
+    team3.go(teamPanel);
 
-    race.go(absolutePanel, 360, 10);
+    // attach that panel over drag zone. Or to some other panel. But have on mind that dragging frame is visible over a drag zone.
+    dragger.addWidget(teamPanel, 10, 10);
+    dragger.registerDropZoneRoot(teamPanel); // register teamPanel that have drop zones attached to him.
 
-    RootPanel.get().add(absolutePanel);
+    // make cars draggable
+    car1.go(dragger);
+    car2.go(dragger);
+    car3.go(dragger);
+
+    // make trucks draggable
+    truck1.go(dragger);
+    truck2.go(dragger);
+    truck3.go(dragger);
+
+    // attach cars and trucks to the panel
+    VerticalPanel carPanel = new VerticalPanel();
+    car1.go(carPanel);
+    car2.go(carPanel);
+    car3.go(carPanel);
+
+    truck1.go(carPanel);
+    truck2.go(carPanel);
+    truck3.go(carPanel);
+
+    dragger.addWidget(carPanel, 250, 10); // attach car panel to the drag zone view.
+
+    VerticalPanel racePanel = new VerticalPanel();
+    race.go(racePanel);
+
+    dragger.addWidget(racePanel, 360, 10);
+    dragger.registerDropZoneRoot(racePanel);
+
+    dragger.go(RootPanel.get()); // attach drag zone to the root panel or another panel.
   }
 }

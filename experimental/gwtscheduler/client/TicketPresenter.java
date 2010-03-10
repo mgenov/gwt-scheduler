@@ -1,34 +1,37 @@
 package gwtscheduler.client;
 
-import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.dragndrop.Draggable;
-import gwtscheduler.client.dragndrop.Dragger;
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import gwtscheduler.client.dragndrop.DragZone;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class TicketPresenter implements Draggable{
+public class TicketPresenter {
   public interface Display {
 
     void setText(String string);
   }
 
   private Display display;
+  private String info;
 
   public TicketPresenter(Display display) {
     this.display = display;
   }
 
   public void setInfo(String string){
-    display.setText(string);
+    info = string;
   }
 
   public int getDuration(){
-    return 4;
+    return 1;
   }
 
-  @Override
-  public void go(Dragger dragger, int left, int top) {
-    dragger.add((Widget)display, this, left, top);
+  public String getInfo(){
+    return info;
+  }
+
+  public void dragWith(DragZone dragZone) {
+    dragZone.add((HasMouseDownHandlers)display, this);
   }
 }

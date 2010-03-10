@@ -1,9 +1,10 @@
 package gwtscheduler.client.teamexample;
 
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.dragndrop.Draggable;
-import gwtscheduler.client.dragndrop.Dragger;
+import gwtscheduler.client.dragndrop.DragZone;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
@@ -14,10 +15,12 @@ import java.util.List;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class Team implements Draggable{
+public class Team {
   public interface Display extends DropZone {
     HasText getTeamName();
+
     void addCarName(String carName);
+
     void addTrackName(String carName);
   }
 
@@ -25,8 +28,9 @@ public class Team implements Draggable{
   private List<Car> cars = new ArrayList<Car>();
   private List<Truck> trucks = new ArrayList<Truck>();
 
-  public Team(Display display) {
+  public Team(Display display, String teamName) {
     this.display = display;
+    display.getTeamName().setText(teamName);
 
     display.addDropHandler(new DropHandler(){
       @Override
@@ -35,11 +39,11 @@ public class Team implements Draggable{
         if(o instanceof Car){
           Car car = (Car)o;
           addCar(car);
-          event.getWidget().removeFromParent();
+          event.getSourceWidget().removeFromParent();
         } else if(o instanceof Truck){
           Truck truck = (Truck)o;
           addTruck(truck);
-          event.getWidget().removeFromParent();
+          event.getSourceWidget().removeFromParent();
         }
       }
     });
@@ -71,8 +75,11 @@ public class Team implements Draggable{
     return trucks;
   }
 
-  @Override
-  public void go(Dragger dragger, int left, int top) {
-    dragger.add((Widget)display, this, left, top);
+  public void go(DragZone dragZone) {
+    dragZone.add((HasMouseDownHandlers)display, this);
+  }
+
+  public void go(HasWidgets widget){
+    widget.add((Widget)display);
   }
 }

@@ -1,7 +1,10 @@
 package gwtscheduler.client.teamexample;
 
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.dragndrop.DragZone;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
@@ -25,7 +28,7 @@ public class Race {
         Object o = event.getDroppedObject();
         if(o instanceof Team){
           racingTeam((Team)o);
-          event.getWidget().removeFromParent();
+          event.getSourceWidget().removeFromParent();
         }
       }
     });
@@ -44,7 +47,7 @@ public class Race {
     display.addNewTeam(team.getTeamName(), vehicles);
   }
 
-  public void go(AbsolutePanel absolutePanel, int left, int top) {
-    absolutePanel.add((Widget)display, left, top);
+  public void go(HasWidgets widget){
+    widget.add((Widget)display);
   }
 }
