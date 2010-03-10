@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarViewPanel {
+public class CalendarGridPanel {
   public interface Display{
 
     Widget getParent();
@@ -28,6 +28,8 @@ public class CalendarViewPanel {
 
     Element getElement();
 
-    void removeColumn();
+    void removeColumn(int calendarColumnIndex);
+
+    void addColumn(String title);
   }
 }

@@ -173,8 +173,10 @@ body {
 	overflow: hidden;
 }
 
+.cbg-RP {
+     background-color:#FAD163;
+}
+
 .dragFrame{
     border:1px dotted;
 }
-
-

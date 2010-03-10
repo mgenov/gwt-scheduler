@@ -6,10 +6,6 @@ import com.google.gwt.inject.client.Ginjector;
 import com.google.gwt.junit.client.GWTTestCase;
 import gwtscheduler.client.modules.AppModule;
 import gwtscheduler.client.modules.UIModule;
-import gwtscheduler.client.widgets.view.MultiColumnPresenter;
-import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
-import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
-import org.junit.Before;
 import org.junit.Test;
 
 

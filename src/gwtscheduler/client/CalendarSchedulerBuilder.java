@@ -1,8 +1,6 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
-import gwtscheduler.client.widgets.common.navigation.DateViewsTabPanel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +10,26 @@ import java.util.List;
  */
 public class CalendarSchedulerBuilder {
 
-  private DateViewsTabPanel dateViewsTabPanel;
-  private List<CalendarPresenter> tabs = new ArrayList<CalendarPresenter>();
-  private EventBus eventBus;
+  private List<CalendarPresenter> presenters = new ArrayList<CalendarPresenter>();
 
-  // TODO: {lazo} event bus added for testing
-  public CalendarSchedulerBuilder(EventBus eventBus) {
-    this.eventBus = eventBus;
+  private GwtScheduler gwtScheduler;
+  private GwtSchedulerWidget gwtSchedulerWidget;
+
+
+  public CalendarSchedulerBuilder() {
   }
 
-  public CalendarSchedulerBuilder addTab(CalendarPresenter tab) {
-    tabs.add(tab);
+  public CalendarSchedulerBuilder addTab(CalendarPresenter presenter) {
+    presenters.add(presenter);
     return this;
   }
 
-  public DateViewsTabPanel build(){
-     dateViewsTabPanel = new DateViewsTabPanel(tabs, eventBus);
-    return dateViewsTabPanel;
+  public GwtScheduler build(){
+    gwtScheduler = new GwtScheduler(presenters);
+    gwtSchedulerWidget = new GwtSchedulerWidget();
+    gwtScheduler.bindDisplay(gwtSchedulerWidget);
+
+    return gwtScheduler;
   }
 
 }

@@ -1,21 +1,21 @@
 package gwtscheduler.client;
 
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import gwtscheduler.client.dragndrop.Dragger;
-import gwtscheduler.client.dragndrop.DraggerImpl;
-import gwtscheduler.client.modules.AppInjector;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
-import gwtscheduler.client.modules.views.UIManager;
 import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
-import gwtscheduler.client.widgets.common.navigation.DateViewsTabPanel;
 
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
+import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import org.cobogw.gwt.user.client.Color;
+import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
+import org.cobogw.gwt.user.client.ui.RoundedPanel;
 import org.goda.time.DateTimeConstants;
-import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
 
@@ -31,8 +31,12 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class ViewportTests implements EntryPoint, ClickHandler {
 
-  Button back, forward, today;
+  Button back, forward, today,deleteColumn,addColumn;
+  TextBox textBox = new TextBox();
   private EventBus eventBus = new EventBus();
+
+   GwtScheduler main;
+  private TestTeamCalendarColumnProvider testteams1 = new TestTeamCalendarColumnProvider();
 
   /**
    * This is the entry point method.
@@ -53,73 +57,72 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     back = new Button("&laquo;", this);
     forward = new Button("&raquo;", this);
     today = new Button("today", this);
+    deleteColumn = new Button("delete Column",this);
+    addColumn = new Button("add Column",this);
+
+
     HorizontalPanel nav = new HorizontalPanel();
     nav.add(back);
     nav.add(today);
     nav.add(forward);
+    nav.add(textBox);
+    nav.add(deleteColumn);
+    nav.add(addColumn);
 
 
-    CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder(eventBus);
-    DateViewsTabPanel main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
-      @Override
-      public String[] getColumns(int columnCount) {
-        String[] names = new String[4];
-        names[0] =  "Team 1";
-        names[1] =  "Team 2";
-        names[2] =  "Team 3";
-        names[3] =  "Team 4";
+    CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
+//    GwtScheduler main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
+//      @Override
+//      public String[] getColumns(int columnCount) {
+//        String[] names = new String[4];
+//        names[0] =  "Team 1";
+//        names[1] =  "Team 2";
+//        names[2] =  "Team 3";
+//        names[3] =  "Team 4";
+////        names[4] =  "Team 5";
+//        return names;
+//      }
+//
+//      @Override
+//      public void setInterval(Interval interval) {
+//
+//      }
+//    }, eventBus).columns(4).named("Teams").build()).addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
+//      @Override
+//      public String[] getColumns(int columnCount) {
+//        String[] names = new String[15];
+//        names[0] =  "Team 1";
+//        names[1] =  "Team 2";
+//        names[2] =  "Team 3";
+//        names[3] =  "Team 4";
 //        names[4] =  "Team 5";
-        return names;
-      }
+//        names[5] =  "Team 6";
+//        names[6] =  "Team 7";
+//        names[7] =  "Team 8";
+//        names[8] =  "Team 9";
+//        names[9] =  "Team 10";
+//        names[10] =  "Team 11";
+//        names[11] =  "Team 12";
+//        names[12] =  "Team 13";
+//        names[13] =  "Team 14";
+//        names[14] =  "Team 15";
+//        return names;
+//      }
+//
+//      @Override
+//      public void setInterval(Interval interval) {
+//
+//      }
+//    }, eventBus).columns(15).named("Teams2").build()).build();
 
-      @Override
-      public void setInterval(Interval interval) {
-        
-      }
-    }, eventBus).columns(4).named("Teams").build()).addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
-      @Override
-      public String[] getColumns(int columnCount) {
-        String[] names = new String[15];
-        names[0] =  "Team 1";
-        names[1] =  "Team 2";
-        names[2] =  "Team 3";
-        names[3] =  "Team 4";
-        names[4] =  "Team 5";
-        names[5] =  "Team 6";
-        names[6] =  "Team 7";
-        names[7] =  "Team 8";
-        names[8] =  "Team 9";
-        names[9] =  "Team 10";
-        names[10] =  "Team 11";
-        names[11] =  "Team 12";
-        names[12] =  "Team 13";
-        names[13] =  "Team 14";
-        names[14] =  "Team 15";
-        return names;
-      }
 
-      @Override
-      public void setInterval(Interval interval) {
+    main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), testteams1,eventBus).named("Teams").build()).build();
 
-      }
-    }, eventBus).columns(15).named("Teams2").build()).build();
-
-    TicketPresenter ticket = new TicketPresenter(new TicketView2());
-
-    AbsolutePanel absolutePanel = new AbsolutePanel();
-    absolutePanel.setSize("100%", "100%");
-    Dragger dragger = new DraggerImpl(absolutePanel);
-    ticket.go(dragger, 200, 0);
-
-    // TODO: {lazo} just testing
-    absolutePanel.add(nav);
-    absolutePanel.add(main);
-
-    RootPanel.get("nav").add(absolutePanel);
-//    RootPanel.get("main").add(main);
+    RootPanel.get("nav").add(nav);
+    RootPanel.get("main").add(main.asWidget());
     main.selectTab(0);
 //    registry.fireDateNavigation(getCurrentDate());
-   eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
+   eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));     
   }
 
 
@@ -155,8 +158,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
   }
 
   public void onClick(ClickEvent event) {
-    AppInjector uiResources = AppInjector.GIN.getInjector();
-    UIManager registry = uiResources.getUIRegistry();
+//    AppInjector uiResources = AppInjector.GIN.getInjector();
+//    UIManager registry = uiResources.getUIRegistry();
 
     if (event.getSource() == back) {
 //      registry.fireBackNavigation();
@@ -167,6 +170,14 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     } else if (event.getSource() == today) {
 //      registry.fireDateNavigation(getCurrentDate());
       eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
+    }else if(event.getSource() == deleteColumn){
+      CalendarColumn  column = testteams1.getColumn(textBox.getText());
+        main.deleteColumn(column);
+    }else if(event.getSource() == addColumn){
+      if(textBox.getText()!=""){
+      CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
+        main.addColumn(column);
+      }
     }
 
   }

@@ -15,22 +15,23 @@ import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.common.Cell;
+import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.common.CalendarViewPanel;
-import gwtscheduler.client.widgets.view.common.CalendarViewPanelWidget;
+import gwtscheduler.client.widgets.view.common.CalendarGridPanelWidget;
 import gwtscheduler.client.widgets.view.common.HorizontalCalendarViewPanelResizeHandler;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class ColumnPanelWidget extends Composite implements ColumnPanel.Display, HasWidgetResizeHandlers{
+public class CalendarColumnsFrameGridWidget extends Composite implements CalendarColumnsFrameGrid.Display, HasWidgetResizeHandlers, HasMultipleDecorables<Element> {
 
 
-/** static ref to css */
+  /** static ref to css */
   private static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
   /** Main container */
@@ -38,7 +39,7 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
   VerticalPanel container;
   /** Hours grid */
   @UiField
-  CalendarViewPanelWidget grid;
+  CalendarGridPanelWidget grid;
   /** root container */
   @UiField
   SimplePanel simplePanel;
@@ -52,7 +53,7 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
   private static AbstractDaysPanelUiBinder uiBinder = GWT.create(AbstractDaysPanelUiBinder.class);
 
   /** ui binder interface */
-  interface AbstractDaysPanelUiBinder extends UiBinder<Widget, ColumnPanelWidget> {
+  interface AbstractDaysPanelUiBinder extends UiBinder<Widget, CalendarColumnsFrameGridWidget> {
   }
 
   private int rows;
@@ -61,7 +62,7 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
   /**
    * Default constructor.
    */
-  public ColumnPanelWidget(int rows,int columns) {
+  public CalendarColumnsFrameGridWidget(int rows,int columns) {
     this.rows = rows;
     this.columns = columns;
     initWidget(uiBinder.createAndBindUi(this));
@@ -77,8 +78,8 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
    * @return the grid
    */
   @UiFactory
-  CalendarViewPanelWidget buildGrid() {
-    return new CalendarViewPanelWidget(rows, columns);
+  CalendarGridPanelWidget buildGrid() {
+    return new CalendarGridPanelWidget(rows, columns);
   }
 
   /**
@@ -106,6 +107,11 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
     return rh;
   }
 
+  @Override
+  public HasMultipleDecorables getDecorables() {
+    return this;  
+  }
+
   public HandlerRegistration addWidgetResizeHandler(WidgetResizeHandler handler) {
     return addHandler(handler, WidgetResizeEvent.getType());
   }
@@ -128,18 +134,6 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
     return grid.getElement().getOffsetWidth() - CSS.titleColumnWidthPx() - CSS.smallPaddingPx();
   }
 
-//  /**
-//   * Gets the number of rows.
-//   * @return the number of rows of this panel
-//   */
-//  protected abstract int getRows();
-//
-//  /**
-//   * Gets the number of columns.
-//   * @return the number of columns of this panel
-//   */
-//  protected abstract int getColumns();
-
 
   public int getRows() {
     return rows;
@@ -149,7 +143,23 @@ public class ColumnPanelWidget extends Composite implements ColumnPanel.Display,
     return columns;
   }
 
-  public void removeColumn() {
-    grid.removeColumn();
+  public void removeColumn(int calendarColumnIndex) {
+    grid.removeColumn(calendarColumnIndex);
+    columns--;
+  }
+
+  public void addColumn(String title) {
+   grid.addColumn(title);
+   columns++;
+  }
+
+  @Override
+  public List<Cell<Element>> getDecorableElements() {
+    return Collections.unmodifiableList(grid.getTitleElements());
+  }
+
+  @Override
+  public List<Cell<Element>> getContentDecorableElements() {
+    return Collections.unmodifiableList(grid.getMainElements());
   }
 }

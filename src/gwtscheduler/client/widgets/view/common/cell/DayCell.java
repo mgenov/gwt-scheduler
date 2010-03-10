@@ -44,4 +44,5 @@ public class DayCell extends BaseCell {
     final int height = h - CSS.smallBorderPx();
     setPixelSize(width, height);
   }
+
 }

@@ -18,14 +18,15 @@
  * Sizes
  */ 
  
- @def genericContainerPaddingPx  5px ; 
+ @def genericContainerPaddingPx  5px ;
+ @def scrollOffSetPx 16px;
 
 /**
  * General classes.
  */
 .genericContainer {
 	background: lightBlued;
-	padding: genericContainerPaddingPx;
+    padding: genericContainerPaddingPx   20px  genericContainerPaddingPx 50px;
 }
 
 /** 

@@ -19,13 +19,13 @@ public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHan
 
   /** static ref to css */
   private static final DayWeekCssResource CSS = Resources.dayWeekCss();
-  private CalendarViewPanel.Display target;
+  private CalendarGridPanel.Display target;
 
   /**
    * Creates a new resize handler for the supplied widget.
    * @param target the widget thath should handle resizes
    */
-  public HorizontalCalendarViewPanelResizeHandler(CalendarViewPanel.Display target) {
+  public HorizontalCalendarViewPanelResizeHandler(CalendarGridPanel.Display target) {
     this.target = target;
   }
 
@@ -36,7 +36,7 @@ public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHan
   @Override
   public void onResize(WidgetResizeEvent event) {
 
-    final CalendarViewPanel.Display  grid = target;
+    final CalendarGridPanel.Display  grid = target;
     final Element parentEl = grid.getParent().getElement();
     int height = parentEl.getOffsetHeight();
     int width = event.width;
@@ -123,7 +123,7 @@ public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHan
     return parentEl.getOffsetHeight() > 0 && parentEl.getOffsetWidth() > 0;
   }
 
-  public CalendarViewPanel.Display getTarget() {
+  public CalendarGridPanel.Display getTarget() {
     return target;
   }
 }

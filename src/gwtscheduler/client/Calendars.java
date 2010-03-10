@@ -1,20 +1,17 @@
 package gwtscheduler.client;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.GenericDateGenerator;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
-import gwtscheduler.client.widgets.common.decoration.MultipleElementsIntervalDecorator;
-import gwtscheduler.client.widgets.common.decorator.ColumnStrategyDecorationRenderer;
-import gwtscheduler.client.widgets.common.decorator.ColumnTitleProvider;
-import gwtscheduler.client.widgets.common.decorator.DateTimeLabelDecorator;
+import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
-import gwtscheduler.client.widgets.view.MultiColumnPresenter;
+import gwtscheduler.client.widgets.view.columns.CalendarColumnsFrameGrid;
+import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
+import gwtscheduler.client.widgets.view.columns.CalendarContent;
+import gwtscheduler.client.widgets.view.columns.CalendarHeader;
+import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
-import gwtscheduler.client.widgets.view.common.AbstractCalendarPresenter;
-import gwtscheduler.client.widgets.view.dayweek.AbstractDaysView;
 import gwtscheduler.common.calendar.IntervalType;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -32,16 +29,26 @@ public class Calendars {
   private int rows;
 
 
-  public Calendars newMultiColumn(AppConfiguration configuration,ColumnTitleProvider columnTitleProvider, EventBus eventBus) {
+
+  public Calendars newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, EventBus eventBus) {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
-    DateTimeLabelDecorator decorator = new DateTimeLabelDecorator();
-    ColumnStrategyDecorationRenderer decorationRenderer  = new ColumnStrategyDecorationRenderer(decorator,columnTitleProvider);
+    columns = columnsProvider.getColumns().size();
+
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.DAY,getCurrentDate());
-    calendar = new  MultiColumnPresenter(configuration,dateGenerator,decorationRenderer,eventBus);
+
+    CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
+    CalendarHeader calendarHeader = new CalendarHeader();
+
+    CalendarContent  calendarContent = new CalendarContent(new CalendarColumnsFrameGrid());
+
+    calendar = new ColumnsViewPresenter(columnsProvider.getColumns(),dateGenerator,titlesRenderer,calendarHeader,calendarContent,eventBus);
+    
     return this;
   }
+
+
 
   public Calendars named(String title){
     calendar.setTabLabel(title);
