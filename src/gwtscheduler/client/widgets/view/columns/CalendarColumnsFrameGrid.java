@@ -4,8 +4,6 @@ import com.google.gwt.user.client.Element;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.common.CalendarViewPanel;
-import gwtscheduler.client.widgets.view.common.CalendarViewPanelWidget;
 
 import java.util.List;
 

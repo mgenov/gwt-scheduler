@@ -4,10 +4,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.LazyPanel;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.common.Cell;
@@ -20,7 +17,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarViewPanelWidget extends Composite implements CalendarViewPanel.Display {
+public class CalendarGridPanelWidget extends Composite implements CalendarGridPanel.Display {
 
   /**
    * static ref to css
@@ -64,7 +61,7 @@ public class CalendarViewPanelWidget extends Composite implements CalendarViewPa
    * @param rows the number of rows
    * @param cols the number of columns
    */
-  public CalendarViewPanelWidget(int rows, int cols) {
+  public CalendarGridPanelWidget(int rows, int cols) {
     this.rows = rows;
     this.columnsCount = cols;
     titleElements = new ArrayList<Cell<Element>>();
