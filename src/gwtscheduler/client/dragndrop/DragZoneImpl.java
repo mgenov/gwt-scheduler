@@ -20,7 +20,7 @@ import java.util.HashMap;
  * @author Miroslav Genov (mgenov@gmail.com)
  */
 class DragZoneImpl implements DragZone {
-
+  private final int CORRECTION = -5;
   private Display display;
   private DropZone dropZone = null;
 
@@ -85,7 +85,7 @@ class DragZoneImpl implements DragZone {
 
         frame.setFrameSize(cloneWidth+1, cloneHeight+1);
 
-        frame.go(DragZoneImpl.this, (startX -(startX - cloneLeft))-10, (startY - (startY - cloneTop))-10);
+        frame.go(DragZoneImpl.this, (startX -(startX - cloneLeft))+CORRECTION, (startY - (startY - cloneTop))+CORRECTION);
         frame.captureFrame();
       }
     });
@@ -119,7 +119,7 @@ class DragZoneImpl implements DragZone {
       // fires event when dragging over drop zone.
       display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY));
     }
-    frame.go(DragZoneImpl.this, (mouseX - (startX - cloneLeft))-10 , (mouseY - (startY - cloneTop))-10);
+    frame.go(DragZoneImpl.this, (mouseX - (startX - cloneLeft))+CORRECTION, (mouseY - (startY - cloneTop))+CORRECTION);
   }
 
   private void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event){

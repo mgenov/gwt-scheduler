@@ -38,7 +38,6 @@ class DragFrame implements Frame{
     return display.getFrameMouseMoveHandlers();
   }
 
-
   public HasMouseUpHandlers getFrameMouseUpHandlers() {
     return display.getFrameMouseUpHandlers();
   }
