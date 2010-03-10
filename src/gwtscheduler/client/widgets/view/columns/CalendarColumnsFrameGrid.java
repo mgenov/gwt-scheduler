@@ -8,6 +8,7 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import java.util.List;
 
 /**
+ * Represents  the view of the grid cells
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarColumnsFrameGrid {

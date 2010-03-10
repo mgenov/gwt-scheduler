@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Widget;
 import java.util.List;
 
 /**
+ * Represents the calendar grid panel
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarGridPanel {

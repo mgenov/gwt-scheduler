@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Object for columns views. Holds the main grid cells.
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarColumnsFrameGridWidget extends Composite implements CalendarColumnsFrameGrid.Display, HasWidgetResizeHandlers, HasMultipleDecorables<Element> {
