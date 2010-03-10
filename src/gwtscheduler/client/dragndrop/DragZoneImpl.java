@@ -102,6 +102,8 @@ class DragZoneImpl implements DragZone {
 
     int mouseX = event.getClientX();
     int mouseY = event.getClientY();
+    
+    frame.go(DragZoneImpl.this, (mouseX - (startX - cloneLeft))+CORRECTION, (mouseY - (startY - cloneTop))+CORRECTION);
 
     DropZone dropZone = display.getDropZone(dropZones, mouseX, mouseY);
 
@@ -119,7 +121,6 @@ class DragZoneImpl implements DragZone {
       // fires event when dragging over drop zone.
       display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY));
     }
-    frame.go(DragZoneImpl.this, (mouseX - (startX - cloneLeft))+CORRECTION, (mouseY - (startY - cloneTop))+CORRECTION);
   }
 
   private void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event){

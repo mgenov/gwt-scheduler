@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.Label;
 import gwtscheduler.client.dragndrop.DragInEvent;
 import gwtscheduler.client.dragndrop.DragInHandler;
 import gwtscheduler.client.dragndrop.DragOutHandler;
+import gwtscheduler.client.dragndrop.DragOverHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 
@@ -67,12 +68,17 @@ public class TeamView extends Composite implements Team.Display, HasMouseDownHan
   }
 
   @Override
-  public HandlerRegistration addDragOverHandler(DragInHandler handler) {
+  public HandlerRegistration addDragInHandler(DragInHandler handler) {
     return addHandler(handler, DragInEvent.TYPE);
   }
 
   @Override
   public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
+    return null;
+  }
+
+  @Override
+  public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
     return null;
   }
 

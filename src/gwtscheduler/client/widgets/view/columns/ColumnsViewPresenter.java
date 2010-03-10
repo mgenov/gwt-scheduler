@@ -2,15 +2,16 @@ package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.TicketPresenter;
+import gwtscheduler.client.dragndrop.DragOverEvent;
+import gwtscheduler.client.dragndrop.DragOverHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
+import gwtscheduler.client.dragndrop.Frame;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
-import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.*;
 
@@ -37,7 +38,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     this.eventBus = eventBus;
   }
 
-  public ColumnsViewPresenter( List<CalendarColumn> columns,DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer,CalendarHeader calendarHeader,CalendarContent calendarContent, EventBus eventBus) {
+  public ColumnsViewPresenter( List<CalendarColumn> columns, DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer,CalendarHeader calendarHeader,CalendarContent calendarContent, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
     this.columns = columns;
     this.titlesRenderer = titlesRenderer;
@@ -86,11 +87,23 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         proceedDropEvent(event);
       }
     });
+
+    display.addDragOverHandler(new DragOverHandler(){
+      @Override
+      public void onDragOver(DragOverEvent event) {
+        Frame frame = event.getFrame();
+        int[] cell = calendarContent.getCellPosition(event.getMouseX(), event.getMouseY());
+        int[] leftTop = calendarContent.getCellLeftTop(cell);
+        int[] position = calendarContent.getAbsoluteCellPosition();
+        frame.setDragZonePosition(position[0]+leftTop[0]-5, position[1]+leftTop[1]-5);
+        frame.setFrameSize(getWidth()/getColNum(), getHeight()/getRowNum());
+      }
+    });
   }
 
   private void proceedDropEvent(DropEvent event){
-    String columnTitle = null;
-    Instant time = null;
+    String columnTitle;
+    Instant time;
     String oldColumnTitle = null;
     Instant oldTime = null;
     Object o = event.getDroppedObject();
@@ -107,7 +120,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     CalendarDropEvent calendarDrop = new CalendarDropEvent(columnTitle, time, oldColumnTitle, oldTime, o);
     mediateEvent(calendarDrop);
 
-    calendarContent.attachWidget(event.getSourceWidget(), cell);
+    calendarContent.attachWidget(event.getSourceWidget(), cell); // method returning widget. is not good for testing. is used only for testing at this point
     getRowForInstant(time);
   }
 

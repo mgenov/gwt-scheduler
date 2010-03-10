@@ -2,6 +2,7 @@ package gwtscheduler.client.dragndrop;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -20,6 +21,8 @@ public interface Frame {
   int getWidth();
 
   void go(DragZone container, int left, int top);
+
+  void setDragZonePosition(int left, int top);
 
   void captureFrame();
 

@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.common;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.user.client.Window;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
@@ -64,6 +65,7 @@ public class AbstractGridOverlay extends AbsolutePanel implements WidgetResizeHa
     Element element = getElement();
     int relativeX = x - element.getAbsoluteLeft() + element.getScrollLeft() + element.getOwnerDocument().getScrollLeft();
     int relativeY = y - element.getAbsoluteTop() + element.getScrollTop() + element.getOwnerDocument().getScrollTop();
+    
     return calculateCell(relativeX, relativeY);
   }
 
@@ -79,7 +81,7 @@ public class AbstractGridOverlay extends AbsolutePanel implements WidgetResizeHa
    * @param cellPos the cell position
    * @return
    */
-  protected int[] calculateLeftTop(int[] cellPos) {
+  public int[] calculateLeftTop(int[] cellPos) {
     assert cellPos != null : "Cell position cannot be null";
     assert cellPos.length == 2 : "Position length != 2";
 
@@ -91,6 +93,17 @@ public class AbstractGridOverlay extends AbsolutePanel implements WidgetResizeHa
   @Override
   public void onResize(WidgetResizeEvent event) {
     overlayPanel.clear();
+  }
+
+  public int[] getAbsolutePosition() {
+    Element element = getElement();
+
+    int top = element.getAbsoluteTop();
+    int left = element.getAbsoluteLeft();
+
+//    GWT.log("top: " + top + " left: " + left, null);
+
+    return new int[] {left, top};
   }
 
 }

@@ -26,6 +26,10 @@ public class CalendarContent {
     void attachWidget(Widget sourceWidget, int[] cell);
 
     void fireResizeRedrawEvents();
+
+    int[] getAbsoluteCellPosition();
+
+    int[] getCellLeftTop(int[] cell);
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -66,5 +70,13 @@ public class CalendarContent {
 
   public void attachWidget(Widget sourceWidget, int[] cell) {
     display.attachWidget(sourceWidget, cell);
+  }
+
+  public int[] getAbsoluteCellPosition() {
+    return display.getAbsoluteCellPosition();
+  }
+
+  public int[] getCellLeftTop(int[] cell) {
+    return display.getCellLeftTop(cell);
   }
 }

@@ -52,4 +52,6 @@ public class EventsPanel extends AbstractGridOverlay implements WidgetResizeHand
     this.add(sourceWidget, leftTopPoint[0], leftTopPoint[1]);
     sourceWidget.getElement().getStyle().setZIndex(50);
   }
+
+  
 }

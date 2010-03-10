@@ -12,6 +12,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.dragndrop.DragInHandler;
 import gwtscheduler.client.dragndrop.DragOutHandler;
+import gwtscheduler.client.dragndrop.DragOverEvent;
+import gwtscheduler.client.dragndrop.DragOverHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
@@ -171,12 +173,17 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   @Override
-  public HandlerRegistration addDragOverHandler(DragInHandler handler) {
+  public HandlerRegistration addDragInHandler(DragInHandler handler) {
     return null;
   }
 
   @Override
   public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
     return null;
+  }
+
+  @Override
+  public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+    return addHandler(handler, DragOverEvent.TYPE);
   }
 }

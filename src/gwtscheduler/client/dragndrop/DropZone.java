@@ -25,12 +25,18 @@ public interface DropZone {
    * Attaches drag overlap handler. This handler accept event fired when dragged widget enter to the dragged zone.
    * @param handler drag overlap handler.
    */
-  HandlerRegistration addDragOverHandler(DragInHandler handler);
+  HandlerRegistration addDragInHandler(DragInHandler handler);
 
   /**
    * Attaches drag un overlap handler. This handler accept event fired when dragged widget exit from dragged zone.
    * @param handler drag un overlap handler.
    */
   HandlerRegistration addDragOutHandler(DragOutHandler handler);
+
+  /**
+   * Attaches drag over handler. This handler accept event fired when dragged widget is dragged over drop zone.
+   * @param handler drag over handler.
+   */
+  HandlerRegistration addDragOverHandler(DragOverHandler handler);
 
 }
