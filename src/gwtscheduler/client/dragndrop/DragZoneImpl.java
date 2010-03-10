@@ -83,9 +83,9 @@ class DragZoneImpl implements DragZone {
         cloneTop = display.getSourceTop();
         cloneLeft = display.getSourceLeft();
 
-        frame.setFrameSize(cloneWidth, cloneHeight);
+        frame.setFrameSize(cloneWidth+1, cloneHeight+1);
 
-        frame.go(DragZoneImpl.this, startX - (startX + cloneLeft), startY - (startY + cloneTop));
+        frame.go(DragZoneImpl.this, (startX -(startX - cloneLeft))-10, (startY - (startY - cloneTop))-10);
         frame.captureFrame();
       }
     });
@@ -119,8 +119,7 @@ class DragZoneImpl implements DragZone {
       // fires event when dragging over drop zone.
       display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY));
     }
-
-    frame.go(DragZoneImpl.this, mouseX - (mouseX + cloneLeft), mouseX - (mouseX + cloneTop)); // TODO: make correction when dragging
+    frame.go(DragZoneImpl.this, (mouseX - (startX - cloneLeft))-10 , (mouseY - (startY - cloneTop))-10);
   }
 
   private void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event){
@@ -133,12 +132,13 @@ class DragZoneImpl implements DragZone {
 
     if(dropZones.size() == 0){
       GWT.log("No registered drop zones!", null);
+      return;
     }
 
     // user has released object when it's position was over a drop zone
     DropZone dropZone = display.getDropZone(dropZones, event.getClientX(), event.getClientY());
 
-    // we have to fire drop event to indicate that object has been dropeed in the drop zone
+    // we have to fire drop event to indicate that object has been dropped in the drop zone
     if(dropZone != null){
       display.dropTo(dropZone, draggingRegister.get(display.getDragWidget()), startX, startY, event.getClientX(), event.getClientY());
     }
