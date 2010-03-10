@@ -1,9 +1,6 @@
 package gwtscheduler.client;
 
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -12,9 +9,6 @@ import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import org.cobogw.gwt.user.client.Color;
-import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
-import org.cobogw.gwt.user.client.ui.RoundedPanel;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -72,8 +66,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
 
-    main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), testteams1,eventBus).named("Teams").build())
-            .addTab(new Calendars().newWeekColumn(new TestAppConfiguration(),eventBus).named("Team 1 Week Calendar").build()).build();
+    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1,eventBus).named("Teams").build())
+            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(),eventBus).named("Team 1 Week Calendar").build()).build();
 
     RootPanel.get("nav").add(nav);
     RootPanel.get("main").add(main.asWidget());

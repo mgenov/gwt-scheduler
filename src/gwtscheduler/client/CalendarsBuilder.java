@@ -19,9 +19,10 @@ import org.goda.time.ReadableDateTime;
 
 
 /**
+ * Builds Caledars
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class Calendars {
+public class CalendarsBuilder {
 
 
   private CalendarPresenter calendar;
@@ -29,8 +30,14 @@ public class Calendars {
   private int columns;
   private int rows;
 
-
-  public Calendars newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, EventBus eventBus) {
+  /**
+   * Sets a new multy column calednar in the builder.
+   * @param configuration
+   * @param columnsProvider
+   * @param eventBus
+   * @return
+   */
+  public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, EventBus eventBus) {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
     columns = columnsProvider.getColumns().size();
@@ -48,7 +55,13 @@ public class Calendars {
     return this;
   }
 
-  public Calendars newWeekColumn(AppConfiguration configuration, EventBus eventBus) {
+  /**
+   * Sets a new week column calednar in the builder.
+   * @param configuration
+   * @param eventBus
+   * @return
+   */
+  public CalendarsBuilder newWeekColumn(AppConfiguration configuration, EventBus eventBus) {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
 
@@ -69,13 +82,20 @@ public class Calendars {
     return this;
   }
 
-
-  public Calendars named(String title) {
+  /**
+   * sets title for the calendar
+   * @param title
+   * @return
+   */
+  public CalendarsBuilder named(String title) {
     calendar.setTittle(title);
     return this;
   }
 
-
+  /**
+   * Builds the widget for the calendar and bind it to the calendar
+   * @return
+   */
   public CalendarPresenter build() {
     CalendarPresenter.Display display = new ColumnsViewWidget(rows, columns);
     calendar.bindDisplay(display);
@@ -83,6 +103,10 @@ public class Calendars {
   }
 
 
+  /**
+   * Gets the current date time 
+   * @return
+   */
   protected ReadableDateTime getCurrentDate() {
     MutableDateTime start = new MutableDateTime();
     start.setHourOfDay(0);

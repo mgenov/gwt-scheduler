@@ -13,7 +13,7 @@ import org.junit.Test;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarsTest extends GWTTestCase {
-  private Calendars calendars;
+  private CalendarsBuilder calendarsBuilder;
 
   /**
    * Specifies a module to use when running this test case. Subclasses must
@@ -30,7 +30,7 @@ public class CalendarsTest extends GWTTestCase {
 
   @GinModules( {UIModule.class, AppModule.class})
   interface CalendarsGinjector extends Ginjector {
-    Calendars getCalendars();
+    CalendarsBuilder getCalendars();
 
   }
 
@@ -52,7 +52,7 @@ public class CalendarsTest extends GWTTestCase {
 
   @Test
   public void testNewMultiColumn(){
-    calendars = ginjector.getCalendars();
+    calendarsBuilder = ginjector.getCalendars();
 //    AbstractCalendarPresenter<AbstractDaysView> presenter = calendars.newMultiColumn(null,null,null).build();
 //    assertTrue(presenter instanceof MultiColumnPresenter);
   }

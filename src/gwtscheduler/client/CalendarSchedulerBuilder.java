@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Builds calendar scheduler
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarSchedulerBuilder {
@@ -19,11 +20,20 @@ public class CalendarSchedulerBuilder {
   public CalendarSchedulerBuilder() {
   }
 
+  /**
+   * Adds new calendar to the presenter.
+   * @param presenter
+   * @return
+   */
   public CalendarSchedulerBuilder addTab(CalendarPresenter presenter) {
     presenters.add(presenter);
     return this;
   }
 
+  /**
+   * build the calendar scheduler
+   * @return
+   */
   public GwtScheduler build(){
     gwtScheduler = new GwtScheduler(presenters);
     gwtSchedulerWidget = new GwtSchedulerWidget();
