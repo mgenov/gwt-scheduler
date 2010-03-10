@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarViewPanel {
+public class CalendarGridPanel {
   public interface Display{
 
     Widget getParent();

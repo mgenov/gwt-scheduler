@@ -7,7 +7,7 @@
 
     <ui:style>
     </ui:style>
-    <g:VerticalPanel ui:field="impl">
+    <g:VerticalPanel>
         <common:LassoAwarePanel ui:field="lassoAwarePanel">
             <common:EventsPanel ui:field="eventsPanel"/>
             <columns:CalendarColumnsFrameGridWidget ui:field="columnsPanel"/>

@@ -1,5 +1,10 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Panel;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.common.Cell;
@@ -9,56 +14,64 @@ import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HTMLTable;
-import com.google.gwt.user.client.ui.LazyPanel;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Widget;
-
 /**
- * Horizontal Grid class. The grid has relative CSS positioning. Also contains a
- * title column aligned to the left.
- * @author Miguel Ping
- * @version $Revision: $
- * @since 1.0
+ * @author mlesikov  {mlesikov@gmail.com}
  */
-public class HorizontalGridFill extends LazyPanel {
+public class CalendarGridPanelWidget extends Composite implements CalendarGridPanel.Display {
 
-  /** static ref to css */
+  /**
+   * static ref to css
+   */
   private static final DayWeekCssResource CSS = Resources.dayWeekCss();
 
-  /** class impl */
-  private HTMLTable impl;
-  /** title column */
+
+  /**
+   * class impl
+   */
+  private FlexTable impl;
+  /**
+   * title column
+   */
   private Panel titleColumn;
-  /** title elements */
+  /**
+   * title elements
+   */
   private List<Cell<Element>> titleElements;
-  /** columns */
+  /**
+   * columns
+   */
   private List<Panel> mainColumns;
-  /** elements for quick access */
+  /**
+   * elements for quick access
+   */
   private List<Cell<Element>> mainElements;
-  /** grid col count, excluding title column */
-  private int columns;
-  /** grid row count */
+  /**
+   * grid col count, excluding title column
+   */
+  private int columnsCount;
+  /**
+   * grid row count
+   */
   private int rows;
 
   /**
    * Creates a new grid with the supplied dimensions. An additional column will
    * be added to supply a title.
+   *
    * @param rows the number of rows
    * @param cols the number of columns
    */
-  public HorizontalGridFill(int rows, int cols) {
+  public CalendarGridPanelWidget(int rows, int cols) {
     this.rows = rows;
-    this.columns = cols;
+    this.columnsCount = cols;
     titleElements = new ArrayList<Cell<Element>>();
+    impl  = createWidget();
+    initWidget(impl);
   }
 
-  @Override
-  protected Widget createWidget() {
-    impl = new Grid(1, this.columns + 1);
+  protected FlexTable createWidget() {
+
+    impl = new FlexTable();
     impl.setBorderWidth(0);
     impl.setStyleName(CSS.horizontalFillGrid());
     impl.getElement().getStyle().setProperty("position", "relative");
@@ -68,7 +81,7 @@ public class HorizontalGridFill extends LazyPanel {
 
     // here we add one column for each day
     // one more col for cell labels
-    for (int i = 0; i < this.columns + 1; i++) {
+    for (int i = 0; i < this.columnsCount + 1; i++) {
       FlowPanel flowPanel = new FlowPanel();
       String className = (i == 0) ? CSS.titleColumn() : CSS.column();
       flowPanel.setStyleName(className);
@@ -79,6 +92,7 @@ public class HorizontalGridFill extends LazyPanel {
       } else {
         mainColumns.add(flowPanel);
       }
+//      impl.setWidget(0, i, flowPanel);
       impl.setWidget(0, i, flowPanel);
     }
 
@@ -91,8 +105,9 @@ public class HorizontalGridFill extends LazyPanel {
     }
 
     // regular cells are different from title cells
-    for (int c = 0; c < columns; c++) {
+    for (int c = 0; c < columnsCount; c++) {
       Panel col = mainColumns.get(c);
+//      col.add(new Label(c+""));
 
       for (int r = 0; r < rows; r++) {
         // int id = (c * r) + c;
@@ -104,14 +119,9 @@ public class HorizontalGridFill extends LazyPanel {
     return impl;
   }
 
-  @Override
-  protected void onAttach() {
-    ensureWidget();
-    super.onAttach();
-  }
-
   /**
    * Gets a list of title elements.
+   *
    * @return the list of title elements
    */
   public List<Cell<Element>> getTitleElements() {
@@ -120,6 +130,7 @@ public class HorizontalGridFill extends LazyPanel {
 
   /**
    * Gets a list of the main elements.
+   *
    * @return the main elements
    */
   public List<Cell<Element>> getMainElements() {
@@ -128,6 +139,7 @@ public class HorizontalGridFill extends LazyPanel {
 
   /**
    * Gets the title panel column widget.
+   *
    * @return the title widget
    */
   public Panel getTitleColumn() {
@@ -136,6 +148,7 @@ public class HorizontalGridFill extends LazyPanel {
 
   /**
    * Gets the main columns widgets.
+   *
    * @return the main columns
    */
   public List<Panel> getMainColumns() {
@@ -144,18 +157,48 @@ public class HorizontalGridFill extends LazyPanel {
 
   /**
    * Gets the column count for this grid fill.
+   *
    * @return the column count
    */
-  int getColumnCount() {
-    return columns;
+  @Override
+  public int getColumnCount() {
+    return columnsCount;
   }
 
   /**
    * Gets the row count.
+   *
    * @return the row count
    */
-  int getRowCount() {
+  @Override
+  public int getRowCount() {
     return rows;
   }
 
+  @Override
+  public void removeColumn(int calendarColumnIndex) {
+    if (mainColumns.size() - 1 >= 0) {
+      impl.remove(mainColumns.get(calendarColumnIndex));
+      impl.removeCell(0,calendarColumnIndex+1);
+      mainColumns.remove(calendarColumnIndex);
+      columnsCount--;
+    }
+  }
+
+  @Override
+  public void addColumn(String title) {
+    Panel col = new FlowPanel();
+    String className = CSS.column();
+    col.setStyleName(className);
+    col.getElement().getStyle().setProperty("position", "relative");
+    mainColumns.add(col);
+    for (int r = 0; r < rows; r++) {
+      DayCell cell = new DayCell(r, mainColumns.size(), "");
+      col.add(cell);
+      mainElements.add(cell);
+    }
+    impl.setWidget(0, mainColumns.size(), col);
+
+    columnsCount++;
+  }
 }

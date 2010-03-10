@@ -1,7 +1,6 @@
 package gwtscheduler.client;
 
 import gwtscheduler.client.widgets.common.CalendarPresenter;
-import gwtscheduler.client.widgets.common.navigation.DateViewsTabPanel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
  */
 public class CalendarSchedulerBuilder {
 
-  private DateViewsTabPanel dateViewsTabPanel;
   private List<CalendarPresenter> presenters = new ArrayList<CalendarPresenter>();
 
   private GwtScheduler gwtScheduler;
@@ -27,7 +25,6 @@ public class CalendarSchedulerBuilder {
   }
 
   public GwtScheduler build(){
-//     dateViewsTabPanel = new DateViewsTabPanel(presenters);
     gwtScheduler = new GwtScheduler(presenters);
     gwtSchedulerWidget = new GwtSchedulerWidget();
     gwtScheduler.bindDisplay(gwtSchedulerWidget);

@@ -49,6 +49,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @UiField
   CalendarContentWidget content;
 
+
   /**
    * static ref to css
    */
@@ -82,6 +83,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 
     content.getLassoAwarePanel().setOverflowY(true);
     content.getLassoAwarePanel().setLassoHandler(this);
+
   }
 
   /**
@@ -100,10 +102,16 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     return new CalendarContentWidget(rows, columns);
   }
 
+//  /**
+//   * Creates the day view widget.
+//   *
+//   * @return the day view widget
+//   */
   @Override
   public void forceLayout() {
     content.getLassoAwarePanel().doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
   }
+
 
   @Override
   public CalendarHeader.Display getCalendarHeaderDisplay() {
@@ -128,9 +136,8 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @Override
   public void forceLayout(Widget lassoPanel, WidgetResizeEvent event) {
 //    Element first = getContentDecorableElements().get(0).getCellElement();
-    List<Cell<Element>> cells = new ArrayList<Cell<Element>>(content.getCalendarColumnsFrameGridDisplay().getContentDecorableElements());
+     List<Cell<Element>> cells = new ArrayList<Cell<Element>>(content.getCalendarColumnsFrameGridDisplay().getContentDecorableElements());
      Element first = cells.get(0).getCellElement();
-//    Element first = cells[0].getC
     int[] offset = DOMUtils.getOffset(lassoPanel.getParent().getElement(), first);
     if (offset[0] > 0) {
       DOM.setStyleAttribute(lassoPanel.getElement(), "left", offset[0] + "px");
@@ -141,6 +148,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     lassoPanel.setSize("100%", (config.daysLineHeightEMs() * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
     content.getEventsPanel().setSize("100%", (config.daysLineHeightEMs() * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
   }
+
 
   @Override
   public HandlerRegistration addWidgetRedrawHandler(WidgetRedrawHandler handler) {

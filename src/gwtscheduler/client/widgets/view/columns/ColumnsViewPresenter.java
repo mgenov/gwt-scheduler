@@ -32,13 +32,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private String tabLabel;
   private ArrayList<CalendarDropHandler> handler = new ArrayList<CalendarDropHandler>();
 
-  public ColumnsViewPresenter(DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, EventBus eventBus) {
-    this.dateGenerator = dateGenerator;
-    this.titlesRenderer = titlesRenderer;
-    this.eventBus = eventBus;
-  }
-
-  public ColumnsViewPresenter( List<CalendarColumn> columns, DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer,CalendarHeader calendarHeader,CalendarContent calendarContent, EventBus eventBus) {
+  public ColumnsViewPresenter( List<CalendarColumn> columns,DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer,CalendarHeader calendarHeader,CalendarContent calendarContent, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
     this.columns = columns;
     this.titlesRenderer = titlesRenderer;
@@ -56,7 +50,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     display.initLasso(new VerticalLassoStrategy(false), this);
     final Interval interval = dateGenerator.interval();
 
-    titlesRenderer.renderVerticalTitles(interval, calendarContent.getFrameGridDecorables());
+    titlesRenderer.renderVerticalTitles(interval,calendarContent.getFrameGridDecorables());
 
 
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {

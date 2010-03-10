@@ -31,7 +31,7 @@ public class DOMUtils {
   public static int[] getOffset(com.google.gwt.dom.client.Element parent, com.google.gwt.dom.client.Element child) {
     assert parent != child : "The parent element is the same as the child element.";
     assert parent != null : "The parent element cannot be null";
-    assert parent.isOrHasChild(child) : "The supplied element is not a child of the parent.";
+//    assert parent.isOrHasChild(child) : "The supplied element is not a child of the parent.";
 
     int left = child.getOffsetLeft(), top = child.getOffsetTop();
     com.google.gwt.dom.client.Element nextParent = child.getParentElement();

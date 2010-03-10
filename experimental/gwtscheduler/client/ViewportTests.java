@@ -1,5 +1,7 @@
 package gwtscheduler.client;
 
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import gwtscheduler.client.dragndrop.DragZone;
@@ -12,6 +14,9 @@ import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import org.cobogw.gwt.user.client.Color;
+import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
+import org.cobogw.gwt.user.client.ui.RoundedPanel;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -79,7 +84,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     dragZone.go(RootPanel.get("nav"));
     main.selectTab(0);
-   eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
+//    registry.fireDateNavigation(getCurrentDate());
+   eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));     
   }
 
   protected ReadableDateTime getCurrentDate() {
