@@ -1,34 +1,37 @@
 package gwtscheduler.client.utils;
 
-import gwtscheduler.client.modules.AppInjector;
-import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.DateTime;
+import org.goda.time.DateTimeConstants;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
 
-import com.google.inject.Inject;
-
 /**
  * Generic date factory. Used to calculate the correct interval for a given type
  * of calendar.
+ *
  * @author Miguel Ping
  * @version $Revision: $
- * @since 1.0
  * @see IntervalType
+ * @since 1.0
  */
 public class GenericDateGenerator implements DateGenerator {
+  private static final int START_DAY_OF_WEEK = DateTimeConstants.MONDAY;
+  private static final int WEEK_SIZE = 7;
 
-  /** interval start and end */
+  /**
+   * interval start and end
+   */
   private DateTime current;
-  /** inner generator */
+  /**
+   * inner generator
+   */
   private FixedDateGenerator generator;
+  private Interval currentInterval;
 
-  @Inject
-  private AppConfiguration config;
 
   /**
    * Default constructor.
@@ -46,7 +49,7 @@ public class GenericDateGenerator implements DateGenerator {
     mtd.setMillisOfSecond(0);
     mtd.setSecondOfMinute(0);
     mtd.setMinuteOfHour(0);
-    
+
     this.current = mtd.toDateTime();
 
     if (IntervalType.DAY.equals(interval)) {
@@ -58,10 +61,12 @@ public class GenericDateGenerator implements DateGenerator {
     } else {
       throw new IllegalArgumentException("Unknown interval type: " + interval.toString());
     }
-    goTo(this.current.toDateTime());
+    goToDate(this.current.toDateTime());
+
+   currentInterval = generator.interval();
   }
 
-  public void goTo(DateTime start) {
+  public void goToDate(DateTime start) {
     generator.goTo(start);
   }
 
@@ -79,8 +84,15 @@ public class GenericDateGenerator implements DateGenerator {
     return generator.interval();
   }
 
+  @Override
+  public Interval currentInterval() {
+    return currentInterval;
+  }
+
+
   /**
    * Utility interface that defines a fixed date generator.
+   *
    * @author malp
    */
   private interface FixedDateGenerator {
@@ -91,6 +103,7 @@ public class GenericDateGenerator implements DateGenerator {
 
     /**
      * Moves to the specified date.
+     *
      * @param start the date
      */
     void goTo(DateTime start);
@@ -102,6 +115,7 @@ public class GenericDateGenerator implements DateGenerator {
 
     /**
      * Returns the current interval.
+     *
      * @return the current interval
      */
     Interval interval();
@@ -109,6 +123,7 @@ public class GenericDateGenerator implements DateGenerator {
 
   /**
    * Date generator for days.
+   *
    * @author malp
    */
   private class DayDateGenerator implements FixedDateGenerator {
@@ -131,19 +146,23 @@ public class GenericDateGenerator implements DateGenerator {
     }
 
   }
+
   /**
    * Date generator for weeks.
+   *
    * @author malp
    */
   private class WeekDateGenerator implements FixedDateGenerator {
-    /** defines the number of days in a week */
-    final int WeekSize;
+    /**
+     * defines the number of days in a week
+     */
+    final int weekSize;
 
     /**
      * Default constructor.
      */
     private WeekDateGenerator() {
-      WeekSize = AppInjector.GIN.getInjector().getConfiguration().daysInWeek();
+      weekSize = WEEK_SIZE;
     }
 
     public void goTo(DateTime where) {
@@ -153,25 +172,26 @@ public class GenericDateGenerator implements DateGenerator {
     public Interval interval() {
       DateTime end = null;
       //adjust to day of week start
-      while (current.getDayOfWeek() != config.startDayOfWeek()) {
+      while (current.getDayOfWeek() != START_DAY_OF_WEEK) {
         current = current.plusDays(-1);
       }
-      end = current.plusDays(WeekSize);
+      end = current.plusDays(weekSize);
       return new Interval(current, end);
     }
 
     public void next() {
-      current = current.plusDays(WeekSize);
+      current = current.plusDays(weekSize);
     }
 
     public void previous() {
-      current = current.plusDays(-WeekSize);
+      current = current.plusDays(-weekSize);
     }
 
   }
 
   /**
    * Date generator for months.
+   *
    * @author malp
    */
   private class MonthDateGenerator implements FixedDateGenerator {
@@ -193,11 +213,11 @@ public class GenericDateGenerator implements DateGenerator {
       while (iterator.isAfter(current)) {//current always points to first day of month
         iterator = iterator.plusDays(-1);
       }
-      while (iterator.getDayOfWeek() != config.startDayOfWeek()) {
+      while (iterator.getDayOfWeek() != START_DAY_OF_WEEK) {
         iterator = iterator.plusDays(-1);
       }
       //adjust end so that last day contains last day of month
-      while (end.getDayOfWeek() != config.startDayOfWeek()) {
+      while (end.getDayOfWeek() != START_DAY_OF_WEEK) {
         end = end.plusDays(1);
       }
       end = end.plusDays(-1);//it ends right before the next start of week
@@ -214,6 +234,7 @@ public class GenericDateGenerator implements DateGenerator {
 
     /**
      * Utility method that advances the start date pointer a given amount.
+     *
      * @param months the number of months to move. Can be negative
      */
     private void moveStart(int months) {

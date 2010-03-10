@@ -58,6 +58,11 @@ public class MyTest {
     }
 
     @Override
+    public void setInterval(Interval interval) {
+      
+    }
+
+    @Override
     public String getTitle() {
       return null;
     }

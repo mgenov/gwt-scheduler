@@ -30,7 +30,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
    */
   private List<CalendarPresenter> presenters;
   private Display display;
-  private int selectedPresenter=0;
+  private int selectedPresenter = 0;
 
 
   public GwtScheduler(List<CalendarPresenter> presenters) {
@@ -65,6 +65,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
   public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
     CalendarPresenter presenter = presenters.get(event.getItem());
     presenter.forceLayout();
+    selectedPresenter = event.getItem();
   }
 
   /**
@@ -85,7 +86,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     display.selectTab(i);
     selectedPresenter = i;
   }
-  
+
   public void deleteColumn(CalendarColumn column) {
     CalendarPresenter presenter = presenters.get(selectedPresenter);
     presenter.deleteColumn(column);

@@ -71,7 +71,7 @@ public class DateFactoryTests extends GWTTestCase {
     mdt.setMonthOfYear(month);
     mdt.setYear(year);
 
-    gen.goTo(mdt.toDateTime());
+    gen.goToDate(mdt.toDateTime());
     return gen;
   }
 

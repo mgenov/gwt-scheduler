@@ -71,52 +71,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
-//    GwtScheduler main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
-//      @Override
-//      public String[] getColumns(int columnCount) {
-//        String[] names = new String[4];
-//        names[0] =  "Team 1";
-//        names[1] =  "Team 2";
-//        names[2] =  "Team 3";
-//        names[3] =  "Team 4";
-////        names[4] =  "Team 5";
-//        return names;
-//      }
-//
-//      @Override
-//      public void setInterval(Interval interval) {
-//
-//      }
-//    }, eventBus).columns(4).named("Teams").build()).addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), new ColumnTitleProvider() {
-//      @Override
-//      public String[] getColumns(int columnCount) {
-//        String[] names = new String[15];
-//        names[0] =  "Team 1";
-//        names[1] =  "Team 2";
-//        names[2] =  "Team 3";
-//        names[3] =  "Team 4";
-//        names[4] =  "Team 5";
-//        names[5] =  "Team 6";
-//        names[6] =  "Team 7";
-//        names[7] =  "Team 8";
-//        names[8] =  "Team 9";
-//        names[9] =  "Team 10";
-//        names[10] =  "Team 11";
-//        names[11] =  "Team 12";
-//        names[12] =  "Team 13";
-//        names[13] =  "Team 14";
-//        names[14] =  "Team 15";
-//        return names;
-//      }
-//
-//      @Override
-//      public void setInterval(Interval interval) {
-//
-//      }
-//    }, eventBus).columns(15).named("Teams2").build()).build();
 
-
-    main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), testteams1,eventBus).named("Teams").build()).build();
+    main = schedulerBuilder.addTab(new Calendars().newMultiColumn(new TestAppConfiguration(), testteams1,eventBus).named("Teams").build())
+            .addTab(new Calendars().newWeekColumn(new TestAppConfiguration(),eventBus).named("Team 1 Week Calendar").build()).build();
 
     RootPanel.get("nav").add(nav);
     RootPanel.get("main").add(main.asWidget());
@@ -124,29 +81,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //    registry.fireDateNavigation(getCurrentDate());
    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));     
   }
-
-
-//  // in evo adm
-//  public void ourEntryPoint() {
-//    GwtScheduler scheduler = new CalendarBuilder().withColumns()
-//            .col("ГОРНА").ofType(ColumnType.TEAMS).build();
-//
-//  }
-//
-//
-//  class CalendarBuilder {
-//    public GwtScheduler build() {
-//      Resources.injectAllStylesheets();
-//
-//      // let's test a registration
-//      final AppInjector uiResources = AppInjector.GIN.getInjector();
-//      final UIManager registry = uiResources.getUIRegistry();
-//
-//      DateViewsTabPanel main = uiResources.getMainPanel();
-//
-//      return new GwtScheduler(main, registry);
-//    }
-//  }
 
   protected ReadableDateTime getCurrentDate() {
     MutableDateTime start = new MutableDateTime();
@@ -171,7 +105,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //      registry.fireDateNavigation(getCurrentDate());
       eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
     }else if(event.getSource() == deleteColumn){
-      CalendarColumn  column = testteams1.getColumn(textBox.getText());
+      CalendarColumn  column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
         main.deleteColumn(column);
     }else if(event.getSource() == addColumn){
       if(textBox.getText()!=""){

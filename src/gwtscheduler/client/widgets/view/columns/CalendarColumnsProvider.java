@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import org.goda.time.Interval;
+
 import java.util.List;
 
 /**
@@ -7,4 +9,6 @@ import java.util.List;
  */
 public interface CalendarColumnsProvider {
   List<CalendarColumn> getColumns();
+
+  void updateColumns(Interval interval, List<CalendarColumn> columns);
 }

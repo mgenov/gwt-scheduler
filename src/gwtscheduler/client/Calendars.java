@@ -12,6 +12,7 @@ import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
+import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
 import gwtscheduler.common.calendar.IntervalType;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -29,41 +30,60 @@ public class Calendars {
   private int rows;
 
 
-
   public Calendars newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, EventBus eventBus) {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
     columns = columnsProvider.getColumns().size();
 
     DateGenerator dateGenerator = new GenericDateGenerator();
-    dateGenerator.init(IntervalType.DAY,getCurrentDate());
+    dateGenerator.init(IntervalType.DAY, getCurrentDate());
 
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarContent  calendarContent = new CalendarContent(new CalendarColumnsFrameGrid());
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid());
 
-    calendar = new ColumnsViewPresenter(columnsProvider.getColumns(),dateGenerator,titlesRenderer,calendarHeader,calendarContent,eventBus);
-    
+    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
+
+    return this;
+  }
+
+  public Calendars newWeekColumn(AppConfiguration configuration, EventBus eventBus) {
+    this.configuration = configuration;
+    rows = configuration.rowsInDay();
+
+    DateGenerator dateGenerator = new GenericDateGenerator();
+    dateGenerator.init(IntervalType.WEEK, getCurrentDate());
+
+    CalendarColumnsProvider columnsProvider = new WeekDaysColumnsProvider(dateGenerator);
+    columns = columnsProvider.getColumns().size();
+
+
+    CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
+    CalendarHeader calendarHeader = new CalendarHeader();
+
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid());
+
+    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
+
     return this;
   }
 
 
-
-  public Calendars named(String title){
+  public Calendars named(String title) {
     calendar.setTabLabel(title);
     return this;
   }
 
 
-  public CalendarPresenter build(){
-    CalendarPresenter.Display display = new ColumnsViewWidget(rows,columns);
+  public CalendarPresenter build() {
+    CalendarPresenter.Display display = new ColumnsViewWidget(rows, columns);
     calendar.bindDisplay(display);
     return calendar;
   }
 
 
-   protected ReadableDateTime getCurrentDate() {
+  protected ReadableDateTime getCurrentDate() {
     MutableDateTime start = new MutableDateTime();
     start.setHourOfDay(0);
     start.setMinuteOfHour(0);

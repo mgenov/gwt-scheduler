@@ -1,10 +1,13 @@
 package gwtscheduler.client.widgets.common.navigation;
 
+import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.DateTime;
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
+
+import java.util.List;
 
 /**
  * Defines event controller operations.
@@ -31,7 +34,7 @@ public interface DateGenerator {
    * Moves to the specified instant.
    * @param start the start date
    */
-  void goTo(DateTime start);
+  void goToDate(DateTime start);
 
   /**
    * Gets the next date period.
@@ -51,4 +54,6 @@ public interface DateGenerator {
    */
   Interval interval();
 
+  Interval currentInterval();
+  
 }

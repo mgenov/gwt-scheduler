@@ -1,12 +1,10 @@
 package gwtscheduler.client.widgets.view.columns;
 
-import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
-import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.Duration;
 import org.goda.time.Instant;
@@ -20,6 +18,7 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
+  private CalendarColumnsProvider columnsProvider;
   private DateGenerator dateGenerator;
   private List<CalendarColumn> columns;
   private CalendarTitlesRenderer titlesRenderer;
@@ -29,9 +28,10 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private Display display;
   private String tabLabel;
 
-  public ColumnsViewPresenter( List<CalendarColumn> columns,DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer,CalendarHeader calendarHeader,CalendarContent calendarContent, EventBus eventBus) {
+  public ColumnsViewPresenter( CalendarColumnsProvider columnsProvider,DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer,CalendarHeader calendarHeader,CalendarContent calendarContent, EventBus eventBus) {
+    this.columnsProvider = columnsProvider;
     this.dateGenerator = dateGenerator;
-    this.columns = columns;
+    this.columns = columnsProvider.getColumns();
     this.titlesRenderer = titlesRenderer;
     this.calendarHeader = calendarHeader;
     this.calendarContent = calendarContent;
@@ -57,14 +57,14 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
       @Override
       public void onNavigateNext() {
-        titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
+        reRenderHeaderTitles(dateGenerator.next().interval());
       }
     });
 
     eventBus.addHandler(NavigatePreviousEvent.TYPE, new NavigatePreviousEventHandler() {
       @Override
       public void onNavigatePrevious() {
-        titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
+        reRenderHeaderTitles(dateGenerator.previous().interval());
       }
     });
 
@@ -72,11 +72,15 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
       public void onNavigateTo(ReadableDateTime date) {
-        titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
+       reRenderHeaderTitles(dateGenerator.currentInterval());
       }
     });
   }
 
+  private void reRenderHeaderTitles(Interval interval) {
+    columnsProvider.updateColumns(interval,columns);
+    titlesRenderer.renderHorizontalTitles(columns,calendarHeader.getHeaderDecorableElements());
+  }
 
 
   @Override
@@ -122,6 +126,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void deleteColumn(CalendarColumn column) {
     for (CalendarColumn calendarColumn : columns) {
+      String columnName = column.getTitle();
       if (calendarColumn.getTitle().equals(column.getTitle())){
         int index = columns.indexOf(calendarColumn);
 

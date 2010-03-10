@@ -2,6 +2,8 @@ package gwtscheduler.client;
 
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
+import gwtscheduler.common.event.Event;
+import org.goda.time.Interval;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,15 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
     return columns;
   }
 
+  @Override
+  public void updateColumns(Interval interval, List<CalendarColumn> columns) {
+//    DateTime current = interval.getStart();
+//    for (CalendarColumn column : columns) {
+//      column.setObject(current);
+//      current = current.plusDays(1);
+    }
+  
+
   public static class TeamColumn implements CalendarColumn {
     private final Team team;
 
@@ -50,12 +61,11 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
 
     @Override
     public void setObject(Object object) {
-      //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public boolean isEventForColumn() {
-      return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean isEventForColumn(Event event) {
+      return false;
     }
   }
 

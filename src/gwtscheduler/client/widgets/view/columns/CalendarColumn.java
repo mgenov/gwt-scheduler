@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import gwtscheduler.common.event.Event;
+
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
@@ -11,6 +13,6 @@ public interface CalendarColumn {
 
   void setObject(Object object);
 
-  boolean isEventForColumn();
+  boolean isEventForColumn(Event event);
 
 }
