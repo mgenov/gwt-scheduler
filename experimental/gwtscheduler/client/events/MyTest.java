@@ -58,6 +58,11 @@ public class MyTest {
     }
 
     @Override
+    public void setInterval(Interval interval) {
+      //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
     public String getTitle() {
       return null;
     }
