@@ -19,7 +19,7 @@ import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.common.CalendarViewPanelWidget;
+import gwtscheduler.client.widgets.view.common.CalendarGridPanelWidget;
 import gwtscheduler.client.widgets.view.common.HorizontalCalendarViewPanelResizeHandler;
 
 import java.util.Collections;
@@ -39,7 +39,7 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
   VerticalPanel container;
   /** Hours grid */
   @UiField
-  CalendarViewPanelWidget grid;
+  CalendarGridPanelWidget grid;
   /** root container */
   @UiField
   SimplePanel simplePanel;
@@ -78,8 +78,8 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
    * @return the grid
    */
   @UiFactory
-  CalendarViewPanelWidget buildGrid() {
-    return new CalendarViewPanelWidget(rows, columns);
+  CalendarGridPanelWidget buildGrid() {
+    return new CalendarGridPanelWidget(rows, columns);
   }
 
   /**
