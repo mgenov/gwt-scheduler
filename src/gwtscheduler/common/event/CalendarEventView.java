@@ -17,7 +17,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
     public CalendarEventView() {
       panel.setCornerColor("#FAD163");
       initWidget(panel);
-
+      
       VerticalPanel vp = new VerticalPanel();
       vp.setStyleName("cbg-RP");
       vp.setWidth("100%");
