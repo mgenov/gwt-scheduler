@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarContentWidget extends Composite implements CalendarContent.Display, DropZone {
+public class CalendarContentWidget extends Composite implements CalendarContent.Display {
 
   /**
    * ui binder instance

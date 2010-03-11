@@ -19,7 +19,7 @@ import org.goda.time.ReadableDateTime;
 
 
 /**
- * Builds Caledars
+ * Builds Calendars
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarsBuilder {
@@ -52,6 +52,8 @@ public class CalendarsBuilder {
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
+    calendar.setCalendarType(CalendarType.MULTYCOLUMN);
+
     return this;
   }
 
@@ -78,6 +80,8 @@ public class CalendarsBuilder {
     CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid());
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
+
+    calendar.setCalendarType(CalendarType.WEEKCOLUMN);
 
     return this;
   }
