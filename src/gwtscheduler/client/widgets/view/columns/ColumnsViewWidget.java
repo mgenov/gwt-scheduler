@@ -37,6 +37,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 
   @UiField
   VerticalPanel impl;
+  
   @UiField
   CalendarHeaderWidget header;
 
@@ -95,11 +96,11 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     return new CalendarContentWidget(rows, columns);
   }
 
-//  /**
-//   * Creates the day view widget.
-//   *
-//   * @return the day view widget
-//   */
+  /**
+   * Creates the day view widget.
+   *
+   * @return the day view widget
+   */
   @Override
   public void forceLayout() {
     content.getLassoAwarePanel().doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
