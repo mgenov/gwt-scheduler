@@ -14,17 +14,19 @@ import com.google.gwt.user.client.ui.Label;
 import gwtscheduler.common.event.CalendarEventView;
 import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
+import org.goda.time.DateTime;
+import org.goda.time.Interval;
 
 /**
  * This class is responsible for displaying events.
  * @author malp
  */
-public class EventsPanel extends AbstractGridOverlay implements WidgetResizeHandler, AppointmentHandler {
+public class EventListView extends AbstractGridOverlay implements WidgetResizeHandler, AppointmentHandler {
 
   /**
    * Default constructor.
    */
-  public EventsPanel() {
+  public EventListView() {
     AppInjector.GIN.getInjector().getEventBus().addHandler(AppointmentEvent.getType(), this);
     getElement().getStyle().setPosition(Position.ABSOLUTE);
 
@@ -40,8 +42,7 @@ public class EventsPanel extends AbstractGridOverlay implements WidgetResizeHand
     int[] from = calculateLeftTop(evt.from);
     //    int[] to = calculateLeftTop(evt.to);
     Label label = new Label("test");
-
-
+    
     CalendarEventView event = new CalendarEventView();
     event.getElement().getStyle().setZIndex(33);
     add(event, from[0], from[1]);

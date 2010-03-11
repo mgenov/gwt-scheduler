@@ -9,7 +9,7 @@
     </ui:style>
     <g:VerticalPanel>
         <common:LassoAwarePanel ui:field="lassoAwarePanel">
-            <common:EventsPanel ui:field="eventsPanel"/>
+            <common:EventListView ui:field="eventListView"/>
             <columns:CalendarColumnsFrameGridWidget ui:field="columnsPanel"/>
         </common:LassoAwarePanel>
     </g:VerticalPanel>
