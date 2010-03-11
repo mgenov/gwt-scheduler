@@ -14,7 +14,7 @@ import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
 import gwtscheduler.common.calendar.IntervalType;
-import org.goda.time.MutableDateTime;
+import org.goda.time.DateTime;
 import org.goda.time.ReadableDateTime;
 
 
@@ -112,11 +112,11 @@ public class CalendarsBuilder {
    * @return
    */
   protected ReadableDateTime getCurrentDate() {
-    MutableDateTime start = new MutableDateTime();
-    start.setHourOfDay(0);
-    start.setMinuteOfHour(0);
-    start.setMinuteOfHour(0);
-    start.setMillisOfSecond(0);
+    DateTime start = new DateTime(System.currentTimeMillis());
+//    start.setHourOfDay(0);
+//    start.setMinuteOfHour(0);
+//    start.setMinuteOfHour(0);
+//    start.setMillisOfSecond(0);
     return start;
   }
 }

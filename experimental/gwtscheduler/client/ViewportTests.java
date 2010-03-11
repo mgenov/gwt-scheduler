@@ -1,9 +1,12 @@
 package gwtscheduler.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.datepicker.client.DatePicker;
 import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
 import gwtscheduler.client.dragndrop.DragZone;
@@ -16,6 +19,7 @@ import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
@@ -27,6 +31,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+
+import java.util.Date;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -57,7 +63,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     task2.setDuration(5);
 
     HorizontalPanel ticketsPanel = new HorizontalPanel();
-    TicketPresenter ticket1 = new TicketPresenter(new TicketView2(),task);
+    TicketPresenter ticket1 = new TicketPresenter(new TicketView2(), task);
     TicketPresenter ticket2 = new TicketPresenter(new TicketView2(), task2);
 //    TicketPresenter ticket3 = new TicketPresenter(new TicketView2(), "Ticket three");
 
@@ -78,12 +84,26 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 
     HorizontalPanel nav = new HorizontalPanel();
+    DatePicker datePicker = new DatePicker();
+    nav.add(datePicker);
     nav.add(back);
     nav.add(today);
     nav.add(forward);
     nav.add(textBox);
     nav.add(deleteColumn);
     nav.add(addColumn);
+
+    nav.add(ticketsPanel);
+
+    datePicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
+      @Override
+      public void onValueChange(ValueChangeEvent<Date> event) {
+        Date date = event.getValue();
+        DateTime selectedDate = new DateTime(date.getTime());
+        eventBus.fireEvent(new NavigateToEvent(selectedDate));
+      }
+    });
+
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
 
@@ -99,7 +119,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     VerticalPanel mainPanel = new VerticalPanel();
 //    mainPanel.add(dropRoot);
-    mainPanel.add(ticketsPanel);
+//    mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
     dragZone.addWidget(mainPanel);
@@ -113,8 +133,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     main.addCalendarDropHandler(new CalendarDropHandler() {
       @Override
       public void onCalendarDrop(CalendarDropEvent event) {
-         Object o = event.getDroppedObject();
-        if(o instanceof TestTask){
+        Object o = event.getDroppedObject();
+        if (o instanceof TestTask) {
           GWT.log("Dropped: TicketPresenter", null);
           GWT.log("On calendar type: " + event.getCalendarType().toString(), null);
           GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
@@ -122,7 +142,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
           GWT.log("On time: " + event.getDropTime().toString(), null);
 
           TestTask testTask = (TestTask) o;
-          Interval interval = new Interval(event.getDropTime(),event.getDropTime().plus(3600*testTask.getDuration()*1000));
+          Interval interval = new Interval(event.getDropTime(), event.getDropTime().plus(3600 * testTask.getDuration() * 1000));
           testTask.setInterval(interval);
           dialog.setTestTask(testTask);
           dialog.show();
@@ -138,11 +158,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
   }
 
   protected ReadableDateTime getCurrentDate() {
-    MutableDateTime start = new MutableDateTime();
-    start.setHourOfDay(0);
-    start.setMinuteOfHour(0);
-    start.setMinuteOfHour(0);
-    start.setMillisOfSecond(0);
+    DateTime start = new DateTime(System.currentTimeMillis());
+    
     return start;
   }
 

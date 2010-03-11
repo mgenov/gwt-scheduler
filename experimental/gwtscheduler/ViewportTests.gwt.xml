@@ -6,4 +6,8 @@
   <inherits name='gwtscheduler.Calendar'/>
     <inherits name="com.google.gwt.junit.JUnit"/>
     <entry-point class='gwtscheduler.client.ViewportTests'/>
+
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.google.gwt.user.theme.dark.Dark'/>
+
 </module>

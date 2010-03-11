@@ -11,13 +11,10 @@ import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.common.navigation.*;
-import org.goda.time.Duration;
+import org.goda.time.DateTime;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
-import org.goda.time.MutableDateTime;
-import org.goda.time.Period;
 import org.goda.time.ReadableDateTime;
-import org.goda.time.ReadableInterval;
 
 import java.util.List;
 
@@ -37,8 +34,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private Display display;
   private String title;
   private CalendarType type;
-  private final HandlerManager handlerManager = new HandlerManager(null);
-
 
   /**
    * Default constructor
@@ -99,7 +94,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
       public void onNavigateTo(ReadableDateTime date) {
-        reRenderHeaderTitles(dateGenerator.currentInterval());
+        reRenderHeaderTitles(dateGenerator.getIntervalForDate((DateTime) date));
       }
     });
 
@@ -110,7 +105,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         Instant time = dateGenerator.getInstantForCell(newCell,getRowNum());
         CalendarColumn column = columns.get(newCell[1]);
         CalendarDropEvent event = new CalendarDropEvent(type, title, droppedObject, column, time);
-        handlerManager.fireEvent(event);
+//        handlerManager.fireEvent(event);
+          display.getHasCalendarDropHandlers().fireEvent(event);
       }
 
       @Override
@@ -208,7 +204,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
-    return handlerManager.addHandler(CalendarDropEvent.TYPE, handler);
+//    return handlerManager.addHandler(CalendarDropEvent.TYPE, handler);
+    return display.getHasCalendarDropHandlers().addDropHandler(handler);
   }
 
   @Override

@@ -6,6 +6,7 @@ import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
+import gwtscheduler.client.widgets.view.columns.HasCalendarDropHandlers;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 
@@ -21,6 +22,8 @@ public interface CalendarPresenter {
     CalendarHeader.Display getCalendarHeaderDisplay();
 
     CalendarContent.Display getCalendarContentDisplay();
+
+    HasCalendarDropHandlers getHasCalendarDropHandlers();
   }
 
   public void bindDisplay(Display display);
