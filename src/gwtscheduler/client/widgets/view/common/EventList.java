@@ -5,22 +5,23 @@ import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.CalendarEventAddedEvent;
 import gwtscheduler.common.event.CalendarEventAddedHandler;
+import gwtscheduler.common.event.EventPosition;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 
  * @author Miroslav Genov (mgenov@gmail.com)
  */
 public class EventList {
 
   interface Display {
-
+    
     AbsolutePanel asWidget();
 
   }
-
-  private List<CalendarEvent> events = new ArrayList<CalendarEvent>();
+  
   private Display display;
   private final EventBus eventBus;
 
@@ -28,7 +29,7 @@ public class EventList {
     this.eventBus = eventBus;
   }
 
-  public void bindDisplay(Display display) {
+  public void bindDisplay(final Display display) {
     this.display = display;
     
     // handle adding of the newly created event
@@ -37,9 +38,7 @@ public class EventList {
       @Override
       public void onCalendarEventAdded(CalendarEventAddedEvent addEvent) {
         CalendarEvent event = addEvent.getCalendarEvent();
-
-
-
+        event.go(display.asWidget());
       }
     });
 

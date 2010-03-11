@@ -25,11 +25,13 @@ public class CalendarEventAddedEvent extends GwtEvent<CalendarEventAddedHandler>
   public CalendarEvent getCalendarEvent() {
     return event;
   }
-
+  
   @Override
   public Type<CalendarEventAddedHandler> getAssociatedType() {
     return TYPE;
   }
+
+
 
 
 }

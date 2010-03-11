@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import gwtscheduler.client.modules.AppInjector;
@@ -21,46 +22,24 @@ import org.goda.time.Interval;
  * This class is responsible for displaying events.
  * @author malp
  */
-public class EventListView extends AbstractGridOverlay implements WidgetResizeHandler, AppointmentHandler {
+public class EventListView extends AbstractGridOverlay implements EventList.Display {
 
   /**
    * Default constructor.
    */
   public EventListView() {
-    AppInjector.GIN.getInjector().getEventBus().addHandler(AppointmentEvent.getType(), this);
+
+    // why this need to be set when AbstractGridOverlay is an absolute panel ???
     getElement().getStyle().setPosition(Position.ABSOLUTE);
 
+    //TODO: Remove this event after layout is completed
     CalendarEventView event = new CalendarEventView();
     event.getElement().getStyle().setZIndex(33);
-    add(event, 50,50);
-    //TODO fix zIndex
-    //    getElement().getStyle().setZIndex(Constants.EVENTS_ZINDEX);
+    add(event, 50,50);    
   }
 
   @Override
-  public void onAddEvent(AppointmentEvent evt) {
-    int[] from = calculateLeftTop(evt.from);
-    //    int[] to = calculateLeftTop(evt.to);
-    Label label = new Label("test");
-    
-    CalendarEventView event = new CalendarEventView();
-    event.getElement().getStyle().setZIndex(33);
-    add(event, from[0], from[1]);
-
-    GWT.log("Test Test", null);
-    
-//    add(label, from[0], from[1]);
+  public AbsolutePanel asWidget() {
+    return this;
   }
-
-  @Override
-  public void onResize(WidgetResizeEvent event) {
-    //redraw
-    super.onResize(event);
-  }
-
-
-
-
-
-
 }
