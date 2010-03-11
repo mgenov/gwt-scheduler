@@ -1,5 +1,6 @@
 package gwtscheduler.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -16,6 +17,7 @@ import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import org.goda.time.DateTimeConstants;
+import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
 
@@ -44,19 +46,29 @@ public class ViewportTests implements EntryPoint, ClickHandler {
   public void onModuleLoad() {
     Resources.injectAllStylesheets();
 
+    TestTask task = new TestTask();
+    task.setDescription("test description");
+    task.setTitle("Test Task");
+    task.setDuration(2);
+
+    TestTask task2 = new TestTask();
+    task2.setDescription("test description  222222");
+    task2.setTitle("Test Task2");
+    task2.setDuration(5);
+
     HorizontalPanel ticketsPanel = new HorizontalPanel();
-    TicketPresenter ticket1 = new TicketPresenter(new TicketView2(), "Ticket one");
-    TicketPresenter ticket2 = new TicketPresenter(new TicketView2(), "Ticket two");
-    TicketPresenter ticket3 = new TicketPresenter(new TicketView2(), "Ticket three");
+    TicketPresenter ticket1 = new TicketPresenter(new TicketView2(),task);
+    TicketPresenter ticket2 = new TicketPresenter(new TicketView2(), task2);
+//    TicketPresenter ticket3 = new TicketPresenter(new TicketView2(), "Ticket three");
 
     ticketsPanel.add(ticket1.getDisplay());
     ticketsPanel.add(ticket2.getDisplay());
-    ticketsPanel.add(ticket3.getDisplay());
+//    ticketsPanel.add(ticket3.getDisplay());
 
     DragZone dragZone = Zones.getDragZone();
     dragZone.add(ticket1);
     dragZone.add(ticket2);
-    dragZone.add(ticket3);
+//    dragZone.add(ticket3);
 
     back = new Button("&laquo;", this);
     forward = new Button("&raquo;", this);
@@ -100,13 +112,21 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     main.addCalendarDropHandler(new CalendarDropHandler() {
       @Override
-      public void onCalendarDrop(CalendarDropEvent calendarDropEvent) {
-        TestTask testTask = (TestTask) calendarDropEvent.getSource();
-        
+      public void onCalendarDrop(CalendarDropEvent event) {
+         Object o = event.getDroppedObject();
+        if(o instanceof TestTask){
+          GWT.log("Dropped: TicketPresenter", null);
+          GWT.log("On calendar type: " + event.getCalendarType().toString(), null);
+          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
+          GWT.log("On column with title: " + event.getCalendarColumn().getTitle(), null);
+          GWT.log("On time: " + event.getDropTime().toString(), null);
 
-
-//        dialog.setTestTask(testTask);
-        dialog.show();
+          TestTask testTask = (TestTask) o;
+          Interval interval = new Interval(event.getDropTime(),event.getDropTime().plus(3600*testTask.getDuration()*1000));
+          testTask.setInterval(interval);
+          dialog.setTestTask(testTask);
+          dialog.show();
+        }
       }
     });
 

@@ -4,7 +4,9 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.calendar.IntervalType;
 
 import org.goda.time.DateTime;
+import org.goda.time.Instant;
 import org.goda.time.Interval;
+import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
 
 import java.util.List;
@@ -55,5 +57,8 @@ public interface DateGenerator {
   Interval interval();
 
   Interval currentInterval();
-  
+
+  Instant getInstantForCell(int[] cell, int rowNum);
+
+  Interval getIntervalForRange(int[] start, int[] end, int rowNum);
 }

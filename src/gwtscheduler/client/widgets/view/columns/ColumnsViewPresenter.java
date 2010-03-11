@@ -1,5 +1,8 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
+import gwtscheduler.client.CalendarDropEvent;
 import gwtscheduler.client.CalendarDropHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
@@ -11,8 +14,10 @@ import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.Duration;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
+import org.goda.time.MutableDateTime;
 import org.goda.time.Period;
 import org.goda.time.ReadableDateTime;
+import org.goda.time.ReadableInterval;
 
 import java.util.List;
 
@@ -32,6 +37,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private Display display;
   private String title;
   private CalendarType type;
+  private final HandlerManager handlerManager = new HandlerManager(null);
 
 
   /**
@@ -96,6 +102,25 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         reRenderHeaderTitles(dateGenerator.currentInterval());
       }
     });
+
+    calendarContent.addContentChangeCallback(new CalendarContent.ContentChange(){
+
+      @Override
+      public void onDrop(int[] newCell, Object droppedObject) {
+        Instant time = dateGenerator.getInstantForCell(newCell,getRowNum());
+        CalendarColumn column = columns.get(newCell[1]);
+        CalendarDropEvent event = new CalendarDropEvent(type, title, droppedObject, column, time);
+        handlerManager.fireEvent(event);
+      }
+
+      @Override
+      public void onMove(int[] oldCell, int[] newCell, Object droppedObject) {
+      }
+    });
+  }
+
+  private void proceedOnDrop(int[] cell, Object object){
+    
   }
 
   private void reRenderHeaderTitles(Interval interval) {
@@ -129,25 +154,13 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     display.forceLayout();
   }
 
-
+  //TODO:remove this, used only in eventsmediator
   @Override
   public Interval getIntervalForRange(int[] start, int[] end) {
-    Instant from = getInstantForCell(start);
-    Instant to = getInstantForCell(end).plus(getDurationPerCells(1));
-    //this is to make sure that [0,0] is at least one cell's duration
-    return new Interval(from, to);
+    Interval interval = dateGenerator.getIntervalForRange(start,end,getRowNum());
+    return interval;
   }
 
-
-  protected Duration getDurationPerCells(int count) {
-    int minutesPerCell = (24 * 60) / getRowNum();
-    return new Period(0, minutesPerCell * count, 0, 0).toStandardDuration();
-  }
-
-  @Override
-  public Instant getInstantForCell(int[] start) {
-    return null;
-  }
 
   /**
    * Deletes a column from the calendar if it exists
@@ -194,8 +207,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
-  public void addCalendarDropHandler(CalendarDropHandler handler, int index) {
-    calendarContent.addCalendarDropHandler(handler);
+  public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
+    return handlerManager.addHandler(CalendarDropEvent.TYPE, handler);
   }
 
   @Override

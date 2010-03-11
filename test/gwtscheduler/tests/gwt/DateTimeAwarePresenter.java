@@ -1,11 +1,10 @@
 package gwtscheduler.tests.gwt;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import gwtscheduler.client.CalendarDropHandler;
 import gwtscheduler.client.CalendarType;
-import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
-import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;
 
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import org.goda.time.DateTime;
@@ -13,8 +12,6 @@ import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableInterval;
-
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Utility class for lasso tests.
@@ -75,7 +72,7 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
     return i;
   }
 
-  @Override
+
   public Instant getInstantForCell(int[] start) {
     int distance = (start[0] * getColNum()) + start[1];
     ReadableInterval curr = Interval.toMutableInterval();
@@ -96,7 +93,8 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
-  public void addCalendarDropHandler(CalendarDropHandler calendarDropHandler, int index) {
+  public HandlerRegistration addCalendarDropHandler(CalendarDropHandler calendarDropHandler) {
+    return null;
   }
 
   @Override

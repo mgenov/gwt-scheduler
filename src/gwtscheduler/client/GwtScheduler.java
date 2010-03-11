@@ -99,7 +99,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
 
   public void addCalendarDropHandler(CalendarDropHandler handler) {
     for (int i = 0; i < presenters.size(); i++) {
-      presenters.get(i).addCalendarDropHandler(handler, i);
+      presenters.get(i).addCalendarDropHandler(handler);
     }
   }
 }

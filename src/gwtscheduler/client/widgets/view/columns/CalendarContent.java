@@ -1,13 +1,10 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.user.client.Element;
-import gwtscheduler.client.CalendarDropEvent;
-import gwtscheduler.client.CalendarDropHandler;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
 import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.widgets.common.Cell;
-import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 
 import java.util.List;
 
@@ -24,6 +21,8 @@ public class CalendarContent {
     void addColumn(String title);
 
     void fireResizeRedrawEvents();
+
+    int[] getCell(int startX, int startY); // TODO: remove.. use EventDashboard presenter
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -54,12 +53,25 @@ public class CalendarContent {
     display.fireResizeRedrawEvents();
   }
 
-  public void addCalendarDropHandler(final CalendarDropHandler calendarDropHandler) {
+  public void addContentChangeCallback(final ContentChange contentChange){
     display.addDropHandler(new DropHandler(){
       @Override
       public void onDrop(DropEvent event) {
-        calendarDropHandler.onCalendarDrop(new CalendarDropEvent());
+        int[] oldCell = display.getCell(event.getStartX(), event.getStartY());
+        int[] newCell = display.getCell(event.getEndX(), event.getEndY());
+
+        if(oldCell[0] < 0 || oldCell[1] < 0){
+          contentChange.onDrop(newCell, event.getDroppedObject());
+        } else {
+          contentChange.onMove(oldCell, newCell, event.getDroppedObject());
+        }
       }
     });
+  }
+
+  public interface ContentChange {
+    void onDrop(int[] newCell, Object droppedObject);
+
+    void onMove(int[] oldCell, int[] newCell, Object droppedObject);
   }
 }

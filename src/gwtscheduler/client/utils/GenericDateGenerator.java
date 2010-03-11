@@ -3,11 +3,7 @@ package gwtscheduler.client.utils;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.common.calendar.IntervalType;
 
-import org.goda.time.DateTime;
-import org.goda.time.DateTimeConstants;
-import org.goda.time.Interval;
-import org.goda.time.MutableDateTime;
-import org.goda.time.ReadableDateTime;
+import org.goda.time.*;
 
 /**
  * Generic date factory. Used to calculate the correct interval for a given type
@@ -63,7 +59,7 @@ public class GenericDateGenerator implements DateGenerator {
     }
     goToDate(this.current.toDateTime());
 
-   currentInterval = generator.interval();
+    currentInterval = generator.interval();
   }
 
   public void goToDate(DateTime start) {
@@ -86,8 +82,23 @@ public class GenericDateGenerator implements DateGenerator {
 
   @Override
   public Interval currentInterval() {
+    generator.goTo(currentInterval.getStart());
     return currentInterval;
   }
+
+  @Override
+  public Instant getInstantForCell(int[] cell, int rowNum) {
+    return generator.getInstantForCell(cell,rowNum);  
+  }
+
+  @Override
+  public Interval getIntervalForRange(int[] start, int[] end, int rowNum) {
+    Instant from = generator.getInstantForCell(start, rowNum);
+    Instant to = generator.getInstantForCell(end, rowNum).plus(generator.getDurationPerCells(1, rowNum));
+    //this is to make sure that [0,0] is at least one cell's duration
+    return new Interval(from, to);
+  }
+
 
 
   /**
@@ -119,6 +130,10 @@ public class GenericDateGenerator implements DateGenerator {
      * @return the current interval
      */
     Interval interval();
+
+    Instant getInstantForCell(int[] start, int rowNum);
+
+    Duration getDurationPerCells(int count, int rowNum);
   }
 
   /**
@@ -131,6 +146,21 @@ public class GenericDateGenerator implements DateGenerator {
     public Interval interval() {
       DateTime end = current.plusDays(1);
       return new Interval(current, end);
+    }
+
+    @Override
+    public Instant getInstantForCell(int[] start, int rowNum) {
+      int distance = start[0];
+      ReadableInterval curr = interval().toMutableInterval();
+      MutableDateTime time = curr.getStart().toMutableDateTime();
+      time.add(getDurationPerCells(distance, rowNum));
+      return time.toInstant();
+    }
+
+    @Override
+    public Duration getDurationPerCells(int count, int rowNum) {
+      int minutesPerCell = (24 * 60) / rowNum;
+      return new Period(0, minutesPerCell * count, 0, 0).toStandardDuration();
     }
 
     public void goTo(DateTime where) {
@@ -179,6 +209,22 @@ public class GenericDateGenerator implements DateGenerator {
       return new Interval(current, end);
     }
 
+    @Override
+    public Instant getInstantForCell(int[] start, int rowNum) {
+      int distance = (start[1] * rowNum) + start[0];
+      ReadableInterval curr = interval().toMutableInterval();
+      int minutesPerCell = (24 * 60) / rowNum;
+      MutableDateTime time = curr.getStart().toMutableDateTime();
+      time.addMinutes(minutesPerCell * distance);
+      return time.toInstant();
+    }
+
+    @Override
+    public Duration getDurationPerCells(int count, int rowNum) {
+      int minutesPerCell = (24 * 60) / rowNum;
+      return new Period(0, minutesPerCell * count, 0, 0).toStandardDuration();
+    }
+
     public void next() {
       current = current.plusDays(weekSize);
     }
@@ -222,6 +268,20 @@ public class GenericDateGenerator implements DateGenerator {
       }
       end = end.plusDays(-1);//it ends right before the next start of week
       return new Interval(iterator, end);
+    }
+
+    @Override
+    public Instant getInstantForCell(int[] start, int rowNum) {
+      int distance = (start[0] * rowNum) + start[1];
+      ReadableInterval curr = interval().toMutableInterval();
+      MutableDateTime time = curr.getStart().toMutableDateTime();
+      time.addDays(distance);
+      return time.toInstant();
+    }
+
+    @Override
+    public Duration getDurationPerCells(int count, int rowNum) {
+      return new Period(count, PeriodType.days()).toStandardDuration();
     }
 
     public void next() {

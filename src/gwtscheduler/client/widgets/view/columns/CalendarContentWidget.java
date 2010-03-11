@@ -12,7 +12,7 @@ import gwtscheduler.client.dragndrop.*;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
-import gwtscheduler.client.widgets.view.common.EventListView;
+import gwtscheduler.client.widgets.view.common.EventDashboardView;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   @UiField
   CalendarColumnsFrameGridWidget columnsPanel;
   @UiField
-  EventListView eventListView;
+  EventDashboardView eventDashboardView;
   @UiField
   LassoAwarePanel lassoAwarePanel;
 
@@ -83,9 +83,14 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(width,height),new WidgetRedrawEvent());
   }
 
+  @Override
+  public int[] getCell(int x, int y) {        // todo: remove. use EventDashboard 
+    return eventDashboardView.getCellPosition(x, y);
+  }
 
-  public EventListView getEventsPanel() {
-    return eventListView;
+
+  public EventDashboardView getEventsPanel() {
+    return eventDashboardView;
   }
 
   public LassoAwarePanel getLassoAwarePanel() {

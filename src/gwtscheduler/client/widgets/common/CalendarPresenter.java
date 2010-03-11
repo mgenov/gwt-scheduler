@@ -1,18 +1,13 @@
 package gwtscheduler.client.widgets.common;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import gwtscheduler.client.CalendarDropHandler;
 import gwtscheduler.client.CalendarType;
-import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.columns.CalendarColumnsFrameGrid;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
-
-import gwtscheduler.client.widgets.common.navigation.EventNavigationListener;
-
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Defines a calendar controller. Responsible for mediating the view and the
@@ -55,18 +50,18 @@ public interface CalendarPresenter {
    */
   Interval getIntervalForRange(int[] start, int[] end);
 
-  /**
-   * Gets the correspondent instant for a cell
-   *
-   * @param start the starting cell
-   */
-  Instant getInstantForCell(int[] start);
+//  /**
+//   * Gets the correspondent instant for a cell
+//   *
+//   * @param start the starting cell
+//   */
+//  Instant getInstantForCell(int[] start);
 
   void deleteColumn(CalendarColumn column);
 
   void addColumn(CalendarColumn column);
 
-  void addCalendarDropHandler(CalendarDropHandler handler, int index);
+  HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler);
 
   void setCalendarType(CalendarType type);
 

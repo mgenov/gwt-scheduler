@@ -27,6 +27,12 @@ public class TicketView2 extends Composite implements TicketPresenter.Display, H
 
 
   public void setText(String string) {
+    taskName.setText(string);
+  }
+
+  @Override
+  public void setDescription(String text) {
+    taskDescription.setText(text);
   }
 
   @Override

@@ -12,30 +12,23 @@ public class TicketPresenter implements Draggable{
   public interface Display {
 
     void setText(String string);
+
+    void setDescription(String text);
   }
 
   private Display display;
-  private String info;
+
+  private TestTask task;
 
   public TicketPresenter(Display display) {
     this.display = display;
   }
 
-  public TicketPresenter(Display display, String info) {
+  public TicketPresenter(Display display, TestTask task) {
     this.display = display;
-    setInfo(info);
-  }
-
-  public void setInfo(String string){
-    info = string;
-  }
-
-  public int getDuration(){
-    return 1;
-  }
-
-  public String getInfo(){
-    return info;
+    this.task = task;
+    display.setText(task.getTitle());
+    display.setDescription(task.getDescription());
   }
 
   public Widget getDisplay(){
@@ -48,6 +41,6 @@ public class TicketPresenter implements Draggable{
 
   @Override
   public Object getDropObject() {
-    return this;
+    return task;
   }
 }

@@ -22,13 +22,13 @@ import org.goda.time.Interval;
 public class CalendarEvent implements HasClickHandlers {
 
   interface Display {
-    // event view that is displaying event as rounded panel
 
     void setViewWidth(int width);
 
     void setViewHeight(int height);
 
     void setHeaderTitle(String title);
+
   }
 
   /**
@@ -113,6 +113,7 @@ public class CalendarEvent implements HasClickHandlers {
 
   /**
    * Attaches current event to the provided absolute panel.
+   *
    * <p/>
    * Make note that the coupling with the AbsolutePanel is really bad idea, but currently
    * GWT code doesn't provide an interface that wraps the AbsolutePanel method's such as
@@ -120,12 +121,12 @@ public class CalendarEvent implements HasClickHandlers {
    * <p/>
    * To re-size the existing event you have to call <code>setSize</code> method.
    *
+   * <p/>The event is attached to the absolute panel by using it's current {@link gwtscheduler.common.event.EventPosition} attribute.
+   * 
    * @param parent the parent panel to which current event will be atached
-   * @param left   event's left position
-   * @param top    the top event's top position
    */
-  public void go(AbsolutePanel parent, int left, int top) {
-    parent.add((Widget) display, left, top);
+  public void go(AbsolutePanel parent) {    
+    parent.add((Widget) display, position.getLeft(),position.getTop());
   }
 
 
