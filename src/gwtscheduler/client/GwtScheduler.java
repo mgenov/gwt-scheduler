@@ -2,6 +2,8 @@ package gwtscheduler.client;
 
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
@@ -98,8 +100,14 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
   }
 
   public void addCalendarDropHandler(CalendarDropHandler handler) {
-    for (int i = 0; i < presenters.size(); i++) {
-      presenters.get(i).addCalendarDropHandler(handler);
+    for(CalendarPresenter calendar : presenters){
+      calendar.addCalendarDropHandler(handler);
+    }
+  }
+
+  public void addCalendarMoveHandler(CalendarMoveHandler handler) {
+    for(CalendarPresenter calendar : presenters){
+      calendar.addCalendarMoveHandler(handler);
     }
   }
 }

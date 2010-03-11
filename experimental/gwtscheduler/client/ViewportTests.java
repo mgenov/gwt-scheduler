@@ -90,6 +90,13 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
+    main.addCalendarMoveHandler(new CalendarMoveHandler(){
+      @Override
+      public void onCalendarMove(CalendarMoveEvent event){
+
+      }
+    });
+
     dragZone.addDropZoneRoot((HasWidgets)main.asWidget());
 //    VerticalPanel dropRoot = new VerticalPanel();
 //    dropRoot.makeDraggable(new Panel1());

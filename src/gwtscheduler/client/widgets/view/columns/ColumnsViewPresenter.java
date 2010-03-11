@@ -1,9 +1,13 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwtscheduler.client.CalendarDropEvent;
 import gwtscheduler.client.CalendarDropHandler;
+import gwtscheduler.client.CalendarMoveEvent;
+import gwtscheduler.client.CalendarMoveHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
@@ -115,6 +119,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
       @Override
       public void onMove(int[] oldCell, int[] newCell, Object droppedObject) {
+
       }
     });
   }
@@ -225,6 +230,11 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
     return handlerManager.addHandler(CalendarDropEvent.TYPE, handler);
+  }
+
+  @Override
+  public HandlerRegistration addCalendarMoveHandler(CalendarMoveHandler handler) {
+    return  handlerManager.addHandler(CalendarMoveEvent.TYPE, handler);
   }
 
   @Override
