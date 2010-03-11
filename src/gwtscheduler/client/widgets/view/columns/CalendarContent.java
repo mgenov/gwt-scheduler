@@ -1,6 +1,11 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.user.client.Element;
+import gwtscheduler.client.CalendarDropEvent;
+import gwtscheduler.client.CalendarDropHandler;
+import gwtscheduler.client.dragndrop.DropEvent;
+import gwtscheduler.client.dragndrop.DropHandler;
+import gwtscheduler.client.dragndrop.DropZone;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 
@@ -11,9 +16,7 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarContent {
-  
-  public interface Display {
-
+  public interface Display extends DropZone{
     CalendarColumnsFrameGrid.Display getCalendarColumnsFrameGridDisplay();
 
     void removeColumn(int calendarColumnIndex);
@@ -49,5 +52,14 @@ public class CalendarContent {
 
   public void fireResizeRedrawEvents() {
     display.fireResizeRedrawEvents();
+  }
+
+  public void addCalendarDropHandler(final CalendarDropHandler calendarDropHandler) {
+    display.addDropHandler(new DropHandler(){
+      @Override
+      public void onDrop(DropEvent event) {
+        calendarDropHandler.onCalendarDrop(new CalendarDropEvent());
+      }
+    });
   }
 }

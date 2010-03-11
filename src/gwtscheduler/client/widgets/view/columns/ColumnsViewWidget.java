@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.AppInjector;
@@ -26,6 +27,7 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -33,7 +35,7 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewWidget extends Composite implements CalendarPresenter.Display, HasWidgetRedrawHandlers,
-        LassoAwarePanel.LassoHandler {
+        LassoAwarePanel.LassoHandler, HasWidgets {
 
   @UiField
   VerticalPanel impl;
@@ -169,4 +171,23 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     return  content.getCalendarColumnsFrameGridDisplay().getDecorables().getDecorableElements();
   }
 
+  @Override
+  public void add(Widget widget) {
+    impl.add(widget);
+  }
+
+  @Override
+  public void clear() {
+    impl.clear();
+  }
+
+  @Override
+  public Iterator<Widget> iterator() {
+    return impl.iterator();
+  }
+
+  @Override
+  public boolean remove(Widget widget) {
+    return impl.remove(widget);
+  }
 }

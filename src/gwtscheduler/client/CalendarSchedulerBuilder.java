@@ -1,5 +1,6 @@
 package gwtscheduler.client;
 
+import com.google.gwt.user.client.ui.HasWidgets;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 
 import java.util.ArrayList;
@@ -41,5 +42,4 @@ public class CalendarSchedulerBuilder {
 
     return gwtScheduler;
   }
-
 }

@@ -45,7 +45,7 @@ public class DragNDrop implements EntryPoint {
 
     // attach that panel over drag zone. Or to some other panel. But have on mind that dragging frame is visible over a drag zone.
     dragger.addWidget(teamPanel, 10, 10);
-    dragger.registerDropZoneRoot(teamPanel); // register teamPanel that have drop zones attached to him.
+    dragger.addDropZoneRoot(teamPanel); // register teamPanel that have drop zones attached to him.
 
     // make cars draggable
     car1.go(dragger);
@@ -73,7 +73,7 @@ public class DragNDrop implements EntryPoint {
     race.go(racePanel);
 
     dragger.addWidget(racePanel, 360, 10);
-    dragger.registerDropZoneRoot(racePanel);
+    dragger.addDropZoneRoot(racePanel);
 
     dragger.go(RootPanel.get()); // attach drag zone to the root panel or another panel.
   }

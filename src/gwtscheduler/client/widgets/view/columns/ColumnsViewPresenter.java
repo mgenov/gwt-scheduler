@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import gwtscheduler.client.CalendarDropHandler;
+import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
@@ -29,6 +31,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private EventBus eventBus;
   private Display display;
   private String title;
+  private CalendarType type;
 
 
   /**
@@ -154,7 +157,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void deleteColumn(CalendarColumn column) {
     for (CalendarColumn calendarColumn : columns) {
-      String columnName = column.getTitle();
       if (calendarColumn.getTitle().equals(column.getTitle())) {
         int index = columns.indexOf(calendarColumn);
 
@@ -192,6 +194,21 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
+  public void addCalendarDropHandler(CalendarDropHandler handler, int index) {
+    calendarContent.addCalendarDropHandler(handler);
+  }
+
+  @Override
+  public void setCalendarType(CalendarType type) {
+    this.type = type;
+  }
+
+  @Override
+  public CalendarType getCalendarType() {
+    return type;
+  }
+
+  @Override
   public int getRowNum() {
     return display.getRowNum();
   }
@@ -210,4 +227,5 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   public int getHeight() {
     return display.getHeight();
   }
+
 }

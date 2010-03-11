@@ -12,10 +12,12 @@ import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.navigation.TabPanelContainer;
 
+import java.util.Iterator;
+
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class GwtSchedulerWidget extends Composite implements GwtScheduler.Display {
+public class GwtSchedulerWidget extends Composite implements GwtScheduler.Display, HasWidgets {
   /**
    * static ref to css
    */
@@ -48,5 +50,25 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
   @Override
   public void addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler) {
     impl.addBeforeSelectionHandler(handler);
+  }
+
+  @Override
+  public void add(Widget widget) {
+    impl.add(widget);
+  }
+
+  @Override
+  public void clear() {
+    impl.clear();
+  }
+
+  @Override
+  public Iterator<Widget> iterator() {
+    return impl.iterator();
+  }
+
+  @Override
+  public boolean remove(Widget widget) {
+    return impl.remove(widget);
   }
 }

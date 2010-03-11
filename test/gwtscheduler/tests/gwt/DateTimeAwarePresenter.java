@@ -1,5 +1,7 @@
 package gwtscheduler.tests.gwt;
 
+import gwtscheduler.client.CalendarDropHandler;
+import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
@@ -91,6 +93,19 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   @Override
   public void addColumn(CalendarColumn column) {
     //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void addCalendarDropHandler(CalendarDropHandler calendarDropHandler, int index) {
+  }
+
+  @Override
+  public void setCalendarType(CalendarType type) {
+  }
+
+  @Override
+  public CalendarType getCalendarType() {
+    return null;
   }
 
   @Override
