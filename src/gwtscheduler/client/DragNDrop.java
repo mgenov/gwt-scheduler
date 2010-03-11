@@ -37,7 +37,7 @@ public class DragNDrop implements EntryPoint {
     team2.go(dragger);
     team3.go(dragger);
 
-    // add teams to the panel where they will stay
+    // makeDraggable teams to the panel where they will stay
     VerticalPanel teamPanel = new VerticalPanel();
     team1.go(teamPanel);
     team2.go(teamPanel);

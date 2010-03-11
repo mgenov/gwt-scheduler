@@ -78,8 +78,16 @@ class DragZoneImpl implements DragZone {
         startX = event.getClientX();
         startY = event.getClientY();
 
-        cloneWidth = display.getSourceWidth();
-        cloneHeight = display.getSourceHeight();
+        Object o = draggingRegister.get(event.getSource());
+
+        if(o instanceof Draggable){
+          Draggable draggable = (Draggable)o;
+          cloneWidth = draggable.getWidth();
+          cloneHeight = draggable.getHeight();
+        } else {
+          cloneWidth = display.getSourceWidth();
+          cloneHeight = display.getSourceHeight();
+        }
 
         cloneTop = display.getSourceTop();
         cloneLeft = display.getSourceLeft();
@@ -103,7 +111,7 @@ class DragZoneImpl implements DragZone {
 
     int mouseX = event.getClientX();
     int mouseY = event.getClientY();
-    
+
     frame.go(DragZoneImpl.this, (mouseX - (startX - cloneLeft))+CORRECTION, (mouseY - (startY - cloneTop))+CORRECTION);
 
     DropZone dropZone = display.getDropZone(dropZones, mouseX, mouseY);

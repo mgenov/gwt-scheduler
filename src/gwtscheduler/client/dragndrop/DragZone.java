@@ -26,7 +26,7 @@ import java.util.List;
  *
  * DragZone dragZone = Zones.getDragZone(800, 800);
  * dragZone.add((HasMouseDownHandlers)draggableWidget, draggablePresenter);
- * 
+ *
  * dragZone.addDropZoneRoot(dropZonesPanel);
  *
  * dragger.go(RootPanel.get());
@@ -37,7 +37,7 @@ import java.util.List;
  * drop zone. Drop zone must ley on same panel as drag widget. When object is dropped over drop zone, event is fired to
  * given drop zone. Because self widget is not dragged but frame is dragged you can set frame style.
  *
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public interface DragZone {
 
@@ -49,7 +49,7 @@ public interface DragZone {
 
     void storeDragWidget(MouseDownEvent event);
 
-    boolean isDragWidgetStored();    
+    boolean isDragWidgetStored();
 
     DropZone getDropZone(ArrayList<HasWidgets> roots, int x, int y);
 
@@ -68,7 +68,7 @@ public interface DragZone {
     void setSize(String width, String height);
 
     void addWidget(Widget widget);
-    
+
     void removeWidget(Widget widget);
 
     int getSourceTop();

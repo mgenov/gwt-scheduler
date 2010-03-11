@@ -12,6 +12,12 @@ public class TicketPresenter implements Draggable{
   public interface Display {
 
     void setText(String string);
+
+    int getDragHeight();
+
+    int getDragWidth();
+
+    HasMouseDownHandlers getDragLabel();
   }
 
   private Display display;
@@ -43,11 +49,21 @@ public class TicketPresenter implements Draggable{
   }
 
   public HasMouseDownHandlers getHasMouseDownHandler(){
-    return (HasMouseDownHandlers)display;
+    return display.getDragLabel();
   }
 
   @Override
   public Object getDropObject() {
     return this;
+  }
+
+  @Override
+  public int getWidth() {
+    return display.getDragWidth();
+  }
+
+  @Override
+  public int getHeight() {
+    return display.getDragHeight();
   }
 }

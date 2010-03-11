@@ -61,7 +61,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     forward = new Button("&raquo;", this);
     today = new Button("today", this);
     deleteColumn = new Button("delete Column",this);
-    addColumn = new Button("add Column",this);
+    addColumn = new Button("makeDraggable Column",this);
 
 
     HorizontalPanel nav = new HorizontalPanel();
@@ -92,13 +92,13 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     dragZone.addDropZoneRoot((HasWidgets)main.asWidget());
 //    VerticalPanel dropRoot = new VerticalPanel();
-//    dropRoot.add(new Panel1());
-//    dropRoot.add(new Panel1());
-//    dropRoot.add(new Panel1());
+//    dropRoot.makeDraggable(new Panel1());
+//    dropRoot.makeDraggable(new Panel1());
+//    dropRoot.makeDraggable(new Panel1());
 //    dragZone.addDropZoneRoot(dropRoot);
 
     VerticalPanel mainPanel = new VerticalPanel();
-//    mainPanel.add(dropRoot);
+//    mainPanel.makeDraggable(dropRoot);
     mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
@@ -106,8 +106,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     dragZone.go(RootPanel.get("nav"));
 
 
-//    RootPanel.get("nav").add(nav);
-//    RootPanel.get("main").add(main.asWidget());
+//    RootPanel.get("nav").makeDraggable(nav);
+//    RootPanel.get("main").makeDraggable(main.asWidget());
     main.selectTab(0);
 //    registry.fireDateNavigation(getCurrentDate());
    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));     

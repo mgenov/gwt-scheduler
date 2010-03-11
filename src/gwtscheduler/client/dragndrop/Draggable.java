@@ -9,4 +9,8 @@ public interface Draggable {
   HasMouseDownHandlers getHasMouseDownHandler();
 
   Object getDropObject();
+
+  int getWidth();
+
+  int getHeight();
 }

@@ -81,7 +81,7 @@ public class CalendarGridPanelWidget extends Composite implements CalendarGridPa
     mainColumns = new ArrayList<Panel>();
     mainElements = new ArrayList<Cell<Element>>();
 
-    // here we add one column for each day
+    // here we makeDraggable one column for each day
     // one more col for cell labels
     for (int i = 0; i < this.columnsCount + 1; i++) {
       FlowPanel flowPanel = new FlowPanel();

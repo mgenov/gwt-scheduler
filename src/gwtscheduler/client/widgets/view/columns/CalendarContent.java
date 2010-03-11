@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.dragndrop.DropHandler;
@@ -23,6 +24,8 @@ public class CalendarContent {
     void fireResizeRedrawEvents();
 
     int[] getCell(int startX, int startY); // TODO: remove.. use EventDashboard presenter
+
+    boolean isDashboardAttached(DropEvent event); // TODO: Refactor when EventDashboard finished and move logic there.
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -57,13 +60,13 @@ public class CalendarContent {
     display.addDropHandler(new DropHandler(){
       @Override
       public void onDrop(DropEvent event) {
-        int[] oldCell = display.getCell(event.getStartX(), event.getStartY());
         int[] newCell = display.getCell(event.getEndX(), event.getEndY());
 
-        if(oldCell[0] < 0 || oldCell[1] < 0){
-          contentChange.onDrop(newCell, event.getDroppedObject());
-        } else {
+        if(display.isDashboardAttached(event)){
+          int[] oldCell = display.getCell(event.getStartX(), event.getStartY());
           contentChange.onMove(oldCell, newCell, event.getDroppedObject());
+        } else {
+          contentChange.onDrop(newCell, event.getDroppedObject());
         }
       }
     });

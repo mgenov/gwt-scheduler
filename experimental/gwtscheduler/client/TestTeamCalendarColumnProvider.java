@@ -24,7 +24,7 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
     columns.add(new TeamColumn("t4"));
     columns.add(new TeamColumn("t5"));
     columns.add(new TeamColumn("t5testt5"));
-//    columns.add(new TeamColumn(" "));
+//    columns.makeDraggable(new TeamColumn(" "));
   }
 
   @Override

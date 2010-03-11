@@ -202,7 +202,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   /**
-   * fires an events for resizing the columns and the header. It is need in case we remove or add column.
+   * fires an events for resizing the columns and the header. It is need in case we remove or makeDraggable column.
    * the columns size must be optimized in order to use the full space of the screen
    */
   private void fireResizeRedrawEvents() {

@@ -21,7 +21,7 @@ public interface EventView {
 
   /**
    * Adds a collection of events.
-   * @param events the collection of events to add
+   * @param events the collection of events to makeDraggable
    */
   void addEvents(Collection<AbstractAppointment> events);
 
