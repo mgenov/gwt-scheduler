@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Calendar Grid. The grid has relative CSS positioning. Also contains a
+ * time line title column aligned to the left.
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarGridPanelWidget extends Composite implements CalendarGridPanel.Display {
@@ -92,7 +94,6 @@ public class CalendarGridPanelWidget extends Composite implements CalendarGridPa
       } else {
         mainColumns.add(flowPanel);
       }
-//      impl.setWidget(0, i, flowPanel);
       impl.setWidget(0, i, flowPanel);
     }
 
@@ -107,10 +108,8 @@ public class CalendarGridPanelWidget extends Composite implements CalendarGridPa
     // regular cells are different from title cells
     for (int c = 0; c < columnsCount; c++) {
       Panel col = mainColumns.get(c);
-//      col.add(new Label(c+""));
 
       for (int r = 0; r < rows; r++) {
-        // int id = (c * r) + c;
         DayCell cell = new DayCell(r, c, "");
         col.add(cell);
         mainElements.add(cell);

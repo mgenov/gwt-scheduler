@@ -7,9 +7,11 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import java.util.List;
 
 /**
+ * Represents the calendar content
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarContent {
+  
   public interface Display {
     CalendarColumnsFrameGrid.Display getCalendarColumnsFrameGridDisplay();
 
@@ -42,10 +44,6 @@ public class CalendarContent {
 
   public void addColumn(String title) {
     display.addColumn(title);
-  }
-
-  public WidgetResizeHandler getWidgetResizeHandler() {
-    return display.getCalendarColumnsFrameGridDisplay().getWidgetResizeHandler();
   }
 
   public void fireResizeRedrawEvents() {

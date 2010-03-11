@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * Represents the main view of the calendar.
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewWidget extends Composite implements CalendarPresenter.Display, HasWidgetRedrawHandlers,
@@ -43,12 +44,6 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 
   @UiField
   CalendarContentWidget content;
-
-
-  /**
-   * top view cells
-   */
-//  protected List<Cell<Element>> topLabels;
 
   /**
    * static ref to css
@@ -135,7 +130,6 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 
   @Override
   public void forceLayout(Widget lassoPanel, WidgetResizeEvent event) {
-//    Element first = getContentDecorableElements().get(0).getCellElement();
      List<Cell<Element>> cells = new ArrayList<Cell<Element>>(content.getCalendarColumnsFrameGridDisplay().getContentDecorableElements());
      Element first = cells.get(0).getCellElement();
     int[] offset = DOMUtils.getOffset(lassoPanel.getParent().getElement(), first);

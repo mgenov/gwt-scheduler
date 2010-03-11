@@ -28,7 +28,7 @@ public interface CalendarPresenter {
 
   public void bindDisplay(Display display);
 
-  public void setTabLabel(String tabLabel);
+  public void setTittle(String tabLabel);
 
   public Display getDisplay();
 

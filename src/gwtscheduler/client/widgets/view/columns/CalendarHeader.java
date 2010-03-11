@@ -9,11 +9,10 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import java.util.List;
 
 /**
+ * represents the header of the calendar. It's consists all the column titles.
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarHeader {
-
- 
 
   public interface Display{
 
@@ -22,7 +21,6 @@ public class CalendarHeader {
     void addCell(String title);
 
     WidgetResizeHandler getCalendarHeaderResizeHandler();
-
 
     HasMultipleDecorables getDecorables();
   }
@@ -44,14 +42,6 @@ public class CalendarHeader {
 
   public void addColumnHeader(String title) {
     display.addCell(title);
-  }
-
-  public WidgetResizeHandler getCalendarHeaderResizeHandler() {
-    return display.getCalendarHeaderResizeHandler();
-  }
-
-  public HasMultipleDecorables getDecorables() {
-    return display.getDecorables();
   }
 
   public List<Cell<Element>> getHeaderDecorableElements() {
