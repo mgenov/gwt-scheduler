@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.common;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.CalendarDropHandler;
 import gwtscheduler.client.CalendarMoveHandler;
 import gwtscheduler.client.CalendarType;
@@ -53,12 +54,12 @@ public interface CalendarPresenter {
    */
   Interval getIntervalForRange(int[] start, int[] end);
 
-  /**
-   * Gets the correspondent instant for a cell
-   *
-   * @param start the starting cell
-   */
-  Instant getInstantForCell(int[] start);
+//  /**
+//   * Gets the correspondent instant for a cell
+//   *
+//   * @param start the starting cell
+//   */
+//  Instant getInstantForCell(int[] start);
 
   void deleteColumn(CalendarColumn column);
 
@@ -72,4 +73,5 @@ public interface CalendarPresenter {
 
   CalendarType getCalendarType();
 
+  void addTestTask(Widget display); // TODO: Remove this methid with all logic!
 }

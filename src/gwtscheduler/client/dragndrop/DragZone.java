@@ -57,6 +57,8 @@ public interface DragZone {
 
     void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY);
 
+    void dropTo(DropZone dropZone, Widget sourceWidget, Object dropObject, int startX, int startY, int endX, int endY);
+
     HasWidgets getContainer();
 
     void setSize(int width, int height);

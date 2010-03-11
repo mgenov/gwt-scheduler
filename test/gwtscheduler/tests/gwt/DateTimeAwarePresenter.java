@@ -1,6 +1,7 @@
 package gwtscheduler.tests.gwt;
 
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.CalendarDropHandler;
 import gwtscheduler.client.CalendarMoveHandler;
 import gwtscheduler.client.CalendarType;
@@ -73,7 +74,7 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
     return i;
   }
 
-  @Override
+
   public Instant getInstantForCell(int[] start) {
     int distance = (start[0] * getColNum()) + start[1];
     ReadableInterval curr = Interval.toMutableInterval();
@@ -110,6 +111,10 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   @Override
   public CalendarType getCalendarType() {
     return null;
+  }
+
+  @Override
+  public void addTestTask(Widget display) {
   }
 
   @Override

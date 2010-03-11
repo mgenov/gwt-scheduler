@@ -1,6 +1,7 @@
 package gwtscheduler.client.dragndrop;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -13,4 +14,6 @@ public interface Draggable {
   int getWidth();
 
   int getHeight();
+
+  Widget getSourceWidget();
 }

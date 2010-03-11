@@ -1,0 +1,94 @@
+package gwtscheduler.client.dialog;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
+
+
+/**
+ * @author mlesikov  {mlesikov@gmail.com}
+ */
+public class TestTaskDialogWidget extends Composite implements TestTaskDialog.Display {
+
+  /**
+   * ui binder instance
+   */
+  private static TestTaskDialogWidgetUiBinder uiBinder = GWT.create(TestTaskDialogWidgetUiBinder.class);
+
+  /**
+   * ui binder interface
+   */
+  interface TestTaskDialogWidgetUiBinder extends UiBinder<Widget, TestTaskDialogWidget> {
+  }
+
+  @UiField
+  TextInputFieldWidget title;
+  @UiField
+  TextInputFieldWidget startDate;
+  @UiField
+  TextInputFieldWidget startHour;
+  @UiField
+  TextInputFieldWidget endDate;
+  @UiField
+  TextInputFieldWidget endHour;
+  @UiField
+  TextInputAreaWidget description;
+
+  @UiField
+  DialogBox dialog;
+
+  @UiField
+  Button ok;
+  @UiField
+  Button cancel;
+
+
+  public TestTaskDialogWidget() {
+    initWidget(uiBinder.createAndBindUi(this));
+    dialog.setTitle("TestTask");
+  }
+
+  @Override
+  public void setTaskStart(int dayOfMonth, int monthOfYear, int year, int hourOfDay, int minuteOfHour) {
+    startDate.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
+    startHour.setText(hourOfDay+":"+minuteOfHour);
+  }
+
+  @Override
+  public void setTaskEnd(int dayOfMonth, int monthOfYear, int year, int hourOfDay, int minuteOfHour) {
+    endDate.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
+    endHour.setText(hourOfDay+":"+minuteOfHour);
+  }
+
+  @Override
+  public void setDescription(String description) {
+    this.description.setText(description);
+  }
+
+  @Override
+  public void show() {
+    dialog.center();
+  }
+
+  @Override
+  public HasClickHandlers getCancelBtn() {
+    return cancel;
+  }
+
+  @Override
+  public void close() {
+    dialog.hide();
+  }
+
+  @Override
+  public void setTitle(String title) {
+    this.title.setText(title);
+  }
+}

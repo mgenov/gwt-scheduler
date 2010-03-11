@@ -78,7 +78,7 @@ class DragZoneImpl implements DragZone {
         startX = event.getClientX();
         startY = event.getClientY();
 
-        Object o = draggingRegister.get(event.getSource());
+        Object o = draggingRegister.get(display.getDragWidget());    // probably not good implementation
 
         if(o instanceof Draggable){
           Draggable draggable = (Draggable)o;
@@ -150,7 +150,16 @@ class DragZoneImpl implements DragZone {
 
     // we have to fire drop event to indicate that object has been dropped in the drop zone
     if(dropZone != null){
-      display.dropTo(dropZone, draggingRegister.get(display.getDragWidget()), startX, startY, event.getClientX(), event.getClientY());
+      int endX = event.getClientX();
+      int endY = event.getClientY();
+
+      Object o = draggingRegister.get(display.getDragWidget()); // probably not good implementation
+      if(o instanceof Draggable){
+        Draggable draggable = (Draggable)o;
+        display.dropTo(dropZone, draggable.getSourceWidget(), draggable.getDropObject(), startX, startY, endX, endY);
+      } else {
+        display.dropTo(dropZone, draggingRegister.get(display.getDragWidget()), startX, startY, endX, endY);
+      }
     }
   }
 
@@ -165,9 +174,13 @@ class DragZoneImpl implements DragZone {
     registerDraggable(widget);
   }
 
+  /**
+   * Add draggable element.
+   * @param draggable draggable element.
+   */
   @Override
   public void add(Draggable draggable) {
-    add(draggable.getHasMouseDownHandler(), draggable.getDropObject());
+    add(draggable.getHasMouseDownHandler(), draggable);
   }
 
   /**
@@ -191,7 +204,8 @@ class DragZoneImpl implements DragZone {
   }
 
   /**
-   * Add new root who contains drop zones. This roots will be searched to find drop zones.
+   * Add new root who contains drop zones. This roots will be searched to find drop zones. If you have some Widget in
+   * the tail that not implements HasWidgets interface (something like Composite) the search finished at this widget.
    * @param root widget who implements HasWidgets.
    */
   @Override
@@ -199,6 +213,12 @@ class DragZoneImpl implements DragZone {
     dropZones.add(root);
   }
 
+  /**
+   * Register drop zone root. All elements in the list will be iterated and all child's on HasWidget elements will be
+   * iterated during search DropZone. If you have some Widget in the tail that not implements HasWidgets interface
+   * (something like Composite) the search finished at this widget.
+   * @param roots list with root widgets that will be iterated during searching the DropZone.
+   */
   @Override
   public void addDropZoneRoot(List<HasWidgets> roots) {
     dropZones.addAll(roots);

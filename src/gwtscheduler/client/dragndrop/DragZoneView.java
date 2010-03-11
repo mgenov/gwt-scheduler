@@ -92,15 +92,20 @@ class DragZoneView extends Composite implements DragZone.Display {
 
   @Override
   public void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY) {
-    DropEvent dropEvent = new DropEvent(dragWidget, targetObject);
+    dropTo(dropZone, dragWidget, targetObject, startX, startY, endX,endY);
+  }
+
+  @Override
+  public void dropTo(DropZone dropZone, Widget sourceWidget, Object dropObject, int startX, int startY, int endX, int endY) {
+    DropEvent dropEvent = new DropEvent(sourceWidget, dropObject);
 
     dropEvent.setStartX(startX);
     dropEvent.setStartY(startY);
-    
+
     dropEvent.setEndX(endX);
     dropEvent.setEndY(endY);
-    
-    ((Widget)dropZone).fireEvent(dropEvent);
+
+    fireEvent(dropZone, dropEvent);
   }
 
   @Override

@@ -96,6 +96,11 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     return false;
   }
 
+  @Override
+  public void addTestTask(Widget display, int[] ints) {
+    eventDashboardView.addTestTask(display, ints);
+  }
+
 
   public EventDashboardView getEventsPanel() {
     return eventDashboardView;
