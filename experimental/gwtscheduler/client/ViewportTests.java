@@ -1,5 +1,6 @@
 package gwtscheduler.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -78,6 +79,14 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     main.addCalendarDropHandler(new CalendarDropHandler(){
       @Override
       public void onCalendarDrop(CalendarDropEvent event) {
+        Object o = event.getDroppedObject();
+        if(o instanceof TicketPresenter){
+          GWT.log("Dropped: TicketPresenter", null);
+          GWT.log("On calendar type: " + event.getCalendarType().toString(), null);
+          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
+          GWT.log("On column with title: " + event.getCalendarColumn().getTitle(), null);
+          GWT.log("On time: " + event.getDropTime().toString(), null);
+        }
       }
     });
 

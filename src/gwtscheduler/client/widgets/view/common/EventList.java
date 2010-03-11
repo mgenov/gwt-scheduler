@@ -16,10 +16,11 @@ import java.util.List;
  */
 public class EventList {
 
-  interface Display {
+  public interface Display {
     
     AbsolutePanel asWidget();
 
+    int[] getCellPosition(int x, int y);
   }
   
   private Display display;
@@ -44,4 +45,7 @@ public class EventList {
 
   }
 
+  public int[] getCell(int x, int y) {
+    return display.getCellPosition(x, y);
+  }
 }

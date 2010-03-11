@@ -42,4 +42,9 @@ public class EventListView extends AbstractGridOverlay implements EventList.Disp
   public AbsolutePanel asWidget() {
     return this;
   }
+
+  @Override
+  public int[] getCellPosition(int x, int y) {
+    return calculateCellPosition(x, y);
+  }
 }

@@ -83,6 +83,11 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(width,height),new WidgetRedrawEvent());
   }
 
+  @Override
+  public int[] getCell(int x, int y) {        // todo: remove. use EventDashboard 
+    return eventListView.getCellPosition(x, y);
+  }
+
 
   public EventListView getEventsPanel() {
     return eventListView;

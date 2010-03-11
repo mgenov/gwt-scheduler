@@ -12,6 +12,7 @@ import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
+import gwtscheduler.client.widgets.view.common.EventList;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
 import gwtscheduler.common.calendar.IntervalType;
 import org.goda.time.MutableDateTime;
