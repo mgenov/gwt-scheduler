@@ -1,14 +1,12 @@
 package gwtscheduler.client.widgets.view.columns;
 
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.CalendarChangeEvent;
 import gwtscheduler.client.CalendarDropEvent;
 import gwtscheduler.client.CalendarDropHandler;
-import gwtscheduler.client.CalendarMoveEvent;
-import gwtscheduler.client.CalendarMoveHandler;
+import gwtscheduler.client.CalendarChangeHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
@@ -16,13 +14,9 @@ import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.common.navigation.*;
-import org.goda.time.Duration;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
-import org.goda.time.MutableDateTime;
-import org.goda.time.Period;
 import org.goda.time.ReadableDateTime;
-import org.goda.time.ReadableInterval;
 
 import java.util.List;
 
@@ -127,7 +121,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         CalendarColumn oldColumn = columns.get(oldCell[1]);
         CalendarColumn newColumn = columns.get(newCell[1]);
 
-        CalendarMoveEvent event = new CalendarMoveEvent(type, title, droppedObject, oldColumn, oldTime, newColumn, newTime);
+        CalendarChangeEvent event = new CalendarChangeEvent(type, title, droppedObject, oldColumn, oldTime, newColumn, newTime);
         handlerManager.fireEvent(event);
 
       }
@@ -223,8 +217,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
-  public HandlerRegistration addCalendarMoveHandler(CalendarMoveHandler handler) {
-    return  handlerManager.addHandler(CalendarMoveEvent.TYPE, handler);
+  public HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler) {
+    return  handlerManager.addHandler(CalendarChangeEvent.TYPE, handler);
   }
 
   @Override

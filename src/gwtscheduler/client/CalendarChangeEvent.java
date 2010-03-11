@@ -7,8 +7,8 @@ import org.goda.time.Instant;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class CalendarMoveEvent extends GwtEvent<CalendarMoveHandler>{
-  public static final Type<CalendarMoveHandler> TYPE = new Type<CalendarMoveHandler>();
+public class CalendarChangeEvent extends GwtEvent<CalendarChangeHandler>{
+  public static final Type<CalendarChangeHandler> TYPE = new Type<CalendarChangeHandler>();
   private final CalendarType calendarType;
   private final String calendarTitle;
   private final Object droppedObject;
@@ -17,7 +17,7 @@ public class CalendarMoveEvent extends GwtEvent<CalendarMoveHandler>{
   private final CalendarColumn newColumn;
   private final Instant newTime;
 
-  public CalendarMoveEvent(CalendarType calendarType, String calendarTitle, Object droppedObject, CalendarColumn oldColumn, Instant oldTime, CalendarColumn newColumn, Instant newTime) {
+  public CalendarChangeEvent(CalendarType calendarType, String calendarTitle, Object droppedObject, CalendarColumn oldColumn, Instant oldTime, CalendarColumn newColumn, Instant newTime) {
     this.calendarType = calendarType;
     this.calendarTitle = calendarTitle;
     this.droppedObject = droppedObject;
@@ -28,12 +28,12 @@ public class CalendarMoveEvent extends GwtEvent<CalendarMoveHandler>{
   }
 
   @Override
-  public Type<CalendarMoveHandler> getAssociatedType() {
+  public Type<CalendarChangeHandler> getAssociatedType() {
     return TYPE;
   }
 
   @Override
-  protected void dispatch(CalendarMoveHandler handler) {
+  protected void dispatch(CalendarChangeHandler handler) {
     handler.onCalendarMove(this);
   }
 
