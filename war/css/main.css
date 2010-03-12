@@ -91,7 +91,7 @@ body {
 	padding: 0px 4px 2px 4px;
 	cursor: pointer;
 	cursor: hand;
-	color: black;
+	color: black ;
 	font-weight: bold;
 	text-align: center;
 	background: #d0e4f6;
@@ -179,4 +179,9 @@ body {
 
 .testTest {
     border: 7px dashed;
+}
+
+.gwt-TabPanelBottom {
+    border: 0px;
+    padding: 0px;
 }
