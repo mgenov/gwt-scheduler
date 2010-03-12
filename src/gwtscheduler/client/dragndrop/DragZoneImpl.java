@@ -253,6 +253,16 @@ class DragZoneImpl implements DragZone {
     frame.setFrameStyle(styleName);    
   }
 
+  @Override
+  public void addStyleAttribute(String attribute) {
+    frame.addStyleAttribute(attribute);
+  }
+
+  @Override
+  public void removeStyle() {
+    frame.removeStyle();
+  }
+
   /**
    * Attach DragZone view to the parent widget.
    * @param parent widget where drag zone will be attached.

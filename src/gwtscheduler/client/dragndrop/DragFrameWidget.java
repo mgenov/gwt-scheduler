@@ -11,11 +11,12 @@ import com.google.gwt.user.client.ui.Label;
  */
 class DragFrameWidget extends Composite implements DragFrame.Display{
   private Label frame = new Label();
+  private String style = "border: 1px dotted;";
 
   public DragFrameWidget() {
     initWidget(frame);
 
-    frame.setStyleName("dragFrame");
+    frame.getElement().setAttribute("style", style);
   }
 
   @Override
@@ -56,6 +57,18 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   @Override
   public int getWidth() {
     return frame.getOffsetWidth();
+  }
+
+  @Override
+  public void addStyleAttribute(String attribute) {
+    style = style + attribute;
+    removeStyle();
+    frame.getElement().setAttribute("style", style);
+  }
+
+  @Override
+  public void removeStyle() {
+    frame.getElement().removeAttribute("style");
   }
 
 }

@@ -74,6 +74,7 @@ public class DragNDrop implements EntryPoint {
 
     dragger.addWidget(racePanel, 360, 10);
     dragger.addDropZoneRoot(racePanel);
+    dragger.setFrameStyle("dragFrame");
 
     dragger.go(RootPanel.get()); // attach drag zone to the root panel or another panel.
   }

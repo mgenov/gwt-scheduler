@@ -99,8 +99,6 @@ public class GenericDateGenerator implements DateGenerator {
     return new Interval(from, to);
   }
 
-
-
   /**
    * Utility interface that defines a fixed date generator.
    *

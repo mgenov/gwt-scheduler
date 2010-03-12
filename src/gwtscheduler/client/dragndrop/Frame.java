@@ -31,4 +31,8 @@ public interface Frame {
   void releaseFrameCapture();
 
   void removeFrameFromPanel(DragZone container);
+
+  void addStyleAttribute(String attribute);
+
+  void removeStyle();
 }

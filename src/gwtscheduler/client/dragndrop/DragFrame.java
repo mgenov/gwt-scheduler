@@ -25,7 +25,10 @@ class DragFrame implements Frame{
     int getHeight();
 
     int getWidth();
-   
+
+    void addStyleAttribute(String attribute);
+
+    void removeStyle();
   }
 
   private Display display;
@@ -82,5 +85,15 @@ class DragFrame implements Frame{
 
   public void removeFrameFromPanel(DragZone container) {
     container.removeWidget((Widget)display);
+  }
+
+  @Override
+  public void addStyleAttribute(String attribute) {
+    display.addStyleAttribute(attribute);
+  }
+
+  @Override
+  public void removeStyle() {
+    display.removeStyle();
   }
 }
