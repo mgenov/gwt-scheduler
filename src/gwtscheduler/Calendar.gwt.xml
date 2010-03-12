@@ -7,9 +7,14 @@
 	<inherits name='gwtscheduler.Common' />
     <inherits name="com.google.gwt.junit.JUnit"/>
 
+    <!---->
+
+    <!--<inherits name='com.google.gwt.user.User'/>-->
+    <!--<inherits name='com.google.gwt.user.theme.chrome.Chrome'/>-->
+
 
     <source path="client"/>
-	<!-- stupid css hack for ie
-   	<stylesheet src="/css/main.css" />
-	-->
+	<!-- stupid css hack for ie -->
+   	<stylesheet src="/css/main.css "/>
+
 </module>

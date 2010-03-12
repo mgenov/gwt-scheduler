@@ -3,11 +3,19 @@
  "http://google-web-toolkit.googlecode.com/svn/tags/1.6.0/distro-source/core/src/gwt-module.dtd">
 
 <module>
-  <inherits name='gwtscheduler.Calendar'/>
+
+    <inherits name="datepickernavigation.DatePickerNavigation"/>
+    
+    <inherits name='gwtscheduler.Calendar'/>
     <inherits name="com.google.gwt.junit.JUnit"/>
     <entry-point class='gwtscheduler.client.ViewportTests'/>
 
-    <inherits name='com.google.gwt.user.User'/>
-    <inherits name='com.google.gwt.user.theme.dark.Dark'/>
+
+
+    <!--<inherits name='com.google.gwt.user.User'/>-->
+    <!--<inherits name='com.google.gwt.user.theme.chrome.Chrome'/>-->
+    <!--<inherits name='com.google.gwt.user.theme.standard.Standard'/>-->
+
+    <!--<inherits name='com.google.gwt.user.theme.standard.StandardResources'/>-->
 
 </module>

@@ -46,6 +46,7 @@ public class WidgetResizeEvent extends GwtEvent<WidgetResizeHandler> {
    */
   public WidgetResizeEvent() {
     this(DOMUtils.getViewportDimensions());
+    int[] res = DOMUtils.getViewportDimensions();
   }
   /**
    * Main constructor.

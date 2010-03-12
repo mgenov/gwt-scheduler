@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DatePicker;
+import datepickernavigation.client.DatePickerNavigation;
 import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
 import gwtscheduler.client.dragndrop.DragZone;
@@ -84,7 +85,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 
     HorizontalPanel nav = new HorizontalPanel();
-    DatePicker datePicker = new DatePicker();
+    DatePickerNavigation datePicker = new DatePickerNavigation();
     nav.add(datePicker);
     nav.add(back);
     nav.add(today);
@@ -123,8 +124,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
     dragZone.addWidget(mainPanel);
-    dragZone.go(RootPanel.get("nav"));
-
+    dragZone.go(RootPanel.get());
 
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();
@@ -158,9 +158,13 @@ public class ViewportTests implements EntryPoint, ClickHandler {
   }
 
   protected ReadableDateTime getCurrentDate() {
-    DateTime start = new DateTime(System.currentTimeMillis());
-    
-    return start;
+    MutableDateTime start = new MutableDateTime();
+    start.setHourOfDay(0);
+    start.setMinuteOfHour(0);
+    start.setMinuteOfHour(0);
+    start.setMillisOfSecond(0);
+    DateTime date = start.toDateTime();
+    return date;
   }
 
   public void onClick(ClickEvent event) {

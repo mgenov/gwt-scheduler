@@ -21,7 +21,7 @@
   float: left;
   display: inline;
   background: defaultBg;
-}
+   }
 
 /** title */
 .titleColumn  {
@@ -59,6 +59,9 @@
   padding: 0px;
 }
 
+.horizontalFillGrid td {
+    vertical-align:top;
+}
 .headerCell{
     overflow:hidden;
     width:90px;

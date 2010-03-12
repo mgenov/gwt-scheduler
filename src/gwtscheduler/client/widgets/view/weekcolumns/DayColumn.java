@@ -35,7 +35,7 @@ public class DayColumn implements CalendarColumn {
       int year = date.getYear();
       int month = date.getMonthOfYear();
       int day = date.getDayOfMonth();
-      title = day + "-" + month+ "-" + year;
+      title = day + "/" + month+ "/" + year;
     }
     return title;
   }

@@ -11,6 +11,9 @@
     </ui:style>
     <g:HTMLPanel >
         <g:DialogBox ui:field="dialog" autoHide="false" modal="true" styleName="{style.dialog}">
+            <g:caption>
+                <b>TestTask</b>
+            </g:caption>
             <g:HTMLPanel>
                 <span>какво</span>
                 <d:TextInputFieldWidget ui:field="title"/>
