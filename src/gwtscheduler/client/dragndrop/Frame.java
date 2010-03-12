@@ -5,6 +5,8 @@ import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * Represents dragged frame.
+ * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public interface Frame {

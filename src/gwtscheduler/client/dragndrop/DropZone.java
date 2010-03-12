@@ -17,6 +17,9 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * public void addDragOutHandler(DragOutHandler handler) {
  *   addHandler(handler, DragOutEvent.TYPE);
  * }
+ * public void addDragInHandler(DragInHandler handler) {
+ *   addHandler(handler, DragInEvent.TYPE);
+ * }
  * </pre>
  *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 

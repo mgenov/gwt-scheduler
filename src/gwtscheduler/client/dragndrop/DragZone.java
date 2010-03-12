@@ -24,12 +24,12 @@ import java.util.List;
  * VerticalPanel dropZonesPanel = new VerticalPanel();
  * verticalPanel.add(dropZone);
  *
- * DragZone dragZone = Zones.getDragZone(800, 800);
+ * DragZone dragZone = Zones.getDragZone();
  * dragZone.add((HasMouseDownHandlers)draggableWidget, draggablePresenter);
  *
  * dragZone.addDropZoneRoot(dropZonesPanel);
  *
- * dragger.go(RootPanel.get());
+ * dragZone.go(RootPanel.get());
  * </pre>
  *
  * Every given widget is wrapped by another widget who is dragged over drag area. If widget is attached to another
