@@ -34,7 +34,7 @@ public class CalendarChangeEvent extends GwtEvent<CalendarChangeHandler>{
 
   @Override
   protected void dispatch(CalendarChangeHandler handler) {
-    handler.onCalendarMove(this);
+    handler.onCalendarChange(this);
   }
 
   public CalendarType getCalendarType() {

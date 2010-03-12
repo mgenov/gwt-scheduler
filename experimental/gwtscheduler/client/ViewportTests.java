@@ -131,7 +131,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     main.addCalendarChangeHandler(new CalendarChangeHandler(){
       @Override
-      public void onCalendarMove(CalendarChangeEvent event){
+      public void onCalendarChange(CalendarChangeEvent event){
         Object o = event.getDroppedObject();
         if(o instanceof TestTask){
           GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
