@@ -7,8 +7,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
-import gwtscheduler.client.dragndrop.DragZone;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 

@@ -1,4 +1,4 @@
-package gwtscheduler.client.dragndrop;
+package dragndrop.client.core;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
@@ -94,10 +94,18 @@ class DragZoneImpl implements DragZone {
 
         frame.setFrameSize(cloneWidth+1, cloneHeight+1);
 
-        frame.go(DragZoneImpl.this, (startX -(startX - cloneLeft))+CORRECTION, (startY - (startY - cloneTop))+CORRECTION);
+        int[] position = calculatePosition(startX, startY);
+
+        frame.go(DragZoneImpl.this, position[0], position[1]);
         frame.captureFrame();
       }
     });
+  }
+
+  private int[] calculatePosition(int mouseX, int mouseY){
+    int x = (mouseX - (startX - cloneLeft)) + CORRECTION - display.getLeft();
+    int y = (mouseY - (startY - cloneTop))+CORRECTION - display.getTop();
+    return new int[] {x, y};
   }
 
   private void mouseMove(MouseMoveEvent event){
@@ -111,8 +119,9 @@ class DragZoneImpl implements DragZone {
 
     int mouseX = event.getClientX();
     int mouseY = event.getClientY();
+    int[] position = calculatePosition(mouseX, mouseY);
 
-    frame.go(DragZoneImpl.this, (mouseX - (startX - cloneLeft))+CORRECTION, (mouseY - (startY - cloneTop))+CORRECTION);
+    frame.go(DragZoneImpl.this, position[0], position[1]);
 
     DropZone dropZone = display.getDropZone(dropZones, mouseX, mouseY);
 
@@ -128,7 +137,7 @@ class DragZoneImpl implements DragZone {
 
     } else if(this.dropZone != null){
       // fires event when dragging over drop zone.
-      display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY));
+      display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY, display.getTop(), display.getLeft()));
     }
   }
 

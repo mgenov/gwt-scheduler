@@ -102,7 +102,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
       }
     });
 
-    calendarContent.addContentChangeCallback(new CalendarContent.ContentChange(){
+    calendarContent.addContentChangeCallback(new ContentChange(){
 
       @Override
       public void onDrop(int[] newCell, Object droppedObject) {

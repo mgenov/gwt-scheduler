@@ -2,12 +2,13 @@ package gwtscheduler.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import dragndrop.client.core.DragZone;
+import dragndrop.client.core.Zones;
 import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
-import gwtscheduler.client.dragndrop.DragZone;
-import gwtscheduler.client.dragndrop.Zones;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -103,7 +104,17 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
     dragZone.addWidget(mainPanel);
-    dragZone.go(RootPanel.get());
+
+    VerticalPanel testPanel = new VerticalPanel();
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    dragZone.go(testPanel);
+    RootPanel.get().add(testPanel);
 
 
     final TestTaskDialog dialog = new TestTaskDialog();

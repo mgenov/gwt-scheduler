@@ -1,20 +1,19 @@
-package gwtscheduler.client.teamexample;
+package dragndrop.client.teamexample;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
-import gwtscheduler.client.dragndrop.DragInEvent;
-import gwtscheduler.client.dragndrop.DragInHandler;
-import gwtscheduler.client.dragndrop.DragOutHandler;
-import gwtscheduler.client.dragndrop.DragOverHandler;
-import gwtscheduler.client.dragndrop.DropEvent;
-import gwtscheduler.client.dragndrop.DropHandler;
+import dragndrop.client.core.DragInEvent;
+import dragndrop.client.core.DropEvent;
+import dragndrop.client.core.DropHandler;
+import dragndrop.client.core.DragInHandler;
+import dragndrop.client.core.DragOutHandler;
+import dragndrop.client.core.DragOverHandler;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 

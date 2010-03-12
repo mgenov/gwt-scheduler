@@ -1,4 +1,4 @@
-package gwtscheduler.client.teamexample;
+package dragndrop.client.teamexample;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -10,24 +10,24 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)   
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
-public class CarView extends Composite implements Car.Display, HasMouseDownHandlers{
+public class TruckView extends Composite implements Truck.Display, HasMouseDownHandlers{
   private VerticalPanel mainPanel = new VerticalPanel();
-  private Label name = new Label();
+  private Label label = new Label();
 
-  public CarView() {
-    mainPanel.add(name);
+  public TruckView() {
     mainPanel.setBorderWidth(2);
+    mainPanel.add(label);
     initWidget(mainPanel);
   }
 
   @Override
   public HasText getName() {
-    return name;
+    return label;
   }
 
-  public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
-    return addDomHandler(handler, MouseDownEvent.getType());
+  public HandlerRegistration addMouseDownHandler(MouseDownHandler mouseDownHandler) {
+    return addDomHandler(mouseDownHandler, MouseDownEvent.getType());
   }
 }

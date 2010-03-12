@@ -1,8 +1,6 @@
-package gwtscheduler.client.dragndrop;
+package dragndrop.client.core;
 
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -12,11 +10,15 @@ public class DragOverEvent extends GwtEvent<DragOverHandler>{
   private final Frame frame;
   private final int mouseX;
   private final int mouseY;
+  private final int dragZoneTop;
+  private final int dragZoneLeft;
 
-  public DragOverEvent(Frame frame, int mouseX, int mouseY) {
+  public DragOverEvent(Frame frame, int mouseX, int mouseY, int dragZoneTop, int dragZoneLeft) {
     this.frame = frame;
     this.mouseX = mouseX;
     this.mouseY = mouseY;
+    this.dragZoneTop = dragZoneTop;
+    this.dragZoneLeft = dragZoneLeft;
   }
 
   @Override
@@ -41,5 +43,13 @@ public class DragOverEvent extends GwtEvent<DragOverHandler>{
 
   public int getMouseY() {
     return mouseY;
+  }
+
+  public int getDragZoneLeft() {
+    return dragZoneLeft;
+  }
+
+  public int getDragZoneTop() {
+    return dragZoneTop;
   }
 }

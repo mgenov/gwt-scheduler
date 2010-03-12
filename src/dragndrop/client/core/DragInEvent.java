@@ -1,7 +1,6 @@
-package gwtscheduler.client.dragndrop;
+package dragndrop.client.core;
 
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * This event is fired when dragged frame enter in drop zone. Event is fired and drop zone can react when dragged

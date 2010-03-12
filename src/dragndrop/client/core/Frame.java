@@ -1,8 +1,7 @@
-package gwtscheduler.client.dragndrop;
+package dragndrop.client.core;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Represents dragged frame.
@@ -35,4 +34,8 @@ public interface Frame {
   void addStyleAttribute(String attribute);
 
   void removeStyle();
+
+  void setWidth(int width);
+
+  void setHeight(int height);
 }

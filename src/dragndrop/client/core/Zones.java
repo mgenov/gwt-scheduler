@@ -1,4 +1,4 @@
-package gwtscheduler.client.dragndrop;
+package dragndrop.client.core;
 
 /**
  * Build drag zone where object to be dragged.

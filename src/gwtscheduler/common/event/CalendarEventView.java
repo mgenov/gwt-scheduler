@@ -11,7 +11,7 @@ import org.cobogw.gwt.user.client.ui.RoundedPanel;
  */
 public class CalendarEventView extends Composite implements CalendarEvent.Display {
 
-    private Label headerTitle = new Label();
+    private Label headerTitle = new Label("Title");
     RoundedLinePanel panel = new RoundedLinePanel(RoundedPanel.ALL, 9);
 
     public CalendarEventView() {
@@ -21,6 +21,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
       VerticalPanel vp = new VerticalPanel();
       vp.setStyleName("cbg-RP");
       vp.setWidth("100%");
+      vp.add(headerTitle);
       vp.add(new Label("test1"));
       vp.add(new Label("test2"));
       vp.add(new Label("test3"));

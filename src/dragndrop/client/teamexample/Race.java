@@ -1,13 +1,10 @@
-package gwtscheduler.client.teamexample;
+package dragndrop.client.teamexample;
 
-import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.dragndrop.DragZone;
-import gwtscheduler.client.dragndrop.DropEvent;
-import gwtscheduler.client.dragndrop.DropHandler;
-import gwtscheduler.client.dragndrop.DropZone;
+import dragndrop.client.core.DropHandler;
+import dragndrop.client.core.DropEvent;
+import dragndrop.client.core.DropZone;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)     

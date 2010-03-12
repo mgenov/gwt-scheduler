@@ -1,4 +1,4 @@
-package gwtscheduler.client.dragndrop;
+package dragndrop.client.core;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -29,6 +29,10 @@ class DragFrame implements Frame{
     void addStyleAttribute(String attribute);
 
     void removeStyle();
+
+    void setWidth(int width);
+
+    void setHeight(int height);
   }
 
   private Display display;
@@ -95,5 +99,15 @@ class DragFrame implements Frame{
   @Override
   public void removeStyle() {
     display.removeStyle();
+  }
+
+  @Override
+  public void setWidth(int frameWidth) {
+    display.setWidth(frameWidth);
+  }
+
+  @Override
+  public void setHeight(int frameHeight) {
+    display.setHeight(frameHeight);
   }
 }

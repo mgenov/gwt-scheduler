@@ -1,7 +1,6 @@
 package gwtscheduler.client.widgets.common;
 
 import com.google.gwt.user.client.Element;
-import gwtscheduler.client.dragndrop.DropZone;
 
 /**
  * Interface for calendar cells.

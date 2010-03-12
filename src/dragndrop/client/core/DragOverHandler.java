@@ -1,4 +1,4 @@
-package gwtscheduler.client.dragndrop;
+package dragndrop.client.core;
 
 import com.google.gwt.event.shared.EventHandler;
 

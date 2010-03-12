@@ -1,4 +1,4 @@
-package gwtscheduler.client.dragndrop;
+package dragndrop.client.core;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -69,6 +69,16 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   @Override
   public void removeStyle() {
     frame.getElement().removeAttribute("style");
+  }
+
+  @Override
+  public void setWidth(int width) {
+    frame.setWidth(width + "px");
+  }
+
+  @Override
+  public void setHeight(int height) {
+    frame.setHeight(height + "px");
   }
 
 }

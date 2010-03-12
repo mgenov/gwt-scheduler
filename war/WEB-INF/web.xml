@@ -29,4 +29,8 @@
         <servlet-name>jUnitHostImpl</servlet-name>
         <url-pattern>/gwtscheduler.DragNDrop/junithost</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jUnitHostImpl</servlet-name>
+        <url-pattern>/dragndrop.DragNDrop/junithost</url-pattern>
+    </servlet-mapping>
 </web-app>

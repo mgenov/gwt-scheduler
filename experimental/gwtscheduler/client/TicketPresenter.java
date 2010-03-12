@@ -2,8 +2,7 @@ package gwtscheduler.client;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.dragndrop.DragZone;
-import gwtscheduler.client.dragndrop.Draggable;
+import dragndrop.client.core.Draggable;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 

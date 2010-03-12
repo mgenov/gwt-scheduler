@@ -6,6 +6,7 @@
 <module>
 	<inherits name='gwtscheduler.Common' />
     <inherits name="com.google.gwt.junit.JUnit"/>
+    <inherits name="dragndrop.DragNDrop"/>
 
 
     <source path="client"/>
