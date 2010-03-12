@@ -103,7 +103,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
     dragZone.addWidget(mainPanel);
-    dragZone.go(RootPanel.get("nav"));
+    dragZone.go(RootPanel.get());
 
 
     final TestTaskDialog dialog = new TestTaskDialog();
@@ -147,8 +147,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
-//    RootPanel.get("nav").add(nav);
-//    RootPanel.get("main").add(main.asWidget());
     main.selectTab(0);
 //    registry.fireDateNavigation(getCurrentDate());
     eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
