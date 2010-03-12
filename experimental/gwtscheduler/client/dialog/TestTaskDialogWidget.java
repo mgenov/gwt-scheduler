@@ -52,7 +52,7 @@ public class TestTaskDialogWidget extends Composite implements TestTaskDialog.Di
 
   public TestTaskDialogWidget() {
     initWidget(uiBinder.createAndBindUi(this));
-    dialog.setTitle("TestTask");
+    dialog.getElement().getStyle().setZIndex(100);
   }
 
   @Override
@@ -74,7 +74,11 @@ public class TestTaskDialogWidget extends Composite implements TestTaskDialog.Di
 
   @Override
   public void show() {
+    dialog.setGlassEnabled(true);
+    dialog.setAnimationEnabled(true);
     dialog.center();
+    dialog.show();
+    
   }
 
   @Override

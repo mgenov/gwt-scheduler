@@ -3,34 +3,33 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:d="urn:import:gwtscheduler.client.dialog">
 
-    <ui:style>
-        .dialog{
-        z-index:100;
-        background:lightblue;
-        }
-    </ui:style>
-    <g:HTMLPanel >
-        <g:DialogBox ui:field="dialog" autoHide="false" modal="true" styleName="{style.dialog}">
+    <g:HTMLPanel>
+        <g:DialogBox ui:field="dialog" autoHide="false" modal="true" >
+            <g:caption>
+                <b>TestTask</b>
+            </g:caption>
             <g:HTMLPanel>
-                <span>какво</span>
-                <d:TextInputFieldWidget ui:field="title"/>
-                <br/>
-                <span>старт :</span>
-                <d:TextInputFieldWidget ui:field="startDate"/>
-                <span>час :</span>
-                <d:TextInputFieldWidget ui:field="startHour"/>
-                <br/>
-                <span>край :</span>
-                <d:TextInputFieldWidget ui:field="endDate"/>
-                <span>час :</span>
-                <d:TextInputFieldWidget ui:field="endHour"/>
-                <br/>
-                <span>описание / коментар :</span>
-                <br/>
-                <d:TextInputAreaWidget ui:field="description"/>
-                <br/>
-                <g:Button ui:field="ok" text="OK"/>
-                <g:Button ui:field="cancel" text="Cancel"/>
+                <div>
+                    <span>какво</span>
+                    <d:TextInputFieldWidget ui:field="title"/>
+                    <br/>
+                    <span>старт :</span>
+                    <d:TextInputFieldWidget ui:field="startDate"/>
+                    <span>час :</span>
+                    <d:TextInputFieldWidget ui:field="startHour"/>
+                    <br/>
+                    <span>край :</span>
+                    <d:TextInputFieldWidget ui:field="endDate"/>
+                    <span>час :</span>
+                    <d:TextInputFieldWidget ui:field="endHour"/>
+                    <br/>
+                    <span>описание / коментар :</span>
+                    <br/>
+                    <d:TextInputAreaWidget ui:field="description"/>
+                    <br/>
+                    <g:Button ui:field="ok" text="OK"/>
+                    <g:Button ui:field="cancel" text="Cancel"/>
+                </div>
             </g:HTMLPanel>
         </g:DialogBox>
     </g:HTMLPanel>
