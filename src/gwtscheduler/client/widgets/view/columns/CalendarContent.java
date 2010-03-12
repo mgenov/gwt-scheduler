@@ -32,9 +32,6 @@ public class CalendarContent {
 
     int[] getWindowCellPosition(int[] cell); // TODO: remove.. use EventDashboard presenter
 
-    int getTop();                              // delete
-
-    int getLeft();                                    // delete
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -61,7 +58,6 @@ public class CalendarContent {
 
     Frame frame = event.getFrame();
 
-    GWT.log("" + display.getTop(), null);
     frame.setDragZonePosition(windowCellPosition[0] - event.getDragZoneLeft(), windowCellPosition[1] - event.getDragZoneTop());
 
     int frameWidth = calendarColumnsFrameGrid.getCellWidth();

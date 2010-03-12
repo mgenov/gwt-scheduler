@@ -101,16 +101,6 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     return eventDashboardView.getWindowCellPosition(cell);
   }
 
-  @Override
-  public int getTop() {
-    return this.getAbsoluteTop();
-  }
-
-  @Override
-  public int getLeft() {
-    return this.getAbsoluteLeft();
-  }
-
   public EventDashboardView getEventsPanel() {
     return eventDashboardView;
   }
