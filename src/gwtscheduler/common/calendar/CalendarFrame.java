@@ -1,57 +1,63 @@
-package dragndrop.client.core;
+package gwtscheduler.common.calendar;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.user.client.ui.Widget;
+import dragndrop.client.core.DragZone;
+import dragndrop.client.core.Frame;
+import gwtscheduler.client.TicketPresenter;
 
 /**
- * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
+ * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-class DragFrame implements Frame {
-  interface Display {
+public class CalendarFrame implements Frame {
+  public interface Display {
+    HasMouseMoveHandlers getHasMouseMoveHandlers();
 
-    HasMouseMoveHandlers getFrameMouseMoveHandlers();
-
-    HasMouseUpHandlers getFrameMouseUpHandlers();
+    HasMouseUpHandlers getHasMouseUpHandlers();
 
     void setSize(int width, int height);
 
+    void setHeight(int height);
+
+    void setWidth(int width);
+
     void setStyle(String styleName);
-
-    void capture();
-
-    void release();
 
     int getHeight();
 
     int getWidth();
 
-    void setWidth(int width);
+    void capture();
 
-    void setHeight(int height);
+    void release();
+
   }
 
   private Display display;
   private DragZone container;
 
-  public void bindDisplay(Display display) {
+  public void bindDisplay(Display display){
     this.display = display;
   }
 
+  @Override
   public HasMouseMoveHandlers getFrameMouseMoveHandlers() {
-    return display.getFrameMouseMoveHandlers();
+    return display.getHasMouseMoveHandlers();
   }
 
-
+  @Override
   public HasMouseUpHandlers getFrameMouseUpHandlers() {
-    return display.getFrameMouseUpHandlers();
+    return display.getHasMouseUpHandlers();
   }
 
-  public void setFrameSize(int width, int height){
+  @Override
+  public void setFrameSize(int width, int height) {
     display.setSize(width, height);
   }
 
-  public void setFrameStyle(String styleName){
+  @Override
+  public void setFrameStyle(String styleName) {
     display.setStyle(styleName);
   }
 
@@ -65,6 +71,7 @@ class DragFrame implements Frame {
     return display.getWidth();
   }
 
+  @Override
   public void go(DragZone container, int left, int top) {
     this.container = container;
     container.addWidget((Widget)display, left, top);
@@ -75,29 +82,37 @@ class DragFrame implements Frame {
     container.addWidget((Widget)display, left, top);
   }
 
+  @Override
   public void captureFrame() {
     display.capture();
   }
 
+  @Override
   public void releaseFrameCapture() {
     display.release();
   }
 
+  @Override
   public void removeFrameFromDragZone(DragZone container) {
     container.removeWidget((Widget)display);
   }
 
   @Override
-  public void setWidth(int frameWidth) {
-    display.setWidth(frameWidth);
+  public void setWidth(int width) {
+    display.setWidth(width);
   }
 
   @Override
-  public void setHeight(int frameHeight) {
-    display.setHeight(frameHeight);
+  public void setHeight(int height) {
+    display.setHeight(height);
   }
 
   @Override
   public void dropObject(Object o) {
+    if(o instanceof TicketPresenter){
+      TicketPresenter ticket = (TicketPresenter)o;
+      int duration = ticket.getDuration();
+      
+    }
   }
 }

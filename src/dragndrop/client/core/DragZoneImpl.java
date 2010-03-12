@@ -26,6 +26,7 @@ class DragZoneImpl implements DragZone {
   private DropZone dropZone = null;
 
   private HashMap<HasMouseDownHandlers, Object> draggingRegister = new HashMap<HasMouseDownHandlers, Object>();
+  private HashMap<String, Frame> frameRegister = new HashMap<String, Frame>();
   private ArrayList<HasWidgets> dropZones = new ArrayList<HasWidgets>();
   private int startX = 0;
   private int startY = 0;
@@ -33,9 +34,11 @@ class DragZoneImpl implements DragZone {
   private int cloneLeft = 0;
   private int cloneWidth = 0;
   private int cloneHeight = 0;
+  private final Frame defaultFrame;
   private Frame frame;
 
   public DragZoneImpl(Frame frame){
+    this.defaultFrame = frame;
     this.frame = frame;
   }
 
@@ -46,20 +49,23 @@ class DragZoneImpl implements DragZone {
    */
   public void bindDisplay(Display display) {
     this.display = display;
+    attachFrameHandlers(this.frame);
+  }
 
-    this.frame.getFrameMouseMoveHandlers().addMouseMoveHandler(new MouseMoveHandler() {
+  private void attachFrameHandlers(Frame frame){
+    frame.getFrameMouseMoveHandlers().addMouseMoveHandler(new MouseMoveHandler() {
       @Override
       public void onMouseMove(MouseMoveEvent event) {
          mouseMove(event);
       }
     });
 
-    this.frame.getFrameMouseUpHandlers().addMouseUpHandler(new MouseUpHandler() {
+    frame.getFrameMouseUpHandlers().addMouseUpHandler(new MouseUpHandler() {
       @Override
       public void onMouseUp(MouseUpEvent event) {
         mouseUp(event);
       }
-    });        
+    });
   }
 
   /**
@@ -91,6 +97,11 @@ class DragZoneImpl implements DragZone {
 
         cloneTop = display.getSourceTop();
         cloneLeft = display.getSourceLeft();
+
+        frame = frameRegister.get(o.getClass().getName());
+        if(frame == null){
+          frame = DragZoneImpl.this.defaultFrame;
+        }
 
         frame.setFrameSize(cloneWidth+1, cloneHeight+1);
 
@@ -136,8 +147,9 @@ class DragZoneImpl implements DragZone {
       this.dropZone = null;
 
     } else if(this.dropZone != null){
+      Object o = draggingRegister.get(display.getDragWidget());
       // fires event when dragging over drop zone.
-      display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY, display.getTop(), display.getLeft()));
+      display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY, display.getTop(), display.getLeft(), o));
     }
   }
 
@@ -147,7 +159,7 @@ class DragZoneImpl implements DragZone {
 
   private void mouseUp(MouseUpEvent event){
     frame.releaseFrameCapture();
-    frame.removeFrameFromPanel(DragZoneImpl.this);
+    frame.removeFrameFromDragZone(DragZoneImpl.this);
 
     if(dropZones.size() == 0){
       GWT.log("No registered drop zones!", null);
@@ -297,6 +309,11 @@ class DragZoneImpl implements DragZone {
   @Override
   public void removeWidget(Widget widget) {
     display.removeWidget(widget);
+  }
+
+  public void registerFrame(Frame frame, Class clazz){
+    attachFrameHandlers(frame);
+    frameRegister.put(clazz.getName(), frame);
   }
 
 }

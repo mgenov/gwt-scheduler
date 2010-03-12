@@ -17,6 +17,8 @@ import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.common.calendar.CalendarFrame;
+import gwtscheduler.common.calendar.CalendarFrameView;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
@@ -66,9 +68,13 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     ticketsPanel.add(ticket2.getDisplay());
 //    ticketsPanel.add(ticket3.getDisplay());
 
+    CalendarFrame frame = new CalendarFrame();
+    frame.bindDisplay(new CalendarFrameView());
+    
     DragZone dragZone = Zones.getDragZone();
     dragZone.add(ticket1);
     dragZone.add(ticket2);
+    dragZone.registerFrame(frame, TicketPresenter.class);
 //    dragZone.add(ticket3);
 
     back = new Button("&laquo;", this);

@@ -63,4 +63,8 @@ public class TicketPresenter implements Draggable{
   public Widget getSourceWidget() {
     return getDisplay();
   }
+
+  public int getDuration() {
+    return task.getDuration();
+  }
 }

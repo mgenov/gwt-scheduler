@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.HasMouseUpHandlers;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public interface Frame {
+
   HasMouseMoveHandlers getFrameMouseMoveHandlers();
 
   HasMouseUpHandlers getFrameMouseUpHandlers();
@@ -29,13 +30,12 @@ public interface Frame {
 
   void releaseFrameCapture();
 
-  void removeFrameFromPanel(DragZone container);
-
-  void addStyleAttribute(String attribute);
-
-  void removeStyle();
+  void removeFrameFromDragZone(DragZone container);
 
   void setWidth(int width);
 
   void setHeight(int height);
+
+  void dropObject(Object o);
+
 }
