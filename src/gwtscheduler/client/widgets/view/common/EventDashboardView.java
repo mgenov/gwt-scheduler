@@ -35,10 +35,4 @@ public class EventDashboardView extends AbstractGridOverlay implements EventDash
   public int[] getCellPosition(int x, int y) {
     return calculateCellPosition(x, y);
   }
-
-  public void addTestTask(Widget display, int[] ints) {
-    int[] leftTop = super.calculateLeftTop(ints);
-    add(display, leftTop[0], leftTop[1]);
-    display.getElement().getStyle().setZIndex(100);
-  }
 }

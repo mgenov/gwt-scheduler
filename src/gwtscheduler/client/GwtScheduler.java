@@ -109,7 +109,4 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     }
   }
 
-  public void addTestTask(Widget display) {
-    presenters.get(0).addTestTask(display);
-  }
 }

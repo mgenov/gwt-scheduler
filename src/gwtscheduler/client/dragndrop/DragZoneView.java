@@ -163,7 +163,6 @@ class DragZoneView extends Composite implements DragZone.Display {
    * @return true if given point is over widget area.
    */
   private boolean checkPosition(int x, int y, Widget w) {
-    // TODO: make better logic for checking if point
     int widgetX = w.getAbsoluteLeft();
     int widgetY = w.getAbsoluteTop();
     int width = w.getElement().getClientWidth();

@@ -232,11 +232,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
-  public void addTestTask(Widget display) {
-    calendarContent.addTestTask(display);
-  }
-
-  @Override
   public int getRowNum() {
     return display.getRowNum();
   }

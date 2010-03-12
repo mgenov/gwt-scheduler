@@ -114,10 +114,6 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
-  public void addTestTask(Widget display) {
-  }
-
-  @Override
   public void forceLayout() {
   }
 

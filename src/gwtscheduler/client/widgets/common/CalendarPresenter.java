@@ -70,5 +70,4 @@ public interface CalendarPresenter {
 
   CalendarType getCalendarType();
 
-  void addTestTask(Widget display); // TODO: Remove this methid with all logic!
 }

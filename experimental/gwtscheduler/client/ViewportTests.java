@@ -152,7 +152,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     main.selectTab(0);
 //    registry.fireDateNavigation(getCurrentDate());
     eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
-    main.addTestTask(ticket2.getDisplay());
   }
 
   protected ReadableDateTime getCurrentDate() {
