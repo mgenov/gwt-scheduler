@@ -12,15 +12,13 @@ public class DragOverEvent extends GwtEvent<DragOverHandler>{
   private final int mouseY;
   private final int dragZoneTop;
   private final int dragZoneLeft;
-  private final Object dropObject;
 
-  public DragOverEvent(Frame frame, int mouseX, int mouseY, int dragZoneTop, int dragZoneLeft, Object object) {
+  public DragOverEvent(Frame frame, int mouseX, int mouseY, int dragZoneTop, int dragZoneLeft) {
     this.frame = frame;
     this.mouseX = mouseX;
     this.mouseY = mouseY;
     this.dragZoneTop = dragZoneTop;
     this.dragZoneLeft = dragZoneLeft;
-    this.dropObject = object;
   }
 
   @Override
@@ -55,7 +53,4 @@ public class DragOverEvent extends GwtEvent<DragOverHandler>{
     return dragZoneTop;
   }
 
-  public Object getDropObject() {
-    return dropObject;
-  }
 }

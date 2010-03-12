@@ -114,17 +114,6 @@ public interface DragZone {
    */
   void setFrameStyle(String styleName);
 
-  /**
-   * Add new Attribute to the frame style. This method adds new attribute to the frame style.
-   * @param attribute attribute to be added. ex: border: 1px dotted;
-   */
-  void addStyleAttribute(String attribute);
-
-  /**
-   * Remove style parameter from frame.
-   */
-  void removeStyle();
-
    /**
    * Add new root who contains drop zones. This roots will be searched to find drop zones.
    * @param root widget who implements HasWidgets.

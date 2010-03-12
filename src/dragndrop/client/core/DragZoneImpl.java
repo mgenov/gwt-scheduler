@@ -102,7 +102,7 @@ class DragZoneImpl implements DragZone {
         if(frame == null){
           frame = DragZoneImpl.this.defaultFrame;
         }
-
+        frame.dropObject(o);
         frame.setFrameSize(cloneWidth+1, cloneHeight+1);
 
         int[] position = calculatePosition(startX, startY);
@@ -147,9 +147,8 @@ class DragZoneImpl implements DragZone {
       this.dropZone = null;
 
     } else if(this.dropZone != null){
-      Object o = draggingRegister.get(display.getDragWidget());
       // fires event when dragging over drop zone.
-      display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY, display.getTop(), display.getLeft(), o));
+      display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY, display.getTop(), display.getLeft()));
     }
   }
 
@@ -272,16 +271,6 @@ class DragZoneImpl implements DragZone {
   @Override
   public void setFrameStyle(String styleName) {
     frame.setFrameStyle(styleName);    
-  }
-
-  @Override
-  public void addStyleAttribute(String attribute) {
-    frame.addStyleAttribute(attribute);
-  }
-
-  @Override
-  public void removeStyle() {
-    frame.removeStyle();
   }
 
   /**
