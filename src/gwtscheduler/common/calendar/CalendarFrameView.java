@@ -28,11 +28,6 @@ public class CalendarFrameView extends Composite implements CalendarFrame.Displa
   }
 
   @Override
-  public void setSize(int width, int height) {
-    frame.setPixelSize(width, height);
-  }
-
-  @Override
   public void setHeight(int height) {
     frame.setHeight(height + "px");
   }

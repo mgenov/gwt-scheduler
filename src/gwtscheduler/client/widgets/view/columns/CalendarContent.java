@@ -58,7 +58,7 @@ public class CalendarContent {
 
     Frame frame = event.getFrame();
 
-    frame.setDragZonePosition(windowCellPosition[0] - event.getDragZoneLeft(), windowCellPosition[1] - event.getDragZoneTop());
+//    frame.setDragZonePosition(windowCellPosition[0] - event.getDragZoneLeft(), windowCellPosition[1] - event.getDragZoneTop());
 
     int frameWidth = calendarColumnsFrameGrid.getCellWidth();
     int frameHeight =  calendarColumnsFrameGrid.getCellHeight() /*   * event.getDuration()   */ * 2;

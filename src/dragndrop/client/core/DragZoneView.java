@@ -150,6 +150,16 @@ class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
+  public void addFrame(Frame frame, int left, int top) {
+    addWidget(frame.getWidget(), left, top);
+  }
+
+  @Override
+  public void removeFrame(Frame frame) {
+    removeWidget(frame.getWidget());
+  }
+
+    @Override
   public void addWidget(Widget widget, int left, int top) {
     absolutePanel.add(widget, left, top);
   }

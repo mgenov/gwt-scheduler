@@ -14,8 +14,6 @@ class DragFrame implements Frame {
 
     HasMouseUpHandlers getFrameMouseUpHandlers();
 
-    void setSize(int width, int height);
-
     void setStyle(String styleName);
 
     void capture();
@@ -32,7 +30,6 @@ class DragFrame implements Frame {
   }
 
   private Display display;
-  private DragZone container;
 
   public void bindDisplay(Display display) {
     this.display = display;
@@ -42,13 +39,8 @@ class DragFrame implements Frame {
     return display.getFrameMouseMoveHandlers();
   }
 
-
   public HasMouseUpHandlers getFrameMouseUpHandlers() {
     return display.getFrameMouseUpHandlers();
-  }
-
-  public void setFrameSize(int width, int height){
-    display.setSize(width, height);
   }
 
   public void setFrameStyle(String styleName){
@@ -65,26 +57,12 @@ class DragFrame implements Frame {
     return display.getWidth();
   }
 
-  public void go(DragZone container, int left, int top) {
-    this.container = container;
-    container.addWidget((Widget)display, left, top);
-  }
-
-  @Override
-  public void setDragZonePosition(int left, int top) {
-    container.addWidget((Widget)display, left, top);
-  }
-
   public void captureFrame() {
     display.capture();
   }
 
   public void releaseFrameCapture() {
     display.release();
-  }
-
-  public void removeFrameFromDragZone(DragZone container) {
-    container.removeWidget((Widget)display);
   }
 
   @Override
@@ -99,5 +77,10 @@ class DragFrame implements Frame {
 
   @Override
   public void dropObject(Object o) {
+  }
+
+  @Override
+  public Widget getWidget() {
+    return (Widget)display;
   }
 }

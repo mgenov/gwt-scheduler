@@ -82,6 +82,10 @@ public interface DragZone {
     int getLeft();
 
     int getTop();
+
+    void addFrame(Frame frame, int left, int top);
+
+    void removeFrame(Frame frame);
   }
 
   /**

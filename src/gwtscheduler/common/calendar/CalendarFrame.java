@@ -16,8 +16,6 @@ public class CalendarFrame implements Frame {
 
     HasMouseUpHandlers getHasMouseUpHandlers();
 
-    void setSize(int width, int height);
-
     void setHeight(int height);
 
     void setWidth(int width);
@@ -35,7 +33,6 @@ public class CalendarFrame implements Frame {
   }
 
   private Display display;
-  private DragZone container;
 
   public void bindDisplay(Display display){
     this.display = display;
@@ -49,11 +46,6 @@ public class CalendarFrame implements Frame {
   @Override
   public HasMouseUpHandlers getFrameMouseUpHandlers() {
     return display.getHasMouseUpHandlers();
-  }
-
-  @Override
-  public void setFrameSize(int width, int height) {
-    display.setSize(width, height);
   }
 
   @Override
@@ -72,17 +64,6 @@ public class CalendarFrame implements Frame {
   }
 
   @Override
-  public void go(DragZone container, int left, int top) {
-    this.container = container;
-    container.addWidget((Widget)display, left, top);
-  }
-
-  @Override
-  public void setDragZonePosition(int left, int top) {
-    container.addWidget((Widget)display, left, top);
-  }
-
-  @Override
   public void captureFrame() {
     display.capture();
   }
@@ -90,11 +71,6 @@ public class CalendarFrame implements Frame {
   @Override
   public void releaseFrameCapture() {
     display.release();
-  }
-
-  @Override
-  public void removeFrameFromDragZone(DragZone container) {
-    container.removeWidget((Widget)display);
   }
 
   @Override
@@ -112,7 +88,12 @@ public class CalendarFrame implements Frame {
     if(o instanceof TicketPresenter){
       TicketPresenter ticket = (TicketPresenter)o;
       int duration = ticket.getDuration();
-      
+                                                                   // TODO: calculate height 
     }
+  }
+
+  @Override
+  public Widget getWidget() {
+    return (Widget)display;
   }
 }
