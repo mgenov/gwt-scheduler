@@ -195,7 +195,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
       main.deleteColumn(column);
     } else if (event.getSource() == addColumn) {
-      if (textBox.getText() != "") {
+      if (textBox.getText().equals("")) {
         CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
         main.addColumn(column);
       }

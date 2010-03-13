@@ -7,18 +7,14 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class DragOverEvent extends GwtEvent<DragOverHandler>{ 
   public static final Type<DragOverHandler> TYPE = new Type<DragOverHandler>();
-  private final Frame frame;
   private final int mouseX;
   private final int mouseY;
-  private final int dragZoneTop;
-  private final int dragZoneLeft;
+  private final DragZone dragZone;
 
-  public DragOverEvent(Frame frame, int mouseX, int mouseY, int dragZoneTop, int dragZoneLeft) {
-    this.frame = frame;
+  public DragOverEvent(DragZone dragZone, int mouseX, int mouseY) {
+    this.dragZone = dragZone;
     this.mouseX = mouseX;
     this.mouseY = mouseY;
-    this.dragZoneTop = dragZoneTop;
-    this.dragZoneLeft = dragZoneLeft;
   }
 
   @Override
@@ -31,26 +27,15 @@ public class DragOverEvent extends GwtEvent<DragOverHandler>{
     dragOverHandler.onDragOver(this);
   }
 
-  public Frame getFrame() {
-    return frame;
-  }
-
-
   public int getMouseX() {
     return mouseX;
   }
-
 
   public int getMouseY() {
     return mouseY;
   }
 
-  public int getDragZoneLeft() {
-    return dragZoneLeft;
+  public DragZone getDragZone() {
+    return dragZone;
   }
-
-  public int getDragZoneTop() {
-    return dragZoneTop;
-  }
-
 }

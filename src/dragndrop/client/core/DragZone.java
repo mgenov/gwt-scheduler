@@ -159,4 +159,8 @@ public interface DragZone {
   void removeWidget(Widget widget);
 
   void registerFrame(Frame frame, Class clazz);
+
+  Frame getCurrentFrame();
+
+  void setFrameWindowPosition(int left, int top);
 }

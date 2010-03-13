@@ -151,7 +151,7 @@ class DragZoneImpl implements DragZone {
 
     } else if(this.dropZone != null){
       // fires event when dragging over drop zone.
-      display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY, display.getTop(), display.getLeft()));
+      display.fireEvent(this.dropZone, new DragOverEvent(this, mouseX, mouseY));
     }
   }
 
@@ -309,4 +309,13 @@ class DragZoneImpl implements DragZone {
     frameRegister.put(clazz.getName(), frame);
   }
 
+  @Override
+  public Frame getCurrentFrame() {
+    return frame;
+  }
+
+  @Override
+  public void setFrameWindowPosition(int left, int top) {
+    display.addFrame(frame, left - display.getLeft(), top - display.getTop());
+  }
 }
