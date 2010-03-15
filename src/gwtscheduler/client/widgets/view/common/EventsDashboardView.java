@@ -3,18 +3,20 @@ package gwtscheduler.client.widgets.view.common;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.google.gwt.dom.client.Style.Position;
+import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.CalendarEventView;
+import gwtscheduler.common.event.EventPosition;
 
 /**
  * This class is responsible for displaying events.
  * @author malp
  */
-public class EventDashboardView extends AbstractGridOverlay implements EventsDashboard.Display {
+public class EventsDashboardView extends AbstractGridOverlay implements EventsDashboard.Display {
 
   /**
    * Default constructor.
    */
-  public EventDashboardView() {
+  public EventsDashboardView() {
 
     // why this need to be set when AbstractGridOverlay is an absolute panel ???
     getElement().getStyle().setPosition(Position.ABSOLUTE);
@@ -39,5 +41,15 @@ public class EventDashboardView extends AbstractGridOverlay implements EventsDas
     int[] leftTop = calculateLeftTop(cell);
     int[] position = getAbsolutePosition();
     return new int[] {position[0]+leftTop[0], position[1]+leftTop[1]};
+  }
+
+  @Override
+  public int[] calculateLeftTop(int[] cellPos) {
+    return super.calculateLeftTop(cellPos);
+  }
+
+  @Override
+  public CalendarEvent.Display getCalendarEventDisplay() {
+    return new CalendarEventView();
   }
 }

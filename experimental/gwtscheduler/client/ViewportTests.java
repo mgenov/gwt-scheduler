@@ -188,6 +188,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
         CalendarColumn column = dialog.getColumn();
         TeamTaskEvent teamTaskEvent = new TeamTaskEvent(testTask,column);
         main.addEvent(teamTaskEvent);
+        dialog.close();
       }
     });
 

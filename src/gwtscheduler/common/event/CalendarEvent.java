@@ -21,14 +21,13 @@ import org.goda.time.Interval;
  */
 public class CalendarEvent implements HasClickHandlers {
 
-  interface Display {
+  public interface Display {
 
     void setViewWidth(int width);
 
     void setViewHeight(int height);
 
     void setHeaderTitle(String title);
-
   }
 
   /**
@@ -50,9 +49,11 @@ public class CalendarEvent implements HasClickHandlers {
    * Default constructor.
    *
    * @param event the event that is wrapping to provided calendar event.
+   * @param position
    */
-  public CalendarEvent(Event event) {
+  public CalendarEvent(Event event, EventPosition position) {
     this.event = event;
+    this.position = position;
   }
 
   /**
@@ -64,6 +65,7 @@ public class CalendarEvent implements HasClickHandlers {
     this.display = display;
 
     display.setHeaderTitle(event.getTitle());
+//    display.setPosition(position);
   }
 
   /**

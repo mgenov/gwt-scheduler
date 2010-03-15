@@ -29,6 +29,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
       vp.add(new Label("test5"));
 
       panel.setWidget(vp);
+      this.getElement().getStyle().setZIndex(33);
     }
 
     @Override
@@ -44,5 +45,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
     @Override
     public void setHeaderTitle(String title) {
       headerTitle.setText(title);
-    }  
+    }
+
+
 }

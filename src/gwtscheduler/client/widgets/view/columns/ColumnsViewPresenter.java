@@ -12,6 +12,7 @@ import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
+import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.DateTime;
 import org.goda.time.Instant;
@@ -229,7 +230,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
-  public void addCalendarEvent(TeamTaskEvent event) {
+  public void addCalendarEvent(Event event) {
     calendarContent.addCalendarEvent(columns,event);
 
   }
