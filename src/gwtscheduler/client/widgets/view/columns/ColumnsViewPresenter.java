@@ -2,8 +2,11 @@ package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.CalendarChangeEvent;
 import gwtscheduler.client.CalendarDropEvent;
 import gwtscheduler.client.CalendarDropHandler;
+import gwtscheduler.client.CalendarChangeHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
@@ -98,25 +101,29 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
       }
     });
 
-    calendarContent.addContentChangeCallback(new CalendarContent.ContentChange(){
+    calendarContent.addContentChangeCallback(new ContentChange(){
 
       @Override
       public void onDrop(int[] newCell, Object droppedObject) {
-        Instant time = dateGenerator.getInstantForCell(newCell,getRowNum());
+        Instant time = dateGenerator.getInstantForCell(newCell, getRowNum());
         CalendarColumn column = columns.get(newCell[1]);
+
         CalendarDropEvent event = new CalendarDropEvent(type, title, droppedObject, column, time);
-//        handlerManager.fireEvent(event);
-          display.getHasCalendarDropHandlers().fireEvent(event);
+        display.getHasCalendarDropHandlers().fireEvent(event);
       }
 
       @Override
       public void onMove(int[] oldCell, int[] newCell, Object droppedObject) {
+        Instant oldTime = dateGenerator.getInstantForCell(oldCell, getRowNum());
+        Instant newTime = dateGenerator.getInstantForCell(newCell,getRowNum());
+        
+        CalendarColumn oldColumn = columns.get(oldCell[1]);
+        CalendarColumn newColumn = columns.get(newCell[1]);
+
+        CalendarChangeEvent event = new CalendarChangeEvent(type, title, droppedObject, oldColumn, oldTime, newColumn, newTime);
+        display.getHasCalendarChangeHandlers().fireEvent(event);
       }
     });
-  }
-
-  private void proceedOnDrop(int[] cell, Object object){
-    
   }
 
   private void reRenderHeaderTitles(Interval interval) {
@@ -204,8 +211,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
-//    return handlerManager.addHandler(CalendarDropEvent.TYPE, handler);
     return display.getHasCalendarDropHandlers().addDropHandler(handler);
+  }
+
+  @Override
+  public HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler) {
+    return display.getHasCalendarChangeHandlers().addCalendarChangeHandler(handler);
   }
 
   @Override

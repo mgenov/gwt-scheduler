@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.common;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.common.event.CalendarEventView;
 
 /**
@@ -33,5 +34,11 @@ public class EventDashboardView extends AbstractGridOverlay implements EventDash
   @Override
   public int[] getCellPosition(int x, int y) {
     return calculateCellPosition(x, y);
+  }
+
+  public int[] getWindowCellPosition(int[] cell) {
+    int[] leftTop = calculateLeftTop(cell);
+    int[] position = getAbsolutePosition();
+    return new int[] {position[0]+leftTop[0], position[1]+leftTop[1]};
   }
 }

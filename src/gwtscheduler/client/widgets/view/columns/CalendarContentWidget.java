@@ -8,7 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.dragndrop.*;
+import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
@@ -88,6 +88,18 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     return eventDashboardView.getCellPosition(x, y);
   }
 
+  @Override
+  public boolean isDashboardAttached(DropEvent event) {
+    if(event.getSourceWidget().getParent() == eventDashboardView){
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public int[] getWindowCellPosition(int[] cell) {         // TODO:
+    return eventDashboardView.getWindowCellPosition(cell);
+  }
 
   public EventDashboardView getEventsPanel() {
     return eventDashboardView;
@@ -118,6 +130,6 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
 
   @Override
   public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
-    return null;
+    return addHandler(handler, DragOverEvent.TYPE);
   }
 }

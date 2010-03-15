@@ -1,7 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
 import com.google.gwt.user.client.Element;
-import gwtscheduler.client.dragndrop.DropEvent;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
@@ -91,6 +90,17 @@ public class AbstractGridOverlay extends AbsolutePanel implements WidgetResizeHa
   @Override
   public void onResize(WidgetResizeEvent event) {
     overlayPanel.clear();
+  }
+
+  public int[] getAbsolutePosition() {
+    Element element = getElement();
+
+    int top = element.getAbsoluteTop();
+    int left = element.getAbsoluteLeft();
+
+//    GWT.log("top: " + top + " left: " + left, null);
+
+    return new int[] {left, top};
   }
 
 }

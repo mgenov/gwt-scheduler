@@ -38,6 +38,14 @@ public class CalendarColumnsFrameGrid {
     this.display = display;
   }
 
+  public int getCellHeight(){
+    return display.getHeight()/display.getRows();
+  }
+
+  public int getCellWidth(){
+    return display.getWidth()/display.getColumns();
+  }
+
 
   public List<Cell<Element>> getTimeLineDecorables() {
     return display.getDecorables().getDecorableElements();

@@ -4,14 +4,15 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import datepickernavigation.client.DatePickerNavigation;
+import dragndrop.client.core.DragZone;
+import dragndrop.client.core.Zones;
 import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
-import gwtscheduler.client.dragndrop.DragZone;
-import gwtscheduler.client.dragndrop.Zones;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -20,6 +21,8 @@ import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.common.calendar.CalendarFrame;
+import gwtscheduler.common.calendar.CalendarFrameView;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.Interval;
@@ -72,9 +75,13 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     ticketsPanel.add(ticket2.getDisplay());
 //    ticketsPanel.add(ticket3.getDisplay());
 
+    CalendarFrame frame = new CalendarFrame();
+    frame.bindDisplay(new CalendarFrameView());
+    
     DragZone dragZone = Zones.getDragZone();
     dragZone.add(ticket1);
     dragZone.add(ticket2);
+    dragZone.registerFrame(frame, TicketPresenter.class);
 //    dragZone.add(ticket3);
 
     back = new Button("&laquo;", this);
@@ -111,30 +118,48 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, eventBus).named("Teams").build())
             .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), eventBus).named("Team 1 Week Calendar").build()).build();
 
-    dragZone.addDropZoneRoot((HasWidgets) main.asWidget());
+    dragZone.addDropZoneRoot((HasWidgets)main.asWidget());
 //    VerticalPanel dropRoot = new VerticalPanel();
-//    dropRoot.add(new Panel1());
-//    dropRoot.add(new Panel1());
-//    dropRoot.add(new Panel1());
+//    dropRoot.makeDraggable(new Panel1());
+//    dropRoot.makeDraggable(new Panel1());
+//    dropRoot.makeDraggable(new Panel1());
 //    dragZone.addDropZoneRoot(dropRoot);
 
     VerticalPanel mainPanel = new VerticalPanel();
 //    mainPanel.add(dropRoot);
-//    mainPanel.add(ticketsPanel);
+    mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
     dragZone.addWidget(mainPanel);
     dragZone.go(RootPanel.get());
 
+
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();
     dialog.bindDisplay(display);
+
+
+
+    main.addCalendarChangeHandler(new CalendarChangeHandler(){
+      @Override
+      public void onCalendarMove(CalendarChangeEvent event){
+        Object o = event.getDroppedObject();
+        if(o instanceof TestTask){
+          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
+          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
+          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
+          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
+          GWT.log("From time: " + event.getOldTime().toString(), null);
+          GWT.log("To time: " + event.getNewTime().toString(), null);
+        }
+      }
+    });
 
     main.addCalendarDropHandler(new CalendarDropHandler() {
       @Override
       public void onCalendarDrop(CalendarDropEvent event) {
         Object o = event.getDroppedObject();
-        if (o instanceof TestTask) {
+        if(o instanceof TestTask){
           GWT.log("Dropped: TicketPresenter", null);
           GWT.log("On calendar type: " + event.getCalendarType().toString(), null);
           GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
@@ -150,8 +175,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
-//    RootPanel.get("nav").add(nav);
-//    RootPanel.get("main").add(main.asWidget());
     main.selectTab(0);
 //    registry.fireDateNavigation(getCurrentDate());
     eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));

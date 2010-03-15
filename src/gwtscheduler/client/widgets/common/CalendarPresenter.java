@@ -1,8 +1,11 @@
 package gwtscheduler.client.widgets.common;
 
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.CalendarChangeHandler;
 import gwtscheduler.client.CalendarDropHandler;
 import gwtscheduler.client.CalendarType;
+import gwtscheduler.client.HasCalendarChangeHandlers;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
@@ -24,6 +27,8 @@ public interface CalendarPresenter {
     CalendarContent.Display getCalendarContentDisplay();
 
     HasCalendarDropHandlers getHasCalendarDropHandlers();
+
+    HasCalendarChangeHandlers getHasCalendarChangeHandlers();
   }
 
   public void bindDisplay(Display display);
@@ -66,7 +71,10 @@ public interface CalendarPresenter {
 
   HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler);
 
+  HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler);
+
   void setCalendarType(CalendarType type);
 
   CalendarType getCalendarType();
+
 }

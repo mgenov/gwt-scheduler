@@ -58,11 +58,11 @@
 		</javac>
 	</target>
 
-	<!-- can add additional arguments like -logLevel INFO or -style PRETTY -->
+	<!-- can makeDraggable additional arguments like -logLevel INFO or -style PRETTY -->
 	<target name="gwtc" depends="compile" description="GWT compile to JavaScript">
 		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
 			<classpath refid="project.class.path" />
-			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+			<!-- makeDraggable jvmarg -Xss16M or similar if you see a StackOverflowError -->
 			<jvmarg value="-Xmx512M" />
 			<arg value="gwtscheduler.ViewportTests" />
 		</java>

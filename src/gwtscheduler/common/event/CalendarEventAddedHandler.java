@@ -12,7 +12,7 @@ public interface CalendarEventAddedHandler extends EventHandler {
 
   /**
    * Called when new calendar event has been added.
-   * @param event the add event that contains new event information
+   * @param event the makeDraggable event that contains new event information
    */
   void onCalendarEventAdded(CalendarEventAddedEvent event);
 
