@@ -9,7 +9,8 @@ import com.google.gwt.user.client.ui.Label;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class CalendarFrameView extends Composite implements CalendarFrame.Display{
+// TODO: rename to match with presenter.
+public class CalendarFrameView extends Composite implements CalendarFrameImpl.Display{
   private Label frame = new Label();
   private String style = "border: 1px dotted;";
 

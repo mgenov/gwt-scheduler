@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
-public interface Frame {
+public interface Frame<T> {
 
   HasMouseMoveHandlers getFrameMouseMoveHandlers();
 
@@ -32,4 +32,5 @@ public interface Frame {
   void dropObject(Object o);
 
   Widget getWidget();
+
 }

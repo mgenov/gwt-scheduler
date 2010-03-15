@@ -83,4 +83,5 @@ class DragFrame implements Frame {
   public Widget getWidget() {
     return (Widget)display;
   }
+
 }
