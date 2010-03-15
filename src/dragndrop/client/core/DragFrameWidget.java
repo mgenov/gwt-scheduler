@@ -30,11 +30,6 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   }
 
   @Override
-  public void setSize(int width, int height) {
-    frame.setPixelSize(width, height);
-  }
-
-  @Override
   public void setStyle(String styleName) {
     frame.setStyleName(styleName);
   }

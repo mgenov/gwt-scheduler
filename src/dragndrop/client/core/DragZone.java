@@ -82,6 +82,10 @@ public interface DragZone {
     int getLeft();
 
     int getTop();
+
+    void addFrame(Frame frame, int left, int top);
+
+    void removeFrame(Frame frame);
   }
 
   /**
@@ -113,17 +117,6 @@ public interface DragZone {
    * @param styleName style name.
    */
   void setFrameStyle(String styleName);
-
-  /**
-   * Add new Attribute to the frame style. This method adds new attribute to the frame style.
-   * @param attribute attribute to be added. ex: border: 1px dotted;
-   */
-  void addStyleAttribute(String attribute);
-
-  /**
-   * Remove style parameter from frame.
-   */
-  void removeStyle();
 
    /**
    * Add new root who contains drop zones. This roots will be searched to find drop zones.
@@ -166,4 +159,8 @@ public interface DragZone {
   void removeWidget(Widget widget);
 
   void registerFrame(Frame frame, Class clazz);
+
+  Frame getCurrentFrame();
+
+  void setFrameWindowPosition(int left, int top);
 }

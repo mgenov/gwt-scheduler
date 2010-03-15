@@ -1,13 +1,7 @@
 package gwtscheduler.client.widgets.view.columns;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
-import dragndrop.client.core.DragOverEvent;
-import dragndrop.client.core.DragOverHandler;
-import dragndrop.client.core.DropEvent;
-import dragndrop.client.core.DropHandler;
-import dragndrop.client.core.DropZone;
-import dragndrop.client.core.Frame;
+import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.common.Cell;
 
 import java.util.List;
@@ -56,10 +50,11 @@ public class CalendarContent {
     int[] cell = display.getCell(event.getMouseX(), event.getMouseY());
     int[] windowCellPosition = display.getWindowCellPosition(cell);
 
-    Frame frame = event.getFrame();
+    DragZone hasFrame = event.getDragZone();
 
-    frame.setDragZonePosition(windowCellPosition[0] - event.getDragZoneLeft(), windowCellPosition[1] - event.getDragZoneTop());
+    hasFrame.setFrameWindowPosition(windowCellPosition[0], windowCellPosition[1]);
 
+    Frame frame = hasFrame.getCurrentFrame();
     int frameWidth = calendarColumnsFrameGrid.getCellWidth();
     int frameHeight =  calendarColumnsFrameGrid.getCellHeight() /*   * event.getDuration()   */ * 2;
 

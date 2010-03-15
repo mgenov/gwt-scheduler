@@ -142,7 +142,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     main.addCalendarChangeHandler(new CalendarChangeHandler(){
       @Override
-      public void onCalendarMove(CalendarChangeEvent event){
+      public void onCalendarChange(CalendarChangeEvent event){
         Object o = event.getDroppedObject();
         if(o instanceof TestTask){
           GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
@@ -207,7 +207,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
       main.deleteColumn(column);
     } else if (event.getSource() == addColumn) {
-      if (textBox.getText() != "") {
+      if (textBox.getText().equals("")) {
         CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
         main.addColumn(column);
       }

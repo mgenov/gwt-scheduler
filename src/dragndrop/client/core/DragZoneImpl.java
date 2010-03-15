@@ -102,12 +102,14 @@ class DragZoneImpl implements DragZone {
         if(frame == null){
           frame = DragZoneImpl.this.defaultFrame;
         }
-
-        frame.setFrameSize(cloneWidth+1, cloneHeight+1);
+        frame.dropObject(o);
+        frame.setWidth(cloneWidth + 1);
+        frame.setHeight(cloneHeight + 1);
 
         int[] position = calculatePosition(startX, startY);
 
-        frame.go(DragZoneImpl.this, position[0], position[1]);
+        display.addFrame(frame, position[0], position[1]);
+//        frame.go(DragZoneImpl.this, );
         frame.captureFrame();
       }
     });
@@ -115,7 +117,7 @@ class DragZoneImpl implements DragZone {
 
   private int[] calculatePosition(int mouseX, int mouseY){
     int x = (mouseX - (startX - cloneLeft)) + CORRECTION - display.getLeft();
-    int y = (mouseY - (startY - cloneTop))+CORRECTION - display.getTop();
+    int y = (mouseY - (startY - cloneTop)) + CORRECTION - display.getTop();
     return new int[] {x, y};
   }
 
@@ -132,7 +134,8 @@ class DragZoneImpl implements DragZone {
     int mouseY = event.getClientY();
     int[] position = calculatePosition(mouseX, mouseY);
 
-    frame.go(DragZoneImpl.this, position[0], position[1]);
+//    frame.go(DragZoneImpl.this, position[0], position[1]);
+    display.addFrame(frame, position[0], position[1]);
 
     DropZone dropZone = display.getDropZone(dropZones, mouseX, mouseY);
 
@@ -147,9 +150,8 @@ class DragZoneImpl implements DragZone {
       this.dropZone = null;
 
     } else if(this.dropZone != null){
-      Object o = draggingRegister.get(display.getDragWidget());
       // fires event when dragging over drop zone.
-      display.fireEvent(this.dropZone, new DragOverEvent(frame, mouseX, mouseY, display.getTop(), display.getLeft(), o));
+      display.fireEvent(this.dropZone, new DragOverEvent(this, mouseX, mouseY));
     }
   }
 
@@ -159,7 +161,8 @@ class DragZoneImpl implements DragZone {
 
   private void mouseUp(MouseUpEvent event){
     frame.releaseFrameCapture();
-    frame.removeFrameFromDragZone(DragZoneImpl.this);
+    display.removeFrame(frame);
+//    frame.removeFrameFromDragZone(DragZoneImpl.this);
 
     if(dropZones.size() == 0){
       GWT.log("No registered drop zones!", null);
@@ -274,16 +277,6 @@ class DragZoneImpl implements DragZone {
     frame.setFrameStyle(styleName);    
   }
 
-  @Override
-  public void addStyleAttribute(String attribute) {
-    frame.addStyleAttribute(attribute);
-  }
-
-  @Override
-  public void removeStyle() {
-    frame.removeStyle();
-  }
-
   /**
    * Attach DragZone view to the parent widget.
    * @param parent widget where drag zone will be attached.
@@ -316,4 +309,13 @@ class DragZoneImpl implements DragZone {
     frameRegister.put(clazz.getName(), frame);
   }
 
+  @Override
+  public Frame getCurrentFrame() {
+    return frame;
+  }
+
+  @Override
+  public void setFrameWindowPosition(int left, int top) {
+    display.addFrame(frame, left - display.getLeft(), top - display.getTop());
+  }
 }
