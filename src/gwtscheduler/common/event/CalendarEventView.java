@@ -1,8 +1,14 @@
 package gwtscheduler.common.event;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiFactory;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
@@ -10,39 +16,63 @@ import org.cobogw.gwt.user.client.ui.RoundedPanel;
  * @author Miroslav Genov (mgenov@gmail.com)
  */
 public class CalendarEventView extends Composite implements CalendarEvent.Display {
+  interface CalendarEventViewBinder extends UiBinder<Widget, CalendarEventView> {};
+  private static CalendarEventViewBinder uiBinder = GWT.create(CalendarEventViewBinder.class);
 
-    private Label headerTitle = new Label("Title");
-    RoundedLinePanel panel = new RoundedLinePanel(RoundedPanel.ALL, 9);
+  @UiField
+  RoundedLinePanel roundedPanel;
 
-    public CalendarEventView() {
-      panel.setCornerColor("#FAD163");
-      initWidget(panel);
-      
-      VerticalPanel vp = new VerticalPanel();
-      vp.setStyleName("cbg-RP");
-      vp.setWidth("100%");
-      vp.add(headerTitle);
-      vp.add(new Label("test1"));
-      vp.add(new Label("test2"));
-      vp.add(new Label("test3"));
-      vp.add(new Label("test4"));
-      vp.add(new Label("test5"));
+  @UiField
+  Label eventHeader;
 
-      panel.setWidget(vp);
-    }
+  @UiField
+  VerticalPanel contentPanel;
 
-    @Override
-    public void setViewWidth(int width) {
-      setWidth(width + "px");
-    }
+  @UiField
+  Label eventFooter;
 
-    @Override
-    public void setViewHeight(int height) {
-      setHeight(height + "px");
-    }
+  public CalendarEventView() {
+    initWidget(uiBinder.createAndBindUi(this));
 
-    @Override
-    public void setHeaderTitle(String title) {
-      headerTitle.setText(title);
-    }  
+//    contentPanel.add(new Label("test1"));
+//    contentPanel.add(new Label("test2"));
+//    contentPanel.add(new Label("test3"));
+//    contentPanel.add(new Label("test4"));
+//    contentPanel.add(new Label("test5"));
+  }
+
+  @UiFactory
+  public RoundedLinePanel buildRoundedLinePanel(){
+    return new RoundedLinePanel(RoundedPanel.ALL, 3);
+  }
+
+  @Override
+  public void setViewWidth(int width) {
+    roundedPanel.setWidth(width + "px");
+  }
+
+  @Override
+  public void setViewHeight(int height) {
+    roundedPanel.setHeight(height + "px");
+  }
+
+  @Override
+  public int getWidth() {
+    return roundedPanel.getOffsetWidth();
+  }
+
+  @Override
+  public int getHeight() {
+    return roundedPanel.getOffsetHeight();
+  }
+
+  @Override
+  public HasMouseDownHandlers getHeader() {
+    return eventHeader;
+  }
+
+  @Override
+  public void setHeaderTitle(String title) {
+    eventHeader.setText(title);
+  }
 }

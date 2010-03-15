@@ -3,11 +3,13 @@ package gwtscheduler.common.event;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
+import dragndrop.client.core.Draggable;
 import org.goda.time.Interval;
 
 /**
@@ -19,16 +21,21 @@ import org.goda.time.Interval;
  *
  * @author Miroslav Genov (mgenov@gmail.com)
  */
-public class CalendarEvent implements HasClickHandlers {
+public class CalendarEvent implements HasClickHandlers, Draggable {
 
   interface Display {
+
+    HasMouseDownHandlers getHeader();
+
+    void setHeaderTitle(String title);
 
     void setViewWidth(int width);
 
     void setViewHeight(int height);
 
-    void setHeaderTitle(String title);
+    int getWidth();
 
+    int getHeight();
   }
 
   /**
@@ -63,7 +70,7 @@ public class CalendarEvent implements HasClickHandlers {
   public void bindDisplay(Display display) {
     this.display = display;
 
-    display.setHeaderTitle(event.getTitle());
+//    display.setHeaderTitle(event.getTitle());
   }
 
   /**
@@ -112,7 +119,7 @@ public class CalendarEvent implements HasClickHandlers {
   }
 
   /**
-   * Attaches current event to the provided absolute panel.
+   * Attaches current event to the provided absolute roundedPanel.
    *
    * <p/>
    * Make note that the coupling with the AbsolutePanel is really bad idea, but currently
@@ -121,9 +128,9 @@ public class CalendarEvent implements HasClickHandlers {
    * <p/>
    * To re-size the existing event you have to call <code>setSize</code> method.
    *
-   * <p/>The event is attached to the absolute panel by using it's current {@link gwtscheduler.common.event.EventPosition} attribute.
+   * <p/>The event is attached to the absolute roundedPanel by using it's current {@link gwtscheduler.common.event.EventPosition} attribute.
    * 
-   * @param parent the parent panel to which current event will be atached
+   * @param parent the parent roundedPanel to which current event will be atached
    */
   public void go(AbsolutePanel parent) {    
     parent.add((Widget) display, position.getLeft(),position.getTop());
@@ -149,5 +156,30 @@ public class CalendarEvent implements HasClickHandlers {
   @Override
   public void fireEvent(GwtEvent<?> event) {
     eventHandler.fireEvent(event);
+  }
+
+  @Override
+  public HasMouseDownHandlers getHasMouseDownHandler() {
+    return display.getHeader();
+  }
+
+  @Override
+  public Object getDropObject() {
+    return event;
+  }
+
+  @Override
+  public int getWidth() {
+    return display.getWidth();
+  }
+
+  @Override
+  public int getHeight() {
+    return display.getHeight();
+  }
+
+  @Override
+  public Widget getSourceWidget() {
+    return (Widget)display;
   }
 }
