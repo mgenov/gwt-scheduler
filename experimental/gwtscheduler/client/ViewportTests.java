@@ -132,8 +132,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
-    dragZone.addWidget(mainPanel);
-    dragZone.go(RootPanel.get());
 
     VerticalPanel testPanel = new VerticalPanel();
     testPanel.add(new Label("Wazaaaap"));
@@ -143,8 +141,10 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     testPanel.add(new Label("Wazaaaap"));
     testPanel.add(new Label("Wazaaaap"));
     testPanel.add(new Label("Wazaaaap"));
-    dragZone.go(testPanel);
-    RootPanel.get().add(testPanel);
+    dragZone.addWidget(mainPanel);
+    dragZone.go(RootPanel.get());
+//    dragZone.go(testPanel);
+//    RootPanel.get().add(testPanel);
 
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();
