@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.common;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.events.TeamTaskEvent;
+import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.CalendarType;
@@ -76,5 +76,5 @@ public interface CalendarPresenter {
 
   CalendarType getCalendarType();
 
-  void addCalendarEvent(TeamTaskEvent event);
+  void addCalendarEvent(Event event);
 }

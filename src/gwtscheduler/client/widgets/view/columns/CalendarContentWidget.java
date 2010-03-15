@@ -12,7 +12,7 @@ import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
-import gwtscheduler.client.widgets.view.common.EventDashboardView;
+import gwtscheduler.client.widgets.view.common.EventsDashboardView;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
@@ -37,7 +37,7 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   @UiField
   CalendarColumnsFrameGridWidget columnsPanel;
   @UiField
-  EventDashboardView eventDashboardView;
+  EventsDashboardView eventsDashboardView;
   @UiField
   LassoAwarePanel lassoAwarePanel;
 
@@ -88,12 +88,12 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
 
   @Override
   public int[] getCell(int x, int y) {        // todo: remove. use EventDashboard 
-    return eventDashboardView.getCellPosition(x, y);
+    return eventsDashboardView.getCellPosition(x, y);
   }
 
   @Override
   public boolean isDashboardAttached(DropEvent event) {
-    if(event.getSourceWidget().getParent() == eventDashboardView){
+    if(event.getSourceWidget().getParent() == eventsDashboardView){
       return true;
     }
     return false;
@@ -101,16 +101,16 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
 
   @Override
   public int[] getWindowCellPosition(int[] cell) {         // TODO:
-    return eventDashboardView.getWindowCellPosition(cell);
+    return eventsDashboardView.getWindowCellPosition(cell);
   }
 
   @Override
   public EventsDashboard.Display getEventsDashboard() {
-    return null;  
+    return eventsDashboardView;  
   }
 
-  public EventDashboardView getEventsPanel() {
-    return eventDashboardView;
+  public EventsDashboardView getEventsPanel() {
+    return eventsDashboardView;
   }
 
   public LassoAwarePanel getLassoAwarePanel() {

@@ -1,5 +1,6 @@
 package gwtscheduler.client.utils;
 
+import com.google.gwt.core.client.GWT;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.common.calendar.IntervalType;
 
@@ -103,6 +104,14 @@ public class GenericDateGenerator implements DateGenerator {
   public Interval getIntervalForDate(DateTime date) {
     generator.goTo(date);
     return interval();
+  }
+
+  @Override
+  public int getRowForInstant(Instant time, int rowsCount) {
+    int minutesPerCell = (24 * 60) /rowsCount;
+    MutableDateTime mTime = time.toMutableDateTime();
+    int row = Math.round(mTime.getMinuteOfDay()/minutesPerCell);
+    return row;
   }
 
 

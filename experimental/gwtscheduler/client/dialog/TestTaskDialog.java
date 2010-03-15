@@ -33,8 +33,8 @@ public class TestTaskDialog {
     void setColumnTitle(String title);
   }
 
-  private TestTask testTask;
   private Display display;
+  private TestTask task;
   private CalendarColumn column;
 
   public TestTaskDialog() {
@@ -53,6 +53,7 @@ public class TestTaskDialog {
   }
 
   public void setTestTask(TestTask task, CalendarColumn column){
+    this.task = task;
     this.column = column;
     display.setColumnTitle(this.column.getTitle());
     display.setTitle(task.getTitle());
@@ -73,10 +74,14 @@ public class TestTaskDialog {
   }
 
   public TestTask getTestTask() {
-    return testTask;
+    return task;
   }
 
   public CalendarColumn getColumn() {
     return column;
+  }
+
+  public void close() {
+    display.close();
   }
 }

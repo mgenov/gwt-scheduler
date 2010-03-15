@@ -2,7 +2,7 @@ package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
-import gwtscheduler.client.events.TeamTaskEvent;
+import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.common.calendar.CalendarFrame;
@@ -105,11 +105,11 @@ public class CalendarContent {
     });
   }
 
-  public void addCalendarEvent(List<CalendarColumn> columns, TeamTaskEvent event) {
+  public void addCalendarEvent(List<CalendarColumn> columns, Event event) {
     int index=0;
     for (CalendarColumn column : columns) {
       if(column.isEventForColumn(event)){
-//        eventsDashboard.
+        eventsDashboard.addCalendarEvent(index,event);
       }
       index++;
     }

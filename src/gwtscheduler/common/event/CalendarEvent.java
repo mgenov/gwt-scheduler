@@ -23,7 +23,7 @@ import org.goda.time.Interval;
  */
 public class CalendarEvent implements HasClickHandlers, Draggable {
 
-  interface Display {
+  public interface Display {
 
     HasMouseDownHandlers getHeader();
 
@@ -57,9 +57,11 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
    * Default constructor.
    *
    * @param event the event that is wrapping to provided calendar event.
+   * @param position
    */
-  public CalendarEvent(Event event) {
+  public CalendarEvent(Event event, EventPosition position) {
     this.event = event;
+    this.position = position;
   }
 
   /**
@@ -70,7 +72,7 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
   public void bindDisplay(Display display) {
     this.display = display;
 
-//    display.setHeaderTitle(event.getTitle());
+    display.setHeaderTitle(event.getTitle());
   }
 
   /**
@@ -119,7 +121,7 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
   }
 
   /**
-   * Attaches current event to the provided absolute roundedPanel.
+   * Attaches current event to the provided absolute panel.
    *
    * <p/>
    * Make note that the coupling with the AbsolutePanel is really bad idea, but currently
@@ -128,9 +130,9 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
    * <p/>
    * To re-size the existing event you have to call <code>setSize</code> method.
    *
-   * <p/>The event is attached to the absolute roundedPanel by using it's current {@link gwtscheduler.common.event.EventPosition} attribute.
+   * <p/>The event is attached to the absolute panel by using it's current {@link gwtscheduler.common.event.EventPosition} attribute.
    * 
-   * @param parent the parent roundedPanel to which current event will be atached
+   * @param parent the parent panel to which current event will be atached
    */
   public void go(AbsolutePanel parent) {    
     parent.add((Widget) display, position.getLeft(),position.getTop());

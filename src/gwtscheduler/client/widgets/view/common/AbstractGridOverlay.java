@@ -32,7 +32,7 @@ public class AbstractGridOverlay extends AbsolutePanel implements WidgetResizeHa
    * @param container the main container
    */
   AbstractGridOverlay(AbsolutePanel container) {
-    // lasso/ events set up
+    // lasso events set up
     overlayPanel = container;
     add(overlayPanel, 0, 0);
   }

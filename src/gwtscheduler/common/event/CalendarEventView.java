@@ -39,6 +39,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 //    contentPanel.add(new Label("test3"));
 //    contentPanel.add(new Label("test4"));
 //    contentPanel.add(new Label("test5"));
+    this.getElement().getStyle().setZIndex(33);
   }
 
   @UiFactory

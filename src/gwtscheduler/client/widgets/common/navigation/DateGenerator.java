@@ -63,4 +63,6 @@ public interface DateGenerator {
   Interval getIntervalForRange(int[] start, int[] end, int rowNum);
 
   Interval getIntervalForDate(DateTime date);
+
+  int getRowForInstant(Instant time, int rowsCount);
 }
