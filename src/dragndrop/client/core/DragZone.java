@@ -6,8 +6,6 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.TestTask;
-import gwtscheduler.common.calendar.CalendarFrame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,7 +156,7 @@ public interface DragZone {
    */
   void removeWidget(Widget widget);
 
-  void registerFrame(Frame frame, Class clazz);
+  void registerFrame(Frame frame, Class... clazz);
 
   Frame getCurrentFrame();
 

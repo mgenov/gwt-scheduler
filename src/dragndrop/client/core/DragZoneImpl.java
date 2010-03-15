@@ -304,9 +304,11 @@ class DragZoneImpl implements DragZone {
     display.removeWidget(widget);
   }
 
-  public void registerFrame(Frame frame, Class clazz){
+  public void registerFrame(Frame frame, Class... clazz){
     attachFrameHandlers(frame);
-    frameRegister.put(clazz.getName(), frame);
+    for(Class c : clazz){
+      frameRegister.put(c.getName(), frame);
+    }
   }
 
   @Override

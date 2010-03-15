@@ -5,6 +5,7 @@ import dragndrop.client.core.*;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
+import gwtscheduler.common.calendar.CalendarFrame;
 
 import java.util.List;
 
@@ -63,11 +64,13 @@ public class CalendarContent {
     hasFrame.setFrameWindowPosition(windowCellPosition[0], windowCellPosition[1]);
 
     Frame frame = hasFrame.getCurrentFrame();
-    int frameWidth = calendarColumnsFrameGrid.getCellWidth();
-    int frameHeight =  calendarColumnsFrameGrid.getCellHeight() /*   * event.getDuration()   */ * 2;
+    if(frame instanceof CalendarFrame){
+      int cellWidth = calendarColumnsFrameGrid.getCellWidth();
+      int cellHeight =  calendarColumnsFrameGrid.getCellHeight();
 
-    frame.setWidth(frameWidth);
-    frame.setHeight(frameHeight);
+      CalendarFrame cellFrame = (CalendarFrame)frame;
+      cellFrame.onDragOver(cellWidth, cellHeight);
+    }
   }
 
   public List<Cell<Element>> getFrameGridDecorables() {

@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import datepickernavigation.client.DatePickerNavigation;
@@ -24,9 +25,6 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.common.calendar.CalendarFrame;
-import gwtscheduler.common.calendar.CalendarFrameView;
-import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.Interval;
@@ -79,8 +77,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     ticketsPanel.add(ticket2.getDisplay());
 //    ticketsPanel.add(ticket3.getDisplay());
 
-    CalendarFrame frame = new CalendarFrame();
-    frame.bindDisplay(new CalendarFrameView());
+    TicketPresenterFrame frame = new TicketPresenterFrame();
+    frame.bindDisplay(new TicketPresenterFrameView());
     
     DragZone dragZone = Zones.getDragZone();
     dragZone.add(ticket1);
@@ -130,13 +128,23 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //    dragZone.addDropZoneRoot(dropRoot);
 
     VerticalPanel mainPanel = new VerticalPanel();
-//    mainPanel.add(dropRoot);
+//    mainPanel.makeDraggable(dropRoot);
     mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
     dragZone.addWidget(mainPanel);
     dragZone.go(RootPanel.get());
 
+    VerticalPanel testPanel = new VerticalPanel();
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    testPanel.add(new Label("Wazaaaap"));
+    dragZone.go(testPanel);
+    RootPanel.get().add(testPanel);
 
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();

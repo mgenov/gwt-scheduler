@@ -3,11 +3,13 @@ package gwtscheduler.common.event;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
+import dragndrop.client.core.Draggable;
 import org.goda.time.Interval;
 
 /**
@@ -19,15 +21,21 @@ import org.goda.time.Interval;
  *
  * @author Miroslav Genov (mgenov@gmail.com)
  */
-public class CalendarEvent implements HasClickHandlers {
+public class CalendarEvent implements HasClickHandlers, Draggable {
 
   public interface Display {
+
+    HasMouseDownHandlers getHeader();
+
+    void setHeaderTitle(String title);
 
     void setViewWidth(int width);
 
     void setViewHeight(int height);
 
-    void setHeaderTitle(String title);
+    int getWidth();
+
+    int getHeight();
   }
 
   /**
@@ -65,7 +73,6 @@ public class CalendarEvent implements HasClickHandlers {
     this.display = display;
 
     display.setHeaderTitle(event.getTitle());
-//    display.setPosition(position);
   }
 
   /**
@@ -151,5 +158,30 @@ public class CalendarEvent implements HasClickHandlers {
   @Override
   public void fireEvent(GwtEvent<?> event) {
     eventHandler.fireEvent(event);
+  }
+
+  @Override
+  public HasMouseDownHandlers getHasMouseDownHandler() {
+    return display.getHeader();
+  }
+
+  @Override
+  public Object getDropObject() {
+    return event;
+  }
+
+  @Override
+  public int getWidth() {
+    return display.getWidth();
+  }
+
+  @Override
+  public int getHeight() {
+    return display.getHeight();
+  }
+
+  @Override
+  public Widget getSourceWidget() {
+    return (Widget)display;
   }
 }

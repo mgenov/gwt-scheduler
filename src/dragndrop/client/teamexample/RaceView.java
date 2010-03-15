@@ -5,9 +5,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import dragndrop.client.core.DragInEvent;
-import dragndrop.client.core.DragOverHandler;
-import dragndrop.client.core.DragOutHandler;
 import dragndrop.client.core.DragInHandler;
+import dragndrop.client.core.DragOutHandler;
+import dragndrop.client.core.DragOverHandler;
 import dragndrop.client.core.DropEvent;
 import dragndrop.client.core.DropHandler;
 
