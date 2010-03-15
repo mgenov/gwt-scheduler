@@ -10,7 +10,10 @@
             </g:caption>
             <g:HTMLPanel>
                 <div>
-                    <span>какво</span>
+                    <span>каде : </span>
+                    <d:TextInputFieldWidget ui:field="columnTitle"/>
+                    <br/>
+                    <span>какво :</span>
                     <d:TextInputFieldWidget ui:field="title"/>
                     <br/>
                     <span>старт :</span>

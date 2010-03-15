@@ -5,6 +5,8 @@ import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 
 import java.util.List;

@@ -1,9 +1,8 @@
-package gwtscheduler.client.widgets.view.columns;
+package gwtscheduler.client.widgets.view.calendarevent;
 
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
-import gwtscheduler.client.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}

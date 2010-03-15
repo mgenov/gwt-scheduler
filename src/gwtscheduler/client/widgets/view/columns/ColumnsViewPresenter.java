@@ -1,12 +1,10 @@
 package gwtscheduler.client.widgets.view.columns;
 
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.CalendarChangeEvent;
-import gwtscheduler.client.CalendarDropEvent;
-import gwtscheduler.client.CalendarDropHandler;
-import gwtscheduler.client.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;

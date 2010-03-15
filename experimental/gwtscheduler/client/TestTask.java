@@ -1,12 +1,13 @@
 package gwtscheduler.client;
 
+import gwtscheduler.common.event.Event;
 import org.goda.time.Hours;
 import org.goda.time.Interval;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class TestTask {
+public class TestTask implements Event {
 
   private String description;
   private Interval interval;

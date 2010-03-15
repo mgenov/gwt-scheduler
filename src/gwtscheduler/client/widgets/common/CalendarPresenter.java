@@ -1,16 +1,14 @@
 package gwtscheduler.client.widgets.common;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.CalendarChangeHandler;
-import gwtscheduler.client.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.CalendarType;
-import gwtscheduler.client.HasCalendarChangeHandlers;
+import gwtscheduler.client.widgets.view.calendarevent.HasCalendarChangeHandlers;
+import gwtscheduler.client.widgets.view.calendarevent.HasCalendarDropHandlers;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
-import gwtscheduler.client.widgets.view.columns.HasCalendarDropHandlers;
-import org.goda.time.Instant;
 import org.goda.time.Interval;
 
 /**

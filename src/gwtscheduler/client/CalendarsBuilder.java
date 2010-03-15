@@ -32,6 +32,7 @@ public class CalendarsBuilder {
   private AppConfiguration configuration;
   private int columns;
   private int rows;
+  private int daysLineHeightEMs;
 
   /**
    * Sets a new multy column calednar in the builder.
@@ -44,6 +45,7 @@ public class CalendarsBuilder {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
     columns = columnsProvider.getColumns().size();
+    daysLineHeightEMs = configuration.daysLineHeightEMs();
 
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.DAY, getCurrentDate());
@@ -69,6 +71,7 @@ public class CalendarsBuilder {
   public CalendarsBuilder newWeekColumn(AppConfiguration configuration, EventBus eventBus) {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
+    daysLineHeightEMs = configuration.daysLineHeightEMs();
 
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.WEEK, getCurrentDate());
@@ -104,7 +107,7 @@ public class CalendarsBuilder {
    * @return
    */
   public CalendarPresenter build() {
-    CalendarPresenter.Display display = new ColumnsViewWidget(rows, columns);
+    CalendarPresenter.Display display = new ColumnsViewWidget(rows, columns, daysLineHeightEMs);
     calendar.bindDisplay(display);
     return calendar;
   }

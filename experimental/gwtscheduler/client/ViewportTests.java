@@ -4,10 +4,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.datepicker.client.DatePicker;
 import datepickernavigation.client.DatePickerNavigation;
 import dragndrop.client.core.DragZone;
 import dragndrop.client.core.Zones;
@@ -20,9 +18,14 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.calendar.CalendarFrame;
 import gwtscheduler.common.calendar.CalendarFrameView;
+import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.Interval;
@@ -159,6 +162,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       @Override
       public void onCalendarDrop(CalendarDropEvent event) {
         Object o = event.getDroppedObject();
+        CalendarColumn column = event.getCalendarColumn();
+        
         if(o instanceof TestTask){
           GWT.log("Dropped: TicketPresenter", null);
           GWT.log("On calendar type: " + event.getCalendarType().toString(), null);
@@ -169,11 +174,21 @@ public class ViewportTests implements EntryPoint, ClickHandler {
           TestTask testTask = (TestTask) o;
           Interval interval = new Interval(event.getDropTime(), event.getDropTime().plus(3600 * testTask.getDuration() * 1000));
           testTask.setInterval(interval);
-          dialog.setTestTask(testTask);
+          dialog.setTestTask(testTask,column);
           dialog.show();
         }
       }
     });
+
+    dialog.getOKButton().addClickHandler(new ClickHandler(){
+      @Override
+      public void onClick(ClickEvent event) {
+        TestTask testTask =  dialog.getTestTask();
+        CalendarColumn column = dialog.getColumn();
+//        main.addEvent(testTask,column);
+      }
+    });
+
 
     main.selectTab(0);
 //    registry.fireDateNavigation(getCurrentDate());
@@ -207,7 +222,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
       main.deleteColumn(column);
     } else if (event.getSource() == addColumn) {
-      if (textBox.getText().equals("")) {
+      if (!textBox.getText().equals("")) {
         CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
         main.addColumn(column);
       }
@@ -225,12 +240,10 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       return DateTimeConstants.MONDAY;
     }
 
-
     @Override
     public int getDayViewTopRows() {
       return 3;
     }
-
 
     @Override
     public int daysInWeek() {

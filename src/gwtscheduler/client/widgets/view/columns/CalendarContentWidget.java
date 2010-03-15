@@ -43,11 +43,13 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   
   private int rows;
   private int columns;
+  private int daysLineHeightEMs;
 
 
-  public CalendarContentWidget(int rows, int columns) {
+  public CalendarContentWidget(int rows, int columns, int daysLineHeightEMs) {
     this.rows = rows;
     this.columns = columns;
+    this.daysLineHeightEMs = daysLineHeightEMs;
     initWidget(uiBinder.createAndBindUi(this));
   }
 
@@ -58,7 +60,7 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
    */
   @UiFactory
   public CalendarColumnsFrameGridWidget buildColumnPanel() {
-    return new CalendarColumnsFrameGridWidget(rows, columns);
+    return new CalendarColumnsFrameGridWidget(rows, columns,daysLineHeightEMs);
   }
 
   @Override

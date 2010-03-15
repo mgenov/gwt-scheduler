@@ -65,6 +65,10 @@
 .headerCell{
     overflow:hidden;
     width:90px;
+    white-space: nowrap;
+    /*do not work in mozilla*/
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
 }
 .headerEnd{
   background-color: lightBlued;  

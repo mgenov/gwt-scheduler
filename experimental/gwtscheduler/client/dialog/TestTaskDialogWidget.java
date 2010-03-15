@@ -29,6 +29,8 @@ public class TestTaskDialogWidget extends Composite implements TestTaskDialog.Di
   }
 
   @UiField
+  TextInputFieldWidget columnTitle;
+  @UiField
   TextInputFieldWidget title;
   @UiField
   TextInputFieldWidget startDate;
@@ -53,6 +55,7 @@ public class TestTaskDialogWidget extends Composite implements TestTaskDialog.Di
   public TestTaskDialogWidget() {
     initWidget(uiBinder.createAndBindUi(this));
     dialog.getElement().getStyle().setZIndex(100);
+    columnTitle.setEnabled(false);
   }
 
   @Override
@@ -92,7 +95,17 @@ public class TestTaskDialogWidget extends Composite implements TestTaskDialog.Di
   }
 
   @Override
+  public HasClickHandlers getOKButton() {
+    return ok;
+  }
+
+  @Override
   public void setTitle(String title) {
     this.title.setText(title);
+  }
+
+  @Override
+  public void setColumnTitle(String title) {
+    columnTitle.setText(title);
   }
 }
