@@ -11,6 +11,7 @@ import dragndrop.client.core.DragZone;
 import dragndrop.client.core.Zones;
 import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
+import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -185,7 +186,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       public void onClick(ClickEvent event) {
         TestTask testTask =  dialog.getTestTask();
         CalendarColumn column = dialog.getColumn();
-//        main.addEvent(testTask,column);
+        TeamTaskEvent teamTaskEvent = new TeamTaskEvent(testTask,column);
+        main.addEvent(teamTaskEvent);
       }
     });
 

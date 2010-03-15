@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.event.shared.HandlerRegistration;
+import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
@@ -225,6 +226,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public CalendarType getCalendarType() {
     return type;
+  }
+
+  @Override
+  public void addCalendarEvent(TeamTaskEvent event) {
+    calendarContent.addCalendarEvent(columns,event);
+
   }
 
   @Override

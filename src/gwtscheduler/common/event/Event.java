@@ -28,4 +28,10 @@ public interface Event {
    * @return the event title
    */
   String getTitle();
+
+  /**
+   * Returns the column id as object
+   * @return
+   */
+  Object getColumnId();
 }

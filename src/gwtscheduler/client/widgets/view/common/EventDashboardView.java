@@ -3,14 +3,13 @@ package gwtscheduler.client.widgets.view.common;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.google.gwt.dom.client.Style.Position;
-import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.common.event.CalendarEventView;
 
 /**
  * This class is responsible for displaying events.
  * @author malp
  */
-public class EventDashboardView extends AbstractGridOverlay implements EventDashboard.Display {
+public class EventDashboardView extends AbstractGridOverlay implements EventsDashboard.Display {
 
   /**
    * Default constructor.

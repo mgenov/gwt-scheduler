@@ -39,8 +39,8 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
 //    for (CalendarColumn column : columns) {
 //      column.setObject(current);
 //      current = current.plusDays(1);
-    }
-  
+  }
+
 
   public static class TeamColumn implements CalendarColumn {
     private final Team team;
@@ -65,7 +65,15 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
 
     @Override
     public boolean isEventForColumn(Event event) {
-      return false;
+      if (((String) event.getColumnId()).equals((String) getId())) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public Object getId() {
+      return getTitle();
     }
   }
 
@@ -87,8 +95,8 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
 
   public CalendarColumn getColumn(String title) {
     for (CalendarColumn column : columns) {
-      if(column.getTitle().equals(title)){
-        return  column;
+      if (column.getTitle().equals(title)) {
+        return column;
       }
     }
     return null;

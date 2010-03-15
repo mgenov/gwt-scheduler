@@ -14,7 +14,7 @@ import java.util.List;
  * 
  * @author Miroslav Genov (mgenov@gmail.com)
  */
-public class EventDashboard {
+public class EventsDashboard {
 
   public interface Display {
     
@@ -26,7 +26,7 @@ public class EventDashboard {
   private Display display;
   private final EventBus eventBus;
 
-  public EventDashboard(EventBus eventBus) {
+  public EventsDashboard(EventBus eventBus) {
     this.eventBus = eventBus;
   }
 

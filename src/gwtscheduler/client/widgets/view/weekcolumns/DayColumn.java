@@ -55,4 +55,9 @@ public class DayColumn implements CalendarColumn {
     //TODO implement this later
     return false;
   }
+
+  @Override
+  public Object getId() {
+    return date;
+  }
 }

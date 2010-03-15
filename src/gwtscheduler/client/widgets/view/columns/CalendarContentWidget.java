@@ -13,6 +13,7 @@ import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.EventDashboardView;
+import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
 import java.util.List;
@@ -101,6 +102,11 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   @Override
   public int[] getWindowCellPosition(int[] cell) {         // TODO:
     return eventDashboardView.getWindowCellPosition(cell);
+  }
+
+  @Override
+  public EventsDashboard.Display getEventsDashboard() {
+    return null;  
   }
 
   public EventDashboardView getEventsPanel() {

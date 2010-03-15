@@ -1,6 +1,7 @@
 package gwtscheduler.tests.gwt;
 
 import com.google.gwt.event.shared.HandlerRegistration;
+import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.CalendarType;
@@ -110,6 +111,11 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   @Override
   public CalendarType getCalendarType() {
     return null;
+  }
+
+  @Override
+  public void addCalendarEvent(TeamTaskEvent event) {
+    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @Override

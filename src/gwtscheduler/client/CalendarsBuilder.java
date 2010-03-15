@@ -12,6 +12,7 @@ import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
+import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
 import gwtscheduler.common.calendar.IntervalType;
 import org.goda.time.DateTime;
@@ -53,7 +54,7 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid());
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(eventBus));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
@@ -83,7 +84,7 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid());
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(eventBus));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
