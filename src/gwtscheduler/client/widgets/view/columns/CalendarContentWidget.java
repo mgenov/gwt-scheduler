@@ -13,6 +13,7 @@ import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.EventDashboardView;
+import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
 import java.util.List;
@@ -43,11 +44,13 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   
   private int rows;
   private int columns;
+  private int daysLineHeightEMs;
 
 
-  public CalendarContentWidget(int rows, int columns) {
+  public CalendarContentWidget(int rows, int columns, int daysLineHeightEMs) {
     this.rows = rows;
     this.columns = columns;
+    this.daysLineHeightEMs = daysLineHeightEMs;
     initWidget(uiBinder.createAndBindUi(this));
   }
 
@@ -58,7 +61,7 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
    */
   @UiFactory
   public CalendarColumnsFrameGridWidget buildColumnPanel() {
-    return new CalendarColumnsFrameGridWidget(rows, columns);
+    return new CalendarColumnsFrameGridWidget(rows, columns,daysLineHeightEMs);
   }
 
   @Override
@@ -99,6 +102,11 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   @Override
   public int[] getWindowCellPosition(int[] cell) {         // TODO:
     return eventDashboardView.getWindowCellPosition(cell);
+  }
+
+  @Override
+  public EventsDashboard.Display getEventsDashboard() {
+    return null;  
   }
 
   public EventDashboardView getEventsPanel() {

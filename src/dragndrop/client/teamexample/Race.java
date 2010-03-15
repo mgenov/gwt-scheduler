@@ -2,15 +2,15 @@ package dragndrop.client.teamexample;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import dragndrop.client.core.DropHandler;
 import dragndrop.client.core.DropEvent;
+import dragndrop.client.core.DropHandler;
 import dragndrop.client.core.DropZone;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)     
  */
 public class Race {
-  public interface Display extends DropZone{
+  public interface Display extends DropZone {
     void addNewTeam(String name, String vehicles);
   }
 

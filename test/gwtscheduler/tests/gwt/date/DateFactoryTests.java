@@ -44,7 +44,7 @@ public class DateFactoryTests extends GWTTestCase {
   @Before
   @Override
   public void gwtSetUp() {
-    config = AppInjector.GIN.getInjector().getConfiguration();
+//    config = AppInjector.GIN.getInjector().getConfiguration();
 
     now = new DateTime();
 

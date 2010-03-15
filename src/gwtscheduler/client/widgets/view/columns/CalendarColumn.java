@@ -33,4 +33,6 @@ public interface CalendarColumn {
    */
   boolean isEventForColumn(Event event);
 
+  Object getId();
+
 }

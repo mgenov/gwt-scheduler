@@ -35,7 +35,7 @@ public class DayColumn implements CalendarColumn {
       int year = date.getYear();
       int month = date.getMonthOfYear();
       int day = date.getDayOfMonth();
-      title = day + "-" + month+ "-" + year;
+      title = day + "/" + month+ "/" + year;
     }
     return title;
   }
@@ -54,5 +54,10 @@ public class DayColumn implements CalendarColumn {
   public boolean isEventForColumn(Event event) {
     //TODO implement this later
     return false;
+  }
+
+  @Override
+  public Object getId() {
+    return date;
   }
 }

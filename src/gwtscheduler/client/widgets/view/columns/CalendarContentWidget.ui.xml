@@ -7,11 +7,11 @@
 
     <ui:style>
     </ui:style>
-    <g:VerticalPanel>
+    <!--<g:VerticalPanel>-->
         <common:LassoAwarePanel ui:field="lassoAwarePanel">
             <common:EventDashboardView ui:field="eventDashboardView"/>
             <columns:CalendarColumnsFrameGridWidget ui:field="columnsPanel"/>
         </common:LassoAwarePanel>
-    </g:VerticalPanel>
+    <!--</g:VerticalPanel>-->
 
 </ui:UiBinder>

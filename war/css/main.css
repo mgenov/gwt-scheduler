@@ -6,21 +6,25 @@
 /**
  * Body css. We'll reset the defs.
  */
+
+/**
+* Body css. We'll reset the defs.
+*/
 body {
-	color: black;
-	margin: 0;
-	border: 0;
-	padding: 0;
-	background: #fff;
-	direction: ltr;
-	font-family: Calibri, sans-serif;
+    color: black;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: #fff;
+    direction: ltr;
+    font-family: Calibri, sans-serif;
 }
 
 /** 
  * Misc 
  */
 .fixed {
-	table-layout: fixed;
+    table-layout: fixed;
 }
 
 /**
@@ -30,15 +34,15 @@ body {
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarFirst {
-	width: 5px; /* first tab distance from the left */
+    width: 5px; /* first tab distance from the left */
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarRest {
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarItem {
-	border-collapse: collapse;
-	margin-left: 6px;
+    border-collapse: collapse;
+    margin-left: 6px;
 }
 
 .gwt-DecoratedTabBar .tabTopCenter {
@@ -91,7 +95,7 @@ body {
 	padding: 0px 4px 2px 4px;
 	cursor: pointer;
 	cursor: hand;
-	color: black ;
+	color: black;
 	font-weight: bold;
 	text-align: center;
 	background: #d0e4f6;

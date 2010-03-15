@@ -2,7 +2,9 @@ package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
+import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.widgets.common.Cell;
+import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.common.calendar.CalendarFrame;
 
 import java.util.List;
@@ -27,18 +29,24 @@ public class CalendarContent {
 
     int[] getWindowCellPosition(int[] cell); // TODO: remove.. use EventDashboard presenter
 
+    EventsDashboard.Display getEventsDashboard();
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
+  private EventsDashboard eventsDashboard;
   private Display display;
 
-  public CalendarContent(CalendarColumnsFrameGrid calendarColumnsFrameGrid) {
+  public CalendarContent(CalendarColumnsFrameGrid calendarColumnsFrameGrid, EventsDashboard eventsDashboard) {
     this.calendarColumnsFrameGrid = calendarColumnsFrameGrid;
+    this.eventsDashboard = eventsDashboard;
   }
 
   public void bindDisplay(Display display) {
     this.display = display;
+
     calendarColumnsFrameGrid.bindDisplay(display.getCalendarColumnsFrameGridDisplay());
+    eventsDashboard.bindDisplay(display.getEventsDashboard());
+
     display.addDragOverHandler(new DragOverHandler(){
       @Override
       public void onDragOver(DragOverEvent event) {
@@ -97,4 +105,13 @@ public class CalendarContent {
     });
   }
 
+  public void addCalendarEvent(List<CalendarColumn> columns, TeamTaskEvent event) {
+    int index=0;
+    for (CalendarColumn column : columns) {
+      if(column.isEventForColumn(event)){
+//        eventsDashboard.
+      }
+      index++;
+    }
+  }
 }

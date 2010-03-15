@@ -11,6 +11,12 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.HasCalendarChangeHandlers;
+import gwtscheduler.client.widgets.view.calendarevent.HasCalendarDropHandlers;
 import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
@@ -35,7 +41,7 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewWidget extends Composite implements CalendarPresenter.Display, HasWidgetRedrawHandlers,
-        LassoAwarePanel.LassoHandler, HasWidgets {
+        LassoAwarePanel.LassoHandler, HasWidgets, HasCalendarDropHandlers, HasCalendarChangeHandlers {
 
   @UiField
   VerticalPanel impl;
@@ -64,13 +70,15 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 
   private int rows;
   private int columns;
+  private int daysLineHeightEMs;
 
   /**
    * Default constructor.
    */
-  public ColumnsViewWidget(int rows, int columns) {
+  public ColumnsViewWidget(int rows, int columns,int daysLineHeightEMs) {
     this.rows = rows;
     this.columns = columns;
+    this.daysLineHeightEMs = daysLineHeightEMs;
     initWidget(uiBinder.createAndBindUi(this));
     content.getEventsPanel().setComplexGrid(this);
     
@@ -95,7 +103,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 
   @UiFactory
   public CalendarContentWidget buildContent(){
-    return new CalendarContentWidget(rows, columns);
+    return new CalendarContentWidget(rows, columns,daysLineHeightEMs);
   }
 
   /**
@@ -120,6 +128,16 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   @Override
+  public HasCalendarDropHandlers getHasCalendarDropHandlers() {
+    return this;  
+  }
+
+  @Override
+  public HasCalendarChangeHandlers getHasCalendarChangeHandlers() {
+    return this; 
+  }
+
+  @Override
   public int getHeight() {
     return content.getCalendarColumnsFrameGridDisplay().getHeight();
   }
@@ -139,9 +157,11 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
       DOM.setStyleAttribute(content.getEventsPanel().getElement(), "left", offset[0] + "px");
     }
 
-    AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
-    lassoPanel.setSize("100%", (config.daysLineHeightEMs() * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
-    content.getEventsPanel().setSize("100%", (config.daysLineHeightEMs() * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
+//    AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
+//    lassoPanel.setSize("100%", (config.daysLineHeightEMs() * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
+    lassoPanel.setSize("100%", (daysLineHeightEMs * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
+//    content.getEventsPanel().setSize("100%", (config.daysLineHeightEMs() * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
+    content.getEventsPanel().setSize("100%", (daysLineHeightEMs * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
   }
 
 
@@ -189,5 +209,15 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @Override
   public boolean remove(Widget widget) {
     return impl.remove(widget);
+  }
+
+  @Override
+  public HandlerRegistration addDropHandler(CalendarDropHandler handler) {
+    return addHandler(handler, CalendarDropEvent.TYPE);  
+  }
+
+  @Override
+  public HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler) {
+    return addHandler(handler, CalendarChangeEvent.TYPE);
   }
 }

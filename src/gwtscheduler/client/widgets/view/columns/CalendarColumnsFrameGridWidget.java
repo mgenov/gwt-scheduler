@@ -48,7 +48,7 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
   private WidgetResizeHandler rh;
 
   /** static ref to app configuration */
-  private static final AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
+//  private static final AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
 
   /** ui binder instance */
   private static AbstractDaysPanelUiBinder uiBinder = GWT.create(AbstractDaysPanelUiBinder.class);
@@ -59,17 +59,20 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
 
   private int rows;
   private int columns;
+  private int daysLineHeightEMs;
 
   /**
    * Default constructor.
    */
-  public CalendarColumnsFrameGridWidget(int rows,int columns) {
+  public CalendarColumnsFrameGridWidget(int rows, int columns, int daysLineHeightEMs) {
     this.rows = rows;
     this.columns = columns;
+    this.daysLineHeightEMs = daysLineHeightEMs;
     initWidget(uiBinder.createAndBindUi(this));
     rh = new HorizontalCalendarViewPanelResizeHandler(grid);
 
-    int lh = config.daysLineHeightEMs();
+//    int lh = config.daysLineHeightEMs();
+    int lh = daysLineHeightEMs;
     container.setSize("100%",rows * lh + "em");
     grid.setSize("100%", rows * lh + "em");
   }

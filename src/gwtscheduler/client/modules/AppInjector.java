@@ -31,7 +31,7 @@ public interface AppInjector extends Ginjector {
    * Gets the application configuration.
    * @return the app config
    */
-  AppConfiguration getConfiguration();
+//  AppConfiguration getConfiguration();
 
   /**
    *Gets the event bus.

@@ -4,9 +4,9 @@ import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import dragndrop.client.core.DropHandler;
 import dragndrop.client.core.DragZone;
 import dragndrop.client.core.DropEvent;
+import dragndrop.client.core.DropHandler;
 import dragndrop.client.core.DropZone;
 
 import java.util.ArrayList;

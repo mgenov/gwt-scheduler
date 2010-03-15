@@ -3,7 +3,9 @@
  "http://google-web-toolkit.googlecode.com/svn/tags/1.6.0/distro-source/core/src/gwt-module.dtd">
 
 <module>
-    <inherits name="com.google.gwt.user.theme.standard.Standard"/>
+
+    <inherits name="datepickernavigation.DatePickerNavigation"/>
+    
     <inherits name='gwtscheduler.Calendar'/>
     <inherits name="com.google.gwt.junit.JUnit"/>
     <entry-point class='gwtscheduler.client.ViewportTests'/>

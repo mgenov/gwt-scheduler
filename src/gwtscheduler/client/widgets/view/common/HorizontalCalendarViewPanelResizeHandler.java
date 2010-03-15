@@ -9,6 +9,7 @@ import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.cell.DayCell;
+import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 
 import java.util.Iterator;
 
@@ -76,6 +77,7 @@ public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHan
         cell.setCompensatedPixelSize(availableSize[0], availableSize[1]);
       }
     }
+
   }
 
   /**
@@ -103,7 +105,8 @@ public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHan
    */
   int[] getCellSize(int parentWidth, int parentHeight) {
     int availW = ((parentWidth - getTitleColumnOffsetWidth()) / getTarget().getColumnCount());
-    int availH = parentHeight / getTarget().getRowCount();
+    int rows = getTarget().getRowCount();
+    int availH = parentHeight / rows;
     return new int[] {availW, availH};
   }
 
@@ -123,7 +126,7 @@ public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHan
     return parentEl.getOffsetHeight() > 0 && parentEl.getOffsetWidth() > 0;
   }
 
-  public CalendarGridPanel.Display getTarget() {
+  protected CalendarGridPanel.Display getTarget() {
     return target;
   }
 }

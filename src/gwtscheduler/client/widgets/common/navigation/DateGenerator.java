@@ -61,4 +61,6 @@ public interface DateGenerator {
   Instant getInstantForCell(int[] cell, int rowNum);
 
   Interval getIntervalForRange(int[] start, int[] end, int rowNum);
+
+  Interval getIntervalForDate(DateTime date);
 }

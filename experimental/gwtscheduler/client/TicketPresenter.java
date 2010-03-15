@@ -7,7 +7,7 @@ import dragndrop.client.core.Draggable;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
-public class TicketPresenter implements Draggable{
+public class TicketPresenter implements Draggable {
   public interface Display {
 
     void setText(String string);

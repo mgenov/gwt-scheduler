@@ -1,5 +1,6 @@
 package gwtscheduler.client;
 
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -23,6 +24,7 @@ public class TicketView2 extends Composite implements TicketPresenter.Display, H
     table.setWidget(2, 0, taskDescription);
     table.setBorderWidth(2);
     initWidget(table);
+    dragLabel.getElement().getStyle().setCursor(Style.Cursor.MOVE);
   }
 
 

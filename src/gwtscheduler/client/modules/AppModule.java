@@ -14,6 +14,6 @@ public class AppModule extends AbstractGinModule {
 
   @Override
   protected void configure() {
-    bind(AppConfiguration.class).to(DefaultAppConfiguration.class).in(Singleton.class);
+//    bind(AppConfiguration.class).to(DefaultAppConfiguration.class).in(Singleton.class);
   }
 }

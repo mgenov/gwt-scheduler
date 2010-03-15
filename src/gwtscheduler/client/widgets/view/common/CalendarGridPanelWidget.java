@@ -67,13 +67,13 @@ public class CalendarGridPanelWidget extends Composite implements CalendarGridPa
     this.rows = rows;
     this.columnsCount = cols;
     titleElements = new ArrayList<Cell<Element>>();
-    impl  = createWidget();
+    impl = createWidget();
     initWidget(impl);
   }
 
   protected FlexTable createWidget() {
 
-    impl = new FlexTable();
+    FlexTable impl = new FlexTable();
     impl.setBorderWidth(0);
     impl.setStyleName(CSS.horizontalFillGrid());
     impl.getElement().getStyle().setProperty("position", "relative");

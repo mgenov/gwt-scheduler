@@ -1,12 +1,11 @@
 package gwtscheduler.client.widgets.view.columns;
 
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.CalendarChangeEvent;
-import gwtscheduler.client.CalendarDropEvent;
-import gwtscheduler.client.CalendarDropHandler;
-import gwtscheduler.client.CalendarChangeHandler;
+import gwtscheduler.client.events.TeamTaskEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
@@ -14,6 +13,7 @@ import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.common.navigation.*;
+import org.goda.time.DateTime;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
@@ -36,8 +36,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   private Display display;
   private String title;
   private CalendarType type;
-  private final HandlerManager handlerManager = new HandlerManager(null);
-
 
   /**
    * Default constructor
@@ -98,7 +96,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
       public void onNavigateTo(ReadableDateTime date) {
-        reRenderHeaderTitles(dateGenerator.currentInterval());
+        reRenderHeaderTitles(dateGenerator.getIntervalForDate((DateTime) date));
       }
     });
 
@@ -110,7 +108,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         CalendarColumn column = columns.get(newCell[1]);
 
         CalendarDropEvent event = new CalendarDropEvent(type, title, droppedObject, column, time);
-        handlerManager.fireEvent(event);
+        display.getHasCalendarDropHandlers().fireEvent(event);
       }
 
       @Override
@@ -122,8 +120,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         CalendarColumn newColumn = columns.get(newCell[1]);
 
         CalendarChangeEvent event = new CalendarChangeEvent(type, title, droppedObject, oldColumn, oldTime, newColumn, newTime);
-        handlerManager.fireEvent(event);
-
+        display.getHasCalendarChangeHandlers().fireEvent(event);
       }
     });
   }
@@ -191,7 +188,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   /**
-   * fires an events for resizing the columns and the header. It is need in case we remove or makeDraggable column.
+   * fires an events for resizing the columns and the header. It is need in case we remove or add column.
    * the columns size must be optimized in order to use the full space of the screen
    */
   private void fireResizeRedrawEvents() {
@@ -213,12 +210,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
-    return handlerManager.addHandler(CalendarDropEvent.TYPE, handler);
+    return display.getHasCalendarDropHandlers().addDropHandler(handler);
   }
 
   @Override
   public HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler) {
-    return  handlerManager.addHandler(CalendarChangeEvent.TYPE, handler);
+    return display.getHasCalendarChangeHandlers().addCalendarChangeHandler(handler);
   }
 
   @Override
@@ -229,6 +226,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public CalendarType getCalendarType() {
     return type;
+  }
+
+  @Override
+  public void addCalendarEvent(TeamTaskEvent event) {
+    calendarContent.addCalendarEvent(columns,event);
+
   }
 
   @Override

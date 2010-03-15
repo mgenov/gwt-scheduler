@@ -1,9 +1,9 @@
-package gwtscheduler.client;
+package gwtscheduler.client.widgets.view.calendarevent;
 
 import com.google.gwt.event.shared.GwtEvent;
+import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import org.goda.time.Instant;
-import org.goda.time.Interval;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)

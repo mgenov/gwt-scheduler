@@ -66,6 +66,11 @@ public class MyTest {
       return null;
     }
 
+    @Override
+    public Object getColumnId() {
+      return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
   }
 
 }

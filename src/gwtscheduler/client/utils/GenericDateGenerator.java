@@ -99,6 +99,13 @@ public class GenericDateGenerator implements DateGenerator {
     return new Interval(from, to);
   }
 
+  @Override
+  public Interval getIntervalForDate(DateTime date) {
+    generator.goTo(date);
+    return interval();
+  }
+
+
   /**
    * Utility interface that defines a fixed date generator.
    *
