@@ -1,4 +1,4 @@
-package gwtscheduler.common.calendar;
+package gwtscheduler.client;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -10,7 +10,7 @@ import gwtscheduler.client.TicketPresenter;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class CalendarFrameImpl implements Frame, CalendarFrame {
+public class TicketPresenterFrame implements Frame, CalendarFrame {
   public interface Display {
     HasMouseMoveHandlers getHasMouseMoveHandlers();
 

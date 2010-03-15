@@ -1,4 +1,4 @@
-package gwtscheduler.common.calendar;
+package gwtscheduler.client;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -10,11 +10,11 @@ import com.google.gwt.user.client.ui.Label;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 // TODO: rename to match with presenter.
-public class CalendarFrameView extends Composite implements CalendarFrameImpl.Display{
+public class TicketPresenterFrameView extends Composite implements TicketPresenterFrame.Display{
   private Label frame = new Label();
   private String style = "border: 1px dotted;";
 
-  public CalendarFrameView() {
+  public TicketPresenterFrameView() {
     initWidget(frame);
 
     frame.getElement().setAttribute("style", style);
