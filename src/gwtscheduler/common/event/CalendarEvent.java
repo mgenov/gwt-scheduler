@@ -4,12 +4,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
-import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
@@ -41,15 +38,7 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
 
     int getHeight();
 
-    HasMouseDownHandlers getFooterMouseDownHandler();
-
-//    HasMouseMoveHandlers getFooterMouseMoveHandler();
-//
-//    HasMouseUpHandlers getFooterMouseUpHandler();
-
-    void captureFooter();
-
-    void releaseFooter();
+    HasMouseDownHandlers getFooter();
   }
 
   /**
@@ -206,8 +195,8 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
     return (Widget)display;
   }
 
-  public Display getDisplay() {
-    return display;
+  public HasMouseDownHandlers getMouseDownHandlers() {
+    return display.getFooter();
   }
 
   public void removeFromParent(AbsolutePanel parent) {

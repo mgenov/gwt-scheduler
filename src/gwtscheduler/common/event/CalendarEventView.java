@@ -77,19 +77,9 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   }
 
   @Override
-  public HasMouseDownHandlers getFooterMouseDownHandler() {
+  public HasMouseDownHandlers getFooter() {
     return eventFooter;
   }
-
-//  @Override
-//  public HasMouseMoveHandlers getFooterMouseMoveHandler() {
-//    return eventFooter;
-//  }
-//
-//  @Override
-//  public HasMouseUpHandlers getFooterMouseUpHandler() {
-//    return eventFooter;
-//  }
 
   @Override
   public HasMouseDownHandlers getHeader() {
@@ -101,13 +91,4 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
     eventHeader.setText(title);
   }
 
-  @Override
-  public void captureFooter() {
-    DOM.setCapture(eventFooter.getElement());
-  }
-
-  @Override
-  public void releaseFooter() {
-    DOM.releaseCapture(eventFooter.getElement());
-  }
 }

@@ -68,5 +68,5 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   @Override
   public int getRowDistance(int start, int end){
     return getCellHeight() * (end - start);
-  } 
+  }
 }
