@@ -106,10 +106,11 @@ public class CalendarContent {
   }
 
   public void addCalendarEvent(List<CalendarColumn> columns, Event event) {
+    int rowsCount = display.getCalendarColumnsFrameGridDisplay().getRows();
     int index=0;
     for (CalendarColumn column : columns) {
       if(column.isEventForColumn(event)){
-        eventsDashboard.addCalendarEvent(index,event);
+        eventsDashboard.addCalendarEvent(index,event,rowsCount);
       }
       index++;
     }

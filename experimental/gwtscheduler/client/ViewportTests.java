@@ -27,6 +27,7 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
+import org.goda.time.DateTimeZone;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -37,6 +38,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import org.goda.time.tz.UTCProvider;
 
 import java.util.Date;
 
@@ -79,7 +81,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     TicketPresenterFrame frame = new TicketPresenterFrame();
     frame.bindDisplay(new TicketPresenterFrameView());
-    
+
     DragZone dragZone = Zones.getDragZone();
     dragZone.add(ticket1);
     dragZone.add(ticket2);
@@ -109,8 +111,13 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       @Override
       public void onValueChange(ValueChangeEvent<Date> event) {
         Date date = event.getValue();
-        DateTime selectedDate = new DateTime(date.getTime());
-        eventBus.fireEvent(new NavigateToEvent(selectedDate));
+        Long mills = date.getTime();
+        MutableDateTime selectedDate = new MutableDateTime(date.getTime());
+        selectedDate.setHourOfDay(0);
+        selectedDate.setMinuteOfHour(0);
+        selectedDate.setMinuteOfHour(0);
+        selectedDate.setMillisOfSecond(0);
+        eventBus.fireEvent(new NavigateToEvent(selectedDate.toDateTime()));
       }
     });
 
@@ -120,7 +127,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, eventBus).named("Teams").build())
             .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), eventBus).named("Team 1 Week Calendar").build()).build();
 
-    dragZone.addDropZoneRoot((HasWidgets)main.asWidget());
+    dragZone.addDropZoneRoot((HasWidgets) main.asWidget());
 //    VerticalPanel dropRoot = new VerticalPanel();
 //    dropRoot.makeDraggable(new Panel1());
 //    dropRoot.makeDraggable(new Panel1());
@@ -133,14 +140,14 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
 
-    VerticalPanel testPanel = new VerticalPanel();
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
+//    VerticalPanel testPanel = new VerticalPanel();
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
     dragZone.addWidget(mainPanel);
     dragZone.go(RootPanel.get());
 //    dragZone.go(testPanel);
@@ -151,12 +158,11 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     dialog.bindDisplay(display);
 
 
-
-    main.addCalendarChangeHandler(new CalendarChangeHandler(){
+    main.addCalendarChangeHandler(new CalendarChangeHandler() {
       @Override
-      public void onCalendarChange(CalendarChangeEvent event){
+      public void onCalendarChange(CalendarChangeEvent event) {
         Object o = event.getDroppedObject();
-        if(o instanceof TestTask){
+        if (o instanceof TestTask) {
           GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
           GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
           GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
@@ -172,8 +178,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       public void onCalendarDrop(CalendarDropEvent event) {
         Object o = event.getDroppedObject();
         CalendarColumn column = event.getCalendarColumn();
-        
-        if(o instanceof TestTask){
+
+        if (o instanceof TestTask) {
           GWT.log("Dropped: TicketPresenter", null);
           GWT.log("On calendar type: " + event.getCalendarType().toString(), null);
           GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
@@ -183,18 +189,18 @@ public class ViewportTests implements EntryPoint, ClickHandler {
           TestTask testTask = (TestTask) o;
           Interval interval = new Interval(event.getDropTime(), event.getDropTime().plus(3600 * testTask.getDuration() * 1000));
           testTask.setInterval(interval);
-          dialog.setTestTask(testTask,column);
+          dialog.setTestTask(testTask, column);
           dialog.show();
         }
       }
     });
 
-    dialog.getOKButton().addClickHandler(new ClickHandler(){
+    dialog.getOKButton().addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        TestTask testTask =  dialog.getTestTask();
+        TestTask testTask = dialog.getTestTask();
         CalendarColumn column = dialog.getColumn();
-        TeamTaskEvent teamTaskEvent = new TeamTaskEvent(testTask,column);
+        TeamTaskEvent teamTaskEvent = new TeamTaskEvent(testTask, column);
         main.addEvent(teamTaskEvent);
         dialog.close();
       }

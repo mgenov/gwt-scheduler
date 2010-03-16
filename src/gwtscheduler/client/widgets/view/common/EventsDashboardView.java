@@ -20,11 +20,11 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
 
     // why this need to be set when AbstractGridOverlay is an absolute panel ???
     getElement().getStyle().setPosition(Position.ABSOLUTE);
-
-    //TODO: Remove this event after layout is completed
-    CalendarEventView event = new CalendarEventView();
-    event.getElement().getStyle().setZIndex(33);
-    add(event, 50,50);    
+//
+//    //TODO: Remove this event after layout is completed
+//    CalendarEventView event = new CalendarEventView();
+//    event.getElement().getStyle().setZIndex(33);
+//    add(event, 50,50);
   }
 
   @Override
@@ -52,4 +52,5 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   public CalendarEvent.Display getCalendarEventDisplay() {
     return new CalendarEventView();
   }
+
 }

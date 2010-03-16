@@ -108,4 +108,9 @@ public class TestTaskDialogWidget extends Composite implements TestTaskDialog.Di
   public void setColumnTitle(String title) {
     columnTitle.setText(title);
   }
+
+  @Override
+  public String getTaskTitle() {
+    return title.getText();
+  }
 }

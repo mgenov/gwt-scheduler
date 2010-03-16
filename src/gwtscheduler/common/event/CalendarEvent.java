@@ -10,6 +10,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
+import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import org.goda.time.Interval;
 
 /**
@@ -183,5 +184,17 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
   @Override
   public Widget getSourceWidget() {
     return (Widget)display;
+  }
+
+  public Display getDisplay() {
+    return display;
+  }
+
+  public void removeFromParent(AbsolutePanel parent) {
+    parent.remove((Widget) display);
+  }
+
+  public Event getEvent() {
+    return event;
   }
 }

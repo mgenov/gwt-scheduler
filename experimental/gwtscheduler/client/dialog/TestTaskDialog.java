@@ -31,6 +31,8 @@ public class TestTaskDialog {
     HasClickHandlers getOKButton();
 
     void setColumnTitle(String title);
+
+    String getTaskTitle();
   }
 
   private Display display;
@@ -74,6 +76,7 @@ public class TestTaskDialog {
   }
 
   public TestTask getTestTask() {
+    task.setTitle(display.getTaskTitle());
     return task;
   }
 
