@@ -65,5 +65,8 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
     return grid.getHeight() / grid.getRowNum();
   }
 
-  // TODO: write method who calculate height distance between two cells
+  @Override
+  public int getRowDistance(int start, int end){
+    return getCellHeight() * (end - start);
+  }
 }

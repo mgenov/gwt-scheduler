@@ -32,6 +32,8 @@ public class EventsDashboard {
 
     int getCellHeight();
 
+    int getRowDistance(int start, int end);
+
   }
 
   private Display display;
@@ -48,17 +50,6 @@ public class EventsDashboard {
 
   public void bindDisplay(final Display display) {
     this.display = display;
-
-//    // handle adding of the newly created event
-//    eventBus.addHandler(CalendarEventAddedEvent.TYPE, new CalendarEventAddedHandler() {
-//
-//      @Override
-//      public void onCalendarEventAdded(CalendarEventAddedEvent addEvent) {
-//        CalendarEvent event = addEvent.getCalendarEvent();
-//        event.go(display.asWidget());
-//      }
-//    });
-
   }
 
   public int[] getCell(int x, int y) {
@@ -70,7 +61,7 @@ public class EventsDashboard {
     int endRow = dateGenerator.getRowForInstant(event.getInterval().getEnd().toInstant(), 48);
                // TODO: will be refactored!
     int[] startPosition = display.calculateLeftTop(new int[]{startRow, index});
-    int height = display.getCellHeight() * (endRow - startRow);
+    int height = display.getRowDistance(startRow, endRow);
 
     CalendarEvent calendarEvent = buildCalendarEvent(event, new EventPosition(startPosition[0], startPosition[1]));
     calendarEvent.setSize(display.getCellWidth(), height);
