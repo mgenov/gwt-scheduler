@@ -1,6 +1,9 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
@@ -33,18 +36,25 @@ public class EventsDashboard {
 
     CalendarEvent.Display getCalendarEventDisplay();
 
+    int getCellWidth();
+
+    int getCellHeight();
+
+    int getRowDistance(int startRow, int endRow);
   }
 
   private Display display;
   private DateGenerator dateGenerator;
   private EventCollisionHelper collisionHelper;
   private final EventBus eventBus;
+  private DragZone dragZone;
   private ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
 
-  public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus) {
+  public EventsDashboard(DateGenerator dateGenerator,EventCollisionHelper collisionHelper, EventBus eventBus, DragZone dragZone) {
     this.dateGenerator = dateGenerator;
     this.collisionHelper = collisionHelper;
     this.eventBus = eventBus;
+    this.dragZone = dragZone;
   }
 
   public void bindDisplay(final Display display) {
@@ -71,16 +81,6 @@ public class EventsDashboard {
         clearEvents();
       }
     });
-//    // handle adding of the newly created event
-//    eventBus.addHandler(CalendarEventAddedEvent.TYPE, new CalendarEventAddedHandler() {
-//
-//      @Override
-//      public void onCalendarEventAdded(CalendarEventAddedEvent addEvent) {
-//        CalendarEvent event = addEvent.getCalendarEvent();
-//        event.go(display.asWidget());
-//      }
-//    });
-
   }
 
   private void clearEvents() {
@@ -97,24 +97,30 @@ public class EventsDashboard {
   }
 
   public void addCalendarEvent(int index, Event event, int rowsCount) {
-    DateTime currentDate = dateGenerator.current();
-    DateTime eventDate = event.getInterval().getStart();
 
-    int row = dateGenerator.getRowForInstant(event.getInterval().getStart().toInstant(), rowsCount);
+
+    int startRow = dateGenerator.getRowForInstant(event.getInterval().getStart().toInstant(), rowsCount);
+
+    int endRow = dateGenerator.getRowForInstant(event.getInterval().getEnd().toInstant(), rowsCount);
+
+               // TODO: will be refactored!
+
+    int height = display.getRowDistance(startRow, endRow);
+
 
     ArrayList<CalendarEvent> collisionEvents = collisionHelper.checkEventsIntervals(events, event);
 
     int[] position = null;
     if (collisionEvents.size()==0) {
-      position = display.calculateLeftTop(new int[]{row, index});
+      position = display.calculateLeftTop(new int[]{startRow, index});
     }
 
 //
 
     CalendarEvent calendarEvent = buildCalendarEvent(event, new EventPosition(position[0], position[1]));
-
+    calendarEvent.setSize(display.getCellWidth(), height);
     events.add(calendarEvent);
-
+    new CalendarEventResizeHelper(calendarEvent, display);
     calendarEvent.go(display.asWidget());
   }
 
@@ -122,6 +128,7 @@ public class EventsDashboard {
     CalendarEvent calendarEvent = new CalendarEvent(event, eventPosition);
     CalendarEvent.Display display = this.display.getCalendarEventDisplay();
     calendarEvent.bindDisplay(display);
+    dragZone.add(calendarEvent);
     return calendarEvent;
   }
 }

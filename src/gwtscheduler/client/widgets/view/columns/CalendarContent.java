@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
 import gwtscheduler.common.event.Event;

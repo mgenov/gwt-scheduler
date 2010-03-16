@@ -25,6 +25,7 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.DateTimeZone;
@@ -38,7 +39,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import org.goda.time.tz.UTCProvider;
 
 import java.util.Date;
 
@@ -124,8 +124,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
 
-    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, eventBus).named("Teams").build())
-            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), eventBus).named("Team 1 Week Calendar").build()).build();
+    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, eventBus, dragZone).named("Teams").build())
+            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), eventBus, dragZone).named("Team 1 Week Calendar").build()).build();
 
     dragZone.addDropZoneRoot((HasWidgets) main.asWidget());
 //    VerticalPanel dropRoot = new VerticalPanel();
@@ -162,13 +162,21 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       @Override
       public void onCalendarChange(CalendarChangeEvent event) {
         Object o = event.getDroppedObject();
-        if (o instanceof TestTask) {
-          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
-          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
-          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
-          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
-          GWT.log("From time: " + event.getOldTime().toString(), null);
-          GWT.log("To time: " + event.getNewTime().toString(), null);
+        if(o instanceof TestTask){
+//          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
+//          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
+//          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
+//          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
+//          GWT.log("From time: " + event.getOldTime().toString(), null);
+//          GWT.log("To time: " + event.getNewTime().toString(), null);
+        } else if(o instanceof CalendarEvent) {
+//          GWT.log("Moved calendar event", null);
+//          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
+//          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
+//          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
+//          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
+//          GWT.log("From time: " + event.getOldTime().toString(), null);
+//          GWT.log("To time: " + event.getNewTime().toString(), null);
         }
       }
     });

@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.google.gwt.dom.client.Style.Position;
@@ -53,4 +55,18 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
     return new CalendarEventView();
   }
 
+  @Override
+  public int getCellWidth() {
+    return grid.getWidth() / grid.getColNum();
+  }
+
+  @Override
+  public int getCellHeight() {
+    return grid.getHeight() / grid.getRowNum();
+  }
+
+  @Override
+  public int getRowDistance(int start, int end){
+    return getCellHeight() * (end - start);
+  } 
 }
