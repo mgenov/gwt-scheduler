@@ -4,7 +4,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelper;
+import gwtscheduler.client.widgets.view.common.resize.ResizeHelper;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.EventPosition;
@@ -39,16 +39,19 @@ public class EventsDashboard {
   private DateGenerator dateGenerator;
   private final EventBus eventBus;
   private DragZone dragZone;
+  private ResizeHelper resizeHelper;
   private ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
 
-  public EventsDashboard(DateGenerator dateGenerator, EventBus eventBus, DragZone dragZone) {
+  public EventsDashboard(DateGenerator dateGenerator, EventBus eventBus, DragZone dragZone, ResizeHelper resizeHelper) {
     this.dateGenerator = dateGenerator;
     this.eventBus = eventBus;
     this.dragZone = dragZone;
+    this.resizeHelper = resizeHelper;
   }
 
   public void bindDisplay(final Display display) {
     this.display = display;
+    resizeHelper.setDashboardDisplay(display);
   }
 
   public int[] getCell(int x, int y) {
@@ -66,7 +69,8 @@ public class EventsDashboard {
     calendarEvent.setSize(display.getCellWidth(), height);
 
     events.add(calendarEvent);
-    new CalendarEventResizeHelper(calendarEvent, display, dateGenerator);
+    resizeHelper.get(calendarEvent);
+//    new CalendarEventResizeHelper(calendarEvent, display, dateGenerator);
 
     calendarEvent.go(display.asWidget());
   }
