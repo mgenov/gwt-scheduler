@@ -34,8 +34,10 @@ public class CalendarContent {
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
+  private boolean colision = false;
   private EventsDashboard eventsDashboard;
   private Display display;
+  private List<CalendarColumn> columns;
 
   public CalendarContent(CalendarColumnsFrameGrid calendarColumnsFrameGrid, EventsDashboard eventsDashboard) {
     this.calendarColumnsFrameGrid = calendarColumnsFrameGrid;
@@ -62,15 +64,30 @@ public class CalendarContent {
 
     DragZone hasFrame = event.getDragZone();
 
+
     hasFrame.setFrameWindowPosition(windowCellPosition[0], windowCellPosition[1]);
 
     Frame frame = hasFrame.getCurrentFrame();
+
+
     if(frame instanceof CalendarFrame){
       int cellWidth = calendarColumnsFrameGrid.getCellWidth();
-      int cellHeight =  calendarColumnsFrameGrid.getCellHeight();
+      int cellHeight = calendarColumnsFrameGrid.getCellHeight();
 
       CalendarFrame cellFrame = (CalendarFrame)frame;
       cellFrame.onDragOver(cellWidth, cellHeight);
+
+      int cellCount = frame.getHeight()/cellHeight;
+      CalendarColumn column = columns.get(cell[1]);
+      if(eventsDashboard.checkForCollision(cell,cellCount,calendarColumnsFrameGrid.getTimeLineDecorables().size(),column)){
+        String cursorType = "not-allowed";
+        frame.setCurrsorStyle(cursorType);
+        colision = true;
+      } else {
+        String cursorType = "default";
+        frame.setCurrsorStyle(cursorType);
+        colision = false;
+      }
     }
   }
 
@@ -94,6 +111,9 @@ public class CalendarContent {
     display.addDropHandler(new DropHandler(){
       @Override
       public void onDrop(DropEvent event) {
+        if(colision){
+          throw new RuntimeException("events colision");
+        }
         int[] newCell = display.getCell(event.getEndX(), event.getEndY());
 
         if(display.isDashboardAttached(event)){
@@ -115,5 +135,9 @@ public class CalendarContent {
       }
       index++;
     }
+  }
+
+  public void setColumns(List<CalendarColumn> columns) {
+    this.columns = columns;
   }
 }

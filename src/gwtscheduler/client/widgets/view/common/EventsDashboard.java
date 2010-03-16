@@ -1,7 +1,5 @@
 package gwtscheduler.client.widgets.view.common;
 
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.EventBus;
@@ -12,10 +10,12 @@ import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEventHandler;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEventHandler;
+import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.EventPosition;
-import org.goda.time.DateTime;
+import org.goda.time.Instant;
+import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
 import java.util.ArrayList;
@@ -92,10 +92,8 @@ public class EventsDashboard {
 
   }
 
-  public int[] getCell(int x, int y) {
-    return display.getCellPosition(x, y);
-  }
 
+  
   public void addCalendarEvent(int index, Event event, int rowsCount) {
 
 
@@ -108,15 +106,16 @@ public class EventsDashboard {
     int height = display.getRowDistance(startRow, endRow);
 
 
-    ArrayList<CalendarEvent> collisionEvents = collisionHelper.checkEventsIntervals(events, event);
+//    ArrayList<CalendarEvent> collisionEvents = collisionHelper.checkEventsIntervals(events, event);
 
     int[] position = null;
-    if (collisionEvents.size()==0) {
+//    if (collisionEvents.size()==0) {
       position = display.calculateLeftTop(new int[]{startRow, index});
-    }
+//    }
+//    else if(collisionEvents.size())
 
-//
 
+    
     CalendarEvent calendarEvent = buildCalendarEvent(event, new EventPosition(position[0], position[1]));
     calendarEvent.setSize(display.getCellWidth(), height);
     events.add(calendarEvent);
@@ -130,5 +129,13 @@ public class EventsDashboard {
     calendarEvent.bindDisplay(display);
     dragZone.add(calendarEvent);
     return calendarEvent;
+  }
+
+  public boolean checkForCollision(int[] cell, int cellCount, int rowsCount, CalendarColumn column) {
+    int[] end = new int[2];
+    end[0] = cell[0]+cellCount;
+    end[1] =  cell[1];
+    Interval  interval = dateGenerator.getIntervalForRange(cell,end,rowsCount);
+      return collisionHelper.checkEventsIntervals(events,interval,column);
   }
 }

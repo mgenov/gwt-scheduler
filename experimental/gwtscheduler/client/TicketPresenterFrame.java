@@ -30,6 +30,7 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
 
     void release();
 
+    void setCurrsorStyle(String currsorType);
   }
 
   private Display display;
@@ -95,6 +96,11 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
   @Override
   public Widget getWidget() {
     return (Widget)display;
+  }
+
+  @Override
+  public void setCurrsorStyle(String currsorType) {
+    display.setCurrsorStyle(currsorType);
   }
 
   @Override

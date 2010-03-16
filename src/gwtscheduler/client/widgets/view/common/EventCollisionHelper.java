@@ -1,7 +1,9 @@
 package gwtscheduler.client.widgets.view.common;
 
+import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.Event;
+import org.goda.time.Interval;
 
 import java.util.ArrayList;
 
@@ -10,4 +12,6 @@ import java.util.ArrayList;
  */
 public interface EventCollisionHelper {
   ArrayList<CalendarEvent> checkEventsIntervals(ArrayList<CalendarEvent> events, Event event);
+
+  boolean checkEventsIntervals(ArrayList<CalendarEvent> events, Interval interval, CalendarColumn column);
 }
