@@ -55,7 +55,7 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, eventBus));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, eventBus, dragZone));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
@@ -85,7 +85,7 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventBus));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventBus, dragZone));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 

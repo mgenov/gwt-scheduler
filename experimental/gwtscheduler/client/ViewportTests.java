@@ -25,6 +25,7 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.Interval;
@@ -134,13 +135,13 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     mainPanel.add(main.asWidget());
 
     VerticalPanel testPanel = new VerticalPanel();
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
-    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
+//    testPanel.add(new Label("Wazaaaap"));
     dragZone.addWidget(testPanel);
     dragZone.addWidget(mainPanel);
     dragZone.go(RootPanel.get());
@@ -158,12 +159,20 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       public void onCalendarChange(CalendarChangeEvent event){
         Object o = event.getDroppedObject();
         if(o instanceof TestTask){
-          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
-          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
-          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
-          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
-          GWT.log("From time: " + event.getOldTime().toString(), null);
-          GWT.log("To time: " + event.getNewTime().toString(), null);
+//          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
+//          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
+//          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
+//          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
+//          GWT.log("From time: " + event.getOldTime().toString(), null);
+//          GWT.log("To time: " + event.getNewTime().toString(), null);
+        } else if(o instanceof CalendarEvent) {
+//          GWT.log("Moved calendar event", null);
+//          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
+//          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
+//          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
+//          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
+//          GWT.log("From time: " + event.getOldTime().toString(), null);
+//          GWT.log("To time: " + event.getNewTime().toString(), null);
         }
       }
     });
@@ -175,11 +184,11 @@ public class ViewportTests implements EntryPoint, ClickHandler {
         CalendarColumn column = event.getCalendarColumn();
         
         if(o instanceof TestTask){
-          GWT.log("Dropped: TicketPresenter", null);
-          GWT.log("On calendar type: " + event.getCalendarType().toString(), null);
-          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
-          GWT.log("On column with title: " + event.getCalendarColumn().getTitle(), null);
-          GWT.log("On time: " + event.getDropTime().toString(), null);
+//          GWT.log("Dropped: TicketPresenter", null);
+//          GWT.log("On calendar type: " + event.getCalendarType().toString(), null);
+//          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
+//          GWT.log("On column with title: " + event.getCalendarColumn().getTitle(), null);
+//          GWT.log("On time: " + event.getDropTime().toString(), null);
 
           TestTask testTask = (TestTask) o;
           Interval interval = new Interval(event.getDropTime(), event.getDropTime().plus(3600 * testTask.getDuration() * 1000));

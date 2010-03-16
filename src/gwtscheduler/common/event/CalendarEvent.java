@@ -4,9 +4,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
+import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
@@ -36,6 +39,16 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
     int getWidth();
 
     int getHeight();
+
+    HasMouseDownHandlers getFooterMouseDownHandler();
+
+//    HasMouseMoveHandlers getFooterMouseMoveHandler();
+//
+//    HasMouseUpHandlers getFooterMouseUpHandler();
+
+    void captureFooter();
+
+    void releaseFooter();
   }
 
   /**
@@ -138,6 +151,13 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
     parent.add((Widget) display, position.getLeft(),position.getTop());
   }
 
+  public void setHeight(int height){
+    display.setViewHeight(height);
+  }
+
+  public void setWidth(int width){
+    display.setViewWidth(width);
+  }
 
   /**
    * Registers a new {@link com.google.gwt.event.dom.client.ClickHandler} to the current calendar event.
@@ -167,7 +187,7 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
 
   @Override
   public Object getDropObject() {
-    return event;
+    return this;
   }
 
   @Override
@@ -183,5 +203,25 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
   @Override
   public Widget getSourceWidget() {
     return (Widget)display;
+  }
+
+  public HasMouseDownHandlers getMouseDownHandlers() {
+    return display.getFooterMouseDownHandler();
+  }
+
+//  public HasMouseMoveHandlers getMouseMoveHandlers() {
+//    return display.getFooterMouseMoveHandler();
+//  }
+//
+//  public HasMouseUpHandlers getMouseUpHandlers() {
+//    return display.getFooterMouseUpHandler();
+//  }
+
+  public void capture(){
+    display.captureFooter();
+  }
+
+  public void release(){
+    display.releaseFooter();
   }
 }
