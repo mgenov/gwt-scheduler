@@ -1,19 +1,20 @@
-package gwtscheduler.client.widgets.view.common;
+package gwtscheduler.client.widgets.view.common.resize;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Label;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
+import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.Interval;
-
-import java.util.Map;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -26,6 +27,7 @@ public class CalendarEventResizeHelper implements MouseDownHandler, MouseMoveHan
   private int endRow[];
   private int eventHeight;
   private Label label = new Label();
+  private HandlerManager handlerManager = new HandlerManager(null);
 
   public CalendarEventResizeHelper(CalendarEvent calendarEvent, EventsDashboard.Display display, DateGenerator dateGenerator) {
     this.calendarEvent = calendarEvent;
@@ -46,6 +48,9 @@ public class CalendarEventResizeHelper implements MouseDownHandler, MouseMoveHan
     Interval eventInterval = calendarEvent.getInterval();
     Interval interval = dateGenerator.getIntervalForRange(startRow, endRow, 48);
     eventInterval.getEnd().plus(interval.toPeriod());
+
+    ResizeEndEvent resizeEvent = new ResizeEndEvent(calendarEvent);
+    handlerManager.fireEvent(resizeEvent);
   }
 
   @Override
@@ -56,6 +61,9 @@ public class CalendarEventResizeHelper implements MouseDownHandler, MouseMoveHan
 
     startRow = display.getCellPosition(event.getClientX(), event.getClientY());
     eventHeight = calendarEvent.getHeight();
+
+    ResizeStartEvent resizeEvent = new ResizeStartEvent(calendarEvent);
+    handlerManager.fireEvent(resizeEvent);
   }
 
   @Override
@@ -68,4 +76,13 @@ public class CalendarEventResizeHelper implements MouseDownHandler, MouseMoveHan
     int height = display.getRowDistance(startRow[0], row[0]);
     calendarEvent.setHeight(eventHeight + height);
   }
+
+  public HandlerRegistration addResizeStartHandler(ResizeStartHandler handler){
+    return handlerManager.addHandler(ResizeStartEvent.TYPE, handler);
+  }
+
+  public HandlerRegistration addResizeEndHandler(ResizeEndHandler handler){
+    return handlerManager.addHandler(ResizeEndEvent.TYPE, handler);
+  }
+
 }
