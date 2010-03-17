@@ -52,7 +52,6 @@ public class EventsDashboard {
 
     HasCalendarEventResizeHandlers getHasCalendarEventResizeHandlers();
 
-    int getRowCount();
   }
 
   private Display display;
