@@ -64,4 +64,9 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
     frame.setHeight(height + "px");
   }
 
+  @Override
+  public void setCursorStyle(String cursorType) {
+    this.getElement().getStyle().setProperty("cursor",cursorType);
+  }
+
 }

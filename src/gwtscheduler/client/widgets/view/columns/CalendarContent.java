@@ -62,21 +62,6 @@ public class CalendarContent {
         proceedDragOver(event);
       }
     });
-
-    display.addDragInHandler(new DragInHandler() {
-      @Override
-      public void onDragInEvent(DragInEvent event) {
-        Frame frame = event.getFrame();
-        frame.setCursorStyle(DEFAULT);
-      }
-    });
-    display.addDragOutHandler(new DragOutHandler(){
-      @Override
-      public void onDragOutEvent(DragOutEvent event) {
-        Frame frame = event.getFrame();
-        frame.setCursorStyle(NOT_ALLOWED);
-      }
-    });
   }
 
   private void proceedDragOver(DragOverEvent event) {
@@ -101,10 +86,10 @@ public class CalendarContent {
       int cellCount = frame.getHeight() / cellHeight;
       CalendarColumn column = columns.get(cell[1]);
       if (eventsDashboard.checkForCollision(cell, cellCount, calendarColumnsFrameGrid.getTimeLineDecorables().size(), column)) {
-        frame.setCursorStyle(NOT_ALLOWED);
+        frame.setCursorStyle(CursorStyle.NOT_ALLOWED.toString());
         collision = true;
       } else {
-        frame.setCursorStyle(DEFAULT);
+        frame.setCursorStyle(CursorStyle.POINTER.toString());
         collision = false;
       }
     }

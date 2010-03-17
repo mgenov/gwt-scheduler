@@ -27,6 +27,8 @@ class DragFrame implements Frame {
     void setWidth(int width);
 
     void setHeight(int height);
+
+    void setCursorStyle(String cursorType);
   }
 
   private Display display;
@@ -85,8 +87,8 @@ class DragFrame implements Frame {
   }
 
   @Override
-  public void setCursorStyle(String currsorType) {
-    //TODO: implement this method
+  public void setCursorStyle(String cursorType) {
+    display.setCursorStyle(cursorType);
   }
 
 }

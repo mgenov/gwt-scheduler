@@ -54,6 +54,8 @@ package dragndrop.client.core;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class Zones {
+  public static final CursorStyleProvider cursorProvider = new CursorStyleProviderImpl();
+
   public static DragZone getDragZone(){
     DragFrame frame = new DragFrame();
     frame.bindDisplay(new DragFrameWidget());
@@ -61,7 +63,11 @@ public class Zones {
   }
 
   public static DragZone getDragZone(Frame frame){
-    DragZoneImpl dragZone = new DragZoneImpl(frame);
+    return getDragZone(frame, cursorProvider);
+  }
+
+  public static DragZone getDragZone(Frame frame, CursorStyleProvider cursorProvider){
+    DragZoneImpl dragZone = new DragZoneImpl(frame, cursorProvider);
     dragZone.bindDisplay(new DragZoneView());
     return dragZone;
   }
