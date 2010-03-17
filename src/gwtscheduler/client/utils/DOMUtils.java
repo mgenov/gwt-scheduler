@@ -15,8 +15,8 @@ public class DOMUtils {
    * Gets the viewport width and height.
    * @return the viewport dimensions
    * @see http 
-   *      ://andylangton.co.uk/articles/javascript/get-viewport-size-javascript
-   * @see http://snipplr.com/view/5896/get-browser-viewport-width-and-height/
+   *      ://andylangton.co.uk/articles/javascript/attachResizeHelper-viewport-size-javascript
+   * @see http://snipplr.com/view/5896/attachResizeHelper-browser-viewport-width-and-height/
    */
   public static int[] getViewportDimensions() {
     return new int[] {JSNIUtils.getViewportWidth(), JSNIUtils.getViewportHeight()};
@@ -48,7 +48,7 @@ public class DOMUtils {
     return new int[] {left, top};
   }
 
-  //http://snippets.dzone.com/posts/show/2995 //get scrollbar size
+  //http://snippets.dzone.com/posts/show/2995 //attachResizeHelper scrollbar size
 
   /**
    * Wraps an element onto a widget.

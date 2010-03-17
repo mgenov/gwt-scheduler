@@ -154,7 +154,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     dragZone.addWidget(mainPanel);
     dragZone.go(RootPanel.get());
 //    dragZone.go(testPanel);
-//    RootPanel.get().add(testPanel);
+//    RootPanel.attachResizeHelper().add(testPanel);
 
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();

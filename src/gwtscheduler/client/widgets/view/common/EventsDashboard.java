@@ -121,7 +121,7 @@ public class EventsDashboard {
     CalendarEvent calendarEvent = buildCalendarEvent(event, new EventPosition(position[0], position[1]));
     calendarEvent.setSize(display.getCellWidth(), height);
     events.add(calendarEvent);
-    resizeHelper.get(calendarEvent);
+    resizeHelper.attachResizeHelper(calendarEvent);
 
     calendarEvent.go(display.asWidget());
   }

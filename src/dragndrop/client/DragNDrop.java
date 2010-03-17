@@ -1,10 +1,6 @@
 package dragndrop.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.*;
-import dragndrop.client.core.Zones;
-import dragndrop.client.core.DragZone;
-import dragndrop.client.teamexample.*;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -76,6 +72,6 @@ public class DragNDrop implements EntryPoint {
 //    dragger.addDropZoneRoot(racePanel);
 //    dragger.setFrameStyle("dragFrame");
 //
-//    dragger.go(RootPanel.get()); // attach drag zone to the root panel or another panel.
+//    dragger.go(RootPanel.attachResizeHelper()); // attach drag zone to the root panel or another panel.
   }
 }

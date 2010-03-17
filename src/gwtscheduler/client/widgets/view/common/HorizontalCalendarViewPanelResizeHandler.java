@@ -9,7 +9,6 @@ import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.cell.DayCell;
-import gwtscheduler.client.widgets.view.common.cell.TitleCell;
 
 import java.util.Iterator;
 
@@ -56,7 +55,7 @@ public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHan
     //column sizing
 //        grid.getTitleColumn().setPixelSize(getTitleColumnOffsetWidth(), height);
 //        for (int j = 0; j < grid.getMainColumns().size(); j++) {
-//          Panel c = grid.getMainColumns().get(j);
+//          Panel c = grid.getMainColumns().attachResizeHelper(j);
 //          c.setPixelSize(remainingColWidth, height);
 //        }
 

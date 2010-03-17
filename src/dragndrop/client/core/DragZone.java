@@ -29,7 +29,7 @@ import java.util.List;
  *
  * dragZone.addDropZoneRoot(dropZonesPanel);
  *
- * dragZone.go(RootPanel.get());
+ * dragZone.go(RootPanel.attachResizeHelper());
  * </pre>
  *
  * Every given widget is wrapped by another widget who is dragged over drag area. If widget is attached to another
