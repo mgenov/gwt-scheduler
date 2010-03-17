@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import dragndrop.client.core.DragZone;
@@ -120,7 +121,10 @@ public class EventsDashboard {
     int startRow = dateGenerator.getRowForInstant(event.getInterval().getStart().toInstant(), rowsCount);
     int endRow = dateGenerator.getRowForInstant(event.getInterval().getEnd().toInstant(), rowsCount);
 
-
+    // checks if end row is at 00.00 on the next day  
+    if(endRow<startRow && endRow == 0) {
+          endRow = rowsCount;
+    }
     int[] startCellPosition = new int[]{startRow, index};
     int[] endCellPosition = new int[]{endRow, index};
 
@@ -148,6 +152,11 @@ public class EventsDashboard {
     int[] end = new int[2];
     end[0] =  cell[0] + cellCount - 1;
     end[1] =  cell[1];
+
+    // checks the end of the day
+    if(end[0] > rowsCount-1){
+         return true;
+    }
     Interval  interval = dateGenerator.getIntervalForRange(cell,end,rowsCount);
     return collisionHelper.checkEventsIntervals(events,interval,column);
   }

@@ -110,8 +110,8 @@ public class GenericDateGenerator implements DateGenerator {
   public int getRowForInstant(Instant time, int rowsCount) {
     int minutesPerCell = (24 * 60) /rowsCount;
     MutableDateTime mTime = time.toMutableDateTime();
-//    int minutes = mTime.getMinuteOfDay();
-    int row = Math.round(mTime.getMinuteOfDay()/minutesPerCell);
+    int minutes = mTime.getMinuteOfDay();
+    int row = Math.round(minutes/minutesPerCell);
     return row;
   }
 
