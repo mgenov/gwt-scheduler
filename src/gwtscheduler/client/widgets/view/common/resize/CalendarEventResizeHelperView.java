@@ -2,8 +2,6 @@ package gwtscheduler.client.widgets.view.common.resize;
 
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
@@ -50,16 +48,6 @@ public class CalendarEventResizeHelperView extends Composite implements Calendar
   @Override
   public int getHeight() {
     return label.getOffsetHeight();
-  }
-
-  @Override
-  public HandlerRegistration addResizeStartHandler(ResizeStartHandler handler, GwtEvent.Type<ResizeStartHandler> type) {
-    return addHandler(handler, type);
-  }
-
-  @Override
-  public HandlerRegistration addResizeEndHandler(ResizeEndHandler handler, GwtEvent.Type<ResizeEndHandler> type) {
-    return addHandler(handler, type);
   }
 
   @Override

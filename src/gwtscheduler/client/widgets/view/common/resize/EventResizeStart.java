@@ -6,21 +6,21 @@ import gwtscheduler.common.event.CalendarEvent;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class ResizeStartEvent extends GwtEvent<ResizeStartHandler> {
-  public static Type<ResizeStartHandler> TYPE = new Type<ResizeStartHandler>();
+public class EventResizeStart extends GwtEvent<EventResizeStartHandler> {
+  public static Type<EventResizeStartHandler> TYPE = new Type<EventResizeStartHandler>();
   private final CalendarEvent calendarEvent;
 
-  public ResizeStartEvent(CalendarEvent calendarEvent) {
+  public EventResizeStart(CalendarEvent calendarEvent) {
     this.calendarEvent = calendarEvent;
   }
 
   @Override
-  public Type<ResizeStartHandler> getAssociatedType() {
+  public Type<EventResizeStartHandler> getAssociatedType() {
     return TYPE;
   }
 
   @Override
-  protected void dispatch(ResizeStartHandler handler) {
+  protected void dispatch(EventResizeStartHandler handler) {
     handler.onResizeStart(this);
   }
 

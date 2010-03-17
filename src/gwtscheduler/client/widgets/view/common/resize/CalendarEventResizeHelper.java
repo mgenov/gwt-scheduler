@@ -1,19 +1,13 @@
 package gwtscheduler.client.widgets.view.common.resize;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Label;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.Instant;
-import org.goda.time.Interval;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -38,11 +32,6 @@ public class CalendarEventResizeHelper {
 
     int getHeight();
 
-    HandlerRegistration addResizeStartHandler(ResizeStartHandler handler, GwtEvent.Type<ResizeStartHandler> type);
-
-    HandlerRegistration addResizeEndHandler(ResizeEndHandler handler, GwtEvent.Type<ResizeEndHandler> type);
-
-    void fireEvent(GwtEvent<?> resizeEvent);
   }
 
   private final EventsDashboard.Display eventsDisplay;
@@ -91,8 +80,8 @@ public class CalendarEventResizeHelper {
 
     startRow = eventsDisplay.getCellPosition(event.getClientX(), event.getClientY());
 
-    ResizeStartEvent resizeEvent = new ResizeStartEvent(calendarEvent);
-    display.fireEvent(resizeEvent);
+    EventResizeStart resizeEvent = new EventResizeStart(calendarEvent);
+    eventsDisplay.getHasEventResizeEndHandlers().fireEvent(resizeEvent);
   }
 
   void mouseMove(MouseMoveEvent event) {
@@ -122,16 +111,8 @@ public class CalendarEventResizeHelper {
 
 //    calendarEvent.setHeight(display.getHeight());
 
-    ResizeEndEvent resizeEvent = new ResizeEndEvent(calendarEvent, startTime, endTime);
-    display.fireEvent(resizeEvent);
-  }
-
-  public HandlerRegistration addResizeStartHandler(ResizeStartHandler handler){
-    return display.addResizeStartHandler(handler, ResizeStartEvent.TYPE);
-  }
-
-  public HandlerRegistration addResizeEndHandler(ResizeEndHandler handler){
-    return display.addResizeEndHandler(handler, ResizeEndEvent.TYPE);
+    EventResizeEnd resizeEvent = new EventResizeEnd(calendarEvent, startTime, endTime);
+    eventsDisplay.getHasEventResizeEndHandlers().fireEvent(resizeEvent);
   }
 
 }

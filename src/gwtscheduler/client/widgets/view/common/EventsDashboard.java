@@ -1,9 +1,14 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
+import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeEndHandlers;
+import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeStartHandlers;
+import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
 import gwtscheduler.client.widgets.view.common.resize.ResizeHelper;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.Event;
@@ -33,6 +38,9 @@ public class EventsDashboard {
 
     int getRowDistance(int start, int end);
 
+    HasEventResizeEndHandlers getHasEventResizeEndHandlers();
+
+    HasEventResizeStartHandlers getHasEventResizeStartHandlers();
   }
 
   private Display display;
@@ -81,5 +89,13 @@ public class EventsDashboard {
     calendarEvent.bindDisplay(display);
     dragZone.add(calendarEvent);
     return calendarEvent;
+  }
+
+  public HandlerRegistration addEventResizeEndHandler(EventResizeEndHandler handler) {
+    return display.getHasEventResizeEndHandlers().addEventResizeEndHandler(handler);
+  }
+
+  public HandlerRegistration addEventResizeStartHandler(EventResizeStartHandler handler) {
+    return display.getHasEventResizeStartHandlers().addEventResizeEndHandler(handler);
   }
 }

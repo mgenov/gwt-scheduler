@@ -7,25 +7,25 @@ import org.goda.time.Instant;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class ResizeEndEvent extends GwtEvent<ResizeEndHandler>{
-  public static Type<ResizeEndHandler> TYPE = new Type<ResizeEndHandler>();
+public class EventResizeEnd extends GwtEvent<EventResizeEndHandler>{
+  public static Type<EventResizeEndHandler> TYPE = new Type<EventResizeEndHandler>();
   private final CalendarEvent calendarEvent;
   private final Instant startTime;
   private final Instant endTime;
 
-  public ResizeEndEvent(CalendarEvent calendarEvent, Instant startTime, Instant endTime) {
+  public EventResizeEnd(CalendarEvent calendarEvent, Instant startTime, Instant endTime) {
     this.calendarEvent = calendarEvent;
     this.startTime = startTime;
     this.endTime = endTime;
   }
 
   @Override
-  public Type<ResizeEndHandler> getAssociatedType() {
+  public Type<EventResizeEndHandler> getAssociatedType() {
     return TYPE;
   }
 
   @Override
-  protected void dispatch(ResizeEndHandler handler) {
+  protected void dispatch(EventResizeEndHandler handler) {
     handler.onResizeEnd(this);
   }
 

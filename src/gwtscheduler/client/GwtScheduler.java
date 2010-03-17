@@ -9,6 +9,8 @@ import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
 
 import java.util.List;
 
@@ -115,5 +117,17 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
   public void addEvent(TeamTaskEvent event) {
     CalendarPresenter presenter = presenters.get(selectedPresenter);
     presenter.addCalendarEvent(event);
+  }
+
+  public void addEventResizeEndHandler(EventResizeEndHandler handler) {
+     for (CalendarPresenter calendar : presenters) {
+      calendar.addEventResizeEndHandler(handler);
+    }
+  }
+
+  public void addEventResizeStartHandler(EventResizeStartHandler handler) {
+    for (CalendarPresenter presenter : presenters) {
+      presenter.addEventResizeStartHandler(handler);
+    }
   }
 }

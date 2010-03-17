@@ -148,6 +148,10 @@ public class CalendarEvent implements Draggable {
     display.setViewWidth(width);
   }
 
+  public String getEventTitle(){
+    return event.getTitle();
+  }
+
   /**
    * Registers a new {@link com.google.gwt.event.dom.client.ClickHandler} to the current calendar event.
    *
