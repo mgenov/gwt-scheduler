@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import dragndrop.client.core.DragZone;
@@ -94,12 +95,11 @@ public class EventsDashboard {
     display.getHasCalendarEventResizeHandlers().addEventResizeEndHandler(new CalendarEventResizeHandler(){
       @Override
       public void onCalendarEventResizeEvent(CalendarEventResizeEvent event) {
-        // get resized event
-        // check colision
-        // get resized frame on event and set pointer
-        Interval currentInterval = event.getCurrentInterval();
-//        collisionHelper.checkEventsIntervals(events, currentInterval, );
-        // TODO: make resize colision handling
+
+//        Interval currentInterval = event.getCurrentInterval();
+//        if(collisionHelper.isInColision(events, currentInterval)){
+//          GWT.log("COLISION!", null);
+//        }
       }
     });
   }
