@@ -55,16 +55,21 @@ public class CalendarEvent implements Draggable {
 
   /** Holds the event position on the screen. */
   private EventPosition position = new EventPosition();
+  private int[] startCellPosition;
+  private int[] endCellPosition;
 
   /**
    * Default constructor.
    *
    * @param event the event that is wrapping to provided calendar event.
    * @param position
+   * @param endCellPosition
    */
-  public CalendarEvent(Event event, EventPosition position) {
+  public CalendarEvent(Event event, EventPosition position, int[] startCellPosition, int[] endCellPosition) {
     this.event = event;
     this.position = position;
+    this.startCellPosition = startCellPosition;
+    this.endCellPosition = endCellPosition;
   }
 
   /**
@@ -209,5 +214,13 @@ public class CalendarEvent implements Draggable {
 
   public Event getEvent() {
     return event;
+  }
+
+  public int[] getStartCellPosition() {
+    return startCellPosition;
+  }
+
+  public int[] getEndCellPosition() {
+    return endCellPosition;
   }
 }

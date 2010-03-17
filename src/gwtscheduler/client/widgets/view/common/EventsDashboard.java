@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.EventBus;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeEndHandlers;
 import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeStartHandlers;
@@ -59,6 +60,7 @@ public class EventsDashboard {
   private DragZone dragZone;
   private ResizeHelper resizeHelper;
   private ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
+  private WidgetResizeHandler displayWidgetResizeHandler;
 
   public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus, DragZone dragZone, ResizeHelper resizeHelper) {
     this.dateGenerator = dateGenerator;
@@ -70,6 +72,7 @@ public class EventsDashboard {
 
   public void bindDisplay(final Display display) {
     this.display = display;
+    displayWidgetResizeHandler = new EventsDashboardResizeHandler(display,events);
 
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
       @Override
@@ -98,10 +101,8 @@ public class EventsDashboard {
   private void clearEvents() {
     for (CalendarEvent event : events) {
       event.removeFromParent(display.asWidget());
-
+      events.remove(event);
     }
-    events = new ArrayList<CalendarEvent>();
-
   }
 
 
@@ -113,20 +114,24 @@ public class EventsDashboard {
 
     int endRow = dateGenerator.getRowForInstant(event.getInterval().getEnd().toInstant(), rowsCount);
 
-               // TODO: will be refactored!
-    int[] position = display.calculateLeftTop(new int[]{startRow, index});
+
+    int[] startCellPosition = new int[]{startRow, index};
+    int[] endCellPosition = new int[]{endRow, index};
+
+            // TODO: will be refactored!
+    int[] position = display.calculateLeftTop(startCellPosition);
     int height = display.getRowDistance(startRow, endRow);
 
-    CalendarEvent calendarEvent = buildCalendarEvent(event, new EventPosition(position[0], position[1]));
+    CalendarEvent calendarEvent = buildCalendarEvent(event, new EventPosition(position[0], position[1]), startCellPosition,endCellPosition);
     calendarEvent.setSize(display.getCellWidth(), height);
     events.add(calendarEvent);
-    resizeHelper.get(calendarEvent);
+    resizeHelper.attachResizeHelper(calendarEvent);
 
     calendarEvent.go(display.asWidget());
   }
 
-  private CalendarEvent buildCalendarEvent(Event event, EventPosition eventPosition) {
-    CalendarEvent calendarEvent = new CalendarEvent(event, eventPosition);
+  private CalendarEvent buildCalendarEvent(Event event, EventPosition eventPosition, int[] startCellPosition, int[] endCellPosition) {
+    CalendarEvent calendarEvent = new CalendarEvent(event, eventPosition,startCellPosition,endCellPosition);
     CalendarEvent.Display display = this.display.getCalendarEventDisplay();
     calendarEvent.bindDisplay(display);
     dragZone.add(calendarEvent);
@@ -135,7 +140,7 @@ public class EventsDashboard {
 
   public boolean checkForCollision(int[] cell, int cellCount, int rowsCount, CalendarColumn column) {
     int[] end = new int[2];
-    end[0] = cell[0]+cellCount;
+    end[0] =  cell[0] + cellCount - 1;
     end[1] =  cell[1];
     Interval  interval = dateGenerator.getIntervalForRange(cell,end,rowsCount);
     return collisionHelper.checkEventsIntervals(events,interval,column);
@@ -147,5 +152,9 @@ public class EventsDashboard {
 
   public HandlerRegistration addEventResizeStartHandler(EventResizeStartHandler handler) {
     return display.getHasEventResizeStartHandlers().addEventResizeEndHandler(handler);
+  }
+
+  public WidgetResizeHandler getEventsDachboardWidgetResizeHandler() {
+    return displayWidgetResizeHandler;
   }
 }

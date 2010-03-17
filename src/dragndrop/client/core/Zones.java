@@ -37,7 +37,7 @@ package dragndrop.client.core;
  * You must attach drag zone somewhere do make it visible.
  * </p>
  * <pre>
- *  dragZone.go(RootPanel.get());
+ *  dragZone.go(RootPanel.attachResizeHelper());
  * </pre>
  * <p>
  * By default for all dragged widgets is used default frame. You can make you own draggable frame to be used for all draggable widgets.

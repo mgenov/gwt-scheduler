@@ -140,12 +140,12 @@ class DragZoneImpl implements DragZone {
     DropZone dropZone = display.getDropZone(dropZones, mouseX, mouseY);
 
     if(dropZone != null && this.dropZone == null){
-      // fires event when get in drop zone.
+      // fires event when attachResizeHelper in drop zone.
       this.dropZone = dropZone;
       fireEvent(dropZone, new DragInEvent(frame, mouseX, mouseY));
 
     } else if(dropZone == null && this.dropZone != null){
-      // fires event when get out from drop zone.
+      // fires event when attachResizeHelper out from drop zone.
       display.fireEvent(this.dropZone, new DragOutEvent(frame));
       this.dropZone = null;
 

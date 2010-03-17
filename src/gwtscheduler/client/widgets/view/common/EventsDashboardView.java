@@ -6,6 +6,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.google.gwt.dom.client.Style.Position;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeEndHandlers;
 import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeStartHandlers;
 import gwtscheduler.client.widgets.view.common.resize.EventResizeEnd;
@@ -18,6 +19,7 @@ import gwtscheduler.common.event.EventPosition;
 
 /**
  * This class is responsible for displaying events.
+ *
  * @author malp
  */
 public class EventsDashboardView extends AbstractGridOverlay implements EventsDashboard.Display, HasEventResizeStartHandlers, HasEventResizeEndHandlers {
@@ -26,14 +28,9 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
    * Default constructor.
    */
   public EventsDashboardView() {
-
     // why this need to be set when AbstractGridOverlay is an absolute panel ???
     getElement().getStyle().setPosition(Position.ABSOLUTE);
-//
-//    //TODO: Remove this event after layout is completed
-//    CalendarEventView event = new CalendarEventView();
-//    event.getElement().getStyle().setZIndex(33);
-//    add(event, 50,50);
+//    widgetResizeHandler = new  EventsDashboardResizeHandler(this,)
   }
 
   @Override
@@ -49,7 +46,7 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   public int[] getWindowCellPosition(int[] cell) {
     int[] leftTop = calculateLeftTop(cell);
     int[] position = getAbsolutePosition();
-    return new int[] {position[0]+leftTop[0], position[1]+leftTop[1]};
+    return new int[]{position[0] + leftTop[0], position[1] + leftTop[1]};
   }
 
   @Override
@@ -73,7 +70,7 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   }
 
   @Override
-  public int getRowDistance(int start, int end){
+  public int getRowDistance(int start, int end) {
     return getCellHeight() * (end - start);
   }
 
@@ -87,6 +84,7 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
     return this;
   }
 
+
   @Override
   public HandlerRegistration addEventResizeEndHandler(EventResizeEndHandler handler) {
     return addHandler(handler, EventResizeEnd.TYPE);
@@ -96,4 +94,5 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   public HandlerRegistration addEventResizeEndHandler(EventResizeStartHandler handler) {
     return addHandler(handler, EventResizeStart.TYPE);
   }
+
 }

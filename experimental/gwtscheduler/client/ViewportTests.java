@@ -31,7 +31,6 @@ import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
 import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
-import org.goda.time.DateTimeZone;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -155,7 +154,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     dragZone.addWidget(mainPanel);
     dragZone.go(RootPanel.get());
 //    dragZone.go(testPanel);
-//    RootPanel.get().add(testPanel);
+//    RootPanel.attachResizeHelper().add(testPanel);
 
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();

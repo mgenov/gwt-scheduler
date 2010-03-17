@@ -23,7 +23,7 @@ public class ResizeHelperProvider implements ResizeHelper{
     this.display = display;
   }
 
-  public CalendarEventResizeHelper get(CalendarEvent calendarEvent) {
+  public CalendarEventResizeHelper attachResizeHelper(CalendarEvent calendarEvent) {
     CalendarEventResizeHelper helper = new CalendarEventResizeHelper(calendarEvent, display, dateGenerator, new CalendarEventResizeHelperView());
     return helper;
   }
