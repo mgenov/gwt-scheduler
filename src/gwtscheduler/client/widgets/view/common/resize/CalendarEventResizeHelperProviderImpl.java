@@ -8,12 +8,12 @@ import gwtscheduler.common.event.CalendarEvent;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class ResizeHelperProvider implements ResizeHelper{
-  private EventsDashboard.Display display;
+public class CalendarEventResizeHelperProviderImpl implements CalendarEventResizeHelperProvider {
   private final DateGenerator dateGenerator;
+  private EventsDashboard.Display display;
   private EventBus eventBus;
 
-  public ResizeHelperProvider(DateGenerator dateGenerator, EventBus eventBus) {
+  public CalendarEventResizeHelperProviderImpl(DateGenerator dateGenerator, EventBus eventBus) {
     this.dateGenerator = dateGenerator;
     this.eventBus = eventBus;
   }
@@ -24,7 +24,7 @@ public class ResizeHelperProvider implements ResizeHelper{
   }
 
   public CalendarEventResizeHelper attachResizeHelper(CalendarEvent calendarEvent) {
-    CalendarEventResizeHelper helper = new CalendarEventResizeHelper(calendarEvent, display, dateGenerator, new CalendarEventResizeHelperView());
+    CalendarEventResizeHelperImpl helper = new CalendarEventResizeHelperImpl(calendarEvent, display, dateGenerator, new CalendarEventResizeHelperView());
     return helper;
   }
 }

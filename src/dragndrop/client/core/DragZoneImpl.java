@@ -22,9 +22,11 @@ import java.util.List;
  */
 class DragZoneImpl implements DragZone {
   private final int CORRECTION = -5;
+  private final CursorStyleProvider cursorStyleProvider;
+  private final Frame defaultFrame;
   private Display display;
-  private DropZone dropZone = null;
 
+  private DropZone dropZone = null;
   private HashMap<HasMouseDownHandlers, Object> draggingRegister = new HashMap<HasMouseDownHandlers, Object>();
   private HashMap<String, Frame> frameRegister = new HashMap<String, Frame>();
   private ArrayList<HasWidgets> dropZones = new ArrayList<HasWidgets>();
@@ -34,12 +36,12 @@ class DragZoneImpl implements DragZone {
   private int cloneLeft = 0;
   private int cloneWidth = 0;
   private int cloneHeight = 0;
-  private final Frame defaultFrame;
   private Frame frame;
 
-  public DragZoneImpl(Frame frame){
+  public DragZoneImpl(Frame frame, CursorStyleProvider cursorStyleProvider){
     this.defaultFrame = frame;
     this.frame = frame;
+    this.cursorStyleProvider = cursorStyleProvider;
   }
 
   /**
@@ -143,11 +145,15 @@ class DragZoneImpl implements DragZone {
       // fires event when attachResizeHelper in drop zone.
       this.dropZone = dropZone;
       fireEvent(dropZone, new DragInEvent(frame, mouseX, mouseY));
+      // set cursor style when drag in drop zone.
+      frame.setCursorStyle(cursorStyleProvider.getPointer());
 
     } else if(dropZone == null && this.dropZone != null){
       // fires event when attachResizeHelper out from drop zone.
       display.fireEvent(this.dropZone, new DragOutEvent(frame));
       this.dropZone = null;
+      // set cursor style when drag out drop zone.
+      frame.setCursorStyle(cursorStyleProvider.getNotAllowed());
 
     } else if(this.dropZone != null){
       // fires event when dragging over drop zone.

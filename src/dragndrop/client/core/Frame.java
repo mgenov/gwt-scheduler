@@ -9,7 +9,33 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
-public interface Frame<T> {
+public interface Frame {
+  public interface Display {
+
+    HasMouseMoveHandlers getHasMouseMoveHandlers();
+
+    HasMouseUpHandlers getHasMouseUpHandlers();
+
+    void setStyle(String styleName);
+
+    void capture();
+
+    void release();
+
+    int getHeight();
+
+    int getWidth();
+
+    void setWidth(int width);
+
+    void setHeight(int height);
+
+    void setCursorStyle(String cursorType);
+
+    void setZIndex(int zIndex);
+
+    String getZIndex();
+  }
 
   HasMouseMoveHandlers getFrameMouseMoveHandlers();
 
@@ -34,4 +60,8 @@ public interface Frame<T> {
   Widget getWidget();
 
   void setCursorStyle(String cursorType);
+
+  void setZIndex(int zIndex);
+
+  String getZIndex();
 }

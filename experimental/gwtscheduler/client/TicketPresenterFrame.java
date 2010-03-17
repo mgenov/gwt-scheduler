@@ -11,32 +11,10 @@ import gwtscheduler.client.TicketPresenter;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class TicketPresenterFrame implements Frame, CalendarFrame {
-  public interface Display {
-    HasMouseMoveHandlers getHasMouseMoveHandlers();
-
-    HasMouseUpHandlers getHasMouseUpHandlers();
-
-    void setHeight(int height);
-
-    void setWidth(int width);
-
-    void setStyle(String styleName);
-
-    int getHeight();
-
-    int getWidth();
-
-    void capture();
-
-    void release();
-
-    void setCursorStyle(String cursorType);
-  }
-
-  private Display display;
+  private Frame.Display display;
   private int duration;
 
-  public void bindDisplay(Display display){
+  public void bindDisplay(Frame.Display display){
     this.display = display;
   }
 
@@ -101,6 +79,16 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
   @Override
   public void setCursorStyle(String cursorType) {
     display.setCursorStyle(cursorType);
+  }
+
+  @Override
+  public void setZIndex(int zIndex) {
+    display.setZIndex(zIndex);
+  }
+
+  @Override
+  public String getZIndex() {
+    return display.getZIndex();
   }
 
   @Override

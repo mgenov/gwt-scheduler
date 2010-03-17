@@ -5,8 +5,8 @@ import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.EventIntervalCollisionException;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
@@ -31,7 +31,7 @@ public class CalendarContent {
 
     int[] getCell(int startX, int startY); // TODO: remove.. use EventDashboard presenter
 
-    boolean isDashboardAttached(DropEvent event); // TODO: Refactor when EventDashboard finished and move logic there.
+    boolean isEventAttached(DropEvent event); // TODO: Refactor when EventDashboard finished and move logic there.
 
     int[] getWindowCellPosition(int[] cell); // TODO: remove.. use EventDashboard presenter
 
@@ -64,21 +64,6 @@ public class CalendarContent {
         proceedDragOver(event);
       }
     });
-
-    display.addDragInHandler(new DragInHandler() {
-      @Override
-      public void onDragInEvent(DragInEvent event) {
-        Frame frame = event.getFrame();
-        frame.setCursorStyle(DEFAULT);
-      }
-    });
-    display.addDragOutHandler(new DragOutHandler(){
-      @Override
-      public void onDragOutEvent(DragOutEvent event) {
-        Frame frame = event.getFrame();
-        frame.setCursorStyle(NOT_ALLOWED);
-      }
-    });
   }
 
   private void proceedDragOver(DragOverEvent event) {
@@ -103,10 +88,10 @@ public class CalendarContent {
       int cellCount = frame.getHeight() / cellHeight;
       CalendarColumn column = columns.get(cell[1]);
       if (eventsDashboard.checkForCollision(cell, cellCount, calendarColumnsFrameGrid.getTimeLineDecorables().size(), column)) {
-        frame.setCursorStyle(NOT_ALLOWED);
+        frame.setCursorStyle(CursorStyle.NOT_ALLOWED.toString());
         collision = true;
       } else {
-        frame.setCursorStyle(DEFAULT);
+        frame.setCursorStyle(CursorStyle.POINTER.toString());
         collision = false;
       }
     }
@@ -137,7 +122,7 @@ public class CalendarContent {
         }
         int[] newCell = display.getCell(event.getEndX(), event.getEndY());
 
-        if (display.isDashboardAttached(event)) {
+        if (display.isEventAttached(event)) {
           int[] oldCell = display.getCell(event.getStartX(), event.getStartY());
           contentChange.onMove(oldCell, newCell, event.getDroppedObject());
         } else {
@@ -162,11 +147,11 @@ public class CalendarContent {
     this.columns = columns;
   }
   
-  public HandlerRegistration addEventResizeEndHandler(EventResizeEndHandler handler) {
+  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
     return eventsDashboard.addEventResizeEndHandler(handler);
   }
 
-  public HandlerRegistration addEventResizeStartHandler(EventResizeStartHandler handler) {
+  public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
     return eventsDashboard.addEventResizeStartHandler(handler);
   }
 

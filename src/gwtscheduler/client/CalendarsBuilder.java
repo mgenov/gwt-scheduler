@@ -1,7 +1,7 @@
 package gwtscheduler.client;
 
 import dragndrop.client.core.DragZone;
-import dragndrop.client.core.DragZone;
+import dragndrop.client.core.Zones;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.GenericDateGenerator;
@@ -17,14 +17,14 @@ import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
 import gwtscheduler.client.widgets.view.common.EventCollisionHelper;
 import gwtscheduler.client.widgets.view.common.EventIntervalCollisionHelper;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
-import gwtscheduler.client.widgets.view.common.resize.ResizeHelperProvider;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelperProviderImpl;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
+import gwtscheduler.common.calendar.EventsFrame;
 import gwtscheduler.common.calendar.IntervalType;
+import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.DateTime;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
-
-import java.util.Date;
 
 
 /**
@@ -61,7 +61,10 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    ResizeHelperProvider resizeHelper = new ResizeHelperProvider(dateGenerator, eventBus);
+    EventsFrame eventsFrame = new EventsFrame(Zones.getFrameDisplay());  // TODO: probably need to be instanced in other place!
+    dragZone.registerFrame(eventsFrame, CalendarEvent.class);
+
+    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
     CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, dragZone, resizeHelper));
 
@@ -93,7 +96,10 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    ResizeHelperProvider resizeHelper = new ResizeHelperProvider(dateGenerator, eventBus);
+    EventsFrame eventsFrame = new EventsFrame(Zones.getFrameDisplay());  // TODO: probably need to be instanced in other place!
+    dragZone.registerFrame(eventsFrame, CalendarEvent.class);
+
+    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
     CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, dragZone, resizeHelper));
 

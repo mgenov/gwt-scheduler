@@ -10,7 +10,7 @@ import gwtscheduler.client.widgets.view.common.EventsDashboard;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class CalendarEventResizeHelperView extends Composite implements CalendarEventResizeHelper.Display{
+public class CalendarEventResizeHelperView extends Composite implements CalendarEventResizeHelperImpl.Display{
   private String style = "border: 1px dotted;";
   private Label label = new Label();
 

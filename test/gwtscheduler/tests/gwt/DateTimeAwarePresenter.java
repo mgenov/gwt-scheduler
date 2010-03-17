@@ -1,7 +1,6 @@
 package gwtscheduler.tests.gwt;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.CalendarType;
@@ -9,8 +8,8 @@ import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
 import org.goda.time.DateTime;
 import org.goda.time.Instant;
@@ -122,12 +121,12 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
-  public HandlerRegistration addEventResizeEndHandler(EventResizeEndHandler handler) {
+  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
     return null;
   }
 
   @Override
-  public HandlerRegistration addEventResizeStartHandler(EventResizeStartHandler handler) {
+  public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
     return null;
   }
 

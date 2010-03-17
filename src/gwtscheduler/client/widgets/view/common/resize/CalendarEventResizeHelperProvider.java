@@ -6,7 +6,7 @@ import gwtscheduler.common.event.CalendarEvent;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public interface ResizeHelper {
+public interface CalendarEventResizeHelperProvider {
   CalendarEventResizeHelper attachResizeHelper(CalendarEvent calendarEvent);
 
   void setDashboardDisplay(EventsDashboard.Display display);
