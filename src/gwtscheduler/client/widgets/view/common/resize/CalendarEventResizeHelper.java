@@ -1,9 +1,6 @@
 package gwtscheduler.client.widgets.view.common.resize;
 
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.common.event.CalendarEvent;
@@ -80,8 +77,8 @@ public class CalendarEventResizeHelper {
 
     startRow = eventsDisplay.getCellPosition(event.getClientX(), event.getClientY());
 
-    EventResizeStart resizeEvent = new EventResizeStart(calendarEvent);
-    eventsDisplay.getHasEventResizeEndHandlers().fireEvent(resizeEvent);
+    CalendarEventResizeStartEvent resizeEvent = new CalendarEventResizeStartEvent(calendarEvent);
+    eventsDisplay.getHasCalendarEventResizeEndHandlers().fireEvent(resizeEvent);
   }
 
   void mouseMove(MouseMoveEvent event) {
@@ -102,17 +99,15 @@ public class CalendarEventResizeHelper {
       return;
     }
     Instant startTime = calendarEvent.getInterval().getStart().toInstant();
-    Instant endTime = dateGenerator.getIntervalForRange(startRow, endRow, 48).getEnd().toInstant();
-//    Interval frameInterval = dateGenerator.getIntervalForRange(eventTopRow, endRow, 48);
+    Instant endTime = dateGenerator.getIntervalForRange(startRow, endRow, 48).getEnd().toInstant(); // TODO: 48 is hard codded.
 
-//    Interval newEventInterval = new Interval(eventInstant, frameInstant);
-//
-//    calendarEvent.setInterval(newEventInterval);
+    CalendarEventResizeEndEvent resizeEvent = new CalendarEventResizeEndEvent(calendarEvent, startTime, endTime);
+    eventsDisplay.getHasCalendarEventResizeEndHandlers().fireEvent(resizeEvent);
+  }
 
-//    calendarEvent.setHeight(display.getHeight());
-
-    EventResizeEnd resizeEvent = new EventResizeEnd(calendarEvent, startTime, endTime);
-    eventsDisplay.getHasEventResizeEndHandlers().fireEvent(resizeEvent);
+  private void fireOnResizeEvent(){
+    CalendarEventResizeEvent resizeEvent = new CalendarEventResizeEvent();
+    eventsDisplay.getHasCalendarEventResizeHandlers().fireEvent(resizeEvent);
   }
 
 }

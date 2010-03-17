@@ -1,11 +1,10 @@
 package gwtscheduler.client.widgets.view.columns;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
@@ -145,11 +144,11 @@ public class CalendarContent {
     this.columns = columns;
   }
   
-  public HandlerRegistration addEventResizeEndHandler(EventResizeEndHandler handler) {
+  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
     return eventsDashboard.addEventResizeEndHandler(handler);
   }
 
-  public HandlerRegistration addEventResizeStartHandler(EventResizeStartHandler handler) {
+  public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
     return eventsDashboard.addEventResizeStartHandler(handler);
   }
 }

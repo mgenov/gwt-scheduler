@@ -5,11 +5,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
-import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeEndHandlers;
-import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeStartHandlers;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
-import gwtscheduler.client.widgets.view.common.resize.ResizeHelper;
+import gwtscheduler.client.widgets.view.common.resize.*;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEventHandler;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
@@ -47,9 +43,11 @@ public class EventsDashboard {
 
     int getRowDistance(int start, int end);
 
-    HasEventResizeEndHandlers getHasEventResizeEndHandlers();
+    HasCalendarEventResizeEndHandlers getHasCalendarEventResizeEndHandlers();
 
-    HasEventResizeStartHandlers getHasEventResizeStartHandlers();
+    HasCalendarEventResizeStartHandlers getHasCalendarEventResizeStartHandlers();
+
+    HasCalendarEventResizeHandlers getHasCalendarEventResizeHandlers();
   }
 
   private Display display;
@@ -57,10 +55,10 @@ public class EventsDashboard {
   private EventCollisionHelper collisionHelper;
   private final EventBus eventBus;
   private DragZone dragZone;
-  private ResizeHelper resizeHelper;
+  private CalendarEventResizeHelperProvider resizeHelper;
   private ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
 
-  public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus, DragZone dragZone, ResizeHelper resizeHelper) {
+  public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus, DragZone dragZone, CalendarEventResizeHelperProvider resizeHelper) {
     this.dateGenerator = dateGenerator;
     this.collisionHelper = collisionHelper;
     this.eventBus = eventBus;
@@ -93,6 +91,12 @@ public class EventsDashboard {
       }
     });
     resizeHelper.setDashboardDisplay(display);
+    display.getHasCalendarEventResizeHandlers().addEventResizeEndHandler(new CalendarEventResizeHandler(){
+      @Override
+      public void onCalendarEventResizeEvent(CalendarEventResizeEvent event) {
+        // TODO: make resize colision handling
+      }
+    });
   }
 
   private void clearEvents() {
@@ -107,10 +111,7 @@ public class EventsDashboard {
 
   
   public void addCalendarEvent(int index, Event event, int rowsCount) {
-
-
     int startRow = dateGenerator.getRowForInstant(event.getInterval().getStart().toInstant(), rowsCount);
-
     int endRow = dateGenerator.getRowForInstant(event.getInterval().getEnd().toInstant(), rowsCount);
 
                // TODO: will be refactored!
@@ -141,11 +142,11 @@ public class EventsDashboard {
     return collisionHelper.checkEventsIntervals(events,interval,column);
   }
   
-  public HandlerRegistration addEventResizeEndHandler(EventResizeEndHandler handler) {
-    return display.getHasEventResizeEndHandlers().addEventResizeEndHandler(handler);
+  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
+    return display.getHasCalendarEventResizeEndHandlers().addEventResizeEndHandler(handler);
   }
 
-  public HandlerRegistration addEventResizeStartHandler(EventResizeStartHandler handler) {
-    return display.getHasEventResizeStartHandlers().addEventResizeEndHandler(handler);
+  public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
+    return display.getHasCalendarEventResizeStartHandlers().addEventResizeEndHandler(handler);
   }
 }

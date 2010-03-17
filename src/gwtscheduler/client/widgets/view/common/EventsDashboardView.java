@@ -1,26 +1,18 @@
 package gwtscheduler.client.widgets.view.common;
 
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.google.gwt.dom.client.Style.Position;
-import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeEndHandlers;
-import gwtscheduler.client.widgets.view.calendarevent.HasEventResizeStartHandlers;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEnd;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeStart;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
+import gwtscheduler.client.widgets.view.common.resize.*;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.CalendarEventView;
-import gwtscheduler.common.event.EventPosition;
 
 /**
  * This class is responsible for displaying events.
  * @author malp
  */
-public class EventsDashboardView extends AbstractGridOverlay implements EventsDashboard.Display, HasEventResizeStartHandlers, HasEventResizeEndHandlers {
+public class EventsDashboardView extends AbstractGridOverlay implements EventsDashboard.Display, HasCalendarEventResizeStartHandlers, HasCalendarEventResizeEndHandlers, HasCalendarEventResizeHandlers {
 
   /**
    * Default constructor.
@@ -78,22 +70,32 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   }
 
   @Override
-  public HasEventResizeEndHandlers getHasEventResizeEndHandlers() {
+  public HasCalendarEventResizeEndHandlers getHasCalendarEventResizeEndHandlers() {
     return this;
   }
 
   @Override
-  public HasEventResizeStartHandlers getHasEventResizeStartHandlers() {
+  public HasCalendarEventResizeStartHandlers getHasCalendarEventResizeStartHandlers() {
     return this;
   }
 
   @Override
-  public HandlerRegistration addEventResizeEndHandler(EventResizeEndHandler handler) {
-    return addHandler(handler, EventResizeEnd.TYPE);
+  public HasCalendarEventResizeHandlers getHasCalendarEventResizeHandlers() {
+    return this;
   }
 
   @Override
-  public HandlerRegistration addEventResizeEndHandler(EventResizeStartHandler handler) {
-    return addHandler(handler, EventResizeStart.TYPE);
+  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
+    return addHandler(handler, CalendarEventResizeEndEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeStartHandler handler) {
+    return addHandler(handler, CalendarEventResizeStartEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeHandler handler) {
+    return addHandler(handler, CalendarEventResizeEvent.TYPE);
   }
 }

@@ -24,14 +24,13 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEnd;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeStart;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndEvent;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartEvent;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
-import org.goda.time.DateTimeZone;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -207,18 +206,18 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
-    main.addEventResizeEndHandler(new EventResizeEndHandler(){
+    main.addEventResizeEndHandler(new CalendarEventResizeEndHandler(){
       @Override
-      public void onResizeEnd(EventResizeEnd event) {
+      public void onCalendarEventResizeEndEvent(CalendarEventResizeEndEvent event) {
         GWT.log("Resized event" + event.getCalendarEvent().getEventTitle(), null);
         GWT.log("Event from" + event.getStartTime(), null);
         GWT.log("Event to" + event.getEndTime(), null);
       }
     });
 
-    main.addEventResizeStartHandler(new EventResizeStartHandler(){
+    main.addEventResizeStartHandler(new CalendarEventResizeStartHandler(){
       @Override
-      public void onResizeStart(EventResizeStart event) {
+      public void onCalendarEventResizeStartEvent(CalendarEventResizeStartEvent event) {
         GWT.log("Event resizing start:", null);
       }
     });

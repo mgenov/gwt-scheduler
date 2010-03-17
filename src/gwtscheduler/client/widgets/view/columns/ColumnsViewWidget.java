@@ -12,8 +12,6 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.widgets.view.calendarevent.*;
-import gwtscheduler.client.modules.AppInjector;
-import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.DOMUtils;
@@ -26,8 +24,6 @@ import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawHandler;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEnd;
-import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
 
 import java.util.ArrayList;
 import java.util.Iterator;
