@@ -119,7 +119,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
 
   private Interval getFrameInterval() {
     Instant startTime = calendarEvent.getInterval().getStart().toInstant();
-    Instant endTime = dateGenerator.getIntervalForRange(eventStartRow, endRow, eventsDisplay.getRowCount()).getEnd().toInstant(); // TODO: 48 is hard codded.
+    Instant endTime = dateGenerator.getIntervalForRange(eventStartRow, endRow, 48).getEnd().toInstant();
     return new Interval(startTime, endTime);
   }
 

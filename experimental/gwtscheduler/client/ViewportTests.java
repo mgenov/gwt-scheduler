@@ -218,7 +218,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     main.addEventResizeStartHandler(new CalendarEventResizeStartHandler(){
       @Override
       public void onCalendarEventResizeStartEvent(CalendarEventResizeStartEvent event) {
-        GWT.log("Event resizing start:", null);
+//        GWT.log("Event resizing start:", null);
       }
     });
 

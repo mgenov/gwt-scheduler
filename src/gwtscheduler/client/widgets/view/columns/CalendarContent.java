@@ -43,8 +43,6 @@ public class CalendarContent {
   private EventsDashboard eventsDashboard;
   private Display display;
   private List<CalendarColumn> columns;
-  private static final String NOT_ALLOWED = "not-allowed";
-  private static final String DEFAULT = "default";
   private static final String EVENT_IN_COLLISION = "The dropped event interval is in collision with other already exist event";
 
   public CalendarContent(CalendarColumnsFrameGrid calendarColumnsFrameGrid, EventsDashboard eventsDashboard) {
@@ -133,10 +131,11 @@ public class CalendarContent {
   }
 
   public void addCalendarEvent(List<CalendarColumn> columns, Event event) {
+    int rowsCount = display.getCalendarColumnsFrameGridDisplay().getRows();
     int index = 0;
     for (CalendarColumn column : columns) {
       if (column.isEventForColumn(event)) {
-        eventsDashboard.addCalendarEvent(index, event);
+        eventsDashboard.addCalendarEvent(index, event, rowsCount);
       }
       index++;
     }

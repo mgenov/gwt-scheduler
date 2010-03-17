@@ -121,8 +121,7 @@ public class EventsDashboard {
 
 
   
-  public void addCalendarEvent(int index, Event event) {
-    int rowsCount = display.getRowCount();
+  public void addCalendarEvent(int index, Event event, int rowsCount) {
     int startRow = dateGenerator.getRowForInstant(event.getInterval().getStart().toInstant(), rowsCount);
     int endRow = dateGenerator.getRowForInstant(event.getInterval().getEnd().toInstant(), rowsCount);
 
