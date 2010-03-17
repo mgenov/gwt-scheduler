@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.common;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import dragndrop.client.core.CursorStyle;
 import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
@@ -50,6 +51,7 @@ public class EventsDashboard {
     HasCalendarEventResizeStartHandlers getHasCalendarEventResizeStartHandlers();
 
     HasCalendarEventResizeHandlers getHasCalendarEventResizeHandlers();
+
   }
 
   private Display display;
@@ -98,12 +100,13 @@ public class EventsDashboard {
     display.getHasCalendarEventResizeHandlers().addEventResizeEndHandler(new CalendarEventResizeHandler(){
       @Override
       public void onCalendarEventResizeEvent(CalendarEventResizeEvent event) {
-        // get resized event
-        // check colision
-        // get resized frame on event and set pointer
+
         Interval currentInterval = event.getCurrentInterval();
-//        collisionHelper.checkEventsIntervals(events, currentInterval, );
-        // TODO: make resize colision handling
+        if(collisionHelper.checkEventsIntervals(events, currentInterval, event.getCalendarEvent())){
+          event.getCalendarEventResizeHelper().setCursorStyle(CursorStyle.NOT_ALLOWED.toString());
+        } else {
+          event.getCalendarEventResizeHelper().setCursorStyle(CursorStyle.POINTER.toString());
+        }
       }
     });
   }
