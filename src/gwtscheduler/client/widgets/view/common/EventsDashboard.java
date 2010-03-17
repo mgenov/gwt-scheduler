@@ -114,8 +114,8 @@ public class EventsDashboard {
   private void clearEvents() {
     for (CalendarEvent event : events) {
       event.removeFromParent(display.asWidget());
-      events.remove(event);
     }
+    events.clear();
   }
 
 
