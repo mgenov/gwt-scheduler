@@ -51,6 +51,11 @@ public class CalendarEventResizeHelperView extends Composite implements Calendar
   }
 
   @Override
+  public void setCursorStyle(String style) {
+    label.getElement().getStyle().setProperty("cursor", style);
+  }
+
+  @Override
   public void release() {
     DOM.releaseCapture(label.getElement());
   }

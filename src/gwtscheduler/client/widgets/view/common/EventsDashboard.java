@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.common;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import dragndrop.client.core.CursorStyle;
 import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
@@ -99,10 +100,12 @@ public class EventsDashboard {
       @Override
       public void onCalendarEventResizeEvent(CalendarEventResizeEvent event) {
 
-//        Interval currentInterval = event.getCurrentInterval();
-//        if(collisionHelper.isInColision(events, currentInterval)){
-//          GWT.log("COLISION!", null);
-//        }
+        Interval currentInterval = event.getCurrentInterval();
+        if(collisionHelper.checkEventsIntervals(events, currentInterval, event.getCalendarEvent())){
+          event.getCalendarEventResizeHelper().setCursorStyle(CursorStyle.NOT_ALLOWED.toString());
+        } else {
+          event.getCalendarEventResizeHelper().setCursorStyle(CursorStyle.POINTER.toString());
+        }
       }
     });
   }

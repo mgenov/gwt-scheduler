@@ -11,12 +11,12 @@ public class CalendarEventResizeEvent extends GwtEvent<CalendarEventResizeHandle
   public static Type<CalendarEventResizeHandler> TYPE = new Type<CalendarEventResizeHandler>();
   private final Interval currentInterval;
   private final CalendarEventResizeHelper calendarEventResizeHelper;
-  private final int column;
+  private final CalendarEvent calendarEvent;
 
-  public CalendarEventResizeEvent(Interval currentInterval, CalendarEventResizeHelper calendarEventResizeHelper, int column) {
+  public CalendarEventResizeEvent(Interval currentInterval, CalendarEventResizeHelper calendarEventResizeHelper, CalendarEvent calendarEvent) {
     this.currentInterval = currentInterval;
     this.calendarEventResizeHelper = calendarEventResizeHelper;
-    this.column = column;
+    this.calendarEvent = calendarEvent;
   }
 
   @Override
@@ -37,7 +37,7 @@ public class CalendarEventResizeEvent extends GwtEvent<CalendarEventResizeHandle
     return calendarEventResizeHelper;
   }
 
-  public int getColumn() {
-    return column;
+  public CalendarEvent getCalendarEvent() {
+    return calendarEvent;
   }
 }

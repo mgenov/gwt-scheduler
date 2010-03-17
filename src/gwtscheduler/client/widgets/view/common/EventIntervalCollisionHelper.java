@@ -35,6 +35,19 @@ public class EventIntervalCollisionHelper implements EventCollisionHelper{
     return false;
   }
 
+  @Override
+  public boolean checkEventsIntervals(ArrayList<CalendarEvent> events, Interval interval, CalendarEvent calendarEvent) {
+    for (CalendarEvent event : events) {
+      if((calendarEvent.getStartCellPosition()[1] == event.getStartCellPosition()[1]) &&
+              (event != calendarEvent)){
+        if(checkCollision(event.getInterval(), interval)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   private boolean checkCollision(Interval intervalA, Interval intervalB) {
     long a1 = intervalA.getStartMillis();
     long a2 = intervalA.getEndMillis();
