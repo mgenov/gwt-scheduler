@@ -3,14 +3,14 @@ package gwtscheduler.client.widgets.view.columns;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
+import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.EventIntervalCollisionException;
+import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
-import gwtscheduler.common.event.Event;
-import gwtscheduler.client.widgets.common.Cell;
-import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.common.calendar.CalendarFrame;
+import gwtscheduler.common.event.Event;
 
 import java.util.List;
 
@@ -70,28 +70,26 @@ public class CalendarContent {
 
     DragZone hasFrame = event.getDragZone();
 
-
     hasFrame.setFrameWindowPosition(windowCellPosition[0], windowCellPosition[1]);
+
+    int cellWidth = calendarColumnsFrameGrid.getCellWidth();
+    int cellHeight = calendarColumnsFrameGrid.getCellHeight();
 
     Frame frame = hasFrame.getCurrentFrame();
 
-
     if (frame instanceof CalendarFrame) {
-      int cellWidth = calendarColumnsFrameGrid.getCellWidth();
-      int cellHeight = calendarColumnsFrameGrid.getCellHeight();
-
       CalendarFrame cellFrame = (CalendarFrame) frame;
       cellFrame.onDragOver(cellWidth, cellHeight);
+    }
 
-      int cellCount = frame.getHeight() / cellHeight;
-      CalendarColumn column = columns.get(cell[1]);
-      if (eventsDashboard.checkForCollision(cell, cellCount, calendarColumnsFrameGrid.getTimeLineDecorables().size(), column)) {
-        frame.setCursorStyle(CursorStyle.NOT_ALLOWED.toString());
-        collision = true;
-      } else {
-        frame.setCursorStyle(CursorStyle.POINTER.toString());
-        collision = false;
-      }
+    int cellCount = frame.getHeight() / cellHeight;
+    CalendarColumn column = columns.get(cell[1]);
+    if (eventsDashboard.checkForCollision(cell, cellCount, calendarColumnsFrameGrid.getTimeLineDecorables().size(), column)) {
+      frame.setCursorStyle(CursorStyle.NOT_ALLOWED.toString());
+      collision = true;
+    } else {
+      frame.setCursorStyle(CursorStyle.POINTER.toString());
+      collision = false;
     }
   }
 
@@ -144,7 +142,7 @@ public class CalendarContent {
   public void setColumns(List<CalendarColumn> columns) {
     this.columns = columns;
   }
-  
+
   public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
     return eventsDashboard.addEventResizeEndHandler(handler);
   }
