@@ -57,9 +57,7 @@ public class Zones {
   public static final CursorStyleProvider cursorProvider = new CursorStyleProviderImpl();
 
   public static DragZone getDragZone(){
-    DragFrame frame = new DragFrame();
-    frame.bindDisplay(new DragFrameWidget());
-    return getDragZone(frame);
+    return getDragZone(getDragFrame());
   }
 
   public static DragZone getDragZone(Frame frame){
@@ -70,5 +68,19 @@ public class Zones {
     DragZoneImpl dragZone = new DragZoneImpl(frame, cursorProvider);
     dragZone.bindDisplay(new DragZoneView());
     return dragZone;
+  }
+
+  public static Frame getDragFrame(){
+    return getDragFrame(getFrameDisplay());
+  }
+
+  public static Frame getDragFrame(Frame.Display display){
+    DragFrame frame = new DragFrame();
+    frame.bindDisplay(display);
+    return frame;
+  }
+
+  public static Frame.Display getFrameDisplay(){
+    return new DragFrameWidget();
   }
 }

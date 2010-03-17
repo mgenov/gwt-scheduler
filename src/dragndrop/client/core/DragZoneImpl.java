@@ -146,7 +146,7 @@ class DragZoneImpl implements DragZone {
       this.dropZone = dropZone;
       fireEvent(dropZone, new DragInEvent(frame, mouseX, mouseY));
       // set cursor style when drag in drop zone.
-      frame.setCursorStyle(cursorStyleProvider.getMove());
+      frame.setCursorStyle(cursorStyleProvider.getPointer());
 
     } else if(dropZone == null && this.dropZone != null){
       // fires event when get out from drop zone.

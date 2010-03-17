@@ -20,12 +20,12 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   }
 
   @Override
-  public HasMouseMoveHandlers getFrameMouseMoveHandlers() {
+  public HasMouseMoveHandlers getHasMouseMoveHandlers() {
     return frame;
   }
 
   @Override
-  public HasMouseUpHandlers getFrameMouseUpHandlers() {
+  public HasMouseUpHandlers getHasMouseUpHandlers() {
     return frame;
   }
 
@@ -67,6 +67,16 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   @Override
   public void setCursorStyle(String cursorType) {
     this.getElement().getStyle().setProperty("cursor",cursorType);
+  }
+
+  @Override
+  public void setZIndex(int zIndex) {
+    frame.getElement().getStyle().setZIndex(zIndex);
+  }
+
+  @Override
+  public String getZIndex() {
+    return frame.getElement().getStyle().getZIndex();
   }
 
 }

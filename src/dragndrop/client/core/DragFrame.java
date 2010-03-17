@@ -8,28 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 class DragFrame implements Frame {
-  interface Display {
-
-    HasMouseMoveHandlers getFrameMouseMoveHandlers();
-
-    HasMouseUpHandlers getFrameMouseUpHandlers();
-
-    void setStyle(String styleName);
-
-    void capture();
-
-    void release();
-
-    int getHeight();
-
-    int getWidth();
-
-    void setWidth(int width);
-
-    void setHeight(int height);
-
-    void setCursorStyle(String cursorType);
-  }
+  
 
   private Display display;
 
@@ -38,11 +17,11 @@ class DragFrame implements Frame {
   }
 
   public HasMouseMoveHandlers getFrameMouseMoveHandlers() {
-    return display.getFrameMouseMoveHandlers();
+    return display.getHasMouseMoveHandlers();
   }
 
   public HasMouseUpHandlers getFrameMouseUpHandlers() {
-    return display.getFrameMouseUpHandlers();
+    return display.getHasMouseUpHandlers();
   }
 
   public void setFrameStyle(String styleName){
@@ -89,6 +68,16 @@ class DragFrame implements Frame {
   @Override
   public void setCursorStyle(String cursorType) {
     display.setCursorStyle(cursorType);
+  }
+
+  @Override
+  public void setZIndex(int zIndex) {
+    display.setZIndex(zIndex);
+  }
+
+  @Override
+  public String getZIndex() {
+    return display.getZIndex();
   }
 
 }
