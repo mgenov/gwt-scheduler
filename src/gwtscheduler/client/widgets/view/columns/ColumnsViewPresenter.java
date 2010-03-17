@@ -62,10 +62,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     this.eventBus = eventBus;
   }
 
-
-//    //TODO: investigate this
-////    new EventsMediator(this,eventBus);
-
   /**
    * Binds the display to the presenter
    *
@@ -76,6 +72,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     this.display = display;
     calendarHeader.bindDisplay(display.getCalendarHeaderDisplay());
     calendarContent.bindDisplay(display.getCalendarContentDisplay());
+    calendarContent.setColumns(columns);
 
     display.initLasso(new VerticalLassoStrategy(false), this);
     final Interval interval = dateGenerator.interval();
@@ -236,7 +233,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void addCalendarEvent(Event event) {
     calendarContent.addCalendarEvent(columns,event);
-
   }
 
   @Override

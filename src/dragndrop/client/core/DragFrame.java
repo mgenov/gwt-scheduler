@@ -84,4 +84,9 @@ class DragFrame implements Frame {
     return (Widget)display;
   }
 
+  @Override
+  public void setCurrsorStyle(String currsorType) {
+    //TODO: implement this method
+  }
+
 }

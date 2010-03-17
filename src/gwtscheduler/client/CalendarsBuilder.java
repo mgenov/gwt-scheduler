@@ -1,6 +1,7 @@
 package gwtscheduler.client;
 
 import dragndrop.client.core.DragZone;
+import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.GenericDateGenerator;
@@ -13,6 +14,8 @@ import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
+import gwtscheduler.client.widgets.view.common.EventCollisionHelper;
+import gwtscheduler.client.widgets.view.common.EventIntervalCollisionHelper;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.common.resize.ResizeHelperProvider;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
@@ -31,6 +34,8 @@ import java.util.Date;
 public class CalendarsBuilder {
 
   private CalendarPresenter calendar;
+  private EventCollisionHelper eventCollisionHelper = new EventIntervalCollisionHelper();
+
   private AppConfiguration configuration;
   private int columns;
   private int rows;

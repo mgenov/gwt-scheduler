@@ -1,5 +1,6 @@
 package gwtscheduler.client;
 
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.user.client.DOM;
@@ -61,6 +62,11 @@ public class TicketPresenterFrameView extends Composite implements TicketPresent
   @Override
   public void release() {
     DOM.releaseCapture(frame.getElement());
+  }
+
+  @Override
+  public void setCurrsorStyle(String cursorType) {
+    this.getElement().getStyle().setProperty("cursor",cursorType);
   }
 
 }

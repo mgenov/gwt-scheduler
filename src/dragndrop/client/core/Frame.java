@@ -33,4 +33,5 @@ public interface Frame<T> {
 
   Widget getWidget();
 
+  void setCurrsorStyle(String currsorType);
 }

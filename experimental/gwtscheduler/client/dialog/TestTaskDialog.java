@@ -31,6 +31,14 @@ public class TestTaskDialog {
     HasClickHandlers getOKButton();
 
     void setColumnTitle(String title);
+
+    String getTaskTitle();
+
+    String getDescription();
+
+    int getEndHour();
+
+    int getStartHour();
   }
 
   private Display display;
@@ -74,7 +82,12 @@ public class TestTaskDialog {
   }
 
   public TestTask getTestTask() {
-    return task;
+    TestTask t= new TestTask();
+    t.setTitle(display.getTaskTitle());
+    t.setInterval(task.getInterval());
+    t.setDescription(display.getDescription());
+    t.setDuration(task.getDuration());
+    return t;
   }
 
   public CalendarColumn getColumn() {
