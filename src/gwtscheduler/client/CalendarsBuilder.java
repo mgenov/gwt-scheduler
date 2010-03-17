@@ -33,6 +33,7 @@ import java.util.Date;
  */
 public class CalendarsBuilder {
 
+
   private CalendarPresenter calendar;
   private EventCollisionHelper eventCollisionHelper = new EventIntervalCollisionHelper();
 
@@ -62,7 +63,7 @@ public class CalendarsBuilder {
 
     ResizeHelperProvider resizeHelper = new ResizeHelperProvider(dateGenerator, eventBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, eventBus, dragZone, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, dragZone, resizeHelper));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
@@ -94,7 +95,7 @@ public class CalendarsBuilder {
 
     ResizeHelperProvider resizeHelper = new ResizeHelperProvider(dateGenerator, eventBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventBus, dragZone, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, dragZone, resizeHelper));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 

@@ -20,7 +20,6 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.EventPosition;
-import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
 
@@ -61,7 +60,7 @@ public class EventsDashboard {
   private ResizeHelper resizeHelper;
   private ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
 
-  public EventsDashboard(DateGenerator dateGenerator, EventBus eventBus, DragZone dragZone, ResizeHelper resizeHelper) {
+  public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus, DragZone dragZone, ResizeHelper resizeHelper) {
     this.dateGenerator = dateGenerator;
     this.collisionHelper = collisionHelper;
     this.eventBus = eventBus;
