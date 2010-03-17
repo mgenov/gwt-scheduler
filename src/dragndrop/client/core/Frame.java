@@ -33,5 +33,5 @@ public interface Frame<T> {
 
   Widget getWidget();
 
-  void setCurrsorStyle(String currsorType);
+  void setCursorStyle(String cursorType);
 }

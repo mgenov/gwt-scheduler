@@ -32,7 +32,7 @@ public class DragInEvent extends GwtEvent<DragInHandler> {
 
   @Override
   protected void dispatch(DragInHandler dragInHandler) {
-    dragInHandler.onDragOverlap(this);
+    dragInHandler.onDragInEvent(this);
   }
 
   public Frame getFrame() {

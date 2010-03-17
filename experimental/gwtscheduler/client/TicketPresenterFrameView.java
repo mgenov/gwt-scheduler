@@ -19,6 +19,9 @@ public class TicketPresenterFrameView extends Composite implements TicketPresent
     initWidget(frame);
 
     frame.getElement().setAttribute("style", style);
+
+    frame.getElement().getStyle().setZIndex(44);
+    setCursorStyle("not-allowed");
   }
 
   public HasMouseMoveHandlers getHasMouseMoveHandlers(){
@@ -65,7 +68,7 @@ public class TicketPresenterFrameView extends Composite implements TicketPresent
   }
 
   @Override
-  public void setCurrsorStyle(String cursorType) {
+  public void setCursorStyle(String cursorType) {
     this.getElement().getStyle().setProperty("cursor",cursorType);
   }
 

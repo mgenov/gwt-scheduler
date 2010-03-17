@@ -21,7 +21,7 @@ public class DragOutEvent extends GwtEvent<DragOutHandler>{
 
   @Override
   protected void dispatch(DragOutHandler dragOutHandler) {
-    dragOutHandler.onDragUnOverlap(this);
+    dragOutHandler.onDragOutEvent(this);
   }
 
   public Frame getFrame() {

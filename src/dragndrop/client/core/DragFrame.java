@@ -85,7 +85,7 @@ class DragFrame implements Frame {
   }
 
   @Override
-  public void setCurrsorStyle(String currsorType) {
+  public void setCursorStyle(String currsorType) {
     //TODO: implement this method
   }
 

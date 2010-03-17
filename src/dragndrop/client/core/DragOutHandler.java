@@ -6,5 +6,5 @@ import com.google.gwt.event.shared.EventHandler;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public interface DragOutHandler extends EventHandler {
-  void onDragUnOverlap(DragOutEvent event);
+  void onDragOutEvent(DragOutEvent event);
 }

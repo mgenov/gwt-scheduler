@@ -1,6 +1,5 @@
 package gwtscheduler.client.widgets.view.columns;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
 import gwtscheduler.common.event.Event;
@@ -12,6 +11,7 @@ import java.util.List;
 
 /**
  * Represents the calendar content
+ *
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarContent {
@@ -34,10 +34,12 @@ public class CalendarContent {
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
-  private boolean colision = false;
+  private boolean collision = false;
   private EventsDashboard eventsDashboard;
   private Display display;
   private List<CalendarColumn> columns;
+  private static final String NOT_ALLOWED = "not-allowed";
+  private static final String DEFAULT = "default";
 
   public CalendarContent(CalendarColumnsFrameGrid calendarColumnsFrameGrid, EventsDashboard eventsDashboard) {
     this.calendarColumnsFrameGrid = calendarColumnsFrameGrid;
@@ -50,15 +52,30 @@ public class CalendarContent {
     calendarColumnsFrameGrid.bindDisplay(display.getCalendarColumnsFrameGridDisplay());
     eventsDashboard.bindDisplay(display.getEventsDashboard());
 
-    display.addDragOverHandler(new DragOverHandler(){
+    display.addDragOverHandler(new DragOverHandler() {
       @Override
       public void onDragOver(DragOverEvent event) {
         proceedDragOver(event);
       }
     });
+
+    display.addDragInHandler(new DragInHandler() {
+      @Override
+      public void onDragInEvent(DragInEvent event) {
+        Frame frame = event.getFrame();
+        frame.setCursorStyle(NOT_ALLOWED);
+      }
+    });
+    display.addDragOutHandler(new DragOutHandler(){
+      @Override
+      public void onDragOutEvent(DragOutEvent event) {
+        Frame frame = event.getFrame();
+        frame.setCursorStyle(DEFAULT);
+      }
+    });
   }
 
-  private void proceedDragOver(DragOverEvent event){
+  private void proceedDragOver(DragOverEvent event) {
     int[] cell = display.getCell(event.getMouseX(), event.getMouseY());
     int[] windowCellPosition = display.getWindowCellPosition(cell);
 
@@ -70,23 +87,21 @@ public class CalendarContent {
     Frame frame = hasFrame.getCurrentFrame();
 
 
-    if(frame instanceof CalendarFrame){
+    if (frame instanceof CalendarFrame) {
       int cellWidth = calendarColumnsFrameGrid.getCellWidth();
       int cellHeight = calendarColumnsFrameGrid.getCellHeight();
 
-      CalendarFrame cellFrame = (CalendarFrame)frame;
+      CalendarFrame cellFrame = (CalendarFrame) frame;
       cellFrame.onDragOver(cellWidth, cellHeight);
 
-      int cellCount = frame.getHeight()/cellHeight;
+      int cellCount = frame.getHeight() / cellHeight;
       CalendarColumn column = columns.get(cell[1]);
-      if(eventsDashboard.checkForCollision(cell,cellCount,calendarColumnsFrameGrid.getTimeLineDecorables().size(),column)){
-        String cursorType = "not-allowed";
-        frame.setCurrsorStyle(cursorType);
-        colision = true;
+      if (eventsDashboard.checkForCollision(cell, cellCount, calendarColumnsFrameGrid.getTimeLineDecorables().size(), column)) {
+        frame.setCursorStyle(NOT_ALLOWED);
+        collision = true;
       } else {
-        String cursorType = "default";
-        frame.setCurrsorStyle(cursorType);
-        colision = false;
+        frame.setCursorStyle(DEFAULT);
+        collision = false;
       }
     }
   }
@@ -107,16 +122,16 @@ public class CalendarContent {
     display.fireResizeRedrawEvents();
   }
 
-  public void addContentChangeCallback(final ContentChange contentChange){
-    display.addDropHandler(new DropHandler(){
+  public void addContentChangeCallback(final ContentChange contentChange) {
+    display.addDropHandler(new DropHandler() {
       @Override
       public void onDrop(DropEvent event) {
-        if(colision){
-          throw new RuntimeException("events colision");
+        if (collision) {
+          throw new RuntimeException("events collision");
         }
         int[] newCell = display.getCell(event.getEndX(), event.getEndY());
 
-        if(display.isDashboardAttached(event)){
+        if (display.isDashboardAttached(event)) {
           int[] oldCell = display.getCell(event.getStartX(), event.getStartY());
           contentChange.onMove(oldCell, newCell, event.getDroppedObject());
         } else {
@@ -128,10 +143,10 @@ public class CalendarContent {
 
   public void addCalendarEvent(List<CalendarColumn> columns, Event event) {
     int rowsCount = display.getCalendarColumnsFrameGridDisplay().getRows();
-    int index=0;
+    int index = 0;
     for (CalendarColumn column : columns) {
-      if(column.isEventForColumn(event)){
-        eventsDashboard.addCalendarEvent(index,event,rowsCount);
+      if (column.isEventForColumn(event)) {
+        eventsDashboard.addCalendarEvent(index, event, rowsCount);
       }
       index++;
     }

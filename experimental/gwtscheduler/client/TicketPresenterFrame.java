@@ -30,7 +30,7 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
 
     void release();
 
-    void setCurrsorStyle(String currsorType);
+    void setCursorStyle(String cursorType);
   }
 
   private Display display;
@@ -99,8 +99,8 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
   }
 
   @Override
-  public void setCurrsorStyle(String currsorType) {
-    display.setCurrsorStyle(currsorType);
+  public void setCursorStyle(String cursorType) {
+    display.setCursorStyle(cursorType);
   }
 
   @Override
