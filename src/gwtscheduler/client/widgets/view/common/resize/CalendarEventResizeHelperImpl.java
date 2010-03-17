@@ -89,7 +89,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
 
   void mouseMove(MouseMoveEvent event) {
     int[] row = eventsDisplay.getCellPosition(event.getClientX(), event.getClientY());
-    if (row[0] < 0 || endRow[0] == row[0]) {
+    if (eventStartRow == row || row[0] < 0 || endRow[0] == row[0]) {
       return;
     }
 
@@ -118,9 +118,9 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
   }
 
   private Interval getFrameInterval() {
-    Instant startTime = calendarEvent.getInterval().getStart().toInstant();
-    Instant endTime = dateGenerator.getIntervalForRange(eventStartRow, endRow, 48).getEnd().toInstant();
-    return new Interval(startTime, endTime);
+      Instant startTime = calendarEvent.getInterval().getStart().toInstant();
+      Instant endTime = dateGenerator.getIntervalForRange(eventStartRow, endRow, 48).getEnd().toInstant();
+      return new Interval(startTime, endTime);
   }
 
   @Override
