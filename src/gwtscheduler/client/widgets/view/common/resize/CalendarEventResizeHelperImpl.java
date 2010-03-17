@@ -1,10 +1,12 @@
 package gwtscheduler.client.widgets.view.common.resize;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.Instant;
+import org.goda.time.Interval;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -34,7 +36,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper{
   private final EventsDashboard.Display eventsDisplay;
   private final DateGenerator dateGenerator;
   private final Display display;
-  private CalendarEvent calendarEvent;
+  private final CalendarEvent calendarEvent;
   private int[] startRow;
   private int[] endRow;
   private int eventHeight;
@@ -83,13 +85,17 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper{
 
   void mouseMove(MouseMoveEvent event) {
     int[] row = eventsDisplay.getCellPosition(event.getClientX(), event.getClientY());
-    if(startRow == row || row[0] < 0){
+    if(startRow[0] == row[0] || row[0] < 0 || (endRow!= null && endRow[0] == row[0])){
       return;
     }
+
     endRow = row;
     int height = eventsDisplay.getRowDistance(startRow[0], row[0]);
     display.setHeight(eventHeight + height);
-//    calendarEvent.setHeight(eventHeight + height);
+
+    Interval currentInterval = getFrameInterval();
+    CalendarEventResizeEvent resizeEvent = new CalendarEventResizeEvent(currentInterval, this, row[1]);
+    eventsDisplay.getHasCalendarEventResizeHandlers().fireEvent(resizeEvent);
   }
 
   void mouseUp(MouseUpEvent event) {
@@ -98,16 +104,17 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper{
     if(startRow == endRow || (endRow[0] - startRow[0]) == 0){
       return;
     }
-    Instant startTime = calendarEvent.getInterval().getStart().toInstant();
-    Instant endTime = dateGenerator.getIntervalForRange(startRow, endRow, 48).getEnd().toInstant(); // TODO: 48 is hard codded.
 
-    CalendarEventResizeEndEvent resizeEvent = new CalendarEventResizeEndEvent(calendarEvent, startTime, endTime);
+    Interval frameInterval = getFrameInterval();
+
+    CalendarEventResizeEndEvent resizeEvent = new CalendarEventResizeEndEvent(calendarEvent, frameInterval.getStart().toInstant(), frameInterval.getEnd().toInstant());
     eventsDisplay.getHasCalendarEventResizeEndHandlers().fireEvent(resizeEvent);
   }
 
-  private void fireOnResizeEvent(){
-    CalendarEventResizeEvent resizeEvent = new CalendarEventResizeEvent();
-    eventsDisplay.getHasCalendarEventResizeHandlers().fireEvent(resizeEvent);
+  private Interval getFrameInterval(){
+    Instant startTime = calendarEvent.getInterval().getStart().toInstant();
+    Instant endTime = dateGenerator.getIntervalForRange(startRow, endRow, 48).getEnd().toInstant(); // TODO: 48 is hard codded.
+    return new Interval(startTime, endTime);
   }
 
 }

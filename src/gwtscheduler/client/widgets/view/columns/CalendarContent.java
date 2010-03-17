@@ -29,7 +29,7 @@ public class CalendarContent {
 
     int[] getCell(int startX, int startY); // TODO: remove.. use EventDashboard presenter
 
-    boolean isDashboardAttached(DropEvent event); // TODO: Refactor when EventDashboard finished and move logic there.
+    boolean isEventAttached(DropEvent event); // TODO: Refactor when EventDashboard finished and move logic there.
 
     int[] getWindowCellPosition(int[] cell); // TODO: remove.. use EventDashboard presenter
 
@@ -41,8 +41,6 @@ public class CalendarContent {
   private EventsDashboard eventsDashboard;
   private Display display;
   private List<CalendarColumn> columns;
-  private static final String NOT_ALLOWED = "not-allowed";
-  private static final String DEFAULT = "default";
 
   public CalendarContent(CalendarColumnsFrameGrid calendarColumnsFrameGrid, EventsDashboard eventsDashboard) {
     this.calendarColumnsFrameGrid = calendarColumnsFrameGrid;
@@ -119,7 +117,7 @@ public class CalendarContent {
         }
         int[] newCell = display.getCell(event.getEndX(), event.getEndY());
 
-        if (display.isDashboardAttached(event)) {
+        if (display.isEventAttached(event)) {
           int[] oldCell = display.getCell(event.getStartX(), event.getStartY());
           contentChange.onMove(oldCell, newCell, event.getDroppedObject());
         } else {

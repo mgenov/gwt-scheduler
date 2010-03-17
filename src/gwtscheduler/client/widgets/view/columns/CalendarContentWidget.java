@@ -92,7 +92,7 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   }
 
   @Override
-  public boolean isDashboardAttached(DropEvent event) {
+  public boolean isEventAttached(DropEvent event) {
     if(event.getSourceWidget().getParent() == eventsDashboardView){
       return true;
     }

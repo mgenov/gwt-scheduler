@@ -94,6 +94,11 @@ public class EventsDashboard {
     display.getHasCalendarEventResizeHandlers().addEventResizeEndHandler(new CalendarEventResizeHandler(){
       @Override
       public void onCalendarEventResizeEvent(CalendarEventResizeEvent event) {
+        // get resized event
+        // check colision
+        // get resized frame on event and set pointer
+        Interval currentInterval = event.getCurrentInterval();
+//        collisionHelper.checkEventsIntervals(events, currentInterval, );
         // TODO: make resize colision handling
       }
     });

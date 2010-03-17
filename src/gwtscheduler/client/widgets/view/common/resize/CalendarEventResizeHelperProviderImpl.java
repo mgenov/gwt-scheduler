@@ -9,8 +9,8 @@ import gwtscheduler.common.event.CalendarEvent;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class CalendarEventResizeHelperProviderImpl implements CalendarEventResizeHelperProvider {
-  private EventsDashboard.Display display;
   private final DateGenerator dateGenerator;
+  private EventsDashboard.Display display;
   private EventBus eventBus;
 
   public CalendarEventResizeHelperProviderImpl(DateGenerator dateGenerator, EventBus eventBus) {
