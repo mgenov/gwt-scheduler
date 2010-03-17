@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
@@ -66,14 +67,14 @@ public class CalendarContent {
       @Override
       public void onDragInEvent(DragInEvent event) {
         Frame frame = event.getFrame();
-        frame.setCursorStyle(NOT_ALLOWED);
+        frame.setCursorStyle(DEFAULT);
       }
     });
     display.addDragOutHandler(new DragOutHandler(){
       @Override
       public void onDragOutEvent(DragOutEvent event) {
         Frame frame = event.getFrame();
-        frame.setCursorStyle(DEFAULT);
+        frame.setCursorStyle(NOT_ALLOWED);
       }
     });
   }
