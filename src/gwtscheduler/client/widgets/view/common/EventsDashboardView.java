@@ -82,6 +82,11 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   }
 
   @Override
+  public int getRowCount() {
+    return grid.getColNum();
+  }
+
+  @Override
   public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
     return addHandler(handler, CalendarEventResizeEndEvent.TYPE);
   }

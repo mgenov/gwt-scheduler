@@ -51,6 +51,8 @@ public class EventsDashboard {
     HasCalendarEventResizeStartHandlers getHasCalendarEventResizeStartHandlers();
 
     HasCalendarEventResizeHandlers getHasCalendarEventResizeHandlers();
+
+    int getRowCount();
   }
 
   private Display display;
@@ -119,7 +121,8 @@ public class EventsDashboard {
 
 
   
-  public void addCalendarEvent(int index, Event event, int rowsCount) {
+  public void addCalendarEvent(int index, Event event) {
+    int rowsCount = display.getRowCount();
     int startRow = dateGenerator.getRowForInstant(event.getInterval().getStart().toInstant(), rowsCount);
     int endRow = dateGenerator.getRowForInstant(event.getInterval().getEnd().toInstant(), rowsCount);
 
