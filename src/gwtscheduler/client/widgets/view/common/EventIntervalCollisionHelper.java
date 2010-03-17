@@ -18,7 +18,7 @@ public class EventIntervalCollisionHelper implements EventCollisionHelper{
 
     for (CalendarEvent e : events) {
       String columnId = (String) e.getEvent().getColumnId();
-      if(columnId.equals((String) event.getColumnId())){
+      if(columnId.equals(event.getColumnId())){
          if(checkCollision(e.getInterval(),event.getInterval()) )  collisionEvents.add(e);
       }
     }

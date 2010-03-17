@@ -139,7 +139,7 @@ public class EventsDashboard {
     end[0] = cell[0]+cellCount;
     end[1] =  cell[1];
     Interval  interval = dateGenerator.getIntervalForRange(cell,end,rowsCount);
-      return collisionHelper.checkEventsIntervals(events,interval,column);
+    return collisionHelper.checkEventsIntervals(events,interval,column);
   }
   
   public HandlerRegistration addEventResizeEndHandler(EventResizeEndHandler handler) {
