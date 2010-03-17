@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
@@ -12,6 +13,9 @@ import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
+import gwtscheduler.client.widgets.view.common.resize.EventResizeEnd;
+import gwtscheduler.client.widgets.view.common.resize.EventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.EventResizeStartHandler;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.DateTime;
@@ -229,6 +233,18 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void addCalendarEvent(Event event) {
     calendarContent.addCalendarEvent(columns,event);
+  }
+
+  @Override
+  public HandlerRegistration addEventResizeEndHandler(EventResizeEndHandler handler) {
+    return calendarContent.addEventResizeEndHandler(handler);
+//    return calendarContent.addEventResizeEndHandler(handler);
+//    return eventBus.addHandler(EventResizeEnd.TYPE, handler);            // TODO: remove this from here. remove event buss and attach somehow handler on resize.
+  }
+
+  @Override
+  public HandlerRegistration addEventResizeStartHandler(EventResizeStartHandler handler) {
+    return calendarContent.addEventResizeStartHandler(handler);
   }
 
   @Override

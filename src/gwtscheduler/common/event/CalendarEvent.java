@@ -22,7 +22,7 @@ import org.goda.time.Interval;
  *
  * @author Miroslav Genov (mgenov@gmail.com)
  */
-public class CalendarEvent implements HasClickHandlers, Draggable {
+public class CalendarEvent implements Draggable {
 
   public interface Display {
 
@@ -149,26 +149,30 @@ public class CalendarEvent implements HasClickHandlers, Draggable {
     display.setViewWidth(width);
   }
 
+  public String getEventTitle(){
+    return event.getTitle();
+  }
+
   /**
    * Registers a new {@link com.google.gwt.event.dom.client.ClickHandler} to the current calendar event.
    *
    * @param handler the handler to be registered
    * @return HandlerRegistration class that may be used for un-registering of the registered handler.
    */
-  @Override
-  public HandlerRegistration addClickHandler(ClickHandler handler) {
-    return eventHandler.addHandler(ClickEvent.getType(), handler);
-  }
+//  @Override
+//  public HandlerRegistration addClickHandler(ClickHandler handler) {
+//    return eventHandler.addHandler(ClickEvent.getType(), handler);
+//  }
 
   /**
    * Fires event to the client classes that are having registered handlers for that instance of this event.
    *
    * @param event the event to be fired to the target handlers
    */
-  @Override
-  public void fireEvent(GwtEvent<?> event) {
-    eventHandler.fireEvent(event);
-  }
+//  @Override
+//  public void fireEvent(GwtEvent<?> event) {
+//    eventHandler.fireEvent(event);
+//  }
 
   @Override
   public HasMouseDownHandlers getHasMouseDownHandler() {

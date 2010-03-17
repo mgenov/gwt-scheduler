@@ -17,6 +17,7 @@ import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
 import gwtscheduler.client.widgets.view.common.EventCollisionHelper;
 import gwtscheduler.client.widgets.view.common.EventIntervalCollisionHelper;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
+import gwtscheduler.client.widgets.view.common.resize.ResizeHelperProvider;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
 import gwtscheduler.common.calendar.IntervalType;
 import org.goda.time.DateTime;
@@ -60,7 +61,9 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, dragZone));
+    ResizeHelperProvider resizeHelper = new ResizeHelperProvider(dateGenerator, eventBus);
+
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, dragZone, resizeHelper));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
@@ -90,7 +93,9 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventCollisionHelper,eventBus, dragZone));
+    ResizeHelperProvider resizeHelper = new ResizeHelperProvider(dateGenerator, eventBus);
+
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, dragZone, resizeHelper));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
