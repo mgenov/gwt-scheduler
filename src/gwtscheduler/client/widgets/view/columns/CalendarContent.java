@@ -3,6 +3,8 @@ package gwtscheduler.client.widgets.view.columns;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
+import gwtscheduler.client.widgets.view.common.EventIntervalCollisionException;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
@@ -41,6 +43,9 @@ public class CalendarContent {
   private EventsDashboard eventsDashboard;
   private Display display;
   private List<CalendarColumn> columns;
+  private static final String NOT_ALLOWED = "not-allowed";
+  private static final String DEFAULT = "default";
+  private static final String EVENT_IN_COLLISION = "The dropped event interval is in collision with other already exist event";
 
   public CalendarContent(CalendarColumnsFrameGrid calendarColumnsFrameGrid, EventsDashboard eventsDashboard) {
     this.calendarColumnsFrameGrid = calendarColumnsFrameGrid;
@@ -113,7 +118,7 @@ public class CalendarContent {
       @Override
       public void onDrop(DropEvent event) {
         if (collision) {
-          throw new RuntimeException("events collision");
+          throw new EventIntervalCollisionException(EVENT_IN_COLLISION);
         }
         int[] newCell = display.getCell(event.getEndX(), event.getEndY());
 
@@ -148,5 +153,9 @@ public class CalendarContent {
 
   public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
     return eventsDashboard.addEventResizeStartHandler(handler);
+  }
+
+  public WidgetResizeHandler getEventsDachboardWidgetResizeHandler() {
+    return eventsDashboard.getEventsDachboardWidgetResizeHandler();
   }
 }

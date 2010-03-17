@@ -26,31 +26,6 @@ public class EventIntervalCollisionHelperTest {
 
   private EventCollisionHelper helper;
 
-//  @Before
-//  public void setUp() throws Exception {
-//    events = getTestEvents();
-//    helper = new EventIntervalCollisionHelper();
-//
-//  }
-
-  private ArrayList<CalendarEvent> getTestEvents() {
-    ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
-    Event e = getTestEvent(8,10,column);
-    events.add(new CalendarEvent(e,new EventPosition()));
-    e = getTestEvent(11,15,column);
-    events.add(new CalendarEvent(e,new EventPosition()));
-    return events;
-  }
-
-  private Event getTestEvent(int startTime, int endTime, CalendarColumn column) {
-    DateTime start = getCurrentDate(startTime);
-    DateTime end = getCurrentDate(endTime);
-    Interval interval = new Interval(start,end);
-    TestTask testTask = new TestTask("test from"+startTime+"to"+endTime,interval);
-    Event e = new TeamTaskEvent(testTask,column);
-    return e;
-  }
-
    protected DateTime getCurrentDate(int hours) {
     MutableDateTime start = new MutableDateTime(System.currentTimeMillis());
     start.setHourOfDay(hours);
@@ -146,19 +121,6 @@ public class EventIntervalCollisionHelperTest {
     return false;
   }
 
-
-//  @Test
-  public void testCheckEventsIntervals() throws Exception {
-    event = getTestEvent(9,11,column);
-
-    ArrayList<CalendarEvent> actualCollisionEvents =  helper.checkEventsIntervals(events,event);
-
-    ArrayList<CalendarEvent> expected = new ArrayList();
-    expected.add(events.get(0));
-
-    asserts(expected,actualCollisionEvents);
-
-  }
 
   private void asserts(ArrayList<CalendarEvent> expected, ArrayList<CalendarEvent> actual) {
     for (int i = 0; i < expected.size(); i++) {

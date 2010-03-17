@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.*;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
@@ -77,10 +78,14 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     
     content.getLassoAwarePanel().addWidgetResizeHandler(content.getCalendarColumnsFrameGridDisplay().getWidgetResizeHandler());
     content.getLassoAwarePanel().addWidgetResizeHandler(header.getCalendarHeaderResizeHandler());
-
     content.getLassoAwarePanel().setOverflowY(true);
     content.getLassoAwarePanel().setLassoHandler(this);
 
+  }
+
+  @Override
+  public void addWidgetResizeHandler(WidgetResizeHandler handler){
+    content.getLassoAwarePanel().addWidgetResizeHandler(handler);
   }
 
   /**

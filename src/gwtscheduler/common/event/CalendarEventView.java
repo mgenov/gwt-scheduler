@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DListElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -49,6 +50,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 //    contentPanel.add(new Label("test5"));
 //    eventFooter.setUrl("http://www.google.com/images/logo.gif");
     this.getElement().getStyle().setZIndex(33);
+    this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
   }
 
   @UiFactory

@@ -71,6 +71,9 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     calendarContent.bindDisplay(display.getCalendarContentDisplay());
     calendarContent.setColumns(columns);
 
+    //adds  WidgetResizeHandler
+    display.addWidgetResizeHandler(calendarContent.getEventsDachboardWidgetResizeHandler());
+
     display.initLasso(new VerticalLassoStrategy(false), this);
     final Interval interval = dateGenerator.interval();
 
@@ -235,8 +238,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
     return calendarContent.addEventResizeEndHandler(handler);
-//    return calendarContent.addEventResizeEndHandler(handler);
-//    return eventBus.addHandler(CalendarEventResizeEndEvent.TYPE, handler);            // TODO: remove this from here. remove event buss and attach somehow handler on resize.
   }
 
   @Override
