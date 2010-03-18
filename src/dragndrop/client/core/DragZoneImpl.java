@@ -30,7 +30,8 @@ class DragZoneImpl implements DragZone {
   private DropZone dropZone = null;
   private HashMap<HasMouseDownHandlers, Object> draggingRegister = new HashMap<HasMouseDownHandlers, Object>();
   private HashMap<String, Frame> frameRegister = new HashMap<String, Frame>();
-  private ArrayList<HasWidgets> dropZones = new ArrayList<HasWidgets>();
+  private ArrayList<HasWidgets> hasDropZones = new ArrayList<HasWidgets>();
+  private ArrayList<DropZone> dropZones = new ArrayList<DropZone>();
   private int startX = 0;
   private int startY = 0;
   private int cloneTop = 0;
@@ -140,7 +141,7 @@ class DragZoneImpl implements DragZone {
 //    frame.go(DragZoneImpl.this, position[0], position[1]);
     display.addFrame(frame, position[0], position[1]);
 
-    DropZone dropZone = display.getDropZone(dropZones, mouseX, mouseY);
+    DropZone dropZone = findDropZone(mouseX, mouseY);
 
     if(dropZone != null && this.dropZone == null){
       // fires event when attachResizeHelper in drop zone.
@@ -166,18 +167,27 @@ class DragZoneImpl implements DragZone {
     display.fireEvent(dropZone, event);
   }
 
+  private DropZone findDropZone(int x, int y){
+    DropZone dropZone = display.findDropZone(dropZones, x, y);
+    if(dropZone != null){
+      return dropZone;
+    }
+
+    return display.getDropZone(hasDropZones, x, y);
+  }
+
   private void mouseUp(MouseUpEvent event){
     frame.releaseFrameCapture();
     display.removeFrame(frame);
 //    frame.removeFrameFromDragZone(DragZoneImpl.this);
 
-    if(dropZones.size() == 0){
+    if(hasDropZones.size() == 0 && dropZones.size() == 0){
       GWT.log("No registered drop zones!", null);
       return;
     }
 
     // user has released object when it's position was over a drop zone
-    DropZone dropZone = display.getDropZone(dropZones, event.getClientX(), event.getClientY());
+    DropZone dropZone = findDropZone(event.getClientX(), event.getClientY());
 
     // we have to fire drop event to indicate that object has been dropped in the drop zone
     if(dropZone != null){
@@ -241,7 +251,7 @@ class DragZoneImpl implements DragZone {
    */
   @Override
   public void addDropZoneRoot(HasWidgets root) {
-    dropZones.add(root);
+    hasDropZones.add(root);
   }
 
   /**
@@ -252,7 +262,7 @@ class DragZoneImpl implements DragZone {
    */
   @Override
   public void addDropZoneRoot(List<HasWidgets> roots) {
-    dropZones.addAll(roots);
+    hasDropZones.addAll(roots);
   }
 
   /**
@@ -331,5 +341,10 @@ class DragZoneImpl implements DragZone {
   @Override
   public void makeDragZone(AbsolutePanel panel) {
     display.changeAbsolutePanel(panel);
+  }
+
+  @Override
+  public void addDropZone(DropZone dropZone) {
+    dropZones.add(dropZone);
   }
 }

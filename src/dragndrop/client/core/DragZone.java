@@ -54,6 +54,8 @@ public interface DragZone {
 
     DropZone getDropZone(ArrayList<HasWidgets> roots, int x, int y);
 
+    DropZone findDropZone(ArrayList<DropZone> dropZones, int x, int y);
+
     void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event);
 
     void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY);
@@ -166,4 +168,6 @@ public interface DragZone {
   void setFrameWindowPosition(int left, int top);
 
   void makeDragZone(AbsolutePanel panel);
+
+  void addDropZone(DropZone dropZone);
 }

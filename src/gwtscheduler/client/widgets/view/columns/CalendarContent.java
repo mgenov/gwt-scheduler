@@ -33,11 +33,9 @@ public class CalendarContent {
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
-//  private boolean collision = false;
   private EventsDashboard eventsDashboard;
   private Display display;
   private List<CalendarColumn> columns;
-//  private static final String EVENT_IN_COLLISION = "The dropped event interval is in collision with other already exist event";
 
   public CalendarContent(CalendarColumnsFrameGrid calendarColumnsFrameGrid, EventsDashboard eventsDashboard) {
     this.calendarColumnsFrameGrid = calendarColumnsFrameGrid;

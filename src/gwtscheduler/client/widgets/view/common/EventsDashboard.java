@@ -3,6 +3,8 @@ package gwtscheduler.client.widgets.view.common;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.*;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
@@ -17,6 +19,7 @@ import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.calendar.CalendarFrame;
+import gwtscheduler.common.calendar.EventsFrame;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.EventPosition;
@@ -72,17 +75,21 @@ public class EventsDashboard {
   private static final String EVENT_IN_COLLISION = "The dropped event interval is in collision with other already exist event";
 
   // TODO: remove drag zone from here and from builder.
-  public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus, DragZone dragZone, CalendarEventResizeHelperProvider resizeHelper) {
+  public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus, CalendarEventResizeHelperProvider resizeHelper) {
     this.dateGenerator = dateGenerator;
     this.collisionHelper = collisionHelper;
     this.eventBus = eventBus;
     this.dragZone = Zones.getDragZone();
+
+    EventsFrame eventsFrame = new EventsFrame(Zones.getFrameDisplay());  // TODO: probably need to be instanced in other place!
+    dragZone.registerFrame(eventsFrame, CalendarEvent.class);
     this.resizeHelper = resizeHelper;
   }
 
   public void bindDisplay(final Display display) {
     this.display = display;
     this.dragZone.makeDragZone(display.asWidget());
+    this.dragZone.addDropZone(display);
     displayWidgetResizeHandler = new EventsDashboardResizeHandler(display,events);
 
     eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {

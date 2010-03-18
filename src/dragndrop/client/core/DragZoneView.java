@@ -82,6 +82,16 @@ class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
+  public DropZone findDropZone(ArrayList<DropZone> dropZones, int x, int y){
+    for(DropZone dropZone : dropZones){
+      if(dropZone instanceof Widget && checkPosition(x, y, (Widget) dropZone)){
+        return dropZone;
+      }
+    }
+    return null;
+  }
+
+  @Override
   public void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event) {
     ((Widget)dropZone).fireEvent(event);
   }
