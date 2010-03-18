@@ -61,9 +61,6 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-//    EventsFrame eventsFrame = new EventsFrame(Zones.getFrameDisplay());  // TODO: probably need to be instanced in other place!
-//    dragZone.registerFrame(eventsFrame, CalendarEvent.class);
-
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
     CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, resizeHelper));
@@ -95,9 +92,6 @@ public class CalendarsBuilder {
 
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
-
-//    EventsFrame eventsFrame = new EventsFrame(Zones.getFrameDisplay());  // TODO: probably need to be instanced in other place!
-//    dragZone.registerFrame(eventsFrame, CalendarEvent.class);
 
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 

@@ -17,7 +17,12 @@ public class TeamTaskEvent implements Event{
     this.testTask = testTask;
     this.column = column;
   }
-  
+
+
+  @Override
+  public String getEventKey() {
+    return testTask.getTitle() + testTask.getDescription() + testTask.getInterval() + testTask.getDuration();
+  }
 
   @Override
   public Interval getInterval() {

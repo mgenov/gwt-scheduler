@@ -70,14 +70,7 @@ public class CalendarContent {
   }
 
   public void addCalendarEvent(Event event) {
-    int rowsCount = display.getCalendarColumnsFrameGridDisplay().getRows();
-    int columnIndex = 0;
-    for (CalendarColumn column : columns) {
-      if (column.isEventForColumn(event)) {
-        eventsDashboard.addCalendarEvent(columnIndex, event, rowsCount);
-      }
-      columnIndex++;
-    }
+    eventsDashboard.addEvent(event);
   }
 
   public void setColumns(List<CalendarColumn> columns) {
@@ -98,12 +91,6 @@ public class CalendarContent {
   }
 
   public void updateEvent(Event event) {
-    int columnIndex = 0;
-    for (CalendarColumn column : columns) {
-      if (column.isEventForColumn(event)) {
-        eventsDashboard.updateCalendarEvent(columnIndex, event);
-      }
-      columnIndex++;
-    }
+    eventsDashboard.updateEvent(event);
   }
 }

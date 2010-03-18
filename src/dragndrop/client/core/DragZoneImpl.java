@@ -113,7 +113,6 @@ class DragZoneImpl implements DragZone {
         int[] position = calculatePosition(startX, startY);
 
         display.addFrame(frame, position[0], position[1]);
-//        frame.go(DragZoneImpl.this, );
         frame.captureFrame();
       }
     });
@@ -138,7 +137,6 @@ class DragZoneImpl implements DragZone {
     int mouseY = event.getClientY();
     int[] position = calculatePosition(mouseX, mouseY);
 
-//    frame.go(DragZoneImpl.this, position[0], position[1]);
     display.addFrame(frame, position[0], position[1]);
 
     DropZone dropZone = findDropZone(mouseX, mouseY);
@@ -179,7 +177,6 @@ class DragZoneImpl implements DragZone {
   private void mouseUp(MouseUpEvent event){
     frame.releaseFrameCapture();
     display.removeFrame(frame);
-//    frame.removeFrameFromDragZone(DragZoneImpl.this);
 
     if(hasDropZones.size() == 0 && dropZones.size() == 0){
       GWT.log("No registered drop zones!", null);

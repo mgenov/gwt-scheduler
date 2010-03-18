@@ -130,6 +130,10 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
     return null;
   }
 
+  @Override
+  public void updateEvent(Event event) {
+  }
+
 
   @Override
   public void forceLayout() {

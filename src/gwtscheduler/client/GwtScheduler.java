@@ -11,6 +11,7 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
+import gwtscheduler.common.event.Event;
 
 import java.util.List;
 
@@ -129,5 +130,11 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     for (CalendarPresenter presenter : presenters) {
       presenter.addEventResizeStartHandler(handler);
     }
+  }
+
+  public void updateEvent(Event event) {
+    // TODO: its not good idea to update only on active calendar.
+    CalendarPresenter presenter = presenters.get(selectedPresenter);
+    presenter.updateEvent(event);
   }
 }

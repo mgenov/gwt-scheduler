@@ -86,4 +86,6 @@ public interface CalendarPresenter {
   HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler);
 
   HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler);
+
+  void updateEvent(Event event);
 }
