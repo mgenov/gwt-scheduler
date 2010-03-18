@@ -10,7 +10,7 @@ import dragndrop.client.core.Frame;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 //TODO: This frame maybe can be removed and use default frame from DragAndDrob but with different z-index and cursor style (see constructor)
-//TODO: Remove from here and build in calendar builder. Warrning implements CalendarFrame!
+//TODO: Remove from here and build in calendar builder. 
 public class EventsFrame implements Frame {
   private Display display;
 

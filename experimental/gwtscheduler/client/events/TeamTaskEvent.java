@@ -19,7 +19,12 @@ public class TeamTaskEvent implements Event{
     this.column = column;
     id = System.currentTimeMillis()+"";
   }
-  
+
+
+  @Override
+  public String getEventKey() {
+    return testTask.getTitle() + testTask.getDescription() + testTask.getInterval() + testTask.getDuration();
+  }
 
   @Override
   public Interval getInterval() {

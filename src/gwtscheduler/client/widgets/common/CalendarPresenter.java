@@ -94,4 +94,6 @@ public interface CalendarPresenter {
   HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler);
 
   void deleteEvent(Event event);
+  
+  void updateEvent(Event event);
 }

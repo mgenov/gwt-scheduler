@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -53,6 +54,8 @@ public interface DragZone {
 
     DropZone getDropZone(ArrayList<HasWidgets> roots, int x, int y);
 
+    DropZone findDropZone(ArrayList<DropZone> dropZones, int x, int y);
+
     void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event);
 
     void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY);
@@ -84,6 +87,8 @@ public interface DragZone {
     void addFrame(Frame frame, int left, int top);
 
     void removeFrame(Frame frame);
+
+    void changeAbsolutePanel(AbsolutePanel panel);
   }
 
   /**
@@ -161,4 +166,8 @@ public interface DragZone {
   Frame getCurrentFrame();
 
   void setFrameWindowPosition(int left, int top);
+
+  void makeDragZone(AbsolutePanel panel);
+
+  void addDropZone(DropZone dropZone);
 }

@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.google.gwt.dom.client.Style.Position;
+import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.view.common.resize.*;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.CalendarEventView;
@@ -82,6 +83,11 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   }
 
   @Override
+  public int getRowCount() {
+    return grid.getRowNum();
+  }
+
+  @Override
   public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
     return addHandler(handler, CalendarEventResizeEndEvent.TYPE);
   }
@@ -94,5 +100,25 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   @Override
   public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeHandler handler) {
     return addHandler(handler, CalendarEventResizeEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addDropHandler(DropHandler handler) {
+    return addHandler(handler, DropEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addDragInHandler(DragInHandler handler) {
+    return addHandler(handler, DragInEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
+    return addHandler(handler, DragOutEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+    return addHandler(handler, DragOverEvent.TYPE);
   }
 }

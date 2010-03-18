@@ -6,7 +6,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.common.Cell;
@@ -16,12 +19,13 @@ import gwtscheduler.client.widgets.view.common.EventsDashboardView;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarContentWidget extends Composite implements CalendarContent.Display {
+public class CalendarContentWidget extends Composite implements CalendarContent.Display, HasWidgets {
 
   /**
    * ui binder instance
@@ -87,24 +91,6 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   }
 
   @Override
-  public int[] getCell(int x, int y) {        // todo: remove. use EventDashboard 
-    return eventsDashboardView.getCellPosition(x, y);
-  }
-
-  @Override
-  public boolean isEventAttached(DropEvent event) {
-    if(event.getSourceWidget().getParent() == eventsDashboardView){
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public int[] getWindowCellPosition(int[] cell) {         // TODO:
-    return eventsDashboardView.getWindowCellPosition(cell);
-  }
-
-  @Override
   public EventsDashboard.Display getEventsDashboard() {
     return eventsDashboardView;  
   }
@@ -120,24 +106,24 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   public List<Cell<Element>> getTimeLineDecorables() {
     return columnsPanel.getTitleDecorables();
   }
-  
+
   @Override
-  public HandlerRegistration addDropHandler(DropHandler handler) {
-    return addHandler(handler, DropEvent.TYPE);
+  public void add(Widget widget) {
+    lassoAwarePanel.add(widget);
   }
 
   @Override
-  public HandlerRegistration addDragInHandler(DragInHandler handler) {
-    return addHandler(handler, DragInEvent.TYPE);
+  public void clear() {
+    lassoAwarePanel.clear();
   }
 
   @Override
-  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
-    return addHandler(handler, DragOutEvent.TYPE);
+  public Iterator<Widget> iterator() {
+    return lassoAwarePanel.iterator();
   }
 
   @Override
-  public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
-    return addHandler(handler, DragOverEvent.TYPE);
+  public boolean remove(Widget widget) {
+    return lassoAwarePanel.remove(widget);
   }
 }

@@ -49,7 +49,7 @@ public class CalendarsBuilder {
    * @param eventBus
    * @return
    */
-  public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, EventBus eventBus, DragZone dragZone) {
+  public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, EventBus eventBus) {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
     columns = columnsProvider.getColumns().size();
@@ -61,12 +61,9 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    EventsFrame eventsFrame = new EventsFrame(Zones.getFrameDisplay());  // TODO: probably need to be instanced in other place!
-    dragZone.registerFrame(eventsFrame, CalendarEvent.class);
-
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, dragZone, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, resizeHelper));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
@@ -81,7 +78,7 @@ public class CalendarsBuilder {
    * @param eventBus
    * @return
    */
-  public CalendarsBuilder newWeekColumn(AppConfiguration configuration, EventBus eventBus, DragZone dragZone) {
+  public CalendarsBuilder newWeekColumn(AppConfiguration configuration, EventBus eventBus) {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
@@ -96,12 +93,9 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    EventsFrame eventsFrame = new EventsFrame(Zones.getFrameDisplay());  // TODO: probably need to be instanced in other place!
-    dragZone.registerFrame(eventsFrame, CalendarEvent.class);
-
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, dragZone, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, resizeHelper));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 

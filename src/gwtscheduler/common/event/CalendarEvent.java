@@ -11,6 +11,8 @@ import dragndrop.client.core.Draggable;
 import gwtscheduler.client.modules.EventBus;
 import org.goda.time.Interval;
 
+import java.util.Arrays;
+
 /**
  * 
  * TODO: Fire event clicks
@@ -183,7 +185,6 @@ public class CalendarEvent implements Draggable {
   /**
    * Fires event to the client classes that are having registered handlers for that instance of this event.
    *
-   * @param event the event to be fired to the target handlers
    */
 //  @Override
 //  public void fireEvent(GwtEvent<?> event) {
@@ -233,5 +234,9 @@ public class CalendarEvent implements Draggable {
 
   public int[] getEndCellPosition() {
     return endCellPosition;
+  }
+
+  public String getEventId(){
+    return event.getEventId();
   }
 }

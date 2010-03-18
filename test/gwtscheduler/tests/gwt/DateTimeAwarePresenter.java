@@ -132,9 +132,14 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
+  public void updateEvent(Event event) {
+  }
+  
+  @Override
   public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
+
 
   @Override
   public void deleteEvent(Event event) {

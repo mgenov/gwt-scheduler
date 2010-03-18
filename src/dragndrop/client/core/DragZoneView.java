@@ -1,5 +1,6 @@
 package dragndrop.client.core;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.shared.EventHandler;
@@ -81,6 +82,16 @@ class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
+  public DropZone findDropZone(ArrayList<DropZone> dropZones, int x, int y){
+    for(DropZone dropZone : dropZones){
+      if(dropZone instanceof Widget && checkPosition(x, y, (Widget) dropZone)){
+        return dropZone;
+      }
+    }
+    return null;
+  }
+
+  @Override
   public void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event) {
     ((Widget)dropZone).fireEvent(event);
   }
@@ -159,7 +170,12 @@ class DragZoneView extends Composite implements DragZone.Display {
     removeWidget(frame.getWidget());
   }
 
-    @Override
+  @Override
+  public void changeAbsolutePanel(AbsolutePanel panel) {
+    absolutePanel = panel;
+  }
+
+  @Override
   public void addWidget(Widget widget, int left, int top) {
     absolutePanel.add(widget, left, top);
   }

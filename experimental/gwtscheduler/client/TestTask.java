@@ -1,9 +1,5 @@
 package gwtscheduler.client;
 
-import com.google.gwt.dev.shell.BrowserChannel;
-import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.common.event.Event;
-import org.goda.time.Hours;
 import org.goda.time.Interval;
 
 /**

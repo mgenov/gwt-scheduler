@@ -244,7 +244,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public void addCalendarEvent(Event event) {
-    calendarContent.addCalendarEvent(columns,event);
+    calendarContent.addCalendarEvent(event);
   }
 
   @Override
@@ -265,6 +265,11 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void deleteEvent(Event event) {
     calendarContent.deleteEvent(event);
+  }
+  
+  @Override
+  public void updateEvent(Event event) {
+    calendarContent.updateEvent(event);
   }
 
   @Override

@@ -142,4 +142,10 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     CalendarPresenter presenter = presenters.get(selectedPresenter);
     presenter.deleteEvent(event);
   }
+  
+  public void updateEvent(Event event) {
+    // TODO: its not good idea to update only on active calendar.
+    CalendarPresenter presenter = presenters.get(selectedPresenter);
+    presenter.updateEvent(event);
+  }
 }
