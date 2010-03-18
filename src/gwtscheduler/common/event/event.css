@@ -1,4 +1,10 @@
-.closeBtn{
-    float:left;
-    cursor:pointer;
+.closeBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.headerFlowPanel {
+    position: relative;
 }

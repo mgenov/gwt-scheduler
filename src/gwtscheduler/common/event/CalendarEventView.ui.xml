@@ -13,7 +13,6 @@
         font-size: 0.9em;
         color: #FFFFFF;
         cursor:default;
-        float:left;
         }
         .content {
         background-color: #ABBFE0;
@@ -44,12 +43,11 @@
         .roundedPanel{
         background-color: #ABBFE0;
         }
-
     </ui:style>
     <c:RoundedLinePanel ui:field="roundedPanel" styleName="{style.roundedPanel}">
         <g:HTMLPanel>
             <div>
-                <g:FlowPanel>
+                <g:FlowPanel styleName="{res.headerFlowPanel}">
                     <g:Label ui:field="eventHeader" styleName="{style.header}" text="Title"/>
                     <g:PushButton ui:field="closeBtn" styleName="{res.closeBtn}"/>
                 </g:FlowPanel>
