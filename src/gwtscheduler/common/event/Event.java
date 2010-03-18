@@ -36,4 +36,6 @@ public interface Event {
   Object getColumnId();
 
   String getEventId();
+
+  String getDescription();
 }

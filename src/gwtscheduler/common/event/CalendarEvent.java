@@ -41,6 +41,8 @@ public class CalendarEvent implements Draggable {
     HasMouseDownHandlers getFooter();
 
     HasClickHandlers getCloseBtn();
+
+    void setDescription(String description);
   }
 
   /**
@@ -86,6 +88,7 @@ public class CalendarEvent implements Draggable {
     this.display = display;
 
     display.setHeaderTitle(event.getTitle());
+    display.setDescription(event.getDescription());
 
     display.getCloseBtn().addClickHandler(new ClickHandler(){
       @Override
