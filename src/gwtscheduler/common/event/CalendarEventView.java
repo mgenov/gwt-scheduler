@@ -31,7 +31,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   Label eventHeader;
 
   @UiField
-  SimplePanel contentPanel;
+  FlowPanel contentPanel;
 
   @UiField
   Label eventFooter;
@@ -95,6 +95,12 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   @Override
   public HasClickHandlers getCloseBtn() {
     return closeBtn;
+  }
+
+  @Override
+  public void setDescription(String description) {
+    //TODO: this not the best way at all try tio improve it
+    contentPanel.add(new Label(description));
   }
 
   @Override

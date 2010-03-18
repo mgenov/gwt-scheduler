@@ -44,4 +44,9 @@ public class TeamTaskEvent implements Event{
   public String getEventId() {
     return id;  
   }
+
+  @Override
+  public String getDescription() {
+    return testTask.getDescription();  
+  }
 }
