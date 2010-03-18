@@ -190,7 +190,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         int index = columns.indexOf(calendarColumn);
 
         columns.remove(index);
-        calendarContent.removeColumn(index);
+        calendarContent.removeColumn(calendarColumn,index);
         fireResizeRedrawEvents();
         calendarHeader.removeColumnHeader(index);
 

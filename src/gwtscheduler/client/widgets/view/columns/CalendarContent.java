@@ -53,7 +53,8 @@ public class CalendarContent {
     return calendarColumnsFrameGrid.getTimeLineDecorables();
   }
 
-  public void removeColumn(int index) {
+  public void removeColumn(CalendarColumn calendarColumn, int index) {
+    eventsDashboard.removeEventsForColumn(calendarColumn);
     display.removeColumn(index);
   }
 

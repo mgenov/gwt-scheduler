@@ -279,8 +279,21 @@ public class EventsDashboard {
   public void deleteEvent(Event event) {
     for (CalendarEvent calendarEvent : events) {
       if(event.getEventId().equals(calendarEvent.getEvent().getEventId())){
+        removeEvent(events,calendarEvent);
+        break;
+      }
+    }
+  }
+
+  private void removeEvent(ArrayList<CalendarEvent> events, CalendarEvent calendarEvent) {
         events.remove(calendarEvent);
         calendarEvent.removeFromParent(display.asWidget());
+  }
+
+  public void removeEventsForColumn(CalendarColumn calendarColumn) {
+    for (CalendarEvent calendarEvent : events) {
+      if(calendarColumn.isEventForColumn(calendarEvent.getEvent())){
+        removeEvent(events,calendarEvent);
         break;
       }
     }
