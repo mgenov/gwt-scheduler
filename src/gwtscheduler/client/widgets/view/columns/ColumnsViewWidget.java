@@ -35,7 +35,7 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewWidget extends Composite implements CalendarPresenter.Display, HasWidgetRedrawHandlers,
-        LassoAwarePanel.LassoHandler, HasWidgets, HasCalendarDropHandlers, HasCalendarChangeHandlers {
+        LassoAwarePanel.LassoHandler, HasWidgets, HasCalendarDropHandlers, HasCalendarChangeHandlers,HasEventDeleteEventHandlers {
 
   @UiField
   VerticalPanel impl;
@@ -136,6 +136,11 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   @Override
+  public HasEventDeleteEventHandlers getHasEventDeleteEventHandlers() {
+    return this; 
+  }
+
+  @Override
   public int getHeight() {
     return content.getCalendarColumnsFrameGridDisplay().getHeight();
   }
@@ -217,5 +222,10 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @Override
   public HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler) {
     return addHandler(handler, CalendarChangeEvent.TYPE);
+  }
+
+  @Override
+  public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
+    return addHandler(handler,EventDeleteEvent.TYPE);  
   }
 }

@@ -93,4 +93,8 @@ public class CalendarContent {
   public void updateEvent(Event event) {
     eventsDashboard.updateEvent(event);
   }
+
+  public void deleteEvent(Event event) {
+    eventsDashboard.deleteEvent(event);
+  }
 }

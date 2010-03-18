@@ -125,13 +125,21 @@ public class EventsDashboard {
         }
       }
     });
-
+    
     display.addDragOverHandler(new DragOverHandler() {
       @Override
       public void onDragOver(DragOverEvent event) {
         proceedDragOver(event);
       }
     });
+  }
+
+  private void clearEvents() {
+    display.asWidget().clear();
+//    for (CalendarEvent event : events) {
+//      event.removeFromParent(display.asWidget());
+//    }
+    events.clear();
   }
 
   private void proceedDragOver(DragOverEvent event) {
@@ -160,13 +168,6 @@ public class EventsDashboard {
     } else {
       frame.setCursorStyle(CursorStyle.POINTER.toString());
       collision = false;
-    }
-  }
-
-  private void clearEvents() {
-    for (CalendarEvent event : events) {
-      event.removeFromParent(display.asWidget());
-      events.remove(event);
     }
   }
 
@@ -253,7 +254,7 @@ public class EventsDashboard {
     int[] position = display.calculateLeftTop(startCellPosition);
     int height = display.getRowDistance(startRow, endRow);
 
-    CalendarEvent calendarEvent = new CalendarEvent(event, new EventPosition(position[0], position[1]),startCellPosition,endCellPosition);
+    CalendarEvent calendarEvent = new CalendarEvent(event, new EventPosition(position[0], position[1]),startCellPosition,endCellPosition, eventBus);
     CalendarEvent.Display display = this.display.getCalendarEventDisplay();
     calendarEvent.bindDisplay(display);
 
@@ -273,5 +274,15 @@ public class EventsDashboard {
     }
 
     return -1;
+  }
+  
+  public void deleteEvent(Event event) {
+    for (CalendarEvent calendarEvent : events) {
+      if(event.getEventId().equals(calendarEvent.getEvent().getEventId())){
+        events.remove(calendarEvent);
+        calendarEvent.removeFromParent(display.asWidget());
+        break;
+      }
+    }
   }
 }

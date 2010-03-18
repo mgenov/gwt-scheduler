@@ -9,6 +9,7 @@ import org.goda.time.Interval;
  * @author Miroslav Genov (mgenov@gmail.com)
  */
 public interface Event {
+
   /**
    * Gets the interval of that event.
    * @return the interval value which indicates start/end and date of the current event
@@ -34,5 +35,5 @@ public interface Event {
    */
   Object getColumnId();
 
-  String getEventKey();
+  String getEventId();
 }

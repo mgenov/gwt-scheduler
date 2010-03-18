@@ -4,13 +4,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
-import gwtscheduler.client.widgets.view.common.EventsDashboard;
+import gwtscheduler.client.modules.EventBus;
 import org.goda.time.Interval;
 
 import java.util.Arrays;
@@ -41,6 +39,8 @@ public class CalendarEvent implements Draggable {
     int getHeight();
 
     HasMouseDownHandlers getFooter();
+
+    HasClickHandlers getCloseBtn();
   }
 
   /**
@@ -59,6 +59,7 @@ public class CalendarEvent implements Draggable {
   private EventPosition position = new EventPosition();
   private int[] startCellPosition;
   private int[] endCellPosition;
+  private EventBus eventBus;
 
   /**
    * Default constructor.
@@ -66,12 +67,14 @@ public class CalendarEvent implements Draggable {
    * @param event the event that is wrapping to provided calendar event.
    * @param position
    * @param endCellPosition
+   * @param eventBus
    */
-  public CalendarEvent(Event event, EventPosition position, int[] startCellPosition, int[] endCellPosition) {
+  public CalendarEvent(Event event, EventPosition position, int[] startCellPosition, int[] endCellPosition, EventBus eventBus) {
     this.event = event;
     this.position = position;
     this.startCellPosition = startCellPosition;
     this.endCellPosition = endCellPosition;
+    this.eventBus = eventBus;
   }
 
   /**
@@ -83,6 +86,14 @@ public class CalendarEvent implements Draggable {
     this.display = display;
 
     display.setHeaderTitle(event.getTitle());
+
+    display.getCloseBtn().addClickHandler(new ClickHandler(){
+      @Override
+      public void onClick(ClickEvent e) {
+
+        eventBus.fireEvent(new CalendarEventDeleteEvent(event));
+      }
+    });
   }
 
   /**
@@ -226,6 +237,6 @@ public class CalendarEvent implements Draggable {
   }
 
   public String getEventId(){
-    return event.getEventKey();
+    return event.getEventId();
   }
 }

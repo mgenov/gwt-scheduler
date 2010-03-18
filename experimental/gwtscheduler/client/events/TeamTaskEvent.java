@@ -12,10 +12,12 @@ import org.goda.time.Interval;
 public class TeamTaskEvent implements Event{
   private TestTask testTask;
   private CalendarColumn column;
+  private String id;
 
   public TeamTaskEvent(TestTask testTask, CalendarColumn column) {
     this.testTask = testTask;
     this.column = column;
+    id = System.currentTimeMillis()+"";
   }
 
 
@@ -42,5 +44,10 @@ public class TeamTaskEvent implements Event{
   @Override
   public Object getColumnId() {
     return column.getId();  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public String getEventId() {
+    return id;  
   }
 }
