@@ -1,7 +1,13 @@
 package dragndrop.client.core;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -16,10 +22,8 @@ import java.util.List;
  * DragZoneImpl represents an implementation of DragZone that provides client code
  * with ability to drag objects over this drag zone.
  *
- * 
- * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
- * @author Miroslav Genov (mgenov@gmail.com) 
+ * @author Miroslav Genov (mgenov@gmail.com)
  */
 class DragZoneImpl implements DragZone {
   private final int CORRECTION = -5;
@@ -40,7 +44,7 @@ class DragZoneImpl implements DragZone {
   private int cloneHeight = 0;
   private Frame frame;
 
-  public DragZoneImpl(Frame frame, CursorStyleProvider cursorStyleProvider){
+  public DragZoneImpl(Frame frame, CursorStyleProvider cursorStyleProvider) {
     this.defaultFrame = frame;
     this.frame = frame;
     this.cursorStyleProvider = cursorStyleProvider;
@@ -56,11 +60,11 @@ class DragZoneImpl implements DragZone {
     attachFrameHandlers(this.frame);
   }
 
-  private void attachFrameHandlers(Frame frame){
+  private void attachFrameHandlers(Frame frame) {
     frame.getFrameMouseMoveHandlers().addMouseMoveHandler(new MouseMoveHandler() {
       @Override
       public void onMouseMove(MouseMoveEvent event) {
-         mouseMove(event);
+        mouseMove(event);
       }
     });
 
@@ -79,7 +83,7 @@ class DragZoneImpl implements DragZone {
    */
   private void registerDraggable(HasMouseDownHandlers targetObject) {
 
-    targetObject.addMouseDownHandler(new MouseDownHandler(){
+    targetObject.addMouseDownHandler(new MouseDownHandler() {
       public void onMouseDown(MouseDownEvent event) {
 
         display.storeDragWidget(event);
@@ -90,8 +94,8 @@ class DragZoneImpl implements DragZone {
 
         Object o = draggingRegister.get(display.getDragWidget());    // probably not good implementation
 
-        if(o instanceof Draggable){
-          Draggable draggable = (Draggable)o;
+        if (o instanceof Draggable) {
+          Draggable draggable = (Draggable) o;
           cloneWidth = draggable.getWidth();
           cloneHeight = draggable.getHeight();
         } else {
@@ -103,7 +107,7 @@ class DragZoneImpl implements DragZone {
         cloneLeft = display.getSourceLeft();
 
         frame = frameRegister.get(o.getClass().getName());
-        if(frame == null){
+        if (frame == null) {
           frame = DragZoneImpl.this.defaultFrame;
         }
         frame.dropObject(o);
@@ -118,13 +122,13 @@ class DragZoneImpl implements DragZone {
     });
   }
 
-  private int[] calculatePosition(int mouseX, int mouseY){
+  private int[] calculatePosition(int mouseX, int mouseY) {
     int x = (mouseX - (startX - cloneLeft)) + CORRECTION - display.getLeft();
     int y = (mouseY - (startY - cloneTop)) + CORRECTION - display.getTop();
-    return new int[] {x, y};
+    return new int[]{x, y};
   }
 
-  private void mouseMove(MouseMoveEvent event){
+  private void mouseMove(MouseMoveEvent event) {
 
     boolean isDragWidgetStored = display.isDragWidgetStored();
 
@@ -141,44 +145,54 @@ class DragZoneImpl implements DragZone {
 
     DropZone dropZone = findDropZone(mouseX, mouseY);
 
-    if(dropZone != null && this.dropZone == null){
+    if (dropZone != null && this.dropZone == null) {
       // fires event when attachResizeHelper in drop zone.
       this.dropZone = dropZone;
       fireEvent(dropZone, new DragInEvent(frame, mouseX, mouseY));
       // set cursor style when drag in drop zone.
       frame.setCursorStyle(cursorStyleProvider.getPointer());
 
-    } else if(dropZone == null && this.dropZone != null){
+    } else if (dropZone == null && this.dropZone != null) {
       // fires event when attachResizeHelper out from drop zone.
       display.fireEvent(this.dropZone, new DragOutEvent(frame));
       this.dropZone = null;
       // set cursor style when drag out drop zone.
       frame.setCursorStyle(cursorStyleProvider.getNotAllowed());
 
-    } else if(this.dropZone != null){
+    } else if (this.dropZone != null) {
+      Object o = draggingRegister.get(display.getDragWidget());
+      Object dropObject;
+
+      if (o instanceof Draggable) {
+        Draggable draggable = (Draggable) o;
+        dropObject = draggable.getDropObject();
+      } else {
+        dropObject = draggingRegister.get(display.getDragWidget());
+      }
+
       // fires event when dragging over drop zone.
-      display.fireEvent(this.dropZone, new DragOverEvent(this, mouseX, mouseY));
+      display.fireEvent(this.dropZone, new DragOverEvent(this, mouseX, mouseY, dropObject));
     }
   }
 
-  private void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event){
+  private void fireEvent(DropZone dropZone, GwtEvent<? extends EventHandler> event) {
     display.fireEvent(dropZone, event);
   }
 
-  private DropZone findDropZone(int x, int y){
+  private DropZone findDropZone(int x, int y) {
     DropZone dropZone = display.findDropZone(dropZones, x, y);
-    if(dropZone != null){
+    if (dropZone != null) {
       return dropZone;
     }
 
     return display.getDropZone(hasDropZones, x, y);
   }
 
-  private void mouseUp(MouseUpEvent event){
+  private void mouseUp(MouseUpEvent event) {
     frame.releaseFrameCapture();
     display.removeFrame(frame);
 
-    if(hasDropZones.size() == 0 && dropZones.size() == 0){
+    if (hasDropZones.size() == 0 && dropZones.size() == 0) {
       GWT.log("No registered drop zones!", null);
       return;
     }
@@ -187,13 +201,13 @@ class DragZoneImpl implements DragZone {
     DropZone dropZone = findDropZone(event.getClientX(), event.getClientY());
 
     // we have to fire drop event to indicate that object has been dropped in the drop zone
-    if(dropZone != null){
+    if (dropZone != null) {
       int endX = event.getClientX();
       int endY = event.getClientY();
 
       Object o = draggingRegister.get(display.getDragWidget()); // probably not good implementation
-      if(o instanceof Draggable){
-        Draggable draggable = (Draggable)o;
+      if (o instanceof Draggable) {
+        Draggable draggable = (Draggable) o;
         display.dropTo(dropZone, draggable.getSourceWidget(), draggable.getDropObject(), startX, startY, endX, endY);
       } else {
         display.dropTo(dropZone, draggingRegister.get(display.getDragWidget()), startX, startY, endX, endY);
@@ -203,8 +217,9 @@ class DragZoneImpl implements DragZone {
 
   /**
    * Add MouseDownHandler on given widget and register object that need to be dropped over drop zone when drag stops.
+   *
    * @param widget to attach mouse down handler.
-   * @param o object who will be dropped over drop zone.
+   * @param o      object who will be dropped over drop zone.
    */
   @Override
   public void add(HasMouseDownHandlers widget, Object o) {
@@ -214,6 +229,7 @@ class DragZoneImpl implements DragZone {
 
   /**
    * Add draggable element.
+   *
    * @param draggable draggable element.
    */
   @Override
@@ -223,9 +239,10 @@ class DragZoneImpl implements DragZone {
 
   /**
    * Add widget to drag zone view with given coordinates.
+   *
    * @param widget to be added.
-   * @param left coordinate.
-   * @param top coordinate.
+   * @param left   coordinate.
+   * @param top    coordinate.
    */
   @Override
   public void addWidget(Widget widget, int left, int top) {
@@ -234,6 +251,7 @@ class DragZoneImpl implements DragZone {
 
   /**
    * Add widget to drag zone.
+   *
    * @param widget to be added.
    */
   @Override
@@ -244,6 +262,7 @@ class DragZoneImpl implements DragZone {
   /**
    * Add new root who contains drop zones. This roots will be searched to find drop zones. If you have some Widget in
    * the tail that not implements HasWidgets interface (something like Composite) the search finished at this widget.
+   *
    * @param root widget who implements HasWidgets.
    */
   @Override
@@ -255,6 +274,7 @@ class DragZoneImpl implements DragZone {
    * Register drop zone root. All elements in the list will be iterated and all child's on HasWidget elements will be
    * iterated during search DropZone. If you have some Widget in the tail that not implements HasWidgets interface
    * (something like Composite) the search finished at this widget.
+   *
    * @param roots list with root widgets that will be iterated during searching the DropZone.
    */
   @Override
@@ -264,7 +284,8 @@ class DragZoneImpl implements DragZone {
 
   /**
    * Set size for a drop zone.
-   * @param width in pixels;
+   *
+   * @param width  in pixels;
    * @param height in pixels.
    */
   @Override
@@ -274,7 +295,8 @@ class DragZoneImpl implements DragZone {
 
   /**
    * Set size of drag zone.
-   * @param width of the drag zone.
+   *
+   * @param width  of the drag zone.
    * @param height of the drag zone.
    */
   @Override
@@ -284,24 +306,27 @@ class DragZoneImpl implements DragZone {
 
   /**
    * Set style name for dragging frame.
+   *
    * @param styleName style name.
    */
   @Override
   public void setFrameStyle(String styleName) {
-    frame.setFrameStyle(styleName);    
+    frame.setFrameStyle(styleName);
   }
 
   /**
    * Attach DragZone view to the parent widget.
+   *
    * @param parent widget where drag zone will be attached.
    */
   @Override
   public void go(HasWidgets parent) {
-    parent.add((Widget)display);
+    parent.add((Widget) display);
   }
 
   /**
    * Return an instance of DragZoneView.
+   *
    * @return drag zone view who is AbsolutePanel.
    */
   @Override
@@ -311,6 +336,7 @@ class DragZoneImpl implements DragZone {
 
   /**
    * Remove widget from drag zone.
+   *
    * @param widget to be removed.
    */
   @Override
@@ -318,9 +344,9 @@ class DragZoneImpl implements DragZone {
     display.removeWidget(widget);
   }
 
-  public void registerFrame(Frame frame, Class... clazz){
+  public void registerFrame(Frame frame, Class... clazz) {
     attachFrameHandlers(frame);
-    for(Class c : clazz){
+    for (Class c : clazz) {
       frameRegister.put(c.getName(), frame);
     }
   }

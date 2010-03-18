@@ -26,10 +26,12 @@ public class EventIntervalCollisionHelper implements EventCollisionHelper{
   }
 
   @Override
-  public boolean checkEventsIntervals(ArrayList<CalendarEvent> events, Interval interval, CalendarColumn column) {
+  public boolean checkEventsIntervals(ArrayList<CalendarEvent> events, Interval interval, CalendarColumn column, Object dropObject) {
     for (CalendarEvent event : events) {
       if(column.isEventForColumn(event.getEvent())){
-        if(checkCollision(event.getInterval(),interval)) return true;
+        if(event != dropObject && checkCollision(event.getInterval(),interval)){
+          return true;
+        }
       }
     }
     return false;

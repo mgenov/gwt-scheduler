@@ -20,12 +20,6 @@ public class TeamTaskEvent implements Event{
     id = System.currentTimeMillis()+"";
   }
 
-
-  @Override
-  public String getEventKey() {
-    return testTask.getTitle() + testTask.getDescription() + testTask.getInterval() + testTask.getDuration();
-  }
-
   @Override
   public Interval getInterval() {
     return testTask.getInterval();
