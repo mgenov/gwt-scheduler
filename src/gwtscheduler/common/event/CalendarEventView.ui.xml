@@ -3,6 +3,8 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:c="urn:import:org.cobogw.gwt.user.client.ui">
 
+    <ui:style field="res" src="event.css"/>
+
     <ui:style>
         .header {
         width: 100%;
@@ -11,6 +13,7 @@
         font-size: 0.9em;
         color: #FFFFFF;
         cursor:default;
+        float:left;
         }
         .content {
         background-color: #ABBFE0;
@@ -22,34 +25,40 @@
         }
         .resizer {
         bottom:0;
-        cursor:ns-resize;
         height:7px;
         line-height:7px;
         position:absolute;
         width:100%;
         }
         .rszricon {
-        border-top:3px double red;
-        font-size:0;
-        height:0;
+        font-size:15px;
+        font-weight:bold;
+        text-align:center;
+        height:100%;
+        cursor:ns-resize;
         line-height:0;
         margin-left:auto;
         margin-right:auto;
-        width:10px;
+        width:100%;
         }
         .roundedPanel{
         background-color: #ABBFE0;
         }
-    </ui:style>
 
+    </ui:style>
     <c:RoundedLinePanel ui:field="roundedPanel" styleName="{style.roundedPanel}">
         <g:HTMLPanel>
             <div>
-                <g:Label ui:field="eventHeader" styleName="{style.header}" text="Title"/>
+                <g:FlowPanel>
+                    <g:Label ui:field="eventHeader" styleName="{style.header}" text="Title"/>
+                    <g:PushButton ui:field="closeBtn" styleName="{res.closeBtn}"/>
+                </g:FlowPanel>
+
                 <g:SimplePanel ui:field="contentPanel" styleName="{style.content}"/>
+
             </div>
             <div class="{style.resizer}">
-                <g:Label ui:field="eventFooter" styleName="{style.rszricon}" text="&nbsp;"/>
+                <g:Label ui:field="eventFooter" styleName="{style.rszricon}" text="-"/>
             </div>
         </g:HTMLPanel>
     </c:RoundedLinePanel>

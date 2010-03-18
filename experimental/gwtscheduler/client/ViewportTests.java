@@ -23,6 +23,8 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
+import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
@@ -230,6 +232,12 @@ public class ViewportTests implements EntryPoint, ClickHandler {
         TeamTaskEvent teamTaskEvent = new TeamTaskEvent(testTask, column);
         main.addEvent(teamTaskEvent);
         dialog.close();
+      }
+    });
+    main.addEventDeleteEventHandler(new EventDeleteEventHandler(){
+      @Override
+      public void onEventDelete(EventDeleteEvent e) {
+        main.deleteEvent(e.getEvent());
       }
     });
 

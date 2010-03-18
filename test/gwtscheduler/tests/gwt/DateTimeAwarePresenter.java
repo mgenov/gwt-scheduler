@@ -7,6 +7,7 @@ import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 
+import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
@@ -128,6 +129,16 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   @Override
   public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
     return null;
+  }
+
+  @Override
+  public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void deleteEvent(Event event) {
+    //To change body of implemented methods use File | Settings | File Templates.
   }
 
 

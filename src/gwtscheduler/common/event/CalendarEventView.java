@@ -5,6 +5,7 @@ import com.google.gwt.dom.client.DListElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
@@ -12,13 +13,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
@@ -41,6 +36,12 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   @UiField
   Label eventFooter;
 
+//  @UiField
+//  HorizontalPanel header;
+     @UiField
+     PushButton closeBtn;
+
+
   public CalendarEventView() {
     initWidget(uiBinder.createAndBindUi(this));
 //    contentPanel.add(new Label("test1"));
@@ -49,8 +50,16 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 //    contentPanel.add(new Label("test4"));
 //    contentPanel.add(new Label("test5"));
 //    eventFooter.setUrl("http://www.google.com/images/logo.gif");
+//     closeBtn = new PushButton(new Image("images/close.png"));
+//    header.add(closeBtn);
     this.getElement().getStyle().setZIndex(33);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
+    FlowPanel flowPanel= new FlowPanel();
+  }
+
+  @UiFactory
+  public PushButton buildPushButton(){
+    return new PushButton(new Image("../css/images/close.png"));
   }
 
   @UiFactory
@@ -81,6 +90,11 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   @Override
   public HasMouseDownHandlers getFooter() {
     return eventFooter;
+  }
+
+  @Override
+  public HasClickHandlers getCloseBtn() {
+    return closeBtn;
   }
 
   @Override

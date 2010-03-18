@@ -112,9 +112,10 @@ public class EventsDashboard {
   }
 
   private void clearEvents() {
-    for (CalendarEvent event : events) {
-      event.removeFromParent(display.asWidget());
-    }
+    display.asWidget().clear();
+//    for (CalendarEvent event : events) {
+//      event.removeFromParent(display.asWidget());
+//    }
     events.clear();
   }
 
@@ -144,7 +145,7 @@ public class EventsDashboard {
   }
 
   private CalendarEvent buildCalendarEvent(Event event, EventPosition eventPosition, int[] startCellPosition, int[] endCellPosition) {
-    CalendarEvent calendarEvent = new CalendarEvent(event, eventPosition,startCellPosition,endCellPosition);
+    CalendarEvent calendarEvent = new CalendarEvent(event, eventPosition,startCellPosition,endCellPosition,eventBus);
     CalendarEvent.Display display = this.display.getCalendarEventDisplay();
     calendarEvent.bindDisplay(display);
     dragZone.add(calendarEvent);
@@ -174,5 +175,15 @@ public class EventsDashboard {
 
   public WidgetResizeHandler getEventsDachboardWidgetResizeHandler() {
     return displayWidgetResizeHandler;
+  }
+
+  public void deleteEvent(Event event) {
+    for (CalendarEvent calendarEvent : events) {
+      if(event.getEventId().equals(calendarEvent.getEvent().getEventId())){
+        events.remove(calendarEvent);
+        calendarEvent.removeFromParent(display.asWidget());
+        break;
+      }
+    }
   }
 }

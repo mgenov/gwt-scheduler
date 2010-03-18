@@ -154,4 +154,8 @@ public class CalendarContent {
   public WidgetResizeHandler getEventsDachboardWidgetResizeHandler() {
     return eventsDashboard.getEventsDachboardWidgetResizeHandler();
   }
+
+  public void deleteEvent(Event event) {
+    eventsDashboard.deleteEvent(event);
+  }
 }

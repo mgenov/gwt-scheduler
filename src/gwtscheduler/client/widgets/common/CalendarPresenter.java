@@ -2,6 +2,8 @@ package gwtscheduler.client.widgets.common;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.HasEventDeleteEventHandlers;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
@@ -31,6 +33,8 @@ public interface CalendarPresenter {
     HasCalendarDropHandlers getHasCalendarDropHandlers();
 
     HasCalendarChangeHandlers getHasCalendarChangeHandlers();
+
+    HasEventDeleteEventHandlers getHasEventDeleteEventHandlers();
     
     void addWidgetResizeHandler(WidgetResizeHandler handler);
   }
@@ -86,4 +90,8 @@ public interface CalendarPresenter {
   HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler);
 
   HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler);
+
+  HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler);
+
+  void deleteEvent(Event event);
 }

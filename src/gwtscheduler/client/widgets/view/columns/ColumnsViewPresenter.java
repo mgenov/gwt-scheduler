@@ -11,8 +11,12 @@ import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
+import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
+import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
+import gwtscheduler.common.event.CalendarEventDeleteEvent;
+import gwtscheduler.common.event.CalendarEventDeleteEventHandler;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.DateTime;
@@ -99,6 +103,14 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
       @Override
       public void onNavigateTo(ReadableDateTime date) {
         reRenderHeaderTitles(dateGenerator.getIntervalForDate((DateTime) date));
+      }
+    });
+
+
+    eventBus.addHandler(CalendarEventDeleteEvent.TYPE,new CalendarEventDeleteEventHandler(){
+      @Override
+      public void onEventDelete(CalendarEventDeleteEvent e) {
+           display.getHasEventDeleteEventHandlers().fireEvent(new EventDeleteEvent(e.getEvent()));
       }
     });
 
@@ -243,6 +255,16 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
     return calendarContent.addEventResizeStartHandler(handler);
+  }
+
+  @Override
+  public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
+    return display.getHasEventDeleteEventHandlers().addEventDeleteEventHandler(handler);
+  }
+
+  @Override
+  public void deleteEvent(Event event) {
+    calendarContent.deleteEvent(event);
   }
 
   @Override
