@@ -29,6 +29,7 @@ import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHand
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.CalendarEvent;
+import gwtscheduler.common.event.Event;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.Interval;
@@ -209,9 +210,12 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     main.addEventResizeEndHandler(new CalendarEventResizeEndHandler(){
       @Override
       public void onCalendarEventResizeEndEvent(CalendarEventResizeEndEvent event) {
-        GWT.log("Resized event" + event.getCalendarEvent().getEventTitle(), null);
-        GWT.log("Event from" + event.getStartTime(), null);
-        GWT.log("Event to" + event.getEndTime(), null);
+//        GWT.log("Resized event" + event.getCalendarEvent().getEventTitle(), null);
+//        GWT.log("Event from" + event.getStartTime(), null);
+//        GWT.log("Event to" + event.getEndTime(), null);
+        Event calendarEvent = event.getCalendarEvent().getEvent();
+        calendarEvent.setInterval(new Interval(event.getStartTime(), event.getEndTime()));
+        main.updateEvent(calendarEvent);
       }
     });
 

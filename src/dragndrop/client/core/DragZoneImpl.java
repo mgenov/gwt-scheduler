@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -325,5 +326,10 @@ class DragZoneImpl implements DragZone {
   @Override
   public void setFrameWindowPosition(int left, int top) {
     display.addFrame(frame, left - display.getLeft(), top - display.getTop());
+  }
+
+  @Override
+  public void makeDragZone(AbsolutePanel panel) {
+    display.changeAbsolutePanel(panel);
   }
 }

@@ -102,7 +102,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
       }
     });
 
-    calendarContent.addContentChangeCallback(new ContentChange(){
+    calendarContent.addContentChangeCallback(new ContentChange(){ // TODO: remove this callback. Make somehow with handler or catch from event bus. or fire event or something like that
 
       @Override
       public void onDrop(int[] newCell, Object droppedObject) {
@@ -232,7 +232,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public void addCalendarEvent(Event event) {
-    calendarContent.addCalendarEvent(columns,event);
+    calendarContent.addCalendarEvent(event);
   }
 
   @Override
@@ -243,6 +243,11 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
     return calendarContent.addEventResizeStartHandler(handler);
+  }
+
+  @Override
+  public void updateEvent(Event event) {
+    calendarContent.updateEvent(event);
   }
 
   @Override
