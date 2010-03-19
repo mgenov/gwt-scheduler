@@ -31,7 +31,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   Label eventHeader;
 
   @UiField
-  FlowPanel contentPanel;
+  Label contentPanel;
 
   @UiField
   Label eventFooter;
@@ -54,7 +54,6 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 //    header.add(closeBtn);
     this.getElement().getStyle().setZIndex(33);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
-    FlowPanel flowPanel= new FlowPanel();
   }
 
   @UiFactory
@@ -100,7 +99,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   @Override
   public void setDescription(String description) {
     //TODO: this not the best way at all try tio improve it
-    contentPanel.add(new Label(description));
+    contentPanel.setText(description);
   }
 
   @Override

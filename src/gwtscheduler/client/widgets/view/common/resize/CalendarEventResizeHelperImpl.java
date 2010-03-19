@@ -97,7 +97,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
 
   void mouseMove(MouseMoveEvent event) {
     int[] row = eventsDisplay.getCellPosition(event.getClientX(), event.getClientY());
-    if (eventStartRow == row || row[0] < 0 || endRow[0] == row[0]) {
+    if (eventStartRow[0] > row[0] || row[0] < 0 || endRow[0] == row[0]) {
       return;
     }
 
