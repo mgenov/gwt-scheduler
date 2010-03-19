@@ -10,6 +10,6 @@ import java.util.ArrayList;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public interface EventCollisionHelper {
+public interface CollisionDetector {
   boolean isInCollision(ArrayList<CalendarEvent> events, int columnIndex, Interval interval, Object object);
 }

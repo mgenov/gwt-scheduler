@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class EventIntervalCollisionHelper implements EventCollisionHelper {
+public class IntervalCollisionDetector implements CollisionDetector {
   @Override
   public boolean isInCollision(ArrayList<CalendarEvent> events, int columnIndex, Interval interval, Object object) {
     for (CalendarEvent event : events) {

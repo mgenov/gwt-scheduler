@@ -58,7 +58,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   private final EventBus eventBus;
   private final EventBus calendarBus;
   private final DateGenerator dateGenerator;
-  private final EventCollisionHelper collisionHelper;
+  private final CollisionDetector collisionDetector;
   private final CalendarEventResizeHelperProvider resizeHelper;
   private final DragZone dragZone;
   private WidgetResizeHandler displayWidgetResizeHandler;
@@ -67,9 +67,9 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   private List<CalendarColumn> columns;
   private boolean collision = false;
 
-  public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus, EventBus calendarBus, CalendarEventResizeHelperProvider resizeHelper) {
+  public EventsDashboard(DateGenerator dateGenerator, CollisionDetector collisionDetector, EventBus eventBus, EventBus calendarBus, CalendarEventResizeHelperProvider resizeHelper) {
     this.dateGenerator = dateGenerator;
-    this.collisionHelper = collisionHelper;
+    this.collisionDetector = collisionDetector;
     this.eventBus = eventBus;
     this.calendarBus = calendarBus;
     this.dragZone = Zones.getDragZone();
@@ -115,7 +115,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
         Interval currentInterval = event.getCurrentInterval();
         int columnIndex = event.getCalendarEvent().getStartCellPosition()[1];
 
-        boolean isCollision = collisionHelper.isInCollision(calendarEvents, columnIndex, currentInterval, event.getCalendarEvent());
+        boolean isCollision = collisionDetector.isInCollision(calendarEvents, columnIndex, currentInterval, event.getCalendarEvent());
 
         if (isCollision) {
           event.getCalendarEventResizeHelper().setCursorStyle(CursorStyle.NOT_ALLOWED.toString());
@@ -163,7 +163,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     }
     Interval interval = dateGenerator.getIntervalForRange(cell, endCell, display.getRowCount());
 
-    boolean isCollision = collisionHelper.isInCollision(calendarEvents, cell[1], interval, event.getDropObject());
+    boolean isCollision = collisionDetector.isInCollision(calendarEvents, cell[1], interval, event.getDropObject());
     if (isCollision) {
       frame.setCursorStyle(CursorStyle.NOT_ALLOWED.toString());
       collision = true;
