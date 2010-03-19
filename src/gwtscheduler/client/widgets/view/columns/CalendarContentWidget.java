@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class CalendarContentWidget extends Composite implements CalendarContent.Display, HasWidgets {
+public class CalendarContentWidget extends Composite implements CalendarContent.Display {
 
   /**
    * ui binder instance
@@ -108,22 +108,22 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   }
 
   @Override
-  public void add(Widget widget) {
-    lassoAwarePanel.add(widget);
+  public HandlerRegistration addDropHandler(DropHandler handler) {
+    return addHandler(handler, DropEvent.TYPE);
   }
 
   @Override
-  public void clear() {
-    lassoAwarePanel.clear();
+  public HandlerRegistration addDragInHandler(DragInHandler handler) {
+    return addHandler(handler,DragInEvent.TYPE);
   }
 
   @Override
-  public Iterator<Widget> iterator() {
-    return lassoAwarePanel.iterator();
+  public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
+    return addHandler(handler,DragOutEvent.TYPE);
   }
 
   @Override
-  public boolean remove(Widget widget) {
-    return lassoAwarePanel.remove(widget);
+  public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+    return addHandler(handler, DragOverEvent.TYPE);
   }
 }

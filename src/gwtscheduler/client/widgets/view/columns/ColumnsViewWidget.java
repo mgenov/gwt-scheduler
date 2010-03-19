@@ -152,18 +152,14 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
 
   @Override
   public void forceLayout(Widget lassoPanel, WidgetResizeEvent event) {
-     List<Cell<Element>> cells = new ArrayList<Cell<Element>>(content.getCalendarColumnsFrameGridDisplay().getContentDecorableElements());
-     Element first = cells.get(0).getCellElement();
-    int[] offset = DOMUtils.getOffset(lassoPanel.getParent().getElement(), first);
-    if (offset[0] > 0) {
-      DOM.setStyleAttribute(lassoPanel.getElement(), "left", offset[0] + "px");
-      DOM.setStyleAttribute(content.getEventsPanel().getElement(), "left", offset[0] + "px");
-    }
 
-//    AppConfiguration config = AppInjector.GIN.getInjector().getConfiguration();
-//    lassoPanel.setSize("100%", (config.daysLineHeightEMs() * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
+    List<Cell<Element>> titles = new ArrayList<Cell<Element>>(content.getCalendarColumnsFrameGridDisplay().getDecorables().getDecorableElements());
+    Element title = titles.get(0).getCellElement();
+    int offset =title.getAbsoluteRight() - title.getAbsoluteLeft();
+    DOM.setStyleAttribute(lassoPanel.getElement(), "left",offset + "px");
+    DOM.setStyleAttribute(content.getEventsPanel().getElement(), "left", offset + "px");
+
     lassoPanel.setSize("100%", (daysLineHeightEMs * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
-//    content.getEventsPanel().setSize("100%", (config.daysLineHeightEMs() * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
     content.getEventsPanel().setSize("100%", (daysLineHeightEMs * content.getCalendarColumnsFrameGridDisplay().getRows()) + "em");
   }
 

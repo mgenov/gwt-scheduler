@@ -186,7 +186,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void deleteColumn(CalendarColumn column) {
     for (CalendarColumn calendarColumn : columns) {
-      if (calendarColumn.getTitle().equals(column.getTitle())) {
+      if (calendarColumn.getId().equals(column.getId())) {
         int index = columns.indexOf(calendarColumn);
 
         columns.remove(index);

@@ -20,7 +20,8 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarContent {
-  public interface Display {
+  public interface Display extends DropZone{
+    
     CalendarColumnsFrameGrid.Display getCalendarColumnsFrameGridDisplay();
 
     void removeColumn(int calendarColumnIndex);
@@ -47,6 +48,9 @@ public class CalendarContent {
 
     calendarColumnsFrameGrid.bindDisplay(display.getCalendarColumnsFrameGridDisplay());
     eventsDashboard.bindDisplay(display.getEventsDashboard());
+
+    display.addDragOverHandler(eventsDashboard);
+    display.addDropHandler(eventsDashboard);
   }
 
   public List<Cell<Element>> getFrameGridDecorables() {

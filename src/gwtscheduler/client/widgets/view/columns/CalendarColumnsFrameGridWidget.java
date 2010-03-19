@@ -72,7 +72,7 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
     rh = new HorizontalCalendarViewPanelResizeHandler(grid);
 
 //    int lh = config.daysLineHeightEMs();
-    int lh = daysLineHeightEMs;
+    int lh = this.daysLineHeightEMs;
     container.setSize("100%",rows * lh + "em");
     grid.setSize("100%", rows * lh + "em");
   }
