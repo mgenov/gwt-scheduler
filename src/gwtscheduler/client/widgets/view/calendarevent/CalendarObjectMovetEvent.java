@@ -6,10 +6,12 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import org.goda.time.Instant;
 
 /**
+ * Fired when something already attached to calendar is moved to another place.
+ *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class CalendarChangeEvent extends GwtEvent<CalendarChangeHandler>{
-  public static final Type<CalendarChangeHandler> TYPE = new Type<CalendarChangeHandler>();
+public class CalendarObjectMovetEvent extends GwtEvent<CalendarObjectMoveHandler>{
+  public static final Type<CalendarObjectMoveHandler> TYPE = new Type<CalendarObjectMoveHandler>();
   private final CalendarType calendarType;
   private final String calendarTitle;
   private final Object droppedObject;
@@ -18,7 +20,7 @@ public class CalendarChangeEvent extends GwtEvent<CalendarChangeHandler>{
   private final CalendarColumn newColumn;
   private final Instant newTime;
 
-  public CalendarChangeEvent(CalendarType calendarType, String calendarTitle, Object droppedObject, CalendarColumn oldColumn, Instant oldTime, CalendarColumn newColumn, Instant newTime) {
+  public CalendarObjectMovetEvent(CalendarType calendarType, String calendarTitle, Object droppedObject, CalendarColumn oldColumn, Instant oldTime, CalendarColumn newColumn, Instant newTime) {
     this.calendarType = calendarType;
     this.calendarTitle = calendarTitle;
     this.droppedObject = droppedObject;
@@ -29,13 +31,13 @@ public class CalendarChangeEvent extends GwtEvent<CalendarChangeHandler>{
   }
 
   @Override
-  public Type<CalendarChangeHandler> getAssociatedType() {
+  public Type<CalendarObjectMoveHandler> getAssociatedType() {
     return TYPE;
   }
 
   @Override
-  protected void dispatch(CalendarChangeHandler handler) {
-    handler.onCalendarChange(this);
+  protected void dispatch(CalendarObjectMoveHandler handler) {
+    handler.onCalendarObjectMove(this);
   }
 
   public CalendarType getCalendarType() {

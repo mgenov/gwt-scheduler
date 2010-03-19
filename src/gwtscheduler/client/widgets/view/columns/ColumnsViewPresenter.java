@@ -1,10 +1,10 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMovetEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
@@ -129,8 +129,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         CalendarColumn oldColumn = columns.get(event.getOldCell()[1]);
         CalendarColumn newColumn = columns.get(event.getNewCell()[1]);
 
-        CalendarChangeEvent changeEvent = new CalendarChangeEvent(type, title, event.getDroppedObject(), oldColumn, oldTime, newColumn, newTime);
-        display.getHasCalendarChangeHandlers().fireEvent(changeEvent);
+        CalendarObjectMovetEvent objectMovetEvent = new CalendarObjectMovetEvent(type, title, event.getDroppedObject(), oldColumn, oldTime, newColumn, newTime);
+        display.getHasCalendarChangeHandlers().fireEvent(objectMovetEvent);
       }
     });
 
@@ -235,7 +235,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
-  public HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler) {
+  public HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
     return display.getHasCalendarChangeHandlers().addCalendarChangeHandler(handler);
   }
 

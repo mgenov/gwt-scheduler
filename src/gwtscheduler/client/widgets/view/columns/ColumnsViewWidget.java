@@ -220,8 +220,8 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   @Override
-  public HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler) {
-    return addHandler(handler, CalendarChangeEvent.TYPE);
+  public HandlerRegistration addCalendarChangeHandler(CalendarObjectMoveHandler handler) {
+    return addHandler(handler, CalendarObjectMovetEvent.TYPE);
   }
 
   @Override

@@ -1,6 +1,5 @@
 package gwtscheduler.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -19,8 +18,8 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMovetEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
@@ -164,9 +163,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     dialog.bindDisplay(display);
 
 
-    main.addCalendarChangeHandler(new CalendarChangeHandler() {
+    main.addCalendarObjectMoveHandler(new CalendarObjectMoveHandler() {
       @Override
-      public void onCalendarChange(CalendarChangeEvent event) {
+      public void onCalendarObjectMove(CalendarObjectMovetEvent event) {
         Object o = event.getDroppedObject();
         if(o instanceof TestTask){
 //          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);

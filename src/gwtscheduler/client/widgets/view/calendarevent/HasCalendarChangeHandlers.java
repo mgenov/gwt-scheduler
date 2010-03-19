@@ -8,5 +8,5 @@ import com.google.gwt.event.shared.HasHandlers;
  */
 public interface HasCalendarChangeHandlers extends HasHandlers {
 
-  HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler);
+  HandlerRegistration addCalendarChangeHandler(CalendarObjectMoveHandler handler);
 }

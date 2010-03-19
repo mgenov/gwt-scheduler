@@ -7,7 +7,7 @@ import gwtscheduler.client.widgets.view.calendarevent.HasEventDeleteEventHandler
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.view.calendarevent.HasCalendarChangeHandlers;
@@ -79,7 +79,7 @@ public interface CalendarPresenter {
 
   HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler);
 
-  HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler);
+  HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler);
 
   void setCalendarType(CalendarType type);
 
