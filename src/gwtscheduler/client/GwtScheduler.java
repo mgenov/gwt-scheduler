@@ -29,6 +29,8 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     void add(CalendarPresenter.Display display, String title);
 
     void addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler);
+
+    void setEnable(boolean enable);
   }
 
 
@@ -46,6 +48,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
 
   public void bindDisplay(Display display) {
     this.display = display;
+    display.setEnable(true);
 
     display.addBeforeSelectionHandler(this);
 
@@ -147,5 +150,9 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     // TODO: its not good idea to update only on active calendar.
     CalendarPresenter presenter = presenters.get(selectedPresenter);
     presenter.updateEvent(event);
+  }
+
+  public void setEnable(boolean enable){
+    display.setEnable(enable);
   }
 }

@@ -1,12 +1,15 @@
 package gwtscheduler.client;
 
-import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
@@ -18,6 +21,18 @@ import java.util.Iterator;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class GwtSchedulerWidget extends Composite implements GwtScheduler.Display, HasWidgets {
+
+  /**
+   * ui binder interface
+   */
+  interface GwtSchedulerWidgetUiBinder extends UiBinder<Widget, GwtSchedulerWidget> {
+  }
+
+  /**
+   * ui binder instance
+   */
+  private static GwtSchedulerWidgetUiBinder uiBinder = GWT.create(GwtSchedulerWidgetUiBinder.class);
+
   /**
    * static ref to css
    */
@@ -26,18 +41,21 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
   /**
    * widget delegate
    */
-  private DecoratedTabPanel impl;
-  
+  @UiField
+  DecoratedTabPanel tabsPanel;
+
+  @UiField
+  SimplePanel overlapPanel;
 
   public GwtSchedulerWidget() {
-    impl = new DecoratedTabPanel();
-    initWidget(impl);
+    initWidget(uiBinder.createAndBindUi(this));
+
   }
 
 
   @Override
   public void selectTab(int i) {
-    impl.selectTab(i);
+    tabsPanel.selectTab(i);
   }
 
   @Override
@@ -45,31 +63,40 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
     TabPanelContainer container = new TabPanelContainer();
     container.add((Widget) display);
 
-    impl.add(container, title);
+    tabsPanel.add(container, title);
   }
 
   @Override
   public void addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler) {
-    impl.addBeforeSelectionHandler(handler);
+    tabsPanel.addBeforeSelectionHandler(handler);
+  }
+
+  @Override
+  public void setEnable(boolean enable) {
+    if(enable){
+      overlapPanel.getElement().getStyle().setZIndex(-1);
+    }else{
+      overlapPanel.getElement().getStyle().setZIndex(500);
+    }
   }
 
   @Override
   public void add(Widget widget) {
-    impl.add(widget);
+    tabsPanel.add(widget);
   }
 
   @Override
   public void clear() {
-    impl.clear();
+    tabsPanel.clear();
   }
 
   @Override
   public Iterator<Widget> iterator() {
-    return impl.iterator();
+    return tabsPanel.iterator();
   }
 
   @Override
   public boolean remove(Widget widget) {
-    return impl.remove(widget);
+    return tabsPanel.remove(widget);
   }
 }

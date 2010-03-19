@@ -54,8 +54,9 @@ import java.util.Date;
  */
 public class ViewportTests implements EntryPoint, ClickHandler {
 
-  Button back, forward, today, deleteColumn, addColumn;
+  Button back, forward, today, deleteColumn, addColumn, enable,disable;
   TextBox textBox = new TextBox();
+
   private EventBus eventBus = new EventBus();
 
   GwtScheduler main;
@@ -100,6 +101,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     today = new Button("today", this);
     deleteColumn = new Button("delete Column", this);
     addColumn = new Button("add Column", this);
+    enable = new Button("enable", this);
+    disable = new Button("disable", this);
 
 
     HorizontalPanel nav = new HorizontalPanel();
@@ -111,6 +114,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     nav.add(textBox);
     nav.add(deleteColumn);
     nav.add(addColumn);
+    nav.add(enable);
+    nav.add(disable);
 
     nav.add(ticketsPanel);
 
@@ -298,6 +303,10 @@ public class ViewportTests implements EntryPoint, ClickHandler {
         CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
         main.addColumn(column);
       }
+    } else if (event.getSource() == disable) {
+      main.setEnable(false);
+    } else if (event.getSource() == enable) {
+      main.setEnable(true);
     }
 
   }
