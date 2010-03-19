@@ -11,9 +11,5 @@ import java.util.ArrayList;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public interface EventCollisionHelper {
-  ArrayList<CalendarEvent> checkEventsIntervals(ArrayList<CalendarEvent> events, Event event);
-
-  boolean checkEventsIntervals(ArrayList<CalendarEvent> events, Interval interval, CalendarColumn column, Object dropObject);
-
-  boolean checkEventsIntervals(ArrayList<CalendarEvent> events, Interval interval, CalendarEvent calendarEvent);
+  boolean isInCollision(ArrayList<CalendarEvent> events, int columnIndex, Interval interval, Object object);
 }

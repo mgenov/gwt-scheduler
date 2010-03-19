@@ -61,7 +61,7 @@ class DragZoneView extends Composite implements DragZone.Display {
     }
     return dropZone;
   }
-  // todo: what we do when drop zone has another drop zone inside. and what happen if nested drop zone is the zone when widget is dropped?
+
   private DropZone getDropZone(HasWidgets root, int x, int y){
     DropZone dropZone = null;
     for(Widget widget : root){

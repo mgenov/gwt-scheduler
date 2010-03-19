@@ -10,7 +10,6 @@ import dragndrop.client.core.Frame;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-// TODO: rename to match with presenter.
 public class TicketPresenterFrameView extends Composite implements Frame.Display{
   private Label frame = new Label();
   private String style = "border: 1px dotted;";
