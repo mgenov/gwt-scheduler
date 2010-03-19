@@ -12,8 +12,8 @@ import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
-import gwtscheduler.client.widgets.view.common.EventCollisionHelper;
-import gwtscheduler.client.widgets.view.common.EventIntervalCollisionHelper;
+import gwtscheduler.client.widgets.view.common.CollisionDetector;
+import gwtscheduler.client.widgets.view.common.IntervalCollisionDetector;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelperProviderImpl;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
@@ -31,7 +31,7 @@ public class CalendarsBuilder {
 
 
   private CalendarPresenter calendar;
-  private EventCollisionHelper eventCollisionHelper = new EventIntervalCollisionHelper();
+  private CollisionDetector collisionDetector = new IntervalCollisionDetector();
 
   private AppConfiguration configuration;
   private int columns;
@@ -61,7 +61,7 @@ public class CalendarsBuilder {
 
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, calendarBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, calendarBus, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, collisionDetector, eventBus, calendarBus, resizeHelper));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus, calendarBus);
 
@@ -95,7 +95,7 @@ public class CalendarsBuilder {
 
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, calendarBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, calendarBus, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator, collisionDetector, eventBus, calendarBus, resizeHelper));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus, calendarBus);
 

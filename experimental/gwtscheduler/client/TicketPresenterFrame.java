@@ -65,7 +65,7 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
 
   @Override
   public void dropObject(Object o) {
-    if(o instanceof TicketPresenter){ // TODO: use for calendar event or something like that.
+    if(o instanceof TicketPresenter){
       TicketPresenter ticket = (TicketPresenter)o;
       duration = ticket.getDuration();
     }
