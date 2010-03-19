@@ -7,4 +7,6 @@ import dragndrop.client.core.CursorStyle;
  */
 public interface CalendarEventResizeHelper {
   void setCursorStyle(String style);
+
+  void setInCollision(boolean collision);
 }

@@ -114,8 +114,10 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
         Interval currentInterval = event.getCurrentInterval();
         if (collisionHelper.checkEventsIntervals(events, currentInterval, event.getCalendarEvent())) {
           event.getCalendarEventResizeHelper().setCursorStyle(CursorStyle.NOT_ALLOWED.toString());
+          event.getCalendarEventResizeHelper().setInCollision(true);
         } else {
           event.getCalendarEventResizeHelper().setCursorStyle(CursorStyle.POINTER.toString());
+          event.getCalendarEventResizeHelper().setInCollision(false);
         }
       }
     });

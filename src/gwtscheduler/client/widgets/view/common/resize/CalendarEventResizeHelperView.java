@@ -61,8 +61,8 @@ public class CalendarEventResizeHelperView extends Composite implements Calendar
   }
 
   @Override
-  public void go(EventsDashboard.Display dashboard) {
-    dashboard.asWidget().add(this);
+  public void removeFromParent(EventsDashboard.Display dashboard) {
+    dashboard.asWidget().remove(this);
   }
 
   @Override
