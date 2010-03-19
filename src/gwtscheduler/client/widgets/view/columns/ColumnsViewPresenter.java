@@ -175,12 +175,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     display.forceLayout();
   }
 
-  //TODO:remove this, used only in eventsmediator
-  @Override
-  public Interval getIntervalForRange(int[] start, int[] end) {
-    Interval interval = dateGenerator.getIntervalForRange(start,end,getRowNum());
-    return interval;
-  }
+//  //TODO:remove this, used only in eventsmediator
+//  @Override
+//  public Interval getIntervalForRange(int[] start, int[] end) {
+//    Interval interval = dateGenerator.getIntervalForRange(start,end,getRowNum());
+//    return interval;
+//  }
 
 
   /**
