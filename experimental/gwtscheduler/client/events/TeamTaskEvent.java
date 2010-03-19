@@ -49,4 +49,8 @@ public class TeamTaskEvent implements Event{
   public String getDescription() {
     return testTask.getDescription();  
   }
+
+  public void setColumn(CalendarColumn column) {
+    this.column = column;
+  }
 }

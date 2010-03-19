@@ -269,13 +269,17 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     }
 
     int[] newCell = display.getCellPosition(event.getEndX(), event.getEndY());
+    Instant newTime = dateGenerator.getInstantForCell(newCell, display.getRowCount());
 
     if (events.contains(event.getDroppedObject())) {
       int[] oldCell = display.getCellPosition(event.getStartX(), event.getStartY());
-      MoveObjectEvent moveObject = new MoveObjectEvent(oldCell, newCell, event.getDroppedObject());
+
+      Instant oldTime = dateGenerator.getInstantForCell(oldCell, display.getRowCount());
+
+      MoveObjectEvent moveObject = new MoveObjectEvent(oldCell, newCell, oldTime, newTime, event.getDroppedObject());
       calendarBus.fireEvent(moveObject);
     } else {
-      DropObjectEvent dropObject = new DropObjectEvent(newCell, event.getDroppedObject());
+      DropObjectEvent dropObject = new DropObjectEvent(newCell, newTime, event.getDroppedObject());
       calendarBus.fireEvent(dropObject);
     }
   }

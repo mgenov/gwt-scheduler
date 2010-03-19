@@ -34,6 +34,8 @@ import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.Event;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
+import org.goda.time.Duration;
+import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -176,13 +178,25 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //          GWT.log("From time: " + event.getOldTime().toString(), null);
 //          GWT.log("To time: " + event.getNewTime().toString(), null);
         } else if(o instanceof CalendarEvent) {
-//          GWT.log("Moved calendar event", null);
-//          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
-//          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
-//          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
-//          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
-//          GWT.log("From time: " + event.getOldTime().toString(), null);
-//          GWT.log("To time: " + event.getNewTime().toString(), null);
+          CalendarEvent calendarEvent = (CalendarEvent)event.getDroppedObject();
+          TeamTaskEvent teamEvent = (TeamTaskEvent)calendarEvent.getEvent();
+          // change column
+          teamEvent.setColumn(event.getNewColumn());
+          // change time
+          Instant currentStart = teamEvent.getInterval().getStart().toInstant();
+          Instant currentEnd = teamEvent.getInterval().getEnd().toInstant();
+          Instant oldTime = event.getOldTime();
+          Instant newTime = event.getNewTime();
+          Duration difference;
+          if(oldTime.isAfter(newTime)){
+            difference = new Duration(newTime, oldTime);
+            teamEvent.setInterval(new Interval(currentStart.minus(difference), currentEnd.minus(difference)));
+          } else {
+            difference = new Duration(oldTime, newTime);
+            teamEvent.setInterval(new Interval(currentStart.plus(difference), currentEnd.plus(difference)));
+          }
+
+          main.updateEvent(teamEvent);
         }
       }
     });

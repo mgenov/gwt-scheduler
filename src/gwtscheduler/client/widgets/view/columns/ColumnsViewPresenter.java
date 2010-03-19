@@ -125,13 +125,10 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     calendarBus.addHandler(MoveObjectEvent.TYPE, new MoveObjectHandler(){
       @Override
       public void onMoveObject(MoveObjectEvent event) {
-        Instant oldTime = dateGenerator.getInstantForCell(event.getOldCell(), getRowNum());
-        Instant newTime = dateGenerator.getInstantForCell(event.getNewCell(),getRowNum());
-
-        CalendarColumn oldColumn = columns.get(event.getOldCell()[1]);
+        CalendarColumn oldColumn = columns.get(event.getOldCell()[1]); // you can move this 2 lines of code in EventsDashboard if you need to move columns list.
         CalendarColumn newColumn = columns.get(event.getNewCell()[1]);
 
-        CalendarObjectMovetEvent objectMovetEvent = new CalendarObjectMovetEvent(type, title, event.getDroppedObject(), oldColumn, oldTime, newColumn, newTime);
+        CalendarObjectMovetEvent objectMovetEvent = new CalendarObjectMovetEvent(type, title, event.getDroppedObject(), oldColumn, event.getOldTime(), newColumn, event.getNewTime());
         calendarBus.fireEvent(objectMovetEvent);
       }
     });
@@ -139,10 +136,9 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     calendarBus.addHandler(DropObjectEvent.TYPE, new DropObjectHandler(){
       @Override
       public void onDropObject(DropObjectEvent event) {
-        Instant time = dateGenerator.getInstantForCell(event.getNewCell(), getRowNum());
-        CalendarColumn column = columns.get(event.getNewCell()[1]);
+        CalendarColumn column = columns.get(event.getNewCell()[1]);  // you can move this line of code in EventsDashboard if you need to move columns list.
 
-        CalendarDropEvent dropEvent = new CalendarDropEvent(type, title, event.getDroppedObject(), column, time);
+        CalendarDropEvent dropEvent = new CalendarDropEvent(type, title, event.getDroppedObject(), column, event.getNewTime());
         calendarBus.fireEvent(dropEvent);
       }
     });
