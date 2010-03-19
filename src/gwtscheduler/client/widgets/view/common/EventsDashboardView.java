@@ -14,7 +14,7 @@ import gwtscheduler.common.event.CalendarEventView;
  *
  * @author malp
  */
-public class EventsDashboardView extends AbstractGridOverlay implements EventsDashboard.Display, HasCalendarEventResizeStartHandlers, HasCalendarEventResizeEndHandlers, HasCalendarEventResizeHandlers {
+public class EventsDashboardView extends AbstractGridOverlay implements EventsDashboard.Display {
 
   /**
    * Default constructor.
@@ -67,39 +67,8 @@ public class EventsDashboardView extends AbstractGridOverlay implements EventsDa
   }
 
   @Override
-  public HasCalendarEventResizeEndHandlers getHasCalendarEventResizeEndHandlers() {
-    return this;
-  }
-
-  @Override
-  public HasCalendarEventResizeStartHandlers getHasCalendarEventResizeStartHandlers() {
-    return this;
-  }
-
-
-  @Override
-  public HasCalendarEventResizeHandlers getHasCalendarEventResizeHandlers() {
-    return this;
-  }
-
-  @Override
   public int getRowCount() {
     return grid.getRowNum();
-  }
-
-  @Override
-  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
-    return addHandler(handler, CalendarEventResizeEndEvent.TYPE);
-  }
-
-  @Override
-  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeStartHandler handler) {
-    return addHandler(handler, CalendarEventResizeStartEvent.TYPE);
-  }
-
-  @Override
-  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeHandler handler) {
-    return addHandler(handler, CalendarEventResizeEvent.TYPE);
   }
 
   @Override

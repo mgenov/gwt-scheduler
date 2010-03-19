@@ -2,6 +2,7 @@ package gwtscheduler.client.widgets.view.common.resize;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.common.event.CalendarEvent;
@@ -37,17 +38,19 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
   private final EventsDashboard.Display eventsDisplay;
   private final DateGenerator dateGenerator;
   private final Display display;
+  private EventBus calendarBus;
   private final CalendarEvent calendarEvent;
   private int[] eventStartRow;
   private int[] startRow;
   private int[] endRow = new int[2];
   private int eventHeight;
 
-  public CalendarEventResizeHelperImpl(CalendarEvent calendarEvent, EventsDashboard.Display eventsDisplay, DateGenerator dateGenerator, Display display) {
+  public CalendarEventResizeHelperImpl(CalendarEvent calendarEvent, EventsDashboard.Display eventsDisplay, DateGenerator dateGenerator, Display display, EventBus calendarBus) {
     this.eventsDisplay = eventsDisplay;
     this.dateGenerator = dateGenerator;
     this.calendarEvent = calendarEvent;
     this.display = display;
+    this.calendarBus = calendarBus;
     calendarEvent.getMouseDownHandlers().addMouseDownHandler(new MouseDownHandler() {
       @Override
       public void onMouseDown(MouseDownEvent event) {
@@ -84,7 +87,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
     eventStartRow = calendarEvent.getStartCellPosition();
 
     CalendarEventResizeStartEvent resizeEvent = new CalendarEventResizeStartEvent(calendarEvent);
-    eventsDisplay.getHasCalendarEventResizeEndHandlers().fireEvent(resizeEvent);
+    calendarBus.fireEvent(resizeEvent);
   }
 
   void mouseMove(MouseMoveEvent event) {
@@ -98,7 +101,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
     Interval currentInterval = getFrameInterval();
 
     CalendarEventResizeEvent resizeEvent = new CalendarEventResizeEvent(currentInterval, this, calendarEvent);
-    eventsDisplay.getHasCalendarEventResizeHandlers().fireEvent(resizeEvent);
+    calendarBus.fireEvent(resizeEvent);
 
     int height = eventsDisplay.getRowDistance(startRow[0], row[0]);
     display.setHeight(eventHeight + height);
@@ -114,7 +117,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
     Interval frameInterval = getFrameInterval();
 
     CalendarEventResizeEndEvent resizeEvent = new CalendarEventResizeEndEvent(calendarEvent, frameInterval.getStart().toInstant(), frameInterval.getEnd().toInstant());
-    eventsDisplay.getHasCalendarEventResizeEndHandlers().fireEvent(resizeEvent);
+    calendarBus.fireEvent(resizeEvent);
   }
 
   private Interval getFrameInterval() {

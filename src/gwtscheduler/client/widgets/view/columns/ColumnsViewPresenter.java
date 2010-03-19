@@ -17,7 +17,9 @@ import gwtscheduler.client.widgets.view.common.DropObjectEvent;
 import gwtscheduler.client.widgets.view.common.DropObjectHandler;
 import gwtscheduler.client.widgets.view.common.MoveObjectEvent;
 import gwtscheduler.client.widgets.view.common.MoveObjectHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.CalendarEventDeleteEvent;
 import gwtscheduler.common.event.CalendarEventDeleteEventHandler;
@@ -256,12 +258,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
-    return calendarContent.addEventResizeEndHandler(handler);
+    return calendarBus.addHandler(CalendarEventResizeEndEvent.TYPE, handler);
   }
 
   @Override
   public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
-    return calendarContent.addEventResizeStartHandler(handler);
+    return calendarBus.addHandler(CalendarEventResizeStartEvent.TYPE, handler);
   }
 
   @Override

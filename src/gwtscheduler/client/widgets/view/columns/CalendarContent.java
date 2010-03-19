@@ -75,14 +75,6 @@ public class CalendarContent {
     eventsDashboard.setColumns(columns);
   }
 
-  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
-    return eventsDashboard.addEventResizeEndHandler(handler);
-  }
-
-  public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
-    return eventsDashboard.addEventResizeStartHandler(handler);
-  }
-
   public WidgetResizeHandler getEventsDachboardWidgetResizeHandler() {
     return eventsDashboard.getEventsDachboardWidgetResizeHandler();
   }

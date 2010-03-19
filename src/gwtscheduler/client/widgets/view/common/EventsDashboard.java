@@ -1,7 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import dragndrop.client.core.*;
 import gwtscheduler.client.modules.EventBus;
@@ -50,12 +49,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     int getCellHeight();
 
     int getRowDistance(int start, int end);
-
-    HasCalendarEventResizeEndHandlers getHasCalendarEventResizeEndHandlers();
-
-    HasCalendarEventResizeStartHandlers getHasCalendarEventResizeStartHandlers();
-
-    HasCalendarEventResizeHandlers getHasCalendarEventResizeHandlers();
 
     int getRowCount();
   }
@@ -114,7 +107,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
     resizeHelper.setDashboardDisplay(display);
 
-    display.getHasCalendarEventResizeHandlers().addEventResizeEndHandler(new CalendarEventResizeHandler() {
+    calendarBus.addHandler(CalendarEventResizeEvent.TYPE, new CalendarEventResizeHandler() {
       @Override
       public void onCalendarEventResizeEvent(CalendarEventResizeEvent event) {
 
@@ -176,14 +169,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     }
     Interval interval = dateGenerator.getIntervalForRange(cell, end, rowsCount);
     return collisionHelper.checkEventsIntervals(events, interval, column, dropObject);
-  }
-
-  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
-    return display.getHasCalendarEventResizeEndHandlers().addEventResizeEndHandler(handler);
-  }
-
-  public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
-    return display.getHasCalendarEventResizeStartHandlers().addEventResizeEndHandler(handler);
   }
 
   public WidgetResizeHandler getEventsDachboardWidgetResizeHandler() {
