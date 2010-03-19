@@ -35,7 +35,7 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewWidget extends Composite implements CalendarPresenter.Display, HasWidgetRedrawHandlers,
-        LassoAwarePanel.LassoHandler, HasWidgets, HasCalendarDropHandlers, HasCalendarChangeHandlers,HasEventDeleteEventHandlers {
+        LassoAwarePanel.LassoHandler, HasWidgets {
 
   @UiField
   VerticalPanel impl;
@@ -126,21 +126,6 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   }
 
   @Override
-  public HasCalendarDropHandlers getHasCalendarDropHandlers() {
-    return this;  
-  }
-
-  @Override
-  public HasCalendarChangeHandlers getHasCalendarChangeHandlers() {
-    return this; 
-  }
-
-  @Override
-  public HasEventDeleteEventHandlers getHasEventDeleteEventHandlers() {
-    return this; 
-  }
-
-  @Override
   public int getHeight() {
     return content.getCalendarColumnsFrameGridDisplay().getHeight();
   }
@@ -212,20 +197,5 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   @Override
   public boolean remove(Widget widget) {
     return impl.remove(widget);
-  }
-
-  @Override
-  public HandlerRegistration addDropHandler(CalendarDropHandler handler) {
-    return addHandler(handler, CalendarDropEvent.TYPE);  
-  }
-
-  @Override
-  public HandlerRegistration addCalendarChangeHandler(CalendarObjectMoveHandler handler) {
-    return addHandler(handler, CalendarObjectMovetEvent.TYPE);
-  }
-
-  @Override
-  public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
-    return addHandler(handler,EventDeleteEvent.TYPE);  
   }
 }

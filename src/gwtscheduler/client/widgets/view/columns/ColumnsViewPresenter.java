@@ -118,7 +118,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(CalendarEventDeleteEvent.TYPE,new CalendarEventDeleteEventHandler(){
       @Override
       public void onEventDelete(CalendarEventDeleteEvent e) {
-           display.getHasEventDeleteEventHandlers().fireEvent(new EventDeleteEvent(e.getEvent()));
+           calendarBus.fireEvent(new EventDeleteEvent(e.getEvent()));
       }
     });
 
@@ -132,7 +132,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         CalendarColumn newColumn = columns.get(event.getNewCell()[1]);
 
         CalendarObjectMovetEvent objectMovetEvent = new CalendarObjectMovetEvent(type, title, event.getDroppedObject(), oldColumn, oldTime, newColumn, newTime);
-        display.getHasCalendarChangeHandlers().fireEvent(objectMovetEvent);
+        calendarBus.fireEvent(objectMovetEvent);
       }
     });
 
@@ -143,7 +143,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         CalendarColumn column = columns.get(event.getNewCell()[1]);
 
         CalendarDropEvent dropEvent = new CalendarDropEvent(type, title, event.getDroppedObject(), column, time);
-        display.getHasCalendarDropHandlers().fireEvent(dropEvent);
+        calendarBus.fireEvent(dropEvent);
       }
     });
   }
@@ -233,12 +233,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
-    return display.getHasCalendarDropHandlers().addDropHandler(handler);
+    return calendarBus.addHandler(CalendarDropEvent.TYPE, handler);
   }
 
   @Override
   public HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
-    return display.getHasCalendarChangeHandlers().addCalendarChangeHandler(handler);
+    return calendarBus.addHandler(CalendarObjectMovetEvent.TYPE, handler);
   }
 
   @Override
@@ -268,7 +268,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
-    return display.getHasEventDeleteEventHandlers().addEventDeleteEventHandler(handler);
+    return calendarBus.addHandler(EventDeleteEvent.TYPE, handler);
   }
 
   @Override
