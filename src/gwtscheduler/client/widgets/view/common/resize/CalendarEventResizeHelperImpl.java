@@ -97,7 +97,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
 
   void mouseMove(MouseMoveEvent event) {
     int[] row = eventsDisplay.getCellPosition(event.getClientX(), event.getClientY());
-    if (eventStartRow == row || row[0] < 0 || endRow[0] == row[0]) {
+    if (eventStartRow[0] > row[0] || row[0] < 0 || endRow[0] == row[0]) {
       return;
     }
 
@@ -115,7 +115,8 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
   void mouseUp(MouseUpEvent event) {
     display.release();
     display.removeFromParent(eventsDisplay);
-    if (startRow == endRow || (endRow[0] - startRow[0]) == 0) {
+    int[] row = eventsDisplay.getCellPosition(event.getClientX(), event.getClientY());
+    if (startRow[0] == row[0] || startRow == endRow || (endRow[0] - startRow[0]) == 0) {
       return;
     }
 

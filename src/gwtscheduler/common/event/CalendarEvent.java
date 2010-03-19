@@ -1,5 +1,6 @@
 package gwtscheduler.common.event;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -107,6 +108,9 @@ public class CalendarEvent implements Draggable {
    */
   public void setSize(int width, int height) {
     display.setViewWidth(width);
+    if(height <= 0){
+      GWT.log("Event still stay!", null);
+    }
     display.setViewHeight(height);
   }
 
