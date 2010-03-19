@@ -17,7 +17,6 @@
         .content {
         background-color: #ABBFE0;
         padding-left: 5px;
-        overflow: hidden;
         cursor:default;
         }
         .resizer {
@@ -40,6 +39,7 @@
         }
         .roundedPanel{
         background-color: #ABBFE0;
+        overflow: hidden;
         }
     </ui:style>
     <c:RoundedLinePanel ui:field="roundedPanel" styleName="{style.roundedPanel}">
