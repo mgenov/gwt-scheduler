@@ -27,6 +27,7 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
    * widget delegate
    */
   private DecoratedTabPanel impl;
+  
 
   public GwtSchedulerWidget() {
     impl = new DecoratedTabPanel();

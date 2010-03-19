@@ -55,6 +55,8 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
   interface LassoAwarePanelUiBinder extends UiBinder<Widget, LassoAwarePanel> {
   }
 
+  private boolean forceLayout = true;
+
   /**
    * Default constructor.
    */
@@ -84,7 +86,7 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
     addWidgetResizeHandler(new WidgetResizeHandler() {
       @Override
       public void onResize(WidgetResizeEvent event) {
-        if (handler != null) {
+        if (handler != null ) {
           handler.forceLayout(lasso,event);
         }
       }
@@ -192,7 +194,7 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
      * Forces the layout.
      * @param event the last resize event
      */
-    void forceLayout(Widget lassoPanel,WidgetResizeEvent event);
+    void forceLayout(Widget lassoPanel, WidgetResizeEvent event);
   }
 
 }

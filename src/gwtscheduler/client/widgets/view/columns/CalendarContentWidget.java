@@ -114,12 +114,12 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
 
   @Override
   public HandlerRegistration addDragInHandler(DragInHandler handler) {
-    return null;
+    return addHandler(handler,DragInEvent.TYPE);
   }
 
   @Override
   public HandlerRegistration addDragOutHandler(DragOutHandler handler) {
-    return null;
+    return addHandler(handler,DragOutEvent.TYPE);
   }
 
   @Override
