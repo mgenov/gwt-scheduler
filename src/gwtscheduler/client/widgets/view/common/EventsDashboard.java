@@ -14,7 +14,6 @@ import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEventHandle
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.columns.ContentChange;
 import gwtscheduler.client.widgets.view.common.resize.*;
 import gwtscheduler.common.calendar.CalendarFrame;
 import gwtscheduler.common.calendar.EventsFrame;
@@ -61,23 +60,24 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     int getRowCount();
   }
 
-  private Display display;
-  private DateGenerator dateGenerator;
-  private EventCollisionHelper collisionHelper;
+  private static final String EVENT_IN_COLLISION = "The dropped event interval is in collision with other already exist event";
   private final EventBus eventBus;
-  private DragZone dragZone;
-  private CalendarEventResizeHelperProvider resizeHelper;
-  private ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
+  private final EventBus calendarBus;
+  private final DateGenerator dateGenerator;
+  private final EventCollisionHelper collisionHelper;
+  private final CalendarEventResizeHelperProvider resizeHelper;
+  private final DragZone dragZone;
   private WidgetResizeHandler displayWidgetResizeHandler;
+  private Display display;
+  private ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
   private List<CalendarColumn> columns;
   private boolean collision = false;
-  private static final String EVENT_IN_COLLISION = "The dropped event interval is in collision with other already exist event";
-  private ContentChange contentChange;
 
-  public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus, CalendarEventResizeHelperProvider resizeHelper) {
+  public EventsDashboard(DateGenerator dateGenerator, EventCollisionHelper collisionHelper, EventBus eventBus, EventBus calendarBus, CalendarEventResizeHelperProvider resizeHelper) {
     this.dateGenerator = dateGenerator;
     this.collisionHelper = collisionHelper;
     this.eventBus = eventBus;
+    this.calendarBus = calendarBus;
     this.dragZone = Zones.getDragZone();
 
     EventsFrame eventsFrame = new EventsFrame(Zones.getFrameDisplay());
@@ -194,10 +194,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     this.columns = columns;
   }
 
-  public void addContentChangeCallback(ContentChange contentChange) {//TODO: not good implementation this callback need to be removed from here.
-    this.contentChange = contentChange;
-  }
-
   public void addEvent(Event event) {
     CalendarEvent calendarEvent = buildCalendarEvent(event);
     events.add(calendarEvent);
@@ -283,17 +279,17 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   public void onDrop(DropEvent event) {
     if (collision) {
       throw new EventIntervalCollisionException(EVENT_IN_COLLISION);
-    } else if(contentChange == null){
-      return;
     }
 
     int[] newCell = display.getCellPosition(event.getEndX(), event.getEndY());
 
     if (events.contains(event.getDroppedObject())) {
       int[] oldCell = display.getCellPosition(event.getStartX(), event.getStartY());
-      contentChange.onMove(oldCell, newCell, event.getDroppedObject());
+      MoveObjectEvent moveObject = new MoveObjectEvent(oldCell, newCell, event.getDroppedObject());
+      calendarBus.fireEvent(moveObject);
     } else {
-      contentChange.onDrop(newCell, event.getDroppedObject());
+      DropObjectEvent dropObject = new DropObjectEvent(newCell, event.getDroppedObject());
+      calendarBus.fireEvent(dropObject);
     }
   }
 }

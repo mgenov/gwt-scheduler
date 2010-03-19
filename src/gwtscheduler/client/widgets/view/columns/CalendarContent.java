@@ -5,11 +5,9 @@ import com.google.gwt.user.client.Element;
 import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.common.EventIntervalCollisionException;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
-import gwtscheduler.common.calendar.CalendarFrame;
 import gwtscheduler.common.event.Event;
 
 import java.util.List;
@@ -66,10 +64,6 @@ public class CalendarContent {
 
   public void fireResizeRedrawEvents() {
     display.fireResizeRedrawEvents();
-  }
-
-  public void addContentChangeCallback(final ContentChange contentChange) {
-    eventsDashboard.addContentChangeCallback(contentChange);
   }
 
   public void addCalendarEvent(Event event) {

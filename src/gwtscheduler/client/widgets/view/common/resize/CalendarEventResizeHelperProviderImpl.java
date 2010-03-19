@@ -1,6 +1,5 @@
 package gwtscheduler.client.widgets.view.common.resize;
 
-import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.common.event.CalendarEvent;
@@ -11,11 +10,9 @@ import gwtscheduler.common.event.CalendarEvent;
 public class CalendarEventResizeHelperProviderImpl implements CalendarEventResizeHelperProvider {
   private final DateGenerator dateGenerator;
   private EventsDashboard.Display display;
-  private EventBus eventBus;
 
-  public CalendarEventResizeHelperProviderImpl(DateGenerator dateGenerator, EventBus eventBus) {
+  public CalendarEventResizeHelperProviderImpl(DateGenerator dateGenerator) {
     this.dateGenerator = dateGenerator;
-    this.eventBus = eventBus;
   }
 
   @Override
