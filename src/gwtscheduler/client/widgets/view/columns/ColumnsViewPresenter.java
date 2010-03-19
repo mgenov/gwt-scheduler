@@ -1,10 +1,10 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMovetEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
@@ -13,7 +13,13 @@ import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
+import gwtscheduler.client.widgets.view.common.DropObjectEvent;
+import gwtscheduler.client.widgets.view.common.DropObjectHandler;
+import gwtscheduler.client.widgets.view.common.MoveObjectEvent;
+import gwtscheduler.client.widgets.view.common.MoveObjectHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.CalendarEventDeleteEvent;
 import gwtscheduler.common.event.CalendarEventDeleteEventHandler;
@@ -32,13 +38,14 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
-  private CalendarColumnsProvider columnsProvider;
-  private DateGenerator dateGenerator;
+  private final EventBus calendarBus;
+  private final CalendarColumnsProvider columnsProvider;
+  private final DateGenerator dateGenerator;
+  private final CalendarTitlesRenderer titlesRenderer;
+  private final CalendarHeader calendarHeader;
+  private final CalendarContent calendarContent;
+  private final EventBus eventBus;
   private List<CalendarColumn> columns;
-  private CalendarTitlesRenderer titlesRenderer;
-  private CalendarHeader calendarHeader;
-  private CalendarContent calendarContent;
-  private EventBus eventBus;
   private Display display;
   private String title;
   private CalendarType type;
@@ -53,9 +60,10 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
    * @param calendarContent
    * @param eventBus
    */
-  public ColumnsViewPresenter(CalendarColumnsProvider columnsProvider, DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, CalendarHeader calendarHeader, CalendarContent calendarContent, EventBus eventBus) {
+  public ColumnsViewPresenter(CalendarColumnsProvider columnsProvider, DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, CalendarHeader calendarHeader, CalendarContent calendarContent, EventBus eventBus, EventBus calendarBus) {
     this.columnsProvider = columnsProvider;
     this.dateGenerator = dateGenerator;
+    this.calendarBus = calendarBus;
     this.columns = columnsProvider.getColumns();
     this.titlesRenderer = titlesRenderer;
     this.calendarHeader = calendarHeader;
@@ -110,31 +118,28 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(CalendarEventDeleteEvent.TYPE,new CalendarEventDeleteEventHandler(){
       @Override
       public void onEventDelete(CalendarEventDeleteEvent e) {
-           display.getHasEventDeleteEventHandlers().fireEvent(new EventDeleteEvent(e.getEvent()));
+           calendarBus.fireEvent(new EventDeleteEvent(e.getEvent()));
       }
     });
 
-    calendarContent.addContentChangeCallback(new ContentChange(){
-
+    calendarBus.addHandler(MoveObjectEvent.TYPE, new MoveObjectHandler(){
       @Override
-      public void onDrop(int[] newCell, Object droppedObject) {
-        Instant time = dateGenerator.getInstantForCell(newCell, getRowNum());
-        CalendarColumn column = columns.get(newCell[1]);
+      public void onMoveObject(MoveObjectEvent event) {
+        CalendarColumn oldColumn = columns.get(event.getOldCell()[1]); // you can move this 2 lines of code in EventsDashboard if you need to move columns list.
+        CalendarColumn newColumn = columns.get(event.getNewCell()[1]);
 
-        CalendarDropEvent event = new CalendarDropEvent(type, title, droppedObject, column, time);
-        display.getHasCalendarDropHandlers().fireEvent(event);
+        CalendarObjectMovetEvent objectMovetEvent = new CalendarObjectMovetEvent(type, title, event.getDroppedObject(), oldColumn, event.getOldTime(), newColumn, event.getNewTime());
+        calendarBus.fireEvent(objectMovetEvent);
       }
+    });
 
+    calendarBus.addHandler(DropObjectEvent.TYPE, new DropObjectHandler(){
       @Override
-      public void onMove(int[] oldCell, int[] newCell, Object droppedObject) {
-        Instant oldTime = dateGenerator.getInstantForCell(oldCell, getRowNum());
-        Instant newTime = dateGenerator.getInstantForCell(newCell,getRowNum());
-        
-        CalendarColumn oldColumn = columns.get(oldCell[1]);
-        CalendarColumn newColumn = columns.get(newCell[1]);
+      public void onDropObject(DropObjectEvent event) {
+        CalendarColumn column = columns.get(event.getNewCell()[1]);  // you can move this line of code in EventsDashboard if you need to move columns list.
 
-        CalendarChangeEvent event = new CalendarChangeEvent(type, title, droppedObject, oldColumn, oldTime, newColumn, newTime);
-        display.getHasCalendarChangeHandlers().fireEvent(event);
+        CalendarDropEvent dropEvent = new CalendarDropEvent(type, title, event.getDroppedObject(), column, event.getNewTime());
+        calendarBus.fireEvent(dropEvent);
       }
     });
   }
@@ -224,12 +229,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
-    return display.getHasCalendarDropHandlers().addDropHandler(handler);
+    return calendarBus.addHandler(CalendarDropEvent.TYPE, handler);
   }
 
   @Override
-  public HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler) {
-    return display.getHasCalendarChangeHandlers().addCalendarChangeHandler(handler);
+  public HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
+    return calendarBus.addHandler(CalendarObjectMovetEvent.TYPE, handler);
   }
 
   @Override
@@ -249,17 +254,17 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
-    return calendarContent.addEventResizeEndHandler(handler);
+    return calendarBus.addHandler(CalendarEventResizeEndEvent.TYPE, handler);
   }
 
   @Override
   public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
-    return calendarContent.addEventResizeStartHandler(handler);
+    return calendarBus.addHandler(CalendarEventResizeStartEvent.TYPE, handler);
   }
 
   @Override
   public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
-    return display.getHasEventDeleteEventHandlers().addEventDeleteEventHandler(handler);
+    return calendarBus.addHandler(EventDeleteEvent.TYPE, handler);
   }
 
   @Override

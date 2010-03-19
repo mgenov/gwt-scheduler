@@ -2,7 +2,7 @@ package gwtscheduler.tests.gwt;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
@@ -103,7 +103,7 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
-  public HandlerRegistration addCalendarChangeHandler(CalendarChangeHandler handler) {
+  public HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
     return null;
   }
 

@@ -10,12 +10,12 @@ import gwtscheduler.common.event.CalendarEvent;
  */
 public class CalendarEventResizeHelperProviderImpl implements CalendarEventResizeHelperProvider {
   private final DateGenerator dateGenerator;
+  private EventBus calendarBus;
   private EventsDashboard.Display display;
-  private EventBus eventBus;
 
-  public CalendarEventResizeHelperProviderImpl(DateGenerator dateGenerator, EventBus eventBus) {
+  public CalendarEventResizeHelperProviderImpl(DateGenerator dateGenerator, EventBus calendarBus) {
     this.dateGenerator = dateGenerator;
-    this.eventBus = eventBus;
+    this.calendarBus = calendarBus;
   }
 
   @Override
@@ -24,7 +24,7 @@ public class CalendarEventResizeHelperProviderImpl implements CalendarEventResiz
   }
 
   public CalendarEventResizeHelper attachResizeHelper(CalendarEvent calendarEvent) {
-    CalendarEventResizeHelperImpl helper = new CalendarEventResizeHelperImpl(calendarEvent, display, dateGenerator, new CalendarEventResizeHelperView());
+    CalendarEventResizeHelperImpl helper = new CalendarEventResizeHelperImpl(calendarEvent, display, dateGenerator, new CalendarEventResizeHelperView(), calendarBus);
     return helper;
   }
 }

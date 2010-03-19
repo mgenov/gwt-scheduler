@@ -19,8 +19,8 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarChangeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMovetEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
@@ -34,6 +34,8 @@ import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.Event;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
+import org.goda.time.Duration;
+import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -164,9 +166,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     dialog.bindDisplay(display);
 
 
-    main.addCalendarChangeHandler(new CalendarChangeHandler() {
+    main.addCalendarObjectMoveHandler(new CalendarObjectMoveHandler() {
       @Override
-      public void onCalendarChange(CalendarChangeEvent event) {
+      public void onCalendarObjectMove(CalendarObjectMovetEvent event) {
         Object o = event.getDroppedObject();
         if(o instanceof TestTask){
 //          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
@@ -176,13 +178,25 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //          GWT.log("From time: " + event.getOldTime().toString(), null);
 //          GWT.log("To time: " + event.getNewTime().toString(), null);
         } else if(o instanceof CalendarEvent) {
-//          GWT.log("Moved calendar event", null);
-//          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
-//          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
-//          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
-//          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
-//          GWT.log("From time: " + event.getOldTime().toString(), null);
-//          GWT.log("To time: " + event.getNewTime().toString(), null);
+          CalendarEvent calendarEvent = (CalendarEvent)event.getDroppedObject();
+          TeamTaskEvent teamEvent = (TeamTaskEvent)calendarEvent.getEvent();
+          // change column
+          teamEvent.setColumn(event.getNewColumn());
+          // change time
+          Instant currentStart = teamEvent.getInterval().getStart().toInstant();
+          Instant currentEnd = teamEvent.getInterval().getEnd().toInstant();
+          Instant oldTime = event.getOldTime();
+          Instant newTime = event.getNewTime();
+          Duration difference;
+          if(oldTime.isAfter(newTime)){
+            difference = new Duration(newTime, oldTime);
+            teamEvent.setInterval(new Interval(currentStart.minus(difference), currentEnd.minus(difference)));
+          } else {
+            difference = new Duration(oldTime, newTime);
+            teamEvent.setInterval(new Interval(currentStart.plus(difference), currentEnd.plus(difference)));
+          }
+
+          main.updateEvent(teamEvent);
         }
       }
     });

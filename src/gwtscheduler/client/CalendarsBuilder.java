@@ -1,7 +1,5 @@
 package gwtscheduler.client;
 
-import dragndrop.client.core.DragZone;
-import dragndrop.client.core.Zones;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.GenericDateGenerator;
@@ -19,9 +17,7 @@ import gwtscheduler.client.widgets.view.common.EventIntervalCollisionHelper;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelperProviderImpl;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
-import gwtscheduler.common.calendar.EventsFrame;
 import gwtscheduler.common.calendar.IntervalType;
-import gwtscheduler.common.event.CalendarEvent;
 import org.goda.time.DateTime;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
@@ -55,17 +51,19 @@ public class CalendarsBuilder {
     columns = columnsProvider.getColumns().size();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
 
+    EventBus calendarBus = new EventBus();
+
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.DAY, getCurrentDate());
 
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
+    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, calendarBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, calendarBus, resizeHelper));
 
-    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
+    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus, calendarBus);
 
     calendar.setCalendarType(CalendarType.MULTYCOLUMN);
 
@@ -83,6 +81,8 @@ public class CalendarsBuilder {
     rows = configuration.rowsInDay();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
 
+    EventBus calendarBus = new EventBus();
+
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.WEEK, getCurrentDate());
 
@@ -93,11 +93,11 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
+    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, calendarBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator,eventCollisionHelper, eventBus, calendarBus, resizeHelper));
 
-    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
+    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus, calendarBus);
 
     calendar.setCalendarType(CalendarType.WEEKCOLUMN);
 
