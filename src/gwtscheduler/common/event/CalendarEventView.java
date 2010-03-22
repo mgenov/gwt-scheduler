@@ -44,21 +44,13 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   public CalendarEventView() {
     initWidget(uiBinder.createAndBindUi(this));
-//    contentPanel.add(new Label("test1"));
-//    contentPanel.add(new Label("test2"));
-//    contentPanel.add(new Label("test3"));
-//    contentPanel.add(new Label("test4"));
-//    contentPanel.add(new Label("test5"));
-//    eventFooter.setUrl("http://www.google.com/images/logo.gif");
-//     closeBtn = new PushButton(new Image("images/close.png"));
-//    header.add(closeBtn);
     this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
   }
 
   @UiFactory
   public PushButton buildPushButton(){
-    return new PushButton(new Image("../css/images/close.png"));
+    return new PushButton(new Image("../css/images/close.png")); //TODO: change the url for the javascript ->  css/images/close.png
   }
 
   @UiFactory
