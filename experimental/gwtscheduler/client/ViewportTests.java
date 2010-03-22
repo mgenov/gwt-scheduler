@@ -18,7 +18,7 @@ import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMovetEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
@@ -127,8 +127,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
 
-    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, dragZone).named("Teams").build())
-            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), dragZone).named("Team 1 Week Calendar").build()).build();
+    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, null).named("Teams").build())
+            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build()).build();
 
     dragZone.addDropZoneRoot((HasWidgets) main.asWidget());
 
@@ -153,7 +153,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     main.addCalendarObjectMoveHandler(new CalendarObjectMoveHandler() {
       @Override
-      public void onCalendarObjectMove(CalendarObjectMovetEvent event) {
+      public void onCalendarObjectMove(CalendarObjectMoveEvent event) {
         Object o = event.getDroppedObject();
         if(o instanceof TestTask){
 //          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
