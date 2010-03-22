@@ -4,6 +4,8 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.event.Event;
 import org.goda.time.DateTime;
 
+import java.util.Date;
+
 /**
  * Represents a simple date column.
  * @author mlesikov  {mlesikov@gmail.com}
@@ -52,8 +54,11 @@ public class DayColumn implements CalendarColumn {
 
   @Override
   public boolean isEventForColumn(Event event) {
-    //TODO implement this later
-    return false;
+    if(((DateTime)event.getColumnId()).equals(date)){
+     return true;
+    }else{
+     return false;
+    }
   }
 
   @Override
