@@ -18,6 +18,7 @@
         background-color: #ABBFE0;
         padding-left: 5px;
         cursor:default;
+        overflow: hidden;
         }
         .resizer {
         bottom:0;
@@ -42,7 +43,7 @@
         overflow: hidden;
         }
     </ui:style>
-    <c:RoundedLinePanel ui:field="roundedPanel" styleName="{style.roundedPanel}">
+    <c:RoundedLinePanel ui:field="roundedPanel" >
         <g:HTMLPanel>
             <div>
                 <g:FlowPanel styleName="{res.headerFlowPanel}">
@@ -51,11 +52,11 @@
                 </g:FlowPanel>
 
                 <g:Label ui:field="contentPanel" styleName="{style.content}"/>
+                <div class="{style.resizer}">
+                    <g:Label ui:field="eventFooter" styleName="{style.rszricon}" text="="/>
+                </div>
+            </div>
 
-            </div>
-            <div class="{style.resizer}">
-                <g:Label ui:field="eventFooter" styleName="{style.rszricon}" text="="/>
-            </div>
         </g:HTMLPanel>
     </c:RoundedLinePanel>
 </ui:UiBinder>

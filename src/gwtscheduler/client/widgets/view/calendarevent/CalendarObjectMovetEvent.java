@@ -10,7 +10,7 @@ import org.goda.time.Instant;
  *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class CalendarObjectMoveEvent extends GwtEvent<CalendarObjectMoveHandler>{
+public class CalendarObjectMovetEvent extends GwtEvent<CalendarObjectMoveHandler>{
   public static final Type<CalendarObjectMoveHandler> TYPE = new Type<CalendarObjectMoveHandler>();
   private final CalendarType calendarType;
   private final String calendarTitle;
@@ -20,7 +20,7 @@ public class CalendarObjectMoveEvent extends GwtEvent<CalendarObjectMoveHandler>
   private final CalendarColumn newColumn;
   private final Instant newTime;
 
-  public CalendarObjectMoveEvent(CalendarType calendarType, String calendarTitle, Object droppedObject, CalendarColumn oldColumn, Instant oldTime, CalendarColumn newColumn, Instant newTime) {
+  public CalendarObjectMovetEvent(CalendarType calendarType, String calendarTitle, Object droppedObject, CalendarColumn oldColumn, Instant oldTime, CalendarColumn newColumn, Instant newTime) {
     this.calendarType = calendarType;
     this.calendarTitle = calendarTitle;
     this.droppedObject = droppedObject;

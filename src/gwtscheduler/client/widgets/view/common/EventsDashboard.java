@@ -189,7 +189,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
   public void displayCaledarEvent(CalendarEvent calendarEvent) {
     Interval currentInterval = dateGenerator.interval();
-    GWT.log(currentInterval.getStart().toString() +" end "+currentInterval.getEnd().toString(),null);
     if(collisionDetector.isInCollision(calendarEvent.getInterval(),currentInterval)) {
     dragZone.add(calendarEvent);
     resizeHelper.attachResizeHelper(calendarEvent);
