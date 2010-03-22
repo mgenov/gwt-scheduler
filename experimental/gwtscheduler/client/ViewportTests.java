@@ -123,21 +123,22 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       @Override
       public void onValueChange(ValueChangeEvent<Date> event) {
         Date date = event.getValue();
-        Long mills = date.getTime();
-        MutableDateTime selectedDate = new MutableDateTime(date.getTime());
-        selectedDate.setHourOfDay(0);
-        selectedDate.setMinuteOfHour(0);
-        selectedDate.setMinuteOfHour(0);
-        selectedDate.setMillisOfSecond(0);
-        eventBus.fireEvent(new NavigateToEvent(selectedDate.toDateTime()));
+//        Long mills = date.getTime();
+//        MutableDateTime selectedDate = new MutableDateTime(date.getTime());
+//        selectedDate.setHourOfDay(0);
+//        selectedDate.setMinuteOfHour(0);
+//        selectedDate.setMinuteOfHour(0);
+//        selectedDate.setMillisOfSecond(0);
+//        eventBus.fireEvent(new NavigateToEvent(selectedDate.toDateTime()));
+        main.navigateToDate(date);
       }
     });
 
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
 
-    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, eventBus).named("Teams").build())
-            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), eventBus).named("Team 1 Week Calendar").build()).build();
+    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1).named("Teams").build())
+            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration()).named("Team 1 Week Calendar").build()).build();
 
     dragZone.addDropZoneRoot((HasWidgets) main.asWidget());
 //    VerticalPanel dropRoot = new VerticalPanel();
@@ -268,6 +269,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 
     main.selectTab(0);
+    main.navigateToDate(new Date(getCurrentDate().getMillis()));
 //    registry.fireDateNavigation(getCurrentDate());
     eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
   }

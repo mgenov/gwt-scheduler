@@ -12,4 +12,6 @@ import java.util.ArrayList;
  */
 public interface CollisionDetector {
   boolean isInCollision(ArrayList<CalendarEvent> events, int columnIndex, Interval interval, Object object);
+
+  boolean isInCollision(Interval interval, Interval currentInterval);
 }

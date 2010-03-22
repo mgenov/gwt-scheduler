@@ -13,6 +13,8 @@ import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEventHandle
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.client.widgets.view.common.events.DropObjectEvent;
+import gwtscheduler.client.widgets.view.common.events.MoveObjectEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelperProvider;
@@ -85,27 +87,32 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     this.display = display;
     this.dragZone.makeDragZone(display.asWidget());
     this.dragZone.addDropZone(display);
-    displayWidgetResizeHandler = new EventsDashboardResizeHandler(display, calendarEvents);
+    displayWidgetResizeHandler = new EventsDashboardResizeHandler(this, calendarEvents);
     resizeHelper.setDashboardDisplay(display);
 
-    eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
-      @Override
-      public void onNavigateNext() {
-        clearCalendarEvents();
-      }
-    });
-
-    eventBus.addHandler(NavigatePreviousEvent.TYPE, new NavigatePreviousEventHandler() {
-      @Override
-      public void onNavigatePrevious() {
-        clearCalendarEvents();
-      }
-    });
+//    eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
+//      @Override
+//      public void onNavigateNext() {
+//        clearEventsDashboard();
+//        renderCalendarEvents(calendarEvents);
+//      }
+//
+//
+//    });
+//
+//    eventBus.addHandler(NavigatePreviousEvent.TYPE, new NavigatePreviousEventHandler() {
+//      @Override
+//      public void onNavigatePrevious() {
+//        clearEventsDashboard();
+//        renderCalendarEvents(calendarEvents);
+//      }
+//    });
 
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
       public void onNavigateTo(ReadableDateTime date) {
-        clearCalendarEvents();
+        clearEventsDashboard();
+        renderCalendarEvents(calendarEvents);
       }
     });
 
@@ -131,9 +138,15 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     display.addDropHandler(this);
   }
 
-  private void clearCalendarEvents() {
+  private void renderCalendarEvents(ArrayList<CalendarEvent> calendarEvents) {
+    clearEventsDashboard();
+    for (CalendarEvent calendarEvent : calendarEvents) {
+        displayCaledarEvent(calendarEvent);
+    }
+  }
+
+  public void clearEventsDashboard() {
     display.asWidget().clear();
-    calendarEvents.clear();
   }
 
   private void proceedDragOver(DragOverEvent event) {
@@ -181,13 +194,26 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     this.columns = columns;
   }
 
+
+
   public void addEvent(Event event) {
     CalendarEvent calendarEvent = buildCalendarEvent(event);
     calendarEvents.add(calendarEvent);
+    displayCaledarEvent(calendarEvent);
+  }
+  
+
+  public void displayCaledarEvent(CalendarEvent calendarEvent) {
+    Interval currentInterval = dateGenerator.interval();
+    GWT.log(currentInterval.getStart().toString() +" end "+currentInterval.getEnd().toString(),null);
+    if(collisionDetector.isInCollision(calendarEvent.getInterval(),currentInterval)) {
     dragZone.add(calendarEvent);
     resizeHelper.attachResizeHelper(calendarEvent);
     calendarEvent.go(display.asWidget());
+    }
   }
+
+  
   // TODO: building on event can be completed by some object event builder!
 
   private CalendarEvent buildCalendarEvent(Event event) {
@@ -232,8 +258,10 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   }
 
   public void deleteEvent(Event event) {
+    if (event != null){
     CalendarEvent calendarEvent = getEventById(event.getEventId());
     removeEvent(calendarEvents, calendarEvent);
+    }
   }
 
   private ArrayList<Event> getEvents(ArrayList<CalendarEvent> calendarEvents) {
@@ -289,7 +317,8 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
   private void reRenderCalendarEvents(ArrayList<CalendarEvent> calendarEvents) {
     ArrayList<Event> events = getEvents(calendarEvents);
-    clearCalendarEvents();
+    calendarEvents.clear();
+    clearEventsDashboard();
     renderEvents(events);
   }
 
@@ -318,5 +347,9 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       DropObjectEvent dropObject = new DropObjectEvent(newCell, newTime, event.getDroppedObject());
       calendarBus.fireEvent(dropObject);
     }
+  }
+
+  public Display getDisplay() {
+    return display;
   }
 }

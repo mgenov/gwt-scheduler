@@ -23,6 +23,11 @@ public class IntervalCollisionDetector implements CollisionDetector {
     return false;
   }
 
+  @Override
+  public boolean isInCollision(Interval interval, Interval currentInterval) {
+    return checkCollision(interval,currentInterval);  
+  }
+
   private boolean checkCollision(Interval intervalA, Interval intervalB) {
     long a1 = intervalA.getStartMillis();
     long a2 = intervalA.getEndMillis();

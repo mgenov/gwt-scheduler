@@ -12,6 +12,7 @@ import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
+import org.goda.time.DateTime;
 import org.goda.time.Interval;
 
 /**
@@ -87,4 +88,6 @@ public interface CalendarPresenter {
   void deleteEvent(Event event);
   
   void updateEvent(Event event);
+
+  void navigateToDateTime(DateTime dateTime);
 }

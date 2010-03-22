@@ -45,7 +45,8 @@ public class CalendarsBuilder {
    * @param eventBus
    * @return
    */
-  public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, EventBus eventBus) {
+  public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider) {
+    EventBus eventBus = new EventBus();
     this.configuration = configuration;
     rows = configuration.rowsInDay();
     columns = columnsProvider.getColumns().size();
@@ -76,7 +77,8 @@ public class CalendarsBuilder {
    * @param eventBus
    * @return
    */
-  public CalendarsBuilder newWeekColumn(AppConfiguration configuration, EventBus eventBus) {
+  public CalendarsBuilder newWeekColumn(AppConfiguration configuration) {
+    EventBus eventBus = new EventBus();
     this.configuration = configuration;
     rows = configuration.rowsInDay();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
