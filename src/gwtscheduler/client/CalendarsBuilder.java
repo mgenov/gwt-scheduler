@@ -42,7 +42,6 @@ public class CalendarsBuilder {
    * Sets a new multy column calednar in the builder.
    * @param configuration
    * @param columnsProvider
-   * @param eventBus
    * @return
    */
   public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider) {
@@ -52,19 +51,17 @@ public class CalendarsBuilder {
     columns = columnsProvider.getColumns().size();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
 
-    EventBus calendarBus = new EventBus();
-
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.DAY, getCurrentDate());
 
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, calendarBus);
+    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, collisionDetector, eventBus, calendarBus, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper));
 
-    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus, calendarBus);
+    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
     calendar.setCalendarType(CalendarType.MULTYCOLUMN);
 
@@ -74,7 +71,6 @@ public class CalendarsBuilder {
   /**
    * Sets a new week column calednar in the builder.
    * @param configuration
-   * @param eventBus
    * @return
    */
   public CalendarsBuilder newWeekColumn(AppConfiguration configuration) {
@@ -82,8 +78,6 @@ public class CalendarsBuilder {
     this.configuration = configuration;
     rows = configuration.rowsInDay();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
-
-    EventBus calendarBus = new EventBus();
 
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.WEEK, getCurrentDate());
@@ -95,11 +89,11 @@ public class CalendarsBuilder {
     CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
     CalendarHeader calendarHeader = new CalendarHeader();
 
-    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, calendarBus);
+    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator, collisionDetector, eventBus, calendarBus, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper));
 
-    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus, calendarBus);
+    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
     calendar.setCalendarType(CalendarType.WEEKCOLUMN);
 

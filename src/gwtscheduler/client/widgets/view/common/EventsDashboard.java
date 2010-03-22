@@ -58,7 +58,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
   private static final String EVENT_IN_COLLISION = "The dropped event interval is in collision with other already exist event";
   private final EventBus eventBus;
-  private final EventBus calendarBus;
   private final DateGenerator dateGenerator;
   private final CollisionDetector collisionDetector;
   private final CalendarEventResizeHelperProvider resizeHelper;
@@ -69,11 +68,10 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   private List<CalendarColumn> columns;
   private boolean collision = false;
 
-  public EventsDashboard(DateGenerator dateGenerator, CollisionDetector collisionDetector, EventBus eventBus, EventBus calendarBus, CalendarEventResizeHelperProvider resizeHelper) {
+  public EventsDashboard(DateGenerator dateGenerator, CollisionDetector collisionDetector, EventBus eventBus, CalendarEventResizeHelperProvider resizeHelper) {
     this.dateGenerator = dateGenerator;
     this.collisionDetector = collisionDetector;
     this.eventBus = eventBus;
-    this.calendarBus = calendarBus;
     this.dragZone = Zones.getDragZone();
 
     Frame eventsFrame = Zones.getDragFrame();
@@ -116,7 +114,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       }
     });
 
-    calendarBus.addHandler(CalendarEventResizeEvent.TYPE, new CalendarEventResizeHandler() {
+    eventBus.addHandler(CalendarEventResizeEvent.TYPE, new CalendarEventResizeHandler() {
       @Override
       public void onCalendarEventResizeEvent(CalendarEventResizeEvent event) {
         Interval currentInterval = event.getCurrentInterval();
@@ -334,10 +332,10 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       Instant oldTime = dateGenerator.getInstantForCell(oldCell, display.getRowCount());
 
       MoveObjectEvent moveObject = new MoveObjectEvent(oldCell, newCell, oldTime, newTime, event.getDroppedObject());
-      calendarBus.fireEvent(moveObject);
+      eventBus.fireEvent(moveObject);
     } else {
       DropObjectEvent dropObject = new DropObjectEvent(newCell, newTime, event.getDroppedObject());
-      calendarBus.fireEvent(dropObject);
+      eventBus.fireEvent(dropObject);
     }
   }
 
