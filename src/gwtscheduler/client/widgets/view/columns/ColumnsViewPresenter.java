@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMovetEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
@@ -124,8 +124,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         CalendarColumn oldColumn = columns.get(event.getOldCell()[1]); // you can move this 2 lines of code in EventsDashboard if you need to move columns list.
         CalendarColumn newColumn = columns.get(event.getNewCell()[1]);
 
-        CalendarObjectMovetEvent objectMovetEvent = new CalendarObjectMovetEvent(type, title, event.getDroppedObject(), oldColumn, event.getOldTime(), newColumn, event.getNewTime());
-        eventBus.fireEvent(objectMovetEvent);
+        CalendarObjectMoveEvent objectMoveEvent = new CalendarObjectMoveEvent(type, title, event.getDroppedObject(), oldColumn, event.getOldTime(), newColumn, event.getNewTime());
+        eventBus.fireEvent(objectMoveEvent);
       }
     });
 
@@ -230,7 +230,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
-    return eventBus.addHandler(CalendarObjectMovetEvent.TYPE, handler);
+    return eventBus.addHandler(CalendarObjectMoveEvent.TYPE, handler);
   }
 
   @Override
