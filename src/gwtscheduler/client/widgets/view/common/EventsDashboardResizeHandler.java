@@ -13,11 +13,11 @@ import java.util.ArrayList;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class EventsDashboardResizeHandler implements WidgetResizeHandler {
-  private EventsDashboard.Display target;
+  private EventsDashboard target;
   private ArrayList<CalendarEvent> events;
 
 
-  public EventsDashboardResizeHandler(EventsDashboard.Display target, ArrayList<CalendarEvent> events) {
+  public EventsDashboardResizeHandler(EventsDashboard target, ArrayList<CalendarEvent> events) {
     this.target = target;
     this.events = events;
   }
@@ -30,18 +30,17 @@ public class EventsDashboardResizeHandler implements WidgetResizeHandler {
       return;
     }
 
-    AbsolutePanel parent = target.asWidget();
+    EventsDashboard.Display targetDisplay =  target.getDisplay();
+    target.clearEventsDashboard();
     
     for (CalendarEvent calendarEvent : events) {
-      calendarEvent.setWidth(target.getCellWidth());
+      calendarEvent.setWidth(targetDisplay.getCellWidth());
       int cellInterval = calendarEvent.getEndCellPosition()[0]-calendarEvent.getStartCellPosition()[0];
-      calendarEvent.setHeight(cellInterval * target.getCellHeight());
+      calendarEvent.setHeight(cellInterval * targetDisplay.getCellHeight());
       int[] startCell = calendarEvent.getStartCellPosition();
-      int[] newPosition = target.calculateLeftTop(startCell);
+      int[] newPosition = targetDisplay.calculateLeftTop(startCell);
       calendarEvent.setPosition(new EventPosition(newPosition[0],newPosition[1]));
-      calendarEvent.removeFromParent(parent);
-      calendarEvent.go(parent);
+      target.displayCaledarEvent(calendarEvent);
     }
-
   }
 }

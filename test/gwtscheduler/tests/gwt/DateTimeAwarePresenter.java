@@ -64,18 +64,18 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
     return 100;
   }
 
-  @Override
-  public Interval getIntervalForRange(int[] start, int[] end) {
-    Instant from = getInstantForCell(start);
-    Instant to = getInstantForCell(end);
-    //ranges are closed on start and open on end
-    //[start, end[
-    // so a correction is needed
-    MutableDateTime last = to.toMutableDateTime();
-    last.addDays(1);
-    Interval i = new Interval(from, last.toInstant());
-    return i;
-  }
+//  @Override
+//  public Interval getIntervalForRange(int[] start, int[] end) {
+//    Instant from = getInstantForCell(start);
+//    Instant to = getInstantForCell(end);
+//    //ranges are closed on start and open on end
+//    //[start, end[
+//    // so a correction is needed
+//    MutableDateTime last = to.toMutableDateTime();
+//    last.addDays(1);
+//    Interval i = new Interval(from, last.toInstant());
+//    return i;
+//  }
 
 
   public Instant getInstantForCell(int[] start) {
@@ -134,7 +134,12 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   @Override
   public void updateEvent(Event event) {
   }
-  
+
+  @Override
+  public void navigateToDateTime(DateTime dateTime) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
   @Override
   public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
     return null;  //To change body of implemented methods use File | Settings | File Templates.

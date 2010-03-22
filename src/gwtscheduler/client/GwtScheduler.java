@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
+import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
@@ -13,7 +14,9 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
+import org.goda.time.MutableDateTime;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -154,5 +157,19 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
 
   public void setEnable(boolean enable){
     display.setEnable(enable);
+  }
+
+  public void navigateToDate(Date date) {
+
+        Long mills = date.getTime();
+        MutableDateTime selectedDate = new MutableDateTime(date.getTime());
+        selectedDate.setHourOfDay(0);
+        selectedDate.setMinuteOfHour(0);
+        selectedDate.setMinuteOfHour(0);
+        selectedDate.setMillisOfSecond(0);
+//        eventBus.fireEvent(new NavigateToEvent(selectedDate.toDateTime()));
+        CalendarPresenter presenter = presenters.get(selectedPresenter);
+        presenter.navigateToDateTime(selectedDate.toDateTime());
+
   }
 }
