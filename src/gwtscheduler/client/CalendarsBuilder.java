@@ -1,5 +1,7 @@
 package gwtscheduler.client;
 
+import dragndrop.client.core.DragZone;
+import dragndrop.client.core.Zones;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.GenericDateGenerator;
@@ -33,7 +35,6 @@ public class CalendarsBuilder {
   private CalendarPresenter calendar;
   private CollisionDetector collisionDetector = new IntervalCollisionDetector();
 
-  private AppConfiguration configuration;
   private int columns;
   private int rows;
   private int daysLineHeightEMs;
@@ -42,11 +43,11 @@ public class CalendarsBuilder {
    * Sets a new multy column calednar in the builder.
    * @param configuration
    * @param columnsProvider
+   * @param dragZone put null to create local drop zone where is needed. Or put drop zone that will be used for dragging.
    * @return
    */
-  public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider) {
+  public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, DragZone dragZone) {
     EventBus eventBus = new EventBus();
-    this.configuration = configuration;
     rows = configuration.rowsInDay();
     columns = columnsProvider.getColumns().size();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
@@ -59,7 +60,7 @@ public class CalendarsBuilder {
 
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper, dragZone));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
@@ -71,11 +72,11 @@ public class CalendarsBuilder {
   /**
    * Sets a new week column calednar in the builder.
    * @param configuration
+   * @param dragZone put null to create local drop zone where is needed. Or put drop zone that will be used for dragging.
    * @return
    */
-  public CalendarsBuilder newWeekColumn(AppConfiguration configuration) {
+  public CalendarsBuilder newWeekColumn(AppConfiguration configuration, DragZone dragZone) {
     EventBus eventBus = new EventBus();
-    this.configuration = configuration;
     rows = configuration.rowsInDay();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
 
@@ -91,7 +92,7 @@ public class CalendarsBuilder {
 
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper, dragZone));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
