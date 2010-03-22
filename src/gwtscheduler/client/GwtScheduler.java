@@ -6,12 +6,11 @@ import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
-import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervaUpdateHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
 import org.goda.time.MutableDateTime;
@@ -127,7 +126,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     presenter.addCalendarEvent(event);
   }
 
-  public void addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
+  public void addEventDurationIntervalUpdateHandler(CalendarEventDurationIntervaUpdateHandler handler) {
      for (CalendarPresenter calendar : presenters) {
       calendar.addEventResizeEndHandler(handler);
     }

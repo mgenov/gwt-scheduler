@@ -6,10 +6,6 @@ import dragndrop.client.core.*;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
-import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
-import gwtscheduler.client.widgets.common.navigation.NavigateNextEventHandler;
-import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
-import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEventHandler;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
@@ -90,23 +86,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     displayWidgetResizeHandler = new EventsDashboardResizeHandler(this, calendarEvents);
     resizeHelper.setDashboardDisplay(display);
 
-//    eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
-//      @Override
-//      public void onNavigateNext() {
-//        clearEventsDashboard();
-//        renderCalendarEvents(calendarEvents);
-//      }
-//
-//
-//    });
-//
-//    eventBus.addHandler(NavigatePreviousEvent.TYPE, new NavigatePreviousEventHandler() {
-//      @Override
-//      public void onNavigatePrevious() {
-//        clearEventsDashboard();
-//        renderCalendarEvents(calendarEvents);
-//      }
-//    });
 
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
@@ -224,8 +203,8 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       return null; // or throw an exception!
     }
 
-    Instant startTime = event.getInterval().getStart().toInstant();
-    Instant endTime = event.getInterval().getEnd().toInstant();
+    Instant startTime = new Instant(event.getDurationInterval().getStart());
+    Instant endTime = new Instant(event.getDurationInterval().getEnd()); 
 
     int rowsCount = display.getRowCount();
     int startRow = dateGenerator.getRowForInstant(startTime, rowsCount);

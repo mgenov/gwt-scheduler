@@ -17,8 +17,8 @@ import gwtscheduler.client.widgets.view.common.events.DropObjectEvent;
 import gwtscheduler.client.widgets.view.common.events.DropObjectHandler;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectEvent;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndEvent;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervalUpdateEvent;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervaUpdateHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.CalendarEventDeleteEvent;
@@ -27,7 +27,6 @@ import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.navigation.*;
 import org.goda.time.DateTime;
 import org.goda.time.Interval;
-import org.goda.time.ReadableDateTime;
 
 import java.util.List;
 
@@ -252,8 +251,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
-  public HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler) {
-    return calendarBus.addHandler(CalendarEventResizeEndEvent.TYPE, handler);
+  public HandlerRegistration addEventResizeEndHandler(CalendarEventDurationIntervaUpdateHandler handler) {
+    return calendarBus.addHandler(CalendarEventDurationIntervalUpdateEvent.TYPE, handler);
   }
 
   @Override

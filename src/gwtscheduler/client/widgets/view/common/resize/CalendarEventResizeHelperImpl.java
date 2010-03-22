@@ -126,7 +126,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
 
     Interval frameInterval = getFrameInterval();
 
-    CalendarEventResizeEndEvent resizeEvent = new CalendarEventResizeEndEvent(calendarEvent, frameInterval.getStart().toInstant(), frameInterval.getEnd().toInstant());
+    CalendarEventDurationIntervalUpdateEvent resizeEvent = new CalendarEventDurationIntervalUpdateEvent(calendarEvent, frameInterval.getStart().toInstant(), frameInterval.getEnd().toInstant());
     calendarBus.fireEvent(resizeEvent);
   }
 

@@ -50,7 +50,7 @@ public class CalendarDropEvent extends GwtEvent<CalendarDropHandler>{
     return calendarColumn;
   }
 
-  public Instant getDropTime() {
-    return dropTime;
+  public long getDropTime() {
+    return dropTime.getMillis();
   }
 }

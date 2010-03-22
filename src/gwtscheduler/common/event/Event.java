@@ -14,14 +14,14 @@ public interface Event {
    * Gets the interval of that event.
    * @return the interval value which indicates start/end and date of the current event
    */
-  Interval getInterval();
+  DurationInterval getDurationInterval();
 
   /**
    * Sets a new interval for the current event.
    *
    * @param interval the new interval to be set
    */
-  void setInterval(Interval interval);
+  void setDurationInterval(DurationInterval interval);
 
   /**
    * Gets the event title.

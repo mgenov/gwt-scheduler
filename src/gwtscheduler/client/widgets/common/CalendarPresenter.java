@@ -3,7 +3,7 @@ package gwtscheduler.client.widgets.common;
 import com.google.gwt.event.shared.HandlerRegistration;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervaUpdateHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
@@ -13,7 +13,6 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import org.goda.time.DateTime;
-import org.goda.time.Interval;
 
 /**
  * Defines a calendar controller. Responsible for mediating the view and the
@@ -79,7 +78,7 @@ public interface CalendarPresenter {
 
   void addCalendarEvent(Event event);
 
-  HandlerRegistration addEventResizeEndHandler(CalendarEventResizeEndHandler handler);
+  HandlerRegistration addEventResizeEndHandler(CalendarEventDurationIntervaUpdateHandler handler);
 
   HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler);
 

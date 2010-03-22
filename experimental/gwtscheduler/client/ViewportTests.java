@@ -1,6 +1,5 @@
 package gwtscheduler.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -26,17 +25,15 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndEvent;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEndHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervaUpdateHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervalUpdateEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.CalendarEvent;
+import gwtscheduler.common.event.DurationInterval;
 import gwtscheduler.common.event.Event;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
-import org.goda.time.Duration;
-import org.goda.time.Instant;
-import org.goda.time.Interval;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
 
@@ -123,13 +120,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       @Override
       public void onValueChange(ValueChangeEvent<Date> event) {
         Date date = event.getValue();
-//        Long mills = date.getTime();
-//        MutableDateTime selectedDate = new MutableDateTime(date.getTime());
-//        selectedDate.setHourOfDay(0);
-//        selectedDate.setMinuteOfHour(0);
-//        selectedDate.setMinuteOfHour(0);
-//        selectedDate.setMillisOfSecond(0);
-//        eventBus.fireEvent(new NavigateToEvent(selectedDate.toDateTime()));
         main.navigateToDate(date);
       }
     });
@@ -141,11 +131,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
             .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration()).named("Team 1 Week Calendar").build()).build();
 
     dragZone.addDropZoneRoot((HasWidgets) main.asWidget());
-//    VerticalPanel dropRoot = new VerticalPanel();
-//    dropRoot.makeDraggable(new Panel1());
-//    dropRoot.makeDraggable(new Panel1());
-//    dropRoot.makeDraggable(new Panel1());
-//    dragZone.addDropZoneRoot(dropRoot);
 
     VerticalPanel mainPanel = new VerticalPanel();
 //    mainPanel.makeDraggable(dropRoot);
@@ -154,12 +139,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     mainPanel.add(main.asWidget());
 
 //    VerticalPanel testPanel = new VerticalPanel();
-//    testPanel.add(new Label("Wazaaaap"));
-//    testPanel.add(new Label("Wazaaaap"));
-//    testPanel.add(new Label("Wazaaaap"));
-//    testPanel.add(new Label("Wazaaaap"));
-//    testPanel.add(new Label("Wazaaaap"));
-//    testPanel.add(new Label("Wazaaaap"));
 //    testPanel.add(new Label("Wazaaaap"));
 //    dragZone.addWidget(testPanel);
     dragZone.addWidget(mainPanel);
@@ -189,17 +168,19 @@ public class ViewportTests implements EntryPoint, ClickHandler {
           // change column
           teamEvent.setColumn(event.getNewColumn());
           // change time
-          Instant currentStart = teamEvent.getInterval().getStart().toInstant();
-          Instant currentEnd = teamEvent.getInterval().getEnd().toInstant();
-          Instant oldTime = event.getOldTime();
-          Instant newTime = event.getNewTime();
-          Duration difference;
-          if(oldTime.isAfter(newTime)){
-            difference = new Duration(newTime, oldTime);
-            teamEvent.setInterval(new Interval(currentStart.minus(difference), currentEnd.minus(difference)));
+          Date currentStart = teamEvent.getDurationInterval().getStart();
+          Date currentEnd = teamEvent.getDurationInterval().getEnd();
+          long oldTime = event.getOldTime();
+          long newTime = event.getNewTime();
+          long difference;
+          if(oldTime>newTime){
+            difference = oldTime - newTime;
+//            teamEvent.setInterval(new Interval(currentStart.minus(difference), currentEnd.minus(difference)));
+            teamEvent.setDurationInterval(DurationInterval.getInterval(currentStart.getTime()-difference, currentEnd.getTime() - difference));
           } else {
-            difference = new Duration(oldTime, newTime);
-            teamEvent.setInterval(new Interval(currentStart.plus(difference), currentEnd.plus(difference)));
+            difference = newTime - oldTime;
+//            teamEvent.setInterval(new Interval(currentStart.plus(difference), currentEnd.plus(difference)));
+            teamEvent.setDurationInterval(DurationInterval.getInterval(currentStart.getTime() + difference, currentEnd.getTime() + difference));
           }
 
           main.updateEvent(teamEvent);
@@ -221,22 +202,23 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //          GWT.log("On time: " + event.getDropTime().toString(), null);
 
           TestTask testTask = (TestTask) o;
-          Interval interval = new Interval(event.getDropTime(), event.getDropTime().plus(3600 * testTask.getDuration() * 1000));
-          testTask.setInterval(interval);
+//          Interval interval = new Interval(event.getDropTime(), event.getDropTime().plus(3600 * testTask.getDuration() * 1000));
+//          testTask.setInterval(interval);
+          testTask.setDurationInterval(DurationInterval.getInterval(event.getDropTime(), event.getDropTime() + 3600 * testTask.getDuration() * 1000));
           dialog.setTestTask(testTask, column);
           dialog.show();
         }
       }
     });
 
-    main.addEventResizeEndHandler(new CalendarEventResizeEndHandler(){
+    main.addEventDurationIntervalUpdateHandler(new CalendarEventDurationIntervaUpdateHandler(){
       @Override
-      public void onCalendarEventResizeEndEvent(CalendarEventResizeEndEvent event) {
+      public void onCalendarEventDurationIntervalUpdate(CalendarEventDurationIntervalUpdateEvent event) {
 //        GWT.log("Resized event" + event.getCalendarEvent().getEventTitle(), null);
 //        GWT.log("Event from" + event.getStartTime(), null);
 //        GWT.log("Event to" + event.getEndTime(), null);
-        Event calendarEvent = event.getCalendarEvent().getEvent();
-        calendarEvent.setInterval(new Interval(event.getStartTime(), event.getEndTime()));
+        Event calendarEvent = event.getEvent();
+        calendarEvent.setDurationInterval(DurationInterval.getInterval(event.getStartTime(), event.getEndTime()));
         main.updateEvent(calendarEvent);
       }
     });

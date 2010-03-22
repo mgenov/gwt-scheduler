@@ -1,5 +1,6 @@
 package gwtscheduler.client;
 
+import gwtscheduler.common.event.DurationInterval;
 import org.goda.time.Interval;
 
 /**
@@ -8,7 +9,7 @@ import org.goda.time.Interval;
 public class TestTask {
 
   private String description;
-  private Interval interval;
+  private DurationInterval durationInterval;
   private String title;
   private Integer duration;
 
@@ -21,14 +22,6 @@ public class TestTask {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public Interval getInterval() {
-    return interval;
-  }
-
-  public void setInterval(Interval interval) {
-    this.interval = interval;
   }
 
   public String getTitle() {
@@ -45,5 +38,13 @@ public class TestTask {
 
   public Integer getDuration() {
     return duration;
+  }
+
+  public DurationInterval getDurationInterval() {
+    return durationInterval;
+  }
+
+  public void setDurationInterval(DurationInterval durationInterval) {
+    this.durationInterval = durationInterval;
   }
 }

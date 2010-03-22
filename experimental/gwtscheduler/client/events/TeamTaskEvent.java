@@ -3,8 +3,8 @@ package gwtscheduler.client.events;
 
 import gwtscheduler.client.TestTask;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.common.event.DurationInterval;
 import gwtscheduler.common.event.Event;
-import org.goda.time.Interval;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
@@ -21,13 +21,13 @@ public class TeamTaskEvent implements Event{
   }
 
   @Override
-  public Interval getInterval() {
-    return testTask.getInterval();
+  public DurationInterval getDurationInterval() {
+    return testTask.getDurationInterval();
   }
 
   @Override
-  public void setInterval(Interval interval) {
-    testTask.setInterval(interval);
+  public void setDurationInterval(DurationInterval durationInterval) {
+    testTask.setDurationInterval(durationInterval); 
   }
 
   @Override
@@ -37,7 +37,7 @@ public class TeamTaskEvent implements Event{
 
   @Override
   public Object getColumnId() {
-    return column.getId();  //To change body of implemented methods use File | Settings | File Templates.
+    return column.getId();
   }
 
   @Override

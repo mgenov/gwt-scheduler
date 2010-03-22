@@ -128,4 +128,24 @@ public class TestTaskDialogWidget extends Composite implements TestTaskDialog.Di
   public int getStartHour() {
      return Integer.parseInt(startHour.getText()); 
   }
+
+  @Override
+  public void setTaskStart(String date) {
+    startDate.setText(date);
+  }
+
+  @Override
+  public void setTaskEnd(String date) {
+       endDate.setText(date);
+  }
+
+  @Override
+  public void setStartHour(String time) {
+    startHour.setText(time);
+  }
+
+  @Override
+  public void setEndHour(String time) {
+    endHour.setText(time);
+  }
 }

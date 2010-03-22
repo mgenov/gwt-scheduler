@@ -56,15 +56,15 @@ public class CalendarObjectMovetEvent extends GwtEvent<CalendarObjectMoveHandler
     return oldColumn;
   }
 
-  public Instant getOldTime() {
-    return oldTime;
+  public long getOldTime() {
+    return oldTime.getMillis();
   }
 
   public CalendarColumn getNewColumn() {
     return newColumn;
   }
 
-  public Instant getNewTime() {
-    return newTime;
+  public long getNewTime() {
+    return newTime.getMillis();
   }
 }

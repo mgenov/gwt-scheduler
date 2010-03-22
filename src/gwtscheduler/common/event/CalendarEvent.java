@@ -63,6 +63,7 @@ public class CalendarEvent implements Draggable {
   private int[] startCellPosition;
   private int[] endCellPosition;
   private EventBus eventBus;
+  private Interval interval;
 
   /**
    * Default constructor.
@@ -74,6 +75,7 @@ public class CalendarEvent implements Draggable {
    */
   public CalendarEvent(Event event, EventPosition position, int[] startCellPosition, int[] endCellPosition, EventBus eventBus) {
     this.event = event;
+    interval = new Interval(event.getDurationInterval().getStart().getTime(),event.getDurationInterval().getEnd().getTime());
     this.position = position;
     this.startCellPosition = startCellPosition;
     this.endCellPosition = endCellPosition;
@@ -120,7 +122,7 @@ public class CalendarEvent implements Draggable {
    * @return the event interval
    */
   public Interval getInterval() {
-    return event.getInterval();
+    return interval;
   }
 
   /**
@@ -128,7 +130,7 @@ public class CalendarEvent implements Draggable {
    * @param interval the new interval to be set
    */
   public void setInterval(Interval interval) {
-    event.setInterval(interval);
+   interval = new Interval(event.getDurationInterval().getStart().getTime(),event.getDurationInterval().getEnd().getTime());
   }
 
   /**
