@@ -167,6 +167,11 @@ public interface DragZone {
 
   void setFrameWindowPosition(int left, int top);
 
+  /**
+   * Changes current drag zone with new drag zone.
+   * WARNING: don't try to change drag zone and then attach widgets that is parents!
+   * @param panel new drag zone panel.
+   */
   void makeDragZone(AbsolutePanel panel);
 
   void addDropZone(DropZone dropZone);

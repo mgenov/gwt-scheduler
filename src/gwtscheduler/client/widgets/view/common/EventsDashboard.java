@@ -61,30 +61,29 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   private final DateGenerator dateGenerator;
   private final CollisionDetector collisionDetector;
   private final CalendarEventResizeHelperProvider resizeHelper;
-  private final DragZone dragZone;
+  private DragZone dragZone;
   private WidgetResizeHandler displayWidgetResizeHandler;
   private Display display;
   private ArrayList<CalendarEvent> calendarEvents = new ArrayList<CalendarEvent>();
   private List<CalendarColumn> columns;
   private boolean collision = false;
 
-  public EventsDashboard(DateGenerator dateGenerator, CollisionDetector collisionDetector, EventBus eventBus, CalendarEventResizeHelperProvider resizeHelper) {
+  public EventsDashboard(DateGenerator dateGenerator, CollisionDetector collisionDetector, EventBus eventBus, CalendarEventResizeHelperProvider resizeHelper, DragZone dragZone) {
     this.dateGenerator = dateGenerator;
     this.collisionDetector = collisionDetector;
     this.eventBus = eventBus;
-    this.dragZone = Zones.getDragZone();
 
-    Frame eventsFrame = Zones.getDragFrame();
-    eventsFrame.setZIndex(33);
-    eventsFrame.setCursorStyle(CursorStyle.POINTER.toString());
-    dragZone.registerFrame(eventsFrame, CalendarEvent.class);
     this.resizeHelper = resizeHelper;
   }
 
   public void bindDisplay(final Display display) {
     this.display = display;
-    this.dragZone.makeDragZone(display.asWidget());
+    if(dragZone == null){
+      this.dragZone = Zones.getDragZone();
+      this.dragZone.makeDragZone(display.asWidget());
+    }
     this.dragZone.addDropZone(display);
+    registerFrame();
     displayWidgetResizeHandler = new EventsDashboardResizeHandler(this, calendarEvents);
     resizeHelper.setDashboardDisplay(display);
 
@@ -134,6 +133,13 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
     display.addDragOverHandler(this);
     display.addDropHandler(this);
+  }
+
+  private void registerFrame(){
+    Frame eventsFrame = Zones.getDragFrame();
+    eventsFrame.setZIndex(33);
+    eventsFrame.setCursorStyle(CursorStyle.POINTER.toString());
+    dragZone.registerFrame(eventsFrame, CalendarEvent.class);
   }
 
   private void renderCalendarEvents(ArrayList<CalendarEvent> calendarEvents) {
