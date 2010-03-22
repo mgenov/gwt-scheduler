@@ -39,8 +39,8 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
   private final EventsDashboard.Display eventsDisplay;
   private final DateGenerator dateGenerator;
   private final Display display;
-  private EventBus calendarBus;
   private final CalendarEvent calendarEvent;
+  private EventBus calendarBus;
   private int[] eventStartRow;
   private int[] startRow;
   private int[] endRow = new int[2];
@@ -132,7 +132,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
 
   private Interval getFrameInterval() {
       Instant startTime = calendarEvent.getInterval().getStart().toInstant();
-      Instant endTime = dateGenerator.getIntervalForRange(eventStartRow, endRow, 48).getEnd().toInstant();
+      Instant endTime = dateGenerator.getIntervalForRange(eventStartRow, endRow, eventsDisplay.getRowCount()).getEnd().toInstant();
       return new Interval(startTime, endTime);
   }
 

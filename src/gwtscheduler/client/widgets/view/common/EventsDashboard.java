@@ -136,7 +136,8 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     calendarEvents.clear();
   }
 
-  private void proceedDragOver(DragOverEvent event) {
+  @Override
+  public void onDragOver(DragOverEvent event) {
     int[] cell = display.getCellPosition(event.getMouseX(), event.getMouseY());
     int[] windowCellPosition = display.getWindowCellPosition(cell);
 
@@ -188,7 +189,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     resizeHelper.attachResizeHelper(calendarEvent);
     calendarEvent.go(display.asWidget());
   }
-  // TODO: building on event can be completed by some object event builder!
 
   private CalendarEvent buildCalendarEvent(Event event) {
     int columnIndex = findColumnIndex(event);
@@ -213,7 +213,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     int[] startCellPosition = new int[]{startRow, columnIndex};
     int[] endCellPosition = new int[]{endRow, columnIndex};
 
-    // TODO: will be refactored!
     int[] position = display.calculateLeftTop(startCellPosition);
     int height = display.getRowDistance(startRow, endRow);
 
@@ -291,11 +290,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     ArrayList<Event> events = getEvents(calendarEvents);
     clearCalendarEvents();
     renderEvents(events);
-  }
-
-  @Override
-  public void onDragOver(DragOverEvent event) {
-    proceedDragOver(event);
   }
 
   @Override
