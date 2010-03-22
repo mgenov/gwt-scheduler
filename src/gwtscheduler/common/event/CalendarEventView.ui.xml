@@ -8,17 +8,18 @@
     <ui:style>
         .header {
         width: 100%;
-        background-color: #2952A3;
+        background-color: #6694E3;
         text-align: center;
         font-size: 0.9em;
         color: #FFFFFF;
         cursor:default;
         }
         .content {
-        background-color: #ABBFE0;
+        background-color: #E0ECFF;
         padding-left: 5px;
         cursor:default;
         overflow: hidden;
+        height: 100%
         }
         .resizer {
         bottom:0;
@@ -38,25 +39,37 @@
         margin-right:auto;
         width:100%;
         }
+        .test{
+        text-align:center;
+        border-top-style: double;
+        position: absolute;
+        }
         .roundedPanel{
         background-color: #ABBFE0;
         overflow: hidden;
         }
+        .test2{
+        background-color: #E0ECFF;
+        border-bottom: 1px solid #6694E3;
+        opacity: 0.8;
+        }
+        .test3{
+        border-right: solid #6694E3;
+        border-left: solid #6694E3;
+        }
     </ui:style>
-    <c:RoundedLinePanel ui:field="roundedPanel" >
-        <g:HTMLPanel>
-            <div>
-                <g:FlowPanel styleName="{res.headerFlowPanel}">
-                    <g:Label ui:field="eventHeader" styleName="{style.header}" text="Title"/>
-                    <g:PushButton ui:field="closeBtn" styleName="{res.closeBtn}"/>
-                </g:FlowPanel>
-
-                <g:Label ui:field="contentPanel" styleName="{style.content}"/>
-                <div class="{style.resizer}">
-                    <g:Label ui:field="eventFooter" styleName="{style.rszricon}" text="="/>
-                </div>
+    <g:HTMLPanel ui:field="htmlPanel" styleName="{style.test2}">
+        <c:RoundedLinePanel ui:field="roundedPanel">
+            <g:FlowPanel styleName="{res.headerFlowPanel}">
+                <g:Label ui:field="eventHeader" styleName="{style.header}" text="Title"/>
+                <g:PushButton ui:field="closeBtn" styleName="{res.closeBtn}"/>
+            </g:FlowPanel>
+        </c:RoundedLinePanel>
+        <div class="{style.test3}">
+            <g:Label ui:field="contentPanel" styleName="{style.content}"/>
+            <div class="{style.resizer}">
+                <g:Label ui:field="eventFooter" styleName="{style.rszricon}" />
             </div>
-
-        </g:HTMLPanel>
-    </c:RoundedLinePanel>
+        </div>
+    </g:HTMLPanel>
 </ui:UiBinder>

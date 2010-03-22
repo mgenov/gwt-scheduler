@@ -6,5 +6,5 @@ import com.google.gwt.event.shared.EventHandler;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public interface CalendarObjectMoveHandler extends EventHandler{
-  void onCalendarObjectMove(CalendarObjectMovetEvent event);
+  void onCalendarObjectMove(CalendarObjectMoveEvent event);
 }

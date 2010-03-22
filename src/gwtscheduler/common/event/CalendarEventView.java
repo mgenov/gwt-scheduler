@@ -25,6 +25,9 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   private static CalendarEventViewBinder uiBinder = GWT.create(CalendarEventViewBinder.class);
 
   @UiField
+  HTMLPanel htmlPanel;
+
+  @UiField
   RoundedLinePanel roundedPanel;
 
   @UiField
@@ -46,6 +49,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
     initWidget(uiBinder.createAndBindUi(this));
     this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
+    this.eventFooter.getElement().setInnerHTML("<div style=\"border-top:3px double #6694E3; width: 10px;\">&nbsp;</div>");
   }
 
   @UiFactory
@@ -55,30 +59,29 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   @UiFactory
   public RoundedLinePanel buildRoundedLinePanel(){
-    RoundedLinePanel roundedPanel = new RoundedLinePanel(RoundedPanel.ALL, 5);
-    roundedPanel.setCornerColor("#ABBFE0");
-    roundedPanel.getElement().getStyle().setBackgroundColor("red");
+    RoundedLinePanel roundedPanel = new RoundedLinePanel(RoundedPanel.TOP, 3);
+    roundedPanel.setCornerColor("#6694E3");
     return roundedPanel;
   }
 
   @Override
   public void setViewWidth(int width) {
-    roundedPanel.setWidth(width + "px");
+    htmlPanel.setWidth(width + "px");
   }
 
   @Override
   public void setViewHeight(int height) {
-    roundedPanel.setHeight(height + "px");
+    htmlPanel.setHeight(height + "px");
   }
 
   @Override
   public int getWidth() {
-    return roundedPanel.getOffsetWidth();
+    return htmlPanel.getOffsetWidth();
   }
 
   @Override
   public int getHeight() {
-    return roundedPanel.getOffsetHeight();
+    return htmlPanel.getOffsetHeight();
   }
 
   @Override
