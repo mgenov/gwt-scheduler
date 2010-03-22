@@ -55,7 +55,10 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   @UiFactory
   public RoundedLinePanel buildRoundedLinePanel(){
-    return new RoundedLinePanel(RoundedPanel.ALL, 2);
+    RoundedLinePanel roundedPanel = new RoundedLinePanel(RoundedPanel.ALL, 5);
+    roundedPanel.setCornerColor("#ABBFE0");
+    roundedPanel.getElement().getStyle().setBackgroundColor("red");
+    return roundedPanel;
   }
 
   @Override
