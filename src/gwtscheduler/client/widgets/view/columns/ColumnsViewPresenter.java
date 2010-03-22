@@ -36,7 +36,6 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
-  private final EventBus calendarBus;
   private final CalendarColumnsProvider columnsProvider;
   private final DateGenerator dateGenerator;
   private final CalendarTitlesRenderer titlesRenderer;
@@ -58,10 +57,9 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
    * @param calendarContent
    * @param eventBus
    */
-  public ColumnsViewPresenter(CalendarColumnsProvider columnsProvider, DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, CalendarHeader calendarHeader, CalendarContent calendarContent, EventBus eventBus, EventBus calendarBus) {
+  public ColumnsViewPresenter(CalendarColumnsProvider columnsProvider, DateGenerator dateGenerator, CalendarTitlesRenderer titlesRenderer, CalendarHeader calendarHeader, CalendarContent calendarContent, EventBus eventBus) {
     this.columnsProvider = columnsProvider;
     this.dateGenerator = dateGenerator;
-    this.calendarBus = calendarBus;
     this.columns = columnsProvider.getColumns();
     this.titlesRenderer = titlesRenderer;
     this.calendarHeader = calendarHeader;
@@ -116,28 +114,28 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     eventBus.addHandler(CalendarEventDeleteEvent.TYPE,new CalendarEventDeleteEventHandler(){
       @Override
       public void onEventDelete(CalendarEventDeleteEvent e) {
-           calendarBus.fireEvent(new EventDeleteEvent(e.getEvent()));
+           eventBus.fireEvent(new EventDeleteEvent(e.getEvent()));
       }
     });
 
-    calendarBus.addHandler(MoveObjectEvent.TYPE, new MoveObjectHandler(){
+    eventBus.addHandler(MoveObjectEvent.TYPE, new MoveObjectHandler(){
       @Override
       public void onMoveObject(MoveObjectEvent event) {
         CalendarColumn oldColumn = columns.get(event.getOldCell()[1]); // you can move this 2 lines of code in EventsDashboard if you need to move columns list.
         CalendarColumn newColumn = columns.get(event.getNewCell()[1]);
 
         CalendarObjectMovetEvent objectMovetEvent = new CalendarObjectMovetEvent(type, title, event.getDroppedObject(), oldColumn, event.getOldTime(), newColumn, event.getNewTime());
-        calendarBus.fireEvent(objectMovetEvent);
+        eventBus.fireEvent(objectMovetEvent);
       }
     });
 
-    calendarBus.addHandler(DropObjectEvent.TYPE, new DropObjectHandler(){
+    eventBus.addHandler(DropObjectEvent.TYPE, new DropObjectHandler(){
       @Override
       public void onDropObject(DropObjectEvent event) {
         CalendarColumn column = columns.get(event.getNewCell()[1]);  // you can move this line of code in EventsDashboard if you need to move columns list.
 
         CalendarDropEvent dropEvent = new CalendarDropEvent(type, title, event.getDroppedObject(), column, event.getNewTime());
-        calendarBus.fireEvent(dropEvent);
+        eventBus.fireEvent(dropEvent);
       }
     });
   }
@@ -227,12 +225,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
-    return calendarBus.addHandler(CalendarDropEvent.TYPE, handler);
+    return eventBus.addHandler(CalendarDropEvent.TYPE, handler);
   }
 
   @Override
   public HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
-    return calendarBus.addHandler(CalendarObjectMovetEvent.TYPE, handler);
+    return eventBus.addHandler(CalendarObjectMovetEvent.TYPE, handler);
   }
 
   @Override
@@ -252,17 +250,17 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public HandlerRegistration addEventResizeEndHandler(CalendarEventDurationIntervaUpdateHandler handler) {
-    return calendarBus.addHandler(CalendarEventDurationIntervalUpdateEvent.TYPE, handler);
+    return eventBus.addHandler(CalendarEventDurationIntervalUpdateEvent.TYPE, handler);
   }
 
   @Override
   public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
-    return calendarBus.addHandler(CalendarEventResizeStartEvent.TYPE, handler);
+    return eventBus.addHandler(CalendarEventResizeStartEvent.TYPE, handler);
   }
 
   @Override
   public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
-    return calendarBus.addHandler(EventDeleteEvent.TYPE, handler);
+    return eventBus.addHandler(EventDeleteEvent.TYPE, handler);
   }
 
   @Override

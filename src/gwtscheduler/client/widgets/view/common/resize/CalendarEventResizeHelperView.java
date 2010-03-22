@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common.resize;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.user.client.DOM;
@@ -11,13 +12,12 @@ import gwtscheduler.client.widgets.view.common.EventsDashboard;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class CalendarEventResizeHelperView extends Composite implements CalendarEventResizeHelperImpl.Display{
-  private String style = "border: 1px dotted;";
   private Label label = new Label();
 
   public CalendarEventResizeHelperView() {
+    label.getElement().setAttribute("style", "border: 1px dotted;");
+    label.getElement().getStyle().setZIndex(2);
     initWidget(label);
-    label.getElement().setAttribute("style", style);
-    label.getElement().getStyle().setZIndex(133);
   }
 
   @Override
@@ -52,6 +52,7 @@ public class CalendarEventResizeHelperView extends Composite implements Calendar
 
   @Override
   public void setCursorStyle(String style) {
+//    GWT.log(style, null);
     label.getElement().getStyle().setProperty("cursor", style);
   }
 

@@ -54,7 +54,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
   private static final String EVENT_IN_COLLISION = "The dropped event interval is in collision with other already exist event";
   private final EventBus eventBus;
-  private final EventBus calendarBus;
   private final DateGenerator dateGenerator;
   private final CollisionDetector collisionDetector;
   private final CalendarEventResizeHelperProvider resizeHelper;
@@ -65,11 +64,10 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   private List<CalendarColumn> columns;
   private boolean collision = false;
 
-  public EventsDashboard(DateGenerator dateGenerator, CollisionDetector collisionDetector, EventBus eventBus, EventBus calendarBus, CalendarEventResizeHelperProvider resizeHelper) {
+  public EventsDashboard(DateGenerator dateGenerator, CollisionDetector collisionDetector, EventBus eventBus, CalendarEventResizeHelperProvider resizeHelper) {
     this.dateGenerator = dateGenerator;
     this.collisionDetector = collisionDetector;
     this.eventBus = eventBus;
-    this.calendarBus = calendarBus;
     this.dragZone = Zones.getDragZone();
 
     Frame eventsFrame = Zones.getDragFrame();
@@ -95,7 +93,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       }
     });
 
-    calendarBus.addHandler(CalendarEventResizeEvent.TYPE, new CalendarEventResizeHandler() {
+    eventBus.addHandler(CalendarEventResizeEvent.TYPE, new CalendarEventResizeHandler() {
       @Override
       public void onCalendarEventResizeEvent(CalendarEventResizeEvent event) {
         Interval currentInterval = event.getCurrentInterval();
@@ -128,7 +126,8 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     display.asWidget().clear();
   }
 
-  private void proceedDragOver(DragOverEvent event) {
+  @Override
+  public void onDragOver(DragOverEvent event) {
     int[] cell = display.getCellPosition(event.getMouseX(), event.getMouseY());
     int[] windowCellPosition = display.getWindowCellPosition(cell);
 
@@ -192,9 +191,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     }
   }
 
-  
-  // TODO: building on event can be completed by some object event builder!
-
   private CalendarEvent buildCalendarEvent(Event event) {
     int columnIndex = findColumnIndex(event);
 
@@ -218,7 +214,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     int[] startCellPosition = new int[]{startRow, columnIndex};
     int[] endCellPosition = new int[]{endRow, columnIndex};
 
-    // TODO: will be refactored!
     int[] position = display.calculateLeftTop(startCellPosition);
     int height = display.getRowDistance(startRow, endRow);
 
@@ -302,11 +297,6 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   }
 
   @Override
-  public void onDragOver(DragOverEvent event) {
-    proceedDragOver(event);
-  }
-
-  @Override
   public void onDrop(DropEvent event) {
     if (collision) {
       throw new EventIntervalCollisionException(EVENT_IN_COLLISION);
@@ -321,10 +311,10 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       Instant oldTime = dateGenerator.getInstantForCell(oldCell, display.getRowCount());
 
       MoveObjectEvent moveObject = new MoveObjectEvent(oldCell, newCell, oldTime, newTime, event.getDroppedObject());
-      calendarBus.fireEvent(moveObject);
+      eventBus.fireEvent(moveObject);
     } else {
       DropObjectEvent dropObject = new DropObjectEvent(newCell, newTime, event.getDroppedObject());
-      calendarBus.fireEvent(dropObject);
+      eventBus.fireEvent(dropObject);
     }
   }
 

@@ -52,7 +52,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 //    eventFooter.setUrl("http://www.google.com/images/logo.gif");
 //     closeBtn = new PushButton(new Image("images/close.png"));
 //    header.add(closeBtn);
-    this.getElement().getStyle().setZIndex(33);
+    this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
   }
 

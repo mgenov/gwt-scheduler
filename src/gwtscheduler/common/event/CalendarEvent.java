@@ -5,7 +5,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
@@ -23,7 +25,7 @@ import java.util.Arrays;
  *
  * @author Miroslav Genov (mgenov@gmail.com)
  */
-public class CalendarEvent implements Draggable {
+public class CalendarEvent implements Draggable, HasClickHandlers {
 
   public interface Display {
 
@@ -162,9 +164,9 @@ public class CalendarEvent implements Draggable {
    *
    * <p/>The event is attached to the absolute panel by using it's current {@link gwtscheduler.common.event.EventPosition} attribute.
    * 
-   * @param parent the parent panel to which current event will be atached
+   * @param parent the parent panel to which current event will be attached
    */
-  public void go(AbsolutePanel parent) {    
+  public void go(AbsolutePanel parent) {
     parent.add((Widget) display, position.getLeft(),position.getTop());
   }
 
@@ -186,19 +188,19 @@ public class CalendarEvent implements Draggable {
    * @param handler the handler to be registered
    * @return HandlerRegistration class that may be used for un-registering of the registered handler.
    */
-//  @Override
-//  public HandlerRegistration addClickHandler(ClickHandler handler) {
-//    return eventHandler.addHandler(ClickEvent.getType(), handler);
-//  }
+  @Override
+  public HandlerRegistration addClickHandler(ClickHandler handler) {
+    return eventHandler.addHandler(ClickEvent.getType(), handler);
+  }
 
   /**
    * Fires event to the client classes that are having registered handlers for that instance of this event.
    *
    */
-//  @Override
-//  public void fireEvent(GwtEvent<?> event) {
-//    eventHandler.fireEvent(event);
-//  }
+  @Override
+  public void fireEvent(GwtEvent<?> event) {
+    eventHandler.fireEvent(event);
+  }
 
   @Override
   public HasMouseDownHandlers getHasMouseDownHandler() {
