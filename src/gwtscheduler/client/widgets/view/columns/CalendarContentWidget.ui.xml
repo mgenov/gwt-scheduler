@@ -6,12 +6,21 @@
              xmlns:columns="urn:import:gwtscheduler.client.widgets.view.columns">
 
     <ui:style>
+        .overlapPanel{
+        position:absolute;
+        width:100%;
+        height:100%;
+        margin-top:25px;
+        cursor:not-allowed;
+        background-color:grey;
+        opacity:0.1;
+        }
     </ui:style>
-    <!--<g:VerticalPanel>-->
         <common:LassoAwarePanel ui:field="lassoAwarePanel">
+            <g:SimplePanel ui:field="overlapPanel" styleName="{style.overlapPanel}"></g:SimplePanel>
             <common:EventsDashboardView ui:field="eventsDashboardView"/>
             <columns:CalendarColumnsFrameGridWidget ui:field="columnsPanel"/>
         </common:LassoAwarePanel>
-    <!--</g:VerticalPanel>-->
+
 
 </ui:UiBinder>

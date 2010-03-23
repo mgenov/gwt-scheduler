@@ -281,6 +281,11 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
+  public void setEnable(boolean enable) {
+    calendarContent.setEnable(enable);
+  }
+
+  @Override
   public int getRowNum() {
     return display.getRowNum();
   }

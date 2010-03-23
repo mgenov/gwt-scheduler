@@ -89,4 +89,6 @@ public interface CalendarPresenter {
   void updateEvent(Event event);
 
   void navigateToDateTime(DateTime dateTime);
+
+  void setEnable(boolean enable);
 }

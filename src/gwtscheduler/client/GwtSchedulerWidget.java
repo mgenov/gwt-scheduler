@@ -44,8 +44,6 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
   @UiField
   DecoratedTabPanel tabsPanel;
 
-  @UiField
-  SimplePanel overlapPanel;
 
   public GwtSchedulerWidget() {
     initWidget(uiBinder.createAndBindUi(this));
@@ -69,15 +67,6 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
   @Override
   public void addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler) {
     tabsPanel.addBeforeSelectionHandler(handler);
-  }
-
-  @Override
-  public void setEnable(boolean enable) {
-    if(enable){
-      overlapPanel.getElement().getStyle().setZIndex(-1);
-    }else{
-      overlapPanel.getElement().getStyle().setZIndex(500);
-    }
   }
 
   @Override

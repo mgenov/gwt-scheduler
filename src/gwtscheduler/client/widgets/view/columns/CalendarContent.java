@@ -26,6 +26,8 @@ public class CalendarContent {
     void fireResizeRedrawEvents();
 
     EventsDashboard.Display getEventsDashboard();
+
+    void setEnable(boolean enable);
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -84,5 +86,9 @@ public class CalendarContent {
 
   public void deleteEvent(Event event) {
     eventsDashboard.deleteEvent(event);
+  }
+
+  public void setEnable(boolean enable) {
+    display.setEnable(enable);
   }
 }
