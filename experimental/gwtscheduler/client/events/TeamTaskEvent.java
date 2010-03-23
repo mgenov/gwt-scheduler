@@ -6,6 +6,7 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.event.DurationInterval;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.HasColors;
+import gwtscheduler.common.event.colors.DefaultColor;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
@@ -13,11 +14,13 @@ import gwtscheduler.common.event.HasColors;
 public class TeamTaskEvent implements Event, HasColors{
   private TestTask testTask;
   private CalendarColumn column;
+  private DefaultColor color;
   private String id;
 
-  public TeamTaskEvent(TestTask testTask, CalendarColumn column) {
+  public TeamTaskEvent(TestTask testTask, CalendarColumn column, DefaultColor color) {
     this.testTask = testTask;
     this.column = column;
+    this.color = color;
     id = System.currentTimeMillis()+"";
   }
 
@@ -57,21 +60,21 @@ public class TeamTaskEvent implements Event, HasColors{
 
   @Override
   public String getHeaderColor() {
-    return "#E36666";
+    return color.getHeaderColor();
   }
 
   @Override
   public String getBodyColor() {
-    return "#FFE0E0";
+    return color.getBodyColor();
   }
 
   @Override
   public String getTitleColor() {
-    return "#FFFFFF";
+    return color.getTextColor();
   }
 
   @Override
   public String getTextColor() {
-    return "#000000";
+    return color.getTextColor();
   }
 }

@@ -10,6 +10,7 @@ import dragndrop.client.core.DragZone;
 import dragndrop.client.core.Zones;
 import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
+import gwtscheduler.common.event.colors.DefaultColors;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
@@ -230,13 +231,28 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
+    // used to chenge every time the color of the event
+    final int[] b = {1};
     dialog.getOKButton().addClickHandler(new ClickHandler(){
       @Override
       public void onClick(ClickEvent event) {
         TestTask testTask = dialog.getTestTask();
         CalendarColumn column = dialog.getColumn();
 
-        TeamTaskEvent teamTaskEvent = new TeamTaskEvent(testTask, column);
+        TeamTaskEvent teamTaskEvent;
+        if(b[0]==1){
+         teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultColors.getRedEventColor());
+          b[0] = 2;
+        }else if(b[0]==2){
+         teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultColors.getBlueEventColor());
+          b[0] = 3;
+        }else if(b[0]==3){
+          teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultColors.getGreenEventColor());
+           b[0] = 4;
+         }else {//if(b[0]==4)
+           teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultColors.getYellowEventColor());
+          b[0] = 1;
+        }
         testTask.setDescription(testTask.getDescription()+ "  event id = "+teamTaskEvent.getEventId());
         main.addEvent(teamTaskEvent);
         dialog.close();
@@ -252,7 +268,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     main.selectTab(0);
     main.navigateToDate(new Date(getCurrentDate().getMillis()));
-//    registry.fireDateNavigation(getCurrentDate());
     eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
   }
 
@@ -267,17 +282,12 @@ public class ViewportTests implements EntryPoint, ClickHandler {
   }
 
   public void onClick(ClickEvent event) {
-//    AppInjector uiResources = AppInjector.GIN.getInjector();
-//    UIManager registry = uiResources.getUIRegistry();
 
     if (event.getSource() == back) {
-//      registry.fireBackNavigation();
       eventBus.fireEvent(new NavigatePreviousEvent());
     } else if (event.getSource() == forward) {
-//      registry.fireForwardNavigation();
       eventBus.fireEvent(new NavigateNextEvent());
     } else if (event.getSource() == today) {
-//      registry.fireDateNavigation(getCurrentDate());
       eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
     } else if (event.getSource() == deleteColumn) {
       CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
