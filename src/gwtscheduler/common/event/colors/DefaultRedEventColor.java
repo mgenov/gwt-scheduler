@@ -1,9 +1,10 @@
 package gwtscheduler.common.event.colors;
 
 /**
+ * Red color decoration of the event
  * @author mlesikov  {mlesikov@gmail.com}
  */
-class DefaultRedEventColor implements DefaultColor{
+class DefaultRedEventColor implements DefaultEventColor {
   @Override
   public String getHeaderColor() {
     return "#E36666";

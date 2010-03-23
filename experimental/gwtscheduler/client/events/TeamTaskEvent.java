@@ -6,7 +6,7 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.event.DurationInterval;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.HasColors;
-import gwtscheduler.common.event.colors.DefaultColor;
+import gwtscheduler.common.event.colors.DefaultEventColor;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
@@ -14,10 +14,10 @@ import gwtscheduler.common.event.colors.DefaultColor;
 public class TeamTaskEvent implements Event, HasColors{
   private TestTask testTask;
   private CalendarColumn column;
-  private DefaultColor color;
+  private DefaultEventColor color;
   private String id;
 
-  public TeamTaskEvent(TestTask testTask, CalendarColumn column, DefaultColor color) {
+  public TeamTaskEvent(TestTask testTask, CalendarColumn column, DefaultEventColor color) {
     this.testTask = testTask;
     this.column = column;
     this.color = color;

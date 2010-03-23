@@ -1,6 +1,5 @@
 package gwtscheduler.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.*;
@@ -9,7 +8,7 @@ import dragndrop.client.core.DragZone;
 import dragndrop.client.core.Zones;
 import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
-import gwtscheduler.common.event.colors.DefaultColors;
+import gwtscheduler.common.event.colors.DefaultEventColors;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
@@ -155,12 +154,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       public void onCalendarObjectMove(CalendarObjectMoveEvent event) {
         Object o = event.getDroppedObject();
         if(o instanceof TestTask){
-//          GWT.log("On calendar type: " + event.getAssociatedType().toString(), null);
-//          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
-//          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
-//          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
-//          GWT.log("From time: " + event.getOldTime().toString(), null);
-//          GWT.log("To time: " + event.getNewTime().toString(), null);
+
         } else if(o instanceof CalendarEvent) {
           CalendarEvent calendarEvent = (CalendarEvent)event.getDroppedObject();
           TeamTaskEvent teamEvent = (TeamTaskEvent)calendarEvent.getEvent();
@@ -174,11 +168,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
           long difference;
           if(oldTime>newTime){
             difference = oldTime - newTime;
-//            teamEvent.setInterval(new Interval(currentStart.minus(difference), currentEnd.minus(difference)));
             teamEvent.setDurationInterval(DurationInterval.getInterval(currentStart.getTime()-difference, currentEnd.getTime() - difference));
           } else {
             difference = newTime - oldTime;
-//            teamEvent.setInterval(new Interval(currentStart.plus(difference), currentEnd.plus(difference)));
             teamEvent.setDurationInterval(DurationInterval.getInterval(currentStart.getTime() + difference, currentEnd.getTime() + difference));
           }
 
@@ -194,15 +186,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
         CalendarColumn column = event.getCalendarColumn();
 
         if(o instanceof TestTask){
-//          GWT.log("Dropped: TicketPresenter", null);
-//          GWT.log("On calendar type: " + event.getCalendarType().toString(), null);
-//          GWT.log("On calendar with title: " + event.getCalendarTitle(), null);
-//          GWT.log("On column with title: " + event.getCalendarColumn().getTitle(), null);
-//          GWT.log("On time: " + event.getDropTime().toString(), null);
 
           TestTask testTask = (TestTask) o;
-//          Interval interval = new Interval(event.getDropTime(), event.getDropTime().plus(3600 * testTask.getDuration() * 1000));
-//          testTask.setInterval(interval);
+
           testTask.setDurationInterval(DurationInterval.getInterval(event.getDropTime(), event.getDropTime() + 3600 * testTask.getDuration() * 1000));
           dialog.setTestTask(testTask, column);
           dialog.show();
@@ -213,9 +199,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     main.addEventDurationIntervalUpdateHandler(new CalendarEventDurationIntervaUpdateHandler(){
       @Override
       public void onCalendarEventDurationIntervalUpdate(CalendarEventDurationIntervalUpdateEvent event) {
-//        GWT.log("Resized event" + event.getCalendarEvent().getEventTitle(), null);
-//        GWT.log("Event from" + event.getStartTime(), null);
-//        GWT.log("Event to" + event.getEndTime(), null);
+
         Event calendarEvent = event.getEvent();
         calendarEvent.setDurationInterval(DurationInterval.getInterval(event.getStartTime(), event.getEndTime()));
         main.updateEvent(calendarEvent);
@@ -239,16 +223,16 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
         TeamTaskEvent teamTaskEvent;
         if(b[0]==1){
-         teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultColors.getRedEventColor());
+         teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getRedEventColor());
           b[0] = 2;
         }else if(b[0]==2){
-         teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultColors.getBlueEventColor());
+         teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getBlueEventColor());
           b[0] = 3;
         }else if(b[0]==3){
-          teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultColors.getGreenEventColor());
+          teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getGreenEventColor());
            b[0] = 4;
          }else {//if(b[0]==4)
-           teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultColors.getYellowEventColor());
+           teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getYellowEventColor());
           b[0] = 1;
         }
         testTask.setDescription(testTask.getDescription()+ "  event id = "+teamTaskEvent.getEventId());
