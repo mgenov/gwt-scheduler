@@ -12,6 +12,7 @@ import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
+import gwtscheduler.common.event.EventClickHandler;
 import org.goda.time.DateTime;
 
 /**
@@ -91,4 +92,6 @@ public interface CalendarPresenter {
   void navigateToDateTime(DateTime dateTime);
 
   void setEnable(boolean enable);
+  
+  void addEventClickHandler(EventClickHandler handler);
 }

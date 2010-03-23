@@ -1,10 +1,9 @@
 package gwtscheduler.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.*;
 import datepickernavigation.client.DatePickerNavigation;
 import dragndrop.client.core.DragZone;
 import dragndrop.client.core.Zones;
@@ -33,6 +32,8 @@ import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHa
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.DurationInterval;
 import gwtscheduler.common.event.Event;
+import gwtscheduler.common.event.EventClickEvent;
+import gwtscheduler.common.event.EventClickHandler;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.MutableDateTime;
@@ -41,9 +42,6 @@ import org.goda.time.ReadableDateTime;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 
 import java.util.Date;
 
@@ -262,6 +260,28 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       @Override
       public void onEventDelete(EventDeleteEvent e) {
         main.deleteEvent(e.getEvent());
+      }
+    });
+
+    main.addEventClickHandler(new EventClickHandler(){
+      @Override
+      public void onEventClickEvent(EventClickEvent event) {
+//        GWT.log("Clicked on event: " + event.getEvent().getTitle(), null);
+        final DialogBox dialogBox = new DialogBox();
+        dialogBox.getElement().getStyle().setZIndex(50);
+        VerticalPanel vp = new VerticalPanel();
+        vp.add(new Label("Clicked event : "+ event.getEvent().getEventId()));
+
+        Button button = new Button("Close");
+        vp.add(button);
+        button.addClickHandler(new ClickHandler(){
+          @Override
+          public void onClick(ClickEvent event) {
+            dialogBox.hide();
+          }
+        });
+        dialogBox.add(vp);
+        dialogBox.center();
       }
     });
 

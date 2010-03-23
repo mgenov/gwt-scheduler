@@ -25,6 +25,8 @@ import gwtscheduler.common.event.CalendarEventDeleteEvent;
 import gwtscheduler.common.event.CalendarEventDeleteEventHandler;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.navigation.*;
+import gwtscheduler.common.event.EventClickEvent;
+import gwtscheduler.common.event.EventClickHandler;
 import org.goda.time.DateTime;
 import org.goda.time.Interval;
 
@@ -87,30 +89,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
     titlesRenderer.renderVerticalTitles(interval, calendarContent.getFrameGridDecorables());
 
-
-//    eventBus.addHandler(NavigateNextEvent.TYPE, new NavigateNextEventHandler() {
-//      @Override
-//      public void onNavigateNext() {
-//        reRenderHeaderTitles(dateGenerator.next().interval());
-//      }
-//    });
-//
-//    eventBus.addHandler(NavigatePreviousEvent.TYPE, new NavigatePreviousEventHandler() {
-//      @Override
-//      public void onNavigatePrevious() {
-//        reRenderHeaderTitles(dateGenerator.previous().interval());
-//      }
-//    });
-//
-//
-//    eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
-//      @Override
-//      public void onNavigateTo(ReadableDateTime date) {
-//        reRenderHeaderTitles(dateGenerator.getIntervalForDate((DateTime) date));
-//      }
-//    });
-
-
     eventBus.addHandler(CalendarEventDeleteEvent.TYPE,new CalendarEventDeleteEventHandler(){
       @Override
       public void onEventDelete(CalendarEventDeleteEvent e) {
@@ -170,14 +148,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   public void forceLayout() {
     display.forceLayout();
   }
-
-//  //TODO:remove this, used only in eventsmediator
-//  @Override
-//  public Interval getIntervalForRange(int[] start, int[] end) {
-//    Interval interval = dateGenerator.getIntervalForRange(start,end,getRowNum());
-//    return interval;
-//  }
-
 
   /**
    * Deletes a column from the calendar if it exists
@@ -284,6 +254,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   public void setEnable(boolean enable) {
     calendarContent.setEnable(enable);
   }
+  
+  @Override
+  public void addEventClickHandler(EventClickHandler handler) {
+    eventBus.addHandler(EventClickEvent.TYPE, handler);
+  }
+  
 
   @Override
   public int getRowNum() {

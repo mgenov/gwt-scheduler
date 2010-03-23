@@ -97,6 +97,11 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   }
 
   @Override
+  public HasClickHandlers getBody() {
+    return contentPanel;
+  }
+
+  @Override
   public void setDescription(String description) {
     contentPanel.setText(description);
   }

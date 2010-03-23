@@ -1,6 +1,7 @@
 package gwtscheduler.client;
 
 import gwtscheduler.common.event.DurationInterval;
+import gwtscheduler.common.event.HasColors;
 import org.goda.time.Interval;
 
 /**
@@ -47,4 +48,5 @@ public class TestTask {
   public void setDurationInterval(DurationInterval durationInterval) {
     this.durationInterval = durationInterval;
   }
+
 }
