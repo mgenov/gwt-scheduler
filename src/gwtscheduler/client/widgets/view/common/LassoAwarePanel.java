@@ -197,8 +197,4 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
     void forceLayout(Widget lassoPanel, WidgetResizeEvent event);
   }
 
-  public void scrollPosition(int position){
-    windowPanel.scrollToPosition(position);
-  }
-
 }

@@ -13,8 +13,8 @@ import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
-import gwtscheduler.client.widgets.view.common.events.DropObjectEvent;
-import gwtscheduler.client.widgets.view.common.events.DropObjectHandler;
+import gwtscheduler.client.widgets.view.common.events.CellDropEvent;
+import gwtscheduler.client.widgets.view.common.events.CellDropHandler;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectEvent;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervalUpdateEvent;
@@ -28,10 +28,8 @@ import gwtscheduler.client.widgets.common.navigation.*;
 import gwtscheduler.common.event.EventClickEvent;
 import gwtscheduler.common.event.EventClickHandler;
 import org.goda.time.DateTime;
-import org.goda.time.Instant;
 import org.goda.time.Interval;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,9 +80,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     calendarHeader.bindDisplay(display.getCalendarHeaderDisplay());
     calendarContent.bindDisplay(display.getCalendarContentDisplay());
     calendarContent.setColumns(columns);
-    Instant now = new Instant();
-    int currentTimeRow = dateGenerator.getRowForInstant(now, getRowNum());
-    calendarContent.scrollToPosition(currentTimeRow * (getHeight() / getRowNum()));
 
     //adds  WidgetResizeHandler
     display.addWidgetResizeHandler(calendarContent.getEventsDachboardWidgetResizeHandler());
@@ -112,12 +107,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
       }
     });
 
-    eventBus.addHandler(DropObjectEvent.TYPE, new DropObjectHandler(){
+    eventBus.addHandler(CellDropEvent.TYPE, new CellDropHandler(){
       @Override
-      public void onDropObject(DropObjectEvent event) {
-        CalendarColumn column = columns.get(event.getNewCell()[1]);  // you can move this line of code in EventsDashboard if you need to move columns list.
+      public void onCellDrop(CellDropEvent event) {
+        CalendarColumn column = columns.get(event.getCell()[1]);  // you can move this line of code in EventsDashboard if you need to move columns list.
 
-        CalendarDropEvent dropEvent = new CalendarDropEvent(type, title, event.getDroppedObject(), column, event.getNewTime());
+        CalendarDropEvent dropEvent = new CalendarDropEvent(type, title, event.getDroppedObject(), column, event.getTime());
         eventBus.fireEvent(dropEvent);
       }
     });
@@ -264,7 +259,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   public void addEventClickHandler(EventClickHandler handler) {
     eventBus.addHandler(EventClickEvent.TYPE, handler);
   }
-  
 
   @Override
   public int getRowNum() {

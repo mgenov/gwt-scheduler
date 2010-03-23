@@ -14,6 +14,7 @@ import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.common.event.EventClickHandler;
 import org.goda.time.DateTime;
+import org.goda.time.Instant;
 
 /**
  * Defines a calendar controller. Responsible for mediating the view and the
@@ -94,4 +95,5 @@ public interface CalendarPresenter {
   void setEnable(boolean enable);
   
   void addEventClickHandler(EventClickHandler handler);
+
 }

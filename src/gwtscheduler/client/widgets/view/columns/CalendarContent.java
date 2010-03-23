@@ -29,7 +29,6 @@ public class CalendarContent {
 
     void setEnable(boolean enable);
 
-    void scrollToPosition(int position);
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
@@ -90,9 +89,5 @@ public class CalendarContent {
 
   public void setEnable(boolean enable) {
     display.setEnable(enable);
-  }
-
-  public void scrollToPosition(int position){
-    display.scrollToPosition(position);
   }
 }
