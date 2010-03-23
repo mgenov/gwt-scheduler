@@ -153,12 +153,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
     int cellCount = frame.getHeight() / cellHeight; // cells in frame
     int[] endCell = new int[] {cell[0] + cellCount - 1, cell[1]};
-    GWT.log(endCell[0]+"",null);
 
-    // checks the end of the day
-    if (endCell[0] == display.getRowCount()-1) {
-      endCell[0] = display.getRowCount() - 1;
-    }
 
     Interval interval = dateGenerator.getIntervalForRange(cell, endCell, display.getRowCount());
     boolean isCollision = collisionDetector.isInCollision(calendarEvents, cell[1], interval, event.getDropObject());
