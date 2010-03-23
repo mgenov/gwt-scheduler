@@ -6,28 +6,31 @@ import gwtscheduler.common.event.Event;
 import org.goda.time.Instant;
 
 /**
+ * Fired when calendar event height size is changed. Contain information about event who size is changed, Event start
+ * time and event end time.
+ *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public class CalendarEventDurationIntervalUpdateEvent extends GwtEvent<CalendarEventDurationIntervaUpdateHandler>{
-  public static Type<CalendarEventDurationIntervaUpdateHandler> TYPE = new Type<CalendarEventDurationIntervaUpdateHandler>();
+public class CalendarEventDurationChangeEvent extends GwtEvent<CalendarEventDurationChangeHandler>{
+  public static Type<CalendarEventDurationChangeHandler> TYPE = new Type<CalendarEventDurationChangeHandler>();
   private final CalendarEvent calendarEvent;
   private final Instant startTime;
   private final Instant endTime;
 
-  public CalendarEventDurationIntervalUpdateEvent(CalendarEvent calendarEvent, Instant startTime, Instant endTime) {
+  public CalendarEventDurationChangeEvent(CalendarEvent calendarEvent, Instant startTime, Instant endTime) {
     this.calendarEvent = calendarEvent;
     this.startTime = startTime;
     this.endTime = endTime;
   }
 
   @Override
-  public Type<CalendarEventDurationIntervaUpdateHandler> getAssociatedType() {
+  public Type<CalendarEventDurationChangeHandler> getAssociatedType() {
     return TYPE;
   }
 
   @Override
-  protected void dispatch(CalendarEventDurationIntervaUpdateHandler handler) {
-    handler.onCalendarEventDurationIntervalUpdate(this);
+  protected void dispatch(CalendarEventDurationChangeHandler handler) {
+    handler.onCalendarEventDurationChange(this);
   }
 
   public Event getEvent() {

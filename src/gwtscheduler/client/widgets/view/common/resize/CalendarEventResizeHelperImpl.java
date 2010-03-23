@@ -91,7 +91,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
 
     eventStartRow = calendarEvent.getStartCellPosition();
 
-    CalendarEventResizeStartEvent resizeEvent = new CalendarEventResizeStartEvent(calendarEvent);
+    CalendarEventDurationChangeStartEvent resizeEvent = new CalendarEventDurationChangeStartEvent(calendarEvent);
     calendarBus.fireEvent(resizeEvent);
   }
 
@@ -126,7 +126,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
 
     Interval frameInterval = getFrameInterval();
 
-    CalendarEventDurationIntervalUpdateEvent resizeEvent = new CalendarEventDurationIntervalUpdateEvent(calendarEvent, frameInterval.getStart().toInstant(), frameInterval.getEnd().toInstant());
+    CalendarEventDurationChangeEvent resizeEvent = new CalendarEventDurationChangeEvent(calendarEvent, frameInterval.getStart().toInstant(), frameInterval.getEnd().toInstant());
     calendarBus.fireEvent(resizeEvent);
   }
 

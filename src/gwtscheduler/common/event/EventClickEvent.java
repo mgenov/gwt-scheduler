@@ -4,6 +4,8 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.goda.time.Interval;
 
 /**
+ * Fired when someone click on calendar event. Contains information about event and event interval.
+ * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class EventClickEvent extends GwtEvent<EventClickHandler>{
