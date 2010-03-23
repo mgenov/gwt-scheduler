@@ -17,9 +17,6 @@ import org.goda.time.Interval;
 import java.util.Arrays;
 
 /**
- * 
- * TODO: Fire event clicks
- * TODO: Update event interval
  *
  * @author Miroslav Genov (mgenov@gmail.com)
  */
@@ -116,6 +113,10 @@ public class CalendarEvent implements Draggable {
     });
   }
 
+  /**
+   * Sets the event window colors.
+   * @param colors object that contains colors.
+   */
   public void setEventColors(HasColors colors){
     display.setHeaderColor(colors.getHeaderColor());
     display.setBodyColor(colors.getBodyColor());
@@ -151,7 +152,8 @@ public class CalendarEvent implements Draggable {
    * @param interval the new interval to be set
    */
   public void setInterval(Interval interval) {
-   interval = new Interval(event.getDurationInterval().getStart().getTime(),event.getDurationInterval().getEnd().getTime());
+    this.interval = interval;
+    event.setDurationInterval(new DurationInterval(interval.getStart().toDate(), interval.getEnd().toDate()));
   }
 
   /**
@@ -189,6 +191,10 @@ public class CalendarEvent implements Draggable {
     parent.add((Widget) display, position.getLeft(),position.getTop());
   }
 
+  /**
+   * Set height 
+   * @param height
+   */
   public void setHeight(int height){
     display.setViewHeight(height);
   }

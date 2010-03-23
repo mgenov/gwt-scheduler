@@ -152,6 +152,9 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
   public boolean remove(Widget w) {
     return scrollPanel.remove(w);
   }
-  
+
+  public void scrollToPosition(int position){
+    scrollPanel.setScrollPosition(position);
+  }
   
 }

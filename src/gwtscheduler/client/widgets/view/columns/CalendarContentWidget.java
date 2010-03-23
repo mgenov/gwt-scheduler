@@ -138,4 +138,9 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
     return addHandler(handler, DragOverEvent.TYPE);
   }
+
+  @Override
+  public void scrollToPosition(int position){
+    lassoAwarePanel.scrollPosition(position);
+  }
 }

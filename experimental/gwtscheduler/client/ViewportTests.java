@@ -131,8 +131,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
 
-    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, dragZone).named("Teams").build())
-            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), dragZone).named("Team 1 Week Calendar").build()).build();
+    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, null).named("Teams").build())
+            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build()).build();
 
     dragZone.addDropZoneRoot((HasWidgets) main.asWidget());
 
@@ -197,7 +197,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       public void onCalendarDrop(CalendarDropEvent event) {
         Object o = event.getDroppedObject();
         CalendarColumn column = event.getCalendarColumn();
-        
+
         if(o instanceof TestTask){
 //          GWT.log("Dropped: TicketPresenter", null);
 //          GWT.log("On calendar type: " + event.getCalendarType().toString(), null);

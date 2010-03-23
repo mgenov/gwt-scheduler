@@ -28,8 +28,10 @@ import gwtscheduler.client.widgets.common.navigation.*;
 import gwtscheduler.common.event.EventClickEvent;
 import gwtscheduler.common.event.EventClickHandler;
 import org.goda.time.DateTime;
+import org.goda.time.Instant;
 import org.goda.time.Interval;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,6 +82,9 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     calendarHeader.bindDisplay(display.getCalendarHeaderDisplay());
     calendarContent.bindDisplay(display.getCalendarContentDisplay());
     calendarContent.setColumns(columns);
+    Instant now = new Instant();
+    int currentTimeRow = dateGenerator.getRowForInstant(now, getRowNum());
+    calendarContent.scrollToPosition(currentTimeRow * (getHeight() / getRowNum()));
 
     //adds  WidgetResizeHandler
     display.addWidgetResizeHandler(calendarContent.getEventsDachboardWidgetResizeHandler());

@@ -28,12 +28,13 @@ public class CalendarContent {
     EventsDashboard.Display getEventsDashboard();
 
     void setEnable(boolean enable);
+
+    void scrollToPosition(int position);
   }
 
   private CalendarColumnsFrameGrid calendarColumnsFrameGrid;
   private EventsDashboard eventsDashboard;
   private Display display;
-  private List<CalendarColumn> columns;
 
   public CalendarContent(CalendarColumnsFrameGrid calendarColumnsFrameGrid, EventsDashboard eventsDashboard) {
     this.calendarColumnsFrameGrid = calendarColumnsFrameGrid;
@@ -72,7 +73,6 @@ public class CalendarContent {
   }
 
   public void setColumns(List<CalendarColumn> columns) {
-    this.columns = columns;
     eventsDashboard.setColumns(columns);
   }
 
@@ -90,5 +90,9 @@ public class CalendarContent {
 
   public void setEnable(boolean enable) {
     display.setEnable(enable);
+  }
+
+  public void scrollToPosition(int position){
+    display.scrollToPosition(position);
   }
 }
