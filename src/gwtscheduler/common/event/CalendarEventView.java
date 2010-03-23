@@ -39,17 +39,15 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   @UiField
   Label eventFooter;
 
-//  @UiField
-//  HorizontalPanel header;
-     @UiField
-     PushButton closeBtn;
+   @UiField
+   PushButton closeBtn;
 
 
   public CalendarEventView() {
     initWidget(uiBinder.createAndBindUi(this));
     this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
-    this.eventFooter.getElement().setInnerHTML("<div style=\"border-top:3px double #6694E3; width: 10px;\">&nbsp;</div>");
+    this.eventFooter.getElement().setInnerHTML("<div style=\"border-top:3px double #6694E3; width: 10px; margin: 0 auto;\"></div>");
   }
 
   @UiFactory
@@ -66,12 +64,12 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   @Override
   public void setViewWidth(int width) {
-    htmlPanel.setWidth(width + "px");
+    htmlPanel.setWidth((width - 4 )+ "px");
   }
 
   @Override
   public void setViewHeight(int height) {
-    htmlPanel.setHeight(height + "px");
+    htmlPanel.setHeight((height - 4) + "px");
   }
 
   @Override
@@ -96,7 +94,6 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   @Override
   public void setDescription(String description) {
-    //TODO: this not the best way at all try tio improve it
     contentPanel.setText(description);
   }
 
