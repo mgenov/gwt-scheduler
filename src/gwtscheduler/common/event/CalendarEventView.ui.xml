@@ -25,7 +25,7 @@
         opacity:0.7;
         }
         .resizer {
-        bottom:0;
+        bottom: 0;
         height:7px;
         line-height:7px;
         position:absolute;
@@ -35,7 +35,6 @@
         .rszricon {
         font-size:15px;
         font-weight:bold;
-        text-align:center;
         height:100%;
         cursor:ns-resize;
         line-height:0;
@@ -43,30 +42,31 @@
         margin-right:auto;
         width:100%;
         }
-        .test{
-        text-align:center;
-        border-top-style: double;
-        position: absolute;
-        }
-        .roundedPanel{
-        background-color: #ABBFE0;
-        overflow: hidden;
-        }
         .html{
         background-color: #E0ECFF;
         border-bottom: 1px solid #6694E3;
         border-right: 1px solid #6694E3;
         border-left: 1px solid #6694E3;
         }
+        .test{
+        border-top:3px double #6694E3;
+        width: 10px;
+        margin: 0 auto;
+        position: absolute;
+        bottom: 0;
+        margin-bottom:3px;
+        margin-left:49%;
+        }
     </ui:style>
     <c:RoundedLinePanel ui:field="roundedPanel">
         <g:HTMLPanel ui:field="htmlPanel" styleName="{style.html}">
             <g:FlowPanel styleName="{res.headerFlowPanel}">
-                <g:Label ui:field="eventHeader" styleName="{style.header}" text="Title"/>
+                <g:Label ui:field="eventHeader" styleName="{style.header}"/>
                 <g:PushButton ui:field="closeBtn" styleName="{res.closeBtn}"/>
             </g:FlowPanel>
             <g:Label ui:field="contentPanel" styleName="{style.content}"/>
             <div class="{style.resizer}">
+                <div class="{style.test}"/>
                 <g:Label ui:field="eventFooter" styleName="{style.rszricon}"/>
             </div>
         </g:HTMLPanel>
