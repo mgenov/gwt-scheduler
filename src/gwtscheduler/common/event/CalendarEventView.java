@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
@@ -21,11 +22,21 @@ import org.cobogw.gwt.user.client.ui.RoundedPanel;
  * @author Miroslav Genov (mgenov@gmail.com)
  */
 public class CalendarEventView extends Composite implements CalendarEvent.Display {
+  public interface ResStyle extends CssResource {
+    String roundedPanel();
+  }
+
   interface CalendarEventViewBinder extends UiBinder<Widget, CalendarEventView> {};
   private static CalendarEventViewBinder uiBinder = GWT.create(CalendarEventViewBinder.class);
 
   @UiField
+  ResStyle resStyle;
+
+  @UiField
   HTMLPanel htmlPanel;
+
+  @UiField
+  RoundedLinePanel roundedPanel;
 
   @UiField
   Label eventHeader;
@@ -37,18 +48,14 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   Label eventFooter;
 
   @UiField
-  PushButton closeBtn;
+  Image closeBtn;
 
 
   public CalendarEventView() {
     initWidget(uiBinder.createAndBindUi(this));
     this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
-  }
-
-  @UiFactory
-  public PushButton buildPushButton(){
-    return new PushButton(new Image("../css/images/close.png")); //TODO: change the url for the javascript ->  css/images/close.png
+    roundedPanel.addStyleName(resStyle.roundedPanel());
   }
 
   @UiFactory
@@ -60,7 +67,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   @Override
   public void setViewWidth(int width) {
-    htmlPanel.setWidth((width - 4 )+ "px");
+    htmlPanel.setWidth((width - 4 ) + "px");
   }
 
   @Override
