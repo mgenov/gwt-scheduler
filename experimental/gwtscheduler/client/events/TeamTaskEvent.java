@@ -70,7 +70,7 @@ public class TeamTaskEvent implements Event, HasColors{
 
   @Override
   public String getTitleColor() {
-    return color.getTextColor();
+    return color.getTitleColor();
   }
 
   @Override
