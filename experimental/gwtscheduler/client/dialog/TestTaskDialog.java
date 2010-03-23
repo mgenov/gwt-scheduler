@@ -97,12 +97,11 @@ public class TestTaskDialog {
   }
 
   public TestTask getTestTask() {
-    TestTask t= new TestTask();
-    t.setTitle(display.getTaskTitle());
-    t.setDurationInterval(task.getDurationInterval());
-    t.setDescription(display.getDescription());
-    t.setDuration(task.getDuration());
-    return t;
+    task.setTitle(display.getTaskTitle());
+    task.setDurationInterval(task.getDurationInterval());
+    task.setDescription(display.getDescription());
+    task.setDuration(task.getDuration());
+    return task;
   }
 
   public CalendarColumn getColumn() {

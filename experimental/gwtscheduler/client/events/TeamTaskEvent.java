@@ -5,12 +5,11 @@ import gwtscheduler.client.TestTask;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.common.event.DurationInterval;
 import gwtscheduler.common.event.Event;
-import gwtscheduler.common.event.HasColors;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class TeamTaskEvent implements Event, HasColors{
+public class TeamTaskEvent implements Event{
   private TestTask testTask;
   private CalendarColumn column;
   private String id;
@@ -53,25 +52,5 @@ public class TeamTaskEvent implements Event, HasColors{
 
   public void setColumn(CalendarColumn column) {
     this.column = column;
-  }
-
-  @Override
-  public String getHeaderColor() {
-    return "#E36666";
-  }
-
-  @Override
-  public String getBodyColor() {
-    return "#FFE0E0";
-  }
-
-  @Override
-  public String getTitleColor() {
-    return "#FFFFFF";
-  }
-
-  @Override
-  public String getTextColor() {
-    return "#000000";
   }
 }
