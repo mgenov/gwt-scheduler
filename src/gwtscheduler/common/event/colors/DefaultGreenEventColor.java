@@ -18,11 +18,11 @@ class DefaultGreenEventColor implements DefaultColor{
 
   @Override
   public String getTitleColor() {
-    return "#FFFFFF";
+    return "#FFFFFF"; //white
   }
 
   @Override
   public String getTextColor() {
-    return "#000000"; 
+    return "#000000";  //black
   }
 }
