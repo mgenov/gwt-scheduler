@@ -91,5 +91,7 @@ public interface CalendarPresenter {
 
   void navigateToDateTime(DateTime dateTime);
 
+  void setEnable(boolean enable);
+  
   void addEventClickHandler(EventClickHandler handler);
 }

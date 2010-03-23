@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.common.Cell;
@@ -44,6 +45,8 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   EventsDashboardView eventsDashboardView;
   @UiField
   LassoAwarePanel lassoAwarePanel;
+  @UiField
+  SimplePanel overlapPanel;
 
   
   private int rows;
@@ -56,6 +59,15 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     this.columns = columns;
     this.daysLineHeightEMs = daysLineHeightEMs;
     initWidget(uiBinder.createAndBindUi(this));
+  }
+
+  @Override
+  public void setEnable(boolean enable) {
+    if(enable){
+      overlapPanel.getElement().getStyle().setZIndex(-1);
+    }else{
+      overlapPanel.getElement().getStyle().setZIndex(500);
+    }
   }
 
   /**

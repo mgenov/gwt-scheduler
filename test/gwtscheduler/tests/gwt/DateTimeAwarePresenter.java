@@ -142,6 +142,10 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
+  public void setEnable(boolean enable) {
+  }
+
+  @Override
   public void addEventClickHandler(EventClickHandler handler) {
   }
 

@@ -33,7 +33,6 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
 
     void addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler);
 
-    void setEnable(boolean enable);
   }
 
 
@@ -51,12 +50,12 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
 
   public void bindDisplay(Display display) {
     this.display = display;
-    display.setEnable(true);
 
     display.addBeforeSelectionHandler(this);
 
     for (CalendarPresenter presenter : presenters) {
       add(presenter);
+      presenter.setEnable(true);
     }
 
   }
@@ -156,7 +155,9 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
   }
 
   public void setEnable(boolean enable){
-    display.setEnable(enable);
+    for (CalendarPresenter presenter : presenters) {
+      presenter.setEnable(enable);
+    }
   }
 
   public void navigateToDate(Date date) {

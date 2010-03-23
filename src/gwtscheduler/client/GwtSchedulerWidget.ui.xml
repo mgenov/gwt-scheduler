@@ -18,10 +18,7 @@
 
 
     <g:HTMLPanel>
-        <div>
-        <g:SimplePanel ui:field="overlapPanel" styleName="{style.overlapPanel}"></g:SimplePanel>
         <g:DecoratedTabPanel ui:field="tabsPanel"/>
-        </div>
     </g:HTMLPanel>
 
 </ui:UiBinder>
