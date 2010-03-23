@@ -58,9 +58,24 @@ public interface DateGenerator {
 
   Interval currentInterval();
 
-  Instant getInstantForCell(int[] cell, int rowNum);
 
-  Interval getIntervalForRange(int[] start, int[] end, int rowNum);
+  /**
+   * Gets the correspondent instant for a cell
+   *
+   * @param cell the starting cell
+   * @param rowsCount the rows count
+   */
+  Instant getInstantForCell(int[] cell, int rowsCount);
+
+  /**
+   * Gets the correspondent time interval for a given cell range
+   *
+   * @param start the starting cell
+   * @param end the end cell
+   * @param  rowsCount teh rows count
+   * @return the time interval
+   */
+  Interval getIntervalForRange(int[] start, int[] end, int rowsCount);
 
   Interval getIntervalForDate(DateTime date);
 

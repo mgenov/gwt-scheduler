@@ -50,21 +50,7 @@ public interface CalendarPresenter {
    */
   void forceLayout();
 
-//  /**
-//   * Gets the correspondent time interval for a given cell range
-//   *
-//   * @param start the starting cell
-//   * @param end the end cell
-//   * @return the time interval
-//   */
-//  Interval getIntervalForRange(int[] start, int[] end);
 
-//  /**
-//   * Gets the correspondent instant for a cell
-//   *
-//   * @param start the starting cell
-//   */
-//  Instant getInstantForCell(int[] start);
 
   void deleteColumn(CalendarColumn column);
 

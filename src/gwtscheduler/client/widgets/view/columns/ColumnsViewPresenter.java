@@ -84,7 +84,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     //adds  WidgetResizeHandler
     display.addWidgetResizeHandler(calendarContent.getEventsDachboardWidgetResizeHandler());
 
-    display.initLasso(new VerticalLassoStrategy(false), this);
+//    display.initLasso(new VerticalLassoStrategy(false), this);
+    
     final Interval interval = dateGenerator.interval();
 
     titlesRenderer.renderVerticalTitles(interval, calendarContent.getFrameGridDecorables());
