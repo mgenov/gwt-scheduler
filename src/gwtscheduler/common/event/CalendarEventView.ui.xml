@@ -18,10 +18,8 @@
         cursor:default;
         }
         .content {
-        background-color: #E0ECFF;
         padding-left: 5px;
         cursor:default;
-        overflow: hidden;
         opacity:0.7;
         }
         .resizer {
@@ -47,9 +45,10 @@
         border-bottom: 1px solid #6694E3;
         border-right: 1px solid #6694E3;
         border-left: 1px solid #6694E3;
+        overflow: hidden;
         }
         .rszricon{
-        border-top:3px double #6694E3;
+        border-top:3px double #000000;
         width: 10px;
         margin: 0 auto;
         position: absolute;

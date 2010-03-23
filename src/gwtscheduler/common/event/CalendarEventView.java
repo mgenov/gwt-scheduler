@@ -102,6 +102,28 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   }
 
   @Override
+  public void setHeaderColor(String headerColor) {
+    eventHeader.getElement().getStyle().setBackgroundColor(headerColor);
+    htmlPanel.getElement().getStyle().setBorderColor(headerColor);
+    roundedPanel.setCornerColor(headerColor);
+  }
+
+  @Override
+  public void setBodyColor(String bodyColor) {
+    htmlPanel.getElement().getStyle().setBackgroundColor(bodyColor);
+  }
+
+  @Override
+  public void setTitleColor(String titleColor) {
+    eventHeader.getElement().getStyle().setColor(titleColor);
+  }
+
+  @Override
+  public void setTextColor(String textColor) {
+    contentPanel.getElement().getStyle().setColor(textColor);
+  }
+
+  @Override
   public HasMouseDownHandlers getHeader() {
     return eventHeader;
   }
