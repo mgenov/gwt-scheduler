@@ -10,8 +10,8 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervaUpdateHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.common.event.EventClickHandler;
 import org.goda.time.MutableDateTime;
@@ -101,7 +101,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
 
   public void deleteColumn(CalendarColumn column) {
     CalendarPresenter presenter = presenters.get(selectedPresenter);
-    presenter.deleteColumn(column);
+    presenter.removeColumn(column);
   }
 
   public void addColumn(CalendarColumn column) {
@@ -126,15 +126,15 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     presenter.addCalendarEvent(event);
   }
 
-  public void addEventDurationIntervalUpdateHandler(CalendarEventDurationIntervaUpdateHandler handler) {
+  public void addEventDurationIntervalUpdateHandler(CalendarEventDurationChangeHandler handler) {
      for (CalendarPresenter calendar : presenters) {
-      calendar.addEventResizeEndHandler(handler);
+      calendar.addEventDurationChangeHandler(handler);
     }
   }
 
-  public void addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
+  public void addEventResizeStartHandler(CalendarEventDurationChangeStartHandler handler) {
     for (CalendarPresenter presenter : presenters) {
-      presenter.addEventResizeStartHandler(handler);
+      presenter.addEventDurationChangeStartHandler(handler);
     }
   }
    public void addEventDeleteEventHandler(EventDeleteEventHandler handler) {

@@ -6,7 +6,9 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import org.goda.time.Instant;
 
 /**
- * Fired when something already attached to calendar is moved to another place.
+ * Fired when something already attached to calendar is moved to another place. Contains information about Calendar type
+ * where something is moved, calendar title, object that is moved, column from where something is moved, column to where
+ * something is moved, old time for moved object and new time where object is dropped.
  *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */

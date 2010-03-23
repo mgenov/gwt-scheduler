@@ -5,6 +5,6 @@ import com.google.gwt.event.shared.EventHandler;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public interface CalendarEventResizeStartHandler extends EventHandler {
-  void onCalendarEventResizeStartEvent(CalendarEventResizeStartEvent event);
+public interface CalendarEventDurationChangeHandler extends EventHandler{
+  void onCalendarEventDurationChange(CalendarEventDurationChangeEvent event);
 }

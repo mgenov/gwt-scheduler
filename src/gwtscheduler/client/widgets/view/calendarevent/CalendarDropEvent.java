@@ -6,6 +6,9 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import org.goda.time.Instant;
 
 /**
+ * Fired when something is dropped over calendar. Contains information about calendar type, Calendar title, dropped object,
+ * column where something is dropped and time on the place where something is dropped.
+ * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class CalendarDropEvent extends GwtEvent<CalendarDropHandler>{
@@ -34,14 +37,26 @@ public class CalendarDropEvent extends GwtEvent<CalendarDropHandler>{
     handler.onCalendarDrop(this);
   }
 
+  /**
+   * Get calendar type.
+   * @return CalendarType object;
+   */
   public CalendarType getCalendarType() {
     return calendarType;
   }
 
+  /**
+   * Get calendar title.
+   * @return calendar title.
+   */
   public String getCalendarTitle() {
     return calendarTitle;
   }
 
+  /**
+   * Get dropped object.
+   * @return dropped object.
+   */
   public Object getDroppedObject() {
     return droppedObject;
   }

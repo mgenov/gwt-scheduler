@@ -8,6 +8,8 @@ import dragndrop.client.core.DragZone;
 import dragndrop.client.core.Zones;
 import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.common.event.colors.DefaultColors;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.EventBus;
@@ -24,10 +26,8 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervaUpdateHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervalUpdateEvent;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartEvent;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartEvent;
 import gwtscheduler.common.event.CalendarEvent;
 import gwtscheduler.common.event.DurationInterval;
 import gwtscheduler.common.event.Event;
@@ -209,9 +209,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
-    main.addEventDurationIntervalUpdateHandler(new CalendarEventDurationIntervaUpdateHandler(){
+    main.addEventDurationIntervalUpdateHandler(new CalendarEventDurationChangeHandler(){
       @Override
-      public void onCalendarEventDurationIntervalUpdate(CalendarEventDurationIntervalUpdateEvent event) {
+      public void onCalendarEventDurationChange(CalendarEventDurationChangeEvent event) {
 //        GWT.log("Resized event" + event.getCalendarEvent().getEventTitle(), null);
 //        GWT.log("Event from" + event.getStartTime(), null);
 //        GWT.log("Event to" + event.getEndTime(), null);
@@ -221,9 +221,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
-    main.addEventResizeStartHandler(new CalendarEventResizeStartHandler(){
+    main.addEventResizeStartHandler(new CalendarEventDurationChangeStartHandler(){
       @Override
-      public void onCalendarEventResizeStartEvent(CalendarEventResizeStartEvent event) {
+      public void onCalendarEventDurationChangeStart(CalendarEventDurationChangeStartEvent event) {
 //        GWT.log("Event resizing start:", null);
       }
     });

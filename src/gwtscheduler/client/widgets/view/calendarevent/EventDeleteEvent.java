@@ -5,6 +5,8 @@ import  gwtscheduler.common.event.Event;
 
 
 /**
+ * Fired when event is deleted.
+ * 
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class EventDeleteEvent  extends GwtEvent<EventDeleteEventHandler>{

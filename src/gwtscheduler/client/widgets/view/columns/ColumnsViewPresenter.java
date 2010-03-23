@@ -17,10 +17,10 @@ import gwtscheduler.client.widgets.view.common.events.CellDropEvent;
 import gwtscheduler.client.widgets.view.common.events.CellDropHandler;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectEvent;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervalUpdateEvent;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervaUpdateHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartEvent;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartEvent;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.common.event.CalendarEventDeleteEvent;
 import gwtscheduler.common.event.CalendarEventDeleteEventHandler;
 import gwtscheduler.common.event.Event;
@@ -150,12 +150,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   /**
-   * Deletes a column from the calendar if it exists
+   * Remove given column from calendar.
    *
-   * @param column
+   * @param column to be removed.
    */
   @Override
-  public void deleteColumn(CalendarColumn column) {
+  public void removeColumn(CalendarColumn column) {
     for (CalendarColumn calendarColumn : columns) {
       if (calendarColumn.getId().equals(column.getId())) {
         int index = columns.indexOf(calendarColumn);
@@ -181,8 +181,9 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   /**
-   * Adds a new Column in the calenadar
-   * @param column
+   * Adds a new Column to the calendar.
+   * 
+   * @param column to be added.
    */
   @Override
   public void addColumn(CalendarColumn column) {
@@ -193,51 +194,109 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     titlesRenderer.renderHorizontalTitles(columns, calendarHeader.getHeaderDecorableElements());
   }
 
+  /**
+   * Add handler who will catch CalendarDropEvent. This event is fired when something is dropped over calendar.
+   *
+   * @param handler who will handle event.
+   * @return object that is responsible for removing handler from handler manager.
+   */
   @Override
   public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
     return eventBus.addHandler(CalendarDropEvent.TYPE, handler);
   }
 
+  /**
+   * Add handler who will catch CalendarObjectMoveEvent. This event is fired when something is moved from one place to
+   * another over the calendar.
+   *
+   * @param handler who will handle the event.
+   * @return object that is responsible for removing handler from handler manager.
+   */
   @Override
   public HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
     return eventBus.addHandler(CalendarObjectMoveEvent.TYPE, handler);
   }
 
+  /**
+   * Sets calendar type.
+   *
+   * @param type CalendarType.
+   */
   @Override
   public void setCalendarType(CalendarType type) {
     this.type = type;
   }
 
+  /**
+   * Return calendar type.
+   * 
+   * @return CalendarType.
+   */
   @Override
   public CalendarType getCalendarType() {
     return type;
   }
 
+  /**
+   * Add new event on the calendar. This event will be wrapped with CalendarEvent and will be placed on the calendar.
+   * 
+   * @param event to be added to the calendar.
+   */
   @Override
   public void addCalendarEvent(Event event) {
     calendarContent.addCalendarEvent(event);
   }
 
+  /**
+   * Add handler for CalendarEventDurationChangeEvent. This event is fired when height of the CalendarEvent is changed.
+   * This means when mouse is up. When resizing is finished.
+   *
+   * @param handler who will handle the event.
+   * @return object that is responsible for removing handler from handler manager.
+   */
   @Override
-  public HandlerRegistration addEventResizeEndHandler(CalendarEventDurationIntervaUpdateHandler handler) {
-    return eventBus.addHandler(CalendarEventDurationIntervalUpdateEvent.TYPE, handler);
+  public HandlerRegistration addEventDurationChangeHandler(CalendarEventDurationChangeHandler handler) {
+    return eventBus.addHandler(CalendarEventDurationChangeEvent.TYPE, handler);
   }
 
+  /**
+   * Add handler for CalendarEventDurationChangeStartEvent. This event is fired when someone click on CalendarEvent to
+   * resize the event. This mean not resizing in the real time, just click on resize button.
+   *
+   * @param handler who will handle the event.
+   * @return object that is responsible for removing handler from handler manager.
+   */
   @Override
-  public HandlerRegistration addEventResizeStartHandler(CalendarEventResizeStartHandler handler) {
-    return eventBus.addHandler(CalendarEventResizeStartEvent.TYPE, handler);
+  public HandlerRegistration addEventDurationChangeStartHandler(CalendarEventDurationChangeStartHandler handler) {
+    return eventBus.addHandler(CalendarEventDurationChangeStartEvent.TYPE, handler);
   }
 
+  /**
+   * Add handler for EventDeleteEvent. This event is fired when someone close the event.
+   *
+   * @param handler who will handle the event.
+   * @return object that is responsible for removing handler from handler manager.
+   */
   @Override
   public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
     return eventBus.addHandler(EventDeleteEvent.TYPE, handler);
   }
 
+  /**
+   * Delete event from calendar.
+   *
+   * @param event to be deleted.
+   */
   @Override
   public void deleteEvent(Event event) {
     calendarContent.deleteEvent(event);
   }
-  
+
+  /**
+   * Update current event on the calendar.
+   *
+   * @param event event to be updated with new data that is carried with given event.
+   */
   @Override
   public void updateEvent(Event event) {
     calendarContent.updateEvent(event);
@@ -254,7 +313,12 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   public void setEnable(boolean enable) {
     calendarContent.setEnable(enable);
   }
-  
+
+  /**
+   * Add handler for event that is fired when some one click on the CalendarEvent.
+   * 
+   * @param handler who will handle the event.
+   */
   @Override
   public void addEventClickHandler(EventClickHandler handler) {
     eventBus.addHandler(EventClickEvent.TYPE, handler);
