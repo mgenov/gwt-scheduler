@@ -19,7 +19,6 @@
         padding-left: 5px;
         cursor:default;
         overflow: hidden;
-        height: 100%
         }
         .resizer {
         bottom:0;
@@ -48,28 +47,25 @@
         background-color: #ABBFE0;
         overflow: hidden;
         }
-        .test2{
+        .html{
         background-color: #E0ECFF;
         border-bottom: 1px solid #6694E3;
-        opacity: 0.8;
-        }
-        .test3{
-        border-right: solid #6694E3;
-        border-left: solid #6694E3;
+        border-right: 1px solid #6694E3;
+        border-left: 1px solid #6694E3;
         }
     </ui:style>
-    <g:HTMLPanel ui:field="htmlPanel" styleName="{style.test2}">
-        <c:RoundedLinePanel ui:field="roundedPanel">
+    <c:RoundedLinePanel ui:field="roundedPanel">
+        <g:HTMLPanel ui:field="htmlPanel" styleName="{style.html}">
             <g:FlowPanel styleName="{res.headerFlowPanel}">
                 <g:Label ui:field="eventHeader" styleName="{style.header}" text="Title"/>
                 <g:PushButton ui:field="closeBtn" styleName="{res.closeBtn}"/>
             </g:FlowPanel>
-        </c:RoundedLinePanel>
-        <div class="{style.test3}">
             <g:Label ui:field="contentPanel" styleName="{style.content}"/>
             <div class="{style.resizer}">
-                <g:Label ui:field="eventFooter" styleName="{style.rszricon}" />
+                <g:Label ui:field="eventFooter" styleName="{style.rszricon}"/>
             </div>
-        </div>
-    </g:HTMLPanel>
+        </g:HTMLPanel>
+    </c:RoundedLinePanel>
+
 </ui:UiBinder>
+        
