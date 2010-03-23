@@ -49,7 +49,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   Label eventFooter;
 
   @UiField
-  PushButton closeBtn;
+  Image closeBtn;
 
 
   public CalendarEventView() {
@@ -57,11 +57,6 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
     this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
     roundedPanel.addStyleName(resStyle.roundedPanel());
-  }
-
-  @UiFactory
-  public PushButton buildPushButton(){
-    return new PushButton(new Image("../css/images/close.png")); //TODO: change the url for the javascript ->  css/images/close.png
   }
 
   @UiFactory
@@ -73,7 +68,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   @Override
   public void setViewWidth(int width) {
-    htmlPanel.setWidth((width - 4 )+ "px");
+    htmlPanel.setWidth((width - 4 ) + "px");
   }
 
   @Override

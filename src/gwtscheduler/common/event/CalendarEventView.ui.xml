@@ -32,7 +32,7 @@
         width:100%;
         opacity:0.7;
         }
-        .rszricon {
+        .rszrbutton {
         font-size:15px;
         font-weight:bold;
         height:100%;
@@ -48,7 +48,7 @@
         border-right: 1px solid #6694E3;
         border-left: 1px solid #6694E3;
         }
-        .test{
+        .rszricon{
         border-top:3px double #6694E3;
         width: 10px;
         margin: 0 auto;
@@ -62,12 +62,12 @@
         <g:HTMLPanel ui:field="htmlPanel" styleName="{style.html}">
             <g:FlowPanel styleName="{res.headerFlowPanel}">
                 <g:Label ui:field="eventHeader" styleName="{style.header}"/>
-                <g:PushButton ui:field="closeBtn" styleName="{res.closeBtn}"/>
+                <g:Image ui:field="closeBtn" styleName="{res.closeBtn}" url="../css/images/close.png"/>
             </g:FlowPanel>
             <g:Label ui:field="contentPanel" styleName="{style.content}"/>
             <div class="{style.resizer}">
-                <div class="{style.test}"/>
-                <g:Label ui:field="eventFooter" styleName="{style.rszricon}"/>
+                <div class="{style.rszricon}"/>
+                <g:Label ui:field="eventFooter" styleName="{style.rszrbutton}"/>
             </div>
         </g:HTMLPanel>
     </c:RoundedLinePanel>

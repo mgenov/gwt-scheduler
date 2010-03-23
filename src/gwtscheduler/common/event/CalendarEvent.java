@@ -20,7 +20,6 @@ import java.util.Arrays;
  * 
  * TODO: Fire event clicks
  * TODO: Update event interval
- * TODO: Resize event when user clicks on it's bottom line and starts dragging it
  * TODO: Move event when user clicks on it's header and starts dragging it
  *
  * @author Miroslav Genov (mgenov@gmail.com)

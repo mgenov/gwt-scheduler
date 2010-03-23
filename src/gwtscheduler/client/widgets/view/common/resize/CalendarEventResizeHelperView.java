@@ -52,7 +52,6 @@ public class CalendarEventResizeHelperView extends Composite implements Calendar
 
   @Override
   public void setCursorStyle(String style) {
-//    GWT.log(style, null);
     label.getElement().getStyle().setProperty("cursor", style);
   }
 
