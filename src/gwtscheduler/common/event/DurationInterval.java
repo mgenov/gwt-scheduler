@@ -5,6 +5,7 @@ import org.goda.time.Instant;
 import java.util.Date;
 
 /**
+ * Represents a duration interval(period) of any activity for example
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class DurationInterval {

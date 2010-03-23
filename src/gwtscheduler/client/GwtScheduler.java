@@ -21,6 +21,30 @@ import java.util.List;
 
 
 /**
+ * Represents a scheduler that can consist different calendars.
+ *
+ * Example:
+ *<p></p>
+ * <p>1. Getting ana instance;</p>
+ *
+ * <pre>GwtScheduler scheduler = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, null).named("Teams").build())
+            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build()).build();
+ </pre>
+ *
+ * scheduler now is an instance that consist 2 calendars from differnt types.
+ * <p></p>
+ * <p>2. Scheduler  navigation </p>
+ * <pre>datePicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
+      @Override
+      public void onValueChange(ValueChangeEvent<Date> event) {
+        Date date = event.getValue();
+        main.navigateToDate(date);
+      }
+    });</pre>
+
+ *<p></p>
+ * <p> 3.Using the scheduler </p>
+ * <p> The scheduler fires events for every activity that is involved in. This fired events can be easily handled by adding handlers to the scheduler</p>
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {

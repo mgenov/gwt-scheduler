@@ -17,7 +17,7 @@ import org.goda.time.Interval;
 import java.util.Arrays;
 
 /**
- *
+ *  Represents Event that is added in the scheduler and is involved in different manipulations
  * @author Miroslav Genov (mgenov@gmail.com)
  */
 public class CalendarEvent implements Draggable {
@@ -250,9 +250,5 @@ public class CalendarEvent implements Draggable {
 
   public int[] getEndCellPosition() {
     return endCellPosition;
-  }
-
-  public String getEventId(){
-    return event.getEventId();
   }
 }

@@ -1,11 +1,12 @@
 package gwtscheduler.common.event.colors;
 
-import gwtscheduler.common.event.colors.DefaultColor;
+import gwtscheduler.common.event.colors.DefaultEventColor;
 
 /**
+ * Blue color decoration of the event
  * @author mlesikov  {mlesikov@gmail.com}
  */
-class DefaultBlueEventColor implements DefaultColor{
+class DefaultBlueEventColor implements DefaultEventColor {
   
   @Override
   public String getHeaderColor() {

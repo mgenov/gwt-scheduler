@@ -1,11 +1,12 @@
 package gwtscheduler.common.event.colors;
 
-import gwtscheduler.common.event.colors.DefaultColor;
+import gwtscheduler.common.event.colors.DefaultEventColor;
 
 /**
+ * Green color decoration of the event
  * @author mlesikov  {mlesikov@gmail.com}
  */
-class DefaultGreenEventColor implements DefaultColor{
+class DefaultGreenEventColor implements DefaultEventColor {
   @Override
   public String getHeaderColor() {
     return "#7dca5b";

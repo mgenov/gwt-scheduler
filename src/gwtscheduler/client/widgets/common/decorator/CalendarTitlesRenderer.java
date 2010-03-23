@@ -11,6 +11,8 @@ import org.goda.time.Period;
 import java.util.List;
 
 /**
+ * Represents title renderer that is responsible for rendering the titles in the header of the calendar(the names of columns)
+ * and the hours of the day - depending of the rows that will be visualized.
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarTitlesRenderer {
@@ -24,6 +26,11 @@ public class CalendarTitlesRenderer {
   public CalendarTitlesRenderer() {
   }
 
+  /**
+   * Renders the  hours of the day - depending of the rows that will be visualized.
+   * @param interval
+   * @param elems
+   */
   public void renderVerticalTitles(Interval interval, List<Cell<Element>> elems) {
 
     Period p = new Period(0, 0, 0, 1, 0, 0, 0, 0);
@@ -49,6 +56,11 @@ public class CalendarTitlesRenderer {
 
   }
 
+  /**
+   * Renders the titles in the header of the calendar(the names of columns)
+   * @param columns
+   * @param elems
+   */
   public void renderHorizontalTitles(List<CalendarColumn> columns, List<Cell<Element>> elems) {
     if (columns == null || elems == null) {
       return;
