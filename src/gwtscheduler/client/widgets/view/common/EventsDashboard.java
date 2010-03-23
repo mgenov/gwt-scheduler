@@ -68,8 +68,8 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     this.dateGenerator = dateGenerator;
     this.collisionDetector = collisionDetector;
     this.eventBus = eventBus;
-
     this.resizeHelper = resizeHelper;
+    this.dragZone = dragZone;
   }
 
   public void bindDisplay(final Display display) {

@@ -45,6 +45,14 @@ public class CalendarEvent implements Draggable, HasClickHandlers {
     HasClickHandlers getCloseBtn();
 
     void setDescription(String description);
+
+    void setHeaderColor(String headerColor);
+
+    void setBodyColor(String bodyColor);
+
+    void setTitleColor(String titleColor);
+
+    void setTextColor(String textColor);
   }
 
   /**
@@ -90,6 +98,9 @@ public class CalendarEvent implements Draggable, HasClickHandlers {
    */
   public void bindDisplay(Display display) {
     this.display = display;
+    if(event instanceof HasColors){
+      setEventColors((HasColors) event);
+    }
 
     display.setHeaderTitle(event.getTitle());
     display.setDescription(event.getDescription());
@@ -101,6 +112,13 @@ public class CalendarEvent implements Draggable, HasClickHandlers {
         eventBus.fireEvent(new CalendarEventDeleteEvent(event));
       }
     });
+  }
+
+  public void setEventColors(HasColors colors){
+    display.setHeaderColor(colors.getHeaderColor());
+    display.setBodyColor(colors.getBodyColor());
+    display.setTitleColor(colors.getTitleColor());
+    display.setTextColor(colors.getTextColor());
   }
 
   /**
