@@ -28,9 +28,6 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   HTMLPanel htmlPanel;
 
   @UiField
-  RoundedLinePanel roundedPanel;
-
-  @UiField
   Label eventHeader;
 
   @UiField
@@ -39,15 +36,14 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   @UiField
   Label eventFooter;
 
-   @UiField
-   PushButton closeBtn;
+  @UiField
+  PushButton closeBtn;
 
 
   public CalendarEventView() {
     initWidget(uiBinder.createAndBindUi(this));
     this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
-    this.eventFooter.getElement().setInnerHTML("<div style=\"border-top:3px double #6694E3; width: 10px; margin: 0 auto;\"></div>");
   }
 
   @UiFactory
