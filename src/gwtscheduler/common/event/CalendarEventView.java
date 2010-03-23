@@ -1,18 +1,13 @@
 package gwtscheduler.common.event;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.DListElement;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
-import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.*;
 import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
@@ -21,8 +16,16 @@ import org.cobogw.gwt.user.client.ui.RoundedPanel;
  * @author Miroslav Genov (mgenov@gmail.com)
  */
 public class CalendarEventView extends Composite implements CalendarEvent.Display {
+  public interface ResStyle extends CssResource {
+    String roundedPanel();
+  }
+
   interface CalendarEventViewBinder extends UiBinder<Widget, CalendarEventView> {};
+
   private static CalendarEventViewBinder uiBinder = GWT.create(CalendarEventViewBinder.class);
+
+  @UiField
+  ResStyle resStyle;
 
   @UiField
   HTMLPanel htmlPanel;
@@ -39,8 +42,8 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   @UiField
   Label eventFooter;
 
-   @UiField
-   PushButton closeBtn;
+  @UiField
+  PushButton closeBtn;
 
 
   public CalendarEventView() {
@@ -48,6 +51,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
     this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
     this.eventFooter.getElement().setInnerHTML("<div style=\"border-top:3px double #6694E3; width: 10px; margin: 0 auto;\"></div>");
+    roundedPanel.addStyleName(resStyle.roundedPanel());
   }
 
   @UiFactory

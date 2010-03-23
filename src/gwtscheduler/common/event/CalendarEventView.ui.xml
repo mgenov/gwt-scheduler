@@ -3,7 +3,10 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:c="urn:import:org.cobogw.gwt.user.client.ui">
 
+    
+    <ui:style field="resStyle" type='gwtscheduler.common.event.CalendarEventView.ResStyle' src="event.css"/>
     <ui:style field="res" src="event.css"/>
+
 
     <ui:style>
         .header {
@@ -19,6 +22,7 @@
         padding-left: 5px;
         cursor:default;
         overflow: hidden;
+        opacity:0.7;
         }
         .resizer {
         bottom:0;
@@ -26,6 +30,7 @@
         line-height:7px;
         position:absolute;
         width:100%;
+        opacity:0.7;
         }
         .rszricon {
         font-size:15px;
@@ -46,7 +51,6 @@
         .roundedPanel{
         background-color: #ABBFE0;
         overflow: hidden;
-        opacity:0.8;
         }
         .html{
         background-color: #E0ECFF;
