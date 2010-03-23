@@ -13,6 +13,7 @@ import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationIntervaUpdateHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeStartHandler;
 import gwtscheduler.common.event.Event;
+import gwtscheduler.common.event.EventClickHandler;
 import org.goda.time.MutableDateTime;
 
 import java.util.Date;
@@ -170,5 +171,11 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
         CalendarPresenter presenter = presenters.get(selectedPresenter);
         presenter.navigateToDateTime(selectedDate.toDateTime());
 
+  }
+
+  public void addEventClickHandler(EventClickHandler handler) {
+    for (CalendarPresenter presenter : presenters) {
+      presenter.addEventClickHandler(handler);
+    }
   }
 }

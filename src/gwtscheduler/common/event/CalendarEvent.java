@@ -20,11 +20,10 @@ import java.util.Arrays;
  * 
  * TODO: Fire event clicks
  * TODO: Update event interval
- * TODO: Move event when user clicks on it's header and starts dragging it
  *
  * @author Miroslav Genov (mgenov@gmail.com)
  */
-public class CalendarEvent implements Draggable, HasClickHandlers {
+public class CalendarEvent implements Draggable {
 
   public interface Display {
 
@@ -44,6 +43,8 @@ public class CalendarEvent implements Draggable, HasClickHandlers {
 
     HasClickHandlers getCloseBtn();
 
+    HasClickHandlers getBody();
+
     void setDescription(String description);
 
     void setHeaderColor(String headerColor);
@@ -54,11 +55,6 @@ public class CalendarEvent implements Draggable, HasClickHandlers {
 
     void setTextColor(String textColor);
   }
-
-  /**
-   * HandlerManager provides a notification mechanism for several events that are fired when user interacts with event.
-   */
-  private final HandlerManager eventHandler = new HandlerManager(null);
 
   /**
    * The original event that is holding model values and default event behaviour.
@@ -108,8 +104,14 @@ public class CalendarEvent implements Draggable, HasClickHandlers {
     display.getCloseBtn().addClickHandler(new ClickHandler(){
       @Override
       public void onClick(ClickEvent e) {
-
         eventBus.fireEvent(new CalendarEventDeleteEvent(event));
+      }
+    });
+    
+    display.getBody().addClickHandler(new ClickHandler(){
+      @Override
+      public void onClick(ClickEvent clickEvent) {
+        eventBus.fireEvent(new EventClickEvent(event, interval));
       }
     });
   }
@@ -197,26 +199,6 @@ public class CalendarEvent implements Draggable, HasClickHandlers {
 
   public String getEventTitle(){
     return event.getTitle();
-  }
-
-  /**
-   * Registers a new {@link com.google.gwt.event.dom.client.ClickHandler} to the current calendar event.
-   *
-   * @param handler the handler to be registered
-   * @return HandlerRegistration class that may be used for un-registering of the registered handler.
-   */
-  @Override
-  public HandlerRegistration addClickHandler(ClickHandler handler) {
-    return eventHandler.addHandler(ClickEvent.getType(), handler);
-  }
-
-  /**
-   * Fires event to the client classes that are having registered handlers for that instance of this event.
-   *
-   */
-  @Override
-  public void fireEvent(GwtEvent<?> event) {
-    eventHandler.fireEvent(event);
   }
 
   @Override

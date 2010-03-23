@@ -21,6 +21,7 @@
         padding-left: 5px;
         cursor:default;
         opacity:0.7;
+        height: 100%;
         }
         .resizer {
         bottom: 0;
