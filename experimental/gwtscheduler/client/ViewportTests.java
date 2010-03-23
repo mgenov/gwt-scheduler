@@ -1,6 +1,5 @@
 package gwtscheduler.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.*;
@@ -160,7 +159,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //          GWT.log("From column with title: " + event.getOldColumn().getTitle(), null);
 //          GWT.log("To column with title: " + event.getNewColumn().getTitle(), null);
 //          GWT.log("From time: " + event.getOldTime().toString(), null);
-//          GWT.log("To time: " + event.getNewTime().toString(), null);
+//          GWT.log("To time: " + event.getTime().toString(), null);
         } else if(o instanceof CalendarEvent) {
           CalendarEvent calendarEvent = (CalendarEvent)event.getDroppedObject();
           TeamTaskEvent teamEvent = (TeamTaskEvent)calendarEvent.getEvent();

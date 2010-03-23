@@ -179,4 +179,5 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
       presenter.addEventClickHandler(handler);
     }
   }
+  
 }

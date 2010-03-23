@@ -9,7 +9,7 @@ import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.common.events.DropObjectEvent;
+import gwtscheduler.client.widgets.view.common.events.CellDropEvent;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHandler;
@@ -320,8 +320,8 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       MoveObjectEvent moveObject = new MoveObjectEvent(oldCell, newCell, oldTime, newTime, event.getDroppedObject());
       eventBus.fireEvent(moveObject);
     } else {
-      DropObjectEvent dropObject = new DropObjectEvent(newCell, newTime, event.getDroppedObject());
-      eventBus.fireEvent(dropObject);
+      CellDropEvent cellDrop = new CellDropEvent(newCell, newTime, event.getDroppedObject());
+      eventBus.fireEvent(cellDrop);
     }
   }
 

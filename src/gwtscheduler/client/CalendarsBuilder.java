@@ -24,6 +24,8 @@ import org.goda.time.DateTime;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
 
+import java.util.Date;
+
 
 /**
  * Builds Calendars
