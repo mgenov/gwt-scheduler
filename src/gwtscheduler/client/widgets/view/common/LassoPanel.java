@@ -60,12 +60,12 @@ class LassoPanel extends AbstractGridOverlay implements HasLassoHandlers, MouseD
     super(new LassoContainer());
     addStyleName(Resources.dayWeekCss().lassoPanel());
 
-    lassoFactory = new GenericLassoElementFactory();
-    evtBus = AppInjector.GIN.getInjector().getEventBus();
+//    lassoFactory = new GenericLassoElementFactory();
+//    evtBus = AppInjector.GIN.getInjector().getEventBus();
 
-    addDomHandler(this, MouseDownEvent.getType());
-    addDomHandler(this, MouseUpEvent.getType());
-    addDomHandler(this, MouseMoveEvent.getType());
+//    addDomHandler(this, MouseDownEvent.getType());
+//    addDomHandler(this, MouseUpEvent.getType());
+//    addDomHandler(this, MouseMoveEvent.getType());
   }
 
   /**
