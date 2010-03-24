@@ -54,6 +54,11 @@ public class TeamTaskEvent implements Event, HasColors{
     return testTask.getDescription();  
   }
 
+  @Override
+  public boolean isEditable() {
+    return true;
+  }
+
   public void setColumn(CalendarColumn column) {
     this.column = column;
   }

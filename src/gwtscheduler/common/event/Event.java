@@ -35,8 +35,25 @@ public interface Event {
    */
   Object getColumnId();
 
+  /**
+   * Return unique ID for the event, by this id event can be recognized when updating, moving or deleting.
+   *
+   * @return unique ID of the event.
+   */
   String getEventId();
 
+  /**
+   * Return description for the event. This description will be showed in the body of the event.
+   *
+   * @return description for the event.
+   */
   String getDescription();
+
+  /**
+   * Tels if event can be editable or not. If set to false event can be moved and cant be resized.
+   *
+   * @return if event can be editable or not.
+   */
+  boolean isEditable();
 
 }

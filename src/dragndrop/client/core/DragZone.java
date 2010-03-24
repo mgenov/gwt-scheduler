@@ -174,5 +174,11 @@ public interface DragZone {
    */
   void makeDragZone(AbsolutePanel panel);
 
+  /**
+   * Add drop zone to the DragZone. All added drop zones will be first checked when someone dragged something over. If
+   * drop zone is not found, search continues this drop zone roopts.
+   * 
+   * @param dropZone add drop zone.
+   */
   void addDropZone(DropZone dropZone);
 }

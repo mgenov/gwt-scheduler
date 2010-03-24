@@ -187,9 +187,11 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   public void displayCaledarEvent(CalendarEvent calendarEvent) {
     Interval currentInterval = dateGenerator.interval();
     if(collisionDetector.isInCollision(calendarEvent.getInterval(),currentInterval)) {
-    dragZone.add(calendarEvent);
-    resizeHelper.attachResizeHelper(calendarEvent);
-    calendarEvent.go(display.asWidget());
+      if(calendarEvent.isEditable()){
+        dragZone.add(calendarEvent);
+        resizeHelper.attachResizeHelper(calendarEvent);
+      }
+      calendarEvent.go(display.asWidget());
     }
   }
 

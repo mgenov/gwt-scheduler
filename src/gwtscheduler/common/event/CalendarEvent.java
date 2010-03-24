@@ -251,4 +251,8 @@ public class CalendarEvent implements Draggable {
   public int[] getEndCellPosition() {
     return endCellPosition;
   }
+
+  public boolean isEditable(){
+    return event.isEditable();
+  }
 }
