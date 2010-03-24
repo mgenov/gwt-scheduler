@@ -2,6 +2,8 @@ package dragndrop.client.teamexample;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
 
@@ -55,5 +57,9 @@ public class Car implements Draggable {
   @Override
   public Widget getSourceWidget() {
     return (Widget)display;
+  }
+
+  public void go(HasWidgets carPanel) {
+    carPanel.add((Widget)display);
   }
 }

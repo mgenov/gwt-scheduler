@@ -244,11 +244,13 @@ class DragZoneImpl implements DragZone {
   /**
    * Register {@link dragndrop.client.core.Draggable} object.
    *
-   * @param draggable object.
+   * @param draggables objects.
    */
   @Override
-  public void add(Draggable draggable) {
-    add(draggable.getHasMouseDownHandler(), draggable);
+  public void add(Draggable... draggables) {
+    for (Draggable draggable : draggables) {
+      add(draggable.getHasMouseDownHandler(), draggable);
+    }
   }
 
   /**
@@ -267,11 +269,13 @@ class DragZoneImpl implements DragZone {
    * Add root who contains drop zones. This roots will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
    * fore more information.
    *
-   * @param root widget who implements HasWidgets.
+   * @param roots widget who implements HasWidgets.
    */
   @Override
-  public void addDropZoneRoot(HasWidgets root) {
-    hasDropZones.add(root);
+  public void addDropZoneRoot(HasWidgets... roots) {
+    for(HasWidgets root : roots) {
+      hasDropZones.add(root);
+    }
   }
 
 

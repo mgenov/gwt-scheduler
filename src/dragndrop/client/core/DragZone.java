@@ -109,7 +109,7 @@ public interface DragZone extends HasWidgets{
    *
    * @param draggable object.
    */
-  void add(Draggable draggable);
+  void add(Draggable... draggable);
 
   /**
    * Add widget to drag zone with given coordinates.
@@ -133,7 +133,7 @@ public interface DragZone extends HasWidgets{
    * 
    * @param root widget who implements HasWidgets.
    */
-  void addDropZoneRoot(HasWidgets root);
+  void addDropZoneRoot(HasWidgets... root);
 
   /**
    * Add list with roots that will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
