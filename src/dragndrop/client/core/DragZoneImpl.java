@@ -410,11 +410,13 @@ class DragZoneImpl implements DragZone {
    * Register DropZone. All registered drop zones is searched first when searching the DragZone. If drop zone is not found
    * in registered drop zones, search continue in registered drop zone roots.
    *
-   * @param dropZone add drop zone.
+   * @param dropZones add drop zone.
    */
   @Override
-  public void addDropZone(DropZone dropZone) {
-    dropZones.add(dropZone);
+  public void addDropZone(DropZone... dropZones) {
+    for (DropZone dropZone: dropZones) {
+      this.dropZones.add(dropZone);
+    }
   }
 
   /**

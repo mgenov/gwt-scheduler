@@ -17,21 +17,86 @@ import java.util.List;
  *
  * One simple example how this need to be used:
  *
+ * <p>
+ * Getting an instance.
+ * </p>
+ * <pre>
+ * DragZoneImpl.Display dragZoneDisplay = new DragZoneView();
+ * CursorStyleProvider cursorProvider = new CursorStyleProviderImpl();
+ *
+ * DragZoneImpl dragZone = new DragZoneImpl(dragZoneDisplay, cursorProvider);
+ * </pre>
+ *
  * <pre>
  * DraggableWidget draggableWidget = new DraggableWidget(); 
- * DraggablePresenter draggablePresenter = new DraggablePresenter(draggableWidget);
+ * DraggablePresenter draggablePresenter = new DraggablePresenter();
+ * </pre>
+ * <p>
+ * Registering draggable widgets can be performed in two ways.
+ * </p>
+ * <pre>
+ * HasMouseDownHandlers draggable = new Label(); // Label is only for example. You can add any widget who implements HasMouseDownHandlers.
+ * Object dropObject = draggable;                // dropped object can be any object you want to be droppe.
+ * dragZone.add(draggable, object);
  *
- * DropZone dropZone = new PresenterImplementsDropZone(new DisplayWidget());
+ * or
  *
- * VerticalPanel dropZonesPanel = new VerticalPanel();
- * verticalPanel.add(dropZone);
+ * Draggable draggable = new MyDraggableObject(); // any object who implements {@link Draggable} interface.
+ * Draggable secondDraggable = new MySecondDraggableObject();
+ * ....
+ * Draggable nDraggable = new MyNDraggableObject();
+ * dragZone.add(draggable, secondDraggable, ...., nDraggable);
+ * </pre>
+ * <p>
+ * Adding widgets to the drag zone.
+ * </p>
+ * <pre>
+ * dragZone.add(new Label());
  *
- * DragZone dragZone = Zones.getDragZone();
- * dragZone.add((HasMouseDownHandlers)draggableWidget, draggablePresenter);
+ * or
  *
- * dragZone.addDropZoneRoot(dropZonesPanel);
+ * dragZone.add(new Label(), 10, 20); // widget will be placed on drop zone on position 10 left and 20 top.
+ * </pre>
+ * <p>
+ * Adding drop zone roots. For more information how to use drop zone roots read in {@link dragndrop.client.core.Zones} documentation.
+ * </p>
+ * <pre>
+ * HasWidgets rootOne = new VerticalPanel(); // can be any widget who implements HasWidgets
+ * HasWidgets rootTwo = new HorizontalPanel();
+ * ......
+ * HasWidgets rootN = new AbsolutePanel();
+ * dropZone.addDropZoneRoot(rootOne, rootTwo, ...., rootN);
  *
- * dragZone.go(RootPanel.attachResizeHelper());
+ * or
+ * List<HasWidgets> roots = new ArrayList<HasWidgets>();
+ * roots.add(rootOne);
+ * roots.add(rootTwo);
+ * ......
+ * roots.add(rootN);
+ *
+ * dropZone.addDropZoneRoot(List<HasWidgets> roots);
+ * </pre>
+ * <p>
+ * Attaching dragZone to some panel. If dragZone don't have any attached widgets, or size is not set on drop zone, the drop zone will not be visible.
+ * </p>
+ * <pre>
+ * dragZone.go(RootPanel.get("DragZone"));
+ *
+ * or
+ * HasWidgets panel = new VerticalPanel(); // any panel that is instance of HasWidgets.
+ * dragZone.go(panel);
+ * </pre>
+ * <p>
+ * DragZone allow to be registered different frames for different dragged objects. Read more information on registerFrame(Frame frame, Class... clazz); method.
+ * </p>
+ * <pre>
+ * Frame frame = new MyFrame(); // MyFrame implements {@link dragndrop.client.core.Frame} interface. Frame will be used for next dragged objects.
+ * Object o = new Object();
+ * Object b = new Object();
+ * ....
+ * Object n = new Object();
+ *
+ * dragZone.registerFrame(frame, o, b, ....., n);
  * </pre>
  *
  * Every given widget is wrapped by another widget who is dragged over drag area. If widget is attached to another
@@ -229,7 +294,7 @@ public interface DragZone extends HasWidgets{
    * 
    * @param dropZone add drop zone.
    */
-  void addDropZone(DropZone dropZone);
+  void addDropZone(DropZone... dropZone);
 
   /**
    * Register {@link dragndrop.client.core.DragStartHandler}. This handler handle {@link dragndrop.client.core.DragStartEvent}.
