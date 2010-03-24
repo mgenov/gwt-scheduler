@@ -5,6 +5,8 @@ import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * Default dragged frame over drag zone.
+ * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 class DragFrame implements Frame {
@@ -25,17 +27,17 @@ class DragFrame implements Frame {
   }
 
   public void setFrameStyle(String styleName){
-    display.setStyle(styleName);
+    display.setStyleName(styleName);
   }
 
   @Override
   public int getHeight() {
-    return display.getHeight();
+    return display.getOffsetHeight();
   }
 
   @Override
   public int getWidth() {
-    return display.getWidth();
+    return display.getOffsetWidth();
   }
 
   public void captureFrame() {
@@ -48,12 +50,12 @@ class DragFrame implements Frame {
 
   @Override
   public void setWidth(int frameWidth) {
-    display.setWidth(frameWidth);
+    display.setWidth(frameWidth + "px");
   }
 
   @Override
   public void setHeight(int frameHeight) {
-    display.setHeight(frameHeight);
+    display.setHeight(frameHeight + "px");
   }
 
   @Override

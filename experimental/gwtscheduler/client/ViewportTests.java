@@ -138,8 +138,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 //    VerticalPanel testPanel = new VerticalPanel();
 //    testPanel.add(new Label("Wazaaaap"));
-//    dragZone.addWidget(testPanel);
-    dragZone.addWidget(mainPanel);
+//    dragZone.add(testPanel);
+    dragZone.add(mainPanel);
     dragZone.go(RootPanel.get());
 //    dragZone.go(testPanel);
 //    RootPanel.attachResizeHelper().add(testPanel);

@@ -3,8 +3,10 @@ package dragndrop.client.teamexample;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.DragZone;
+import dragndrop.client.core.Draggable;
 import dragndrop.client.core.DropEvent;
 import dragndrop.client.core.DropHandler;
 import dragndrop.client.core.DropZone;
@@ -15,7 +17,7 @@ import java.util.List;
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
-public class Team {
+public class Team implements Draggable{
   public interface Display extends DropZone {
     HasText getTeamName();
 
@@ -49,10 +51,6 @@ public class Team {
     });
   }
 
-  public void setTeamName(String teamName){
-    display.getTeamName().setText(teamName);
-  }
-
   public String getTeamName(){
     return display.getTeamName().getText();
   }
@@ -75,11 +73,32 @@ public class Team {
     return trucks;
   }
 
-  public void go(DragZone dragZone) {
-    dragZone.add((HasMouseDownHandlers)display, this);
+  @Override
+  public HasMouseDownHandlers getHasMouseDownHandler() {
+    return (HasMouseDownHandlers)display;
   }
 
-  public void go(HasWidgets widget){
-    widget.add((Widget)display);
+  @Override
+  public Object getDropObject() {
+    return this;
+  }
+
+  @Override
+  public int getWidth() {
+    return 50;
+  }
+
+  @Override
+  public int getHeight() {
+    return 50;
+  }
+
+  @Override
+  public Widget getSourceWidget() {
+    return (Widget)display;
+  }
+
+  public void go(HasWidgets teamPanel) {
+    teamPanel.add((Widget)display);
   }
 }

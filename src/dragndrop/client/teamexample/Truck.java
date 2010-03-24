@@ -7,6 +7,8 @@ import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.DragZone;
 
 /**
+ * Example when presenter is not registered like draggable.
+ * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class Truck {

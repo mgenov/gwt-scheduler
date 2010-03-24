@@ -10,7 +10,7 @@ package dragndrop.client.core;
  *  DragZone dragZone = Zones.getDragZone();
  * </pre>
  * <p>
- * Make object draggable. There is two ways. To implements Draggable interface, or to implements HasMouseDownHandler interface.
+ * Make object draggable. There are two ways. To implements Draggable interface, or to implements HasMouseDownHandler interface.
  * If you use Draggable interface you have more flexibility.
  * </p>
  * <pre>
@@ -18,26 +18,50 @@ package dragndrop.client.core;
  *  dragZone.add(HasMouseDownHandlers, Object dropThisObject);
  * </pre>
  * <p>
- * Add root where drop zones to be searched. All elements in the list will be iterated and all child's on HasWidgets elements will be
- * iterated during search DropZone. If you have some Widget in the tail who doesn't implements HasWidgets interface
- * (something like Composite) the search finished at this widget and widgets attached to him is not searched for drop zones.
+ * Add root where drop zones to be searched. All added dropZones will be iterated and all child's on HasWidgets elements will be
+ * iterated during searching the DropZone. If you have some Widget in the tail who doesn't implements HasWidgets interface
+ * (something like Composite) the search finish at this widget and widgets attached to him is not searched for drop zones.
  * So make all widgets in tail to implements HasWidgets interface.
+ *
+ * For example:
+ * In this case DropZone will be found.
+ * <pre>
+ *  HasWidgets
+ *       |--------HasWidgets
+ *       |            |---------HasWidgets
+ *       |                          |----------DropZone
+ *       |--------HasWidgets
+ *                    |.....
+ * </pre>
+ * But in next example DropZone will not be found.
+ * <pre>
+ *  HasWidgets
+ *       |--------HasWidgets
+ *       |            |---------Composite
+ *       |                          |-----X----DropZone
+ *       |--------HasWidgets
+ *                    |.....
+ * </pre>
  * </p>
  * <pre>
- *  dragZone.addDropZoneRoot(HasWidgets);
+ *  HasWidgets root = ...
+ *  dragZone.addDropZoneRoot(root);
+ *
+ *  List<HasWidgets> roots = ...
+ *  dragZone.addDropZoneRoot(roots);
  * </pre>
  * <p>
  * Attach something to drag zone. Drag zone is good to be positioned on the back of all widgets. Dragged frame
- * is positioned on the drag zone.
+ * is placed on the drag zone.
  * </p>
  * <pre>
- *  dragZone.addWidget(mainPanel);
+ *  dragZone.add(mainPanel);
  * </pre>
  * <p>
- * You must attach drag zone somewhere do make it visible.
+ * You must attach drag zone somewhere to make it visible.
  * </p>
  * <pre>
- *  dragZone.go(RootPanel.attachResizeHelper());
+ *  dragZone.go(RootPanel.get("dragPanel"));
  * </pre>
  * <p>
  * By default for all dragged widgets used default frame. You can create your own draggable frame by implementing Frame interface and add it when the drag zone is created.
@@ -56,30 +80,76 @@ package dragndrop.client.core;
 public class Zones {
   public static final CursorStyleProvider cursorProvider = new CursorStyleProviderImpl();
 
+  /**
+   * Construct DragZone with default drag {@link dragndrop.client.core.Frame}.
+   * 
+   * @return new DragZone instance.
+   */
   public static DragZone getDragZone(){
     return getDragZone(getDragFrame());
   }
 
+  /**
+   * Construct DragZone with custom {@link dragndrop.client.core.Frame}. This frame is used as default frame.
+   *
+   * @param frame used as default frame.
+   * @return new DragZone instance.
+   */
   public static DragZone getDragZone(Frame frame){
     return getDragZone(frame, cursorProvider);
   }
 
+  /**
+   * Construct DragZone with custom {@link dragndrop.client.core.CursorStyleProvider}. This provider provides different
+   * cursor styles.
+   *
+   * @param cursorProvider used for changing cursor style for different events.
+   * @return new DragZone instance.
+   */
+  public static DragZone getDragZone(CursorStyleProvider cursorProvider){
+    return getDragZone(getDragFrame(), cursorProvider);
+  }
+
+  /**
+   * Construct DragZone with custom {@link dragndrop.client.core.Frame} and custom {@link dragndrop.client.core.CursorStyleProvider}.
+   * Frame is used as default frame. CursorStyleProvider is used for changing cursor styles for different events.
+   * 
+   * @param frame used as default frame.
+   * @param cursorProvider used for changing cursor style for different events.
+   * @return new DragZone instance.
+   */
   public static DragZone getDragZone(Frame frame, CursorStyleProvider cursorProvider){
     DragZoneImpl dragZone = new DragZoneImpl(frame, cursorProvider);
     dragZone.bindDisplay(new DragZoneView());
     return dragZone;
   }
 
+  /**
+   * Construct default {@link dragndrop.client.core.Frame}. Instance of this frame is used as default frame for dragging.
+   *
+   * @return new Frame instance.
+   */
   public static Frame getDragFrame(){
     return getDragFrame(getFrameDisplay());
   }
 
+  /**
+   * Construct {@link dragndrop.client.core.Frame} with custom frame widget.
+   *
+   * @param display used for a frame view.
+   * @return new Frame instance bind to custom widget.
+   */
   public static Frame getDragFrame(Frame.Display display){
     DragFrame frame = new DragFrame();
     frame.bindDisplay(display);
     return frame;
   }
 
+  /**
+   * Construct default {@link dragndrop.client.core.Frame.Display} widget.
+   * 
+   * @return new Frame.Display widget.
+   */
   public static Frame.Display getFrameDisplay(){
     return new DragFrameWidget();
   }

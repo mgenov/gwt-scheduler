@@ -13,7 +13,7 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   private Label frame = new Label();
   private String style = "border: 1px dotted;";
 
-  public DragFrameWidget() {
+  DragFrameWidget() {
     initWidget(frame);
 
     frame.getElement().setAttribute("style", style);
@@ -30,11 +30,6 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   }
 
   @Override
-  public void setStyle(String styleName) {
-    frame.setStyleName(styleName);
-  }
-
-  @Override
   public void capture() {
     DOM.setCapture(frame.getElement());
   }
@@ -42,26 +37,6 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   @Override
   public void release() {
     DOM.releaseCapture(frame.getElement());
-  }
-
-  @Override
-  public int getHeight() {
-    return frame.getOffsetHeight();
-  }
-
-  @Override
-  public int getWidth() {
-    return frame.getOffsetWidth();
-  }
-
-  @Override
-  public void setWidth(int width) {
-    frame.setWidth(width + "px");
-  }
-
-  @Override
-  public void setHeight(int height) {
-    frame.setHeight(height + "px");
   }
 
   @Override

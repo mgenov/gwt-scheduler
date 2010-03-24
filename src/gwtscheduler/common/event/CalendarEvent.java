@@ -5,16 +5,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
 import gwtscheduler.client.modules.EventBus;
 import org.goda.time.Interval;
-
-import java.util.Arrays;
 
 /**
  *  Represents Event that is added in the scheduler and is involved in different manipulations
@@ -181,7 +176,7 @@ public class CalendarEvent implements Draggable {
    * GWT code doesn't provide an interface that wraps the AbsolutePanel method's such as
    * HasWidgets interface of all widgets that are having child widgets.
    * <p/>
-   * To re-size the existing event you have to call <code>setSize</code> method.
+   * To re-size the existing event you have to call <code>setPixelSize</code> method.
    *
    * <p/>The event is attached to the absolute panel by using it's current {@link gwtscheduler.common.event.EventPosition} attribute.
    * 

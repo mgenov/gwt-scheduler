@@ -4,16 +4,14 @@ import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * When some object implements this interface, object is draggable and can have more extras for manipulation. If someone
- * want to drag and drop only widgets he don't need to implements this interface. (But its good to implement). In case
- * dragged object need to have place where can be dragged (for example header on the window) this interface must be
- * implemented. Dropped object can be any object that will be dropped.
+ * When some object implements this interface, object became draggable and can have more extras for manipulation. If someone
+ * want to drag and drop only widgets he don't need to implements this interface.
  *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public interface Draggable {
   /**
-   * Returns object that is instance of HasMOuseDownHandlers. This object will be used for dragging.
+   * Returns object that is instance of HasMOuseDownHandlers. On this object is attached MouseDownHandler and dragging starts.
    *
    * @return HasMouseDownHandlers.
    */
@@ -22,19 +20,19 @@ public interface Draggable {
   /**
    * Object thet will be dropped when drag stops.
    *
-   * @return
+   * @return drop object.
    */
   Object getDropObject();
 
   /**
-   * Get width of the frame that will be dragged.
+   * Get width on the dragged object. This value is set for width on dragged frame.
    *
    * @return preferred frame width.
    */
   int getWidth();
 
   /**
-   * Get height of the frame that will be dragged.
+   * Get height on dragged object. This value is set for height on the dragged frame.
    *
    * @return preferred frame height.
    */
