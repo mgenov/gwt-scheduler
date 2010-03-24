@@ -3,7 +3,6 @@ package gwtscheduler.client;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.views.MainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
@@ -145,7 +144,7 @@ public class GwtScheduler implements MainView, BeforeSelectionHandler<Integer> {
     }
   }
 
-  public void addEvent(TeamTaskEvent event) {
+  public void addEvent(Event event) {
     CalendarPresenter presenter = presenters.get(selectedPresenter);
     presenter.addCalendarEvent(event);
   }

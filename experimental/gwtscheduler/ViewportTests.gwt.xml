@@ -5,6 +5,8 @@
 <module>
 
     <inherits name="datepickernavigation.DatePickerNavigation"/>
+    <!-- Useful for rond corners -->
+   	<inherits name='org.cobogw.gwt.user.User' />
     
     <inherits name='gwtscheduler.Calendar'/>
     <inherits name="com.google.gwt.junit.JUnit"/>

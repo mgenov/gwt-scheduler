@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.weekcolumns;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
+import gwtscheduler.common.event.DurationInterval;
 import org.goda.time.DateTime;
 import org.goda.time.Interval;
 import org.goda.time.Period;
@@ -65,8 +66,8 @@ public class WeekDaysColumnsProvider implements CalendarColumnsProvider {
    * @param columns the list of columns
    */
   @Override
-  public void updateColumns(Interval interval, List<CalendarColumn> columns) {
-    DateTime current = interval.getStart();
+  public void updateColumns(DurationInterval interval, List<CalendarColumn> columns) {
+    DateTime current = new DateTime(interval.getStart().getTime());
     for (CalendarColumn column : columns) {
       column.setObject(current);
       current = current.plusDays(1);

@@ -2,6 +2,7 @@ package gwtscheduler.client;
 
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
+import gwtscheduler.common.event.DurationInterval;
 import gwtscheduler.common.event.Event;
 import org.goda.time.Interval;
 
@@ -34,7 +35,7 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
   }
 
   @Override
-  public void updateColumns(Interval interval, List<CalendarColumn> columns) {
+  public void updateColumns(DurationInterval interval, List<CalendarColumn> columns) {
 //    DateTime current = interval.getStart();
 //    for (CalendarColumn column : columns) {
 //      column.setObject(current);

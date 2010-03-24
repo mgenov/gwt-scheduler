@@ -21,7 +21,7 @@
 	<inherits name='org.goda.Goda' />
 
 	<!-- Useful for rond corners -->    
-   	<inherits name='org.cobogw.gwt.user.User' />
+   	<!--<inherits name='org.cobogw.gwt.user.User' />-->
    	
    	<!--
    	<inherits name='com.google.gwt.user.theme.standard.Standard'/> 
@@ -29,7 +29,7 @@
    	<inherits name='com.google.gwt.user.theme.standard.StandardResources'/>
    	<inherits name="com.google.gwt.inject.Inject"/>
     <inherits name="dragndrop.DragNDrop"/>
-    <inherits name="gwtscheduler.ViewportTests"/>
+    <!--<inherits name="gwtscheduler.ViewportTests"/>-->
 
     <!--
          <inherits name="com.google.gwt.libideas.ImmutableResources" />
