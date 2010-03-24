@@ -100,6 +100,17 @@ public class Zones {
   }
 
   /**
+   * Construct DragZone with custom {@link dragndrop.client.core.CursorStyleProvider}. This provider provides different
+   * cursor styles.
+   *
+   * @param cursorProvider used for changing cursor style for different events.
+   * @return new DragZone instance.
+   */
+  public static DragZone getDragZone(CursorStyleProvider cursorProvider){
+    return getDragZone(getDragFrame(), cursorProvider);
+  }
+
+  /**
    * Construct DragZone with custom {@link dragndrop.client.core.Frame} and custom {@link dragndrop.client.core.CursorStyleProvider}.
    * Frame is used as default frame. CursorStyleProvider is used for changing cursor styles for different events.
    * 

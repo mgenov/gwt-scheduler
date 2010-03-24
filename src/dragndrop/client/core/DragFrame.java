@@ -5,6 +5,8 @@ import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * Default dragged frame over drag zone.
+ * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 class DragFrame implements Frame {

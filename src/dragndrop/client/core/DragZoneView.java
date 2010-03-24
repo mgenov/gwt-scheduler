@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -20,7 +21,7 @@ class DragZoneView extends Composite implements DragZone.Display {
   private AbsolutePanel absolutePanel = new AbsolutePanel();
   private Widget dragWidget;
 
-  public DragZoneView() {
+  DragZoneView() {
     initWidget(absolutePanel);
   }
 
@@ -156,6 +157,11 @@ class DragZoneView extends Composite implements DragZone.Display {
   @Override
   public void changeAbsolutePanel(AbsolutePanel panel) {
     absolutePanel = panel;
+  }
+
+  @Override
+  public HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+    return addHandler(handler, DragStartEvent.TYPE);
   }
 
   @Override

@@ -13,7 +13,7 @@ class DragFrameWidget extends Composite implements DragFrame.Display{
   private Label frame = new Label();
   private String style = "border: 1px dotted;";
 
-  public DragFrameWidget() {
+  DragFrameWidget() {
     initWidget(frame);
 
     frame.getElement().setAttribute("style", style);
