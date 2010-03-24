@@ -128,7 +128,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, null).named("Teams").build())
             .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build()).build();
 
-    dragZone.addDropZoneRoot((HasWidgets) main.asWidget());
+    dragZone.addDropZoneContainer((HasWidgets) main.asWidget());
 
     VerticalPanel mainPanel = new VerticalPanel();
 //    mainPanel.makeDraggable(dropRoot);

@@ -13,68 +13,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This interface represents Object that care about dragging widgets and dropping object over drop zones.
- *
- * One simple example how this need to be used:
- *
+ * This interface represents Object that care about dragging widgets and dropping objects over drop zones.
  * <p>
- * Getting an instance.
+ * Getting an instance. Getting an instance of drop zone can be made by {@link dragndrop.client.core.Zones}.
+ * Read {@link dragndrop.client.core.Zones} for more details about getting instance of DropZone. 
  * </p>
  * <pre>
- * DragZoneImpl.Display dragZoneDisplay = new DragZoneView();
- * CursorStyleProvider cursorProvider = new CursorStyleProviderImpl();
- *
- * DragZoneImpl dragZone = new DragZoneImpl(dragZoneDisplay, cursorProvider);
- * </pre>
- *
- * <pre>
- * DraggableWidget draggableWidget = new DraggableWidget(); 
- * DraggablePresenter draggablePresenter = new DraggablePresenter();
+ * DragZone dropZone = Zones.getDragZone();
  * </pre>
  * <p>
- * Registering draggable widgets can be performed in two ways.
+ * There is two approaches for registering draggable widgets. First approach register any object who implements
+ * {@link com.google.gwt.event.dom.client.HasMouseDownHandlers}.
  * </p>
  * <pre>
  * HasMouseDownHandlers draggable = new Label(); // Label is only for example. You can add any widget who implements HasMouseDownHandlers.
- * Object dropObject = draggable;                // dropped object can be any object you want to be droppe.
+ * Object dropObject = draggable;                // dropped object can be any object you want to be dropped.
  * dragZone.add(draggable, object);
- *
- * or
- *
- * Draggable draggable = new MyDraggableObject(); // any object who implements {@link Draggable} interface.
+ * </pre>
+ * <p>
+ * Second approach register any object who implements {@link dragndrop.client.core.Draggable} interface. Method for
+ * registering Draggable objects can accept unlimited number of draggable objects.
+ * </p>
+ * <pre>
+ * Draggable draggable = new MyDraggableObject();
  * Draggable secondDraggable = new MySecondDraggableObject();
  * ....
  * Draggable nDraggable = new MyNDraggableObject();
  * dragZone.add(draggable, secondDraggable, ...., nDraggable);
  * </pre>
  * <p>
- * Adding widgets to the drag zone.
+ * Widgets can be added directly to the drag zone without setting position on the drag zone panel or added on specific
+ * position on the panel.
  * </p>
  * <pre>
- * dragZone.add(new Label());
- *
- * or
- *
- * dragZone.add(new Label(), 10, 20); // widget will be placed on drop zone on position 10 left and 20 top.
+ * dragZone.add(new Label());         // attach widget directly on the panel with default coordinates.
+ * dragZone.add(new Label(), 10, 20); // attach widget on drop zone on position 10 left and 20 top.
  * </pre>
  * <p>
- * Adding drop zone roots. For more information how to use drop zone roots read in {@link dragndrop.client.core.Zones} documentation.
+ * Adding drop zone containers. For more information how to use drop zone containers read in {@link dragndrop.client.core.Zones} documentation.
+ * There is two approaches for adding DropZone containers. 
  * </p>
  * <pre>
- * HasWidgets rootOne = new VerticalPanel(); // can be any widget who implements HasWidgets
- * HasWidgets rootTwo = new HorizontalPanel();
+ * HasWidgets containerOne = new VerticalPanel(); // can be any widget who implements HasWidgets
+ * HasWidgets containerTwo = new HorizontalPanel();
  * ......
- * HasWidgets rootN = new AbsolutePanel();
- * dropZone.addDropZoneRoot(rootOne, rootTwo, ...., rootN);
+ * HasWidgets containerN = new AbsolutePanel();
+ * dropZone.addDropZoneContainer(containerOne, containerTwo, ...., containerN);
  *
  * or
- * List<HasWidgets> roots = new ArrayList<HasWidgets>();
- * roots.add(rootOne);
- * roots.add(rootTwo);
- * ......
- * roots.add(rootN);
  *
- * dropZone.addDropZoneRoot(List<HasWidgets> roots);
+ * List<HasWidgets> containers = new ArrayList<HasWidgets>();
+ * roots.add(containerOne);
+ * roots.add(containerTwo);
+ * ......
+ * roots.add(containerN);
+ *
+ * dropZone.addDropZoneContainer(containers);
  * </pre>
  * <p>
  * Attaching dragZone to some panel. If dragZone don't have any attached widgets, or size is not set on drop zone, the drop zone will not be visible.
@@ -83,6 +77,7 @@ import java.util.List;
  * dragZone.go(RootPanel.get("DragZone"));
  *
  * or
+ *
  * HasWidgets panel = new VerticalPanel(); // any panel that is instance of HasWidgets.
  * dragZone.go(panel);
  * </pre>
@@ -193,20 +188,20 @@ public interface DragZone extends HasWidgets{
   void setFrameStyle(String styleName);
 
    /**
-   * Add root who contains drop zones. This roots will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
+   * Add container who contains drop zones. This container will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
    * fore more information.
    * 
-   * @param root widget who implements HasWidgets.
+   * @param container widget who implements HasWidgets.
    */
-  void addDropZoneRoot(HasWidgets... root);
+  void addDropZoneContainer(HasWidgets... container);
 
   /**
-   * Add list with roots that will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
+   * Add list with containers that will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
    * fore more information.
    *
-   * @param roots list with widgets who implements HasWidgets.
+   * @param containers list with widgets who implements HasWidgets.
    */
-  void addDropZoneRoot(List<HasWidgets> roots);
+  void addDropZoneContainer(List<HasWidgets> containers);
 
    /**
    * Set size for a drop zone.
