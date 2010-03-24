@@ -266,28 +266,28 @@ class DragZoneImpl implements DragZone {
   }
 
   /**
-   * Add root who contains drop zones. This roots will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
+   * Add container who contains drop zones. This containers will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
    * fore more information.
    *
-   * @param roots widget who implements HasWidgets.
+   * @param containers widget who implements HasWidgets.
    */
   @Override
-  public void addDropZoneRoot(HasWidgets... roots) {
-    for(HasWidgets root : roots) {
-      hasDropZones.add(root);
+  public void addDropZoneContainer(HasWidgets... containers) {
+    for(HasWidgets container : containers) {
+      hasDropZones.add(container);
     }
   }
 
 
   /**
-   * Add list with roots that will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
+   * Add list with containers that will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
    * fore more information.
    *
-   * @param roots list with widgets who implements HasWidgets.
+   * @param containers list with widgets who implements HasWidgets.
    */
   @Override
-  public void addDropZoneRoot(List<HasWidgets> roots) {
-    hasDropZones.addAll(roots);
+  public void addDropZoneContainer(List<HasWidgets> containers) {
+    hasDropZones.addAll(containers);
   }
 
   /**

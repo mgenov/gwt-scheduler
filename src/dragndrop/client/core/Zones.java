@@ -18,7 +18,7 @@ package dragndrop.client.core;
  *  dragZone.add(HasMouseDownHandlers, Object dropThisObject);
  * </pre>
  * <p>
- * Add root where drop zones to be searched. All added dropZones will be iterated and all child's on HasWidgets elements will be
+ * Add container where drop zones to be searched. All added containers will be iterated and all child's on HasWidgets elements will be
  * iterated during searching the DropZone. If you have some Widget in the tail who doesn't implements HasWidgets interface
  * (something like Composite) the search finish at this widget and widgets attached to him is not searched for drop zones.
  * So make all widgets in tail to implements HasWidgets interface.
@@ -26,7 +26,7 @@ package dragndrop.client.core;
  * For example:
  * In this case DropZone will be found.
  * <pre>
- *  HasWidgets
+ *  HasWidgets     <--- DropZone Container
  *       |--------HasWidgets
  *       |            |---------HasWidgets
  *       |                          |----------DropZone
@@ -44,11 +44,11 @@ package dragndrop.client.core;
  * </pre>
  * </p>
  * <pre>
- *  HasWidgets root = ...
- *  dragZone.addDropZoneRoot(root);
+ *  HasWidgets container = ...
+ *  dragZone.addDropZoneContainer(container);
  *
- *  List<HasWidgets> roots = ...
- *  dragZone.addDropZoneRoot(roots);
+ *  List<HasWidgets> containers = ...
+ *  dragZone.addDropZoneContainer(containers);
  * </pre>
  * <p>
  * Attach something to drag zone. Drag zone is good to be positioned on the back of all widgets. Dragged frame
@@ -71,9 +71,10 @@ package dragndrop.client.core;
  * </pre>
  * </p>
  *
- * When dragged frame enter in drop zone DragInEvent is fired to DropZone and when dragged frame exit from drop zone DragOutEvent is fired.
+ * When dragged frame enter in drop zone DragInEvent is fired to {@link dragndrop.client.core.DropZone} and when dragged frame exit from drop zone DragOutEvent is fired.
  * While the frame is dragging over the drop zone DragOverEvent is fired all the time. When frame is dropped over the drop zone,
  * DropEvent is fired to the drop zone.
+ * Read {@link dragndrop.client.core.DropZone} for more information how to use drop zones.
  * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
