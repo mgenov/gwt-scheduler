@@ -10,7 +10,7 @@ package dragndrop.client.core;
  *  DragZone dragZone = Zones.getDragZone();
  * </pre>
  * <p>
- * Make object draggable. There is two ways. To implements Draggable interface, or to implements HasMouseDownHandler interface.
+ * Make object draggable. There are two ways. To implements Draggable interface, or to implements HasMouseDownHandler interface.
  * If you use Draggable interface you have more flexibility.
  * </p>
  * <pre>
@@ -18,26 +18,46 @@ package dragndrop.client.core;
  *  dragZone.add(HasMouseDownHandlers, Object dropThisObject);
  * </pre>
  * <p>
- * Add root where drop zones to be searched. All elements in the list will be iterated and all child's on HasWidgets elements will be
- * iterated during search DropZone. If you have some Widget in the tail who doesn't implements HasWidgets interface
- * (something like Composite) the search finished at this widget and widgets attached to him is not searched for drop zones.
+ * Add root where drop zones to be searched. All added dropZones will be iterated and all child's on HasWidgets elements will be
+ * iterated during searching the DropZone. If you have some Widget in the tail who doesn't implements HasWidgets interface
+ * (something like Composite) the search finish at this widget and widgets attached to him is not searched for drop zones.
  * So make all widgets in tail to implements HasWidgets interface.
+ *
+ * For example:
+ * In this case DropZone will be found.
+ * <pre>
+ *  HasWidgets
+ *       |--------HasWidgets
+ *       |            |---------HasWidgets
+ *       |                          |----------DropZone
+ *       |--------HasWidgets
+ *                    |.....
+ * </pre>
+ * But in next example DropZone will not be found.
+ * <pre>
+ *  HasWidgets
+ *       |--------HasWidgets
+ *       |            |---------Composite
+ *       |                          |-----X----DropZone
+ *       |--------HasWidgets
+ *                    |.....
+ * </pre>
  * </p>
  * <pre>
  *  dragZone.addDropZoneRoot(HasWidgets);
  * </pre>
  * <p>
  * Attach something to drag zone. Drag zone is good to be positioned on the back of all widgets. Dragged frame
- * is positioned on the drag zone.
+ * is placed on the drag zone.
  * </p>
  * <pre>
  *  dragZone.addWidget(mainPanel);
  * </pre>
  * <p>
- * You must attach drag zone somewhere do make it visible.
+ * You must attach drag zone somewhere to make it visible.
  * </p>
  * <pre>
- *  dragZone.go(RootPanel.attachResizeHelper());
+ *  dragZone.go(RootPanel.get("dragPanel"));
  * </pre>
  * <p>
  * By default for all dragged widgets is used default frame. You can make you own draggable frame to be used for all draggable widgets.

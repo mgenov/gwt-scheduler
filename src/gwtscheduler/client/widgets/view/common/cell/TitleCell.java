@@ -10,7 +10,8 @@ public class TitleCell extends DayCell {
 
   /**
    * Creates a new label.
-   * @param id the cell id
+   * @param row the cell row
+   * @param col the cell col
    * @param label the label
    */
   public TitleCell(int row, int col, String label) {

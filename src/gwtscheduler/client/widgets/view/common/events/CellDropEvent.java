@@ -5,6 +5,8 @@ import gwtscheduler.client.widgets.view.common.events.CellDropHandler;
 import org.goda.time.Instant;
 
 /**
+ * Fired when something is dropped on the cell.
+ *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class CellDropEvent extends GwtEvent<CellDropHandler> {
