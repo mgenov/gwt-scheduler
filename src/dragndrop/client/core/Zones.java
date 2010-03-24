@@ -40,15 +40,15 @@ package dragndrop.client.core;
  *  dragZone.go(RootPanel.attachResizeHelper());
  * </pre>
  * <p>
- * By default for all dragged widgets is used default frame. You can make you own draggable frame to be used for all draggable widgets.
- * You frame just need to implements Frame interface.
+ * By default for all dragged widgets used default frame. You can create your own draggable frame by implementing Frame interface and add it when the drag zone is created.
  * <pre>
- * DragZone dragZone = Zones.getDragZone(Frame);
+ * Frame frame = new MyFrame(); // MyFrame implements Frame
+ * DragZone dragZone = Zones.getDragZone(frame);
  * </pre>
  * </p>
  *
  * When dragged frame enter in drop zone DragInEvent is fired to DropZone and when dragged frame exit from drop zone DragOutEvent is fired.
- * All time when frame is dragged over drop zone DragOverEvent is fired. When something is dropped over drop zone,
+ * While the frame is dragging over the drop zone DragOverEvent is fired all the time. When frame is dropped over the drop zone,
  * DropEvent is fired to the drop zone.
  * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
