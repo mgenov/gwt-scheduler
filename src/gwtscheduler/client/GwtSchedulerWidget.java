@@ -60,7 +60,6 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
   public void add(CalendarPresenter.Display display, String title) {
     TabPanelContainer container = new TabPanelContainer();
     container.add((Widget) display);
-
     tabsPanel.add(container, title);
   }
 
