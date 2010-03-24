@@ -103,14 +103,7 @@ class DragZoneView extends Composite implements DragZone.Display {
 
   @Override
   public void dropTo(DropZone dropZone, Widget sourceWidget, Object dropObject, int startX, int startY, int endX, int endY) {
-    DropEvent dropEvent = new DropEvent(sourceWidget, dropObject);
-
-    dropEvent.setStartX(startX);
-    dropEvent.setStartY(startY);
-
-    dropEvent.setEndX(endX);
-    dropEvent.setEndY(endY);
-
+    DropEvent dropEvent = new DropEvent(sourceWidget, dropObject, new int[]{startX, startY}, new int[]{endX, endY});
     fireEvent(dropZone, dropEvent);
   }
 
@@ -120,24 +113,14 @@ class DragZoneView extends Composite implements DragZone.Display {
   }
 
   @Override
-  public void setSize(int width, int height) {
-    absolutePanel.setPixelSize(width, height);
-  }
-
-  @Override
   public void setSize(String width, String height){
     absolutePanel.setWidth(width);
     absolutePanel.setHeight(height);
   }
 
   @Override
-  public void addWidget(Widget widget) {
-    absolutePanel.add(widget);
-  }
-
-  @Override
-  public void removeWidget(Widget widget) {
-    absolutePanel.remove(widget);
+  public boolean removeWidget(Widget widget) {
+    return absolutePanel.remove(widget);
   }
 
   @Override

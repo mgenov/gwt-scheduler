@@ -30,17 +30,17 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
 
   @Override
   public void setFrameStyle(String styleName) {
-    display.setStyle(styleName);
+    display.setStyleName(styleName);
   }
 
   @Override
   public int getHeight() {
-    return display.getHeight();
+    return display.getOffsetHeight();
   }
 
   @Override
   public int getWidth() {
-    return display.getWidth();
+    return display.getOffsetWidth();
   }
 
   @Override
@@ -55,12 +55,12 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
 
   @Override
   public void setWidth(int width) {
-    display.setWidth(width);
+    display.setWidth(width + "px");
   }
 
   @Override
   public void setHeight(int height) {
-    display.setHeight(height);
+    display.setHeight(height + "px");
   }
 
   @Override

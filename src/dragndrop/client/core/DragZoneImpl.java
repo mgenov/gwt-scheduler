@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -216,21 +217,23 @@ class DragZoneImpl implements DragZone {
   }
 
   /**
-   * Add MouseDownHandler on given widget and register object that need to be dropped over drop zone when drag stops.
+   * Register widget who have HasMouseDownHandlers and object that be dropped when dragging stops over a drop zone. This
+   * method register MouseDownHandler to HasMouseDownHandlers widget. Also registers and object who is dropped when drag
+   * stops over drop zone and mouse button is up.
    *
-   * @param widget to attach mouse down handler.
-   * @param o      object who will be dropped over drop zone.
+   * @param widget who is dragged.
+   * @param object who is dropped when drag stops over drop zone.
    */
   @Override
-  public void add(HasMouseDownHandlers widget, Object o) {
-    draggingRegister.put(widget, o);
+  public void add(HasMouseDownHandlers widget, Object object) {
+    draggingRegister.put(widget, object);
     registerDraggable(widget);
   }
 
   /**
-   * Add draggable element.
+   * Register {@link dragndrop.client.core.Draggable} object.
    *
-   * @param draggable draggable element.
+   * @param draggable object.
    */
   @Override
   public void add(Draggable draggable) {
@@ -245,23 +248,13 @@ class DragZoneImpl implements DragZone {
    * @param top    coordinate.
    */
   @Override
-  public void addWidget(Widget widget, int left, int top) {
+  public void add(Widget widget, int left, int top) {
     display.addWidget(widget, left, top);
   }
 
   /**
-   * Add widget to drag zone.
-   *
-   * @param widget to be added.
-   */
-  @Override
-  public void addWidget(Widget widget) {
-    display.addWidget(widget);
-  }
-
-  /**
-   * Add new root who contains drop zones. This roots will be searched to find drop zones. If you have some Widget in
-   * the tail that not implements HasWidgets interface (something like Composite) the search finished at this widget.
+   * Add root who contains drop zones. This roots will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
+   * fore more information.
    *
    * @param root widget who implements HasWidgets.
    */
@@ -270,12 +263,12 @@ class DragZoneImpl implements DragZone {
     hasDropZones.add(root);
   }
 
+
   /**
-   * Register drop zone root. All elements in the list will be iterated and all child's on HasWidget elements will be
-   * iterated during search DropZone. If you have some Widget in the tail that not implements HasWidgets interface
-   * (something like Composite) the search finished at this widget.
+   * Add list with roots that will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
+   * fore more information.
    *
-   * @param roots list with root widgets that will be iterated during searching the DropZone.
+   * @param roots list with widgets who implements HasWidgets.
    */
   @Override
   public void addDropZoneRoot(List<HasWidgets> roots) {
@@ -290,7 +283,7 @@ class DragZoneImpl implements DragZone {
    */
   @Override
   public void setSize(int width, int height) {
-    display.setSize(width, height);
+    display.setPixelSize(width, height);
   }
 
   /**
@@ -305,7 +298,7 @@ class DragZoneImpl implements DragZone {
   }
 
   /**
-   * Set style name for dragging frame.
+   * Sets new style on the dragged frame. Default is "dragFrame".
    *
    * @param styleName style name.
    */
@@ -335,15 +328,13 @@ class DragZoneImpl implements DragZone {
   }
 
   /**
-   * Remove widget from drag zone.
+   * Register a frame for different object types. This frame is placed on the screen when dragging starts. One frame can
+   * be used for more then one different object types. When user try to drag object who don't have registered frame for
+   * that object type, then default frame is used for dragging the object.
    *
-   * @param widget to be removed.
+   * @param frame to be placed on the screen when drag start.
+   * @param clazz some class types for witch frame will be used.
    */
-  @Override
-  public void removeWidget(Widget widget) {
-    display.removeWidget(widget);
-  }
-
   public void registerFrame(Frame frame, Class... clazz) {
     attachFrameHandlers(frame);
     for (Class c : clazz) {
@@ -351,23 +342,89 @@ class DragZoneImpl implements DragZone {
     }
   }
 
+  /**
+   * Get frame that is currently placed on the screen.
+   *
+   * @return frame placed on the screen.
+   */
   @Override
   public Frame getCurrentFrame() {
     return frame;
   }
 
+  /**
+   * Sets frame position on the window. Given coordinates is not coordinates for placing the frame on the drag zone. Frame
+   * is positioned on the given coordinates on the screen.
+   *
+   * @param left pixels from left side of the screen.
+   * @param top pixels from right side of the screen.
+   */
   @Override
   public void setFrameWindowPosition(int left, int top) {
     display.addFrame(frame, left - display.getLeft(), top - display.getTop());
   }
 
+  /**
+   * Changes current drag zone with another drag zone. When this is performed old drag zone is removed and all attached
+   * widgets is removed.
+   * <p>
+   * WARNING: if you have widget 'A' that have child 'B', and 'B' is defined like DragZone, you can't attach widget 'A'
+   * to the drag zone.
+   * Don't do THIS!
+   * </p>
+   * <pre>
+   * DragZone dragZone = Zones.getDragZone();
+   * AbsolutePanel a = new AbsolutePanel();
+   * AbsolutePanel b = new AbsolutePanel();
+   *
+   * a.add(b);
+   *
+   * dragZone.makeDragZone(b);
+   * dragZone.go(a);
+   *
+   * </pre>
+   *
+   * @param panel new drag zone panel.
+   */
   @Override
   public void makeDragZone(AbsolutePanel panel) {
     display.changeAbsolutePanel(panel);
   }
 
+  /**
+   * Register DropZone. All registered drop zones is searched first when searching the DragZone. If drop zone is not found
+   * in registered drop zones, search continue in registered drop zone roots.
+   *
+   * @param dropZone add drop zone.
+   */
   @Override
   public void addDropZone(DropZone dropZone) {
     dropZones.add(dropZone);
+  }
+
+  /**
+   * Add widget to drag zone.
+   *
+   * @param widget to be added.
+   */
+  
+  @Override
+  public void add(Widget widget) {
+    display.getContainer().add(widget);
+  }
+
+  @Override
+  public void clear() {
+    display.getContainer().clear();
+  }
+
+  @Override
+  public Iterator<Widget> iterator() {
+    return display.getContainer().iterator();
+  }
+
+  @Override
+  public boolean remove(Widget widget) {
+    return display.removeWidget(widget);
   }
 }

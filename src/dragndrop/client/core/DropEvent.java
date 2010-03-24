@@ -4,7 +4,10 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * This event is fired up when widget is dropped over drop zone.
+ * This event is fired when user drop frame over the drop zone. This event care information about source widget(widget
+ * who is registered for draggable. Can be null), object who is dropped over drop zone, mouse coordinates from where drag starts,
+ * and mouse coordinates where objects is dropped.
+ *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
 public class DropEvent extends GwtEvent<DropHandler> {
@@ -12,14 +15,14 @@ public class DropEvent extends GwtEvent<DropHandler> {
 
   private final Widget source;
   private final Object object;
-  private int startX;
-  private int startY;
-  private int endX;
-  private int endY;
+  private final int[] dragStart; // contains two fields. 0 - startX mouse position, 1 - startY mouse position.
+  private final int[] dragEnd;   // contains two fields. 0 - endX mouse position, 1 - endY mouse position.
 
-  public DropEvent(Widget source, Object object) {
+  DropEvent(Widget source, Object object, int[] dragStart, int[] dragEnd) {
     this.source = source;
     this.object = object;
+    this.dragStart = dragStart;
+    this.dragEnd = dragEnd;
   }
 
   @Override
@@ -32,43 +35,84 @@ public class DropEvent extends GwtEvent<DropHandler> {
     handler.onDrop(this);
   }
 
+  /**
+   * Get dropped object. Object that is dropped over drop zone.
+   *
+   * @return dropped object.
+   */
   public Object getDroppedObject(){
     return object;
   }
 
+  /**
+   * Get source of dragged widget.
+   *
+   * @return source widget.
+   */
   public Widget getSourceWidget(){
     return source;
   }
 
+  /**
+   * Get mouse position where drag stops and where object is dropped.
+   * Contains two fields:
+   * <pre>
+   * 0 - endX mouse position
+   * 1 - endY mouse position.
+   * </pre>
+   * @return int array containing two fields.
+   */
+  public int[] getEndPosition(){
+    return dragEnd;
+  }
+
+  /**
+   * Get mouse X position where drag stops and where object is dropped.
+   *
+   * @return int of mouse X position.
+   */
   public int getEndX() {
-    return endX;
+    return dragEnd[0];
   }
 
-  public void setEndX(int endX) {
-    this.endX = endX;
-  }
-
+  /**
+   * Get mouse Y position where drag stops and where object is dropped.
+   *
+   * @return int of mouse Y position.
+   */
   public int getEndY() {
-    return endY;
+    return dragEnd[1];
   }
 
-  public void setEndY(int endY) {
-    this.endY = endY;
+  /**
+   * Get mouse position where drag starts.
+   * Contains two fields:
+   * <pre>
+   * 0 - startX mouse position
+   * 1 - startY mouse position.
+   * </pre>
+   * @return int array containing two fields.
+   */
+  public int[] getStartPosition(){
+    return dragStart;
   }
 
+  /**
+   * Get mouse X position where drag start.
+   *
+   * @return int of mouse X position.
+   */
   public int getStartX() {
-    return startX;
+    return dragStart[0];
   }
 
-  public void setStartX(int startX) {
-    this.startX = startX;
-  }
-
+  /**
+   * Get mouse Y position where drag start.
+   *
+   * @return int of mouse Y position.
+   */
   public int getStartY() {
-    return startY;
+    return dragStart[1];
   }
 
-  public void setStartY(int startY) {
-    this.startY = startY;
-  }
 }

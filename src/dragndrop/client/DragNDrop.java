@@ -1,6 +1,8 @@
 package dragndrop.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import dragndrop.client.teamexample.Team;
+import dragndrop.client.teamexample.TeamView;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -8,7 +10,7 @@ import com.google.gwt.core.client.EntryPoint;
 public class DragNDrop implements EntryPoint {
   public void onModuleLoad() {
     // Generate presenters and widgets that will be showed on the screen
-//    Team team1 = new Team(new TeamView(), "Team one");
+    Team team1 = new Team(new TeamView(), "Team one");
 //    Team team2 = new Team(new TeamView(), "Team two");
 //    Team team3 = new Team(new TeamView(), "Team three");
 //
@@ -26,7 +28,7 @@ public class DragNDrop implements EntryPoint {
 //     * Create drag zone with size 800x800 px.
 //     */
 //    DragZone dragger = Zones.getDragZone();
-//    dragger.setSize(800, 800);
+//    dragger.setPixelSize(800, 800);
 //
 //    // make teams draggable. Team widgets implements DropZone interface. Presenter only attach DropHandler to the widget.
 //    team1.go(dragger);
@@ -40,7 +42,7 @@ public class DragNDrop implements EntryPoint {
 //    team3.go(teamPanel);
 //
 //    // attach that panel over drag zone. Or to some other panel. But have on mind that dragging frame is visible over a drag zone.
-//    dragger.addWidget(teamPanel, 10, 10);
+//    dragger.add(teamPanel, 10, 10);
 //    dragger.addDropZoneRoot(teamPanel); // register teamPanel that have drop zones attached to him.
 //
 //    // make cars draggable
@@ -63,12 +65,12 @@ public class DragNDrop implements EntryPoint {
 //    truck2.go(carPanel);
 //    truck3.go(carPanel);
 //
-//    dragger.addWidget(carPanel, 250, 10); // attach car panel to the drag zone view.
+//    dragger.add(carPanel, 250, 10); // attach car panel to the drag zone view.
 //
 //    VerticalPanel racePanel = new VerticalPanel();
 //    race.go(racePanel);
 //
-//    dragger.addWidget(racePanel, 360, 10);
+//    dragger.add(racePanel, 360, 10);
 //    dragger.addDropZoneRoot(racePanel);
 //    dragger.setFrameStyle("dragFrame");
 //

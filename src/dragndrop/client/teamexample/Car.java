@@ -2,16 +2,23 @@ package dragndrop.client.teamexample;
 
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import dragndrop.client.core.DragZone;
+import dragndrop.client.core.Draggable;
 
 /**
+ * Example when presenter is registered as draggable.
+ * 
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
-public class Car {
+public class Car implements Draggable {
   public interface Display {
     HasText getName();
+
+    HasMouseDownHandlers getDragField();
+
+    int getWidth();
+
+    int getHeight();
   }
 
   private Display display;
@@ -25,12 +32,28 @@ public class Car {
     return display.getName().getText();
   }
 
-  public void go(DragZone dragZone) {
-    dragZone.add((HasMouseDownHandlers) display, this);
+  @Override
+  public HasMouseDownHandlers getHasMouseDownHandler() {
+    return display.getDragField();
   }
 
-  public void go(HasWidgets widget){
-    widget.add((Widget)display);
+  @Override
+  public Object getDropObject() {
+    return this;
   }
 
+  @Override
+  public int getWidth() {
+    return display.getWidth();
+  }
+
+  @Override
+  public int getHeight() {
+    return display.getHeight();
+  }
+
+  @Override
+  public Widget getSourceWidget() {
+    return (Widget)display;
+  }
 }

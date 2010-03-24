@@ -5,18 +5,28 @@ import com.google.gwt.event.shared.HandlerRegistration;
 /**
  * Widgets that implements this interface will be drop zones and only this widgets will accept objects that is dropped.
  * After implementing this interface you can use this code to attach drop handlers to the widget.
+ * <p>
+ * Register a handler to catch {@link dragndrop.client.core.DropEvent}. DropEvent is fired when something is dropped over current drop zone.
+ * </p>
  * <pre>
  * public HandlerRegistration addDropHandler(DropHandler handler){
- *   return addHandler(handler, DropEvent.TYPE);
+ *   return addHandler(handler, dragndrop.client.core.DropEvent.TYPE);
  * }
- *
+ * </pre>
+ * Register a handler to catch {@link dragndrop.client.core.DragOverEvent}. DragOverEvent is fired all time when user drag something over drop zone.
+ * <pre>
  * public void addDragOverHandler(DragOverHandler handler) {
  *   addHandler(handler, DragOverEvent.TYPE);
  * }
- *
+ * </pre>
+ * Register a handler to catch {@link dragndrop.client.core.DragOutEvent}. DragOutEvent is fired when user drag something out of the drop zone.
+ * <pre>
  * public void addDragOutHandler(DragOutHandler handler) {
  *   addHandler(handler, DragOutEvent.TYPE);
  * }
+ * </pre>
+ * Register a handler to catch {@link dragndrop.client.core.DragInEvent}. DragInEvent is fired when user drag something in the drop zone.
+ * <pre>
  * public void addDragInHandler(DragInHandler handler) {
  *   addHandler(handler, DragInEvent.TYPE);
  * }
@@ -27,25 +37,29 @@ import com.google.gwt.event.shared.HandlerRegistration;
 public interface DropZone {
 
   /**
-   * Attaches drop handler that will handle dropped object.
+   * Register {@link dragndrop.client.core.DropHandler} that will handle DropEvent.
+   *
    * @param handler drop handler.
    */
   HandlerRegistration addDropHandler(DropHandler handler);
 
   /**
-   * Attaches drag over handler. This handler accept event fired when dragged widget enter to the dragged zone.
+   * Register {@link dragndrop.client.core.DragInHandler}. This handler handle {@link dragndrop.client.core.DragInEvent}.
+   *
    * @param handler drag over handler.
    */
   HandlerRegistration addDragInHandler(DragInHandler handler);
 
   /**
-   * Attaches drag out handler. This handler accept event fired when dragged widget exit from dragged zone.
+   * Register {@link dragndrop.client.core.DragOutHandler}. This handler handle {@link dragndrop.client.core.DragOutEvent}.
+   *
    * @param handler drag out handler.
    */
   HandlerRegistration addDragOutHandler(DragOutHandler handler);
 
   /**
-   * Attaches drag over handler. This handler accept event fired when dragged widget is dragged over drop zone.
+   * Register {@link dragndrop.client.core.DragOverHandler}. This handler handle {@link dragndrop.client.core.DragOverEvent}.
+   *
    * @param handler drag over handler.
    */
   HandlerRegistration addDragOverHandler(DragOverHandler handler);

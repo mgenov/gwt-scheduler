@@ -44,14 +44,18 @@ package dragndrop.client.core;
  * </pre>
  * </p>
  * <pre>
- *  dragZone.addDropZoneRoot(HasWidgets);
+ *  HasWidgets root = ...
+ *  dragZone.addDropZoneRoot(root);
+ *
+ *  List<HasWidgets> roots = ...
+ *  dragZone.addDropZoneRoot(roots);
  * </pre>
  * <p>
  * Attach something to drag zone. Drag zone is good to be positioned on the back of all widgets. Dragged frame
  * is placed on the drag zone.
  * </p>
  * <pre>
- *  dragZone.addWidget(mainPanel);
+ *  dragZone.add(mainPanel);
  * </pre>
  * <p>
  * You must attach drag zone somewhere to make it visible.
@@ -76,30 +80,65 @@ package dragndrop.client.core;
 public class Zones {
   public static final CursorStyleProvider cursorProvider = new CursorStyleProviderImpl();
 
+  /**
+   * Construct DragZone with default drag {@link dragndrop.client.core.Frame}.
+   * 
+   * @return new DragZone instance.
+   */
   public static DragZone getDragZone(){
     return getDragZone(getDragFrame());
   }
 
+  /**
+   * Construct DragZone with custom {@link dragndrop.client.core.Frame}. This frame is used as default frame.
+   *
+   * @param frame used as default frame.
+   * @return new DragZone instance.
+   */
   public static DragZone getDragZone(Frame frame){
     return getDragZone(frame, cursorProvider);
   }
 
+  /**
+   * Construct DragZone with custom {@link dragndrop.client.core.Frame} and custom {@link dragndrop.client.core.CursorStyleProvider}.
+   * Frame is used as default frame. CursorStyleProvider is used for changing cursor styles for different events.
+   * 
+   * @param frame used as default frame.
+   * @param cursorProvider used for changing cursor style for different events.
+   * @return new DragZone instance.
+   */
   public static DragZone getDragZone(Frame frame, CursorStyleProvider cursorProvider){
     DragZoneImpl dragZone = new DragZoneImpl(frame, cursorProvider);
     dragZone.bindDisplay(new DragZoneView());
     return dragZone;
   }
 
+  /**
+   * Construct default {@link dragndrop.client.core.Frame}. Instance of this frame is used as default frame for dragging.
+   *
+   * @return new Frame instance.
+   */
   public static Frame getDragFrame(){
     return getDragFrame(getFrameDisplay());
   }
 
+  /**
+   * Construct {@link dragndrop.client.core.Frame} with custom frame widget.
+   *
+   * @param display used for a frame view.
+   * @return new Frame instance bind to custom widget.
+   */
   public static Frame getDragFrame(Frame.Display display){
     DragFrame frame = new DragFrame();
     frame.bindDisplay(display);
     return frame;
   }
 
+  /**
+   * Construct default {@link dragndrop.client.core.Frame.Display} widget.
+   * 
+   * @return new Frame.Display widget.
+   */
   public static Frame.Display getFrameDisplay(){
     return new DragFrameWidget();
   }

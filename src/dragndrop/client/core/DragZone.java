@@ -40,7 +40,7 @@ import java.util.List;
  *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
-public interface DragZone {
+public interface DragZone extends HasWidgets{
 
   interface Display {
 
@@ -64,7 +64,7 @@ public interface DragZone {
 
     HasWidgets getContainer();
 
-    void setSize(int width, int height);
+    void setPixelSize(int width, int height);
 
     void addWidget(Widget widget, int left, int top);
 
@@ -72,9 +72,7 @@ public interface DragZone {
 
     void setSize(String width, String height);
 
-    void addWidget(Widget widget);
-
-    void removeWidget(Widget widget);
+    boolean removeWidget(Widget widget);
 
     int getSourceTop();
 
@@ -92,45 +90,57 @@ public interface DragZone {
   }
 
   /**
-   * Register widget to be draggable and object that will be dropped when dragging stops over a drop zone. Given widget
-   * will be placed over dragging area in given left and top coordinates.
-   * @param widget this widget that will be dragged.
-   * @param object this object will be dropped when drag stops over drop zone.
+   * Register widget who have HasMouseDownHandlers and object that be dropped when dragging stops over a drop zone. This
+   * method register MouseDownHandler to HasMouseDownHandlers widget. Also registers and object who is dropped when drag
+   * stops over drop zone and mouse button is up.
+   * 
+   * @param widget who is dragged.
+   * @param object who is dropped when drag stops over drop zone.
    */
   void add(HasMouseDownHandlers widget, Object object);
 
+  /**
+   * Register {@link dragndrop.client.core.Draggable} object.
+   *
+   * @param draggable object.
+   */
   void add(Draggable draggable);
 
   /**
-   * Add widget to drag zone view with given coordinates.
+   * Add widget to drag zone with given coordinates.
+   * 
    * @param widget to be added.
    * @param left coordinate.
    * @param top coordinate.
    */
-  void addWidget(Widget widget, int left, int top);
+  void add(Widget widget, int left, int top);
 
   /**
-   * Add widget to drag zone.
-   * @param widget to be added.
-   */
-  void addWidget(Widget widget);
-
-  /**
-   * Default is dragFrame
+   * Sets new style on the dragged frame. Default is "dragFrame".
+   * 
    * @param styleName style name.
    */
   void setFrameStyle(String styleName);
 
    /**
-   * Add new root who contains drop zones. This roots will be searched to find drop zones.
+   * Add root who contains drop zones. This roots will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
+   * fore more information.
+   * 
    * @param root widget who implements HasWidgets.
    */
   void addDropZoneRoot(HasWidgets root);
 
+  /**
+   * Add list with roots that will be searched for drop zones. Read documentation in {@link dragndrop.client.core.Zones}
+   * fore more information.
+   *
+   * @param roots list with widgets who implements HasWidgets.
+   */
   void addDropZoneRoot(List<HasWidgets> roots);
 
    /**
    * Set size for a drop zone.
+    * 
    * @param width in pixels;
    * @param height in pixels.
    */
@@ -138,6 +148,7 @@ public interface DragZone {
 
   /**
    * Set size for a drop zone.
+   * 
    * @param width of the drag zone.
    * @param height of the drag zone.
    */
@@ -145,38 +156,71 @@ public interface DragZone {
 
   /**
    * Attach DragZone view to the parent widget.
+   * 
    * @param parent widget where drag zone will be attached.
    */
   void go(HasWidgets parent);
 
   /**
    * Return an instance of DragZoneView.
-   * @return drag zone view who is AbsolutePanel.
+   * 
+   * @return drag zone view is AbsolutePanel.
    */
   HasWidgets getDragZone();
 
   /**
-   * Remove widget from drag zone.
-   * @param widget to be removed.
+   * Register a frame for different object types. This frame is placed on the screen when dragging starts. One frame can
+   * be used for more then one different object types. When user try to drag object who don't have registered frame for
+   * that object type, then default frame is used for dragging the object.
+   *
+   * @param frame to be placed on the screen when drag start.
+   * @param clazz some class types for witch frame will be used.
    */
-  void removeWidget(Widget widget);
-
   void registerFrame(Frame frame, Class... clazz);
 
+  /**
+   * Get frame that is currently placed on the screen.
+   *
+   * @return frame placed on the screen.
+   */
   Frame getCurrentFrame();
 
+  /**
+   * Sets frame position on the window. Given coordinates is not coordinates for placing the frame on the drag zone. Frame
+   * is positioned on the given coordinates on the screen.
+   *
+   * @param left pixels from left side of the screen.
+   * @param top pixels from right side of the screen.
+   */
   void setFrameWindowPosition(int left, int top);
 
   /**
-   * Changes current drag zone with new drag zone.
-   * WARNING: don't try to change drag zone and then attach widgets that is parents!
+   * Changes current drag zone with another drag zone. When this is performed old drag zone is removed and all attached
+   * widgets is removed.
+   * <p>
+   * WARNING: if you have widget 'A' that have child 'B', and 'B' is defined like DragZone, you can't attach widget 'A'
+   * to the drag zone.
+   * Don't do THIS!
+   * </p>
+   * <pre>
+   * DragZone dragZone = Zones.getDragZone();
+   * AbsolutePanel a = new AbsolutePanel();
+   * AbsolutePanel b = new AbsolutePanel();
+   *
+   * a.add(b);
+   * 
+   * dragZone.makeDragZone(b);
+   * dragZone.go(a);
+   *
+   * </pre>
+   * 
    * @param panel new drag zone panel.
    */
   void makeDragZone(AbsolutePanel panel);
 
   /**
-   * Add drop zone to the DragZone. All added drop zones will be first checked when someone dragged something over. If
-   * drop zone is not found, search continues this drop zone roopts.
+   * Register DropZone. All registered drop zones is searched first when searching the DragZone. If drop zone is not found
+   * in registered drop zones, search continue in registered drop zone roots.
    * 
    * @param dropZone add drop zone.
    */

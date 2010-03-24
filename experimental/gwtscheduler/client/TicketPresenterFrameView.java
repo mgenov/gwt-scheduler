@@ -31,31 +31,6 @@ public class TicketPresenterFrameView extends Composite implements Frame.Display
   }
 
   @Override
-  public void setHeight(int height) {
-    frame.setHeight(height + "px");
-  }
-
-  @Override
-  public void setWidth(int width) {
-    frame.setWidth(width + "px");
-  }
-
-  @Override
-  public void setStyle(String styleName) {
-    frame.setStyleName(styleName);
-  }
-
-  @Override
-  public int getHeight() {
-    return frame.getOffsetHeight();
-  }
-
-  @Override
-  public int getWidth() {
-    return frame.getOffsetWidth();
-  }
-
-  @Override
   public void capture() {
     DOM.setCapture(frame.getElement());
   }
