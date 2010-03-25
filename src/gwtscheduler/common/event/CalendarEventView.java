@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.common.event.images.EventResourceBundle;
 import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
@@ -22,11 +23,14 @@ import org.cobogw.gwt.user.client.ui.RoundedPanel;
 public class CalendarEventView extends Composite implements CalendarEvent.Display {
   public interface ResStyle extends CssResource {
     String roundedPanel();
+
+    String closeBtn();
   }
 
   interface CalendarEventViewBinder extends UiBinder<Widget, CalendarEventView> {};
 
   private static CalendarEventViewBinder uiBinder = GWT.create(CalendarEventViewBinder.class);
+
 
   @UiField
   ResStyle resStyle;
@@ -55,6 +59,8 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
     this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
     roundedPanel.addStyleName(resStyle.roundedPanel());
+    closeBtn.setResource(EventResourceBundle.INSTANCE.getClosePng());
+    closeBtn.setStyleName(resStyle.closeBtn());
   }
 
   @UiFactory

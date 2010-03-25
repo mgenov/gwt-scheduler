@@ -62,7 +62,7 @@
         <g:HTMLPanel ui:field="htmlPanel" styleName="{style.html}">
             <g:FlowPanel styleName="{res.headerFlowPanel}">
                 <g:Label ui:field="eventHeader" styleName="{style.header}"/>
-                <g:Image ui:field="closeBtn" styleName="{res.closeBtn}" url="../css/images/close.png"/>
+                <g:Image ui:field="closeBtn"/>
             </g:FlowPanel>
             <g:Label ui:field="contentPanel" styleName="{style.content}"/>
             <div class="{style.resizer}">
