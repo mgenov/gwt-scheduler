@@ -23,6 +23,7 @@ import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChang
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.common.event.CalendarEventDeleteEvent;
 import gwtscheduler.common.event.CalendarEventDeleteEventHandler;
+import gwtscheduler.common.event.DurationInterval;
 import gwtscheduler.common.event.Event;
 import gwtscheduler.client.widgets.common.navigation.*;
 import gwtscheduler.common.event.EventClickEvent;
@@ -120,7 +121,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   private void reRenderHeaderTitles(Interval interval) {
-    columnsProvider.updateColumns(interval, columns);
+    DurationInterval durationInterval = DurationInterval.getInterval(interval.getStartMillis(),interval.getEndMillis());
+    columnsProvider.updateColumns(durationInterval, columns);
     titlesRenderer.renderHorizontalTitles(columns, calendarHeader.getHeaderDecorableElements());
   }
 

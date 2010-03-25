@@ -111,8 +111,19 @@
 	<target name="build" depends="gwtc" description="Build this project" />
 
 
+	<!-- copy required css resources -->
+	<target name="copy-css-res" description="Copy css resources to WEB-INF/classes/css">
+		<mkdir dir="${war.dir}/WEB-INF/classes/css" />
+
+		<copy todir="${war.dir}/WEB-INF/classes/css">
+            <fileset dir = "${war.dir}/css/">
+                    <include name="**/*"/>
+            </fileset>
+            </copy>
+	</target>
+	
   <!-- Builds jar file -->
-  <target name="jar" depends="clean,compile"
+  <target name="jar" depends="clean,compile,copy-css-res"
           description="Assembles a distributable jar">
 
     <jar jarfile="gwt-scheduler-${version}.jar" index="true">
