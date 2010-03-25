@@ -86,12 +86,8 @@ import java.util.List;
  * </p>
  * <pre>
  * Frame frame = new MyFrame(); // MyFrame implements {@link dragndrop.client.core.Frame} interface. Frame will be used for next dragged objects.
- * Object o = new Object();
- * Object b = new Object();
- * ....
- * Object n = new Object();
  *
- * dragZone.registerFrame(frame, o, b, ....., n);
+ * dragZone.registerFrame(frame, Object.class);
  * </pre>
  *
  * Every given widget is wrapped by another widget who is dragged over drag area. If widget is attached to another
