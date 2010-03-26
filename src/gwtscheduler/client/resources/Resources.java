@@ -6,6 +6,7 @@ import gwtscheduler.client.resources.css.MonthCssResource;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.StyleInjector;
+import gwtscheduler.client.resources.css.SchedulerCssResource;
 
 /**
  * "Shortcut" class for general resources. Will lazy {@link GWT#create(Class)}
@@ -26,6 +27,7 @@ public final class Resources {
     //TODO: concatenate css and then inject
     StyleInjector.injectAtStart(Resources.dayWeekCss().getText());
     StyleInjector.injectAtStart(Resources.monthCss().getText());
+    StyleInjector.injectAtStart(Resources.schedulerCss().getText());
   }
 
   /**
@@ -53,6 +55,15 @@ public final class Resources {
   public static final MonthCssResource monthCss() {
     maybeInitialize();
     return commonCss.monthCss();
+  }
+
+  /**
+   * Gets the month css resource.
+   * @return the month css resource
+   */
+  public static final SchedulerCssResource schedulerCss() {
+    maybeInitialize();
+    return commonCss.schedulerCss();
   }
 
 }

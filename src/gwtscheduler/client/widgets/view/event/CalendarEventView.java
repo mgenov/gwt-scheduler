@@ -1,4 +1,4 @@
-package gwtscheduler.common.event;
+package gwtscheduler.client.widgets.view.event;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.common.event.images.EventResourceBundle;
+import gwtscheduler.client.resources.images.ImagesResourceBundle;
 import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
@@ -31,7 +31,9 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   private static CalendarEventViewBinder uiBinder = GWT.create(CalendarEventViewBinder.class);
 
-
+//  @UiField
+//  ImagesResourceBundle eventResourceBundle;
+  
   @UiField
   ResStyle resStyle;
 
@@ -59,7 +61,8 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
     this.getElement().getStyle().setZIndex(1);
     this.eventHeader.getElement().getStyle().setCursor(Style.Cursor.MOVE);
     roundedPanel.addStyleName(resStyle.roundedPanel());
-    closeBtn.setResource(EventResourceBundle.INSTANCE.getClosePng());
+
+    closeBtn.setResource(ImagesResourceBundle.INSTANCE.getClosePng());
     closeBtn.setStyleName(resStyle.closeBtn());
   }
 

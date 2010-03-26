@@ -5,7 +5,7 @@ import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
-import gwtscheduler.common.event.Event;
+import gwtscheduler.client.widgets.view.event.Event;
 
 import java.util.List;
 

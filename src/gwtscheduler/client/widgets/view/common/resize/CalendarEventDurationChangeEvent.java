@@ -1,8 +1,8 @@
 package gwtscheduler.client.widgets.view.common.resize;
 
 import com.google.gwt.event.shared.GwtEvent;
-import gwtscheduler.common.event.CalendarEvent;
-import gwtscheduler.common.event.Event;
+import gwtscheduler.client.widgets.view.event.CalendarEvent;
+import gwtscheduler.client.widgets.view.event.Event;
 import org.goda.time.Instant;
 
 /**

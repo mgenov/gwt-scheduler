@@ -1,4 +1,4 @@
-package gwtscheduler.common.event.images;
+package gwtscheduler.client.resources.images;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
@@ -7,8 +7,8 @@ import com.google.gwt.resources.client.ImageResource;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public interface EventResourceBundle extends ClientBundle {
-  public static final EventResourceBundle INSTANCE =  GWT.create(EventResourceBundle.class);
+public interface ImagesResourceBundle extends ClientBundle {
+  public static final ImagesResourceBundle INSTANCE =  GWT.create(ImagesResourceBundle.class);
 
   @Source("close.png")
   ImageResource  getClosePng();

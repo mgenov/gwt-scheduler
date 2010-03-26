@@ -1,4 +1,4 @@
-package gwtscheduler.common.event;
+package gwtscheduler.client.widgets.view.event;
 
 /**
  * @author Miroslav Genov (mgenov@gmail.com)

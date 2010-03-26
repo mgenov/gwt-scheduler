@@ -1,10 +1,11 @@
-package gwtscheduler.common.event;
+package gwtscheduler.client.widgets.view.event;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
@@ -178,7 +179,7 @@ public class CalendarEvent implements Draggable {
    * <p/>
    * To re-size the existing event you have to call <code>setPixelSize</code> method.
    *
-   * <p/>The event is attached to the absolute panel by using it's current {@link gwtscheduler.common.event.EventPosition} attribute.
+   * <p/>The event is attached to the absolute panel by using it's current {@link gwtscheduler.client.widgets.view.event.EventPosition} attribute.
    * 
    * @param parent the parent panel to which current event will be attached
    */

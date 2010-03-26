@@ -1,4 +1,4 @@
-package gwtscheduler.common.event;
+package gwtscheduler.client.widgets.view.event;
 
 import com.google.gwt.event.shared.EventHandler;
 

@@ -1,6 +1,4 @@
-package gwtscheduler.common.event;
-
-import org.goda.time.Interval;
+package gwtscheduler.client.widgets.view.event;
 
 /**
  * Event represents a single Event item in the calendar.

@@ -1,6 +1,6 @@
-package gwtscheduler.common.event.colors;
+package gwtscheduler.client.widgets.view.event.colors;
 
-import gwtscheduler.common.event.HasColors;
+import gwtscheduler.client.widgets.view.event.HasColors;
 
 /**
  * Represents a Default Color Decoration of an event

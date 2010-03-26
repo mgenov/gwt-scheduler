@@ -1,8 +1,6 @@
 package gwtscheduler.client;
 
-import gwtscheduler.common.event.DurationInterval;
-import gwtscheduler.common.event.HasColors;
-import org.goda.time.Interval;
+import gwtscheduler.client.widgets.view.event.DurationInterval;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}

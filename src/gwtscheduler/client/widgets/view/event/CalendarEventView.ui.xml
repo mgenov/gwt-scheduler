@@ -4,7 +4,7 @@
              xmlns:c="urn:import:org.cobogw.gwt.user.client.ui">
 
     
-    <ui:style field="resStyle" type='gwtscheduler.common.event.CalendarEventView.ResStyle' src="event.css"/>
+    <ui:style field="resStyle" type='gwtscheduler.client.widgets.view.event.CalendarEventView.ResStyle' src="event.css"/>
     <ui:style field="res" src="event.css"/>
 
 

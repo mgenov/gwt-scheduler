@@ -1,9 +1,9 @@
-package gwtscheduler.common.event;
+package gwtscheduler.client.widgets.view.event;
 
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * Indicates that new {@link gwtscheduler.common.event.CalendarEvent} has been added.
+ * Indicates that new {@link gwtscheduler.client.widgets.view.event.CalendarEvent} has been added.
  *
  * @author Miroslav Genov (mgenov@gmail.com)
  */

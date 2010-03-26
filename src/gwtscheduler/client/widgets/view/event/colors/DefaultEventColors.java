@@ -1,4 +1,4 @@
-package gwtscheduler.common.event.colors;
+package gwtscheduler.client.widgets.view.event.colors;
 
 /**
  * Represents a factory that builds different default colors for the events

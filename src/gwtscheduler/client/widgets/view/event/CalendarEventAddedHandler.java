@@ -1,9 +1,9 @@
-package gwtscheduler.common.event;
+package gwtscheduler.client.widgets.view.event;
 
 import com.google.gwt.event.shared.EventHandler;
 
 /**
- * Handler for {@link gwtscheduler.common.event.CalendarEventAddedEvent}.
+ * Handler for {@link gwtscheduler.client.widgets.view.event.CalendarEventAddedEvent}.
  * 
  * @author Miroslav Genov (mgenov@gmail.com)
  */

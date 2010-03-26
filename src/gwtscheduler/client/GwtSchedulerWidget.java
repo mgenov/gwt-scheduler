@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
+import gwtscheduler.client.resources.css.SchedulerCssResource;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.navigation.TabPanelContainer;
 
@@ -36,7 +37,7 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
   /**
    * static ref to css
    */
-  protected static final DayWeekCssResource CSS = Resources.dayWeekCss();
+  protected static final SchedulerCssResource CSS = Resources.schedulerCss();
 
   /**
    * widget delegate
@@ -47,13 +48,18 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
 
   public GwtSchedulerWidget() {
     initWidget(uiBinder.createAndBindUi(this));
-
+    tabsPanel.setStyleName(CSS.gwtScheduler());
+//    tabsPanel.getTabBar().setStyleName(CSS.gwtSchedulerTabBar());
+//    tabsPanel.getDeckPanel().removeStyleName("gwt-TabPanelBottom");
+//    tabsPanel.getTabBar().removeStyleName("gwt-DecoratedTabBar ");
+    tabsPanel.getDeckPanel().setStyleName(CSS.gwtSchedulerDeckPanel());
   }
 
 
   @Override
   public void selectTab(int i) {
     tabsPanel.selectTab(i);
+
   }
 
   @Override

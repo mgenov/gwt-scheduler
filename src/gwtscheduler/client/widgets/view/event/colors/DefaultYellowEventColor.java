@@ -1,23 +1,23 @@
-package gwtscheduler.common.event.colors;
+package gwtscheduler.client.widgets.view.event.colors;
 
 /**
- * Red color decoration of the event
+ * Yellow color decoration of the event
  * @author mlesikov  {mlesikov@gmail.com}
  */
-class DefaultRedEventColor implements DefaultEventColor {
+class DefaultYellowEventColor implements DefaultEventColor {
   @Override
   public String getHeaderColor() {
-    return "#E36666";
+    return "#e2e366";
   }
 
   @Override
   public String getBodyColor() {
-    return "#FFE0E0";
+    return "#ffffe0";  
   }
 
   @Override
   public String getTitleColor() {
-    return "#FFFFFF";
+    return  "#FFFFFF";
   }
 
   @Override

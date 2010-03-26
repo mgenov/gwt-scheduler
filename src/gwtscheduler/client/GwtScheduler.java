@@ -11,8 +11,8 @@ import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
-import gwtscheduler.common.event.Event;
-import gwtscheduler.common.event.EventClickHandler;
+import gwtscheduler.client.widgets.view.event.Event;
+import gwtscheduler.client.widgets.view.event.EventClickHandler;
 import org.goda.time.MutableDateTime;
 
 import java.util.Date;

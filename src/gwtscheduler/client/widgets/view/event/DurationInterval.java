@@ -1,6 +1,4 @@
-package gwtscheduler.common.event;
-
-import org.goda.time.Instant;
+package gwtscheduler.client.widgets.view.event;
 
 import java.util.Date;
 

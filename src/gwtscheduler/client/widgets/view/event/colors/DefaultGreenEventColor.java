@@ -1,6 +1,6 @@
-package gwtscheduler.common.event.colors;
+package gwtscheduler.client.widgets.view.event.colors;
 
-import gwtscheduler.common.event.colors.DefaultEventColor;
+import gwtscheduler.client.widgets.view.event.colors.DefaultEventColor;
 
 /**
  * Green color decoration of the event

@@ -6,7 +6,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import gwtscheduler.client.TestTask;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.common.event.DurationInterval;
+import gwtscheduler.client.widgets.view.event.DurationInterval;
 
 
 import java.util.Date;
