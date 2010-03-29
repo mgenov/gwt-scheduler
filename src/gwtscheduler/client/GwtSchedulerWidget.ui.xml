@@ -1,6 +1,8 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:nav="urn:import:gwtscheduler.client.widgets.common.navigation"
+
         >
 
     <ui:style>
@@ -9,7 +11,7 @@
 
 
     <g:HTMLPanel>
-        <g:DecoratedTabPanel ui:field="tabsPanel"/>
+        <nav:TabPanelContainer ui:field="container"/>
     </g:HTMLPanel>
 
 </ui:UiBinder>

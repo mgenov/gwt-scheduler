@@ -19,7 +19,7 @@
 	<inherits name='org.goda.Goda' />
 
 	<!-- Useful for rond corners -->    
-   	<inherits name='org.cobogw.gwt.user.User' />
+   	<!--<inherits name='org.cobogw.gwt.user.User' />-->
    	
    	<!--
    	<inherits name='com.google.gwt.user.theme.standard.Standard'/> 

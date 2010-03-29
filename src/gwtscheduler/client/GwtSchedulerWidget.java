@@ -1,17 +1,13 @@
 package gwtscheduler.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.resources.Resources;
-import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.resources.css.SchedulerCssResource;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.navigation.TabPanelContainer;
@@ -22,8 +18,7 @@ import java.util.Iterator;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class GwtSchedulerWidget extends Composite implements GwtScheduler.Display, HasWidgets {
-
-  /**
+   /**
    * ui binder interface
    */
   interface GwtSchedulerWidgetUiBinder extends UiBinder<Widget, GwtSchedulerWidget> {
@@ -43,54 +38,36 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
    * widget delegate
    */
   @UiField
-  DecoratedTabPanel tabsPanel;
+  TabPanelContainer container;
 
 
   public GwtSchedulerWidget() {
     initWidget(uiBinder.createAndBindUi(this));
-    tabsPanel.setStyleName(CSS.gwtScheduler());
-//    tabsPanel.getTabBar().setStyleName(CSS.gwtSchedulerTabBar());
-//    tabsPanel.getDeckPanel().removeStyleName("gwt-TabPanelBottom");
-//    tabsPanel.getTabBar().removeStyleName("gwt-DecoratedTabBar ");
-    tabsPanel.getDeckPanel().setStyleName(CSS.gwtSchedulerDeckPanel());
-  }
-
-
-  @Override
-  public void selectTab(int i) {
-    tabsPanel.selectTab(i);
-
   }
 
   @Override
-  public void add(CalendarPresenter.Display display, String title) {
-    TabPanelContainer container = new TabPanelContainer();
+  public void addCalendarDisplay(CalendarPresenter.Display display) {
+//    container = new TabPanelContainer();
     container.add((Widget) display);
-    tabsPanel.add(container, title);
   }
 
   @Override
-  public void addBeforeSelectionHandler(BeforeSelectionHandler<Integer> handler) {
-    tabsPanel.addBeforeSelectionHandler(handler);
-  }
-
-  @Override
-  public void add(Widget widget) {
-    tabsPanel.add(widget);
+  public void add(Widget w) {
+    container.add(w);
   }
 
   @Override
   public void clear() {
-    tabsPanel.clear();
+    container.clear();
   }
 
   @Override
   public Iterator<Widget> iterator() {
-    return tabsPanel.iterator();
+    return container.iterator();
   }
 
   @Override
-  public boolean remove(Widget widget) {
-    return tabsPanel.remove(widget);
+  public boolean remove(Widget w) {
+    return container.remove(w);  
   }
 }
