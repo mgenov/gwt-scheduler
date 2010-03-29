@@ -43,6 +43,7 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
 
   public GwtSchedulerWidget() {
     initWidget(uiBinder.createAndBindUi(this));
+    container.addStyleName(CSS.gwtScheduler());
   }
 
   @Override

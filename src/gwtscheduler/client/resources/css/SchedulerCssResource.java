@@ -8,8 +8,4 @@ import com.google.gwt.resources.client.CssResource;
 public interface SchedulerCssResource  extends CssResource{
 
   String gwtScheduler();
-
-//  String gwtSchedulerTabBar();
-//
-  String gwtSchedulerDeckPanel();
 }
