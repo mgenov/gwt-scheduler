@@ -28,7 +28,7 @@ import java.util.List;
  * <pre>
  * HasMouseDownHandlers draggable = new Label(); // Label is only for example. You can add any widget who implements HasMouseDownHandlers.
  * Object dropObject = draggable;                // dropped object can be any object you want to be dropped.
- * dragZone.add(draggable, object);
+ * dragZone.register(draggable, object);
  * </pre>
  * <p>
  * Second approach register any object who implements {@link dragndrop.client.core.Draggable} interface. Method for
@@ -39,7 +39,7 @@ import java.util.List;
  * Draggable secondDraggable = new MySecondDraggableObject();
  * ....
  * Draggable nDraggable = new MyNDraggableObject();
- * dragZone.add(draggable, secondDraggable, ...., nDraggable);
+ * dragZone.register(draggable, secondDraggable, ...., nDraggable);
  * </pre>
  * <p>
  * Widgets can be added directly to the drag zone without setting position on the drag zone panel or added on specific
@@ -158,14 +158,14 @@ public interface DragZone extends HasWidgets{
    * @param widget who is dragged.
    * @param object who is dropped when drag stops over drop zone.
    */
-  void add(HasMouseDownHandlers widget, Object object);
+  void register(HasMouseDownHandlers widget, Object object);
 
   /**
    * Register {@link dragndrop.client.core.Draggable} object.
    *
    * @param draggable object.
    */
-  void add(Draggable... draggable);
+  void register(Draggable... draggable);
 
   /**
    * Add widget to drag zone with given coordinates.

@@ -236,7 +236,7 @@ class DragZoneImpl implements DragZone {
    * @param object who is dropped when drag stops over drop zone.
    */
   @Override
-  public void add(HasMouseDownHandlers widget, Object object) {
+  public void register(HasMouseDownHandlers widget, Object object) {
     draggingRegister.put(widget, object);
     registerDraggable(widget);
   }
@@ -247,9 +247,9 @@ class DragZoneImpl implements DragZone {
    * @param draggables objects.
    */
   @Override
-  public void add(Draggable... draggables) {
+  public void register(Draggable... draggables) {
     for (Draggable draggable : draggables) {
-      add(draggable.getHasMouseDownHandler(), draggable);
+      register(draggable.getHasMouseDownHandler(), draggable);
     }
   }
 

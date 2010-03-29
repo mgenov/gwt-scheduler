@@ -86,8 +86,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     frame.bindDisplay(new TicketPresenterFrameView());
 
     DragZone dragZone = Zones.getDragZone();
-    dragZone.add(ticket1);
-    dragZone.add(ticket2);
+    dragZone.register(ticket1);
+    dragZone.register(ticket2);
     dragZone.registerFrame(frame, TicketPresenter.class);
 //    dragZone.add(ticket3);
 

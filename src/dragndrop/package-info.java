@@ -58,12 +58,12 @@
  * <pre>
  * MyWidget myWidget = new MyWidget();
  * Object object = new Object(); This object is dropped over DropZone when drag stops. 
- * dragZone.add(myWidget, object);
+ * dragZone.register(myWidget, object);
  * </pre>
  * Registering Draggable elements for dragging:
  * <pre>
  * MyDraggable draggable = new MyDraggable();
- * dragZone.add(draggable);
+ * dragZone.register(draggable);
  * </pre>
  *
  * Register DropZones by implementing {@link dragndrop.client.core.DropZone} interface. DropZone must be implements by Widget.

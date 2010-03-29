@@ -14,8 +14,8 @@ package dragndrop.client.core;
  * If you use Draggable interface you have more flexibility.
  * </p>
  * <pre>
- *  dragZone.add(Draggable);
- *  dragZone.add(HasMouseDownHandlers, Object dropThisObject);
+ *  dragZone.register(Draggable);
+ *  dragZone.register(HasMouseDownHandlers, Object dropThisObject);
  * </pre>
  * <p>
  * Add container where drop zones to be searched. All added containers will be iterated and all child's on HasWidgets elements will be
