@@ -288,6 +288,13 @@ public interface DragZone extends HasWidgets{
   void addDropZone(DropZone... dropZone);
 
   /**
+   * Remove DropZone from dropZones list.
+   *
+   * @param dropZones to be removed.
+   */
+  void removeDropZone(DropZone... dropZones);
+
+  /**
    * Register {@link dragndrop.client.core.DragStartHandler}. This handler handle {@link dragndrop.client.core.DragStartEvent}.
    *
    * @param handler drag over handler.

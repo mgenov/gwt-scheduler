@@ -414,8 +414,20 @@ class DragZoneImpl implements DragZone {
    */
   @Override
   public void addDropZone(DropZone... dropZones) {
-    for (DropZone dropZone: dropZones) {
+    for (DropZone dropZone : dropZones) {
       this.dropZones.add(dropZone);
+    }
+  }
+
+  /**
+   * Remove DropZone from dropZones list.
+   *
+   * @param dropZones to be removed.
+   */
+  @Override
+  public void removeDropZone(DropZone... dropZones) {
+    for(DropZone dropZone : dropZones){
+      this.dropZones.remove(dropZone);
     }
   }
 

@@ -54,8 +54,8 @@ class DragZoneView extends Composite implements DragZone.Display {
   @Override
   public DropZone getDropZone(ArrayList<HasWidgets> roots, int x, int y) {
     DropZone dropZone = null;
-    for(HasWidgets widget : roots){
-      dropZone = getDropZone(widget, x, y);
+    for(HasWidgets root : roots){
+      dropZone = getDropZone(root, x, y);
       if(dropZone != null){
         return dropZone;
       }
@@ -65,14 +65,14 @@ class DragZoneView extends Composite implements DragZone.Display {
 
   private DropZone getDropZone(HasWidgets root, int x, int y){
     DropZone dropZone = null;
-    for(Widget widget : root){
+    for(Widget rootWidget : root){
 
-      if (widget instanceof DropZone && checkPosition(x, y, widget)) {
-        return (DropZone) widget;
+      if (rootWidget instanceof DropZone && checkPosition(x, y, rootWidget)) {
+        return (DropZone) rootWidget;
       }
 
-      if(widget instanceof HasWidgets){
-        dropZone = getDropZone((HasWidgets)widget, x, y);
+      if(rootWidget instanceof HasWidgets){
+        dropZone = getDropZone((HasWidgets)rootWidget, x, y);
         if(dropZone != null){
           return dropZone;
         }
