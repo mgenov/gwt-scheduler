@@ -7,10 +7,7 @@ import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.*;
 import gwtscheduler.client.resources.Resources;
@@ -38,7 +35,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
         LassoAwarePanel.LassoHandler, HasWidgets {
 
   @UiField
-  VerticalPanel impl;
+  FlowPanel impl;
   
   @UiField
   CalendarHeaderWidget header;

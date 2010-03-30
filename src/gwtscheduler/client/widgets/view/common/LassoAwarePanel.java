@@ -38,8 +38,8 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
   /** the lasso widget itself */
   @UiField
   protected LassoPanel lasso;
-  @UiField
-  VerticalPanel impl;
+//  @UiField
+//  VerticalPanel impl;
 
   /** state for determining if overflow is to be shown */
   private boolean isOverflowY = true;

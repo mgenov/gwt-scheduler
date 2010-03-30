@@ -8,13 +8,8 @@
 	<ui:style>
 	</ui:style>
 
-	<g:VerticalPanel ui:field="impl">
-		<!--<g:FlexTable ui:field="header" />-->
+	<g:FlowPanel ui:field="impl">
         <columns:CalendarHeaderWidget ui:field="header" />
         <columns:CalendarContentWidget ui:field="content" />
-		<!--<common:LassoAwarePanel ui:field="lassoAwarePanel">-->
-			<!--<common:EventDashboardView ui:field="eventDashboardView" />-->
-			<!--<columns:CalendarColumnsFrameGridWidget ui:field="columnsPanel" />-->
-		<!--</common:LassoAwarePanel>-->
-	</g:VerticalPanel>
+	</g:FlowPanel>
 </ui:UiBinder> 

@@ -61,7 +61,7 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
     int maxWidth = viewporWidth - scrollPanel.getAbsoluteLeft();
     int maxHeight = viewportHeight - scrollPanel.getAbsoluteTop();
 
-    maxWidth = maxWidth - Constants.SCROLLBAR_WIDTH();
+//    maxWidth = maxWidth - Constants.SCROLLBAR_WIDTH();
     maxHeight = maxHeight - 10; // 10px for margin
 
     if (maxWidth > 0) {

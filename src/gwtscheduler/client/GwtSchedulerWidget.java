@@ -5,7 +5,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.SchedulerCssResource;
@@ -38,37 +37,37 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
    * widget delegate
    */
   @UiField
-  TabPanelContainer container;
+  TabPanelContainer calendarContainer;
 
 
   public GwtSchedulerWidget() {
     initWidget(uiBinder.createAndBindUi(this));
-    container.addStyleName(CSS.gwtScheduler());
+    calendarContainer.addStyleName(CSS.gwtScheduler());
   }
 
   @Override
   public void addCalendarDisplay(CalendarPresenter.Display display) {
-//    container = new TabPanelContainer();
-    container.add((Widget) display);
+//    calendarContainer = new TabPanelContainer();
+    calendarContainer.add((Widget) display);
   }
 
   @Override
   public void add(Widget w) {
-    container.add(w);
+    calendarContainer.add(w);
   }
 
   @Override
   public void clear() {
-    container.clear();
+    calendarContainer.clear();
   }
 
   @Override
   public Iterator<Widget> iterator() {
-    return container.iterator();
+    return calendarContainer.iterator();
   }
 
   @Override
   public boolean remove(Widget w) {
-    return container.remove(w);  
+    return calendarContainer.remove(w);
   }
 }

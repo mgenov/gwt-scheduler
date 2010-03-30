@@ -11,7 +11,7 @@
 
 
     <g:HTMLPanel>
-        <nav:TabPanelContainer ui:field="container"/>
+        <nav:TabPanelContainer ui:field="calendarContainer"/>
     </g:HTMLPanel>
 
 </ui:UiBinder>

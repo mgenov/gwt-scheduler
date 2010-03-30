@@ -133,7 +133,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     dragZone.addDropZoneContainer((HasWidgets) main.asWidget());
 
-    VerticalPanel mainPanel = new VerticalPanel();
+//    VerticalPanel mainPanel = new VerticalPanel();
+    FlowPanel mainPanel = new FlowPanel();
 //    mainPanel.makeDraggable(dropRoot);
     mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
@@ -274,7 +275,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
 //    main.selectTab(0);
     main.navigateToDate(new Date(getCurrentDate().getMillis()));
-    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
+//    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
   }
 
   protected ReadableDateTime getCurrentDate() {

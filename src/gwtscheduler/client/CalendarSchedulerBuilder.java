@@ -3,6 +3,7 @@ package gwtscheduler.client;
 import com.google.inject.name.Names;
 import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
 
@@ -24,6 +25,7 @@ public class CalendarSchedulerBuilder {
 
 
   public CalendarSchedulerBuilder() {
+      Resources.injectAllStylesheets();
   }
 
   public CalendarSchedulerBuilder multiColumnScheduler(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, DragZone dragZone) {
