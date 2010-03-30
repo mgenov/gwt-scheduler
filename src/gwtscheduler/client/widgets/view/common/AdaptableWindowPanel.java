@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.user.client.ui.*;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
@@ -17,11 +18,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Defines a panel that occupies just about enough of the visible screen. It can
@@ -35,7 +31,7 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
 
   /** main container */
   @UiField
-  ScrollPanel scrollPanel;
+  SimplePanel scrollPanel;
   /** wrapper */
   @UiField
   AbsolutePanel container;
@@ -52,6 +48,7 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
    */
   public AdaptableWindowPanel() {
     initWidget(uiBinder.createAndBindUi(this));
+    container.getElement().getStyle().clearOverflow();
     Window.addResizeHandler(this);
   }
 
