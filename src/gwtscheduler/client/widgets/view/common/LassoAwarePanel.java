@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.ComplexGrid;
@@ -56,11 +57,17 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
   }
 
   private boolean forceLayout = true;
+  private int calendarWidth;
+  private int calendarHeight;
 
   /**
    * Default constructor.
+   * @param calendarWidth
+   * @param calendarHeight
    */
-  public LassoAwarePanel() {
+  public LassoAwarePanel(int calendarWidth, int calendarHeight) {
+    this.calendarWidth = calendarWidth;
+    this.calendarHeight = calendarHeight;
     initWidget(uiBinder.createAndBindUi(this));
     styleWindowPanel(windowPanel);
 
@@ -94,6 +101,11 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
     //don't know why but the UiBinder doesn't assume this
     lasso.getElement().getStyle().setPosition(Position.ABSOLUTE);
     lasso.getElement().getStyle().setZIndex(Constants.LASSO_ZINDEX);
+  }
+
+  @UiFactory
+  public AdaptableWindowPanel buildAdaptableWindowPanel(){
+    return  new AdaptableWindowPanel(calendarWidth,calendarHeight);
   }
 
   /**

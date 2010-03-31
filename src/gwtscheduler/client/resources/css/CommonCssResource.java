@@ -33,4 +33,9 @@ interface CommonCssResource extends CssResource {
   int genericContainerPaddingPx();
 
   int scrollOffSetPx();
+
+  @ClassName("headerPaddingLeft")
+  int headerPaddingLeft();
+
+  String genericHeaderContainer();
 }

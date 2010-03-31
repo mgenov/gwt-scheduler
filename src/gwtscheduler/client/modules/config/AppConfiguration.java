@@ -39,4 +39,17 @@ public interface AppConfiguration {
    * @return
    */
   int getDayViewTopRows();
+
+
+  /**
+   *
+   * @return
+   */
+  int getCalendarHeight();
+
+  /**
+   *
+   * @return
+   */
+  int getCalendarWidth();
 }

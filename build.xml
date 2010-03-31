@@ -126,7 +126,7 @@
   <target name="jar" depends="clean,compile"
           description="Assembles a distributable jar">
 
-    <jar jarfile="gwt-scheduler-${version}.jar" index="true">
+    <jar jarfile="../evoadm/lib/gwt-scheduler-${version}.jar" index="true">
 
       <fileset dir="${war.dir}/WEB-INF/classes/">
         <include name="**/*"/>

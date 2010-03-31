@@ -38,11 +38,16 @@ public class GwtSchedulerWidget extends Composite implements GwtScheduler.Displa
    */
   @UiField
   TabPanelContainer calendarContainer;
+  private int calendarWidth;
+  private int calendarHeight;
 
 
-  public GwtSchedulerWidget() {
+  public GwtSchedulerWidget(int calendarWidth, int calendarHeight) {
+    this.calendarWidth = calendarWidth;
+    this.calendarHeight = calendarHeight;
     initWidget(uiBinder.createAndBindUi(this));
     calendarContainer.addStyleName(CSS.gwtScheduler());
+    calendarContainer.setSize(calendarWidth+"px",calendarHeight+"px");
   }
 
   @Override

@@ -22,18 +22,21 @@ public class CalendarSchedulerBuilder {
 
   private GwtScheduler gwtScheduler;
   private GwtSchedulerWidget gwtSchedulerWidget;
+  private AppConfiguration configuration;
 
 
   public CalendarSchedulerBuilder() {
-      Resources.injectAllStylesheets();
+    Resources.injectAllStylesheets();
   }
 
   public CalendarSchedulerBuilder multiColumnScheduler(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, DragZone dragZone) {
+    this.configuration = configuration;
     presenter = new CalendarsBuilder().newMultiColumn(configuration, columnsProvider, dragZone).build();
     return this;
   }
 
   public CalendarSchedulerBuilder weekColumnScheduler(AppConfiguration configuration, DragZone dragZone) {
+    this.configuration = configuration;
     presenter = new CalendarsBuilder().newWeekColumn(configuration, dragZone).build();
     return this;
   }
@@ -45,7 +48,7 @@ public class CalendarSchedulerBuilder {
 
   public GwtScheduler build() {
     gwtScheduler = new GwtScheduler(presenter);
-    gwtSchedulerWidget = new GwtSchedulerWidget();
+    gwtSchedulerWidget = new GwtSchedulerWidget(configuration.getCalendarWidth(),configuration.getCalendarHeight());
     gwtScheduler.bindDisplay(gwtSchedulerWidget);
     return gwtScheduler;
   }

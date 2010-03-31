@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.columns;
 
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -34,31 +35,34 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
   private FlexTable header;
 
   private int columns;
+  private int calendarWidth;
 
-    /**
+  /**
    * top view cells
    */
   protected List<Cell<Element>> topLabels;
 
-  public CalendarHeaderWidget(int columns) {
+  public CalendarHeaderWidget(int columns, int calendarWidth) {
     this.columns = columns;
+    this.calendarWidth = calendarWidth;
     buildCalendarHeader(columns);
 
-    VerticalPanel vp = new VerticalPanel();
-    vp.setStyleName(CSS.headerEnd());
-    vp.add(header);
+//    VerticalPanel vp = new VerticalPanel();
+//    vp.setStyleName(CSS.headerEnd());
+//    vp.add(header);
+//    SimplePanel sp = new SimplePanel();
+//    sp.setStyleName(CSS.headerEnd());
+//    vp.add(sp);
     SimplePanel sp = new SimplePanel();
-    sp.setStyleName(CSS.headerEnd());
-    vp.add(sp);
-    initWidget(header);
+    sp.setStyleName(CSS.genericHeaderContainer());
+    sp.add(header);
+    initWidget(sp);
   }
   
   public void buildCalendarHeader(int columns){
     FlexTable g = new FlexTable();
     g.addStyleName(CSS.genericContainer());
-    g.setWidth("100%");
-//    g.getCellFormatter().setWidth(0, 0, CSS.titleColumnWidthPx() + "px");
-//    g.getCellFormatter().setWidth(0, columns + 1, Constants.SCROLLBAR_WIDTH() + "px");
+//    g.setWidth("100%");
 
     topLabels = new ArrayList<Cell<Element>>(columns);
 
@@ -69,7 +73,6 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
       topLabels.add(topCell);
 
       g.setWidget(0, i, DOMUtils.wrapElement(topCell.getCellElement()));
-      g.getFlexCellFormatter().setHorizontalAlignment(0, i , HasHorizontalAlignment.ALIGN_CENTER);
     }
      header = g;
   }
@@ -115,16 +118,18 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
       return;
     }
 
-    header.setPixelSize(width, -1);
-    int availableWidth = getCellWidth(width - Constants.SCROLLBAR_WIDTH());
+    int totalWidth = width - Constants.SCROLLBAR_WIDTH() - CSS.headerPaddingLeft();
+    header.setPixelSize(totalWidth, -1);
+    int availableWidth = getCellWidth(totalWidth);
 
     for (int i = 0;i<header.getCellCount(0);i++) {
-       header.getCellFormatter().setWidth(0,i,""+ availableWidth);
+       header.getCellFormatter().setWidth(0,i, availableWidth+"px");
     }
 
     for (Cell<Element> cell : topLabels) {
         BaseCell baseCell = (BaseCell)cell;
         baseCell.setStyleName(CSS.headerCell());
+        baseCell.getElement().getStyle().setWidth(availableWidth - 2, Style.Unit.PX);
     }
     
   }

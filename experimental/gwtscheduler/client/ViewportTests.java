@@ -133,20 +133,14 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     dragZone.addDropZoneContainer((HasWidgets) main.asWidget());
 
-//    VerticalPanel mainPanel = new VerticalPanel();
     FlowPanel mainPanel = new FlowPanel();
-//    mainPanel.makeDraggable(dropRoot);
     mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
 
-//    VerticalPanel testPanel = new VerticalPanel();
-//    testPanel.add(new Label("Wazaaaap"));
-//    dragZone.add(testPanel);
     dragZone.add(mainPanel);
     dragZone.go(RootPanel.get());
-//    dragZone.go(testPanel);
-//    RootPanel.attachResizeHelper().add(testPanel);
+
 
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();
@@ -325,6 +319,16 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     @Override
     public int getDayViewTopRows() {
       return 3;
+    }
+
+    @Override
+    public int getCalendarHeight() {
+      return 400;
+    }
+
+    @Override
+    public int getCalendarWidth() {
+      return 1000;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

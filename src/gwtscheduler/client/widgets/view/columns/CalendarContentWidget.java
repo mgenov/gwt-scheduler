@@ -52,13 +52,22 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   private int rows;
   private int columns;
   private int daysLineHeightEMs;
+  private int calendarWidth;
+  private int calendarHeight;
 
 
-  public CalendarContentWidget(int rows, int columns, int daysLineHeightEMs) {
+  public CalendarContentWidget(int rows, int columns, int daysLineHeightEMs, int calendarWidth, int calendarHeight) {
     this.rows = rows;
     this.columns = columns;
     this.daysLineHeightEMs = daysLineHeightEMs;
+    this.calendarWidth = calendarWidth;
+    this.calendarHeight = calendarHeight;
     initWidget(uiBinder.createAndBindUi(this));
+  }
+
+  @UiFactory
+  public LassoAwarePanel buildLassoAwarePanel(){
+    return new LassoAwarePanel(calendarWidth,calendarHeight);
   }
 
   @Override
@@ -97,9 +106,9 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
 
   @Override
   public void fireResizeRedrawEvents() {
-    int width = lassoAwarePanel.getOffsetWidth();
-    int height = lassoAwarePanel.getOffsetHeight();
-    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(width,height),new WidgetRedrawEvent());
+//    int width = lassoAwarePanel.getOffsetWidth();
+//    int height = lassoAwarePanel.getOffsetHeight();
+    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(calendarWidth,calendarHeight),new WidgetRedrawEvent());
   }
 
   @Override

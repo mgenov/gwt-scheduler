@@ -22,6 +22,16 @@ public class DefaultAppConfiguration implements AppConfiguration {
     return 3;
   }
 
+  @Override
+  public int getCalendarHeight() {
+    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public int getCalendarWidth() {
+    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
 
   @Override
   public int daysInWeek() {
