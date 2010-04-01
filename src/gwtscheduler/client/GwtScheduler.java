@@ -1,8 +1,7 @@
 package gwtscheduler.client;
 
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.events.TeamTaskEvent;
-import gwtscheduler.client.modules.views.MainView;
+import gwtscheduler.client.modules.views.SchedulerMainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
@@ -17,9 +16,39 @@ import org.goda.time.MutableDateTime;
 import java.util.Date;
 
 /**
+ * Represents a scheduler that can consist different calendars.
+ * <p/>
+ * Example:
+ * <p></p>
+ * <p>1. Getting ana instance;</p>
+ * <p/>
+ * <pre>
+ * CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
+ * <p></p>
+ * GwtScheduler scheduler = schedulerBuilder.weekColumnScheduler(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build();
+ * </pre>
+ * <pre>
+ * GwtScheduler scheduler = schedulerBuilder.multiColumnScheduler(new TestAppConfiguration(), testteamsProvider, null).named("Teams").build();
+ * </pre>
+ * Where TestAppConfiguration is implementation of a AppConfiguration interface
+ * and testteamsProvider is an instance of a custom implementation of a CalendarColumnsProvider intervace
+ * scheduler now is an instance that consist a calendar that represents week days or multi-column calendar.
+ * <p></p>
+ * <p>2. Scheduler  navigation </p>
+ * <pre>datePicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
+ *        @Override
+ *        public void onValueChange(ValueChangeEvent<Date> event) {
+ *            Date date = event.getValue();
+ *            main.navigateToDate(date);
+ *            }
+ *            });</pre>
+ * <p></p>
+ * <p> 3.Using the scheduler </p>
+ * <p> The scheduler fires events for every activity that is involved in. This fired events can be easily handled by adding handlers to the scheduler</p>
+ *
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class GwtScheduler implements MainView {
+public class GwtScheduler implements SchedulerMainView {
   public interface Display {
     void addCalendarDisplay(CalendarPresenter.Display display);
   }

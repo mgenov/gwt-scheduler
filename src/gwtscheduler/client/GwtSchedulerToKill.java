@@ -3,7 +3,7 @@ package gwtscheduler.client;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.modules.views.MainView;
+import gwtscheduler.client.modules.views.SchedulerMainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
@@ -46,7 +46,7 @@ import java.util.List;
  * <p> The scheduler fires events for every activity that is involved in. This fired events can be easily handled by adding handlers to the scheduler</p>
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class GwtSchedulerToKill implements MainView, BeforeSelectionHandler<Integer> {
+public class GwtSchedulerToKill implements SchedulerMainView, BeforeSelectionHandler<Integer> {
 
   public interface Display {
 
