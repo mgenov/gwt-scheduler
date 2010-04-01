@@ -25,7 +25,7 @@ public class DragOverEvent extends GwtEvent<DragOverHandler> {
    * @param dropObject object to be dropped when drag finish.
    * @param frame currently used frame.
    */
-  DragOverEvent(DragZone dragZone, int[] currentPosition, int[] dragStartPosition, Object dropObject, Frame frame) {
+  public DragOverEvent(DragZone dragZone, int[] currentPosition, int[] dragStartPosition, Object dropObject, Frame frame) {
     this.dragZone = dragZone;
     this.currentPosition = currentPosition;
     this.dragStartPosition = dragStartPosition;

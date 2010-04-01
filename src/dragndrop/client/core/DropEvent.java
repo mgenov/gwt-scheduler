@@ -26,7 +26,7 @@ public class DropEvent extends GwtEvent<DropHandler> {
    * @param dragStart drag start position. contains two fields. 0 - startX mouse position, 1 - startY mouse position.
    * @param dragEnd drag end position. contains two fields. 0 - endX mouse position, 1 - endY mouse position.
    */
-  DropEvent(Widget source, Object object, int[] dragStart, int[] dragEnd) {
+  public DropEvent(Widget source, Object object, int[] dragStart, int[] dragEnd) {
     this.source = source;
     this.object = object;
     this.dragStart = dragStart;

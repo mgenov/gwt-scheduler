@@ -25,7 +25,7 @@ public class DragInEvent extends GwtEvent<DragInHandler> {
    * @param dropObject object to be dropped.
    * @param dragZone who fires this event.
    */
-  DragInEvent(Frame frame, int[] dragStartPosition, int[] currentPosition, Object dropObject, DragZone dragZone) {
+  public DragInEvent(Frame frame, int[] dragStartPosition, int[] currentPosition, Object dropObject, DragZone dragZone) {
     this.frame = frame;
     this.dragStartPosition = dragStartPosition;
     this.currentPosition = currentPosition;

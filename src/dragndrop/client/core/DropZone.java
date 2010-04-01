@@ -34,7 +34,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  *
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com) 
  */
-public interface DropZone {
+public interface DropZone {  // TODO: can be optimized. if interfaces HasDropHandlers, HasDragInHandlers is created, and this DropZone extends all of them, user will not need to implements all 4 methods if he only need DropHandler!. Fire events will be optimized and searching for drop zones will be improved. Less iterations will be needed when searching a drop zone. One map can do all the yob for find the proper drop zone processing.
 
   /**
    * Register {@link dragndrop.client.core.DropHandler} that will handle DropEvent.
