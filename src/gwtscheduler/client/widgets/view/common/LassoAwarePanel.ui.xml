@@ -17,10 +17,10 @@
 		}
 	</ui:style>
 
-	<g:VerticalPanel ui:field="impl">
+	<!--<g:VerticalPanel ui:field="impl">-->
 		<common:AdaptableWindowPanel ui:field="windowPanel">
 			<common:LassoPanel ui:field="lasso" styleName="{style.lasso}" />
 		</common:AdaptableWindowPanel>
-	</g:VerticalPanel>
+	<!--</g:VerticalPanel>-->
 
 </ui:UiBinder> 

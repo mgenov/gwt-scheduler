@@ -5,9 +5,8 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.google.gwt.dom.client.Style.Position;
 import dragndrop.client.core.*;
-import gwtscheduler.client.widgets.view.common.resize.*;
-import gwtscheduler.common.event.CalendarEvent;
-import gwtscheduler.common.event.CalendarEventView;
+import gwtscheduler.client.widgets.view.event.CalendarEvent;
+import gwtscheduler.client.widgets.view.event.CalendarEventView;
 
 /**
  * This class is responsible for displaying events.

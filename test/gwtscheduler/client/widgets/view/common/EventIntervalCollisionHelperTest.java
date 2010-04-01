@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.common.event.CalendarEvent;
-import gwtscheduler.common.event.Event;
+import gwtscheduler.client.widgets.view.event.CalendarEvent;
+import gwtscheduler.client.widgets.view.event.Event;
 import org.goda.time.DateTime;
 import org.goda.time.MutableDateTime;
 import org.junit.Test;

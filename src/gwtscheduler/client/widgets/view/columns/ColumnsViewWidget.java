@@ -7,10 +7,7 @@ import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.*;
 import gwtscheduler.client.resources.Resources;
@@ -38,7 +35,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
         LassoAwarePanel.LassoHandler, HasWidgets {
 
   @UiField
-  VerticalPanel impl;
+  FlowPanel impl;
   
   @UiField
   CalendarHeaderWidget header;
@@ -65,14 +62,18 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   private int rows;
   private int columns;
   private int daysLineHeightEMs;
+  private int calendarWidth;
+  private int calendarHeight;
 
   /**
    * Default constructor.
    */
-  public ColumnsViewWidget(int rows, int columns,int daysLineHeightEMs) {
+  public ColumnsViewWidget(int rows, int columns, int daysLineHeightEMs, int calendarWidth, int calendarHeight) {
     this.rows = rows;
     this.columns = columns;
     this.daysLineHeightEMs = daysLineHeightEMs;
+    this.calendarWidth = calendarWidth;
+    this.calendarHeight = calendarHeight;
     initWidget(uiBinder.createAndBindUi(this));
     content.getEventsPanel().setComplexGrid(this);
     
@@ -95,13 +96,13 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
    */
   @UiFactory
   public CalendarHeaderWidget buildHeader() {
-    CalendarHeaderWidget widget = new CalendarHeaderWidget(columns);
+    CalendarHeaderWidget widget = new CalendarHeaderWidget(columns,calendarWidth);
     return widget;
   }
 
   @UiFactory
   public CalendarContentWidget buildContent(){
-    return new CalendarContentWidget(rows, columns,daysLineHeightEMs);
+    return new CalendarContentWidget(rows, columns,daysLineHeightEMs,calendarWidth,calendarHeight);
   }
 
   /**
@@ -111,7 +112,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
    */
   @Override
   public void forceLayout() {
-    content.getLassoAwarePanel().doDeferRedrawResize(new WidgetResizeEvent(), new WidgetRedrawEvent());
+    content.getLassoAwarePanel().doDeferRedrawResize(new WidgetResizeEvent(calendarWidth,calendarHeight), new WidgetRedrawEvent());
   }
 
 

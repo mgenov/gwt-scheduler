@@ -10,6 +10,14 @@ import com.google.gwt.resources.client.ClientBundle;
  */
 public interface CommonCssResourceBundle extends ClientBundle {
 
+
+  /**
+   * This is the main stylesheet for months.
+   * @return the month stylesheet resource
+   */
+  @Source(value = {"scheduler.css"})
+  public SchedulerCssResource schedulerCss();
+
   /**
    * This is the main stylesheet for days and weeks.
    * @return the day/week stylesheet resource

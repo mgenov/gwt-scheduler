@@ -15,7 +15,7 @@ public class UIModule extends AbstractGinModule {
 
   protected void configure() {
     //general
-//    bind(MainView.class).to(DateViewsTabPanel.class).in(Singleton.class);
+//    bind(SchedulerMainView.class).to(DateViewsTabPanel.class).in(Singleton.class);
 //    bind(UIManager.class).to(DefaultUIRegistry.class).in(Singleton.class);
     bind(EventBus.class).in(Singleton.class);
 

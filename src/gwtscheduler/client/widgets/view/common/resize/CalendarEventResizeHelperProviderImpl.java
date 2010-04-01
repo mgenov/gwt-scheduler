@@ -3,7 +3,7 @@ package gwtscheduler.client.widgets.view.common.resize;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
-import gwtscheduler.common.event.CalendarEvent;
+import gwtscheduler.client.widgets.view.event.CalendarEvent;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)

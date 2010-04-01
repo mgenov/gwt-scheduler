@@ -39,14 +39,15 @@ public class HorizontalCalendarViewPanelResizeHandler implements WidgetResizeHan
     final CalendarGridPanel.Display  grid = target;
     final Element parentEl = grid.getParent().getElement();
     int height = parentEl.getOffsetHeight();
-    int width = event.width;
+    int width = parentEl.getOffsetWidth();
+//    int width = event.width;
 
     if (width <= 0 || height <= 0) {
       return;
     }
 
-    grid.setPixelSize(width - Constants.SCROLLBAR_WIDTH(), height);
-    int[] availableSize = getCellSize(width - Constants.SCROLLBAR_WIDTH(), height);
+    grid.setPixelSize(width, height);
+    int[] availableSize = getCellSize(width, height);
 
     // here's the src to update column widths also
 //        int remainW = width - getTitleColumnOffsetWidth();

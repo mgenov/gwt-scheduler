@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
-import gwtscheduler.common.event.CalendarEvent;
+import gwtscheduler.client.widgets.view.event.CalendarEvent;
 import org.goda.time.Interval;
 
 import java.util.ArrayList;
@@ -13,7 +13,9 @@ public class IntervalCollisionDetector implements CollisionDetector {
   public boolean isInCollision(ArrayList<CalendarEvent> events, int columnIndex, Interval interval, Object object) {
     for (CalendarEvent event : events) {
       if ((event != object)) {
-        if (event.getStartCellPosition()[1] == columnIndex) {
+        int[] pos = new int[2];
+        pos = event.getStartCellPosition();
+        if (pos[1] == columnIndex) {
           if (checkCollision(event.getInterval(), interval)) {
             return true;
           }

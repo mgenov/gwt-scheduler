@@ -10,7 +10,7 @@
 
 
     <source path="client"/>
-	<!-- stupid css hack for ie -->
-   	<stylesheet src="/css/main.css" />
+	<!-- stupid css hack for ie  depricated -->
+   	<!--<stylesheet src="/css/main.css" />-->
 
 </module>

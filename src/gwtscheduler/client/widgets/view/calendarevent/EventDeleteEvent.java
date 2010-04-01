@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.calendarevent;
 
 import com.google.gwt.event.shared.GwtEvent;
-import  gwtscheduler.common.event.Event;
+import  gwtscheduler.client.widgets.view.event.Event;
 
 
 /**

@@ -7,7 +7,6 @@ import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
-import gwtscheduler.client.utils.lasso.VerticalLassoStrategy;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
@@ -21,13 +20,13 @@ import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChang
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
-import gwtscheduler.common.event.CalendarEventDeleteEvent;
-import gwtscheduler.common.event.CalendarEventDeleteEventHandler;
-import gwtscheduler.common.event.DurationInterval;
-import gwtscheduler.common.event.Event;
+import gwtscheduler.client.widgets.view.event.CalendarEventDeleteEvent;
+import gwtscheduler.client.widgets.view.event.CalendarEventDeleteEventHandler;
+import gwtscheduler.client.widgets.view.event.DurationInterval;
+import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.common.navigation.*;
-import gwtscheduler.common.event.EventClickEvent;
-import gwtscheduler.common.event.EventClickHandler;
+import gwtscheduler.client.widgets.view.event.EventClickEvent;
+import gwtscheduler.client.widgets.view.event.EventClickHandler;
 import org.goda.time.DateTime;
 import org.goda.time.Interval;
 

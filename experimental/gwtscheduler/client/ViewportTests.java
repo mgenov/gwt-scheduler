@@ -10,7 +10,7 @@ import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
-import gwtscheduler.common.event.colors.DefaultEventColors;
+import gwtscheduler.client.widgets.view.event.colors.DefaultEventColors;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
@@ -28,11 +28,11 @@ import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartEvent;
-import gwtscheduler.common.event.CalendarEvent;
-import gwtscheduler.common.event.DurationInterval;
-import gwtscheduler.common.event.Event;
-import gwtscheduler.common.event.EventClickEvent;
-import gwtscheduler.common.event.EventClickHandler;
+import gwtscheduler.client.widgets.view.event.CalendarEvent;
+import gwtscheduler.client.widgets.view.event.DurationInterval;
+import gwtscheduler.client.widgets.view.event.Event;
+import gwtscheduler.client.widgets.view.event.EventClickEvent;
+import gwtscheduler.client.widgets.view.event.EventClickHandler;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.MutableDateTime;
@@ -125,24 +125,22 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
 
-    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, null).named("Teams").build())
-            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build()).build();
+//    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, null).named("Teams").build())
+//            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build()).build();
+
+//    main = schedulerBuilder.multiColumnScheduler(new TestAppConfiguration(), testteams1, null).named("Teams").build();
+    main = schedulerBuilder.weekColumnScheduler(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build();
 
     dragZone.addDropZoneContainer((HasWidgets) main.asWidget());
 
-    VerticalPanel mainPanel = new VerticalPanel();
-//    mainPanel.makeDraggable(dropRoot);
+    FlowPanel mainPanel = new FlowPanel();
     mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
     mainPanel.add(main.asWidget());
 
-//    VerticalPanel testPanel = new VerticalPanel();
-//    testPanel.add(new Label("Wazaaaap"));
-//    dragZone.add(testPanel);
     dragZone.add(mainPanel);
     dragZone.go(RootPanel.get());
-//    dragZone.go(testPanel);
-//    RootPanel.attachResizeHelper().add(testPanel);
+
 
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();
@@ -269,9 +267,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     });
 
 
-    main.selectTab(0);
+//    main.selectTab(0);
     main.navigateToDate(new Date(getCurrentDate().getMillis()));
-    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
+//    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
   }
 
   protected ReadableDateTime getCurrentDate() {
@@ -321,6 +319,16 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     @Override
     public int getDayViewTopRows() {
       return 3;
+    }
+
+    @Override
+    public int getCalendarHeight() {
+      return 400;
+    }
+
+    @Override
+    public int getCalendarWidth() {
+      return 1000;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

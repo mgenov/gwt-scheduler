@@ -10,13 +10,12 @@
 		.container {
 			width: 100%;
 			height: 100%;
-			overflow-x: hidden;
 		}
 	</ui:style>
 
-	<g:ScrollPanel ui:field="scrollPanel" styleName="{style.scroll-panel}">
+	<g:SimplePanel ui:field="scrollPanel" styleName="{style.scroll-panel}">
 		<g:AbsolutePanel ui:field="container" styleName="{style.container}">
 		</g:AbsolutePanel>
-	</g:ScrollPanel>
+	</g:SimplePanel>
 
 </ui:UiBinder> 

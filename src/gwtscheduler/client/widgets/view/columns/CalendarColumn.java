@@ -1,6 +1,6 @@
 package gwtscheduler.client.widgets.view.columns;
 
-import gwtscheduler.common.event.Event;
+import gwtscheduler.client.widgets.view.event.Event;
 
 /**
  * Represents a Simple column in the calendar model

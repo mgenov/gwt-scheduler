@@ -13,6 +13,8 @@
 @def blued #E8EEF7 ;
 
 @def defaultBg white ;
+@def headerPaddingRight 18px;
+@def headerPaddingLeft 50px;
 
 /**
  * Sizes
@@ -26,7 +28,12 @@
  */
 .genericContainer {
 	background: lightBlued;
-    padding: genericContainerPaddingPx   20px  genericContainerPaddingPx 50px;
+    border-collapse:collapse;
+    text-align:center;
+}
+.genericHeaderContainer{
+   background: lightBlued;
+   padding: genericContainerPaddingPx   headerPaddingRight  genericContainerPaddingPx headerPaddingLeft;
 }
 
 /** 

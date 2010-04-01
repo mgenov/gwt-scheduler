@@ -78,4 +78,7 @@ public interface DayWeekCssResource extends CommonCssResource, CssResource {
   String headerCell();
 
   String headerEnd();
+
+
+
 }

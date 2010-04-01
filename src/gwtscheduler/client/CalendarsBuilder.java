@@ -29,6 +29,7 @@ import java.util.Date;
 
 /**
  * Builds Calendars
+ *
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarsBuilder {
@@ -40,15 +41,18 @@ public class CalendarsBuilder {
   private int columns;
   private int rows;
   private int daysLineHeightEMs;
+  private AppConfiguration configuration;
 
   /**
    * Sets a new multy column calednar in the builder.
+   *
    * @param configuration
    * @param columnsProvider
-   * @param dragZone put null to create local drop zone where is needed. Or put drop zone that will be used for dragging.
+   * @param dragZone        put null to create local drop zone where is needed. Or put drop zone that will be used for dragging.
    * @return
    */
   public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, DragZone dragZone) {
+    this.configuration = configuration;
     EventBus eventBus = new EventBus();
     rows = configuration.rowsInDay();
     columns = columnsProvider.getColumns().size();
@@ -73,11 +77,14 @@ public class CalendarsBuilder {
 
   /**
    * Sets a new week column calednar in the builder.
+   *
    * @param configuration
-   * @param dragZone put null to create local drop zone where is needed. Or put drop zone that will be used for dragging.
-   * @return
+   * @param dragZone      put null to create local drop zone where is needed. Or put drop zone that will be used for dragging.
+   * @param width
+   * @param height        @return
    */
   public CalendarsBuilder newWeekColumn(AppConfiguration configuration, DragZone dragZone) {
+    this.configuration = configuration;
     EventBus eventBus = new EventBus();
     rows = configuration.rowsInDay();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
@@ -94,7 +101,7 @@ public class CalendarsBuilder {
 
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
 
-    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(),new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper, dragZone));
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper, dragZone));
 
     calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
@@ -105,6 +112,7 @@ public class CalendarsBuilder {
 
   /**
    * sets title for the calendar
+   *
    * @param title
    * @return
    */
@@ -115,17 +123,19 @@ public class CalendarsBuilder {
 
   /**
    * Builds the widget for the calendar and bind it to the calendar
+   *
    * @return
    */
   public CalendarPresenter build() {
-    CalendarPresenter.Display display = new ColumnsViewWidget(rows, columns, daysLineHeightEMs);
+    CalendarPresenter.Display display = new ColumnsViewWidget(rows, columns, daysLineHeightEMs,configuration.getCalendarWidth(),configuration.getCalendarHeight());
     calendar.bindDisplay(display);
     return calendar;
   }
 
 
   /**
-   * Gets the current date time 
+   * Gets the current date time
+   *
    * @return
    */
   protected ReadableDateTime getCurrentDate() {

@@ -5,7 +5,7 @@ import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.common.EventIntervalCollisionException;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
-import gwtscheduler.common.event.CalendarEvent;
+import gwtscheduler.client.widgets.view.event.CalendarEvent;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 

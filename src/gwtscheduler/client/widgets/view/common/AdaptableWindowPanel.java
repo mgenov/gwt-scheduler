@@ -1,5 +1,6 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.user.client.ui.*;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
@@ -17,11 +18,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Defines a panel that occupies just about enough of the visible screen. It can
@@ -35,7 +31,7 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
 
   /** main container */
   @UiField
-  ScrollPanel scrollPanel;
+  SimplePanel scrollPanel;
   /** wrapper */
   @UiField
   AbsolutePanel container;
@@ -47,11 +43,20 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
   interface AdaptableWindowPanelUiBinder extends UiBinder<Widget, AdaptableWindowPanel> {
   }
 
+  private int calendarWidth;
+  private int calendarHeight;
+
   /**
    * Default constructor.
+   * @param calendarWidth
+   * @param calendarHeight
    */
-  public AdaptableWindowPanel() {
+  public AdaptableWindowPanel(int calendarWidth, int calendarHeight) {
+    this.calendarWidth = calendarWidth;
+    this.calendarHeight = calendarHeight;
     initWidget(uiBinder.createAndBindUi(this));
+    container.getElement().getStyle().clearOverflow();
+
     Window.addResizeHandler(this);
   }
 
@@ -61,11 +66,15 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
    * @param viewportHeight the available viewport height
    */
   void doResize(int viewporWidth, int viewportHeight) {
-    int maxWidth = viewporWidth - scrollPanel.getAbsoluteLeft();
-    int maxHeight = viewportHeight - scrollPanel.getAbsoluteTop();
+    int maxWidth = viewporWidth;
+//    int maxWidth = viewporWidth - scrollPanel.getAbsoluteLeft();
+    int maxHeight = viewportHeight;
+//    int maxHeight = viewportHeight - scrollPanel.getAbsoluteTop();
+//    int maxWidth =  scrollPanel.getParent().getParent().getOffsetWidth() - scrollPanel.getParent().getAbsoluteLeft(); //- scrollPanel.getAbsoluteLeft();
+//    int maxHeight =   scrollPanel.getParent().getParent().getOffsetWidth() -  scrollPanel.getParent().getAbsoluteTop();//viewportHeight - scrollPanel.getAbsoluteTop();
 
-    maxWidth = maxWidth - Constants.SCROLLBAR_WIDTH();
-    maxHeight = maxHeight - 10; // 10px for margin
+//    maxWidth = maxWidth - Constants.SCROLLBAR_WIDTH();
+    maxHeight = maxHeight - 40; // 10px for margin
 
     if (maxWidth > 0) {
       setWidth(maxWidth + "px");
@@ -121,7 +130,8 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
     DeferredCommand.addCommand(new Command() {
       public void execute() {
         final int[] availableSize = DOMUtils.getViewportDimensions();
-        doResize(availableSize[0], availableSize[1]);
+//        doResize(availableSize[0], availableSize[1]);
+        doResize(calendarWidth, calendarHeight);
       }
     });
   }
@@ -152,6 +162,4 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
   public boolean remove(Widget w) {
     return scrollPanel.remove(w);
   }
-
-
 }

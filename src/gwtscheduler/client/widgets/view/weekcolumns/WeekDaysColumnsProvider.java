@@ -3,7 +3,7 @@ package gwtscheduler.client.widgets.view.weekcolumns;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
-import gwtscheduler.common.event.DurationInterval;
+import gwtscheduler.client.widgets.view.event.DurationInterval;
 import org.goda.time.DateTime;
 import org.goda.time.Interval;
 import org.goda.time.Period;

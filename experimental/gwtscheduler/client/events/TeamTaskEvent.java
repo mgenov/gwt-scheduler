@@ -3,10 +3,10 @@ package gwtscheduler.client.events;
 
 import gwtscheduler.client.TestTask;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.common.event.DurationInterval;
-import gwtscheduler.common.event.Event;
-import gwtscheduler.common.event.HasColors;
-import gwtscheduler.common.event.colors.DefaultEventColor;
+import gwtscheduler.client.widgets.view.event.DurationInterval;
+import gwtscheduler.client.widgets.view.event.Event;
+import gwtscheduler.client.widgets.view.event.HasColors;
+import gwtscheduler.client.widgets.view.event.colors.DefaultEventColor;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}

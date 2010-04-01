@@ -1,11 +1,9 @@
 package gwtscheduler.client.widgets.view.common;
 
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.common.event.CalendarEvent;
-import gwtscheduler.common.event.EventPosition;
+import gwtscheduler.client.widgets.view.event.CalendarEvent;
+import gwtscheduler.client.widgets.view.event.EventPosition;
 
 import java.util.ArrayList;
 
