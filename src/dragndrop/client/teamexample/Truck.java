@@ -28,7 +28,7 @@ public class Truck {
   }
 
   public void go(DragZone dragZone) {
-    dragZone.add((HasMouseDownHandlers)display, this);
+    dragZone.register((HasMouseDownHandlers)display, this);
   }
 
   public void go(HasWidgets widget){

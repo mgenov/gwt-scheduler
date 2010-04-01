@@ -34,7 +34,7 @@ public class DragNDrop implements EntryPoint {
 //    dragZone.setSize(800, 800);
 //
 //    // make teams draggable. Team widgets implements DropZone interface. Presenter only attach DropHandler to the widget.
-//    dragZone.add(team1,team2,team3);
+//    dragZone.register(team1,team2,team3);
 //
 //    // makeDraggable teams to the panel where they will stay
 //    VerticalPanel teamPanel = new VerticalPanel();
@@ -44,10 +44,10 @@ public class DragNDrop implements EntryPoint {
 //
 //    // attach that panel over drag zone. Or to some other panel. But have on mind that dragging frame is visible over a drag zone.
 //    dragZone.add(teamPanel, 10, 10);
-//    dragZone.addDropZoneRoot(teamPanel); // register teamPanel that have drop zones attached to him.
+//    dragZone.addDropZoneContainer(teamPanel); // register teamPanel that have drop zones attached to him.
 //
 //    // make cars draggable
-//    dragZone.add(car1, car2, car3);
+//    dragZone.register(car1, car2, car3);
 //
 //    // make trucks draggable
 //    truck1.go(dragZone);
@@ -70,7 +70,7 @@ public class DragNDrop implements EntryPoint {
 //    race.go(racePanel);
 //
 //    dragZone.add(racePanel, 360, 10);
-//    dragZone.addDropZoneRoot(racePanel);
+//    dragZone.addDropZoneContainer(racePanel);
 //    dragZone.setFrameStyle("dragFrame");
 //
 //    dragZone.go(RootPanel.get()); // attach drag zone to the root panel or another panel.
