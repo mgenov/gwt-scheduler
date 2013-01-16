@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.calendarevent;
 import com.google.gwt.event.shared.GwtEvent;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import org.goda.time.DateTime;
 import org.goda.time.Instant;
 
 /**
@@ -18,11 +19,11 @@ public class CalendarObjectMoveEvent extends GwtEvent<CalendarObjectMoveHandler>
   private final String calendarTitle;
   private final Object droppedObject;
   private final CalendarColumn oldColumn;
-  private final Instant oldTime;
+  private final DateTime oldTime;
   private final CalendarColumn newColumn;
-  private final Instant newTime;
+  private final DateTime newTime;
 
-  public CalendarObjectMoveEvent(CalendarType calendarType, String calendarTitle, Object droppedObject, CalendarColumn oldColumn, Instant oldTime, CalendarColumn newColumn, Instant newTime) {
+  public CalendarObjectMoveEvent(CalendarType calendarType, String calendarTitle, Object droppedObject, CalendarColumn oldColumn, DateTime oldTime, CalendarColumn newColumn, DateTime newTime) {
     this.calendarType = calendarType;
     this.calendarTitle = calendarTitle;
     this.droppedObject = droppedObject;

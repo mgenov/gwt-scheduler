@@ -27,7 +27,7 @@ import java.util.List;
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  * @author Miroslav Genov (mgenov@gmail.com)
  */
-class DragZoneImpl implements DragZone {
+public class DragZoneImpl implements DragZone {
   private final int CORRECTION = -5;
   private final CursorStyleProvider cursorStyleProvider;
   private final Frame defaultFrame;
@@ -115,11 +115,11 @@ class DragZoneImpl implements DragZone {
         if(dropObject != null){
           frame = frameRegister.get(dropObject.getClass().getName());
         }
-        
+
         if (frame == null) {
           frame = DragZoneImpl.this.defaultFrame;
         }
-        
+
         frame.dropObject(dropObject);
         frame.setWidth(cloneWidth + 1);
         frame.setHeight(cloneHeight + 1);

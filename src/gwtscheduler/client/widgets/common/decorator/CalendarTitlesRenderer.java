@@ -1,6 +1,7 @@
 package gwtscheduler.client.widgets.common.decorator;
 
 import com.google.gwt.user.client.Element;
+import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
@@ -34,7 +35,8 @@ public class CalendarTitlesRenderer {
   public void renderVerticalTitles(Interval interval, List<Cell<Element>> elems) {
 
     Period p = new Period(0, 0, 0, 1, 0, 0, 0, 0);
-    DateTime start = interval.getStart();
+    //setting the start of the day
+    DateTime start = interval.getStart().withHourOfDay(0).toDateTime(Constants.timeZone);
 
     if (hasRunVertical || elems == null) {
       return;

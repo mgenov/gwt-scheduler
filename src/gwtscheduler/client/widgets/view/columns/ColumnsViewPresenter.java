@@ -1,15 +1,17 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
+import gwtscheduler.client.widgets.common.navigation.DateGenerator;
+import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.common.events.CellDropEvent;
@@ -24,7 +26,6 @@ import gwtscheduler.client.widgets.view.event.CalendarEventDeleteEvent;
 import gwtscheduler.client.widgets.view.event.CalendarEventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.event.DurationInterval;
 import gwtscheduler.client.widgets.view.event.Event;
-import gwtscheduler.client.widgets.common.navigation.*;
 import gwtscheduler.client.widgets.view.event.EventClickEvent;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
 import org.goda.time.DateTime;
@@ -306,7 +307,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public void navigateToDateTime(DateTime date) {
-    Interval interval = dateGenerator.getIntervalForDate((DateTime) date);
+    Interval interval = dateGenerator.getIntervalForDate(date);
     reRenderHeaderTitles(interval);
     eventBus.fireEvent(new NavigateToEvent(date));
   }

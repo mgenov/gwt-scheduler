@@ -1,5 +1,8 @@
 package gwtscheduler.client;
 
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.*;
@@ -8,39 +11,34 @@ import dragndrop.client.core.DragZone;
 import dragndrop.client.core.Zones;
 import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
-import gwtscheduler.client.widgets.view.event.colors.DefaultEventColors;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
-
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartEvent;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
 import gwtscheduler.client.widgets.view.event.DurationInterval;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickEvent;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
+import gwtscheduler.client.widgets.view.event.colors.DefaultEventColors;
 import org.goda.time.DateTime;
 import org.goda.time.DateTimeConstants;
 import org.goda.time.MutableDateTime;
 import org.goda.time.ReadableDateTime;
-
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 
 import java.util.Date;
 
@@ -85,7 +83,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     TicketPresenterFrame frame = new TicketPresenterFrame();
     frame.bindDisplay(new TicketPresenterFrameView());
 
-    DragZone dragZone = Zones.getDragZone();
+    DragZone dragZone = Zones.getDragZone(frame);
     dragZone.register(ticket1);
     dragZone.register(ticket2);
     dragZone.registerFrame(frame, TicketPresenter.class);
@@ -128,8 +126,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, null).named("Teams").build())
 //            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build()).build();
 
-//    main = schedulerBuilder.multiColumnScheduler(new TestAppConfiguration(), testteams1, null).named("Teams").build();
-    main = schedulerBuilder.weekColumnScheduler(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build();
+    main = schedulerBuilder.multiColumnScheduler(new TestAppConfiguration(), testteams1, null).named("Teams").build();
+//    main = schedulerBuilder.weekColumnScheduler(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build();
 
     dragZone.addDropZoneContainer((HasWidgets) main.asWidget());
 
@@ -187,7 +185,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
           TestTask testTask = (TestTask) o;
 
-          testTask.setDurationInterval(DurationInterval.getInterval(event.getDropTime(), event.getDropTime() + 3600 * testTask.getDuration() * 1000));
+          testTask.setDurationInterval(DurationInterval.getInterval(event.getDropTimeMills(), event.getDropTimeMills() + 3600 * testTask.getDuration() * 1000));
           dialog.setTestTask(testTask, column);
           dialog.show();
         }
@@ -328,7 +326,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     @Override
     public int getCalendarWidth() {
-      return 1000;  //To change body of implemented methods use File | Settings | File Templates.
+      return 1000;
     }
 
     @Override

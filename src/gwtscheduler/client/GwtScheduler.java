@@ -2,6 +2,7 @@ package gwtscheduler.client;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.views.SchedulerMainView;
+import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
@@ -11,6 +12,7 @@ import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChang
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
+import org.goda.time.DateTime;
 import org.goda.time.MutableDateTime;
 
 import java.util.Date;
@@ -79,7 +81,7 @@ public class GwtScheduler implements SchedulerMainView {
 
   public void navigateToDate(Date date) {
     Long mills = date.getTime();
-    MutableDateTime selectedDate = new MutableDateTime(mills);
+    MutableDateTime selectedDate = new MutableDateTime(mills, Constants.timeZone);
     selectedDate.setHourOfDay(0);
     selectedDate.setMinuteOfHour(0);
     selectedDate.setMinuteOfHour(0);

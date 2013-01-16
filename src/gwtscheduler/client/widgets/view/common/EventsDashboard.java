@@ -14,10 +14,11 @@ import gwtscheduler.client.widgets.view.common.events.MoveObjectEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelperProvider;
-import gwtscheduler.common.calendar.CalendarFrame;
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventPosition;
+import gwtscheduler.common.calendar.CalendarFrame;
+import org.goda.time.DateTime;
 import org.goda.time.Instant;
 import org.goda.time.Interval;
 import org.goda.time.ReadableDateTime;
@@ -307,12 +308,12 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     }
 
     int[] newCell = display.getCellPosition(event.getEndX(), event.getEndY());
-    Instant newTime = dateGenerator.getInstantForCell(newCell, display.getRowCount());
+    DateTime newTime = dateGenerator.getInstantForCell(newCell, display.getRowCount());
 
     if (calendarEvents.contains(event.getDroppedObject())) {
       int[] oldCell = display.getCellPosition(event.getStartX(), event.getStartY());
 
-      Instant oldTime = dateGenerator.getInstantForCell(oldCell, display.getRowCount());
+      DateTime oldTime = dateGenerator.getInstantForCell(oldCell, display.getRowCount());
 
       MoveObjectEvent moveObject = new MoveObjectEvent(oldCell, newCell, oldTime, newTime, event.getDroppedObject());
       eventBus.fireEvent(moveObject);

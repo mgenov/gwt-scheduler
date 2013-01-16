@@ -2,6 +2,7 @@ package gwtscheduler.client.widgets.view.common.events;
 
 import com.google.gwt.event.shared.GwtEvent;
 import gwtscheduler.client.widgets.view.common.events.CellDropHandler;
+import org.goda.time.DateTime;
 import org.goda.time.Instant;
 
 /**
@@ -13,10 +14,10 @@ public class CellDropEvent extends GwtEvent<CellDropHandler> {
   public static Type<CellDropHandler> TYPE = new Type<CellDropHandler>();
   // contains two elements. First element is row number and second element is column number.
   private final int[] newCell;
-  private final Instant newTime;
+  private final DateTime newTime;
   private final Object droppedObject;
 
-  public CellDropEvent(int[] cell, Instant time, Object droppedObject) {
+  public CellDropEvent(int[] cell, DateTime time, Object droppedObject) {
     this.newCell = cell;
     this.newTime = time;
     this.droppedObject = droppedObject;
@@ -40,7 +41,7 @@ public class CellDropEvent extends GwtEvent<CellDropHandler> {
     return droppedObject;
   }
 
-  public Instant getTime() {
+  public DateTime getTime() {
     return newTime;
   }
 }

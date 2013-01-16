@@ -1,6 +1,5 @@
 package dragndrop.client.core;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.shared.EventHandler;
@@ -99,7 +98,8 @@ class DragZoneView extends Composite implements DragZone.Display {
 
   @Override
   public void dropTo(DropZone dropZone, Object targetObject, int startX, int startY, int endX, int endY) {
-    dropTo(dropZone, dragWidget, targetObject, startX, startY, endX,endY);
+    //TODO  workaround - dobule drop event is fired
+//    dropTo(dropZone, dragWidget, targetObject, startX, startY, endX,endY);
   }
 
   @Override

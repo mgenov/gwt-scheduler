@@ -42,7 +42,7 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
   }
 
 
-  public static class TeamColumn implements CalendarColumn {
+  public static class TeamColumn implements CalendarColumn<Team> {
     private final Team team;
 
     public TeamColumn(String name) {
@@ -55,12 +55,12 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
     }
 
     @Override
-    public Object getObject() {
+    public Team getObject() {
       return team;
     }
 
     @Override
-    public void setObject(Object object) {
+    public void setObject(Team team) {
     }
 
     @Override

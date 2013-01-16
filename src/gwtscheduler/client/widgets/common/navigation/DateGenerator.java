@@ -65,7 +65,7 @@ public interface DateGenerator {
    * @param cell the starting cell
    * @param rowsCount the rows count
    */
-  Instant getInstantForCell(int[] cell, int rowsCount);
+  DateTime getInstantForCell(int[] cell, int rowsCount);
 
   /**
    * Gets the correspondent time interval for a given cell range

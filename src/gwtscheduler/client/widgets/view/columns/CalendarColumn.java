@@ -6,7 +6,7 @@ import gwtscheduler.client.widgets.view.event.Event;
  * Represents a Simple column in the calendar model
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public interface CalendarColumn {
+public interface CalendarColumn<T> {
 
   /**
    * Gets the title of the column
@@ -18,13 +18,13 @@ public interface CalendarColumn {
    *
    * @return
    */
-  Object getObject();
+  T getObject();
 
   /**
    *
    * @param object
    */
-  void setObject(Object object);
+  void setObject(T object);
 
   /**
    * Checks if an event is form this column

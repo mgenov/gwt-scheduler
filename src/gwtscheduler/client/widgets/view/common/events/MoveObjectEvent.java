@@ -2,6 +2,7 @@ package gwtscheduler.client.widgets.view.common.events;
 
 import com.google.gwt.event.shared.GwtEvent;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectHandler;
+import org.goda.time.DateTime;
 import org.goda.time.Instant;
 
 /**
@@ -11,11 +12,11 @@ public class MoveObjectEvent extends GwtEvent<MoveObjectHandler> {
   public static Type<MoveObjectHandler> TYPE = new Type<MoveObjectHandler>();
   private final int[] oldCell;
   private final int[] newCell;
-  private final Instant oldTime;
-  private final Instant newTime;
+  private final DateTime oldTime;
+  private final DateTime newTime;
   private final Object droppedObject;
 
-  public MoveObjectEvent(int[] oldCell, int[] newCell, Instant oldTime, Instant newTime, Object droppedObject) {
+  public MoveObjectEvent(int[] oldCell, int[] newCell, DateTime oldTime, DateTime newTime, Object droppedObject) {
     this.oldCell = oldCell;
     this.newCell = newCell;
     this.oldTime = oldTime;
@@ -45,11 +46,11 @@ public class MoveObjectEvent extends GwtEvent<MoveObjectHandler> {
     return droppedObject;
   }
 
-  public Instant getOldTime() {
+  public DateTime getOldTime() {
     return oldTime;
   }
 
-  public Instant getNewTime() {
+  public DateTime getNewTime() {
     return newTime;
   }
 }

@@ -12,13 +12,17 @@
 	<property name="war.dir" value="war" />
 	<property name="reports.dir" value="reports" />
 
+
+	<property name="GWT_HOME" value="/home/mlesikov/development/gwt-2.5.0/" />
+
+
 	<!-- main props -->
-	<echo message="       OS: ${env.OS}" />
-	<echo message="JAVA HOME: ${env.JAVA_HOME}" />
-	<echo message=" GWT HOME: ${env.GWT_HOME}" />
+	<!--<echo message="       OS: ${env.OS}" />-->
+	<!--<echo message="JAVA HOME: ${env.JAVA_HOME}" />-->
+	<echo message=" GWT HOME: ${GWT_HOME}" />
 
 	<!-- checks if GWT_HOME is defined -->
-	<target name="validate-gwt-home" unless="env.GWT_HOME">
+	<target name="validate-gwt-home" unless="GWT_HOME">
 		<fail message="Please define the GWT_HOME environment property" />
 	</target>
 
@@ -27,8 +31,8 @@
 		<pathelement location="${src.dir}" />
 		<pathelement location="${experimental.dir}" />
 		<pathelement location="${war.dir}/WEB-INF/classes" />
-		<pathelement location="${env.GWT_HOME}/gwt-user.jar" />
-		<pathelement location="${env.GWT_HOME}/gwt-dev.jar" />
+		<pathelement location="${GWT_HOME}/gwt-user.jar" />
+		<pathelement location="${GWT_HOME}/gwt-dev.jar" />
 		<!-- Add any additional non-server libs (such as JUnit) -->
 		<fileset dir="${war.dir}/WEB-INF/lib" includes="**/*.jar" />
 		<fileset dir="${lib.dir}" includes="**/*.jar" />
@@ -43,7 +47,7 @@
 	<!-- copy required libs -->
 	<target name="copy-libs" depends="validate-gwt-home" description="Copy libs to WEB-INF/lib">
 		<mkdir dir="${war.dir}/WEB-INF/lib" />
-		<copy todir="${war.dir}/WEB-INF/lib" file="${env.GWT_HOME}/gwt-servlet.jar" />
+		<copy todir="${war.dir}/WEB-INF/lib" file="${GWT_HOME}/gwt-servlet.jar" />
 		<!-- Add any additional server libs that need to be copied -->
 	</target>
 

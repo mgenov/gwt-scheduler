@@ -18,7 +18,7 @@ public class TicketPresenterFrameView extends Composite implements Frame.Display
     initWidget(frame);
 
     frame.getElement().setAttribute("style", style);
-    setZIndex(44);
+//    setZIndex(44);
     setCursorStyle("not-allowed");
   }
 
