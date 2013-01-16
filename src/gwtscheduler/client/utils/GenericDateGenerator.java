@@ -168,7 +168,7 @@ public class GenericDateGenerator implements DateGenerator {
       int distance = start[0];
       Interval interval = interval();
       ReadableInterval curr = interval.toMutableInterval();
-      MutableDateTime time = curr.getStart().toMutableDateTime(Constants.timeZone);
+      MutableDateTime time = curr.getStart().toMutableDateTime();
       time.add(getDurationPerCells(distance, rowNum));
 //      return time.toInstant();
       return time.toDateTime();
@@ -231,7 +231,7 @@ public class GenericDateGenerator implements DateGenerator {
       int distance = (start[1] * rowNum) + start[0];
       ReadableInterval curr = interval().toMutableInterval();
       int minutesPerCell = (24 * 60) / rowNum;
-      MutableDateTime time = curr.getStart().toMutableDateTime(Constants.timeZone);
+      MutableDateTime time = curr.getStart().toMutableDateTime();
       time.addMinutes(minutesPerCell * distance);
 //      return time.toInstant();
       return time.toDateTime();
@@ -244,11 +244,11 @@ public class GenericDateGenerator implements DateGenerator {
     }
 
     public void next() {
-      current = current.plusDays(weekSize).toDateTime(Constants.timeZone);
+      current = current.plusDays(weekSize).toDateTime();
     }
 
     public void previous() {
-      current = current.plusDays(-weekSize).toDateTime(Constants.timeZone);
+      current = current.plusDays(-weekSize).toDateTime();
     }
 
   }
@@ -292,7 +292,7 @@ public class GenericDateGenerator implements DateGenerator {
     public DateTime getInstantForCell(int[] start, int rowNum) {
       int distance = (start[0] * rowNum) + start[1];
       ReadableInterval curr = interval().toMutableInterval();
-      MutableDateTime time = curr.getStart().toMutableDateTime(Constants.timeZone);
+      MutableDateTime time = curr.getStart().toMutableDateTime();
       time.addDays(distance);
 //      return time.toInstant();
       return time.toDateTime();
@@ -317,7 +317,7 @@ public class GenericDateGenerator implements DateGenerator {
      * @param months the number of months to move. Can be negative
      */
     private void moveStart(int months) {
-      current = current.plusMonths(months).toDateTime(Constants.timeZone);
+      current = current.plusMonths(months);
     }
   }
 

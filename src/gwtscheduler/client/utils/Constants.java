@@ -1,5 +1,7 @@
 package gwtscheduler.client.utils;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.constants.TimeZoneConstants;
 import org.goda.time.tz.FixedDateTimeZone;
 
 import java.util.Date;
@@ -28,6 +30,7 @@ public class Constants {
   /** z index for lasso panel while a range is being selected */
   public static final int LASSO_ZINDEX_SELECTING = 13;
 
-  public static final FixedDateTimeZone timeZone = new FixedDateTimeZone("UTC-2", "UTC-2", TimeZone.getDefault().getRawOffset(), TimeZone.getDefault().getRawOffset());
+
+  public static final FixedDateTimeZone timeZone = new FixedDateTimeZone("deafault", "default", (-1) * 60000 * new Date().getTimezoneOffset(), (-1) * 60000 * new Date().getTimezoneOffset());
 
 }
