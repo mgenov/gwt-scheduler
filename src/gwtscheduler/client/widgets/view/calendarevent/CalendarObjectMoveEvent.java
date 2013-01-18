@@ -59,7 +59,7 @@ public class CalendarObjectMoveEvent extends GwtEvent<CalendarObjectMoveHandler>
     return oldColumn;
   }
 
-  public long getOldTime() {
+  public long getOldTimeMills() {
     return oldTime.getMillis();
   }
 
@@ -67,7 +67,19 @@ public class CalendarObjectMoveEvent extends GwtEvent<CalendarObjectMoveHandler>
     return newColumn;
   }
 
-  public long getNewTime() {
+  public long getNewTimeMills() {
     return newTime.getMillis();
+  }
+
+  public long getDifference(){
+    return newTime.getMillis() - oldTime.getMillis();
+  }
+
+  public DateTime getOldTime() {
+    return oldTime;
+  }
+
+  public DateTime getNewTime() {
+    return newTime;
   }
 }

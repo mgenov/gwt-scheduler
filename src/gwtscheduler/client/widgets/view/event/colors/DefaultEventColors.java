@@ -21,4 +21,8 @@ public class DefaultEventColors {
   public static DefaultEventColor getYellowEventColor() {
     return new DefaultYellowEventColor();
   }
+
+  public static DefaultGreyColor getGreyEventColor() {
+    return new DefaultGreyColor();
+  }
 }

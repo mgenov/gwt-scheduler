@@ -159,16 +159,18 @@ public class ViewportTests implements EntryPoint, ClickHandler {
           // change time
           Date currentStart = teamEvent.getDurationInterval().getStart();
           Date currentEnd = teamEvent.getDurationInterval().getEnd();
-          long oldTime = event.getOldTime();
-          long newTime = event.getNewTime();
-          long difference;
-          if(oldTime>newTime){
-            difference = oldTime - newTime;
-            teamEvent.setDurationInterval(DurationInterval.getInterval(currentStart.getTime()-difference, currentEnd.getTime() - difference));
-          } else {
-            difference = newTime - oldTime;
+//          long oldTime = event.getOldTimeMills();
+//          long newTime = event.getNewTimeMills();
+          long difference = event.getDifference();
+
+//          if(difference<0){
+//          if(oldTime>newTime){
+//            difference = oldTime - newTime;
             teamEvent.setDurationInterval(DurationInterval.getInterval(currentStart.getTime() + difference, currentEnd.getTime() + difference));
-          }
+//          } if (difference>0) {
+//            difference = newTime - oldTime;
+//            teamEvent.setDurationInterval(DurationInterval.getInterval(currentStart.getTime()-difference, currentEnd.getTime() - difference));
+//          }
 
           main.updateEvent(teamEvent);
         }

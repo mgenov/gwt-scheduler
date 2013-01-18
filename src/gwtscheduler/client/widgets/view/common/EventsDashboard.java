@@ -204,8 +204,8 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       return null; // or throw an exception!
     }
 
-    Instant startTime = new Instant(event.getDurationInterval().getStart());
-    Instant endTime = new Instant(event.getDurationInterval().getEnd()); 
+    Instant startTime = new Instant(event.getDurationInterval().getStart().getTime());
+    Instant endTime = new Instant(event.getDurationInterval().getEnd().getTime());
 
     int rowsCount = display.getRowCount();
     int startRow = dateGenerator.getRowForInstant(startTime, rowsCount);
