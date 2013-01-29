@@ -84,7 +84,7 @@ public class GwtScheduler implements SchedulerMainView {
     MutableDateTime selectedDate = new MutableDateTime(mills, Constants.timeZone);
     selectedDate.setHourOfDay(0);
     selectedDate.setMinuteOfHour(0);
-    selectedDate.setMinuteOfHour(0);
+    selectedDate.setSecondOfMinute(0);
     selectedDate.setMillisOfSecond(0);
     presenter.navigateToDateTime(selectedDate.toDateTime());
   }
