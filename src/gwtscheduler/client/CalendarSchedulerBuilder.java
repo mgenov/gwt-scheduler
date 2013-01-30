@@ -1,14 +1,10 @@
 package gwtscheduler.client;
 
-import com.google.inject.name.Names;
 import dragndrop.client.core.DragZone;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Builds calendar scheduler
@@ -23,6 +19,10 @@ public class CalendarSchedulerBuilder {
   private GwtScheduler gwtScheduler;
   private GwtSchedulerWidget gwtSchedulerWidget;
   private AppConfiguration configuration;
+  private CalendarColumnsProvider columnsProvider;
+  private DragZone dragZone;
+  private boolean multyColumnCalendar = false;
+  private String name;
 
 
   public CalendarSchedulerBuilder() {
@@ -31,25 +31,42 @@ public class CalendarSchedulerBuilder {
 
   public CalendarSchedulerBuilder multiColumnScheduler(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, DragZone dragZone) {
     this.configuration = configuration;
-    presenter = new CalendarsBuilder().newMultiColumn(configuration, columnsProvider, dragZone).build();
+    this.columnsProvider = columnsProvider;
+    this.dragZone = dragZone;
+    multyColumnCalendar = true;
+
     return this;
   }
 
   public CalendarSchedulerBuilder weekColumnScheduler(AppConfiguration configuration, DragZone dragZone) {
     this.configuration = configuration;
-    presenter = new CalendarsBuilder().newWeekColumn(configuration, dragZone).build();
+    this.dragZone = dragZone;
+
     return this;
   }
 
   public CalendarSchedulerBuilder named(String name) {
-    presenter.setTittle(name);
+    this.name = name;
     return this;
   }
 
   public GwtScheduler build() {
+    gwtSchedulerWidget = new GwtSchedulerWidget(configuration, columnsProvider.getColumns().size());
+
+    if(multyColumnCalendar){
+      presenter = new CalendarsBuilder().newMultiColumn(configuration, columnsProvider, dragZone).build();
+    }else {
+      presenter = new CalendarsBuilder().newWeekColumn(configuration, dragZone).build();
+    }
+    presenter.setTittle(name);
+
+//    CalendarPresenter.Display display = new ColumnsViewWidget(configuration.rowsInDay(), columnsProvider.getColumns().size(), configuration.daysLineHeightEMs());
+//    calendar.bindDisplay(display);
+
+
     gwtScheduler = new GwtScheduler(presenter);
-    gwtSchedulerWidget = new GwtSchedulerWidget(configuration.getCalendarWidth(),configuration.getCalendarHeight());
     gwtScheduler.bindDisplay(gwtSchedulerWidget);
+    presenter.forceLayout();
     return gwtScheduler;
   }
 }

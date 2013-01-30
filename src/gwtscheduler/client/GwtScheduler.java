@@ -52,7 +52,9 @@ import java.util.Date;
  */
 public class GwtScheduler implements SchedulerMainView {
   public interface Display {
-    void addCalendarDisplay(CalendarPresenter.Display display);
+
+    CalendarPresenter.Display getColumnsView();
+
   }
 
   private CalendarPresenter presenter;
@@ -65,8 +67,8 @@ public class GwtScheduler implements SchedulerMainView {
 
   public void bindDisplay(Display display) {
     this.display = display;
+    presenter.bindDisplay(display.getColumnsView());
     presenter.setEnable(true);
-    display.addCalendarDisplay(presenter.getDisplay());
   }
 
   @Override

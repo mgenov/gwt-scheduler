@@ -23,13 +23,13 @@ public class DefaultAppConfiguration implements AppConfiguration {
   }
 
   @Override
-  public int getCalendarHeight() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getCalendarHeight() {
+    return "0px";  //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @Override
-  public int getCalendarWidth() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  public String getCalendarWidth() {
+    return "0px";  //To change body of implemented methods use File | Settings | File Templates.
   }
 
 

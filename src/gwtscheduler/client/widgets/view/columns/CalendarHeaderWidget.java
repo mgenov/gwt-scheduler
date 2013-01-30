@@ -6,8 +6,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
@@ -35,16 +33,14 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
   private FlexTable header;
 
   private int columns;
-  private int calendarWidth;
 
   /**
    * top view cells
    */
   protected List<Cell<Element>> topLabels;
 
-  public CalendarHeaderWidget(int columns, int calendarWidth) {
+  public CalendarHeaderWidget(int columns) {
     this.columns = columns;
-    this.calendarWidth = calendarWidth;
     buildCalendarHeader(columns);
 
 //    VerticalPanel vp = new VerticalPanel();

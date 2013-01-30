@@ -142,7 +142,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
     dragZone.setFrameWindowPosition(windowCellPosition[0], windowCellPosition[1]);
 
-    int cellWidth = display.getCellWidth();
+    int cellWidth = display.getCellWidth() - 2 * display.getCellWidth()/100;
     int cellHeight = display.getCellHeight();
 
     Frame frame = dragZone.getCurrentFrame();

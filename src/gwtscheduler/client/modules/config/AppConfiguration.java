@@ -45,11 +45,11 @@ public interface AppConfiguration {
    *
    * @return
    */
-  int getCalendarHeight();
+  String getCalendarHeight();
 
   /**
    *
    * @return
    */
-  int getCalendarWidth();
+  String getCalendarWidth();
 }

@@ -11,7 +11,7 @@
 	</ui:style>
 
 	<g:SimplePanel styleName="{style.simple-panel}" ui:field="simplePanel">
-		<g:VerticalPanel ui:field="container" styleName="{style.simple-panel}">
+		<g:VerticalPanel ui:field="container">
 			<common:CalendarGridPanelWidget ui:field="grid" />
 		</g:VerticalPanel>
 	</g:SimplePanel>

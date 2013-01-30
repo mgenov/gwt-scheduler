@@ -132,9 +132,15 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     dragZone.addDropZoneContainer((HasWidgets) main.asWidget());
 
     FlowPanel mainPanel = new FlowPanel();
+    SimplePanel calendarPanel = new SimplePanel();
+    calendarPanel.setWidth("1300px");
+    calendarPanel.setHeight("400px");
     mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
-    mainPanel.add(main.asWidget());
+    calendarPanel.add(main.asWidget());
+//    main.asWidget().setWidth("1000px");
+//    main.asWidget().setHeight("400px");
+    mainPanel.add(calendarPanel);
 
     dragZone.add(mainPanel);
     dragZone.go(RootPanel.get());
@@ -322,13 +328,13 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     }
 
     @Override
-    public int getCalendarHeight() {
-      return 400;
+    public String getCalendarHeight() {
+      return "100%";
     }
 
     @Override
-    public int getCalendarWidth() {
-      return 1000;
+    public String getCalendarWidth() {
+      return "100%";
     }
 
     @Override

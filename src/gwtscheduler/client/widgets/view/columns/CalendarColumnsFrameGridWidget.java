@@ -10,8 +10,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.modules.AppInjector;
-import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.widgets.common.Cell;
@@ -73,7 +71,7 @@ public class CalendarColumnsFrameGridWidget extends Composite implements Calenda
 
 //    int lh = config.daysLineHeightEMs();
     int lh = this.daysLineHeightEMs;
-    container.setSize("100%",rows * lh + "em");
+    container.setSize("98.7%",rows * lh + "em");
     grid.setSize("100%", rows * lh + "em");
   }
 

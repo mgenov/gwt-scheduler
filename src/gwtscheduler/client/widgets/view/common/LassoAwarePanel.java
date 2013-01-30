@@ -1,19 +1,5 @@
 package gwtscheduler.client.widgets.view.common;
 
-import com.google.gwt.uibinder.client.UiFactory;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import gwtscheduler.client.utils.Constants;
-import gwtscheduler.client.widgets.common.ComplexGrid;
-import gwtscheduler.client.widgets.common.LassoStrategy;
-import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
-import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
-import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
-import gwtscheduler.client.widgets.common.event.WidgetRedrawHandler;
-import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
-import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-
-import java.util.Iterator;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -25,6 +11,17 @@ import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.utils.Constants;
+import gwtscheduler.client.widgets.common.ComplexGrid;
+import gwtscheduler.client.widgets.common.LassoStrategy;
+import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
+import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
+import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
+import gwtscheduler.client.widgets.common.event.WidgetRedrawHandler;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
+
+import java.util.Iterator;
 
 /**
  * Lasso panel that extends the redrawable panel in order to support lasso-style
@@ -56,18 +53,10 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
   interface LassoAwarePanelUiBinder extends UiBinder<Widget, LassoAwarePanel> {
   }
 
-  private boolean forceLayout = true;
-  private int calendarWidth;
-  private int calendarHeight;
-
   /**
    * Default constructor.
-   * @param calendarWidth
-   * @param calendarHeight
    */
-  public LassoAwarePanel(int calendarWidth, int calendarHeight) {
-    this.calendarWidth = calendarWidth;
-    this.calendarHeight = calendarHeight;
+  public LassoAwarePanel() {
     initWidget(uiBinder.createAndBindUi(this));
     styleWindowPanel(windowPanel);
 
@@ -103,10 +92,10 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
     lasso.getElement().getStyle().setZIndex(Constants.LASSO_ZINDEX);
   }
 
-  @UiFactory
-  public AdaptableWindowPanel buildAdaptableWindowPanel(){
-    return  new AdaptableWindowPanel(calendarWidth,calendarHeight);
-  }
+//  @UiFactory
+//  public AdaptableWindowPanel buildAdaptableWindowPanel(){
+//    return  new AdaptableWindowPanel(calendarWidth,calendarHeight);
+//  }
 
   /**
    * Defers a resize and then a redraw.

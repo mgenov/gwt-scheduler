@@ -6,15 +6,15 @@
              xmlns:columns="urn:import:gwtscheduler.client.widgets.view.columns">
 
     <ui:style>
-        .overlapPanel{
-        position:absolute;
-        width:100%;
-        height:100%;
-        margin-top:25px;
-        cursor:not-allowed;
-        background-color:grey;
-        opacity:0.1;
-        }
+      .overlapPanel {
+        position: absolute;
+        /*width: 100%;*/
+        /*height: 100%;*/
+        margin-top: 25px;
+        cursor: not-allowed;
+        background-color: grey;
+        opacity: 0.1;
+      }
     </ui:style>
         <common:LassoAwarePanel ui:field="lassoAwarePanel">
             <g:SimplePanel ui:field="overlapPanel" styleName="{style.overlapPanel}"></g:SimplePanel>

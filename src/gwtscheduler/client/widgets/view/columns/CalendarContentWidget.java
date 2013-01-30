@@ -6,21 +6,17 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.*;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
-import gwtscheduler.client.widgets.view.common.EventsDashboardView;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
+import gwtscheduler.client.widgets.view.common.EventsDashboardView;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -52,24 +48,24 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   private int rows;
   private int columns;
   private int daysLineHeightEMs;
-  private int calendarWidth;
-  private int calendarHeight;
+//  private int calendarWidth;
+//  private int calendarHeight;
 
 
-  public CalendarContentWidget(int rows, int columns, int daysLineHeightEMs, int calendarWidth, int calendarHeight) {
+  public CalendarContentWidget(int rows, int columns, int daysLineHeightEMs) {
     this.rows = rows;
     this.columns = columns;
     this.daysLineHeightEMs = daysLineHeightEMs;
-    this.calendarWidth = calendarWidth;
-    this.calendarHeight = calendarHeight;
+//    this.calendarWidth = calendarWidth;
+//    this.calendarHeight = calendarHeight;
     initWidget(uiBinder.createAndBindUi(this));
   }
 
-  @UiFactory
-  public LassoAwarePanel buildLassoAwarePanel(){
-    return new LassoAwarePanel(calendarWidth,calendarHeight);
-  }
-
+//  @UiFactory
+//  public LassoAwarePanel buildLassoAwarePanel(){
+//    return new LassoAwarePanel(calendarWidth,calendarHeight);
+//  }
+//
   @Override
   public void setEnable(boolean enable) {
     if(enable){
@@ -86,7 +82,7 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
    */
   @UiFactory
   public CalendarColumnsFrameGridWidget buildColumnPanel() {
-    return new CalendarColumnsFrameGridWidget(rows, columns,daysLineHeightEMs);
+    return new CalendarColumnsFrameGridWidget(rows, columns, daysLineHeightEMs);
   }
 
   @Override
@@ -108,7 +104,8 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
   public void fireResizeRedrawEvents() {
 //    int width = lassoAwarePanel.getOffsetWidth();
 //    int height = lassoAwarePanel.getOffsetHeight();
-    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(calendarWidth,calendarHeight),new WidgetRedrawEvent());
+//    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(calendarWidth,calendarHeight),new WidgetRedrawEvent());
+    lassoAwarePanel.doDeferRedrawResize(new WidgetResizeEvent(0, 0),new WidgetRedrawEvent());
   }
 
   @Override

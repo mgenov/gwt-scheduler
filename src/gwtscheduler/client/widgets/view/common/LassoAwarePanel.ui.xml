@@ -3,24 +3,24 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
 	xmlns:common="urn:import:gwtscheduler.client.widgets.view.common">
 	<ui:style>
-		.lasso {
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			left: 0;
-			top: 0;
-		}
-		.lasso div {
-			position: relative;
-			width: 100%;
-			height: 100%;
-		}
-	</ui:style>
+    .lasso {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
 
-	<!--<g:VerticalPanel ui:field="impl">-->
+    .lasso div {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+  </ui:style>
+
 		<common:AdaptableWindowPanel ui:field="windowPanel">
 			<common:LassoPanel ui:field="lasso" styleName="{style.lasso}" />
 		</common:AdaptableWindowPanel>
-	<!--</g:VerticalPanel>-->
 
 </ui:UiBinder> 
