@@ -1,19 +1,19 @@
 package gwtscheduler.client.widgets.common;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
-import gwtscheduler.client.widgets.view.event.Event;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.CalendarType;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
+import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
+import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
-import org.goda.time.DateTime;
+import gwtscheduler.common.util.DateTime;
 
 /**
  * Defines a calendar controller. Responsible for mediating the view and the

@@ -1,15 +1,9 @@
 package gwtscheduler.client.widgets.common.navigation;
 
-import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+
 import gwtscheduler.common.calendar.IntervalType;
-
-import org.goda.time.DateTime;
-import org.goda.time.Instant;
-import org.goda.time.Interval;
-import org.goda.time.MutableDateTime;
-import org.goda.time.ReadableDateTime;
-
-import java.util.List;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Period;
 
 /**
  * Defines event controller operations.
@@ -24,7 +18,7 @@ public interface DateGenerator {
    * @param interval the interval type
    * @param start the start date
    */
-  void init(IntervalType interval, ReadableDateTime start);
+  void init(IntervalType interval, DateTime start);
 
   /**
    * Gets the current date.
@@ -54,9 +48,9 @@ public interface DateGenerator {
    * Creates a new time period.
    * @return the time period
    */
-  Interval interval();
+  Period interval();
 
-  Interval currentInterval();
+  Period currentInterval();
 
 
   /**
@@ -75,9 +69,9 @@ public interface DateGenerator {
    * @param  rowsCount teh rows count
    * @return the time interval
    */
-  Interval getIntervalForRange(int[] start, int[] end, int rowsCount);
+  Period getIntervalForRange(int[] start, int[] end, int rowsCount);
 
-  Interval getIntervalForDate(DateTime date);
+  Period getIntervalForDate(DateTime date);
 
-  int getRowForInstant(Instant time, int rowsCount);
+  int getRowForInstant(DateTime time, int rowsCount);
 }

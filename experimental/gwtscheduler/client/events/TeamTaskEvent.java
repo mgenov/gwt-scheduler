@@ -3,10 +3,10 @@ package gwtscheduler.client.events;
 
 import gwtscheduler.client.TestTask;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.event.DurationInterval;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.HasColors;
 import gwtscheduler.client.widgets.view.event.colors.DefaultEventColor;
+import gwtscheduler.common.util.Period;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
@@ -25,12 +25,12 @@ public class TeamTaskEvent implements Event, HasColors{
   }
 
   @Override
-  public DurationInterval getDurationInterval() {
+  public Period getDurationInterval() {
     return testTask.getDurationInterval();
   }
 
   @Override
-  public void setDurationInterval(DurationInterval durationInterval) {
+  public void setDurationInterval(Period durationInterval) {
     testTask.setDurationInterval(durationInterval); 
   }
 

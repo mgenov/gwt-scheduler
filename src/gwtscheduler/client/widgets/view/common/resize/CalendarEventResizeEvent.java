@@ -2,18 +2,18 @@ package gwtscheduler.client.widgets.view.common.resize;
 
 import com.google.gwt.event.shared.GwtEvent;
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.Period;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
  */
 public class CalendarEventResizeEvent extends GwtEvent<CalendarEventResizeHandler> {
   public static Type<CalendarEventResizeHandler> TYPE = new Type<CalendarEventResizeHandler>();
-  private final Interval currentInterval;
+  private final Period currentInterval;
   private final CalendarEventResizeHelper calendarEventResizeHelper;
   private final CalendarEvent calendarEvent;
 
-  public CalendarEventResizeEvent(Interval currentInterval, CalendarEventResizeHelper calendarEventResizeHelper, CalendarEvent calendarEvent) {
+  public CalendarEventResizeEvent(Period currentInterval, CalendarEventResizeHelper calendarEventResizeHelper, CalendarEvent calendarEvent) {
     this.currentInterval = currentInterval;
     this.calendarEventResizeHelper = calendarEventResizeHelper;
     this.calendarEvent = calendarEvent;
@@ -29,7 +29,7 @@ public class CalendarEventResizeEvent extends GwtEvent<CalendarEventResizeHandle
     handler.onCalendarEventResizeEvent(this);
   }
 
-  public Interval getCurrentInterval() {
+  public Period getCurrentInterval() {
     return currentInterval;
   }
 

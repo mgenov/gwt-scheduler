@@ -2,7 +2,7 @@ package gwtscheduler.client.widgets.view.weekcolumns;
 
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.event.Event;
-import org.goda.time.DateTime;
+import gwtscheduler.common.util.DateTime;
 
 /**
  * Represents a simple date column.

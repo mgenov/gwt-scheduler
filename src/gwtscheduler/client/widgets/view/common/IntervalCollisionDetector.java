@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.Period;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class IntervalCollisionDetector implements CollisionDetector {
   @Override
-  public boolean isInCollision(ArrayList<CalendarEvent> events, int columnIndex, Interval interval, Object object) {
+  public boolean isInCollision(ArrayList<CalendarEvent> events, int columnIndex, Period interval, Object object) {
     for (CalendarEvent event : events) {
       if ((event != object)) {
         int[] pos = new int[2];
@@ -26,11 +26,11 @@ public class IntervalCollisionDetector implements CollisionDetector {
   }
 
   @Override
-  public boolean isInCollision(Interval interval, Interval currentInterval) {
+  public boolean isInCollision(Period interval, Period currentInterval) {
     return checkCollision(interval,currentInterval);  
   }
 
-  private boolean checkCollision(Interval intervalA, Interval intervalB) {
+  private boolean checkCollision(Period intervalA, Period intervalB) {
     long a1 = intervalA.getStartMillis();
     long a2 = intervalA.getEndMillis();
     long b1 = intervalB.getStartMillis();

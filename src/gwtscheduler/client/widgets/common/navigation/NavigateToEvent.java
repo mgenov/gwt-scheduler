@@ -1,16 +1,16 @@
 package gwtscheduler.client.widgets.common.navigation;
 
 import com.google.gwt.event.shared.GwtEvent;
-import org.goda.time.ReadableDateTime;
+import gwtscheduler.common.util.DateTime;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class NavigateToEvent extends GwtEvent<NavigateToEventHandler>{
   public static final Type<NavigateToEventHandler> TYPE = new  GwtEvent.Type<NavigateToEventHandler>();
-  private ReadableDateTime dateTime;
+  private DateTime dateTime;
 
-  public NavigateToEvent(ReadableDateTime dateTime) {
+  public NavigateToEvent(DateTime dateTime) {
     this.dateTime = dateTime;
   }
 

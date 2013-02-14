@@ -6,8 +6,8 @@ import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.common.EventIntervalCollisionException;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
-import org.goda.time.Instant;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Period;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -103,7 +103,7 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
 
     endRow = row;
 
-    Interval currentInterval = getFrameInterval();
+    Period currentInterval = getFrameInterval();
 
     CalendarEventResizeEvent resizeEvent = new CalendarEventResizeEvent(currentInterval, this, calendarEvent);
     calendarBus.fireEvent(resizeEvent);
@@ -124,16 +124,16 @@ public class CalendarEventResizeHelperImpl implements CalendarEventResizeHelper 
       throw new EventIntervalCollisionException(EVENT_IN_COLLISION);
     }
 
-    Interval frameInterval = getFrameInterval();
+    Period frameInterval = getFrameInterval();
 
-    CalendarEventDurationChangeEvent resizeEvent = new CalendarEventDurationChangeEvent(calendarEvent, frameInterval.getStart().toInstant(), frameInterval.getEnd().toInstant());
+    CalendarEventDurationChangeEvent resizeEvent = new CalendarEventDurationChangeEvent(calendarEvent, frameInterval.getStart(), frameInterval.getEnd());
     calendarBus.fireEvent(resizeEvent);
   }
 
-  private Interval getFrameInterval() {
-      Instant startTime = calendarEvent.getInterval().getStart().toInstant();
-      Instant endTime = dateGenerator.getIntervalForRange(eventStartRow, endRow, eventsDisplay.getRowCount()).getEnd().toInstant();
-      return new Interval(startTime, endTime);
+  private Period getFrameInterval() {
+      DateTime startTime = calendarEvent.getInterval().getStart();
+      DateTime endTime = dateGenerator.getIntervalForRange(eventStartRow, endRow, eventsDisplay.getRowCount()).getEnd();
+      return new Period(startTime, endTime);
   }
 
   @Override

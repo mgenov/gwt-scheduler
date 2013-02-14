@@ -2,8 +2,7 @@ package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
 import gwtscheduler.client.widgets.view.event.Event;
-import org.goda.time.DateTime;
-import org.goda.time.MutableDateTime;
+import gwtscheduler.common.util.DateTime;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,11 +22,11 @@ public class EventIntervalCollisionHelperTest {
   private CollisionDetector detector;
 
   protected DateTime getCurrentDate(int hours) {
-    MutableDateTime start = new MutableDateTime(System.currentTimeMillis());
-    start.setHourOfDay(hours);
-    start.setMinuteOfHour(0);
-    start.setMinuteOfHour(0);
-    start.setMillisOfSecond(0);
+    DateTime start = new DateTime(System.currentTimeMillis());
+    start.setHours(hours);
+    start.setMinutes(0);
+    start.setMinutes(0);
+    start.setMillis(0);
     DateTime date = start.toDateTime();
     return date;
   }

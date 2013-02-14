@@ -2,7 +2,6 @@ package gwtscheduler.client;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.views.SchedulerMainView;
-import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
@@ -12,8 +11,7 @@ import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChang
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
-import org.goda.time.DateTime;
-import org.goda.time.MutableDateTime;
+import gwtscheduler.common.util.DateTime;
 
 import java.util.Date;
 
@@ -80,13 +78,14 @@ public class GwtScheduler implements SchedulerMainView {
   }
 
   public void navigateToDate(Date date) {
-    Long mills = date.getTime();
-    MutableDateTime selectedDate = new MutableDateTime(mills, Constants.timeZone);
-    selectedDate.setHourOfDay(0);
-    selectedDate.setMinuteOfHour(0);
-    selectedDate.setSecondOfMinute(0);
-    selectedDate.setMillisOfSecond(0);
-    presenter.navigateToDateTime(selectedDate.toDateTime());
+//    Long mills = date.getTime();
+    DateTime selectedDate = new DateTime(date);
+//    DateTime selectedDate = new DateTime(mills, Constants.timeZone);
+//    selectedDate.setHours(0);
+//    selectedDate.setMinutes(0);
+//    selectedDate.setSeconds(0);
+//    selectedDate.setMillis(0);
+    presenter.navigateToDateTime(selectedDate.trimToStart());
   }
 
   public void deleteColumn(CalendarColumn column) {

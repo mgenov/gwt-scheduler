@@ -24,12 +24,11 @@ import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChang
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.client.widgets.view.event.CalendarEventDeleteEvent;
 import gwtscheduler.client.widgets.view.event.CalendarEventDeleteEventHandler;
-import gwtscheduler.client.widgets.view.event.DurationInterval;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickEvent;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
-import org.goda.time.DateTime;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Period;
 
 import java.util.List;
 
@@ -87,7 +86,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
 //    display.initLasso(new VerticalLassoStrategy(false), this);
     
-    final Interval interval = dateGenerator.interval();
+    final Period interval = dateGenerator.interval();
 
     titlesRenderer.renderVerticalTitles(interval, calendarContent.getFrameGridDecorables());
 
@@ -120,9 +119,9 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
     });
   }
 
-  private void reRenderHeaderTitles(Interval interval) {
-    DurationInterval durationInterval = DurationInterval.getInterval(interval.getStartMillis(),interval.getEndMillis());
-    columnsProvider.updateColumns(durationInterval, columns);
+  private void reRenderHeaderTitles(Period interval) {
+//    DurationInterval durationInterval = DurationInterval.getInterval(interval.getStartMillis(),interval.getEndMillis());
+    columnsProvider.updateColumns(interval, columns);
     titlesRenderer.renderHorizontalTitles(columns, calendarHeader.getHeaderDecorableElements());
   }
 
@@ -307,7 +306,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public void navigateToDateTime(DateTime date) {
-    Interval interval = dateGenerator.getIntervalForDate(date);
+    Period interval = dateGenerator.getIntervalForDate(date);
     reRenderHeaderTitles(interval);
     eventBus.fireEvent(new NavigateToEvent(date));
   }

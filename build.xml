@@ -3,7 +3,7 @@
 
 	<!-- main project props -->
 	<property environment="env" />
-  <property name="version" value="0.1" />
+  <property name="version" value="0.2" />
 	<property name="src.dir" value="src" />
 	<property name="test.dir" value="test" />
 	<property name="experimental.dir" value="experimental" />

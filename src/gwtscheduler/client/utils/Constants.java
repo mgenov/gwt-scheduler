@@ -1,12 +1,5 @@
 package gwtscheduler.client.utils;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.i18n.client.constants.TimeZoneConstants;
-import org.goda.time.tz.FixedDateTimeZone;
-
-import java.util.Date;
-import java.util.TimeZone;
-
 /**
  * Application constants.
  */
@@ -31,6 +24,6 @@ public class Constants {
   public static final int LASSO_ZINDEX_SELECTING = 13;
 
 
-  public static final FixedDateTimeZone timeZone = new FixedDateTimeZone("deafault", "default", (-1) * 60000 * new Date().getTimezoneOffset(), (-1) * 60000 * new Date().getTimezoneOffset());
+//  public static final FixedDateTimeZone timeZone = new FixedDateTimeZone("deafault", "default", (-1) * 60000 * new Date().getTimezoneOffset(), (-1) * 60000 * new Date().getTimezoneOffset());
 
 }

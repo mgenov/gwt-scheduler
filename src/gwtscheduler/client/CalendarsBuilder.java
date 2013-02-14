@@ -1,7 +1,6 @@
 package gwtscheduler.client;
 
 import dragndrop.client.core.DragZone;
-import dragndrop.client.core.Zones;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.GenericDateGenerator;
@@ -15,16 +14,12 @@ import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
 import gwtscheduler.client.widgets.view.common.CollisionDetector;
-import gwtscheduler.client.widgets.view.common.IntervalCollisionDetector;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
+import gwtscheduler.client.widgets.view.common.IntervalCollisionDetector;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelperProviderImpl;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
 import gwtscheduler.common.calendar.IntervalType;
-import org.goda.time.DateTime;
-import org.goda.time.MutableDateTime;
-import org.goda.time.ReadableDateTime;
-
-import java.util.Date;
+import gwtscheduler.common.util.DateTime;
 
 
 /**
@@ -138,12 +133,11 @@ public class CalendarsBuilder {
    *
    * @return
    */
-  protected ReadableDateTime getCurrentDate() {
-    MutableDateTime start = new MutableDateTime();
-    start.setHourOfDay(0);
-    start.setMinuteOfHour(0);
-    start.setMinuteOfHour(0);
-    start.setMillisOfSecond(0);
+  protected DateTime getCurrentDate() {
+    DateTime start = new DateTime();
+    start.setHours(0);
+    start.setMinutes(0);
+    start.setMillisOfMinute(0);
     DateTime date = start.toDateTime();
     return date;
   }

@@ -2,8 +2,8 @@ package gwtscheduler.client;
 
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
-import gwtscheduler.client.widgets.view.event.DurationInterval;
 import gwtscheduler.client.widgets.view.event.Event;
+import gwtscheduler.common.util.Period;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
   }
 
   @Override
-  public void updateColumns(DurationInterval interval, List<CalendarColumn> columns) {
+  public void updateColumns(Period interval, List<CalendarColumn> columns) {
 //    DateTime current = interval.getStart();
 //    for (CalendarColumn column : columns) {
 //      column.setObject(current);

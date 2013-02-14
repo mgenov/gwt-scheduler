@@ -1,15 +1,12 @@
 package gwtscheduler.tests.gwt.lasso;
 
-import static gwtscheduler.tests.gwt.TestUtils.assertInstantDate;
+import com.google.gwt.junit.client.GWTTestCase;
+import gwtscheduler.common.util.DateTime;
 import gwtscheduler.tests.gwt.DateTimeAwarePresenter;
-
-import org.goda.time.Instant;
-import org.goda.time.Interval;
-import org.goda.time.PeriodType;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.gwt.junit.client.GWTTestCase;
+import static gwtscheduler.tests.gwt.TestUtils.assertInstantDate;
 
 /**
  * Test case for date factory.
@@ -32,19 +29,19 @@ public class LassoTests extends GWTTestCase {
 
   @Test
   public void testGetInstantForCell() {
-    Instant i = subject.getInstantForCell(new int[] {0, 0});
+    DateTime i = subject.getInstantForCell(new int[] {0, 0});
     assertInstantDate(i, 2009, 01, 01);
   }
 
   @Test
   public void testGetInstantForCell2() {
-    Instant i = subject.getInstantForCell(new int[] {1, 0});
+    DateTime i = subject.getInstantForCell(new int[] {1, 0});
     assertInstantDate(i, 2009, 01, 11);
   }
 
   @Test
   public void testGetInstantForCell3() {
-    Instant i = subject.getInstantForCell(new int[] {1, 3});
+    DateTime i = subject.getInstantForCell(new int[] {1, 3});
     assertInstantDate(i, 2009, 01, 14);
   }
 

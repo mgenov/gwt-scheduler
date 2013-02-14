@@ -1,7 +1,5 @@
 package gwtscheduler.client.modules.config;
 
-import org.goda.time.DateTimeConstants;
-
 import com.google.inject.Singleton;
 
 /**
@@ -13,7 +11,8 @@ public class DefaultAppConfiguration implements AppConfiguration {
 
   @Override
   public int startDayOfWeek() {
-    return DateTimeConstants.MONDAY;
+//    return DateTimeConstants.MONDAY;
+    return 1;
   }
   
 
@@ -24,12 +23,12 @@ public class DefaultAppConfiguration implements AppConfiguration {
 
   @Override
   public int getCalendarHeight() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    return 0;
   }
 
   @Override
   public int getCalendarWidth() {
-    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    return 0;
   }
 
 

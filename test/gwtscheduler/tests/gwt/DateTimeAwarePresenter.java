@@ -1,23 +1,18 @@
 package gwtscheduler.tests.gwt;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.ComplexGrid;
-
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
-import org.goda.time.DateTime;
-import org.goda.time.Instant;
-import org.goda.time.Interval;
-import org.goda.time.MutableDateTime;
-import org.goda.time.ReadableInterval;
+import gwtscheduler.common.util.DateTime;
 
 /**
  * Utility class for lasso tests.
@@ -27,12 +22,12 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
 
   final int rows, cols;
 
-  static Interval Interval;
+//  static Interval Interval;
 
   static {
-    DateTime dt1 = new DateTime(2009, 01, 01, 01, 01, 01, 01);
-    DateTime dt2 = new DateTime(2009, 01, 31, 01, 01, 01, 01);
-    Interval = new Interval(dt1, dt2);
+//    DateTime dt1 = new DateTime(2009, 01, 01, 01, 01, 01, 01);
+//    DateTime dt2 = new DateTime(2009, 01, 31, 01, 01, 01, 01);
+//    Interval = new Interval(dt1, dt2);
   }
 
   /**
@@ -79,13 +74,14 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
 //  }
 
 
-  public Instant getInstantForCell(int[] start) {
-    int distance = (start[0] * getColNum()) + start[1];
-    ReadableInterval curr = Interval.toMutableInterval();
-    MutableDateTime time = curr.getStart().toMutableDateTime();
-
-    time.addDays(distance);
-    return time.toInstant();
+  public DateTime getInstantForCell(int[] start) {
+//    int distance = (start[0] * getColNum()) + start[1];
+//    ReadableInterval curr = Interval.toMutableInterval();
+//    MutableDateTime time = curr.getStart().toMutableDateTime();
+//
+//    time.addDays(distance);
+//    return time.toInstant();
+    return null;
   }
 
   @Override

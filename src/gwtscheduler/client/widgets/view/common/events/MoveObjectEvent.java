@@ -1,9 +1,8 @@
 package gwtscheduler.client.widgets.view.common.events;
 
 import com.google.gwt.event.shared.GwtEvent;
-import gwtscheduler.client.widgets.view.common.events.MoveObjectHandler;
-import org.goda.time.DateTime;
-import org.goda.time.Instant;
+import gwtscheduler.common.util.DateTime;
+
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)

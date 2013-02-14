@@ -3,10 +3,8 @@ package gwtscheduler.client.widgets.view.weekcolumns;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
-import gwtscheduler.client.widgets.view.event.DurationInterval;
-import org.goda.time.DateTime;
-import org.goda.time.Interval;
-import org.goda.time.Period;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Period;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +27,11 @@ public class WeekDaysColumnsProvider implements CalendarColumnsProvider {
   public WeekDaysColumnsProvider(DateGenerator dateGenerator) {
     this.dateGenerator = dateGenerator;
 
-    Interval interval = this.dateGenerator.interval();
-    int days = interval.toPeriod().toStandardDays().getDays();
-    Period period = new Period(0, 0, 0, days, 0, 0, 0, 0);
+    Period interval = this.dateGenerator.interval();
+    int days = interval.getDays();
     DateTime start = interval.getStart();
 
-    dayColumns = generateWeekDayColumns(start, period);
+    dayColumns = generateWeekDayColumns(start);
 
   }
 
@@ -44,11 +41,11 @@ public class WeekDaysColumnsProvider implements CalendarColumnsProvider {
    * @param period the Period of the interval
    * @return array list of calendar columns
    */
-  private ArrayList<CalendarColumn> generateWeekDayColumns(DateTime start, Period period) {
+  private ArrayList<CalendarColumn> generateWeekDayColumns(DateTime start) {
     ArrayList<CalendarColumn> dayColumns = new ArrayList<CalendarColumn>();
 
     for (int i = 0; i < WEEK_SIZE; i++) {
-      DayColumn column = new DayColumn( start.plusDays(i));
+      DayColumn column = new DayColumn(start.plusDays(i));
       dayColumns.add(column);
     }
     
@@ -66,8 +63,8 @@ public class WeekDaysColumnsProvider implements CalendarColumnsProvider {
    * @param columns the list of columns
    */
   @Override
-  public void updateColumns(DurationInterval interval, List<CalendarColumn> columns) {
-    DateTime current = new DateTime(interval.getStart().getTime());
+  public void updateColumns(Period interval, List<CalendarColumn> columns) {
+    DateTime current = new DateTime(interval.getStartMillis());
     for (CalendarColumn column : columns) {
       column.setObject(current);
       current = current.plusDays(1);

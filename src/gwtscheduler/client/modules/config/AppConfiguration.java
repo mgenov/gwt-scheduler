@@ -1,11 +1,9 @@
 package gwtscheduler.client.modules.config;
 
-import org.goda.time.DateTimeConstants;
 
 /**
  * Defines application configuration.
  * @author malp
- * @see DateTimeConstants
  */
 public interface AppConfiguration {
 
