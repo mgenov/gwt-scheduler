@@ -1,5 +1,7 @@
 package gwtscheduler.client.widgets.view.event;
 
+import gwtscheduler.common.util.Interval;
+
 /**
  * Event represents a single Event item in the calendar.
  * <p/>
@@ -19,7 +21,7 @@ public interface Event {
    *
    * @param interval the new interval to be set
    */
-  void setDurationInterval(DurationInterval interval);
+  void setDurationInterval(Interval interval);
 
   /**
    * Gets the event title.

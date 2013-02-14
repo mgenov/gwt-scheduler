@@ -1,5 +1,8 @@
 package gwtscheduler.client.widgets.view.event;
 
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Interval;
+
 import java.util.Date;
 
 /**
@@ -40,14 +43,12 @@ public class DurationInterval {
     return duration;
   }
 
-  static DurationInterval getInterval(Date start,Date end){
-    DurationInterval durationInterval = new DurationInterval(start,end);
-    return durationInterval;
+  static Interval getInterval(Date start,Date end){
+    return new Interval(new DateTime(start), new DateTime(end));
   }
 
 
-  public static DurationInterval getInterval(long start, long end) {
-     DurationInterval durationInterval = new DurationInterval(new Date(start),new Date(end));
-    return durationInterval;
+  public static Interval getInterval(long start, long end) {
+    return new Interval(new DateTime(start), new DateTime(end));
   }
 }

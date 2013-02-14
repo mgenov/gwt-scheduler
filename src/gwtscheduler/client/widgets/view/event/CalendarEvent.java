@@ -5,12 +5,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
 import gwtscheduler.client.modules.EventBus;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.Interval;
 
 /**
  *  Represents Event that is added in the scheduler and is involved in different manipulations
@@ -149,7 +148,7 @@ public class CalendarEvent implements Draggable {
    */
   public void setInterval(Interval interval) {
     this.interval = interval;
-    event.setDurationInterval(new DurationInterval(interval.getStart().toDate(), interval.getEnd().toDate()));
+    event.setDurationInterval(new Interval(interval.getStartMillis(), interval.getEndMillis()));
   }
 
   /**

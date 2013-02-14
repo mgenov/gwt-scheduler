@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.Interval;
 
 import java.util.ArrayList;
 

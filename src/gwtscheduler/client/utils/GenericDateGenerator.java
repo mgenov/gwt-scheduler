@@ -2,7 +2,13 @@ package gwtscheduler.client.utils;
 
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.common.calendar.IntervalType;
-import org.goda.time.*;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Duration;
+import gwtscheduler.common.util.Instant;
+import gwtscheduler.common.util.Interval;
+import gwtscheduler.common.util.Period;
+import gwtscheduler.common.util.PeriodType;
+
 
 /**
  * Generic date factory. Used to calculate the correct interval for a given type
@@ -14,7 +20,7 @@ import org.goda.time.*;
  * @since 1.0
  */
 public class GenericDateGenerator implements DateGenerator {
-  private static final int START_DAY_OF_WEEK = DateTimeConstants.MONDAY;
+  private static final int START_DAY_OF_WEEK = 2;
   private static final int WEEK_SIZE = 7;
 
   /**
@@ -38,13 +44,12 @@ public class GenericDateGenerator implements DateGenerator {
     return current;
   }
 
-  public void init(IntervalType interval, ReadableDateTime start) {
+  public void init(IntervalType interval, DateTime start) {
     //TODO maybe use a flag|bitmask for resetting fields?
-    MutableDateTime mtd = new MutableDateTime(start.getMillis(),Constants.timeZone);
-    mtd.setMillisOfSecond(0);
-    mtd.setSecondOfMinute(0);
-    mtd.setMinuteOfHour(0);
-    mtd.setHourOfDay(0);
+    DateTime mtd = new DateTime(start);
+    mtd.setSeconds(0);
+    mtd.setMinutes(0);
+    mtd.setHours(0);
 
     this.current = mtd.toDateTime();
 
@@ -63,7 +68,7 @@ public class GenericDateGenerator implements DateGenerator {
   }
 
   public void goToDate(DateTime start) {
-    generator.goTo(start.toDateTime(Constants.timeZone));
+    generator.goTo(start.toDateTime());
   }
 
   public DateGenerator next() {
@@ -97,7 +102,7 @@ public class GenericDateGenerator implements DateGenerator {
     DateTime to = generator.getInstantForCell(end, rowNum).plus(generator.getDurationPerCells(1, rowNum));
 
     //this is to make sure that [0,0] is at least one cell's duration
-    return new Interval(from.getMillis(), to.getMillis(), Constants.timeZone);
+    return new Interval(from.getMillis(), to.getMillis());
   }
 
   @Override
@@ -109,7 +114,8 @@ public class GenericDateGenerator implements DateGenerator {
   @Override
   public int getRowForInstant(Instant time, int rowsCount) {
     int minutesPerCell = (24 * 60) /rowsCount;
-    MutableDateTime mTime = time.toMutableDateTime(Constants.timeZone);
+
+    DateTime mTime = time.toDateTime();
     int minutes = mTime.getMinuteOfDay();
     int row = Math.round(minutes/minutesPerCell);
     return row;
@@ -160,17 +166,17 @@ public class GenericDateGenerator implements DateGenerator {
 
     public Interval interval() {
       DateTime end = current.plusDays(1);
-      return new Interval(current.getMillis(), end.getMillis(), Constants.timeZone);
+      return new Interval(current.getMillis(), end.getMillis());
     }
 
     @Override
     public DateTime getInstantForCell(int[] start, int rowNum) {
       int distance = start[0];
       Interval interval = interval();
-      ReadableInterval curr = interval.toMutableInterval();
-      MutableDateTime time = curr.getStart().toMutableDateTime();
+
+      DateTime time = new DateTime(interval.getStartMillis());
+
       time.add(getDurationPerCells(distance, rowNum));
-//      return time.toInstant();
       return time.toDateTime();
     }
 
@@ -229,12 +235,12 @@ public class GenericDateGenerator implements DateGenerator {
     @Override
     public DateTime getInstantForCell(int[] start, int rowNum) {
       int distance = (start[1] * rowNum) + start[0];
-      ReadableInterval curr = interval().toMutableInterval();
+      Interval curr = interval();
       int minutesPerCell = (24 * 60) / rowNum;
-      MutableDateTime time = curr.getStart().toMutableDateTime();
-      time.addMinutes(minutesPerCell * distance);
+      DateTime time = curr.getStart().toDateTime();
+      return time.plusMinutes(minutesPerCell * distance);
+//      time.addMinutes(minutesPerCell * distance);
 //      return time.toInstant();
-      return time.toDateTime();
     }
 
     @Override
@@ -261,15 +267,17 @@ public class GenericDateGenerator implements DateGenerator {
   private class MonthDateGenerator implements FixedDateGenerator {
 
     public void goTo(DateTime where) {
-      MutableDateTime mtd = new MutableDateTime(where.getMillis(), where.getChronology());
-      mtd.setDayOfMonth(1);
-      current = mtd.toDateTime();
+      current = where.dayOfMonth(1);
+
+//      MutableDateTime mtd = new MutableDateTime(where.getMillis(), where.getChronology());
+//      mtd.setDayOfMonth(1);
+//      current = mtd.toDateTime();
     }
 
     public Interval interval() {
       DateTime end = null;
       //      MutableDateTime monthStart = current.toMutableDateTime();
-      DateTime iterator = new DateTime(current.getMillis(), current.getChronology());
+      DateTime iterator = new DateTime(current.getMillis());
       //      monthStart.setDayOfMonth(1);
       end = current.toDateTime().plusMonths(1);
 
@@ -285,22 +293,24 @@ public class GenericDateGenerator implements DateGenerator {
         end = end.plusDays(1);
       }
       end = end.plusDays(-1);//it ends right before the next start of week
-      return new Interval(iterator.getMillis(), end.getMillis(), Constants.timeZone);
+      return new Interval(iterator.getMillis(), end.getMillis());
     }
 
     @Override
     public DateTime getInstantForCell(int[] start, int rowNum) {
       int distance = (start[0] * rowNum) + start[1];
-      ReadableInterval curr = interval().toMutableInterval();
-      MutableDateTime time = curr.getStart().toMutableDateTime();
-      time.addDays(distance);
-//      return time.toInstant();
-      return time.toDateTime();
+      Interval interval = interval();
+//      MutableDateTime time = curr.getStart().toMutableDateTime();
+      //      return time.toInstant();
+      DateTime time = interval.getStart();
+      time = time.addDays(distance);
+
+      return time;
     }
 
     @Override
     public Duration getDurationPerCells(int count, int rowNum) {
-      return new Period(count, PeriodType.days()).toStandardDuration();
+      return new Period(count, PeriodType.DAYS).toStandardDuration();
     }
 
     public void next() {

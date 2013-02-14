@@ -2,7 +2,7 @@ package gwtscheduler.client.widgets.view.common.resize;
 
 import com.google.gwt.event.shared.GwtEvent;
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.Interval;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)

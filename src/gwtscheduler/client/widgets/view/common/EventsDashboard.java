@@ -18,10 +18,9 @@ import gwtscheduler.client.widgets.view.event.CalendarEvent;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventPosition;
 import gwtscheduler.common.calendar.CalendarFrame;
-import org.goda.time.DateTime;
-import org.goda.time.Instant;
-import org.goda.time.Interval;
-import org.goda.time.ReadableDateTime;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Instant;
+import gwtscheduler.common.util.Interval;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +86,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
     eventBus.addHandler(NavigateToEvent.TYPE, new NavigateToEventHandler() {
       @Override
-      public void onNavigateTo(ReadableDateTime date) {
+      public void onNavigateTo(DateTime date) {
         clearEventsDashboard();
         renderCalendarEvents(calendarEvents);
       }
