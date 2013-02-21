@@ -34,6 +34,7 @@ import gwtscheduler.client.widgets.view.event.EventClickEvent;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
 import gwtscheduler.client.widgets.view.event.colors.DefaultEventColors;
 import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.DateTimeConstants;
 import gwtscheduler.common.util.Period;
 
 import java.util.Date;
@@ -264,9 +265,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
   protected DateTime getCurrentDate() {
     DateTime start = new DateTime(new Date());
-//    start.setHours(0);
-//    start.setMinutes(0);
-//    start.setSeconds(0);
     return start;
   }
 
@@ -301,8 +299,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     @Override
     public int startDayOfWeek() {
-//      return DateTimeConstants.MONDAY;
-      return 1;
+      return DateTimeConstants.MONDAY;
     }
 
     @Override

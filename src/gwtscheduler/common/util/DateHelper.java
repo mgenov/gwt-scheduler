@@ -7,7 +7,7 @@ package gwtscheduler.common.util;
 import java.util.Date;
 
 @SuppressWarnings({"deprecation"})
-class DateHelper {
+public class DateHelper {
     /**
      * number of days per month
      */

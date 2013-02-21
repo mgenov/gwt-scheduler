@@ -2,6 +2,7 @@ package gwtscheduler.tests.gwt;
 
 import gwtscheduler.common.util.DateTime;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 public class TestUtils {
@@ -22,9 +23,9 @@ public class TestUtils {
    * @param day the day of the instant
    */
   public static void assertInstantDate(DateTime ri, int year, int month, int day) {
-//    assertEquals("Year differ", year, ri.get(DateTimeFieldType.year()));
-//    assertEquals("Month differ", month, ri.get(DateTimeFieldType.monthOfYear()));
-//    assertEquals("Day differ", day, ri.get(DateTimeFieldType.dayOfMonth()));
+    assertEquals("Year differ", year, ri.getYear());
+    assertEquals("Month differ", month, ri.getMonthOfYear());
+    assertEquals("Day differ", day, ri.getDayOfMonth());
   }
 
 }

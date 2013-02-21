@@ -27,7 +27,6 @@ public class GwtTestsTestSuite extends GWTTestSuite {
    */
   public static Test suite() {
     TestSuite suite = new TestSuite();
-    suite.addTest(new DateFactoryTests());
     suite.addTest(new LassoTests());
     return suite;
   }

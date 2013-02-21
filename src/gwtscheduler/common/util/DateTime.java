@@ -7,8 +7,6 @@ import java.util.Date;
  */
 @SuppressWarnings({"deprecation"})
 public final class DateTime {
-  private static final int ONE_DAY_IN_SECONDS = 86400;
-  private static final long ONE_HOUR_IN_SECONDS = 3600;
   private Date date;
 
   /**
@@ -48,14 +46,9 @@ public final class DateTime {
     date.setHours(hours);
   }
 
-  public DateTime toDateTime() {
-    return new DateTime(new Date(date.getTime()));
-  }
-
   public long getMillis() {
     return date.getTime();
   }
-
 
   public int getMinuteOfDay() {
     return date.getHours() * 60 + date.getMinutes();
@@ -92,7 +85,7 @@ public final class DateTime {
   }
 
   public DateTime plusHours(int hours) {
-    return new DateTime(date.getTime() + (hours * ONE_HOUR_IN_SECONDS * 1000));
+    return new DateTime(date.getTime() + (hours * DateTimeConstants.SECONDS_PER_HOUR * 1000));
   }
 
   public int hourOfDay() {

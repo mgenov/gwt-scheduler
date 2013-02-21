@@ -3,6 +3,7 @@ package gwtscheduler.common.util;
 /**
  * @author Mihail Lesikov (mlesikov@gmail.com)
  */
+@SuppressWarnings({"deprecation"})
 public class Duration {
   private long mills;
 

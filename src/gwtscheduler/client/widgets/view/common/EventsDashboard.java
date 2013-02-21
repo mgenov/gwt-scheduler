@@ -305,18 +305,18 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       throw new EventIntervalCollisionException(EVENT_IN_COLLISION);
     }
 
-    int[] newCell = display.getCellPosition(event.getEndX(), event.getEndY());
-    DateTime newTime = dateGenerator.getInstantForCell(newCell, display.getRowCount());
+    int[] droppedCell = display.getCellPosition(event.getEndX(), event.getEndY());
+    DateTime newTime = dateGenerator.getStartTimeForCell(droppedCell, display.getRowCount());
 
     if (calendarEvents.contains(event.getDroppedObject())) {
       int[] oldCell = display.getCellPosition(event.getStartX(), event.getStartY());
 
-      DateTime oldTime = dateGenerator.getInstantForCell(oldCell, display.getRowCount());
+      DateTime oldTime = dateGenerator.getStartTimeForCell(oldCell, display.getRowCount());
 
-      MoveObjectEvent moveObject = new MoveObjectEvent(oldCell, newCell, oldTime, newTime, event.getDroppedObject());
+      MoveObjectEvent moveObject = new MoveObjectEvent(oldCell, droppedCell, oldTime, newTime, event.getDroppedObject());
       eventBus.fireEvent(moveObject);
     } else {
-      CellDropEvent cellDrop = new CellDropEvent(newCell, newTime, event.getDroppedObject());
+      CellDropEvent cellDrop = new CellDropEvent(droppedCell, newTime, event.getDroppedObject());
       eventBus.fireEvent(cellDrop);
     }
   }

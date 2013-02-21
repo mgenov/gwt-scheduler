@@ -78,13 +78,7 @@ public class GwtScheduler implements SchedulerMainView {
   }
 
   public void navigateToDate(Date date) {
-//    Long mills = date.getTime();
     DateTime selectedDate = new DateTime(date);
-//    DateTime selectedDate = new DateTime(mills, Constants.timeZone);
-//    selectedDate.setHours(0);
-//    selectedDate.setMinutes(0);
-//    selectedDate.setSeconds(0);
-//    selectedDate.setMillis(0);
     presenter.navigateToDateTime(selectedDate.trimToStart());
   }
 

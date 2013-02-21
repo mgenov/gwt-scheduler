@@ -8,6 +8,7 @@ import java.util.Date;
 /**
  * @author Miroslav Genov (mgenov@gmail.com)
  */
+@SuppressWarnings({"deprecation"})
 public class Period {
   private DateTime start;
   private DateTime end;

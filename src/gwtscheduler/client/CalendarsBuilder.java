@@ -134,11 +134,7 @@ public class CalendarsBuilder {
    * @return
    */
   protected DateTime getCurrentDate() {
-    DateTime start = new DateTime();
-    start.setHours(0);
-    start.setMinutes(0);
-    start.setMillisOfMinute(0);
-    DateTime date = start.toDateTime();
+    DateTime date = new DateTime().trimToStart();
     return date;
   }
 }

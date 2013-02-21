@@ -62,8 +62,8 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
 
 //  @Override
 //  public Interval getIntervalForRange(int[] start, int[] end) {
-//    Instant from = getInstantForCell(start);
-//    Instant to = getInstantForCell(end);
+//    Instant from = getStartTimeForCell(start);
+//    Instant to = getStartTimeForCell(end);
 //    //ranges are closed on start and open on end
 //    //[start, end[
 //    // so a correction is needed

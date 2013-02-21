@@ -23,12 +23,7 @@ public class EventIntervalCollisionHelperTest {
 
   protected DateTime getCurrentDate(int hours) {
     DateTime start = new DateTime(System.currentTimeMillis());
-    start.setHours(hours);
-    start.setMinutes(0);
-    start.setMinutes(0);
-    start.setMillis(0);
-    DateTime date = start.toDateTime();
-    return date;
+    return start.trimToStart();
   }
 
 
