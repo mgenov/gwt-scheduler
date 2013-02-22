@@ -50,16 +50,16 @@ import java.util.Date;
  */
 public class GwtScheduler implements SchedulerMainView {
   public interface Display {
+
     void addCalendarDisplay(CalendarPresenter.Display display);
   }
-
   private CalendarPresenter presenter;
+
   private Display display;
-
-
   public GwtScheduler(CalendarPresenter presenter) {
     this.presenter = presenter;
   }
+
 
   public void bindDisplay(Display display) {
     this.display = display;
@@ -75,6 +75,10 @@ public class GwtScheduler implements SchedulerMainView {
   @Override
   public void forceLayout() {
     presenter.forceLayout();
+  }
+
+  public void clearEvents() {
+    presenter.clearEvents();
   }
 
   public void navigateToDate(Date date) {

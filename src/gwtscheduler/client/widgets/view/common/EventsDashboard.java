@@ -123,7 +123,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   private void renderCalendarEvents(ArrayList<CalendarEvent> calendarEvents) {
     clearEventsDashboard();
     for (CalendarEvent calendarEvent : calendarEvents) {
-        displayCaledarEvent(calendarEvent);
+        displayCalendarEvent(calendarEvent);
     }
   }
 
@@ -166,7 +166,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     }
   }
 
-  public WidgetResizeHandler getEventsDachboardWidgetResizeHandler() {
+  public WidgetResizeHandler getEventsDashboardWidgetResizeHandler() {
     return displayWidgetResizeHandler;
   }
 
@@ -174,16 +174,13 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     this.columns = columns;
   }
 
-
-
   public void addEvent(Event event) {
     CalendarEvent calendarEvent = buildCalendarEvent(event);
     calendarEvents.add(calendarEvent);
-    displayCaledarEvent(calendarEvent);
+    displayCalendarEvent(calendarEvent);
   }
-  
 
-  public void displayCaledarEvent(CalendarEvent calendarEvent) {
+  public void displayCalendarEvent(CalendarEvent calendarEvent) {
     Period currentInterval = dateGenerator.interval();
     if(collisionDetector.isInCollision(calendarEvent.getInterval(),currentInterval)) {
       if(calendarEvent.isEditable()){
@@ -297,6 +294,11 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
     calendarEvents.clear();
     clearEventsDashboard();
     renderEvents(events);
+  }
+
+  public void clearEvents() {
+    clearEventsDashboard();
+    calendarEvents.clear();
   }
 
   @Override

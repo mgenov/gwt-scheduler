@@ -15,6 +15,7 @@ import java.util.List;
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public class CalendarContent {
+
   public interface Display extends DropZone{
     
     CalendarColumnsFrameGrid.Display getCalendarColumnsFrameGridDisplay();
@@ -76,7 +77,7 @@ public class CalendarContent {
   }
 
   public WidgetResizeHandler getEventsDachboardWidgetResizeHandler() {
-    return eventsDashboard.getEventsDachboardWidgetResizeHandler();
+    return eventsDashboard.getEventsDashboardWidgetResizeHandler();
   }
 
   public void updateEvent(Event event) {
@@ -89,5 +90,9 @@ public class CalendarContent {
 
   public void setEnable(boolean enable) {
     display.setEnable(enable);
+  }
+
+  public void clearEvents() {
+    eventsDashboard.clearEvents();
   }
 }
