@@ -252,7 +252,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
-    main.addColumnTitleClickedEventHandler(new ColumnClickedEventHandler() {
+    main.addColumnClickedEventHandler(new ColumnClickedEventHandler() {
       @Override
       public void onColumnTitleClicked(ColumnClickedEvent event) {
         final DialogBox dialogBox = new DialogBox();

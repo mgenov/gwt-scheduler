@@ -136,7 +136,7 @@ public class GwtScheduler implements SchedulerMainView {
     presenter.addEventClickHandler(handler);
   }
 
-  public void addColumnTitleClickedEventHandler(ColumnClickedEventHandler handler) {
+  public void addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
     presenter.addColumnClickedEventHandler(handler);
   }
 }
