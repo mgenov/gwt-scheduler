@@ -1,13 +1,12 @@
 package gwtscheduler.client.widgets.view.common.cell;
 
-import gwtscheduler.client.widgets.common.Cell;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.widgets.common.Cell;
 
 /**
  * Base class for grid cells.
@@ -18,11 +17,11 @@ public class BaseCell extends Widget implements Cell<Element> {
   /** Cell identifiers */
   public int row, col;
   @UiField
-  DivElement rootElement;
+  Label rootElement;
 
   private static BaseCellUiBinder uiBinder = GWT.create(BaseCellUiBinder.class);
 
-  interface BaseCellUiBinder extends UiBinder<DivElement, BaseCell> {
+  interface BaseCellUiBinder extends UiBinder<Label, BaseCell> {
   }
 
   /**
@@ -31,7 +30,7 @@ public class BaseCell extends Widget implements Cell<Element> {
    * @param col the column index
    */
   public BaseCell(int row, int col) {
-    setElement(uiBinder.createAndBindUi(this));
+    setElement(uiBinder.createAndBindUi(this).getElement());
     this.row = row;
     this.col = col;
   }

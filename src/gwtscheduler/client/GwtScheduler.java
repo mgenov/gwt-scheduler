@@ -5,6 +5,7 @@ import gwtscheduler.client.modules.views.SchedulerMainView;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnClickedEventHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
@@ -133,5 +134,9 @@ public class GwtScheduler implements SchedulerMainView {
 
   public void addEventClickHandler(EventClickHandler handler) {
     presenter.addEventClickHandler(handler);
+  }
+
+  public void addColumnTitleClickedEventHandler(ColumnClickedEventHandler handler) {
+    presenter.addColumnClickedEventHandler(handler);
   }
 }

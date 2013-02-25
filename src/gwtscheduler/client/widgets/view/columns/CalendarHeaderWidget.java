@@ -1,13 +1,14 @@
 package gwtscheduler.client.widgets.view.columns;
 
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
 import gwtscheduler.client.utils.Constants;
@@ -17,6 +18,7 @@ import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
+import gwtscheduler.client.widgets.view.common.events.ColumnClickEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,15 +38,17 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
 
   private int columns;
   private int calendarWidth;
+  private EventBus eventBus;
 
   /**
    * top view cells
    */
   protected List<Cell<Element>> topLabels;
 
-  public CalendarHeaderWidget(int columns, int calendarWidth) {
+  public CalendarHeaderWidget(int columns, int calendarWidth, EventBus eventBus) {
     this.columns = columns;
     this.calendarWidth = calendarWidth;
+    this.eventBus = eventBus;
     buildCalendarHeader(columns);
 
 //    VerticalPanel vp = new VerticalPanel();
@@ -60,20 +64,30 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
   }
   
   public void buildCalendarHeader(int columns){
-    FlexTable g = new FlexTable();
+    final FlexTable g = new FlexTable();
     g.addStyleName(CSS.genericContainer());
 //    g.setWidth("100%");
 
     topLabels = new ArrayList<Cell<Element>>(columns);
 
     for (int i = 0; i < columns; i++) {
-      Cell<Element> topCell = new BaseCell(0, i);
+      final BaseCell topCell = new BaseCell(0, i);
 
       //only top row is for labels
       topLabels.add(topCell);
-
-      g.setWidget(0, i, DOMUtils.wrapElement(topCell.getCellElement()));
+      g.setWidget(0, i, topCell);
     }
+
+    g.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent event) {
+        int columnIndex = g.getCellForEvent(event).getCellIndex();
+        int rowIndex = g.getCellForEvent(event).getRowIndex();
+        String title = g.getWidget(rowIndex, columnIndex).getElement().getInnerText();
+        eventBus.fireEvent(new ColumnClickEvent(title, columnIndex));
+      }
+    });
      header = g;
   }
 
@@ -85,13 +99,13 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
 
   public void addCell(String title) {
     int pos = topLabels.size();
-    Cell<Element> topCell = new BaseCell(0, pos);
+    final BaseCell topCell = new BaseCell(0, pos);
     //only top row is for labels
     topLabels.add(topCell);
-    
 
-    header.setWidget(0,pos, DOMUtils.wrapElement(topCell.getCellElement()));
-    header.getFlexCellFormatter().setHorizontalAlignment(0,pos, HasHorizontalAlignment.ALIGN_CENTER);
+
+    header.setWidget(0, pos, DOMUtils.wrapElement(topCell.getCellElement()));
+    header.getFlexCellFormatter().setHorizontalAlignment(0, pos, HasHorizontalAlignment.ALIGN_CENTER);
     columns++;
   }
 
@@ -105,9 +119,6 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
     return this;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public List<Cell<Element>> getTopLabels() {
-    return topLabels;
-  }
 
   @Override
   public void onResize(WidgetResizeEvent event) {
@@ -128,7 +139,7 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
 
     for (Cell<Element> cell : topLabels) {
         BaseCell baseCell = (BaseCell)cell;
-        baseCell.setStyleName(CSS.headerCell());
+        baseCell.addStyleName(CSS.headerCell());
         baseCell.getElement().getStyle().setWidth(availableWidth - 2, Style.Unit.PX);
     }
     
@@ -163,6 +174,6 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
 
   @Override
   public List<Cell<Element>> getDecorableElements() {
-    return Collections.unmodifiableList(topLabels); 
+    return Collections.unmodifiableList(topLabels);
   }
 }

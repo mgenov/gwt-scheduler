@@ -5,6 +5,7 @@ import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnClickedEventHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
@@ -153,5 +154,7 @@ public interface CalendarPresenter {
   void addEventClickHandler(EventClickHandler handler);
 
   void clearEvents();
+
+  void addColumnClickedEventHandler(ColumnClickedEventHandler handler);
 
 }

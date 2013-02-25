@@ -17,12 +17,7 @@ import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.*;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
@@ -76,7 +71,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     ticketsPanel.add(ticket1.getDisplay());
     ticketsPanel.add(ticket2.getDisplay());
 //    ticketsPanel.add(ticket3.getDisplay());
-
+    //bla
     TicketPresenterFrame frame = new TicketPresenterFrame();
     frame.bindDisplay(new TicketPresenterFrameView());
 
@@ -256,6 +251,29 @@ public class ViewportTests implements EntryPoint, ClickHandler {
         dialogBox.center();
       }
     });
+
+    main.addColumnTitleClickedEventHandler(new ColumnClickedEventHandler() {
+      @Override
+      public void onColumnTitleClicked(ColumnClickedEvent event) {
+        final DialogBox dialogBox = new DialogBox();
+        dialogBox.getElement().getStyle().setZIndex(50);
+        VerticalPanel vp = new VerticalPanel();
+        vp.add(new Label("Clicked Column with title : " + event.getColumn().getTitle()));
+        vp.add(new Label("Clicked Column with  id   : " + event.getColumn().getId()));
+
+        Button button = new Button("Close");
+        vp.add(button);
+        button.addClickHandler(new ClickHandler() {
+          @Override
+          public void onClick(ClickEvent event) {
+            dialogBox.hide();
+          }
+        });
+        dialogBox.add(vp);
+        dialogBox.center();
+      }
+    });
+
 
 
 //    main.selectTab(0);

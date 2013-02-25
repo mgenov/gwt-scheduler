@@ -8,14 +8,11 @@ import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.*;
 import gwtscheduler.client.widgets.view.common.events.CellDropEvent;
 import gwtscheduler.client.widgets.view.common.events.CellDropHandler;
+import gwtscheduler.client.widgets.view.common.events.ColumnClickEvent;
+import gwtscheduler.client.widgets.view.common.events.ColumnClickEventHandler;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectEvent;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
@@ -115,6 +112,14 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
         CalendarDropEvent dropEvent = new CalendarDropEvent(type, title, event.getDroppedObject(), column, event.getTime());
         eventBus.fireEvent(dropEvent);
+      }
+    });
+
+    eventBus.addHandler(ColumnClickEvent.TYPE, new ColumnClickEventHandler() {
+      @Override
+      public void onColumnClick(ColumnClickEvent event) {
+        CalendarColumn column = columns.get(event.getColumnIndex());
+            eventBus.fireEvent(new ColumnClickedEvent(column));
       }
     });
   }
@@ -329,6 +334,11 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void clearEvents() {
     calendarContent.clearEvents();
+  }
+
+  @Override
+  public void addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
+    eventBus.addHandler(ColumnClickedEvent.TYPE, handler);
   }
 
   @Override
