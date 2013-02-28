@@ -3,8 +3,7 @@ package gwtscheduler.client.widgets.view.calendarevent;
 import com.google.gwt.event.shared.GwtEvent;
 import gwtscheduler.client.CalendarType;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import org.goda.time.DateTime;
-import org.goda.time.Instant;
+import gwtscheduler.common.util.DateTime;
 
 /**
  * Fired when something already attached to calendar is moved to another place. Contains information about Calendar type

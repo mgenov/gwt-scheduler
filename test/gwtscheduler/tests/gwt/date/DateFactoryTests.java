@@ -1,33 +1,26 @@
 package gwtscheduler.tests.gwt.date;
 
-import static gwtscheduler.tests.gwt.TestUtils.assertInstantDate;
-import static org.goda.time.DateTimeConstants.AUGUST;
-import static org.goda.time.DateTimeConstants.DECEMBER;
-import static org.goda.time.DateTimeConstants.FEBRUARY;
-import static org.goda.time.DateTimeConstants.JANUARY;
-import static org.goda.time.DateTimeConstants.JULY;
-import static org.goda.time.DateTimeConstants.JUNE;
-import static org.goda.time.DateTimeConstants.MARCH;
-import static org.goda.time.DateTimeConstants.NOVEMBER;
-import static org.goda.time.DateTimeConstants.OCTOBER;
-import gwtscheduler.client.modules.AppInjector;
 import gwtscheduler.client.modules.config.AppConfiguration;
+import gwtscheduler.client.modules.config.DefaultAppConfiguration;
+import gwtscheduler.client.utils.GenericDateGenerator;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.common.calendar.IntervalType;
-
-import org.goda.time.DateTime;
-import org.goda.time.Interval;
-import org.goda.time.MutableDateTime;
+import gwtscheduler.common.util.DateHelper;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Period;
+import junit.framework.TestResult;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.gwt.junit.client.GWTTestCase;
+import static gwtscheduler.common.util.DateTimeConstants.*;
+import static gwtscheduler.tests.gwt.TestUtils.assertInstantDate;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * Test case for date factory.
  * @author malp
  */
-public class DateFactoryTests extends GWTTestCase {
+public class DateFactoryTests implements junit.framework.Test {
 
   DateGenerator dayf;
   DateGenerator weekf;
@@ -36,21 +29,25 @@ public class DateFactoryTests extends GWTTestCase {
   DateTime now;
   AppConfiguration config;
 
-  @Override
+//  @Override
   public String getModuleName() {
     return "gwtscheduler.Tests";
   }
 
   @Before
-  @Override
+//  @Override
   public void gwtSetUp() {
+    config = new DefaultAppConfiguration();
 //    config = AppInjector.GIN.getInjector().getConfiguration();
 
     now = new DateTime();
 
-    dayf = AppInjector.GIN.getInjector().getDateGenerator();
-    weekf = AppInjector.GIN.getInjector().getDateGenerator();
-    monthf = AppInjector.GIN.getInjector().getDateGenerator();
+//    dayf = AppInjector.GIN.getInjector().getDateGenerator();
+    dayf = new GenericDateGenerator();
+//    weekf = AppInjector.GIN.getInjector().getDateGenerator();
+    weekf = new GenericDateGenerator();
+//    monthf = AppInjector.GIN.getInjector().getDateGenerator();
+    monthf = new GenericDateGenerator();
 
     dayf.init(IntervalType.DAY, now);
     weekf.init(IntervalType.WEEK, now);
@@ -66,18 +63,14 @@ public class DateFactoryTests extends GWTTestCase {
    * @return the generator
    */
   protected DateGenerator moveGenerator(DateGenerator gen, int day, int month, int year) {
-    MutableDateTime mdt = now.toMutableDateTime();
-    mdt.setDayOfMonth(day);
-    mdt.setMonthOfYear(month);
-    mdt.setYear(year);
-
-    gen.goToDate(mdt.toDateTime());
+    DateTime mdt = new DateTime(new DateHelper(year,month,day,0,0,0).getDate());
+    gen.goToDate(mdt);
     return gen;
   }
 
   @Test
   public void testMonthIntervalsJanuary() {
-    Interval intv = moveGenerator(monthf, 1, JANUARY, 2010).interval();
+    Period intv = moveGenerator(monthf, 1, JANUARY, 2010).interval();
 
     assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
     assertInstantDate(intv.getStart(), 2009, DECEMBER, 28);
@@ -86,7 +79,7 @@ public class DateFactoryTests extends GWTTestCase {
 
   @Test
   public void testMonthIntervalsJuly() {
-    Interval intv = moveGenerator(monthf, 10, JULY, 2009).interval();
+    Period intv = moveGenerator(monthf, 10, JULY, 2009).interval();
 
     assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
     assertInstantDate(intv.getStart(), 2009, JUNE, 29);
@@ -95,7 +88,7 @@ public class DateFactoryTests extends GWTTestCase {
 
   @Test
   public void testMonthIntervalsFeb() {
-    Interval intv = moveGenerator(monthf, 10, FEBRUARY, 2009).interval();
+    Period intv = moveGenerator(monthf, 10, FEBRUARY, 2009).interval();
     assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
     assertInstantDate(intv.getStart(), 2009, JANUARY, 26);
     assertInstantDate(intv.getEnd(), 2009, MARCH, 1);
@@ -103,7 +96,7 @@ public class DateFactoryTests extends GWTTestCase {
 
   @Test
   public void testMonthIntervalsNov() {
-    Interval intv = moveGenerator(monthf, 10, NOVEMBER, 2009).interval();
+    Period intv = moveGenerator(monthf, 10, NOVEMBER, 2009).interval();
     monthf.next();
     monthf.previous();
     assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
@@ -114,8 +107,17 @@ public class DateFactoryTests extends GWTTestCase {
 
   @Test
   public void testDayIntervalsJuly() {
-    Interval intv = moveGenerator(dayf, 13, JULY, 2009).interval();
+    Period intv = moveGenerator(dayf, 13, JULY, 2009).interval();
     assertEquals(config.startDayOfWeek(), intv.getStart().getDayOfWeek());
   }
 
+  @Override
+  public int countTestCases() {
+    return 0;  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void run(TestResult testResult) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
 }

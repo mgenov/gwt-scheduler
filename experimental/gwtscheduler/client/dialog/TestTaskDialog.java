@@ -6,8 +6,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import gwtscheduler.client.TestTask;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.event.DurationInterval;
-
+import gwtscheduler.common.util.Period;
 
 import java.util.Date;
 
@@ -76,9 +75,9 @@ public class TestTaskDialog {
     this.column = column;
     display.setColumnTitle(this.column.getTitle());
     display.setTitle(task.getTitle());
-    DurationInterval interval = task.getDurationInterval();
-    Date start = interval.getStart();
-    Date end = interval.getEnd();
+    Period interval = task.getDurationInterval();
+    Date start = interval.getStart().asDate();
+    Date end = interval.getEnd().asDate();
 //    display.setTaskStart(start.getDayOfMonth(),start.getMonthOfYear(),start.getYear(),start.getHourOfDay(),start.getMinuteOfHour());
 //    display.setTaskEnd(end.getDayOfMonth(),end.getMonthOfYear(),end.getYear(),end.getHourOfDay(),end.getMinuteOfHour());
     display.setTaskStart(DateTimeFormat.getMediumDateFormat().format(start));

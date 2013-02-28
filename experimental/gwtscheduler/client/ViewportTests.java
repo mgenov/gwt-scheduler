@@ -17,28 +17,20 @@ import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
-import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.*;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
-import gwtscheduler.client.widgets.view.event.DurationInterval;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickEvent;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
 import gwtscheduler.client.widgets.view.event.colors.DefaultEventColors;
-import org.goda.time.DateTime;
-import org.goda.time.DateTimeConstants;
-import org.goda.time.MutableDateTime;
-import org.goda.time.ReadableDateTime;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.DateTimeConstants;
+import gwtscheduler.common.util.Period;
 
 import java.util.Date;
 
@@ -79,7 +71,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     ticketsPanel.add(ticket1.getDisplay());
     ticketsPanel.add(ticket2.getDisplay());
 //    ticketsPanel.add(ticket3.getDisplay());
-
+    //bla
     TicketPresenterFrame frame = new TicketPresenterFrame();
     frame.bindDisplay(new TicketPresenterFrameView());
 
@@ -126,8 +118,8 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, null).named("Teams").build())
 //            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build()).build();
 
-    main = schedulerBuilder.multiColumnScheduler(new TestAppConfiguration(), testteams1, null).named("Teams").build();
-//    main = schedulerBuilder.weekColumnScheduler(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build();
+//    main = schedulerBuilder.multiColumnScheduler(new TestAppConfiguration(), testteams1, null).named("Teams").build();
+    main = schedulerBuilder.weekColumnScheduler(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build();
 
     dragZone.addDropZoneContainer((HasWidgets) main.asWidget());
 
@@ -157,20 +149,14 @@ public class ViewportTests implements EntryPoint, ClickHandler {
           // change column
           teamEvent.setColumn(event.getNewColumn());
           // change time
-          Date currentStart = teamEvent.getDurationInterval().getStart();
-          Date currentEnd = teamEvent.getDurationInterval().getEnd();
-//          long oldTime = event.getOldTimeMills();
-//          long newTime = event.getNewTimeMills();
+          DateTime currentStart = teamEvent.getDurationInterval().getStart();
+          DateTime currentEnd = teamEvent.getDurationInterval().getEnd();
+
           long difference = event.getDifference();
 
-//          if(difference<0){
-//          if(oldTime>newTime){
-//            difference = oldTime - newTime;
-            teamEvent.setDurationInterval(DurationInterval.getInterval(currentStart.getTime() + difference, currentEnd.getTime() + difference));
-//          } if (difference>0) {
-//            difference = newTime - oldTime;
-//            teamEvent.setDurationInterval(DurationInterval.getInterval(currentStart.getTime()-difference, currentEnd.getTime() - difference));
-//          }
+
+            teamEvent.setDurationInterval(new Period(currentStart.plusMills(difference), currentEnd.plusMills(difference)));
+
 
           main.updateEvent(teamEvent);
         }
@@ -187,7 +173,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
           TestTask testTask = (TestTask) o;
 
-          testTask.setDurationInterval(DurationInterval.getInterval(event.getDropTimeMills(), event.getDropTimeMills() + 3600 * testTask.getDuration() * 1000));
+          testTask.setDurationInterval(new Period(new DateTime(event.getDropTimeMills()),new DateTime(event.getDropTimeMills()).plusHours(testTask.getDuration())));
           dialog.setTestTask(testTask, column);
           dialog.show();
         }
@@ -198,7 +184,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       @Override
       public void onCalendarEventDurationChange(CalendarEventDurationChangeEvent event) {
         Event calendarEvent = event.getEvent();
-        calendarEvent.setDurationInterval(DurationInterval.getInterval(event.getStartTime(), event.getEndTime()));
+        calendarEvent.setDurationInterval(new Period(new DateTime(event.getStartTime()), new DateTime(event.getEndTime())));
         main.updateEvent(calendarEvent);
       }
     });
@@ -266,20 +252,38 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
+    main.addColumnClickedEventHandler(new ColumnClickedEventHandler() {
+      @Override
+      public void onColumnTitleClicked(ColumnClickedEvent event) {
+        final DialogBox dialogBox = new DialogBox();
+        dialogBox.getElement().getStyle().setZIndex(50);
+        VerticalPanel vp = new VerticalPanel();
+        vp.add(new Label("Clicked Column with title : " + event.getColumn().getTitle()));
+        vp.add(new Label("Clicked Column with  id   : " + event.getColumn().getId()));
+
+        Button button = new Button("Close");
+        vp.add(button);
+        button.addClickHandler(new ClickHandler() {
+          @Override
+          public void onClick(ClickEvent event) {
+            dialogBox.hide();
+          }
+        });
+        dialogBox.add(vp);
+        dialogBox.center();
+      }
+    });
+
+
 
 //    main.selectTab(0);
-    main.navigateToDate(new Date(getCurrentDate().getMillis()));
+    main.navigateToDate(getCurrentDate().asDate());
 //    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
   }
 
-  protected ReadableDateTime getCurrentDate() {
-    MutableDateTime start = new MutableDateTime();
-    start.setHourOfDay(0);
-    start.setMinuteOfHour(0);
-    start.setMinuteOfHour(0);
-    start.setMillisOfSecond(0);
-    DateTime date = start.toDateTime();
-    return date;
+  protected DateTime getCurrentDate() {
+    DateTime start = new DateTime(new Date());
+    return start;
   }
 
   public void onClick(ClickEvent event) {
@@ -289,7 +293,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
     } else if (event.getSource() == forward) {
       eventBus.fireEvent(new NavigateNextEvent());
     } else if (event.getSource() == today) {
-      eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
+//      eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
     } else if (event.getSource() == deleteColumn) {
       CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
       main.deleteColumn(column);

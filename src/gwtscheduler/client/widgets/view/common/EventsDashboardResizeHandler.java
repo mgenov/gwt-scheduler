@@ -38,7 +38,7 @@ public class EventsDashboardResizeHandler implements WidgetResizeHandler {
       int[] startCell = calendarEvent.getStartCellPosition();
       int[] newPosition = targetDisplay.calculateLeftTop(startCell);
       calendarEvent.setPosition(new EventPosition(newPosition[0],newPosition[1]));
-      target.displayCaledarEvent(calendarEvent);
+      target.displayCalendarEvent(calendarEvent);
     }
   }
 }

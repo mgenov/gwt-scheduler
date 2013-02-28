@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.common.navigation;
 
-import org.goda.time.Interval;
-import org.goda.time.ReadableDateTime;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Period;
 
 /**
  * Defines event controller operations.
@@ -15,24 +15,24 @@ public interface EventNavigationListener {
    * Goes to the next series of events.
    * @return the visible time period
    */
-  Interval onNavigateNext();
+  Period onNavigateNext();
 
   /**
    * Goes to the previous series of events.
    * @return the visible time period
    */
-  Interval onNavigatePrevious();
+  Period onNavigatePrevious();
 
   /**
    * Goes to a specified start date.
    * @param date the start date
    * @return the visible time period
    */
-  Interval onNavigateTo(ReadableDateTime date);
+  Period onNavigateTo(DateTime date);
 
   /**
    * Gets the current interval.
    * @return the current interval
    */
-  Interval getCurrentInterval();
+  Period getCurrentInterval();
 }

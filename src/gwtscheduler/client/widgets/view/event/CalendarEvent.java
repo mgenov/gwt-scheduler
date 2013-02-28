@@ -5,12 +5,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Draggable;
 import gwtscheduler.client.modules.EventBus;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.Period;
 
 /**
  *  Represents Event that is added in the scheduler and is involved in different manipulations
@@ -61,7 +60,7 @@ public class CalendarEvent implements Draggable {
   private int[] startCellPosition;
   private int[] endCellPosition;
   private EventBus eventBus;
-  private Interval interval;
+  private Period interval;
 
   /**
    * Default constructor.
@@ -73,7 +72,7 @@ public class CalendarEvent implements Draggable {
    */
   public CalendarEvent(Event event, EventPosition position, int[] startCellPosition, int[] endCellPosition, EventBus eventBus) {
     this.event = event;
-    interval = new Interval(event.getDurationInterval().getStart().getTime(),event.getDurationInterval().getEnd().getTime());
+    interval = event.getDurationInterval();
     this.position = position;
     this.startCellPosition = startCellPosition;
     this.endCellPosition = endCellPosition;
@@ -139,7 +138,7 @@ public class CalendarEvent implements Draggable {
    * Gets event's interval.
    * @return the event interval
    */
-  public Interval getInterval() {
+  public Period getInterval() {
     return interval;
   }
 
@@ -147,9 +146,9 @@ public class CalendarEvent implements Draggable {
    * Sets new event interval.
    * @param interval the new interval to be set
    */
-  public void setInterval(Interval interval) {
+  public void setInterval(Period interval) {
     this.interval = interval;
-    event.setDurationInterval(new DurationInterval(interval.getStart().toDate(), interval.getEnd().toDate()));
+    event.setDurationInterval(interval);
   }
 
   /**

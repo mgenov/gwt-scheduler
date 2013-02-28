@@ -1,6 +1,6 @@
 package gwtscheduler.client;
 
-import gwtscheduler.client.widgets.view.event.DurationInterval;
+import gwtscheduler.common.util.Period;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
@@ -8,7 +8,7 @@ import gwtscheduler.client.widgets.view.event.DurationInterval;
 public class TestTask {
 
   private String description;
-  private DurationInterval durationInterval;
+  private Period durationInterval;
   private String title;
   private Integer duration;
 
@@ -39,11 +39,11 @@ public class TestTask {
     return duration;
   }
 
-  public DurationInterval getDurationInterval() {
+  public Period getDurationInterval() {
     return durationInterval;
   }
 
-  public void setDurationInterval(DurationInterval durationInterval) {
+  public void setDurationInterval(Period durationInterval) {
     this.durationInterval = durationInterval;
   }
 

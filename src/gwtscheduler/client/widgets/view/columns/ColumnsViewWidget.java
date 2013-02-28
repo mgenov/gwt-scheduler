@@ -7,12 +7,13 @@ import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.*;
-import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.calendarevent.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.resources.css.DayWeekCssResource;
-import gwtscheduler.client.utils.DOMUtils;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.common.Cell;
 import gwtscheduler.client.widgets.common.ComplexGrid;
@@ -21,6 +22,7 @@ import gwtscheduler.client.widgets.common.event.HasWidgetRedrawHandlers;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawEvent;
 import gwtscheduler.client.widgets.common.event.WidgetRedrawHandler;
 import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.LassoAwarePanel;
 
 import java.util.ArrayList;
@@ -64,16 +66,18 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
   private int daysLineHeightEMs;
   private int calendarWidth;
   private int calendarHeight;
+  private EventBus eventBus;
 
   /**
    * Default constructor.
    */
-  public ColumnsViewWidget(int rows, int columns, int daysLineHeightEMs, int calendarWidth, int calendarHeight) {
+  public ColumnsViewWidget(int rows, int columns, int daysLineHeightEMs, int calendarWidth, int calendarHeight, EventBus eventBus) {
     this.rows = rows;
     this.columns = columns;
     this.daysLineHeightEMs = daysLineHeightEMs;
     this.calendarWidth = calendarWidth;
     this.calendarHeight = calendarHeight;
+    this.eventBus = eventBus;
     initWidget(uiBinder.createAndBindUi(this));
     content.getEventsPanel().setComplexGrid(this);
     
@@ -96,7 +100,7 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
    */
   @UiFactory
   public CalendarHeaderWidget buildHeader() {
-    CalendarHeaderWidget widget = new CalendarHeaderWidget(columns,calendarWidth);
+    CalendarHeaderWidget widget = new CalendarHeaderWidget(columns,calendarWidth, eventBus);
     return widget;
   }
 

@@ -1,12 +1,12 @@
 package gwtscheduler.client.widgets.common.navigation;
 
 import com.google.gwt.event.shared.EventHandler;
-import org.goda.time.ReadableDateTime;
+import gwtscheduler.common.util.DateTime;
 
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
 public interface NavigateToEventHandler extends EventHandler{
 
-   void onNavigateTo(ReadableDateTime date);
+   void onNavigateTo(DateTime date);
 }

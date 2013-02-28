@@ -2,8 +2,7 @@ package gwtscheduler.common.model.event.simple;
 
 import gwtscheduler.common.model.event.AbstractAppointment;
 import gwtscheduler.common.model.event.EventType;
-
-import org.goda.time.Interval;
+import gwtscheduler.common.util.Period;
 
 /**
  * Defines a simple event, ie, an event that does not last more than a day.
@@ -17,12 +16,12 @@ public class SimpleAppointment extends AbstractAppointment {
    * @param start
    * @param end
    */
-  public SimpleAppointment(Interval interval) {
+  public SimpleAppointment(Period interval) {
     super(interval, EventType.SIMPLE);
   }
 
   @Override
-  protected Interval filter(Interval interval) {
+  protected Period filter(Period interval) {
     return interval;
   }
 

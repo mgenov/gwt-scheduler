@@ -2,18 +2,17 @@ package gwtscheduler.client;
 
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.modules.views.SchedulerMainView;
-import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnClickedEventHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
-import org.goda.time.DateTime;
-import org.goda.time.MutableDateTime;
+import gwtscheduler.common.util.DateTime;
 
 import java.util.Date;
 
@@ -52,16 +51,16 @@ import java.util.Date;
  */
 public class GwtScheduler implements SchedulerMainView {
   public interface Display {
+
     void addCalendarDisplay(CalendarPresenter.Display display);
   }
-
   private CalendarPresenter presenter;
+
   private Display display;
-
-
   public GwtScheduler(CalendarPresenter presenter) {
     this.presenter = presenter;
   }
+
 
   public void bindDisplay(Display display) {
     this.display = display;
@@ -79,14 +78,13 @@ public class GwtScheduler implements SchedulerMainView {
     presenter.forceLayout();
   }
 
+  public void clearEvents() {
+    presenter.clearEvents();
+  }
+
   public void navigateToDate(Date date) {
-    Long mills = date.getTime();
-    MutableDateTime selectedDate = new MutableDateTime(mills, Constants.timeZone);
-    selectedDate.setHourOfDay(0);
-    selectedDate.setMinuteOfHour(0);
-    selectedDate.setSecondOfMinute(0);
-    selectedDate.setMillisOfSecond(0);
-    presenter.navigateToDateTime(selectedDate.toDateTime());
+    DateTime selectedDate = new DateTime(date);
+    presenter.navigateToDateTime(selectedDate.trimToStart());
   }
 
   public void deleteColumn(CalendarColumn column) {
@@ -136,5 +134,9 @@ public class GwtScheduler implements SchedulerMainView {
 
   public void addEventClickHandler(EventClickHandler handler) {
     presenter.addEventClickHandler(handler);
+  }
+
+  public void addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
+    presenter.addColumnClickedEventHandler(handler);
   }
 }

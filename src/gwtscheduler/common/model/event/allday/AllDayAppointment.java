@@ -2,8 +2,7 @@ package gwtscheduler.common.model.event.allday;
 
 import gwtscheduler.common.model.event.AbstractAppointment;
 import gwtscheduler.common.model.event.EventType;
-
-import org.goda.time.Interval;
+import gwtscheduler.common.util.Period;
 
 /**
  * Defines an all-day event.
@@ -17,12 +16,12 @@ public class AllDayAppointment extends AbstractAppointment {
    * @param interval
    * @param type
    */
-  public AllDayAppointment(Interval interval) {
+  public AllDayAppointment(Period interval) {
     super(interval, EventType.ALLDAY);
   }
 
   @Override
-  protected Interval filter(Interval interval) {
+  protected Period filter(Period interval) {
     return interval;
   }
 

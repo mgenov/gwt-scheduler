@@ -1,5 +1,6 @@
 package gwtscheduler.tests;
 
+import gwtscheduler.tests.gwt.date.DateFactoryTests;
 import gwtscheduler.tests.lasso.GenericLassoSelectionTests;
 import gwtscheduler.tests.lasso.HorizontalLassoSelectionTests;
 import gwtscheduler.tests.lasso.VerticalLassoSelectionTests;
@@ -30,6 +31,7 @@ public class NonGwtTestsTestSuite extends TestSuite {
     suite.addTest(new JUnit4TestAdapter(GenericLassoSelectionTests.class));
     suite.addTest(new JUnit4TestAdapter(HorizontalLassoSelectionTests.class));
     suite.addTest(new JUnit4TestAdapter(VerticalLassoSelectionTests.class));
+    suite.addTest(new DateFactoryTests());
     return suite;
   }
 

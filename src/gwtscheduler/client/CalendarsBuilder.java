@@ -1,7 +1,6 @@
 package gwtscheduler.client;
 
 import dragndrop.client.core.DragZone;
-import dragndrop.client.core.Zones;
 import gwtscheduler.client.modules.EventBus;
 import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.utils.GenericDateGenerator;
@@ -15,16 +14,12 @@ import gwtscheduler.client.widgets.view.columns.CalendarHeader;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
 import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
 import gwtscheduler.client.widgets.view.common.CollisionDetector;
-import gwtscheduler.client.widgets.view.common.IntervalCollisionDetector;
 import gwtscheduler.client.widgets.view.common.EventsDashboard;
+import gwtscheduler.client.widgets.view.common.IntervalCollisionDetector;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelperProviderImpl;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
 import gwtscheduler.common.calendar.IntervalType;
-import org.goda.time.DateTime;
-import org.goda.time.MutableDateTime;
-import org.goda.time.ReadableDateTime;
-
-import java.util.Date;
+import gwtscheduler.common.util.DateTime;
 
 
 /**
@@ -42,6 +37,7 @@ public class CalendarsBuilder {
   private int rows;
   private int daysLineHeightEMs;
   private AppConfiguration configuration;
+  private EventBus eventBus = new EventBus();
 
   /**
    * Sets a new multy column calednar in the builder.
@@ -53,7 +49,6 @@ public class CalendarsBuilder {
    */
   public CalendarsBuilder newMultiColumn(AppConfiguration configuration, CalendarColumnsProvider columnsProvider, DragZone dragZone) {
     this.configuration = configuration;
-    EventBus eventBus = new EventBus();
     rows = configuration.rowsInDay();
     columns = columnsProvider.getColumns().size();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
@@ -85,7 +80,6 @@ public class CalendarsBuilder {
    */
   public CalendarsBuilder newWeekColumn(AppConfiguration configuration, DragZone dragZone) {
     this.configuration = configuration;
-    EventBus eventBus = new EventBus();
     rows = configuration.rowsInDay();
     daysLineHeightEMs = configuration.daysLineHeightEMs();
 
@@ -127,7 +121,7 @@ public class CalendarsBuilder {
    * @return
    */
   public CalendarPresenter build() {
-    CalendarPresenter.Display display = new ColumnsViewWidget(rows, columns, daysLineHeightEMs,configuration.getCalendarWidth(),configuration.getCalendarHeight());
+    CalendarPresenter.Display display = new ColumnsViewWidget(rows, columns, daysLineHeightEMs, configuration.getCalendarWidth(), configuration.getCalendarHeight(), eventBus);
     calendar.bindDisplay(display);
     return calendar;
   }
@@ -138,13 +132,8 @@ public class CalendarsBuilder {
    *
    * @return
    */
-  protected ReadableDateTime getCurrentDate() {
-    MutableDateTime start = new MutableDateTime();
-    start.setHourOfDay(0);
-    start.setMinuteOfHour(0);
-    start.setMinuteOfHour(0);
-    start.setMillisOfSecond(0);
-    DateTime date = start.toDateTime();
+  protected DateTime getCurrentDate() {
+    DateTime date = new DateTime().trimToStart();
     return date;
   }
 }

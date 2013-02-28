@@ -1,7 +1,7 @@
 package gwtscheduler.client.widgets.view.event;
 
 import com.google.gwt.event.shared.GwtEvent;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.Period;
 
 /**
  * Fired when someone click on calendar event. Contains information about event and event interval.
@@ -11,9 +11,9 @@ import org.goda.time.Interval;
 public class EventClickEvent extends GwtEvent<EventClickHandler>{
   public static Type<EventClickHandler> TYPE = new Type<EventClickHandler>();
   private final Event event;
-  private final Interval interval;
+  private final Period interval;
 
-  public EventClickEvent(Event event, Interval interval) {
+  public EventClickEvent(Event event, Period interval) {
     this.event = event;
     this.interval = interval;
   }
@@ -32,7 +32,7 @@ public class EventClickEvent extends GwtEvent<EventClickHandler>{
     return event;
   }
 
-  public Interval getInterval() {
+  public Period getInterval() {
     return interval;
   }
 }

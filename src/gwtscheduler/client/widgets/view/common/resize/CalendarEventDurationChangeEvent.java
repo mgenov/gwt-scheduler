@@ -3,7 +3,7 @@ package gwtscheduler.client.widgets.view.common.resize;
 import com.google.gwt.event.shared.GwtEvent;
 import gwtscheduler.client.widgets.view.event.CalendarEvent;
 import gwtscheduler.client.widgets.view.event.Event;
-import org.goda.time.Instant;
+import gwtscheduler.common.util.DateTime;
 
 /**
  * Fired when calendar event height size is changed. Contain information about event who size is changed, Event start
@@ -14,10 +14,10 @@ import org.goda.time.Instant;
 public class CalendarEventDurationChangeEvent extends GwtEvent<CalendarEventDurationChangeHandler>{
   public static Type<CalendarEventDurationChangeHandler> TYPE = new Type<CalendarEventDurationChangeHandler>();
   private final CalendarEvent calendarEvent;
-  private final Instant startTime;
-  private final Instant endTime;
+  private final DateTime startTime;
+  private final DateTime endTime;
 
-  public CalendarEventDurationChangeEvent(CalendarEvent calendarEvent, Instant startTime, Instant endTime) {
+  public CalendarEventDurationChangeEvent(CalendarEvent calendarEvent, DateTime startTime, DateTime endTime) {
     this.calendarEvent = calendarEvent;
     this.startTime = startTime;
     this.endTime = endTime;

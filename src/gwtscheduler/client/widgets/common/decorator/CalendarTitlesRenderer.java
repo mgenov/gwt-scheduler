@@ -1,13 +1,10 @@
 package gwtscheduler.client.widgets.common.decorator;
 
 import com.google.gwt.user.client.Element;
-import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.Cell;
-import gwtscheduler.client.widgets.common.decoration.HasMultipleDecorables;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import org.goda.time.DateTime;
-import org.goda.time.Interval;
-import org.goda.time.Period;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Period;
 
 import java.util.List;
 
@@ -32,16 +29,16 @@ public class CalendarTitlesRenderer {
    * @param interval
    * @param elems
    */
-  public void renderVerticalTitles(Interval interval, List<Cell<Element>> elems) {
+  public void renderVerticalTitles(Period interval, List<Cell<Element>> elems) {
 
-    Period p = new Period(0, 0, 0, 1, 0, 0, 0, 0);
     //setting the start of the day
-    DateTime start = interval.getStart().withHourOfDay(0).toDateTime(Constants.timeZone);
+    DateTime start = interval.getStart().trimToStart();
 
     if (hasRunVertical || elems == null) {
       return;
     }
-    int hours = p.toStandardHours().getHours();
+    //TODO hardCode time
+    int hours = 24;
     int increment = elems.size() / hours;
 
     assert hours > 0 : "Number of hours should not be <= 0";
@@ -49,7 +46,7 @@ public class CalendarTitlesRenderer {
 
     for (Cell<Element> cell : elems) {
       if (cell.row() % increment == 0) {
-        String hour = start.hourOfDay().getAsShortText();
+        String hour = start.hourOfDay() + "";
         cell.getCellElement().setInnerText(hour + ":00");
         start = start.plusHours(1);
       }

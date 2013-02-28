@@ -8,14 +8,11 @@ import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveEvent;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEvent;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.*;
 import gwtscheduler.client.widgets.view.common.events.CellDropEvent;
 import gwtscheduler.client.widgets.view.common.events.CellDropHandler;
+import gwtscheduler.client.widgets.view.common.events.ColumnClickEvent;
+import gwtscheduler.client.widgets.view.common.events.ColumnClickEventHandler;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectEvent;
 import gwtscheduler.client.widgets.view.common.events.MoveObjectHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
@@ -24,12 +21,11 @@ import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChang
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
 import gwtscheduler.client.widgets.view.event.CalendarEventDeleteEvent;
 import gwtscheduler.client.widgets.view.event.CalendarEventDeleteEventHandler;
-import gwtscheduler.client.widgets.view.event.DurationInterval;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickEvent;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
-import org.goda.time.DateTime;
-import org.goda.time.Interval;
+import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Period;
 
 import java.util.List;
 
@@ -87,7 +83,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
 //    display.initLasso(new VerticalLassoStrategy(false), this);
     
-    final Interval interval = dateGenerator.interval();
+    final Period interval = dateGenerator.interval();
 
     titlesRenderer.renderVerticalTitles(interval, calendarContent.getFrameGridDecorables());
 
@@ -118,11 +114,19 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
         eventBus.fireEvent(dropEvent);
       }
     });
+
+    eventBus.addHandler(ColumnClickEvent.TYPE, new ColumnClickEventHandler() {
+      @Override
+      public void onColumnClick(ColumnClickEvent event) {
+        CalendarColumn column = columns.get(event.getColumnIndex());
+            eventBus.fireEvent(new ColumnClickedEvent(column));
+      }
+    });
   }
 
-  private void reRenderHeaderTitles(Interval interval) {
-    DurationInterval durationInterval = DurationInterval.getInterval(interval.getStartMillis(),interval.getEndMillis());
-    columnsProvider.updateColumns(durationInterval, columns);
+  private void reRenderHeaderTitles(Period interval) {
+//    DurationInterval durationInterval = DurationInterval.getInterval(interval.getStartMillis(),interval.getEndMillis());
+    columnsProvider.updateColumns(interval, columns);
     titlesRenderer.renderHorizontalTitles(columns, calendarHeader.getHeaderDecorableElements());
   }
 
@@ -307,7 +311,7 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
 
   @Override
   public void navigateToDateTime(DateTime date) {
-    Interval interval = dateGenerator.getIntervalForDate(date);
+    Period interval = dateGenerator.getIntervalForDate(date);
     reRenderHeaderTitles(interval);
     eventBus.fireEvent(new NavigateToEvent(date));
   }
@@ -325,6 +329,16 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   @Override
   public void addEventClickHandler(EventClickHandler handler) {
     eventBus.addHandler(EventClickEvent.TYPE, handler);
+  }
+
+  @Override
+  public void clearEvents() {
+    calendarContent.clearEvents();
+  }
+
+  @Override
+  public void addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
+    eventBus.addHandler(ColumnClickedEvent.TYPE, handler);
   }
 
   @Override

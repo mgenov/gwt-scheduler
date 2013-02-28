@@ -1,10 +1,9 @@
 package gwtscheduler.client.widgets.view.common;
 
 import gwtscheduler.common.model.event.AbstractAppointment;
+import gwtscheduler.common.util.DateTime;
 
 import java.util.Collection;
-
-import org.goda.time.DateTime;
 
 /**
  * Defines a view for events. Possible views are: week, month, etc.

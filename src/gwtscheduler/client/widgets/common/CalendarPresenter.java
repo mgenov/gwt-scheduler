@@ -1,19 +1,20 @@
 package gwtscheduler.client.widgets.common;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
-import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
-import gwtscheduler.client.widgets.view.event.Event;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
-import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.CalendarType;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
+import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnClickedEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarContent;
 import gwtscheduler.client.widgets.view.columns.CalendarHeader;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
+import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
-import org.goda.time.DateTime;
+import gwtscheduler.common.util.DateTime;
 
 /**
  * Defines a calendar controller. Responsible for mediating the view and the
@@ -27,10 +28,10 @@ public interface CalendarPresenter {
     CalendarHeader.Display getCalendarHeaderDisplay();
 
     CalendarContent.Display getCalendarContentDisplay();
-    
-    void addWidgetResizeHandler(WidgetResizeHandler handler);
-  }
 
+    void addWidgetResizeHandler(WidgetResizeHandler handler);
+
+  }
   public void bindDisplay(Display display);
 
   public void setTittle(String tabLabel);
@@ -58,14 +59,14 @@ public interface CalendarPresenter {
 
   /**
    * Add new column to the calendar.
-   * 
+   *
    * @param column to be added.
    */
   void addColumn(CalendarColumn column);
 
   /**
    * Add handler who will catch CalendarDropEvent. This event is fired when something is dropped over calendar.
-   * 
+   *
    * @param handler who will handle event.
    * @return object that is responsible for removing handler from handler manager.
    */
@@ -74,7 +75,7 @@ public interface CalendarPresenter {
   /**
    * Add handler who will catch CalendarObjectMoveEvent. This event is fired when something is moved from one place to
    * another over the calendar.
-   * 
+   *
    * @param handler who will handle the event.
    * @return object that is responsible for removing handler from handler manager.
    */
@@ -89,7 +90,7 @@ public interface CalendarPresenter {
 
   /**
    * Return calendar type.
-   * 
+   *
    * @return CalendarType.
    */
   CalendarType getCalendarType();
@@ -151,5 +152,9 @@ public interface CalendarPresenter {
    * @param handler who will handle the event.
    */
   void addEventClickHandler(EventClickHandler handler);
+
+  void clearEvents();
+
+  void addColumnClickedEventHandler(ColumnClickedEventHandler handler);
 
 }

@@ -1,9 +1,8 @@
 package gwtscheduler.client.widgets.view.common.events;
 
 import com.google.gwt.event.shared.GwtEvent;
-import gwtscheduler.client.widgets.view.common.events.CellDropHandler;
-import org.goda.time.DateTime;
-import org.goda.time.Instant;
+import gwtscheduler.common.util.DateTime;
+
 
 /**
  * Fired when something is dropped on the cell.
