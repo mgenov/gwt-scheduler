@@ -50,4 +50,12 @@ public class Period {
   public void setEnd(DateTime end) {
     this.end = end;
   }
+
+  public boolean contains(DateTime date) {
+    if((start.isBefore(date) || start.equals(date))
+            && (end.isAfter(date) || end.equals(date))){
+      return true;
+    }
+    return false;
+  }
 }

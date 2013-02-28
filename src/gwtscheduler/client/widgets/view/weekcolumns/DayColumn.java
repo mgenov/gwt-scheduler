@@ -3,6 +3,7 @@ package gwtscheduler.client.widgets.view.weekcolumns;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.common.util.DateTime;
+import gwtscheduler.common.util.Period;
 
 /**
  * Represents a simple date column.
@@ -52,10 +53,11 @@ public class DayColumn implements CalendarColumn {
 
   @Override
   public boolean isEventForColumn(Event event) {
-    if(((DateTime)event.getColumnId()).equals(date)){
-     return true;
-    }else{
-     return false;
+    Period dayColumnInterval = new Period(date.trimToStart(),date.trimToEnd());
+    if (dayColumnInterval.contains(event.getDurationInterval().getStart())) {
+      return true;
+    } else {
+      return false;
     }
   }
 

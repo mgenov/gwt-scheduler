@@ -76,6 +76,11 @@ public final class DateTime {
     return date.after(current.date);
   }
 
+
+  public boolean isBefore(DateTime date) {
+    return this.date.before(date.date);
+  }
+
   public DateTime trimToStart() {
     return new DateTime(new DateHelper(date).trim());
   }
@@ -150,4 +155,5 @@ public final class DateTime {
     long time = (date.getTime() / 1000) *1000 + mills;
     return new DateTime(time);
   }
+
 }
