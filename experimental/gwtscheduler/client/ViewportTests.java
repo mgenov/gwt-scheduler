@@ -13,7 +13,6 @@ import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.EventBus;
-import gwtscheduler.client.modules.config.AppConfiguration;
 import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
@@ -29,10 +28,12 @@ import gwtscheduler.client.widgets.view.event.EventClickEvent;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
 import gwtscheduler.client.widgets.view.event.colors.DefaultEventColors;
 import gwtscheduler.common.util.DateTime;
-import gwtscheduler.common.util.DateTimeConstants;
 import gwtscheduler.common.util.Period;
 
 import java.util.Date;
+import java.util.List;
+
+import static gwtscheduler.client.modules.config.GwtSchedulerConfiguration.aNewGwtSchedulerConfiguration;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -44,7 +45,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
   private EventBus eventBus = new EventBus();
 
-  GwtScheduler main;
+  GwtSchedulerWidget gwtScheduler = new GwtSchedulerWidget();
   private TestTeamCalendarColumnProvider testteams1 = new TestTeamCalendarColumnProvider();
 
   /**
@@ -108,44 +109,52 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       @Override
       public void onValueChange(ValueChangeEvent<Date> event) {
         Date date = event.getValue();
-        main.navigateToDate(date);
+        gwtScheduler.navigateToDate(date);
       }
     });
 
 
-    CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
+    gwtScheduler.setConfiguration(aNewGwtSchedulerConfiguration()
+            .daysInWeek(7)
+            .intervalsPerHour(4)
+            .hourIntervalHeightEMs(2)
+            .build());
 
-//    main = schedulerBuilder.addTab(new CalendarsBuilder().newMultiColumn(new TestAppConfiguration(), testteams1, null).named("Teams").build())
-//            .addTab(new CalendarsBuilder().newWeekColumn(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build()).build();
+    gwtScheduler.setName("Team 1 Week Calendar");
 
-//    main = schedulerBuilder.multiColumnScheduler(new TestAppConfiguration(), testteams1, null).named("Teams").build();
-    main = schedulerBuilder.weekColumnScheduler(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build();
+    gwtScheduler.setHeight("400px");
+    gwtScheduler.setWidth("1000px");
 
-    dragZone.addDropZoneContainer((HasWidgets) main.asWidget());
+    List<CalendarColumn> columns = testteams1.getColumns();
+    gwtScheduler.setMultiColumnView(columns);
+//    gwtScheduler.setWeekColumnView();
+    gwtScheduler.navigateToDate(getCurrentDate().asDate());
+
+
+    dragZone.addDropZoneContainer(gwtScheduler);
 
     FlowPanel mainPanel = new FlowPanel();
     mainPanel.add(ticketsPanel);
     mainPanel.add(nav);
-    mainPanel.add(main.asWidget());
+    mainPanel.add(gwtScheduler);
 
     dragZone.add(mainPanel);
     dragZone.go(RootPanel.get());
-
 
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();
     dialog.bindDisplay(display);
 
 
-    main.addCalendarObjectMoveHandler(new CalendarObjectMoveHandler() {
+    gwtScheduler.addCalendarObjectMoveHandler(new CalendarObjectMoveHandler() {
       @Override
       public void onCalendarObjectMove(CalendarObjectMoveEvent event) {
         Object o = event.getDroppedObject();
-        if(o instanceof TestTask){
+        if (o instanceof TestTask) {
 
-        } else if(o instanceof CalendarEvent) {
-          CalendarEvent calendarEvent = (CalendarEvent)event.getDroppedObject();
-          TeamTaskEvent teamEvent = (TeamTaskEvent)calendarEvent.getEvent();
+        } else if (o instanceof CalendarEvent) {
+          CalendarEvent calendarEvent = (CalendarEvent) event.getDroppedObject();
+          TeamTaskEvent teamEvent = (TeamTaskEvent) calendarEvent.getEvent();
           // change column
           teamEvent.setColumn(event.getNewColumn());
           // change time
@@ -155,41 +164,41 @@ public class ViewportTests implements EntryPoint, ClickHandler {
           long difference = event.getDifference();
 
 
-            teamEvent.setDurationInterval(new Period(currentStart.plusMills(difference), currentEnd.plusMills(difference)));
+          teamEvent.setDurationInterval(new Period(currentStart.plusMills(difference), currentEnd.plusMills(difference)));
 
 
-          main.updateEvent(teamEvent);
+          gwtScheduler.updateEvent(teamEvent);
         }
       }
     });
 
-    main.addCalendarDropHandler(new CalendarDropHandler() {
+    gwtScheduler.addCalendarDropHandler(new CalendarDropHandler() {
       @Override
       public void onCalendarDrop(CalendarDropEvent event) {
         Object o = event.getDroppedObject();
         CalendarColumn column = event.getCalendarColumn();
 
-        if(o instanceof TestTask){
+        if (o instanceof TestTask) {
 
           TestTask testTask = (TestTask) o;
 
-          testTask.setDurationInterval(new Period(new DateTime(event.getDropTimeMills()),new DateTime(event.getDropTimeMills()).plusHours(testTask.getDuration())));
+          testTask.setDurationInterval(new Period(new DateTime(event.getDropTimeMills()), new DateTime(event.getDropTimeMills()).plusHours(testTask.getDuration())));
           dialog.setTestTask(testTask, column);
           dialog.show();
         }
       }
     });
 
-    main.addEventDurationIntervalUpdateHandler(new CalendarEventDurationChangeHandler(){
+    gwtScheduler.addEventDurationIntervalUpdateHandler(new CalendarEventDurationChangeHandler() {
       @Override
       public void onCalendarEventDurationChange(CalendarEventDurationChangeEvent event) {
         Event calendarEvent = event.getEvent();
         calendarEvent.setDurationInterval(new Period(new DateTime(event.getStartTime()), new DateTime(event.getEndTime())));
-        main.updateEvent(calendarEvent);
+        gwtScheduler.updateEvent(calendarEvent);
       }
     });
 
-    main.addEventResizeStartHandler(new CalendarEventDurationChangeStartHandler(){
+    gwtScheduler.addEventResizeStartHandler(new CalendarEventDurationChangeStartHandler(){
       @Override
       public void onCalendarEventDurationChangeStart(CalendarEventDurationChangeStartEvent event) {
 //        GWT.log("Event resizing start:", null);
@@ -198,39 +207,39 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     // used to chenge every time the color of the event
     final int[] b = {1};
-    dialog.getOKButton().addClickHandler(new ClickHandler(){
+    dialog.getOKButton().addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
         TestTask testTask = dialog.getTestTask();
         CalendarColumn column = dialog.getColumn();
 
         TeamTaskEvent teamTaskEvent;
-        if(b[0]==1){
-         teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getRedEventColor());
+        if (b[0] == 1) {
+          teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getRedEventColor());
           b[0] = 2;
-        }else if(b[0]==2){
-         teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getBlueEventColor());
+        } else if (b[0] == 2) {
+          teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getBlueEventColor());
           b[0] = 3;
-        }else if(b[0]==3){
+        } else if (b[0] == 3) {
           teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getGreenEventColor());
-           b[0] = 4;
-         }else {//if(b[0]==4)
-           teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getYellowEventColor());
+          b[0] = 4;
+        } else {//if(b[0]==4)
+          teamTaskEvent = new TeamTaskEvent(testTask, column, DefaultEventColors.getYellowEventColor());
           b[0] = 1;
         }
-        testTask.setDescription(testTask.getDescription()+ "  event id = "+teamTaskEvent.getEventId());
-        main.addEvent(teamTaskEvent);
+        testTask.setDescription(testTask.getDescription() + "  event id = " + teamTaskEvent.getEventId());
+        gwtScheduler.addEvent(teamTaskEvent);
         dialog.close();
       }
     });
-    main.addEventDeleteEventHandler(new EventDeleteEventHandler(){
+    gwtScheduler.addEventDeleteEventHandler(new EventDeleteEventHandler() {
       @Override
       public void onEventDelete(EventDeleteEvent e) {
-        main.deleteEvent(e.getEvent());
+        gwtScheduler.deleteEvent(e.getEvent());
       }
     });
 
-    main.addEventClickHandler(new EventClickHandler(){
+    gwtScheduler.addEventClickHandler(new EventClickHandler(){
       @Override
       public void onEventClickEvent(EventClickEvent event) {
 //        GWT.log("Clicked on event: " + event.getEvent().getTitle(), null);
@@ -252,7 +261,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
-    main.addColumnClickedEventHandler(new ColumnClickedEventHandler() {
+    gwtScheduler.addColumnClickedEventHandler(new ColumnClickedEventHandler() {
       @Override
       public void onColumnTitleClicked(ColumnClickedEvent event) {
         final DialogBox dialogBox = new DialogBox();
@@ -274,11 +283,6 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
-
-
-//    main.selectTab(0);
-    main.navigateToDate(getCurrentDate().asDate());
-//    eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
   }
 
   protected DateTime getCurrentDate() {
@@ -296,59 +300,16 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 //      eventBus.fireEvent(new NavigateToEvent(getCurrentDate()));
     } else if (event.getSource() == deleteColumn) {
       CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
-      main.deleteColumn(column);
+      gwtScheduler.deleteColumn(column);
     } else if (event.getSource() == addColumn) {
       if (!textBox.getText().equals("")) {
         CalendarColumn column = new TestTeamCalendarColumnProvider.TeamColumn(textBox.getText());
-        main.addColumn(column);
+        gwtScheduler.addColumn(column);
       }
     } else if (event.getSource() == disable) {
-      main.setEnable(false);
+      gwtScheduler.setEnable(false);
     } else if (event.getSource() == enable) {
-      main.setEnable(true);
-    }
-
-  }
-
-
-  public static class TestAppConfiguration implements AppConfiguration {
-    public TestAppConfiguration() {
-    }
-
-    @Override
-    public int startDayOfWeek() {
-      return DateTimeConstants.MONDAY;
-    }
-
-    @Override
-    public int getDayViewTopRows() {
-      return 3;
-    }
-
-    @Override
-    public int getCalendarHeight() {
-      return 400;
-    }
-
-    @Override
-    public int getCalendarWidth() {
-      return 1000;
-    }
-
-    @Override
-    public int daysInWeek() {
-      return 7;
-    }
-
-    @Override
-    public int daysLineHeightEMs() {
-      return 2;
-    }
-
-    @Override
-    public int rowsInDay() {
-      return 48;
+      gwtScheduler.setEnable(true);
     }
   }
-
 }

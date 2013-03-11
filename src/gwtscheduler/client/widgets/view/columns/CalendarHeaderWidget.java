@@ -51,12 +51,6 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
     this.eventBus = eventBus;
     buildCalendarHeader(columns);
 
-//    VerticalPanel vp = new VerticalPanel();
-//    vp.setStyleName(CSS.headerEnd());
-//    vp.add(header);
-//    SimplePanel sp = new SimplePanel();
-//    sp.setStyleName(CSS.headerEnd());
-//    vp.add(sp);
     SimplePanel sp = new SimplePanel();
     sp.setStyleName(CSS.genericHeaderContainer());
     sp.add(header);
@@ -66,7 +60,6 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
   public void buildCalendarHeader(int columns){
     final FlexTable g = new FlexTable();
     g.addStyleName(CSS.genericContainer());
-//    g.setWidth("100%");
 
     topLabels = new ArrayList<Cell<Element>>(columns);
 
@@ -116,7 +109,7 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
 
   @Override
   public HasMultipleDecorables getDecorables() {
-    return this;  //To change body of implemented methods use File | Settings | File Templates.
+    return this;
   }
 
 

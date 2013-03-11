@@ -1,7 +1,6 @@
 package gwtscheduler.client;
 
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
-import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.common.util.Period;
 
@@ -11,7 +10,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
+public class TestTeamCalendarColumnProvider {
 
 
   private List<CalendarColumn> columns;
@@ -27,13 +26,11 @@ public class TestTeamCalendarColumnProvider implements CalendarColumnsProvider {
 //    columns.makeDraggable(new TeamColumn(" "));
   }
 
-  @Override
   public List<CalendarColumn> getColumns() {
 
     return columns;
   }
 
-  @Override
   public void updateColumns(Period interval, List<CalendarColumn> columns) {
 //    DateTime current = interval.getStart();
 //    for (CalendarColumn column : columns) {

@@ -125,7 +125,6 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   private void reRenderHeaderTitles(Period interval) {
-//    DurationInterval durationInterval = DurationInterval.getInterval(interval.getStartMillis(),interval.getEndMillis());
     columnsProvider.updateColumns(interval, columns);
     titlesRenderer.renderHorizontalTitles(columns, calendarHeader.getHeaderDecorableElements());
   }

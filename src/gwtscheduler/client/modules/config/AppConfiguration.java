@@ -50,4 +50,6 @@ public interface AppConfiguration {
    * @return
    */
   int getCalendarWidth();
+
+  int getPixelsPerInterval();
 }
