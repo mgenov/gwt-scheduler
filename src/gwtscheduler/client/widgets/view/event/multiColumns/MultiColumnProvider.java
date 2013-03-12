@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * @author Mihail Lesikov (mlesikov@gmail.com)
  */
-public class MultiColumnsProvider implements CalendarColumnsProvider{
+public class MultiColumnProvider implements CalendarColumnsProvider{
 
   private List<CalendarColumn> columns;
 
-  public MultiColumnsProvider(List<CalendarColumn> columns) {
+  public MultiColumnProvider(List<CalendarColumn> columns) {
     this.columns = columns;
   }
 

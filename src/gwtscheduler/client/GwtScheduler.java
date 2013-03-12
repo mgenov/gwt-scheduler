@@ -32,7 +32,7 @@ import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChang
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelperProviderImpl;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
-import gwtscheduler.client.widgets.view.event.multiColumns.MultiColumnsProvider;
+import gwtscheduler.client.widgets.view.event.multiColumns.MultiColumnProvider;
 import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
 import gwtscheduler.common.calendar.IntervalType;
 import gwtscheduler.common.util.DateTime;
@@ -129,7 +129,7 @@ public class GwtScheduler extends Composite implements  HasWidgets {
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.DAY, selectedDate);
     CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
-    calendar = build(CalendarType.MULTYCOLUMN, new MultiColumnsProvider(columns), dateGenerator, resizeHelper);
+    calendar = build(CalendarType.MULTYCOLUMN, new MultiColumnProvider(columns), dateGenerator, resizeHelper);
   }
 
   public CalendarPresenter build(final CalendarType type, final CalendarColumnsProvider columnsProvider, DateGenerator dateGenerator, CalendarEventResizeHelperProviderImpl resizeHelper) {
