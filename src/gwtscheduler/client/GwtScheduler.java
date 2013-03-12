@@ -52,11 +52,14 @@ public class GwtScheduler extends Composite implements  HasWidgets {
   /**
    * static ref to css
    */
+   static {
+    Resources.injectAllStylesheets();
+  }
   protected static final SchedulerCssResource CSS = Resources.schedulerCss();
   /**
    * widget delegate
    */
-  TabPanelContainer calendarContainer = new TabPanelContainer();
+  private TabPanelContainer calendarContainer = new TabPanelContainer();
 
   private GwtSchedulerConfiguration configuration;
 
@@ -141,9 +144,9 @@ public class GwtScheduler extends Composite implements  HasWidgets {
 
 
     //waiting the object to be build.   making sure that the widget creation is finished
-    Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-      @Override
-      public void execute() {
+//    Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+//      @Override
+//      public void execute() {
         ColumnsViewWidget display = new ColumnsViewWidget(configuration.rowsInDay(),
                 columnsProvider.getColumns().size(),
                 configuration.daysLineHeightEMs(),
@@ -158,8 +161,8 @@ public class GwtScheduler extends Composite implements  HasWidgets {
 
         calendarContainer.clear();
         calendarContainer.add(display);
-      }
-    });
+//      }
+//    });
 
     return calendar;
    }

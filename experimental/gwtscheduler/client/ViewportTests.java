@@ -13,7 +13,6 @@ import gwtscheduler.client.dialog.TestTaskDialog;
 import gwtscheduler.client.dialog.TestTaskDialogWidget;
 import gwtscheduler.client.events.TeamTaskEvent;
 import gwtscheduler.client.modules.EventBus;
-import gwtscheduler.client.resources.Resources;
 import gwtscheduler.client.widgets.common.navigation.NavigateNextEvent;
 import gwtscheduler.client.widgets.common.navigation.NavigatePreviousEvent;
 import gwtscheduler.client.widgets.view.calendarevent.*;
@@ -52,7 +51,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
    * This is the entry point method.
    */
   public void onModuleLoad() {
-    Resources.injectAllStylesheets();
+//    Resources.injectAllStylesheets();
 
     TestTask task = new TestTask();
     task.setDescription("test description");
@@ -113,6 +112,14 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       }
     });
 
+    FlowPanel mainPanel = new FlowPanel();
+      mainPanel.add(ticketsPanel);
+      mainPanel.add(nav);
+      mainPanel.add(gwtScheduler);
+
+      dragZone.add(mainPanel);
+      dragZone.go(RootPanel.get());
+
 
     gwtScheduler.setConfiguration(aNewGwtSchedulerConfiguration()
             .daysInWeek(7)
@@ -133,13 +140,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
     dragZone.addDropZoneContainer(gwtScheduler);
 
-    FlowPanel mainPanel = new FlowPanel();
-    mainPanel.add(ticketsPanel);
-    mainPanel.add(nav);
-    mainPanel.add(gwtScheduler);
 
-    dragZone.add(mainPanel);
-    dragZone.go(RootPanel.get());
 
     final TestTaskDialog dialog = new TestTaskDialog();
     TestTaskDialogWidget display = new TestTaskDialogWidget();
