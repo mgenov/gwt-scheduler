@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class GwtSchedulerWidget extends Composite implements  HasWidgets {
+public class GwtScheduler extends Composite implements  HasWidgets {
 
   /**
    * ui binder interface
@@ -71,7 +71,7 @@ public class GwtSchedulerWidget extends Composite implements  HasWidgets {
 
   private DateTime selectedDate = new DateTime(new Date()).trimToStart();
 
-  public GwtSchedulerWidget() {
+  public GwtScheduler() {
     initWidget(calendarContainer);
     calendarContainer.addStyleName(CSS.gwtScheduler());
   }

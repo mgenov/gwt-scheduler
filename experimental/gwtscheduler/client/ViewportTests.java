@@ -45,7 +45,7 @@ public class ViewportTests implements EntryPoint, ClickHandler {
 
   private EventBus eventBus = new EventBus();
 
-  GwtSchedulerWidget gwtScheduler = new GwtSchedulerWidget();
+  GwtScheduler gwtScheduler = new GwtScheduler();
   private TestTeamCalendarColumnProvider testteams1 = new TestTeamCalendarColumnProvider();
 
   /**
