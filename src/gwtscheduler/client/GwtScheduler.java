@@ -215,4 +215,8 @@ public class GwtScheduler extends Composite implements  HasWidgets {
   public void setEnable(boolean enable) {
     calendar.setEnable(enable);
   }
+
+  public void clearEvents() {
+    calendar.clearEvents();
+  }
 }
