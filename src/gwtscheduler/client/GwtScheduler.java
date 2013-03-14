@@ -1,6 +1,5 @@
 package gwtscheduler.client;
 
-import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
@@ -101,14 +100,9 @@ public class GwtScheduler extends Composite implements  HasWidgets {
   public void navigateToDate(Date date) {
     selectedDate = new DateTime(date).trimToStart();
 
-    Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-      @Override
-      public void execute() {
-        if (calendar != null) {
-          calendar.navigateToDateTime(selectedDate.trimToStart());
-        }
-      }
-    });
+    if (calendar != null) {
+      calendar.navigateToDateTime(selectedDate.trimToStart());
+    }
   }
 
   public void setConfiguration(GwtSchedulerConfiguration configuration) {
