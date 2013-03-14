@@ -15,12 +15,6 @@ import java.util.List;
  */
 public class CalendarTitlesRenderer {
 
-
-  /**
-   * used to decide if vertical redraw is needed
-   */
-  boolean hasRunVertical = false;
-
   public CalendarTitlesRenderer() {
   }
 
@@ -34,7 +28,7 @@ public class CalendarTitlesRenderer {
     //setting the start of the day
     DateTime start = interval.getStart().trimToStart();
 
-    if (hasRunVertical || elems == null) {
+    if (elems == null) {
       return;
     }
     //TODO hardCode time
@@ -51,8 +45,6 @@ public class CalendarTitlesRenderer {
         start = start.plusHours(1);
       }
     }
-    hasRunVertical = true;
-
   }
 
   /**

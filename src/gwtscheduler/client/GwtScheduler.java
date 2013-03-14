@@ -123,20 +123,19 @@ public class GwtScheduler extends Composite implements  HasWidgets {
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.WEEK, selectedDate);
     CalendarColumnsProvider columnsProvider = new WeekDaysColumnsProvider(dateGenerator);
-    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
-    calendar = build(CalendarType.WEEKCOLUMN, columnsProvider,dateGenerator, resizeHelper);
+    calendar = build(CalendarType.WEEKCOLUMN, columnsProvider,dateGenerator);
   }
 
 
   public void setMultiColumnView(List<CalendarColumn> columns) {
     DateGenerator dateGenerator = new GenericDateGenerator();
     dateGenerator.init(IntervalType.DAY, selectedDate);
-    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
-    calendar = build(CalendarType.MULTYCOLUMN, new MultiColumnProvider(columns), dateGenerator, resizeHelper);
+    calendar = build(CalendarType.MULTYCOLUMN, new MultiColumnProvider(columns), dateGenerator);
   }
 
-  public CalendarPresenter build(final CalendarType type, final CalendarColumnsProvider columnsProvider, DateGenerator dateGenerator, CalendarEventResizeHelperProviderImpl resizeHelper) {
-
+  public CalendarPresenter build(final CalendarType type, final CalendarColumnsProvider columnsProvider, DateGenerator dateGenerator) {
+    eventBus = new EventBus();
+    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
     //check that functionality with drag zone = null
     CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper, null));
 
