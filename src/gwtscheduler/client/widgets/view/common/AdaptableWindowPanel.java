@@ -1,14 +1,5 @@
 package gwtscheduler.client.widgets.view.common;
 
-import com.google.gwt.user.client.ui.*;
-import gwtscheduler.client.utils.Constants;
-import gwtscheduler.client.utils.DOMUtils;
-import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
-import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
-import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
-
-import java.util.Iterator;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -18,6 +9,17 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
+import gwtscheduler.client.utils.DOMUtils;
+import gwtscheduler.client.widgets.common.event.HasWidgetResizeHandlers;
+import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
+import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
+
+import java.util.Iterator;
 
 /**
  * Defines a panel that occupies just about enough of the visible screen. It can
@@ -58,6 +60,10 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
     container.getElement().getStyle().clearOverflow();
 
     Window.addResizeHandler(this);
+  }
+
+  public void scrollTo(int  position){
+    scrollPanel.getElement().setScrollTop(position);
   }
 
   /**
@@ -132,6 +138,7 @@ implements ResizeHandler, HasWidgets, HasWidgetResizeHandlers {
         final int[] availableSize = DOMUtils.getViewportDimensions();
 //        doResize(availableSize[0], availableSize[1]);
         doResize(calendarWidth, calendarHeight);
+//        scrollTo(scrollPosition);
       }
     });
   }

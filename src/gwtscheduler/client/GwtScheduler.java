@@ -157,6 +157,8 @@ public class GwtScheduler extends Composite implements  HasWidgets {
 //      }
 //    });
 
+    display.scrollToHour(configuration.scrollToHour());
+
     return calendar;
    }
 

@@ -19,6 +19,7 @@ public class GwtSchedulerConfiguration implements AppConfiguration{
     private int height= 0;
     private int width = 0;
     private int pixelsPerInterval = 0;
+    private int scrollToHour = 0;
 
     public Builder startDayOfWeek(int startDayOfWeek) {
       this.startDayOfWeek = startDayOfWeek;
@@ -66,9 +67,14 @@ public class GwtSchedulerConfiguration implements AppConfiguration{
       configuration.pixelsPerInterval= pixelsPerInterval;
       configuration.height = height;
       configuration.width = width;
+      configuration.scrollToHour = scrollToHour;
       return configuration;
     }
 
+    public Builder setScrollToHour(int scrollToHour) {
+      this.scrollToHour = scrollToHour;
+      return this;
+    }
   }
 
   private int startDayOfWeek;
@@ -78,6 +84,7 @@ public class GwtSchedulerConfiguration implements AppConfiguration{
   private int pixelsPerInterval;
   private int height;
   private int width;
+  private int scrollToHour = 0;
 
   @Override
   public int startDayOfWeek() {
@@ -117,5 +124,9 @@ public class GwtSchedulerConfiguration implements AppConfiguration{
   @Override
   public int getPixelsPerInterval() {
     return pixelsPerInterval;
+  }
+
+  public int scrollToHour() {
+    return scrollToHour;
   }
 }

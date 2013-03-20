@@ -1,7 +1,17 @@
 package gwtscheduler.client.widgets.view.common;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.utils.Constants;
 import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.common.LassoStrategy;
@@ -13,18 +23,6 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 
 import java.util.Iterator;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Position;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.DeferredCommand;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Lasso panel that extends the redrawable panel in order to support lasso-style
@@ -106,6 +104,10 @@ public class LassoAwarePanel extends Composite implements HasWidgets, HasWidgetR
   @UiFactory
   public AdaptableWindowPanel buildAdaptableWindowPanel(){
     return  new AdaptableWindowPanel(calendarWidth,calendarHeight);
+  }
+
+  public void scrollTo(int position) {
+    windowPanel.scrollTo(position);
   }
 
   /**
