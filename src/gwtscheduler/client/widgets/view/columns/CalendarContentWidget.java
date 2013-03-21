@@ -66,8 +66,8 @@ public class CalendarContentWidget extends Composite implements CalendarContent.
     return new LassoAwarePanel(calendarWidth,calendarHeight);
   }
 
-  public void scrollToHour(int hour) {
-    int hourOffset = (columnsPanel.getHeight() / rows) * rows/24;
+  public void scrollToHour(int hour, int hoursPerDay) {
+    int hourOffset = (columnsPanel.getHeight() / rows) * rows / hoursPerDay;
     lassoAwarePanel.scrollTo(hour * hourOffset);
   }
 

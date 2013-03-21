@@ -49,9 +49,9 @@ public class DateFactoryTests implements junit.framework.Test {
 //    monthf = AppInjector.GIN.getInjector().getDateGenerator();
     monthf = new GenericDateGenerator();
 
-    dayf.init(IntervalType.DAY, now);
-    weekf.init(IntervalType.WEEK, now);
-    monthf.init(IntervalType.MONTH, now);
+    dayf.init(IntervalType.DAY, now, 0,23);
+    weekf.init(IntervalType.WEEK, now,0,23);
+    monthf.init(IntervalType.MONTH, now,0,23);
   }
 
   /**

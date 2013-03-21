@@ -58,4 +58,15 @@ public class Period {
     }
     return false;
   }
+
+  public int getHours() {
+
+    long sTime = start.getMillis();
+    long eTime = end.getMillis();
+
+    long adjust;
+    adjust = (sTime > eTime) ? 1 : -1;
+
+    return (int) (((sTime - eTime) * adjust) / (60 * 60 * 1000));
+  }
 }

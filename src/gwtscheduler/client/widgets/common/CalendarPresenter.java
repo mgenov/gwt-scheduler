@@ -31,7 +31,7 @@ public interface CalendarPresenter {
 
     void addWidgetResizeHandler(WidgetResizeHandler handler);
 
-    void scrollToHour(int hour);
+    void scrollToHour(int hour, int hoursPerDay);
   }
   public void bindDisplay(Display display);
 

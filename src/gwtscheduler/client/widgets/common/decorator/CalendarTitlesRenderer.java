@@ -26,16 +26,18 @@ public class CalendarTitlesRenderer {
   public void renderVerticalTitles(Period interval, List<Cell<Element>> elems) {
 
     //setting the start of the day
-    DateTime start = interval.getStart().trimToStart();
+    DateTime start = interval.getStart();
 
     if (elems == null) {
       return;
     }
-    //TODO hardCode time
-    int hours = 24;
-    int increment = elems.size() / hours;
+
+    int hours = interval.getHours();
 
     assert hours > 0 : "Number of hours should not be <= 0";
+
+    int increment = elems.size() / hours;
+
     assert increment != 0 : "Increment should not be zero.";
 
     for (Cell<Element> cell : elems) {

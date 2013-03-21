@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class GwtScheduler extends Composite implements  HasWidgets {
+public class GwtScheduler extends Composite implements HasWidgets {
 
   /**
    * ui binder interface
@@ -51,9 +51,10 @@ public class GwtScheduler extends Composite implements  HasWidgets {
   /**
    * static ref to css
    */
-   static {
+  static {
     Resources.injectAllStylesheets();
   }
+
   protected static final SchedulerCssResource CSS = Resources.schedulerCss();
   /**
    * widget delegate
@@ -82,6 +83,7 @@ public class GwtScheduler extends Composite implements  HasWidgets {
   public void add(Widget w) {
     calendarContainer.add(w);
   }
+
   @Override
   public void clear() {
     calendarContainer.clear();
@@ -115,15 +117,15 @@ public class GwtScheduler extends Composite implements  HasWidgets {
 
   public void setWeekColumnView() {
     DateGenerator dateGenerator = new GenericDateGenerator();
-    dateGenerator.init(IntervalType.WEEK, selectedDate);
+    dateGenerator.init(IntervalType.WEEK, selectedDate, configuration.startHour(), configuration.endHour());
     CalendarColumnsProvider columnsProvider = new WeekDaysColumnsProvider(dateGenerator);
-    calendar = build(CalendarType.WEEKCOLUMN, columnsProvider,dateGenerator);
+    calendar = build(CalendarType.WEEKCOLUMN, columnsProvider, dateGenerator);
   }
 
 
   public void setMultiColumnView(List<CalendarColumn> columns) {
     DateGenerator dateGenerator = new GenericDateGenerator();
-    dateGenerator.init(IntervalType.DAY, selectedDate);
+    dateGenerator.init(IntervalType.DAY, selectedDate, configuration.startHour(), configuration.endHour());
     calendar = build(CalendarType.MULTYCOLUMN, new MultiColumnProvider(columns), dateGenerator);
   }
 
@@ -140,27 +142,28 @@ public class GwtScheduler extends Composite implements  HasWidgets {
 //    Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
 //      @Override
 //      public void execute() {
-        ColumnsViewWidget display = new ColumnsViewWidget(configuration.rowsInDay(),
-                columnsProvider.getColumns().size(),
-                configuration.daysLineHeightEMs(),
-                calendarContainer.getElement().getClientWidth(),
-                calendarContainer.getElement().getClientHeight(),
-                eventBus);
+    ColumnsViewWidget display = new ColumnsViewWidget(configuration.rowsInDay(),
+            columnsProvider.getColumns().size(),
+            configuration.daysLineHeightEMs(),
+            calendarContainer.getElement().getClientWidth(),
+            calendarContainer.getElement().getClientHeight(),
+            eventBus);
 
-        calendar.bindDisplay(display);
-        calendar.setCalendarType(type);
-        calendar.navigateToDateTime(selectedDate);
-        calendar.setTittle(name);
+    calendar.bindDisplay(display);
+    calendar.setCalendarType(type);
+    calendar.navigateToDateTime(selectedDate);
+    calendar.setTittle(name);
 
-        calendarContainer.clear();
-        calendarContainer.add(display);
+    calendarContainer.clear();
+    calendarContainer.add(display);
 //      }
 //    });
 
-    display.scrollToHour(configuration.scrollToHour());
+    int hours = configuration.endHour() - configuration.startHour();
+    display.scrollToHour(configuration.scrollToHour(), hours);
 
     return calendar;
-   }
+  }
 
   public void updateEvent(Event event) {
     calendar.updateEvent(event);

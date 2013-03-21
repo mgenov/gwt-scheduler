@@ -125,7 +125,9 @@ public class ViewportTests implements EntryPoint, ClickHandler {
             .daysInWeek(7)
             .intervalsPerHour(4)
             .hourIntervalHeightEMs(2)
-            .setScrollToHour(8)
+            .setScrollToHour(10)
+//            .startHour(0)
+//            .endHour(24)
             .build());
 
     gwtScheduler.setName("Team 1 Week Calendar");

@@ -92,8 +92,8 @@ public class ColumnsViewWidget extends Composite implements CalendarPresenter.Di
     content.getLassoAwarePanel().addWidgetResizeHandler(handler);
   }
 
-  public void scrollToHour(int hour) {
-    content.scrollToHour(hour);
+  public void scrollToHour(int hour, int hoursPerDay) {
+    content.scrollToHour(hour, hoursPerDay);
   }
 
   /**
