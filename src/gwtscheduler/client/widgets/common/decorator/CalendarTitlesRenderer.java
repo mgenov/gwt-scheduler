@@ -34,6 +34,13 @@ public class CalendarTitlesRenderer {
 
     int hours = interval.getHours();
 
+    if (hours > elems.size()) {
+      hours = hours % 24;
+      if(hours == 0){
+        hours = 24;
+      }
+    }
+
     assert hours > 0 : "Number of hours should not be <= 0";
 
     int increment = elems.size() / hours;

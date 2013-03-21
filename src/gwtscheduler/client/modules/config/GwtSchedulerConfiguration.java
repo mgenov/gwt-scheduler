@@ -81,6 +81,7 @@ public class GwtSchedulerConfiguration implements AppConfiguration{
       if (scrollToHour > startHour) {
         configuration.scrollToHour = scrollToHour - startHour;
       }
+      configuration.scrollToHour = scrollToHour;
       configuration.startHour = startHour;
       configuration.endHour = endHour;
       return configuration;

@@ -33,6 +33,13 @@ public class DateTimeTest {
   }
 
   @Test
+  public void getWithHour() throws Exception {
+    assertThat(dateTime.withHours(5).hourOfDay(), CoreMatchers.is(CoreMatchers.equalTo(5)));
+    assertThat(dateTime.withHours(7).hourOfDay(), CoreMatchers.is(CoreMatchers.equalTo(7)));
+    assertThat(dateTime.withHours(0).hourOfDay(), CoreMatchers.is(CoreMatchers.equalTo(0)));
+  }
+
+  @Test
   public void getYear() throws Exception {
     assertThat(dateTime.getYear(), CoreMatchers.is(CoreMatchers.equalTo(2013)));
   }

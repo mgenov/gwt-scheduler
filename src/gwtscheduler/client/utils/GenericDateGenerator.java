@@ -19,7 +19,7 @@ import gwtscheduler.common.util.PeriodType;
  */
 public class GenericDateGenerator implements DateGenerator {
   private static final int START_DAY_OF_WEEK = 1;
-  private static final int WEEK_SIZE = 7;
+  private static final int WEEK_SIZE = 6;
 
   /**
    * interval start and end
@@ -174,7 +174,7 @@ public class GenericDateGenerator implements DateGenerator {
     public DateTime getStartTimeForCell(int[] cell, int totalRowsCount) {
       int cellRow = cell[0];
 
-      DateTime start = currentInterval.getStart();
+      DateTime start = visiblePeriod().getStart();
 
       Duration durationPerCell = getDurationPerCells(cellRow, totalRowsCount, hours);
 
@@ -231,17 +231,19 @@ public class GenericDateGenerator implements DateGenerator {
       while (current.getDayOfWeek() != START_DAY_OF_WEEK) {
         current = current.plusDays(-1);
       }
-      end = current.plusDays(weekSize);
+      end = current.plusDays(weekSize).withHours(endHour);
       return new Period(current, end);
     }
 
     @Override
     public DateTime getStartTimeForCell(int[] cell, int totalRowsCount) {
-      int distance = (cell[1] * totalRowsCount) + cell[0];
-
-      DateTime start = currentInterval.getStart();
-
       int minutesPerCell = (hours * 60) / totalRowsCount;
+
+      int partsPerHour = 60/minutesPerCell;
+
+      int distance = (cell[1] * 24 * partsPerHour) + cell[0];
+
+      DateTime start = visiblePeriod().getStart();
 
       return start.plusMinutes(minutesPerCell * distance);
     }
@@ -298,7 +300,7 @@ public class GenericDateGenerator implements DateGenerator {
     @Override
     public DateTime getStartTimeForCell(int[] cell, int totalRowsCount) {
       int distance = (cell[0] * totalRowsCount) + cell[1];
-      DateTime start = currentInterval.getStart();
+      DateTime start = visiblePeriod().getStart();
       start = start.plusDays(distance);
 
       return start;

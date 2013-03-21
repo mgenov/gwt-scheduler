@@ -42,8 +42,10 @@ public final class DateTime {
     date.setMinutes(minutes);
   }
 
-  public void setHours(int hours) {
-    date.setHours(hours);
+  public DateTime withHours(int hours) {
+    Date changedDate = new Date(date.getTime());
+    changedDate.setHours(hours);
+    return new DateTime(changedDate);
   }
 
   public long getMillis() {
