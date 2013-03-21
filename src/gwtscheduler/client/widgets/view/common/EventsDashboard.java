@@ -57,20 +57,18 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
   private final CollisionDetector collisionDetector;
   private final CalendarEventResizeHelperProvider resizeHelper;
   private DragZone dragZone;
-  private int intervalsPerHour;
   private WidgetResizeHandler displayWidgetResizeHandler;
   private Display display;
   private ArrayList<CalendarEvent> calendarEvents = new ArrayList<CalendarEvent>();
   private List<CalendarColumn> columns;
   private boolean collision = false;
 
-  public EventsDashboard(DateGenerator dateGenerator, CollisionDetector collisionDetector, EventBus eventBus, CalendarEventResizeHelperProvider resizeHelper, DragZone dragZone, int intervalsPerHour) {
+  public EventsDashboard(DateGenerator dateGenerator, CollisionDetector collisionDetector, EventBus eventBus, CalendarEventResizeHelperProvider resizeHelper, DragZone dragZone) {
     this.dateGenerator = dateGenerator;
     this.collisionDetector = collisionDetector;
     this.eventBus = eventBus;
     this.resizeHelper = resizeHelper;
     this.dragZone = dragZone;
-    this.intervalsPerHour = intervalsPerHour;
   }
 
   public void bindDisplay(final Display display) {
@@ -151,7 +149,7 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
       CalendarFrame cellFrame = (CalendarFrame) frame;
       int  duration = cellFrame.getDuration();
       cellFrame.setWidth(cellWidth);
-      cellFrame.setHeight(cellHeight * duration * intervalsPerHour);
+      cellFrame.setHeight(cellHeight * duration);
     }
 
     int cellCount = frame.getHeight() / cellHeight; // cells in frame
