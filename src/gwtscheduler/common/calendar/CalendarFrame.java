@@ -5,6 +5,9 @@ package gwtscheduler.common.calendar;
  */
 public interface CalendarFrame {
 
-  void onDragOver(int cellWidth, int cellHeight);
+  void setWidth(int cellWidth);
 
+  void setHeight(int cellWidth);
+
+  int getDuration();
 }

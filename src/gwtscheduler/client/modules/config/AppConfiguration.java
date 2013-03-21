@@ -52,4 +52,12 @@ public interface AppConfiguration {
   int getCalendarWidth();
 
   int getPixelsPerInterval();
+
+  int scrollToHour();
+
+  int startHour();
+
+  int endHour();
+
+  int intervalsPerHour();
 }

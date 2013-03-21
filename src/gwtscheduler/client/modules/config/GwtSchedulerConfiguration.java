@@ -6,6 +6,7 @@ import gwtscheduler.common.util.DateTimeConstants;
  * @author Mihail Lesikov (mlesikov@gmail.com)
  */
 public class GwtSchedulerConfiguration implements AppConfiguration{
+
   public static Builder aNewGwtSchedulerConfiguration() {
      return new Builder();
    }
@@ -75,6 +76,7 @@ public class GwtSchedulerConfiguration implements AppConfiguration{
       configuration.daysInWeek = daysInWeek;
       configuration.hourIntervalHeightEMs = hourIntervalHeightEMs;
       configuration.rowsInDay = (endHour-startHour) * intervalsPerHour;
+      configuration.intervalsPerHour = intervalsPerHour;
       configuration.pixelsPerInterval= pixelsPerInterval;
       configuration.height = height;
       configuration.width = width;
@@ -103,6 +105,7 @@ public class GwtSchedulerConfiguration implements AppConfiguration{
   private int scrollToHour = 0;
   private int startHour = 7;
   private int endHour = 19;
+  private int intervalsPerHour;
 
   @Override
   public int startDayOfWeek() {
@@ -154,5 +157,9 @@ public class GwtSchedulerConfiguration implements AppConfiguration{
 
   public int endHour() {
     return endHour;
+  }
+
+  public int intervalsPerHour() {
+    return intervalsPerHour;
   }
 }

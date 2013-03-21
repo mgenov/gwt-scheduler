@@ -167,4 +167,57 @@ public class DateTimeTest {
         );
     assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(24)));
   }
+
+
+
+  @Test
+  public void minutesInThePeriodWhenNoWholeMinute() throws Exception {
+    Period period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate()
+    );
+    assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(0)));
+
+    period = new Period(
+                new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+                new DateHelper(2013, 5, 20, 12, 0, 0).getDate()
+        );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(0)));
+  }
+
+  @Test
+  public void minutesInThePeriod() throws Exception {
+    Period period = new Period(
+            new DateHelper(2013, 5, 20, 12, 12, 0).getDate(),
+            new DateHelper(2013, 5, 20, 12, 13, 0).getDate()
+    );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(1)));
+
+    period = new Period(
+                new DateHelper(2013, 5, 20, 0, 0, 0).getDate(),
+                new DateHelper(2013, 5, 20, 0, 23, 59).getDate()
+        );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(23)));
+  }
+
+  @Test
+  public void minutesInThePeriodWhenMoreThanOneDay() throws Exception {
+    Period period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 21, 12, 0, 0).getDate()
+    );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(1440)));
+
+    period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 22, 13, 0, 0).getDate()
+    );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(2940)));
+
+    period = new Period(
+                new DateHelper(2013, 5, 20, 0, 0, 0).getDate(),
+                new DateHelper(2013, 6, 21, 0, 0, 0).getDate()
+        );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(46080)));
+  }
 }
