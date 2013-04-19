@@ -24,7 +24,7 @@ public class CalendarEventResizeHelperProviderImpl implements CalendarEventResiz
   }
 
   public CalendarEventResizeHelper attachResizeHelper(CalendarEvent calendarEvent) {
-    CalendarEventResizeHelperImpl helper = new CalendarEventResizeHelperImpl(calendarEvent, display, dateGenerator, new CalendarEventResizeHelperView(), calendarBus);
+    CalendarEventResizeHelperImpl helper = new CalendarEventResizeHelperImpl(calendarEvent, display, dateGenerator, new CalendarEventResizeHelperViewImpl(), calendarBus);
     return helper;
   }
 }
