@@ -1,6 +1,7 @@
 package gwtscheduler.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -240,6 +241,28 @@ public class ViewportTests implements EntryPoint, ClickHandler {
       @Override
       public void onEventDelete(EventDeleteEvent e) {
         gwtScheduler.deleteEvent(e.getEvent());
+      }
+    });
+
+    final DecoratedPopupPanel panel = new DecoratedPopupPanel(true);
+
+    gwtScheduler.addColumnTitleOverEventHandler(new ColumnTitleOverEventHandler() {
+      @Override
+      public void onOver(ColumnTitleOverEvent event) {
+        panel.clear();
+        panel.setPopupPosition(event.getLeft(),event.getTop()+ 20);
+        panel.add(new Label(event.getColumn().getTitle()));
+//        panel.center();
+        panel.show();
+        GWT.log("mause over : " + event.getColumn().getTitle());
+      }
+    });
+
+    gwtScheduler.addColumnTitleOutEventHandler(new ColumnTitleOutEventHandler() {
+      @Override
+      public void onOut(ColumnTitleOutEvent event) {
+        panel.hide();
+        GWT.log("mause out : " + event.getColumn().getTitle());
       }
     });
 

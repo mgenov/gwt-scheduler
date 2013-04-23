@@ -3,9 +3,14 @@ package gwtscheduler.client.widgets.view.columns;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.SimplePanel;
 import gwtscheduler.client.modules.EventBus;
@@ -19,6 +24,8 @@ import gwtscheduler.client.widgets.common.event.WidgetResizeEvent;
 import gwtscheduler.client.widgets.common.event.WidgetResizeHandler;
 import gwtscheduler.client.widgets.view.common.cell.BaseCell;
 import gwtscheduler.client.widgets.view.common.events.ColumnClickEvent;
+import gwtscheduler.client.widgets.view.common.events.ColumnTitleMouseOutEvent;
+import gwtscheduler.client.widgets.view.common.events.ColumnTitleMouseOverEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,18 +76,37 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
       //only top row is for labels
       topLabels.add(topCell);
       g.setWidget(0, i, topCell);
+
+      final int finalI = i;
+      topCell.addDomHandler(new MouseOverHandler() {
+        @Override
+        public void onMouseOver(MouseOverEvent event) {
+          int columnIndex = finalI;
+          eventBus.fireEvent(new ColumnTitleMouseOverEvent(topCell.getTitle(), columnIndex, topCell.getAbsoluteLeft(), topCell.getAbsoluteTop()));
+        }
+      }, MouseOverEvent.getType());
+
+      topCell.addDomHandler(new MouseOutHandler(){
+        @Override
+        public void onMouseOut(MouseOutEvent event) {
+          int columnIndex = finalI;
+          eventBus.fireEvent(new ColumnTitleMouseOutEvent(topCell.getTitle(), columnIndex));
+        }
+      }, MouseOutEvent.getType());
     }
 
     g.addClickHandler(new ClickHandler() {
 
       @Override
       public void onClick(ClickEvent event) {
-        int columnIndex = g.getCellForEvent(event).getCellIndex();
-        int rowIndex = g.getCellForEvent(event).getRowIndex();
+        HTMLTable.Cell cell = g.getCellForEvent(event);
+        int columnIndex = cell.getCellIndex();
+        int rowIndex = cell.getRowIndex();
         String title = g.getWidget(rowIndex, columnIndex).getElement().getInnerText();
         eventBus.fireEvent(new ColumnClickEvent(title, columnIndex));
       }
     });
+
      header = g;
   }
 

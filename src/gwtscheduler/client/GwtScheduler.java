@@ -1,5 +1,6 @@
 package gwtscheduler.client;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
@@ -15,6 +16,8 @@ import gwtscheduler.client.widgets.common.navigation.TabPanelContainer;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.ColumnClickedEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnTitleOutEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnTitleOverEventHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.columns.CalendarColumnsFrameGrid;
@@ -177,32 +180,40 @@ public class GwtScheduler extends Composite implements HasWidgets {
     calendar.deleteEvent(event);
   }
 
-  public void addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
-    calendar.addCalendarObjectMoveHandler(handler);
+  public HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
+    return calendar.addCalendarObjectMoveHandler(handler);
   }
 
-  public void addCalendarDropHandler(CalendarDropHandler handler) {
-    calendar.addCalendarDropHandler(handler);
+  public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
+    return calendar.addCalendarDropHandler(handler);
   }
 
-  public void addEventDurationIntervalUpdateHandler(CalendarEventDurationChangeHandler handler) {
-    calendar.addEventDurationChangeHandler(handler);
+  public HandlerRegistration addEventDurationIntervalUpdateHandler(CalendarEventDurationChangeHandler handler) {
+    return calendar.addEventDurationChangeHandler(handler);
   }
 
-  public void addEventResizeStartHandler(CalendarEventDurationChangeStartHandler handler) {
-    calendar.addEventDurationChangeStartHandler(handler);
+  public HandlerRegistration addEventResizeStartHandler(CalendarEventDurationChangeStartHandler handler) {
+    return calendar.addEventDurationChangeStartHandler(handler);
   }
 
-  public void addEventDeleteEventHandler(EventDeleteEventHandler handler) {
-    calendar.addEventDeleteEventHandler(handler);
+  public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
+    return calendar.addEventDeleteEventHandler(handler);
   }
 
-  public void addEventClickHandler(EventClickHandler handler) {
-    calendar.addEventClickHandler(handler);
+  public HandlerRegistration addEventClickHandler(EventClickHandler handler) {
+     return calendar.addEventClickHandler(handler);
   }
 
-  public void addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
-    calendar.addColumnClickedEventHandler(handler);
+  public HandlerRegistration addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
+    return calendar.addColumnClickedEventHandler(handler);
+  }
+
+  public HandlerRegistration addColumnTitleOverEventHandler(ColumnTitleOverEventHandler handler){
+    return calendar.addColumnTitleOverEventHandler(handler);
+  }
+
+  public HandlerRegistration addColumnTitleOutEventHandler(ColumnTitleOutEventHandler handler){
+    return calendar.addColumnTitleOutEventHandler(handler);
   }
 
   public void deleteColumn(CalendarColumn column) {
