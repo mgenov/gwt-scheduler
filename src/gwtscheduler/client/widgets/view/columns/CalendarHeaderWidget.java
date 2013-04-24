@@ -82,7 +82,7 @@ public class CalendarHeaderWidget extends Composite implements CalendarHeader.Di
         @Override
         public void onMouseOver(MouseOverEvent event) {
           int columnIndex = finalI;
-          eventBus.fireEvent(new ColumnTitleMouseOverEvent(topCell.getTitle(), columnIndex, topCell.getAbsoluteLeft(), topCell.getAbsoluteTop()));
+          eventBus.fireEvent(new ColumnTitleMouseOverEvent(topCell.getTitle(), columnIndex, event.getClientX(), event.getClientY()));
         }
       }, MouseOverEvent.getType());
 
