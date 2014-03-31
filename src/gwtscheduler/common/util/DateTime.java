@@ -103,6 +103,10 @@ public final class DateTime {
     date = new Date(mills);
   }
 
+  public DateTime setHours(int hours) {
+    return new DateTime(new DateHelper(date).withHours(hours));
+  }
+
   public int getYear() {
     return 1900 + date.getYear();
   }

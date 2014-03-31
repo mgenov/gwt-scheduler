@@ -49,7 +49,7 @@ public class GenericDateGenerator implements DateGenerator {
     this.startHour = startHour;
     this.endHour = endHour;
     //TODO maybe use a flag|bitmask for resetting fields?
-    this.current = start.trimToStart().plusHours(startHour);
+    this.current = start.trimToStart().setHours(startHour);
 
 
     if (IntervalType.DAY.equals(interval)) {
@@ -107,8 +107,7 @@ public class GenericDateGenerator implements DateGenerator {
 
   @Override
   public Period getIntervalForDate(DateTime date) {
-    //todo bug here
-    generator.goTo(date.trimToStart().plusHours(startHour));
+    generator.goTo(date.trimToStart().setHours(startHour));
     return interval();
   }
 

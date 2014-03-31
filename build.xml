@@ -13,7 +13,7 @@
 	<property name="reports.dir" value="reports" />
 
 
-	<property name="GWT_HOME" value="/home/mlesikov/development/gwt-2.5.0/" />
+	<property name="GWT_HOME" value="/home/mlesikov/development/gwt-2.6.0/" />
 
 
 	<!-- main props -->

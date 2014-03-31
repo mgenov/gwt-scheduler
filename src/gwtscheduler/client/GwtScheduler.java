@@ -75,10 +75,11 @@ public class GwtScheduler extends Composite implements HasWidgets {
   private CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
   private CalendarHeader calendarHeader = new CalendarHeader();
 
-  private DateTime selectedDate = new DateTime(new Date()).trimToStart();
+  private DateTime selectedDate;
 
   public GwtScheduler() {
     initWidget(calendarContainer);
+    selectedDate = new DateTime(new Date()).trimToStart();
     calendarContainer.addStyleName(CSS.gwtScheduler());
   }
 
@@ -106,7 +107,7 @@ public class GwtScheduler extends Composite implements HasWidgets {
     selectedDate = new DateTime(date).trimToStart();
 
     if (calendar != null) {
-      calendar.navigateToDateTime(selectedDate.trimToStart());
+      calendar.navigateToDateTime(selectedDate);
     }
   }
 
