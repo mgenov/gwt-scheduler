@@ -34,6 +34,12 @@
 .genericHeaderContainer{
    background: lightBlued;
    padding: genericContainerPaddingPx   headerPaddingRight  genericContainerPaddingPx headerPaddingLeft;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 /** 

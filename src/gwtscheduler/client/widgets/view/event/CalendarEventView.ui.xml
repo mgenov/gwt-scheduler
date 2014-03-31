@@ -9,58 +9,77 @@
 
 
     <ui:style>
-        .header {
+      .header {
         width: 100%;
         background-color: #6694E3;
         text-align: center;
         font-size: 0.8em;
         color: #FFFFFF;
-        cursor:default;
-        }
-        .content {
+        cursor: default;
+        padding-bottom: 0.05em;
+        padding-top: 0.05em;
+      }
+
+      .content {
         padding-left: 5px;
-        cursor:default;
-        opacity:0.7;
-        height: 100%;
+        cursor: default;
+        opacity: 0.7;
+        height: 90%;
         font-size: 0.9em;
-        }
-        .resizer {
+      }
+
+      .resizer {
         bottom: 0;
-        height:15px;
-        line-height:7px;
-        position:absolute;
-        width:100%;
-        opacity:0.7;
-        }
-        .rszrbutton {
-        font-size:15px;
-        font-weight:bold;
-        height:100%;
-        cursor:ns-resize;
-        line-height:0;
-        margin-left:auto;
-        margin-right:auto;
-        width:100%;
-        }
-        .html{
+        height: 15px;
+        line-height: 7px;
+        position: absolute;
+        width: 100%;
+        opacity: 0.7;
+      }
+
+      .rszrbutton {
+        font-size: 15px;
+        font-weight: bold;
+        height: 100%;
+        cursor: ns-resize;
+        line-height: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+      }
+
+      .html {
         background-color: #E0ECFF;
         border-bottom: 1px solid #6694E3;
         border-right: 1px solid #6694E3;
         border-left: 1px solid #6694E3;
         overflow: hidden;
-        }
-        .rszricon{
 
-        border-top:3px double #000000;
+        -webkit-border-top-left-radius: 6px;
+        -webkit-border-top-right-radius: 6px;
+        -moz-border-radius-topleft: 6px;
+        -moz-border-radius-topright: 6px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+      }
+
+      .rszricon {
+
+        border-top: 3px double #000000;
         width: 10px;
         margin: 0 auto;
         position: absolute;
         bottom: 0;
-        margin-bottom:3px;
-        margin-left:49%;
-        }
+        margin-bottom: 2px;
+        margin-left: 49%;
+      }
+
+      .roundedPanel {
+
+        border-color: #6694E3;
+      }
     </ui:style>
-    <c:RoundedLinePanel ui:field="roundedPanel">
+    <g:HTMLPanel ui:field="roundedPanel" styleName="{style.roundedPanel}">
         <g:HTMLPanel ui:field="htmlPanel" styleName="{style.html}">
             <g:FlowPanel styleName="{res.headerFlowPanel}">
                 <g:Label ui:field="eventHeader" styleName="{style.header}"/>
@@ -72,7 +91,7 @@
                 <g:Label ui:field="eventFooter" styleName="{style.rszrbutton}"/>
             </div>
         </g:HTMLPanel>
-    </c:RoundedLinePanel>
+    </g:HTMLPanel>
 
 </ui:UiBinder>
         

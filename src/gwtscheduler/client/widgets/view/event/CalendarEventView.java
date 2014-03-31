@@ -14,8 +14,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import gwtscheduler.client.resources.images.ImagesResourceBundle;
-import org.cobogw.gwt.user.client.ui.RoundedLinePanel;
-import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 /**
  * @author Miroslav Genov (mgenov@gmail.com)
@@ -31,9 +29,6 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   private static CalendarEventViewBinder uiBinder = GWT.create(CalendarEventViewBinder.class);
 
-//  @UiField
-//  ImagesResourceBundle eventResourceBundle;
-  
   @UiField
   ResStyle resStyle;
 
@@ -41,7 +36,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   HTMLPanel htmlPanel;
 
   @UiField
-  RoundedLinePanel roundedPanel;
+  HTMLPanel roundedPanel;
 
   @UiField
   Label eventHeader;
@@ -66,13 +61,6 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
     closeBtn.setStyleName(resStyle.closeBtn());
   }
 
-  @UiFactory
-  public RoundedLinePanel buildRoundedLinePanel(){
-    RoundedLinePanel roundedPanel = new RoundedLinePanel(RoundedPanel.TOP, 3);
-    roundedPanel.setCornerColor("#6694E3");
-    return roundedPanel;
-  }
-
   @Override
   public void setViewWidth(int width) {
     htmlPanel.setWidth((width - 4 ) + "px");
@@ -80,7 +68,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
 
   @Override
   public void setViewHeight(int height) {
-    htmlPanel.setHeight((height - 4) + "px");
+    htmlPanel.setHeight((height - 2) + "px");
   }
 
   @Override
@@ -117,7 +105,7 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   public void setHeaderColor(String headerColor) {
     eventHeader.getElement().getStyle().setBackgroundColor(headerColor);
     htmlPanel.getElement().getStyle().setBorderColor(headerColor);
-    roundedPanel.setCornerColor(headerColor);
+    roundedPanel.addStyleName(headerColor);
   }
 
   @Override
