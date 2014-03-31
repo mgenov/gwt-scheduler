@@ -5,7 +5,7 @@ import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.user.client.ui.Widget;
 import dragndrop.client.core.Frame;
 import gwtscheduler.common.calendar.CalendarFrame;
-import gwtscheduler.client.TicketPresenter;
+import gwtscheduler.common.util.Period;
 
 /**
  * @author Lazo Apostolovski (lazo.apostolovski@gmail.com)
@@ -64,6 +64,11 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
   }
 
   @Override
+  public int getDuration() {
+    return duration;
+  }
+
+  @Override
   public void dropObject(Object o) {
     if(o instanceof TicketPresenter){
       TicketPresenter ticket = (TicketPresenter)o;
@@ -89,11 +94,5 @@ public class TicketPresenterFrame implements Frame, CalendarFrame {
   @Override
   public String getZIndex() {
     return display.getZIndex();
-  }
-
-  @Override
-  public void onDragOver(int cellWidth, int cellHeight) {
-    setWidth(cellWidth);
-    setHeight(cellHeight * duration * 2);
   }
 }

@@ -9,12 +9,7 @@ import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.client.widgets.common.navigation.NavigateToEvent;
 import gwtscheduler.client.widgets.view.calendarevent.*;
-import gwtscheduler.client.widgets.view.common.events.CellDropEvent;
-import gwtscheduler.client.widgets.view.common.events.CellDropHandler;
-import gwtscheduler.client.widgets.view.common.events.ColumnClickEvent;
-import gwtscheduler.client.widgets.view.common.events.ColumnClickEventHandler;
-import gwtscheduler.client.widgets.view.common.events.MoveObjectEvent;
-import gwtscheduler.client.widgets.view.common.events.MoveObjectHandler;
+import gwtscheduler.client.widgets.view.common.events.*;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeEvent;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartEvent;
@@ -119,13 +114,28 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
       @Override
       public void onColumnClick(ColumnClickEvent event) {
         CalendarColumn column = columns.get(event.getColumnIndex());
-            eventBus.fireEvent(new ColumnClickedEvent(column));
+        eventBus.fireEvent(new ColumnClickedEvent(column));
+      }
+    });
+
+    eventBus.addHandler(ColumnTitleMouseOverEvent.TYPE, new ColumnTitleMouseOverEventHandler() {
+      @Override
+      public void onMouseOver(ColumnTitleMouseOverEvent event) {
+        CalendarColumn column = columns.get(event.getColumnIndex());
+        eventBus.fireEvent(new ColumnTitleOverEvent(column, event.getLeft(), event.getTop()));
+      }
+    });
+
+    eventBus.addHandler(ColumnTitleMouseOutEvent.TYPE, new ColumnTitleMouseOutEventHandler() {
+      @Override
+      public void onMouseOut(ColumnTitleMouseOutEvent event) {
+        CalendarColumn column = columns.get(event.getColumnIndex());
+        eventBus.fireEvent(new ColumnTitleOutEvent(column));
       }
     });
   }
 
   private void reRenderHeaderTitles(Period interval) {
-//    DurationInterval durationInterval = DurationInterval.getInterval(interval.getStartMillis(),interval.getEndMillis());
     columnsProvider.updateColumns(interval, columns);
     titlesRenderer.renderHorizontalTitles(columns, calendarHeader.getHeaderDecorableElements());
   }
@@ -327,8 +337,8 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
    * @param handler who will handle the event.
    */
   @Override
-  public void addEventClickHandler(EventClickHandler handler) {
-    eventBus.addHandler(EventClickEvent.TYPE, handler);
+  public HandlerRegistration addEventClickHandler(EventClickHandler handler) {
+    return eventBus.addHandler(EventClickEvent.TYPE, handler);
   }
 
   @Override
@@ -337,8 +347,18 @@ public class ColumnsViewPresenter implements CalendarPresenter, ComplexGrid {
   }
 
   @Override
-  public void addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
-    eventBus.addHandler(ColumnClickedEvent.TYPE, handler);
+  public HandlerRegistration addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
+    return eventBus.addHandler(ColumnClickedEvent.TYPE, handler);
+  }
+
+  @Override
+  public HandlerRegistration addColumnTitleOverEventHandler(ColumnTitleOverEventHandler handler) {
+    return eventBus.addHandler(ColumnTitleOverEvent.TYPE, handler);
+  }
+
+  @Override
+  public HandlerRegistration addColumnTitleOutEventHandler(ColumnTitleOutEventHandler handler) {
+    return eventBus.addHandler(ColumnTitleOutEvent.TYPE, handler);
   }
 
   @Override

@@ -147,7 +147,9 @@ public class EventsDashboard implements DropHandler, DragOverHandler {
 
     if (frame instanceof CalendarFrame) {
       CalendarFrame cellFrame = (CalendarFrame) frame;
-      cellFrame.onDragOver(cellWidth, cellHeight);
+      int  duration = cellFrame.getDuration();
+      cellFrame.setWidth(cellWidth);
+      cellFrame.setHeight(cellHeight * duration);
     }
 
     int cellCount = frame.getHeight() / cellHeight; // cells in frame

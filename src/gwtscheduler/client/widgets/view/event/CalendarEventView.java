@@ -109,8 +109,8 @@ public class CalendarEventView extends Composite implements CalendarEvent.Displa
   }
 
   @Override
-  public void setDescription(String description) {
-    contentPanel.setText(description);
+  public void setDescription(String descriptionHtml) {
+    contentPanel.getElement().setInnerHTML(descriptionHtml);
   }
 
   @Override

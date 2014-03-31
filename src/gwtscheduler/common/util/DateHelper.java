@@ -140,7 +140,17 @@ public class DateHelper {
      * @return the resulting date.
      */
     public Date trim() {
-        return new Date(date.getYear(), date.getMonth(), date.getDate());
+
+//      Date trimmedDate = new Date(date.getYear(), date.getMonth(), date.getDate());
+//
+//      int timeZoneOffset = (date.getTimezoneOffset() - trimmedDate.getTimezoneOffset())/ 60 * (-1);
+//      if(timeZoneOffset != 0){
+//        return new Date(date.getYear(), date.getMonth(), date.getDate(), timeZoneOffset, 0, 0);
+//      }
+//
+//      return trimmedDate;
+
+      return new Date(date.getYear(), date.getMonth(), date.getDate());
     }
   
   /**
@@ -160,6 +170,11 @@ public class DateHelper {
      */
     public Date addDays(int days) {
         return new Date(date.getYear(), date.getMonth(), date.getDate() + days, date.getHours(), date.getMinutes(), date.getSeconds());
+    }
+
+
+    public Date withHours(int hours) {
+       return new Date(date.getYear(), date.getMonth(), date.getDate(), hours, date.getMinutes(), date.getSeconds());
     }
 
     /**

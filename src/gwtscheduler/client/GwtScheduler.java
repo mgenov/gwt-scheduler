@@ -1,142 +1,235 @@
 package gwtscheduler.client;
 
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import gwtscheduler.client.modules.views.SchedulerMainView;
+import gwtscheduler.client.modules.EventBus;
+import gwtscheduler.client.modules.config.GwtSchedulerConfiguration;
+import gwtscheduler.client.resources.Resources;
+import gwtscheduler.client.resources.css.SchedulerCssResource;
+import gwtscheduler.client.utils.GenericDateGenerator;
 import gwtscheduler.client.widgets.common.CalendarPresenter;
+import gwtscheduler.client.widgets.common.decorator.CalendarTitlesRenderer;
+import gwtscheduler.client.widgets.common.navigation.DateGenerator;
+import gwtscheduler.client.widgets.common.navigation.TabPanelContainer;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.ColumnClickedEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnTitleOutEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnTitleOverEventHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
+import gwtscheduler.client.widgets.view.columns.CalendarColumnsFrameGrid;
+import gwtscheduler.client.widgets.view.columns.CalendarColumnsProvider;
+import gwtscheduler.client.widgets.view.columns.CalendarContent;
+import gwtscheduler.client.widgets.view.columns.CalendarHeader;
+import gwtscheduler.client.widgets.view.columns.ColumnsViewPresenter;
+import gwtscheduler.client.widgets.view.columns.ColumnsViewWidget;
+import gwtscheduler.client.widgets.view.common.CollisionDetector;
+import gwtscheduler.client.widgets.view.common.EventsDashboard;
+import gwtscheduler.client.widgets.view.common.IntervalCollisionDetector;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeStartHandler;
+import gwtscheduler.client.widgets.view.common.resize.CalendarEventResizeHelperProviderImpl;
 import gwtscheduler.client.widgets.view.event.Event;
 import gwtscheduler.client.widgets.view.event.EventClickHandler;
+import gwtscheduler.client.widgets.view.event.multiColumns.MultiColumnProvider;
+import gwtscheduler.client.widgets.view.weekcolumns.WeekDaysColumnsProvider;
+import gwtscheduler.common.calendar.IntervalType;
 import gwtscheduler.common.util.DateTime;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
- * Represents a scheduler that can consist different calendars.
- * <p/>
- * Example:
- * <p></p>
- * <p>1. Getting ana instance;</p>
- * <p/>
- * <pre>
- * CalendarSchedulerBuilder schedulerBuilder = new CalendarSchedulerBuilder();
- * <p></p>
- * GwtScheduler scheduler = schedulerBuilder.weekColumnScheduler(new TestAppConfiguration(), null).named("Team 1 Week Calendar").build();
- * </pre>
- * <pre>
- * GwtScheduler scheduler = schedulerBuilder.multiColumnScheduler(new TestAppConfiguration(), testteamsProvider, null).named("Teams").build();
- * </pre>
- * Where TestAppConfiguration is implementation of a AppConfiguration interface
- * and testteamsProvider is an instance of a custom implementation of a CalendarColumnsProvider intervace
- * scheduler now is an instance that consist a calendar that represents week days or multi-column calendar.
- * <p></p>
- * <p>2. Scheduler  navigation </p>
- * <pre>datePicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
- *        @Override
- *        public void onValueChange(ValueChangeEvent<Date> event) {
- *            Date date = event.getValue();
- *            main.navigateToDate(date);
- *            }
- *            });</pre>
- * <p></p>
- * <p> 3.Using the scheduler </p>
- * <p> The scheduler fires events for every activity that is involved in. This fired events can be easily handled by adding handlers to the scheduler</p>
- *
  * @author mlesikov  {mlesikov@gmail.com}
  */
-public class GwtScheduler implements SchedulerMainView {
-  public interface Display {
+public class GwtScheduler extends Composite implements HasWidgets {
 
-    void addCalendarDisplay(CalendarPresenter.Display display);
+  /**
+   * ui binder interface
+   */
+  /**
+   * static ref to css
+   */
+  static {
+    Resources.injectAllStylesheets();
   }
-  private CalendarPresenter presenter;
 
-  private Display display;
-  public GwtScheduler(CalendarPresenter presenter) {
-    this.presenter = presenter;
-  }
+  protected static final SchedulerCssResource CSS = Resources.schedulerCss();
+  /**
+   * widget delegate
+   */
+  private TabPanelContainer calendarContainer = new TabPanelContainer();
 
+  private GwtSchedulerConfiguration configuration;
 
-  public void bindDisplay(Display display) {
-    this.display = display;
-    presenter.setEnable(true);
-    display.addCalendarDisplay(presenter.getDisplay());
+  private String name;
+
+  private CalendarPresenter calendar;
+
+  private CollisionDetector collisionDetector = new IntervalCollisionDetector();
+  private EventBus eventBus = new EventBus();
+  private CalendarTitlesRenderer titlesRenderer = new CalendarTitlesRenderer();
+  private CalendarHeader calendarHeader = new CalendarHeader();
+
+  private DateTime selectedDate;
+
+  public GwtScheduler() {
+    initWidget(calendarContainer);
+    selectedDate = new DateTime(new Date()).trimToStart();
+    calendarContainer.addStyleName(CSS.gwtScheduler());
   }
 
   @Override
-  public Widget asWidget() {
-    return (Widget) display;
+  public void add(Widget w) {
+    calendarContainer.add(w);
   }
 
   @Override
-  public void forceLayout() {
-    presenter.forceLayout();
+  public void clear() {
+    calendarContainer.clear();
   }
 
-  public void clearEvents() {
-    presenter.clearEvents();
+  @Override
+  public Iterator<Widget> iterator() {
+    return calendarContainer.iterator();
+  }
+
+  @Override
+  public boolean remove(Widget w) {
+    return calendarContainer.remove(w);
   }
 
   public void navigateToDate(Date date) {
-    DateTime selectedDate = new DateTime(date);
-    presenter.navigateToDateTime(selectedDate.trimToStart());
+    selectedDate = new DateTime(date).trimToStart();
+
+    if (calendar != null) {
+      calendar.navigateToDateTime(selectedDate);
+    }
   }
 
-  public void deleteColumn(CalendarColumn column) {
-    presenter.removeColumn(column);
+  public void setConfiguration(GwtSchedulerConfiguration configuration) {
+    this.configuration = configuration;
   }
 
-  public void addColumn(CalendarColumn column) {
-    presenter.addColumn(column);
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public void addCalendarDropHandler(CalendarDropHandler handler) {
-    presenter.addCalendarDropHandler(handler);
+  public void setWeekColumnView() {
+    DateGenerator dateGenerator = new GenericDateGenerator();
+    dateGenerator.init(IntervalType.WEEK, selectedDate, configuration.startHour(), configuration.endHour());
+    CalendarColumnsProvider columnsProvider = new WeekDaysColumnsProvider(dateGenerator);
+    calendar = build(CalendarType.WEEKCOLUMN, columnsProvider, dateGenerator);
   }
 
-  public void addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
-    presenter.addCalendarObjectMoveHandler(handler);
+
+  public void setMultiColumnView(List<CalendarColumn> columns) {
+    DateGenerator dateGenerator = new GenericDateGenerator();
+    dateGenerator.init(IntervalType.DAY, selectedDate, configuration.startHour(), configuration.endHour());
+    calendar = build(CalendarType.MULTYCOLUMN, new MultiColumnProvider(columns), dateGenerator);
   }
 
-  public void addEvent(Event event) {
-    presenter.addCalendarEvent(event);
-  }
+  public CalendarPresenter build(final CalendarType type, final CalendarColumnsProvider columnsProvider, DateGenerator dateGenerator) {
+    eventBus = new EventBus();
+    CalendarEventResizeHelperProviderImpl resizeHelper = new CalendarEventResizeHelperProviderImpl(dateGenerator, eventBus);
+    //check that functionality with drag zone = null
+    CalendarContent calendarContent = new CalendarContent(new CalendarColumnsFrameGrid(), new EventsDashboard(dateGenerator, collisionDetector, eventBus, resizeHelper, null));
 
-  public void addEventDurationIntervalUpdateHandler(CalendarEventDurationChangeHandler handler) {
-    presenter.addEventDurationChangeHandler(handler);
-  }
+    calendar = new ColumnsViewPresenter(columnsProvider, dateGenerator, titlesRenderer, calendarHeader, calendarContent, eventBus);
 
-  public void addEventResizeStartHandler(CalendarEventDurationChangeStartHandler handler) {
-    presenter.addEventDurationChangeStartHandler(handler);
-  }
 
-  public void addEventDeleteEventHandler(EventDeleteEventHandler handler) {
-    presenter.addEventDeleteEventHandler(handler);
-  }
+    //waiting the object to be build.   making sure that the widget creation is finished
+//    Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+//      @Override
+//      public void execute() {
+    ColumnsViewWidget display = new ColumnsViewWidget(configuration.rowsInDay(),
+            columnsProvider.getColumns().size(),
+            configuration.daysLineHeightEMs(),
+            calendarContainer.getElement().getClientWidth(),
+            calendarContainer.getElement().getClientHeight(),
+            eventBus);
 
-  public void deleteEvent(Event event) {
-    presenter.deleteEvent(event);
+    calendar.bindDisplay(display);
+    calendar.setCalendarType(type);
+    calendar.navigateToDateTime(selectedDate);
+    calendar.setTittle(name);
+
+    calendarContainer.clear();
+    calendarContainer.add(display);
+//      }
+//    });
+
+    int hours = configuration.endHour() - configuration.startHour();
+    display.scrollToHour(configuration.scrollToHour(), hours);
+
+    return calendar;
   }
 
   public void updateEvent(Event event) {
-    // TODO: its not good idea to update only on active calendar.
-    presenter.updateEvent(event);
+    calendar.updateEvent(event);
+  }
+
+  public void addEvent(Event event) {
+    calendar.addCalendarEvent(event);
+  }
+
+  public void deleteEvent(Event event) {
+    calendar.deleteEvent(event);
+  }
+
+  public HandlerRegistration addCalendarObjectMoveHandler(CalendarObjectMoveHandler handler) {
+    return calendar.addCalendarObjectMoveHandler(handler);
+  }
+
+  public HandlerRegistration addCalendarDropHandler(CalendarDropHandler handler) {
+    return calendar.addCalendarDropHandler(handler);
+  }
+
+  public HandlerRegistration addEventDurationIntervalUpdateHandler(CalendarEventDurationChangeHandler handler) {
+    return calendar.addEventDurationChangeHandler(handler);
+  }
+
+  public HandlerRegistration addEventResizeStartHandler(CalendarEventDurationChangeStartHandler handler) {
+    return calendar.addEventDurationChangeStartHandler(handler);
+  }
+
+  public HandlerRegistration addEventDeleteEventHandler(EventDeleteEventHandler handler) {
+    return calendar.addEventDeleteEventHandler(handler);
+  }
+
+  public HandlerRegistration addEventClickHandler(EventClickHandler handler) {
+     return calendar.addEventClickHandler(handler);
+  }
+
+  public HandlerRegistration addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
+    return calendar.addColumnClickedEventHandler(handler);
+  }
+
+  public HandlerRegistration addColumnTitleOverEventHandler(ColumnTitleOverEventHandler handler){
+    return calendar.addColumnTitleOverEventHandler(handler);
+  }
+
+  public HandlerRegistration addColumnTitleOutEventHandler(ColumnTitleOutEventHandler handler){
+    return calendar.addColumnTitleOutEventHandler(handler);
+  }
+
+  public void deleteColumn(CalendarColumn column) {
+    calendar.removeColumn(column);
+  }
+
+  public void addColumn(CalendarColumn column) {
+    calendar.addColumn(column);
   }
 
   public void setEnable(boolean enable) {
-    presenter.setEnable(enable);
+    calendar.setEnable(enable);
   }
 
-  public void addEventClickHandler(EventClickHandler handler) {
-    presenter.addEventClickHandler(handler);
-  }
-
-  public void addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
-    presenter.addColumnClickedEventHandler(handler);
+  public void clearEvents() {
+    calendar.clearEvents();
   }
 }

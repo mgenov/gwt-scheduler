@@ -1,7 +1,6 @@
 package gwtscheduler.tests.gwt.date;
 
 import gwtscheduler.client.modules.config.AppConfiguration;
-import gwtscheduler.client.modules.config.DefaultAppConfiguration;
 import gwtscheduler.client.utils.GenericDateGenerator;
 import gwtscheduler.client.widgets.common.navigation.DateGenerator;
 import gwtscheduler.common.calendar.IntervalType;
@@ -12,6 +11,7 @@ import junit.framework.TestResult;
 import org.junit.Before;
 import org.junit.Test;
 
+import static gwtscheduler.client.modules.config.GwtSchedulerConfiguration.aNewGwtSchedulerConfiguration;
 import static gwtscheduler.common.util.DateTimeConstants.*;
 import static gwtscheduler.tests.gwt.TestUtils.assertInstantDate;
 import static junit.framework.Assert.assertEquals;
@@ -37,7 +37,7 @@ public class DateFactoryTests implements junit.framework.Test {
   @Before
 //  @Override
   public void gwtSetUp() {
-    config = new DefaultAppConfiguration();
+    config = aNewGwtSchedulerConfiguration().build();
 //    config = AppInjector.GIN.getInjector().getConfiguration();
 
     now = new DateTime();
@@ -49,9 +49,9 @@ public class DateFactoryTests implements junit.framework.Test {
 //    monthf = AppInjector.GIN.getInjector().getDateGenerator();
     monthf = new GenericDateGenerator();
 
-    dayf.init(IntervalType.DAY, now);
-    weekf.init(IntervalType.WEEK, now);
-    monthf.init(IntervalType.MONTH, now);
+    dayf.init(IntervalType.DAY, now, 0,23);
+    weekf.init(IntervalType.WEEK, now,0,23);
+    monthf.init(IntervalType.MONTH, now,0,23);
   }
 
   /**

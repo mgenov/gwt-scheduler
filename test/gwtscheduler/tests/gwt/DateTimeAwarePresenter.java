@@ -7,6 +7,8 @@ import gwtscheduler.client.widgets.common.ComplexGrid;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarDropHandler;
 import gwtscheduler.client.widgets.view.calendarevent.CalendarObjectMoveHandler;
 import gwtscheduler.client.widgets.view.calendarevent.ColumnClickedEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnTitleOutEventHandler;
+import gwtscheduler.client.widgets.view.calendarevent.ColumnTitleOverEventHandler;
 import gwtscheduler.client.widgets.view.calendarevent.EventDeleteEventHandler;
 import gwtscheduler.client.widgets.view.columns.CalendarColumn;
 import gwtscheduler.client.widgets.view.common.resize.CalendarEventDurationChangeHandler;
@@ -143,7 +145,8 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
-  public void addEventClickHandler(EventClickHandler handler) {
+  public HandlerRegistration addEventClickHandler(EventClickHandler handler) {
+    return null;
   }
 
   @Override
@@ -152,8 +155,19 @@ public class DateTimeAwarePresenter implements ComplexGrid,CalendarPresenter {
   }
 
   @Override
-  public void addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
+  public HandlerRegistration addColumnClickedEventHandler(ColumnClickedEventHandler handler) {
     //To change body of implemented methods use File | Settings | File Templates.
+    return null;
+  }
+
+  @Override
+  public HandlerRegistration addColumnTitleOverEventHandler(ColumnTitleOverEventHandler handler) {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public HandlerRegistration addColumnTitleOutEventHandler(ColumnTitleOutEventHandler handler) {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @Override

@@ -15,12 +15,6 @@ import java.util.List;
  */
 public class CalendarTitlesRenderer {
 
-
-  /**
-   * used to decide if vertical redraw is needed
-   */
-  boolean hasRunVertical = false;
-
   public CalendarTitlesRenderer() {
   }
 
@@ -32,16 +26,25 @@ public class CalendarTitlesRenderer {
   public void renderVerticalTitles(Period interval, List<Cell<Element>> elems) {
 
     //setting the start of the day
-    DateTime start = interval.getStart().trimToStart();
+    DateTime start = interval.getStart();
 
-    if (hasRunVertical || elems == null) {
+    if (elems == null) {
       return;
     }
-    //TODO hardCode time
-    int hours = 24;
-    int increment = elems.size() / hours;
+
+    int hours = interval.getHours();
+
+    if (hours > elems.size()) {
+      hours = hours % 24;
+      if(hours == 0){
+        hours = 24;
+      }
+    }
 
     assert hours > 0 : "Number of hours should not be <= 0";
+
+    int increment = elems.size() / hours;
+
     assert increment != 0 : "Increment should not be zero.";
 
     for (Cell<Element> cell : elems) {
@@ -51,8 +54,6 @@ public class CalendarTitlesRenderer {
         start = start.plusHours(1);
       }
     }
-    hasRunVertical = true;
-
   }
 
   /**

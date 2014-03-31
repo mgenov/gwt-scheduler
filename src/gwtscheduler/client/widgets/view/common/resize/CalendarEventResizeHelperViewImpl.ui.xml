@@ -1,0 +1,20 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+  <ui:style>
+
+    .frame {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      border: 1px dotted;
+      z-index: 2;
+    }
+
+  </ui:style>
+
+  <g:Label ui:field="frame" styleName="{style.frame}" />
+</ui:UiBinder>

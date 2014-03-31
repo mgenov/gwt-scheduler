@@ -19,7 +19,7 @@ import gwtscheduler.common.util.PeriodType;
  */
 public class GenericDateGenerator implements DateGenerator {
   private static final int START_DAY_OF_WEEK = 1;
-  private static final int WEEK_SIZE = 7;
+  private static final int WEEK_SIZE = 6;
 
   /**
    * interval start and end
@@ -30,6 +30,9 @@ public class GenericDateGenerator implements DateGenerator {
    */
   private FixedDateGenerator generator;
   private Period currentInterval;
+  private int startHour;
+  private int endHour;
+  private int hours;
 
 
   /**
@@ -42,9 +45,12 @@ public class GenericDateGenerator implements DateGenerator {
     return current;
   }
 
-  public void init(IntervalType interval, DateTime start) {
+  public void init(IntervalType interval, DateTime start, int startHour, int endHour) {
+    this.startHour = startHour;
+    this.endHour = endHour;
     //TODO maybe use a flag|bitmask for resetting fields?
-    this.current = start.trimToStart();
+    this.current = start.trimToStart().setHours(startHour);
+
 
     if (IntervalType.DAY.equals(interval)) {
       generator = new DayDateGenerator();
@@ -58,6 +64,7 @@ public class GenericDateGenerator implements DateGenerator {
     goToDate(current);
 
     currentInterval = generator.visiblePeriod();
+    hours =  endHour-startHour;
   }
 
   public void goToDate(DateTime start) {
@@ -92,7 +99,7 @@ public class GenericDateGenerator implements DateGenerator {
   @Override
   public Period getIntervalForRange(int[] start, int[] end, int rowNum) {
     DateTime from = generator.getStartTimeForCell(start, rowNum);
-    DateTime to = generator.getStartTimeForCell(end, rowNum).addDuration(generator.getDurationPerCells(1, rowNum));
+    DateTime to = generator.getStartTimeForCell(end, rowNum).addDuration(generator.getDurationPerCells(1, rowNum, hours));
 
     //this is to make sure that [0,0] is at least one cell's duration
     return new Period(new DateTime(from.getMillis()), new DateTime(to.getMillis()));
@@ -100,14 +107,14 @@ public class GenericDateGenerator implements DateGenerator {
 
   @Override
   public Period getIntervalForDate(DateTime date) {
-    generator.goTo(date);
+    generator.goTo(date.trimToStart().setHours(startHour));
     return interval();
   }
 
   @Override
   public int getRowForInstant(DateTime time, int rowsCount) {
-    int minutesPerCell = (24 * 60) /rowsCount;
-    int minutes = time.getMinuteOfDay();
+    int minutesPerCell = (hours * 60) /rowsCount;
+    int minutes = time.getMinuteOfDay() - (startHour * 60) ;
     int row = Math.round(minutes/minutesPerCell);
     return row;
   }
@@ -140,12 +147,13 @@ public class GenericDateGenerator implements DateGenerator {
      * Returns the current interval.
      *
      * @return the current interval
+     * @param endHour
      */
     Period visiblePeriod();
 
     DateTime getStartTimeForCell(int[] cell, int totalRowsCount);
 
-    Duration getDurationPerCells(int row, int totalRowsCount);
+    Duration getDurationPerCells(int row, int totalRowsCount, int hours);
   }
 
   /**
@@ -157,7 +165,7 @@ public class GenericDateGenerator implements DateGenerator {
 
     public Period visiblePeriod() {
       DateTime start = new DateTime(current.getMillis());
-      DateTime end = current.plusDays(1);
+      DateTime end = current.plusHours(hours);
       return new Period(start, end);
     }
 
@@ -167,7 +175,7 @@ public class GenericDateGenerator implements DateGenerator {
 
       DateTime start = visiblePeriod().getStart();
 
-      Duration durationPerCell = getDurationPerCells(cellRow, totalRowsCount);
+      Duration durationPerCell = getDurationPerCells(cellRow, totalRowsCount, hours);
 
       start = start.addDuration(durationPerCell);
 
@@ -175,8 +183,8 @@ public class GenericDateGenerator implements DateGenerator {
     }
 
     @Override
-    public Duration getDurationPerCells(int row, int totalRowsCount) {
-      int minutesPerCell = (24 * 60) / totalRowsCount;
+    public Duration getDurationPerCells(int row, int totalRowsCount, int hours) {
+      int minutesPerCell = (hours * 60) / totalRowsCount;
       return new Duration(minutesPerCell * row * 60 * 1000);
     }
 
@@ -222,24 +230,26 @@ public class GenericDateGenerator implements DateGenerator {
       while (current.getDayOfWeek() != START_DAY_OF_WEEK) {
         current = current.plusDays(-1);
       }
-      end = current.plusDays(weekSize);
+      end = current.plusDays(weekSize).withHours(endHour);
       return new Period(current, end);
     }
 
     @Override
     public DateTime getStartTimeForCell(int[] cell, int totalRowsCount) {
-      int distance = (cell[1] * totalRowsCount) + cell[0];
+      int minutesPerCell = (hours * 60) / totalRowsCount;
+
+      int partsPerHour = 60/minutesPerCell;
+
+      int distance = (cell[1] * 24 * partsPerHour) + cell[0];
 
       DateTime start = visiblePeriod().getStart();
-
-      int minutesPerCell = (24 * 60) / totalRowsCount;
 
       return start.plusMinutes(minutesPerCell * distance);
     }
 
     @Override
-    public Duration getDurationPerCells(int row, int totalRowsCount) {
-      int minutesPerCell = (24 * 60) / totalRowsCount;
+    public Duration getDurationPerCells(int row, int totalRowsCount, int hours) {
+      int minutesPerCell = (hours * 60) / totalRowsCount;
       return new Duration(minutesPerCell * row * 60 * 1000);
     }
 
@@ -296,7 +306,7 @@ public class GenericDateGenerator implements DateGenerator {
     }
 
     @Override
-    public Duration getDurationPerCells(int row, int totalRowsCount) {
+    public Duration getDurationPerCells(int row, int totalRowsCount, int hours) {
       return new Duration(row, PeriodType.DAYS);
     }
 

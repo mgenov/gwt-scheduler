@@ -18,7 +18,7 @@ public interface DateGenerator {
    * @param interval the interval type
    * @param start the start date
    */
-  void init(IntervalType interval, DateTime start);
+  void init(IntervalType interval, DateTime start, int startHour, int endHour);
 
   /**
    * Gets the current date.

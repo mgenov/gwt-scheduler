@@ -33,6 +33,13 @@ public class DateTimeTest {
   }
 
   @Test
+  public void getWithHour() throws Exception {
+    assertThat(dateTime.withHours(5).hourOfDay(), CoreMatchers.is(CoreMatchers.equalTo(5)));
+    assertThat(dateTime.withHours(7).hourOfDay(), CoreMatchers.is(CoreMatchers.equalTo(7)));
+    assertThat(dateTime.withHours(0).hourOfDay(), CoreMatchers.is(CoreMatchers.equalTo(0)));
+  }
+
+  @Test
   public void getYear() throws Exception {
     assertThat(dateTime.getYear(), CoreMatchers.is(CoreMatchers.equalTo(2013)));
   }
@@ -108,5 +115,109 @@ public class DateTimeTest {
 
     expectedDate = new DateHelper(2013, 3, 5, 12, 15, 0).getDate();
     assertThat(dateTime.plusDays(13).asDate(), CoreMatchers.is(CoreMatchers.equalTo(expectedDate)));
+  }
+
+  @Test
+  public void hoursInThePeriodWhenNoWholeHour() throws Exception {
+    Period period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate()
+    );
+    assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(0)));
+
+    period = new Period(
+                new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+                new DateHelper(2013, 5, 20, 12, 59, 0).getDate()
+        );
+    assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(0)));
+  }
+
+  @Test
+  public void hoursInThePeriod() throws Exception {
+    Period period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 20, 13, 0, 0).getDate()
+    );
+    assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(1)));
+
+    period = new Period(
+                new DateHelper(2013, 5, 20, 0, 0, 0).getDate(),
+                new DateHelper(2013, 5, 20, 23, 59, 0).getDate()
+        );
+    assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(23)));
+  }
+
+  @Test
+  public void hoursInThePeriodWhenMoreThanOneDay() throws Exception {
+    Period period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 21, 13, 0, 0).getDate()
+    );
+    assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(25)));
+
+    period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 22, 13, 0, 0).getDate()
+    );
+    assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(49)));
+
+    period = new Period(
+                new DateHelper(2013, 5, 20, 0, 0, 0).getDate(),
+                new DateHelper(2013, 5, 21, 0, 0, 0).getDate()
+        );
+    assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(24)));
+  }
+
+
+
+  @Test
+  public void minutesInThePeriodWhenNoWholeMinute() throws Exception {
+    Period period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate()
+    );
+    assertThat(period.getHours(), CoreMatchers.is(CoreMatchers.equalTo(0)));
+
+    period = new Period(
+                new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+                new DateHelper(2013, 5, 20, 12, 0, 0).getDate()
+        );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(0)));
+  }
+
+  @Test
+  public void minutesInThePeriod() throws Exception {
+    Period period = new Period(
+            new DateHelper(2013, 5, 20, 12, 12, 0).getDate(),
+            new DateHelper(2013, 5, 20, 12, 13, 0).getDate()
+    );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(1)));
+
+    period = new Period(
+                new DateHelper(2013, 5, 20, 0, 0, 0).getDate(),
+                new DateHelper(2013, 5, 20, 0, 23, 59).getDate()
+        );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(23)));
+  }
+
+  @Test
+  public void minutesInThePeriodWhenMoreThanOneDay() throws Exception {
+    Period period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 21, 12, 0, 0).getDate()
+    );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(1440)));
+
+    period = new Period(
+            new DateHelper(2013, 5, 20, 12, 0, 0).getDate(),
+            new DateHelper(2013, 5, 22, 13, 0, 0).getDate()
+    );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(2940)));
+
+    period = new Period(
+                new DateHelper(2013, 5, 20, 0, 0, 0).getDate(),
+                new DateHelper(2013, 6, 21, 0, 0, 0).getDate()
+        );
+    assertThat(period.getMinutes(), CoreMatchers.is(CoreMatchers.equalTo(46080)));
   }
 }

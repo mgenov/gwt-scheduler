@@ -13,7 +13,7 @@
         width: 100%;
         background-color: #6694E3;
         text-align: center;
-        font-size: 0.9em;
+        font-size: 0.8em;
         color: #FFFFFF;
         cursor:default;
         }
@@ -22,11 +22,11 @@
         cursor:default;
         opacity:0.7;
         height: 100%;
-        font-size: 0.8em;
+        font-size: 0.9em;
         }
         .resizer {
         bottom: 0;
-        height:7px;
+        height:15px;
         line-height:7px;
         position:absolute;
         width:100%;
@@ -50,6 +50,7 @@
         overflow: hidden;
         }
         .rszricon{
+
         border-top:3px double #000000;
         width: 10px;
         margin: 0 auto;
